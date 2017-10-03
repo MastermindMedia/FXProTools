@@ -17,8 +17,12 @@ if(!class_exists('CptSettings')){
 		// Initialize function(s)
 		public function __construct()
 		{
-			add_action('init', array($this, 'init_cpt_webinar'));
-			add_action('init', array($this, 'init_cpt_funnels'));
+			$cpts = array('init_cpt_webinar', 'init_cpt_funnels',);
+			if($cpts) {
+				foreach ($cpts as $key => $cpt) {
+					add_filter('init', array($this, $cpt));
+				}
+			}
 			add_action('after_switch_theme', array($this, 'theme_flush_rewrite'));
 		}
 
