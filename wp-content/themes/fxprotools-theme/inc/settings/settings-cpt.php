@@ -128,7 +128,6 @@ if(!class_exists('CptSettings')){
 			);
 		}
 
-
 		// Fix Permalink - Makes permalink work
 		public function theme_flush_rewrite()
 		{
