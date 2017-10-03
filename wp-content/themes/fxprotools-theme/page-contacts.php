@@ -53,7 +53,7 @@ $wp_query->query_vars['_prod_data'] = $_product;
 								$contacts[$ref_count]['fname'] = get_the_author_meta('first_name', $order->get_user_id());
 								$contacts[$ref_count]['lname'] = get_the_author_meta('last_name', $order->get_user_id());
 								$contacts[$ref_count]['email'] = get_the_author_meta('email', $order->get_user_id());
-								$contacts[$ref_count]['date'] = time_elapsed_string($order->order_date);
+								$contacts[$ref_count]['date'] = random_checkout_time_elapsed($order->order_date);
 								$contacts[$ref_count]['avatar'] = get_avatar($order->get_user_id());
 								$ref_count++;
 							}

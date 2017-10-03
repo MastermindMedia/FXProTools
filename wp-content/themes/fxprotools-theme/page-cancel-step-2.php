@@ -81,7 +81,7 @@
 							<div class="cancel-box">
 								<h3>Pause Your Account</h3>
 								<div class="btn-holder">
-									<a href="<?php echo get_option('home'); ?>/marketing/contacts/user/?id=1?&cancel=yes" class="btn btn-success btn-lg">Pause Account</a>
+									<a href="<?php echo get_option('home'); ?>/marketing/contacts/user/<?php get_query_string(); ?>&cancel=yes" class="btn btn-success btn-lg">Pause Account</a>
 								</div>
 							</div>
 						</div>
@@ -92,7 +92,7 @@
 							<div class="cancel-box">
 								<h3>Cancel My Account</h3>
 								<div class="btn-holder">
-									<a href="<?php echo get_option('home'); ?>/marketing/contacts/user/?id=1?&cancel=yes" class="btn btn-success btn-lg">Continue To Cancel</a>
+									<a href="<?php echo get_option('home'); ?>/marketing/contacts/user/<?php get_query_string(); ?>&cancel=yes" class="btn btn-success btn-lg">Continue To Cancel</a>
 								</div>
 							</div>
 						</div>

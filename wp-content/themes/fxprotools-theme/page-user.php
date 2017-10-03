@@ -147,7 +147,7 @@ foreach($_POST as $user_key => $user_value)
 								<div class="tab-pane fade" id="c">
 									<div class="user-cancellation">
 										<div class="progress">
-										  <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">STEP 3 of 3</div>
+										  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">STEP 3 of 3</div>
 										</div>
 										<h2 class="text-center;">WAIT! Final Step BEFORE Your Account Is Deleted!</h2>
 										<p>This is a special one time offer! You may not see this offer available again if you close this page.</p>
@@ -173,28 +173,11 @@ foreach($_POST as $user_key => $user_value)
 									</div>
 
 									<?php
-									$my_orders_columns = apply_filters( 'woocommerce_my_account_my_orders_columns', array(
-										'order-number'  => __( 'Order', 'woocommerce' ),
-										'order-date'    => __( 'Date', 'woocommerce' ),
-										'order-status'  => __( 'Status', 'woocommerce' ),
-										'order-total'   => __( 'Total', 'woocommerce' ),
-										'order-actions' => '&nbsp;',
-									) );
-
-									$customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
-										'numberposts' => $order_count,
-										'meta_key'    => '_customer_user',
-										'meta_value'  => $_GET['id'],
-										'post_type'   => wc_get_order_types( 'view-orders' ),
-										'post_status' => array_keys( wc_get_order_statuses() ),
-									) ) );
-
+									$my_orders_columns = get_order_columns();
+									$customer_orders = get_purchases($_GET['id']);
 									if ( $customer_orders ){ ?>
-
-										<p class="text-bold">Purchases</p>
-
+										<p class="text-bold hide-on-cancel">Purchases</p>
 										<table class="shop_table shop_table_responsive my_account_orders">
-
 											<thead>
 												<tr>
 													<?php foreach ( $my_orders_columns as $column_id => $column_name ) : ?>
@@ -215,9 +198,7 @@ foreach($_POST as $user_key => $user_value)
 																	<?php do_action( 'woocommerce_my_account_my_orders_column_' . $column_id, $order ); ?>
 
 																<?php elseif ( 'order-number' === $column_id ) : ?>
-																	<a href="<?php echo esc_url( $order->get_view_order_url() ); ?>">
-																		<?php echo _x( '#', 'hash before order number', 'woocommerce' ) . $order->get_order_number(); ?>
-																	</a>
+																	<?php echo _x( '#', 'hash before order number', 'woocommerce' ) . $order->get_order_number(); ?>
 
 																<?php elseif ( 'order-date' === $column_id ) : ?>
 																	<time datetime="<?php echo esc_attr( $order->get_date_created()->date( 'c' ) ); ?>"><?php echo esc_html( wc_format_datetime( $order->get_date_created() ) ); ?></time>
@@ -273,12 +254,20 @@ foreach($_POST as $user_key => $user_value)
 										<?php if($_GET['order_id']){ ?>
 										<div class="purchases-view-order">
 											<?php get_template_part('woocommerce/myaccount/view-order'); ?>
+											<div class="cancel-step-1">
+												<h3 class="m-b-md">Cancel Purchase</h3>
+												<div class="progress">
+												  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="width: 33%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">STEP 1 of 3</div>
+												</div>
+												<p><a href="<?php echo get_option('home'); ?>/cancel-step-1?id=<?php echo $_GET['id'] ?>&order_id=<?php echo $_GET['order_id'] ?>&order_type=purchase" class="btn btn-danger btn-lg">Start Cancellation Process</a></p>
+												<p><strong>IMPORTANT:</strong> If you cancel your account, please note that your subdomain (mastermindmedia) will be made available for someone else; any funnels and pages you've created will be disabled; optins and leads will not be collected; and videos will not play.</p>
+											</div>
 											<a href="#" id="back-to-purchases" class="btn btn-default">Back to Purchases</a>
 										</div>
 										<?php } ?>
 
 									<?php }else{ ?>
-										<p>No purchases found.</p>
+										<p class="hide-on-cancel">No purchases found.</p>
 									<?php } ?>
 									<div id="view-purchase-details">
 										<div class="purchase-details-info"></div>
@@ -298,13 +287,40 @@ foreach($_POST as $user_key => $user_value)
 									</div>
 								</div>
 								<div class="tab-pane fade" id="d">
-									<p class="text-bold">Memberships Section</p>
+									<div class="user-cancellation">
+										<div class="progress">
+										  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">STEP 3 of 3</div>
+										</div>
+										<h2 class="text-center;">WAIT! Final Step BEFORE Your Account Is Deleted!</h2>
+										<p>This is a special one time offer! You may not see this offer available again if you close this page.</p>
+										<p>You don't currently qualify for any downgraded plan option other then "Paused". </p>
+										<div class="row">
+											<div class="col-md-6">
+												<h3>Pause Account - $9.99 Month</h3>
+											</div>
+											<div class="col-md-6">
+												<a href="#" class="btn btn-danger btn-block btn-lg">Pause My Account - $9.99 / Month</a>
+											</div>
+										</div>
+										<p>(If you pause, your pages will not display live, you won't be able to use the ClickFunnels App... but we'll keep your subdomain reserved and all your pages and funnels waiting so you can resume your account anytime.)</p>
+										<div class="row">
+											<div class="col-md-6">
+												<h3>Or...Finalize Account Cancellation:</h3>
+											</div>
+											<div class="col-md-6">
+												<button type="button" data-toggle="modal" data-target="#cancellation-modal" class="btn btn-danger btn-block btn-lg">Finalize Cancellation</button>
+											</div>
+										</div>
+										<p><strong>IMPORTANT:</strong> If you cancel your account, please note that your username (USER_NAME) will be made available for someone else; any progress and access to pages you've created will be disabled; optins and leads will not be collected; and videos will not display if you added your own.</p>
+									</div>
+
+									<p class="text-bold hide-on-cancel">Memberships Section</p>
 									<?php 
 										//update subscription data based on user id param
 										$subscriptions = wcs_get_users_subscriptions( $_GET['id'] );
 									?>
 
-									<div class="woocommerce_account_subscriptions">
+									<div class="woocommerce_account_subscriptions hide-on-cancel">
 
 										<?php if ( WC_Subscriptions::is_woocommerce_pre( '2.6' ) ) : ?>
 										<h2><?php esc_html_e( 'My Subscriptions', 'woocommerce-subscriptions' ); ?></h2>
@@ -327,7 +343,7 @@ foreach($_POST as $user_key => $user_value)
 										<?php foreach ( $subscriptions as $subscription_id => $subscription ) : ?>
 											<tr class="order">
 												<td class="subscription-id order-number" data-title="<?php esc_attr_e( 'ID', 'woocommerce-subscriptions' ); ?>">
-													<a href="<?php echo esc_url( $subscription->get_view_order_url() ); ?>"><?php echo esc_html( sprintf( _x( '#%s', 'hash before order number', 'woocommerce-subscriptions' ), $subscription->get_order_number() ) ); ?></a>
+													<?php echo esc_html( sprintf( _x( '#%s', 'hash before order number', 'woocommerce-subscriptions' ), $subscription->get_order_number() ) ); ?>
 													<?php do_action( 'woocommerce_my_subscriptions_after_subscription_id', $subscription ); ?>
 												</td>
 												<td class="subscription-status order-status" data-title="<?php esc_attr_e( 'Status', 'woocommerce-subscriptions' ); ?>">
@@ -370,8 +386,16 @@ foreach($_POST as $user_key => $user_value)
 									</div>
 
 									<?php if($_GET['subs_id']){ ?>
-									<div class="membership-view-subs">
+									<div class="membership-view-subs hide-on-cancel">
 										<?php get_template_part('woocommerce/myaccount/view-subscription'); ?>
+										<div class="cancel-step-1">
+											<h3 class="m-b-md">Cancel Membership</h3>
+											<div class="progress">
+											  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="width: 33%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">STEP 1 of 3</div>
+											</div>
+											<p><a href="<?php echo get_option('home'); ?>/cancel-step-1?id=<?php echo $_GET['id'] ?>&subs_id=<?php echo $_GET['subs_id'] ?>&order_type=membership" class="btn btn-danger btn-lg">Start Cancellation Process</a></p>
+											<p><strong>IMPORTANT:</strong> If you cancel your account, please note that your subdomain (mastermindmedia) will be made available for someone else; any funnels and pages you've created will be disabled; optins and leads will not be collected; and videos will not play.</p>
+										</div>
 										<a href="#" id="back-to-memberships" class="btn btn-default">Back to Memberships</a>
 									</div>
 									<?php } ?>
@@ -529,11 +553,20 @@ foreach($_POST as $user_key => $user_value)
 	});
 </script>
 
-<?php if($_GET['cancel'] == "yes"){ ?>
+<?php if($_GET['cancel'] == "yes" && $_GET['order_type'] == "purchase"){ ?>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.marketing-contacts a[href="#c"]').click();
 		$('.tab-pane#c').addClass('tab-pane-cancellation');
+	});
+</script>
+<?php } ?>
+
+<?php if($_GET['cancel'] == "yes" && $_GET['order_type'] == "membership"){ ?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.marketing-contacts a[href="#d"]').click();
+		$('.tab-pane#d').addClass('tab-pane-cancellation');
 	});
 </script>
 <?php } ?>

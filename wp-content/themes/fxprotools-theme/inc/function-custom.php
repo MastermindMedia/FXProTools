@@ -419,6 +419,41 @@ function get_customer_orders($user_id){
 	        'post_status' => $order_statuses,
 	        'numberposts' => -1
 	) );
-
 	return $customer_orders;
+}
+
+function get_order_columns(){
+	$my_orders_columns = apply_filters( 'woocommerce_my_account_my_orders_columns', array(
+		'order-number'  => __( 'Order', 'woocommerce' ),
+		'order-date'    => __( 'Date', 'woocommerce' ),
+		'order-status'  => __( 'Status', 'woocommerce' ),
+		'order-total'   => __( 'Total', 'woocommerce' ),
+		'order-actions' => '&nbsp;',
+	) );
+	return $my_orders_columns;
+}
+
+function get_purchases($user_id){
+	$customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
+		'numberposts' => $order_count,
+		'meta_key'    => '_customer_user',
+		'meta_value'  => $user_id,
+		'post_type'   => wc_get_order_types( 'view-orders' ),
+		'post_status' => array_keys( wc_get_order_statuses() ),
+	) ) );
+	return $customer_orders;
+}
+
+function get_query_string(){
+	$string = '';
+	$counter = 1;
+	foreach($_GET as $key => $val){
+		if($counter == 1){
+			echo '?' . $key . '=' . $val;
+		}else{
+			echo '&' . $key . '=' . $val;
+		}
+		$counter++;
+	}
+	return $string;
 }

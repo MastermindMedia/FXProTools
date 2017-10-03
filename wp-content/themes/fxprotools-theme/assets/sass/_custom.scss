@@ -921,11 +921,14 @@
 }
 
 .tab-pane-cancellation{
-	#table-purchases{
+	#table-purchases, .purchases-view-order{
 		display: none;
 	}
 	.user-cancellation{
 		display: block;
+	}
+	.hide-on-cancel{
+		display: none;
 	}
 }
 
@@ -2124,6 +2127,11 @@
 	h3{
 		margin-top: 10px;
 	}
+}
+.cancel-step-1{
+	background: #f1f1f1;
+	padding: 10px 20px;
+	margin-bottom: 20px;
 }
 #cancellation-modal{
 	.modal-dialog{
