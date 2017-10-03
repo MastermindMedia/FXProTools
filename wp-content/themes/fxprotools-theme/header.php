@@ -74,3 +74,39 @@
 			</div>
 		</nav>
 		<?php endif; ?>
+		<?php if( have_rows('menu') ): ?>
+		   <nav class="navbar fx-navbar-sub">
+		          <div class="container">
+		           <div class="row">
+		            <div class="col-md-12">
+		             <ul class="fx-nav-options">
+		              <?php
+		                                 while ( have_rows('menu') ) : the_row();
+		                                     echo '<li><a href="'.get_sub_field('page_link').'" />';
+		                                     
+		                                     the_sub_field('page_title');
+		                                     echo '</a>';
+		                                      if( have_rows('sub_pages') ):
+		                                     ?>
+		                                        <ul class="fx-nav-options-sub">
+		                              <?php
+		                                                 while ( have_rows('sub_pages') ) : the_row();
+		                                                     echo '<li><a href="'.get_sub_field('sub_page_link').'" />';
+		                                                     the_sub_field('sub_page_title');
+		                                                     echo '</a>';
+		                                                         
+		                                                     echo '</li>';
+		                                                 endwhile;          
+		                                             ?>
+		                             </ul>  
+		                      <?php  endif; ?>
+		                            <?php 
+		                                     echo '</li>';
+		                                 endwhile;          
+		                             ?>
+		             </ul>
+		            </div>
+		           </div>
+		          </div>
+		         </nav>
+		   <?php  endif; ?>
