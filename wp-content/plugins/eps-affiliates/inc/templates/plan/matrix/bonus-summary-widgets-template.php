@@ -1,56 +1,43 @@
-<div class="panel panel-default">
-	<div class="panel-body">
-		<div class="row bonus-summary">
-			<div class="col-md-3">
-				<div class="block panel padder-v item bg-gray text-center">
-						<div class="text-muted text-xs text-white">Your Current Rank</div>
-						<div class="h1 font-thin text-dark">3</div>
-				</div>
-			</div>
-			<div class="col-md-2">
-				<div class="block panel padder-v item bg-gray text-center">
-						<div class="text-muted text-xs text-white">Global Percentage</div>
-						<div class="h1 font-thin text-dark">3 %</div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="block panel padder-v item bg-gray text-center">
-						<div class="text-muted text-xs text-white">Global Pool bonus amount earned</div>
-						<div class="h1 font-thin text-dark">$770 / Monthly</div>
-				</div>
-			</div>
+<div class="col-md-12">
+<div class="col-md-5">
+	<div class="panel panel-default text-center m-r-n-xs">
+		<div class="panel-body">
+			<span>Your A</span>
+			<h3 class="m-t-xs"><?= apply_filters('afl_member_current_rank_name',get_uid()) ?></h3>
 		</div>
-
 	</div>
 </div>
-
-<div class="panel panel-default">
-	<div class="panel-body">
-		<div class="row">
-			<div class="col-md-2">
-				<div class="block panel padder-v item bg-gray text-center">
-						<div class="text-muted text-xs text-white">Personal Volume</div>
-						<div class="h1 font-thin text-dark">3</div>
-				</div>
-			</div>
-			<div class="col-md-2">
-				<div class="block panel padder-v item bg-gray text-center">
-						<div class="text-muted text-xs text-white">Distributors</div>
-						<div class="h1 font-thin text-dark">3 %</div>
-				</div>
-			</div>
-			<div class="col-md-2">
-				<div class="block panel padder-v item bg-gray text-center">
-						<div class="text-muted text-xs text-white">Customers</div>
-						<div class="h1 font-thin text-dark">$770</div>
-				</div>
-			</div>
-			<div class="col-md-2">
-				<div class="block panel padder-v item bg-gray text-center">
-						<div class="text-muted text-xs text-white">Global Volume</div>
-						<div class="h1 font-thin text-dark">$770</div>
-				</div>
-			</div>
+<div class="col-md-2">
+	<div class="panel panel-default text-center m-r-n-xs m-l-n-xs">
+		<div class="panel-body">
+			<span>Global Percentage</span>
+			<h3 class="m-t-xs">%<?= apply_filters('afl_member_global_pool_bonus_percentage', get_uid()) ?></h3>
 		</div>
 	</div>
+</div>
+<div class="col-md-5">
+	<div class="panel panel-default text-center m-l-n-xs">
+		<div class="panel-body">
+			<span>Global Pool "Bonus" Amount Earned</span>
+			<h3 class="m-t-xs">$<?= apply_filters('afl_member_total_global_pool_bonus_earned',get_uid())?> / Monthly</h3>
+		</div>
+	</div>
+</div>
+<div class="clearfix"></div>
+<div class="col-md-3">
+	<div class="panel panel-default text-center m-r-n-xs">
+		<div class="panel-body">
+			<span>Personal Volume</span>
+			<h3 class="m-t-xs"><?= apply_filters('afl_member_personal_volume',get_uid()) ?></h3>
+		</div>
+	</div>
+</div>
+<div class="col-md-3">
+	<div class="panel panel-default text-center m-l-n-xs m-r-n-xs">
+		<div class="panel-body">
+			<span>Customers</span>
+			<h3 class="m-t-xs"><?= apply_filters('afl_my_customers_count',get_uid())?></h3>
+		</div>
+	</div>
+</div>
 </div>

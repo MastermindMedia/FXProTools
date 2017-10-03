@@ -80,7 +80,7 @@ if(!class_exists('ThemeSettings')){
 		}
 
 
-		function customer_login_redirect( $redirect_to, $request, $user ){
+		public function customer_login_redirect( $redirect_to, $request = '', $user = '' ){
 		    return home_url('dashboard');
 		}
 
@@ -142,8 +142,6 @@ if(!class_exists('ThemeSettings')){
 		{
 			return false;
 		}
-
-		
 		
 		function track_user_history()
 		{

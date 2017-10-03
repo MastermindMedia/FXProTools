@@ -14,7 +14,7 @@
 			$bonus_amount = afl_variable_get('fast_start_bonus_amount', 0);
 			if ( !_check_fsb_already_paid( $uid, $assc_uid ) ) {
 				if ( $bonus_amount ) {
-					$condition_meets = TRUE;
+					$condition_meets = _fast_start_bonus_condition_meets( $uid );
 					if ( $condition_meets ) {
 						 $transaction = array();
 					   $transaction['uid'] 								= $uid;
@@ -58,3 +58,13 @@
 		return false;
 	}
  }
+
+/*
+ * ---------------------------------------------------------------
+ * Required Conditions to get the fast start bonus
+ * ---------------------------------------------------------------
+*/
+	function _fast_start_bonus_condition_meets ($uid = '') {
+		$condition_meets  =_has_distributor_kit_renewal($uid);
+		return $condition_meets;
+	}

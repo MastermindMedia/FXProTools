@@ -471,6 +471,28 @@ function afl_test_purchses_form() {
 	$html_tag .= '</div>';
 	$html_tag .= '</div>';
 
+
+	$html_tag .= '<div class="col-md-3 col-sm-6">';
+	$html_tag .= '<div class="pricingTable">';
+	$html_tag .= '<input type = "radio" name = "product" value = "distrib_kit">';
+	$html_tag .= '<div class="pricingTable-header">';
+	$html_tag .= '<span class="heading">';
+	$html_tag .= '<h3>Distributor Kit</h3>';
+	$html_tag .= '</span>';
+	$html_tag .= '<span class="price-value">';
+	$html_tag .= '<span class="currency">$</span>0';
+	$html_tag .= '</div>';
+	$html_tag .= '<div class="pricingContent">';
+	$html_tag .= '</div>';
+	$html_tag .= '<div class="pricingTable-sign-up">
+                  <span class="btn btn-block btn-default">0 point</span>
+              </div>';
+	$html_tag .= '</div>';
+	$html_tag .= '</div>';
+
+
+
+
 	$html_tag .= '</div>';
 	$html_tag .= '</div>';
 
@@ -500,9 +522,19 @@ function afl_test_purchses_form_submit () {
 		case 'advanced':
 			$args['amount_paid']	=	5185;
 		break;
+		case 'distrib_kit':
+
+			$args['category']			=	'Distributor Kit';
+			$args['amount_paid']	=	0;
+			$args['afl_point'] 		= 0;
+		break;
+	}
+	if ($product == 'distrib_kit') {
+		$resp = apply_filters('eps_commerce_distributor_kit_purchase_complete', $args);
+	} else {
+		$resp = apply_filters('eps_commerce_purchase_complete', $args);
 	}
 
-	$resp = apply_filters('eps_commerce_purchase_complete', $args);
 	if ($resp['status'] == 1) {
 		echo wp_set_message('Purchase product', 'success');
 	} else {

@@ -10,18 +10,18 @@
     $uid = $_GET['uid'];
    }
 
-   $table_name = _table_name('afl_unilevel_user_downlines');
-   $query = array();
-   $query['#select'] = $table_name;
-   $query['#join']  = array(
-      'wp_users' => array(
-        '#condition' => '`wp_users`.`ID`=`'._table_name('afl_unilevel_user_downlines').'`.`downline_user_id`'
-      ),
-      _table_name('afl_unilevel_user_genealogy') => array(
-        '#condition' => '`'._table_name('afl_unilevel_user_genealogy').'`.`uid`=`'._table_name('afl_unilevel_user_downlines').'`.`downline_user_id`'
-      ),
-    );
-   $query['#fields']  = array(
+     $table_name = _table_name('afl_unilevel_user_downlines');
+     $query = array();
+     $query['#select'] = $table_name;
+     $query['#join']  = array(
+        'wp_users' => array(
+          '#condition' => '`wp_users`.`ID`=`'._table_name('afl_unilevel_user_downlines').'`.`downline_user_id`'
+        ),
+        _table_name('afl_unilevel_user_genealogy') => array(
+          '#condition' => '`'._table_name('afl_unilevel_user_genealogy').'`.`uid`=`'._table_name('afl_unilevel_user_downlines').'`.`downline_user_id`'
+        ),
+      );
+    $query['#fields']  = array(
       _table_name('users') => array(
         'display_name',
         'user_login',
@@ -31,10 +31,11 @@
         'downline_user_id',
         'uid',
         'relative_position',
-        'level'
+        'level',
       ),
       _table_name('afl_unilevel_user_genealogy') => array(
-        'parent_uid'
+        'parent_uid',
+        'status'
       )
     );
    $query['#where'] = array(
@@ -61,7 +62,7 @@
     ksort($this_user_downlines);
     
     $plan_width = afl_variable_get('matrix_plan_width',3);
-
+    
 if (!empty($parent)) :
   ?>
 <section class="genealogy-hierarchy">
@@ -73,7 +74,13 @@ if (!empty($parent)) :
 
                     <div class="hv-item-parent">
                         <div class="person">
-                            <img src="<?= EPSAFFILIATE_PLUGIN_ASSETS.'images/avathar.png'; ?>" alt="">
+                            <?php 
+                              if ( $parent->status == 0 ){ ?>
+                                <img src="<?= EPSAFFILIATE_PLUGIN_ASSETS.'images/block.png'; ?>" alt="">
+                            <?php  } else { ?>
+                                <img src="<?= EPSAFFILIATE_PLUGIN_ASSETS.'images/avathar.png'; ?>" alt="">
+                            <?php }
+                            ?>
                             <p class="name">
                                 <?= $parent->user_login.' ('.$parent->ID.')'; ?>
                             </p>
@@ -94,8 +101,10 @@ if (!empty($parent)) :
                                           $user_roles = afl_user_roles($tree[$level[$i]]->ID); 
                                           if ( array_key_exists('afl_customer', $user_roles)) {
                                             echo '<img src="'.EPSAFFILIATE_PLUGIN_ASSETS.'images/customer.png'.'" alt="">';
-                                          } else 
-                                            echo '<img src="'.EPSAFFILIATE_PLUGIN_ASSETS.'images/avathar.png'.'" alt="">';
+                                          } else if ( $tree[$level[$i]]->status == 0 )
+                                              echo '<img src="'.EPSAFFILIATE_PLUGIN_ASSETS.'images/block.png'.'" alt="">';
+                                            else
+                                              echo '<img src="'.EPSAFFILIATE_PLUGIN_ASSETS.'images/avathar.png'.'" alt="">';
                                         ?>
                                         <!-- <img src="<?= EPSAFFILIATE_PLUGIN_ASSETS.'images/avathar.png'; ?>" alt=""> -->
                                         

@@ -13,8 +13,11 @@
 	$query['#select'] = _table_name('afl_customer');
 	$query['#join']   = array(
 		_table_name('users') => array(
-					'#condition' => '`'._table_name('users').'`.`ID`=`'._table_name('afl_customer').'`.`uid`'
-				)
+				'#condition' => '`'._table_name('users').'`.`ID`=`'._table_name('afl_customer').'`.`uid`'
+			),
+		_table_name('afl_unilevel_user_genealogy') => array(
+			'#condition' => '`'._table_name('afl_unilevel_user_genealogy').'`.`uid`=`'._table_name('afl_customer').'`.`uid`'
+		)
 	);
 	$query['#where'] = array(
 		'`'._table_name('afl_customer').'`.`referrer_uid` ='.$uid

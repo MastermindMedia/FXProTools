@@ -7,7 +7,10 @@ function afl_admin_test_codes(){
 }
 
 function afl_test_codes_callback () {
-  pr(afl_system_date_format('01-02-2018'));
+ require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/plan/common/bonus-incentive-calculation.php';
+    if (function_exists('_member_bonus_incentive_calculation')) {
+      _member_bonus_incentive_calculation();
+    }
 }
 
 

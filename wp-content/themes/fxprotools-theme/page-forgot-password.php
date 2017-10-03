@@ -23,11 +23,11 @@
 			<h2>Login Area</h2>
 			<p class="sub">Reset your password</p>
 			<p class="small">You can reset your password by simply providing your recovery email</p>
-			<form>
+			<form  action="<?php echo site_url('wp-login.php?action=lostpassword', 'login_post') ?>" method="post"> 
 				<div class="form-group">
-					<input type="email" class="form-control no-border-radius" id="email">
+					<input type="email" class="form-control no-border-radius" id="user_login" name="user_login">
 				</div>
-				<button type="submit" class="btn btn-lg btn-danger fx-btn block">Submit Recovery Request</button>
+				<button type="submit"  name="submit" class="btn btn-lg btn-danger fx-btn block">Submit Recovery Request</button>
 				<a href="<?php bloginfo('url'); ?>/login">Sign Into Your Account</a>
 			</form>
 		</div>

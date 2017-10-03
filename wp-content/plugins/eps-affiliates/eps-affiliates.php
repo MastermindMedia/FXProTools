@@ -360,6 +360,9 @@
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-advanced-queue-conf.php';
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-recent-log-messages.php';
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-bonus-summary-report.php';
+				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-shortcodes-demo.php';
+				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-processing-queue.php';
+
 			/* 
 			 * -----------------------------------------------------------------------------------------------
 			 * common files callback
@@ -420,6 +423,7 @@
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/member/menu_callback/menu-my-customers.php';
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/member/menu_callback/menu-holding-tank-toggle-placement.php';
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/member/menu_callback/menu-holding-genealogy-toggle-placement.php';
+				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/member/menu_callback/menu-direct-uplines-tree.php';
 
 				//unilevel
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/member/menu_callback/unilevel/menu-add-new-member-callback.php';
@@ -431,6 +435,7 @@
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/member/menu_callback/unilevel/menu-refered-members-callback.php';
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/member/menu_callback/unilevel/menu-my-customers.php';
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/member/menu_callback/unilevel/menu-unilevel-holding-genealogy-toggle-placement.php';
+				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/member/menu_callback/unilevel/menu-direct-uplines-tree.php';
 
 			/* 
 			 * -----------------------------------------------------------------------------------------------

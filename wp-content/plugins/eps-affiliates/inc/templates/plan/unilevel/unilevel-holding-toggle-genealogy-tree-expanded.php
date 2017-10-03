@@ -25,7 +25,7 @@
         $tree[$row->downline_user_id] = $row;
         $level[$row->relative_position] = $row->downline_user_id;
       }
-      $parent = afl_genealogy_node($uid);
+      $parent = afl_genealogy_node($uid, 'unilevel');
       $plan_width = afl_variable_get('matrix_plan_width',3);
   if (!empty($parent)) :
   ?>

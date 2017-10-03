@@ -37,6 +37,11 @@
 			'#title' 				=> __('AFL Matrix Add New customer'),
 			'#description'	=> 'Add new affiliate customer under the user'
 		);
+		//new customer
+		$permissions['afl_holding_tank'] = array(
+			'#title' 				=> __('AFL Matrix Holding tank'),
+			'#description'	=> 'Matrix holding tank'
+		);
   /*
 	 * -----------------------------------------------------
 	 * Unilevel network Permissions
@@ -57,6 +62,13 @@
 			'#title' 				=> __('AFL Unilevel Add New customer'),
 			'#description'	=> 'Add new affiliate customer under the user'
 		);
+		//new customer
+		$permissions['afl_unilevel_holding_tank'] = array(
+			'#title' 				=> __('AFL Unilevel Holding tank'),
+			'#description'	=> 'Unilevel holding tank'
+		);
+
+
 		//ewallet
 		$permissions['ewallet'] = array(
 			'#title' 				=> __('E-wallet'),
@@ -171,6 +183,17 @@
 		$permissions['recent_log_messages'] = array(
 			'#title' 				=> __('Recent log Messages'),
 			'#description' 	=> 'Recent log messages'
+		);
+		//processing queue
+		$permissions['processing_queue'] = array(
+			'#title' 				=> __('Processing Queue'),
+			'#description' 	=> 'Processing Queue'
+		);
+
+		//Shortcodes demo  callback
+		$permissions['shortcodes_demo'] = array(
+			'#title' 				=> __('Shortcodes Demo'),
+			'#description' 	=> 'shortcodes demo'
 		);
 		$permissions = array_merge($perm,$permissions);
 		

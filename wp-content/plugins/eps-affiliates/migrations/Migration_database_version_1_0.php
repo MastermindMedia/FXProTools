@@ -50,6 +50,8 @@
 	 		
 	 		$this->afl_log_messages();
 	 		
+	 		$this->afl_bonus_incentive_history();
+	 		
 	 		//tables for procedures
 	 		$this->tmp_table();
 	 		$this->tmp_table_down();
@@ -1293,4 +1295,36 @@
 	    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
 	                  MODIFY `ins_id` int(11) NOT NULL AUTO_INCREMENT;' );
 	 }
+
+ /*
+  * ----------------------------------------------------------------------------------------------------------
+  * Bonus Incentives  history
+  * ----------------------------------------------------------------------------------------------------------
+ */
+	 private function afl_bonus_incentive_history () {
+	 		$table_name = $this->tbl_prefix . 'afl_unilevel_tree_last_insertion_positions';
+	    $sql = "CREATE TABLE IF NOT EXISTS `$table_name` (
+						  `afl_incentive_history_id` int(11) NOT NULL,
+						  `uid` int(11) NOT NULL,
+						  `created_on` int(11) NOT NULL,
+						  `member_rank` int(11) NOT NULL,
+						  `incentives` varchar(250) NOT NULL,
+						  `incentive_day` int(11) NOT NULL DEFAULT '0',
+						  `incentive_month` int(11) NOT NULL DEFAULT '0',
+						  `incentive_year` int(11) NOT NULL DEFAULT '0',
+						  `incentive_week` int(11) NOT NULL DEFAULT '0',
+						  `incentive_date` varchar(250) NOT NULL DEFAULT '0',
+						  `paid` int(11) NOT NULL DEFAULT '0'
+						) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+
+	    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	    dbDelta( $sql );
+	    global $wpdb;
+	  	//indexes
+	    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	                  ADD PRIMARY KEY (`afl_incentive_history_id`);' );
+	    //AUTO increment
+	    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+		                  MODIFY `afl_incentive_history_id` int(11) NOT NULL AUTO_INCREMENT;' );
+	 	}
 } //here closing the class

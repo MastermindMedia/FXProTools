@@ -125,6 +125,56 @@ function member_users_auto_complete_callback($search_key = '') {
   echo json_encode($response);
   die();
 }
+
+
+/*
+ * ------------------------------------------------
+ * get users name and id unser the currenlty 
+ * logined user
+ * ------------------------------------------------
+*/
+function member_downlines_auto_complete_callback($search_key = '') {
+  $uid = get_uid();
+  
+  if (isset($_POST['search_key'])) {
+    $search_key = $_POST['search_key'];
+  }
+
+  $response = array();
+
+  $tree = _table_name('afl_user_downlines');
+  if ( !empty($_POST['tree_mode']) && $_POST['tree_mode'] == 'unilevel') {
+    $tree = _table_name('afl_unilevel_user_downlines');
+  }
+
+  $query = array();
+  $query['#select']  = $tree;
+  $query['#join'] = array(
+    _table_name('users') => array(
+     '#condition'=> '`'._table_name('users').'`.`ID` = `'.$tree.'`.`downline_user_id` '
+    )
+  );
+  if (!eps_is_admin()) {
+    $query['#where'] = array(
+      '`'.$tree.'`.`uid` = '.$uid
+    );
+  }
+  $query['#fields'] = array(
+    _table_name('users') => array('user_login', 'ID')
+  );
+  $result = db_select($query, 'get_results');
+  
+
+  foreach ($result as $key => $value) {
+    $response[] = array('name'=> ($value->user_login.' ('.$value->ID.')'));
+  }
+  echo json_encode($response);
+  die();
+}
+
+
+
+
 /*
  * ------------------------------------------------
  * User downlines

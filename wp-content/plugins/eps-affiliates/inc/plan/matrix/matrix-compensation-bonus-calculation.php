@@ -19,11 +19,23 @@
 	 			'deleted = 0',
 	 			'status = 1'
 	 		);
-			$query['#limit'] 		 = 100;
+			// $query['#limit'] 		 = 100;
 	 		$users  = db_select($query, 'get_results');
 	 		// pr($users,1);
+	 		
+
+
 	 		foreach ($users as $key => $user) {
-	 			//get actived on
+				
+				//cannot give the bonus, if the user has no renewal on this month
+				$hs_distrib_kit = _has_distributor_kit_renewal($user->uid);
+				if (!$hs_distrib_kit) {
+					//update the status of the user, blocked
+					apply_filters('eps_affiliates_block_member',$user->uid);
+					continue;
+				}
+
+	 			
 	 		/*
 	 		 * -----------------------------------------------------
 	 		 * IF a user status is 1 then check the months he actived 
@@ -37,7 +49,7 @@
 	 			$diff						= $current_date - $actived_on;
 	 			$years 					= floor($diff / (365*60*60*24));
 	 			$months_actived = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
-	 			$months_actived = $months_actived + 1;
+	 			$months_actived = $months_actived + 0;
 	 			$maximum_period = afl_variable_get('matrix_compensation_period_maximum', 3);
 
 	 			if (!empty($months_actived)) {

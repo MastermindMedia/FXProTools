@@ -8,7 +8,8 @@
 	add_action('wp_ajax_nopriv_api_embedd_remote_user_access', 'api_embedd_remote_user_access_callback');
 	function api_embedd_remote_user_access_callback () {
 			$startId 	= afl_variable_get('remote_user_get_last_get_id', 1); 
-	 		$url 			= afl_variable_get('remote_user_get_url', '');
+	 		$url 			= afl_variable_get('remote_user_get_url', '').'?startId='.$startId;
+	 		
 
 			// $res = file_get_contents($url);
 		  $ch 	= curl_init($url);

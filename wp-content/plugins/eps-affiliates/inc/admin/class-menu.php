@@ -37,6 +37,7 @@
 				add_action( 'admin_menu', array( $this , 'afl_no_parent_pages') );
 
 				add_action( 'admin_menu', array( $this , 'afl_admin_remote_api') );
+				add_action( 'admin_menu', array( $this , 'afl_shortcode_demo') );
 
 
 
@@ -74,6 +75,18 @@
 					'#menu_slug' 			=> 'affiliate-eps-recent-log-messages', 
 					'#page_callback' 	=> 'afl_admin_recent_log_messages', 
 				);
+
+				//Advanced processing queue
+				$menu['afl_queues'] = array(
+					'#parent'					=> 'affiliate-eps-system-configurations',
+					'#page_title'			=> __( 'Processing Queue', 'eps-affiliates' ), 
+					'#menu_title' 		=> __( 'Processing Queue', 'eps-affiliates' ), 
+					'#access_callback'=> 'processing_queue', 
+					'#menu_slug' 			=> 'affiliate-eps-processing-queue', 
+					'#page_callback' 	=> 'afl_admin_processing_queue_data', 
+				);
+
+
 				//compensation plan
 				$menu['compensation_plan'] = array(
 					// '#parent'					=> 'affiliate-eps-system-configurations',
@@ -243,9 +256,18 @@
 					'#parent'					=> 'affiliate-eps-user-network',
 					'#page_title'			=> __( 'Holding tank-Matrix', 'Holding tank-Matrix' ),    
 					'#menu_title' 		=> __( 'Holding tank', 'Holding tank' ),    
-					'#access_callback'=> 'afl_network_view', 
+					'#access_callback'=> 'afl_holding_tank', 
 					'#menu_slug' 			=> 'affiliate-eps-holding-tank', 
 					'#page_callback' 	=> 'afl_network_holding_tank', 
+				);
+
+				$menu['direct_uplines'] = array(
+					'#parent'					=> 'affiliate-eps-user-network',
+					'#page_title'			=> __( 'Direct Uplines', 'Direct Uplines' ),    
+					'#menu_title' 		=> __( 'Direct Uplines', 'Direct Uplines' ),    
+					'#access_callback'=> 'afl_network_view', 
+					'#menu_slug' 			=> 'affiliate-eps-direct-uplines-tree', 
+					'#page_callback' 	=> 'afl_network_direct_uplines', 
 				);
 
 				$menu['my_customers'] = array(
@@ -271,7 +293,7 @@
 					'#parent'					=> 'affiliate-eps-user-network',
 					'#page_title'			=> __( '', '' ),    
 					'#menu_title' 		=> __( 'Holding tank Genealogy toggle placement', 'Holding-tank-genealogy-toggle-placement' ),    
-					'#access_callback'=> 'afl_network_view', 
+					'#access_callback'=> 'afl_holding_tank', 
 					'#menu_slug' 			=> 'affiliate-eps-user-holding-genealogy-toggle-placement', 
 					'#page_callback' 	=> 'afl_holding_tank_genealogy_toggle_placement', 
 				);
@@ -353,11 +375,18 @@
 					'#parent'					=> 'affiliate-eps-unilevel-user-network',
 					'#page_title'			=> __( 'Holding tank-unilevel', 'Holding tank-unilevel' ),    
 					'#menu_title' 		=> __( 'Holding tank', 'Holding tank' ),    
-					'#access_callback'=> 'afl_unilevel_network_view', 
+					'#access_callback'=> 'afl_unilevel_holding_tank', 
 					'#menu_slug' 			=> 'affiliate-eps-unilevel-holding-tank', 
 					'#page_callback' 	=> 'afl_unilevel_network_holding_tank', 
 				);
-
+				$menu['direct_uplines'] = array(
+					'#parent'					=> 'affiliate-eps-unilevel-user-network',
+					'#page_title'			=> __( 'Direct Uplines', 'Direct Uplines' ),    
+					'#menu_title' 		=> __( 'Direct Uplines', 'Direct Uplines' ),    
+					'#access_callback'=> 'afl_unilevel_network_view', 
+					'#menu_slug' 			=> 'affiliate-eps-unilevel-direct-uplines-tree', 
+					'#page_callback' 	=> 'afl_unilevel_network_direct_uplines', 
+				);
 				$menu['my_customers'] = array(
 					'#parent'					=> 'affiliate-eps-unilevel-user-network',
 					'#page_title'			=> __( 'My Customers-unilevel', 'My Customers-unilevel' ),    
@@ -372,7 +401,7 @@
 					'#parent'					=> 'affiliate-eps-unilevel-user-network',
 					'#page_title'			=> __( '', '' ),    
 					'#menu_title' 		=> __( 'Holding tank Genealogy toggle placement', 'Holding-tank-genealogy-toggle-placement' ),    
-					'#access_callback'=> 'afl_unilevel_network_view', 
+					'#access_callback'=> 'afl_unilevel_holding_tank', 
 					'#menu_slug' 			=> 'affiliate-eps-user-unilevel-holding-genealogy-toggle-placement', 
 					'#page_callback' 	=> 'afl_unilevel_holding_tank_genealogy_toggle_placement', 
 				);
@@ -823,6 +852,23 @@
 					'#access_callback'=> 'remote_api_access', 
 					'#menu_slug' 			=> 'affiliate-eps-remote-user-get', 
 					'#page_callback' 	=> 'afl_admin_user_remote_access', 
+				);
+				afl_system_admin_menu($menu);
+     }	
+    /*
+		 * ---------------------------------------------------------------------------
+		 * Admin Remote Access
+		 * ---------------------------------------------------------------------------
+		*/
+     function afl_shortcode_demo () {
+
+				//Remote users
+				$menu['shortcode_demo'] = array(
+					'#page_title'			=> __( 'Shortcode Demo', 'eps-affiliates' ), 
+					'#menu_title' 		=> __( 'Shortcode Demo', 'eps-affiliates' ), 
+					'#access_callback'=> 'shortcodes_demo', 
+					'#menu_slug' 			=> 'affiliate-eps-shortcode-demo', 
+					'#page_callback' 	=> 'afl_shortcode_demo', 
 				);
 				afl_system_admin_menu($menu);
      }
