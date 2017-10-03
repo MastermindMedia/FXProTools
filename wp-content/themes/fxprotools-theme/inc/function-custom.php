@@ -460,3 +460,121 @@ function get_query_string()
 	}
 	return $string;
 }
+
+add_action('wp_ajax_nopriv_lms_lesson_complete', 'lms_lesson_complete');
+add_action('wp_ajax_lms_lesson_complete', 'lms_lesson_complete');
+function lms_lesson_complete()
+{
+	$user_id = get_current_user_id();
+	$lesson_id = $_POST['lesson_id'];
+
+	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
+		echo learndash_is_lesson_complete( $user_id , $lesson_id );
+	}
+	wp_die();
+}
+
+add_action('wp', 'enforce_page_access');
+function enforce_page_access()
+{
+	global $post;
+	if( !isset($post) ) return;
+	$slug = $post->post_name;
+	$guest_allowed_post_type = array( 'product' );
+	$guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'funnels', 'f1', 'f2', 'f3', 'f4' );
+
+	if( is_user_logged_in() ) return 0;
+	if( !is_product() && !is_cart() && !is_checkout() && !is_shop() && !is_404() && !is_front_page() ) {
+		if( !in_array($slug, $guest_allowed_pages) ){
+			wp_redirect( home_url() . '/login');
+			exit;
+		}
+	}
+}
+
+add_filter('login_redirect', 'customer_login_redirect');
+function customer_login_redirect( $redirect_to, $request = '', $user = '' ){
+    return home_url('dashboard');
+}
+
+add_action('init', 'course_category_rewrite');
+function course_category_rewrite()
+{
+	add_rewrite_rule('course-category/([^/]*)/?','index.php?category_slug=$matches[1]&course_category=1','top');
+}
+
+add_action('template_redirect', 'course_category_template');
+function course_category_template()
+{
+    if ( get_query_var( 'category_slug' ) ) {
+        add_filter( 'template_include', function() {
+            return get_template_directory() . '/sfwd-course-category.php';
+        });
+    }
+}
+
+add_filter('query_vars', 'course_category_vars');
+function course_category_vars( $vars )
+{
+    $vars[] = 'course_category';
+    $vars[] = 'category_slug';
+    return $vars;
+}
+
+add_action('user_register', 'register_user_checklist');
+function register_user_checklist($user_id)
+{
+	$checklist = array(
+		'verified_email' 	=> false, 
+		'verified_profile'	=> false,
+		'scheduled_webinar'	=> false,
+		'accessed_products' => false,
+		'got_shirt'			=> false,
+		'shared_video'		=> false,
+		'referred_friend'	=> false,
+	);
+	add_user_meta( $user_id, '_onboard_checklist', $checklist);
+}
+
+add_action('user_register', 'send_email_verification');
+function send_email_verification($user_id)
+{
+	$user = get_user_by('id', $user_id);
+	$secret = "fxprotools-";
+	$hash = MD5( $secret . $user->data->user_email);
+	$to =  $user->data->user_email;
+	$subject = 'Please verify your Email Address';
+	$message = "Click <a href='" . home_url() . '/verify-email/?code=' . $hash . "' target='_blank'>here</a> to verify your email address.";
+	$headers = array('Content-Type: text/html; charset=UTF-8');
+	wp_mail( $to, $subject, $message, $headers );
+}
+
+add_action('user_register', 'register_affiliate');
+function register_affiliate($user_id)
+{
+	$data = array('user_id' => $user_id, 'notes' => 'affiliate added via fxprotools');
+	$affiliate_id = affwp_add_affiliate($data);
+}
+
+add_action('affwp_notify_on_approval', 'disable_affiliate_welcome_email');
+function disable_affiliate_welcome_email()
+{
+	return false;
+}
+
+add_action('wp', 'track_user_history');
+function track_user_history()
+{
+	//delete_user_meta(get_current_user_id(), "track_user_history");
+    $track_user_history = get_user_meta( get_current_user_id(), "track_user_history" )[0];
+    if(!$track_user_history){
+    	$track_user_history = array();
+    }
+    $data = array(
+    	'time' => date("Y-m-d h:i:sa"),
+    	'link' => get_the_permalink(),
+    	'title' => get_the_title()
+    );
+    array_push($track_user_history, $data);
+	update_user_meta(get_current_user_id(), 'track_user_history', $track_user_history);
+}
