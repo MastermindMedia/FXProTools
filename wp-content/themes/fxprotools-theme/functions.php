@@ -50,6 +50,23 @@ foreach ($core_settings as $cs) {
 }
 
 /**
+ * ---------------
+ * Settings MB/CPT
+ * ---------------
+ * Settings for custom post/taxonomy and metabox
+ */
+$settings = array(
+    'settings-cpt', // Custom post/taxonomy settings
+    'settings-mb',  // Metabox Settings
+);
+
+if($settings){
+    foreach ($settings as $key => $setting) {
+        require_once('inc/settings/'.$setting.'.php');
+    }
+}
+
+/**
  * ----------------
  * Custom Functions
  * ----------------

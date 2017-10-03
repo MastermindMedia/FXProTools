@@ -21,11 +21,8 @@ if(!class_exists('AdminSettings')){
 			add_filter('login_headerurl', array($this, 'login_logo_link'));
 			add_action('admin_menu',  array($this, 'remove_admin_menus'), 99);
 			add_action('admin_init', array($this, 'remove_dashboard_meta'));
-			add_action('wp_ajax_nopriv_lms_lesson_complete', array($this, 'lms_lesson_complete') );
-			add_action('wp_ajax_lms_lesson_complete', array($this, 'lms_lesson_complete') );
+
 			add_filter('rwmb_meta_boxes',  array($this, 'initialize_meta_boxes'));
-			add_action('init', array($this, 'register_funnel_post_type'));
-			add_action('init', array($this, 'register_webinar_post_type'));
 			// add_action('admin_menu', array($this, 'page_anet'));
 		}
 
@@ -112,16 +109,6 @@ if(!class_exists('AdminSettings')){
 		// 		get_template_part('inc/templates/template-admin-anet');
 		// 	}
 		// }
-
-		public function lms_lesson_complete() {
-			$user_id = get_current_user_id();
-			$lesson_id = $_POST['lesson_id'];
-
-			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
-				echo learndash_is_lesson_complete( $user_id , $lesson_id );
-			}
-			die();
-		}
 
 		public function initialize_meta_boxes( $meta_boxes ) {
 			$prefix = '';
@@ -269,115 +256,6 @@ if(!class_exists('AdminSettings')){
 
 			return $meta_boxes;
 		}
-
-		public function register_funnel_post_type()
-		{
-			$labels = array(
-				'name'                  => _x( 'Funnels', 'Post Type General Name', 'fxprotools' ),
-				'singular_name'         => _x( 'Funnel', 'Post Type Singular Name', 'fxprotools' ),
-				'menu_name'             => __( 'Funnels', 'fxprotools' ),
-				'name_admin_bar'        => __( 'Funnel', 'fxprotools' ),
-				'archives'              => __( 'Funnel Archives', 'fxprotools' ),
-				'attributes'            => __( 'Funnel Attributes', 'fxprotools' ),
-				'parent_item_colon'     => __( 'Parent Funnel:', 'fxprotools' ),
-				'all_items'             => __( 'All Funnels', 'fxprotools' ),
-				'add_new_item'          => __( 'Add New Funnel', 'fxprotools' ),
-				'add_new'               => __( 'Add New', 'fxprotools' ),
-				'new_item'              => __( 'New Funnel', 'fxprotools' ),
-				'edit_item'             => __( 'Edit Funnel', 'fxprotools' ),
-				'update_item'           => __( 'Update Funnel', 'fxprotools' ),
-				'view_item'             => __( 'View Funnel', 'fxprotools' ),
-				'view_items'            => __( 'View Funnels', 'fxprotools' ),
-				'search_items'          => __( 'Search Funnel', 'fxprotools' ),
-				'not_found'             => __( 'Not found', 'fxprotools' ),
-				'not_found_in_trash'    => __( 'Not found in Trash', 'fxprotools' ),
-				'featured_image'        => __( 'Featured Image', 'fxprotools' ),
-				'set_featured_image'    => __( 'Set featured image', 'fxprotools' ),
-				'remove_featured_image' => __( 'Remove featured image', 'fxprotools' ),
-				'use_featured_image'    => __( 'Use as featured image', 'fxprotools' ),
-				'insert_into_item'      => __( 'Insert into item', 'fxprotools' ),
-				'uploaded_to_this_item' => __( 'Uploaded to this funnel', 'fxprotools' ),
-				'items_list'            => __( 'Funnels list', 'fxprotools' ),
-				'items_list_navigation' => __( 'Funnels list navigation', 'fxprotools' ),
-				'filter_items_list'     => __( 'Filter Funnels list', 'fxprotools' ),
-			);
-			$args = array(
-				'label'                 => __( 'Funnel', 'fxprotools' ),
-				'description'           => __( 'Post Type Description', 'fxprotools' ),
-				'labels'                => $labels,
-				'supports'              => array( 'title', 'thumbnail', 'page-attributes'),
-				'taxonomies'			=> array( 'category' ),
-				'hierarchical'          => false,
-				'public'                => true,
-				'show_ui'               => true,
-				'show_in_menu'          => true,
-				'menu_position'         => 5,
-				'menu_icon'             => 'dashicons-desktop',
-				'show_in_admin_bar'     => true,
-				'show_in_nav_menus'     => true,
-				'can_export'            => true,
-				'has_archive'           => true,		
-				'exclude_from_search'   => true,
-				'publicly_queryable'    => true,
-				'capability_type'       => 'page',
-			);
-			register_post_type( 'fx_funnel', $args );
-		}
-
-		public function register_webinar_post_type()
-		{
-			$labels = array(
-				'name'                  => _x( 'Webinars', 'Post Type General Name', 'fxprotools' ),
-				'singular_name'         => _x( 'Webinar', 'Post Type Singular Name', 'fxprotools' ),
-				'menu_name'             => __( 'Webinars', 'fxprotools' ),
-				'name_admin_bar'        => __( 'Webinar', 'fxprotools' ),
-				'archives'              => __( 'Webinar Archives', 'fxprotools' ),
-				'attributes'            => __( 'Webinar Attributes', 'fxprotools' ),
-				'parent_item_colon'     => __( 'Parent Webinar:', 'fxprotools' ),
-				'all_items'             => __( 'All Webinars', 'fxprotools' ),
-				'add_new_item'          => __( 'Add New Webinar', 'fxprotools' ),
-				'add_new'               => __( 'Add New', 'fxprotools' ),
-				'new_item'              => __( 'New Webinar', 'fxprotools' ),
-				'edit_item'             => __( 'Edit Webinar', 'fxprotools' ),
-				'update_item'           => __( 'Update Webinar', 'fxprotools' ),
-				'view_item'             => __( 'View Webinar', 'fxprotools' ),
-				'view_items'            => __( 'View Webinars', 'fxprotools' ),
-				'search_items'          => __( 'Search Webinar', 'fxprotools' ),
-				'not_found'             => __( 'Not found', 'fxprotools' ),
-				'not_found_in_trash'    => __( 'Not found in Trash', 'fxprotools' ),
-				'featured_image'        => __( 'Featured Image', 'fxprotools' ),
-				'set_featured_image'    => __( 'Set featured image', 'fxprotools' ),
-				'remove_featured_image' => __( 'Remove featured image', 'fxprotools' ),
-				'use_featured_image'    => __( 'Use as featured image', 'fxprotools' ),
-				'insert_into_item'      => __( 'Insert into item', 'fxprotools' ),
-				'uploaded_to_this_item' => __( 'Uploaded to this Webinar', 'fxprotools' ),
-				'items_list'            => __( 'Webinars list', 'fxprotools' ),
-				'items_list_navigation' => __( 'Webinars list navigation', 'fxprotools' ),
-				'filter_items_list'     => __( 'Filter Webinars list', 'fxprotools' ),
-			);
-			$args = array(
-				'label'                 => __( 'Webinar', 'fxprotools' ),
-				'description'           => __( 'Post Type Description', 'fxprotools' ),
-				'labels'                => $labels,
-				'supports'              => array( 'title', 'thumbnail', 'page-attributes'),
-				'taxonomies'			=> array( 'category' ),
-				'hierarchical'          => false,
-				'public'                => true,
-				'show_ui'               => true,
-				'show_in_menu'          => true,
-				'menu_position'         => 5,
-				'menu_icon'             => 'dashicons-desktop',
-				'show_in_admin_bar'     => true,
-				'show_in_nav_menus'     => true,
-				'can_export'            => true,
-				'has_archive'           => true,		
-				'exclude_from_search'   => true,
-				'publicly_queryable'    => false,
-				'capability_type'       => 'page',
-			);
-			register_post_type( 'fx_webinar', $args );
-		}
-
 
 	}
 
