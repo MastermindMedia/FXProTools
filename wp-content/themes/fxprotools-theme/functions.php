@@ -87,3 +87,34 @@ if($custom_functions){
  * Authorize.net payment gateway class
  */
 //require('inc/fx-authorize-net/fx-authorize-net.php');
+
+
+
+/** Meta Box for the Page Menu*/
+add_action( 'add_meta_boxes', 'cd_meta_box_add' );
+function cd_meta_box_add()
+{
+    add_meta_box( 'menu_meta_box', 'Page Menu', 'cd_meta_box_cb', 'post', 'normal', 'high' );
+}
+
+
+function cd_meta_box_cb()
+{
+    ?>
+    <label for="my_meta_box_text">Page Title: </label>
+    <input type="text" name="my_meta_box_text" id="my_meta_box_text" />
+    <label for="my_meta_box_text">Page: </label>
+    <select>
+        <option></option>
+        <?php 
+            $custom_query = new WP_Query( array( 'post_type' => 'post' ) );
+            if($custom_query->have_posts()) :
+
+                while ( $custom_query->have_posts() ) : $custom_query->the_post();
+                echo '<option>'.get_the_title().'</option>';
+                endwhile;
+            endif;
+        ?>
+    </select>
+    <?php         
+}
