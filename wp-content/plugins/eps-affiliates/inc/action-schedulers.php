@@ -267,6 +267,44 @@
 
 
 
+
+
+/*
+ * -------------------------------------------------------------
+ * Open the deactive incentive calcultion activation
+ * -------------------------------------------------------------
+*/
+	function eps_affiliates_bonus_incentive_cron_activation() {
+		if( !wp_next_scheduled( 'eps_affiliates_bonus_incentive_cron' ) ) {  
+		   wp_schedule_event( time(), 'everyhour', 'eps_affiliates_bonus_incentive_cron' );  
+		}
+	}
+/*
+ * -------------------------------------------------------------
+ * unschedule event upon plugin deactivation
+ * -------------------------------------------------------------
+*/
+	function eps_affiliates_bonus_incentive_cron_deactivation() {	
+		// find out when the last event was scheduled
+		$timestamp = wp_next_scheduled ('eps_affiliates_bonus_incentive_cron');
+		// unschedule previous event if any
+		wp_unschedule_event ($timestamp, 'eps_affiliates_bonus_incentive_cron');
+	} 
+/*
+ * ------------------------------------------------------------
+ * Bonus incentive calculation
+ *
+ * Give an incentive for the rank 
+ * ------------------------------------------------------------
+*/
+ function eps_affiliates_bonus_incentive_cron_callback () {
+	 	require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/plan/common/bonus-incentive-calculation.php';
+		if (function_exists('_member_bonus_incentive_calculation')) {
+			_member_bonus_incentive_calculation();
+		}
+ }
+
+
 /*
  * -------------------------------------------------------------
  * Custom interval
@@ -305,6 +343,8 @@
 	add_action('wp', 'eps_affiliates_remote_users_embedd_cron_activation');
 
 	add_action('wp', 'eps_affiliates_deactived_spot_openup_cron_activation');
+	
+	add_action('wp', 'eps_affiliates_bonus_incentive_cron_activation');
 /*
  * -------------------------------------------------------------
  * All the scheduler deactivation hooks comes here
@@ -317,6 +357,7 @@
 	register_deactivation_hook (__FILE__, 'eps_affiliates_monthly_pool_bonus_payout_deactivation');
 	register_deactivation_hook (__FILE__, 'eps_affiliates_remote_users_embedd_cron_deactivation');
 	register_deactivation_hook (__FILE__, 'eps_affiliates_deactived_spot_openup_cron_deactivation');
+	register_deactivation_hook (__FILE__, 'eps_affiliates_bonus_incentive_cron_deactivation');
 
 
 /*
@@ -368,3 +409,11 @@
  * -------------------------------------------------------------
 */
 	add_action ('eps_affiliates_deactived_spot_openup_cron', 'eps_affiliates_deactived_spot_openup_cron_callback');
+
+/*
+ * -------------------------------------------------------------
+ * After a particular time period check the users rank and 
+ * give the incentive
+ * -------------------------------------------------------------
+*/
+	add_action ('eps_affiliates_bonus_incentive_cron', 'eps_affiliates_bonus_incentive_cron_callback');

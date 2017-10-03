@@ -16,6 +16,14 @@
  						'eps_commerce_joining_package_purchase_complete', 10, 1);
 /*
  * ------------------------------------------------------------
+ * Hook after the renewal of distributor kit
+ * ------------------------------------------------------------
+*/
+ add_filter('eps_commerce_distributor_kit_purchase_complete', 
+ 						'eps_commerce_distributor_kit_purchase_complete', 10, 1);
+
+/*
+ * ------------------------------------------------------------
  * Hook calculate the rank of a user
  * ------------------------------------------------------------
 */
@@ -343,4 +351,32 @@ add_filter('afl_distributor_team_volume',
 add_filter('afl_distributor_personal_volume',
  						'afl_distributor_personal_volume_callback',
  						10,1);
+
+//rank name return
+add_filter('afl_member_current_rank_name',
+					'afl_member_current_rank_name_callback',10,1);
+
+//global pool bonus percentage 
+add_filter('afl_member_global_pool_bonus_percentage',
+					'afl_member_global_pool_bonus_percentage_callback',10,1);
+
+//poll bonus percentage earned
+add_filter('afl_member_total_global_pool_bonus_earned',
+					'afl_member_total_global_pool_bonus_earned_callback',10,1);
+
+//member personal volume
+add_filter('afl_member_personal_volume',
+					 'afl_member_personal_volume_callback',10,1);
+
+
+
+
+/*
+ * -----------------------------------------------------------------
+ * Cancel a user account
+ * -----------------------------------------------------------------
+*/
+	add_action('afl_member_account_cancelation',
+ 						 'afl_member_account_cancelation_callback',10,1);
+
 // pr(apply_filters('afl_ewallet_last_week_earnings',get_uid()),1);

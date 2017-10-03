@@ -2212,9 +2212,11 @@ function afl_root_user() {
 	  	$table = $wpdb->prefix.'afl_purchases';
 	  	$afl_date_split = afl_date_splits(afl_date());
 
+	  	$category = !empty($arguments['category']) ? $arguments['category'] : 'product purchase';
+
 	  	$purchase_data = array();
 	  	$purchase_data['uid']				 	   = $arguments['uid'];
-	  	$purchase_data['category'] 		   = 'product purchase';
+	  	$purchase_data['category'] 		   = $category;
 	  	$purchase_data['member_rank']    = 1;
 	  	$purchase_data['amount_paid'] 	 = afl_commerce_amount($arguments['amount_paid']);
 	  	$purchase_data['afl_points'] 	   = afl_commerce_amount($arguments['afl_point']);;
@@ -2793,4 +2795,63 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 			return date($system_date_format, $date);
 		}
 		return date('Y-m-d',strtotime($date));
+	}
+/*
+ * -----------------------------------------------------------------------
+ * get upline users 
+ * -----------------------------------------------------------------------
+*/
+ function afl_get_upline_users ($uid = '', $users = array()) {
+ 	if (empty($uid))
+ 		$uid = get_current_user_id();
+
+ 	$node  = afl_genealogy_node($uid);
+ 	if ($node) {
+ 			$users[] =  $node;
+ 		if ($node->parent_uid) {
+ 			return afl_get_upline_users($node->parent_uid,$users);
+ 		}
+ 	}
+ 	return $users;
+ }
+/**
+ * -----------------------------------------------------------------------
+ * get unilevel upline users users
+ * -----------------------------------------------------------------------
+*/
+ function afl_unilevel_get_upline_users ($uid = '', $users = array()) {
+ 	if (empty($uid))
+ 		$uid = get_current_user_id();
+
+ 	$node  = afl_genealogy_node($uid,'unilevel');
+ 	if ($node) {
+ 			$users[] =  $node;
+ 		if ($node->parent_uid) {
+ 			return afl_unilevel_get_upline_users($node->parent_uid,$users);
+ 		}
+ 	}
+ 	return $users;
+ }
+/**
+ * -----------------------------------------------------------------------
+ * check user has a renewal, purchased a distributor package for this month
+ * -----------------------------------------------------------------------
+*/
+	function _has_distributor_kit_renewal ( $uid = '' ) {
+		//check distributor package purchased in this month
+		$afl_date_splits = afl_date_splits(afl_date());
+		$query = array();
+		$query['#select'] = _table_name('afl_purchases');
+		$query['#where']  = array(
+			'uid='.$uid,
+			'category="Distributor Kit"',
+			'purchase_month	='.$afl_date_splits['m'],
+			'purchase_year	='.$afl_date_splits['y'],
+		);
+		$result  = db_select($query, 'get_row');
+		if (!empty( $result )) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
 	}

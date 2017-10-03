@@ -7,6 +7,8 @@
 function afl_ewallet_summary(){
 	echo afl_eps_page_header();
 	afl_content_wrapper_begin();
+
+	echo '<div class="row">'.do_shortcode('[afl_ewallet_all_earnings_summary_blocks_shortcode]').'</div>';
 	afl_ewallet_summary_callback();
 	afl_content_wrapper_end();
 }
@@ -14,6 +16,9 @@ function afl_ewallet_summary(){
 function afl_ewallet_all_transactions(){
 	echo afl_eps_page_header();
 	afl_content_wrapper_begin();
+
+	echo '<div class="row">'.do_shortcode('[afl_ewallet_all_earnings_summary_blocks_shortcode]').'</div>';
+	
 	afl_ewallet_all_transactions_callback();
 	afl_content_wrapper_end();
 }
@@ -34,10 +39,6 @@ function afl_ewallet_withdrawal_report(){
 
 function afl_ewallet_summary_callback(){
 		$uid = get_uid();
-
-		do_action('afl_ewallet_all_earnings_summary_blocks_template');
-		
-
 		if (isset($_GET['uid'])) {
 			$uid = $_GET['uid'];
 		}
@@ -132,10 +133,6 @@ function afl_ewallet_summary_callback(){
 */
 function afl_ewallet_all_transactions_callback(){
 		$uid = get_uid();
-
-		do_action('afl_ewallet_all_earnings_summary_blocks_template');
-		
-
 		if (isset($_GET['uid'])) {
 			$uid = $_GET['uid'];
 		}

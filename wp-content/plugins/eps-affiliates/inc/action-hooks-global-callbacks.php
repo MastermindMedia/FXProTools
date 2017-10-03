@@ -66,53 +66,161 @@
 	 		$response['response']	=	'Failure';
 	 		$response['error'][] 	= 'Affiliate point needs to be an integer number';
 	 	}
+	 	if ( empty($response['error'])){
+		 	//details enter to the purchase table
+		 	$ins = afl_purchase($args);
+		 	if ( $ins ) {
+			 	//calculate rank
+			 	do_action('eps_affiliates_calculate_affiliate_rank', $args['uid']);
+
+				//calculte the rank of uplines matrix
+				$refers_uids = afl_get_referrer_upline_uids($args['uid']);
+				foreach ($refers_uids as $uid) {
+					do_action('eps_affiliates_calculate_affiliate_rank', $uid);
+				}
+
+				//calculte the rank of uplines Unilevel
+				$refers_uids = afl_unilevel_get_upline_uids($args['uid']);
+				foreach ($refers_uids as $uid) {
+					do_action('eps_affiliates_calculate_affiliate_rank', $uid);
+				}
+
+				$category = 'Product Purchase';
+				if ( !empty($args['category'])) {
+					$category = $args['category'];
+				}
+				//insert details into transactions table
+				$afl_date_splits = afl_date_splits(afl_date());
+			  $transaction = array();
+		    $transaction['uid'] 								= $args['uid'];
+		    $transaction['associated_user_id'] 	= $args['uid'];
+		    $transaction['payout_id'] 					= 0;
+		    $transaction['level']								= 0;
+		    $transaction['currency_code'] 			= afl_currency();
+		    $transaction['order_id'] 						= 1;
+		    $transaction['int_payout'] 					= 0;
+		    $transaction['hidden_transaction'] 	= 0;
+		    $transaction['credit_status'] 			= 0;
+		    $transaction['amount_paid'] 				= afl_commerce_amount($args['afl_point']);
+		    $transaction['category'] 						= $category;
+		    $transaction['notes'] 							= $category;
+		    $transaction['transaction_day'] 		= $afl_date_splits['d'];
+		    $transaction['transaction_month'] 	= $afl_date_splits['m'];
+		    $transaction['transaction_year'] 		= $afl_date_splits['y'];
+		    
+		    $transaction['transaction_week'] 		= $afl_date_splits['w'];
+		    $transaction['transaction_date'] 		= afl_date_combined($afl_date_splits);
+		    $transaction['created'] 						= afl_date();
+			  //to mbr transaction
+				// afl_member_transaction($transaction, TRUE);
+			}
+		 	if (!$ins) {
+		 		$response['status'] 	= 0;
+		 		$response['response']	=	'Failure';
+		 		$response['error'][] 	= 'Un-expected error occured. Unable to insert to the purchase details.';
+		 	}
+	  }
+	 		return $response;
+	}
+
+/*
+ * ---------------------------------------------------------
+ * Commerce purchase complete
+ * ---------------------------------------------------------
+*/
+	function eps_commerce_distributor_kit_purchase_complete($args = array()){
+	 	//need to save the details to purchases
+	 	$response = array();
+
+	 	$response['status'] 	= 1;
+	 	$response['response'] = 'success';
+
+	 	//check user id exists or not
+	 	if (empty($args['uid']) ){
+	 		$response['status'] 	= 0;
+	 		$response['response']	=	'Failure';
+	 		$response['error'][] 	= 'user id cannot be null';
+	 	}
+
+	 	//check order_id exists
+	 	if (empty($args['order_id'])) {
+	 		$response['status'] 	= 0;
+	 		$response['response']	=	'Failure';
+	 		$response['error'][] 	= 'order id cannot be null';
+	 	}
+
+	 	// //check amount paid exists or not
+	 	// if (empty($args['amount_paid'])) {
+	 	// 	$response['status'] 	= 0;
+	 	// 	$response['response']	=	'Failure';
+	 	// 	$response['error'][] 	= 'amount cannot be null';
+	 	// }
+
+	 		//check afl_point exists or not
+	 	// if (empty($args['afl_point'])) {
+	 	// 	$response['status'] 	= 0;
+	 	// 	$response['response']	=	'Failure';
+	 	// 	$response['error'][] 	= 'Affiliate point cannot be null';
+	 	// }
+
+	 	//check user id field is an integer
+	 	if (!empty($args['uid']) && !is_numeric($args['uid'])){
+	 		$response['status'] 	= 0;
+	 		$response['response']	=	'Failure';
+	 		$response['error'][] 	= 'user id needs to be an integer number';
+	 	}
+
+	 	//check order_id is integer
+	 	if (!empty($args['order_id']) && !is_numeric($args['order_id'])){
+	 		$response['status'] 	= 0;
+	 		$response['response']	=	'Failure';
+	 		$response['error'][] 	= 'Order id needs to be an integer number';
+	 	}
+
+	 	// //check order_id is integer
+	 	// if (!empty($args['amount_paid']) && !is_numeric($args['amount_paid'])){
+	 	// 	$response['status'] 	= 0;
+	 	// 	$response['response']	=	'Failure';
+	 	// 	$response['error'][] 	= 'Amount needs to be an integer number';
+	 	// }
+
+ 		// //check afl_point is integer
+	 	// if (!empty($args['afl_point']) && !is_numeric($args['afl_point'])){
+	 	// 	$response['status'] 	= 0;
+	 	// 	$response['response']	=	'Failure';
+	 	// 	$response['error'][] 	= 'Affiliate point needs to be an integer number';
+	 	// }
 
 	 	//details enter to the purchase table
-	 	$ins = afl_purchase($args);
+	 	if ( empty($response['error'])){
+	 		$ins = afl_purchase($args);
+	 		if ( $ins ){
+		 		//update the status of the user and set actived_on date today
+		 		apply_filters('eps_affiliates_unblock_member',$args['uid']);
 
-	 	//calculate rank
-	 	do_action('eps_affiliates_calculate_affiliate_rank', $args['uid']);
+		 		global $wpdb;
+		 		$wpdb->update(
+		 			_table_name('afl_user_genealogy'),
+		 			array(
+		 				'actived_on' => afl_date()
+		 			),
+		 			array(
+		 				'uid' => $args['uid']
+		 			)
+		 		);
 
-		//calculte the rank of uplines matrix
-		$refers_uids = afl_get_referrer_upline_uids($args['uid']);
-		foreach ($refers_uids as $uid) {
-			do_action('eps_affiliates_calculate_affiliate_rank', $uid);
-		}
+		 		$wpdb->update(
+		 			_table_name('afl_unilevel_user_genealogy'),
+		 			array(
+		 				'actived_on' => afl_date()
+		 			),
+		 			array(
+		 				'uid' => $args['uid']
+		 			)
+		 		);
 
-		//calculte the rank of uplines Unilevel
-		$refers_uids = afl_unilevel_get_upline_uids($args['uid']);
-		foreach ($refers_uids as $uid) {
-			do_action('eps_affiliates_calculate_affiliate_rank', $uid);
-		}
-
-		$category = 'Product Purchase';
-		if ( !empty($args['category'])) {
-			$category = $args['category'];
-		}
-		//insert details into transactions table
-		$afl_date_splits = afl_date_splits(afl_date());
-	  $transaction = array();
-    $transaction['uid'] 								= $args['uid'];
-    $transaction['associated_user_id'] 	= $args['uid'];
-    $transaction['payout_id'] 					= 0;
-    $transaction['level']								= 0;
-    $transaction['currency_code'] 			= afl_currency();
-    $transaction['order_id'] 						= 1;
-    $transaction['int_payout'] 					= 0;
-    $transaction['hidden_transaction'] 	= 0;
-    $transaction['credit_status'] 			= 0;
-    $transaction['amount_paid'] 				= afl_commerce_amount($args['afl_point']);
-    $transaction['category'] 						= $category;
-    $transaction['notes'] 							= $category;
-    $transaction['transaction_day'] 		= $afl_date_splits['d'];
-    $transaction['transaction_month'] 	= $afl_date_splits['m'];
-    $transaction['transaction_year'] 		= $afl_date_splits['y'];
-    
-    $transaction['transaction_week'] 		= $afl_date_splits['w'];
-    $transaction['transaction_date'] 		= afl_date_combined($afl_date_splits);
-    $transaction['created'] 						= afl_date();
-	  //to mbr transaction
-		// afl_member_transaction($transaction, TRUE);
+	 		}
+	 	}
 
 	 	if (!$ins) {
 	 		$response['status'] 	= 0;
@@ -597,7 +705,18 @@
 	 				'uid' => $uid
 	 			)
 	 		);
-	 	 	if ( $update ) {
+	 		//update genealogy ststus
+	 		$update1 = $wpdb->update(
+	 			_table_name('afl_unilevel_user_genealogy'),
+	 			array(
+	 				'status' => 0,
+	 				'deactived_on' => afl_date()
+	 			),
+	 			array(
+	 				'uid' => $uid
+	 			)
+	 		);
+	 	 	if ( $update || $update1) {
 	 	 		return true;
 	 	 	} else {
 	 	 		return false;
@@ -627,7 +746,18 @@
 	 			)
 	 		);
 
-	 	 	if ( $update ) {
+	 		$update1 = $wpdb->update(
+	 			_table_name('afl_unilevel_user_genealogy'),
+	 			array(
+	 				'status' => 1,
+	 				'actived_on' => afl_date()
+	 			),
+	 			array(
+	 				'uid' => $uid
+	 			)
+	 		);
+
+	 	 	if ( $update || $update1) {
 	 	 		return true;
 	 	 	} else {
 	 	 		return false;
@@ -1027,11 +1157,12 @@
 			'uid = '.$uid,
 			// 'credit_status = 1',
 			'deleted = 0',
-			'hidden_transaction = 0'
-		);
-		$query['#where'] = array(
+			'hidden_transaction = 0',
 			'created='.$afl_date
 		);
+		// $query['#where'] = array(
+			
+		// );
 		$query['#expression'] = array(
 			'SUM(balance) as total'
 		);
@@ -1067,9 +1198,7 @@
 			'uid = '.$uid,
 			// 'credit_status = 1',
 			'deleted = 0',
-			'hidden_transaction = 0'
-		);
-		$query['#where'] = array(
+			'hidden_transaction = 0',
 			'created='.$yesterday
 		);
 		$query['#expression'] = array(
@@ -1108,9 +1237,7 @@
 			'uid = '.$uid,
 			// 'credit_status = 1',
 			'deleted = 0',
-			'hidden_transaction = 0'
-		);
-		$query['#where'] = array(
+			'hidden_transaction = 0',
 			'transaction_month='.$afl_date_splits['m'],
 			'transaction_year='.$afl_date_splits['y'],
 			'transaction_week='.$afl_date_splits['w'],
@@ -1151,9 +1278,7 @@
 			'uid = '.$uid,
 			// 'credit_status = 1',
 			'deleted = 0',
-			'hidden_transaction = 0'
-		);
-		$query['#where'] = array(
+			'hidden_transaction = 0',
 			'transaction_month='.$afl_date_splits['m'],
 			'transaction_year='.$afl_date_splits['y'],
 		);
@@ -1253,4 +1378,88 @@
 	function afl_distributor_personal_volume_callback ($uid = '') {
 		$my_pv   = _get_user_pv($uid);
 		return $my_pv;
+	}
+/*
+ * -------------------------------------------------
+ * return rank name of the given users
+ * -------------------------------------------------
+*/
+	function afl_member_current_rank_name_callback ($uid = '') {
+		if (empty($uid)) {
+			$uid = get_uid();
+		}
+		$node = afl_genealogy_node($uid);
+		$roles = afl_user_roles($uid);
+		$rank_name = '';
+		if (array_key_exists('afl_customer', $roles) ){
+			$rank_name = 'Customer';
+			return $rank_name;
+		}
+		$rank = !empty($node->member_rank) ? $node->member_rank : 0;
+		$rank_name  = afl_variable_get('rank_'.$rank.'_name','No Rank');
+
+		return $rank_name;
+	}
+/*
+ * -------------------------------------------------
+ * global pool bonus percentage
+ * -------------------------------------------------
+*/
+	function afl_member_global_pool_bonus_percentage_callback ($uid = '') {
+		if (empty($uid)) {
+			$uid = get_uid();
+		}
+		$node = afl_genealogy_node($uid);
+		$rank = !empty($node->member_rank) ? $node->member_rank : 0;
+		$poll_per = afl_variable_get('pool_bonus_percentage_rank_'.$rank, '0');
+		return $poll_per;
+	}
+/*
+ * -----------------------------------------------
+ * 
+ * -----------------------------------------------
+*/
+	function afl_member_total_global_pool_bonus_earned_callback ($uid = '') {
+		if (empty($uid)) {
+			$uid = get_uid();
+		}
+
+		$afl_date_splits = afl_date_splits(afl_date());
+		$query = array();
+		$query['#select']  =_table_name('afl_global_pool_bonus_transactions');
+		$query['#where']   = array(
+			'hidden_transaction = 0',
+			'deleted = 0',
+			// 'transaction_month ='.$afl_date_splits['m'],
+			// 'transaction_year  ='.$afl_date_splits['y'],
+			'uid='.$uid
+		);
+		$query['#expression'] = array(
+			'SUM(amount_paid) as total'
+		);
+		$result = db_select($query, 'get_results');
+		return (!empty($result->total) ? afl_format_payment_amount($result->total,TRUE) : 0);
+	}
+/*
+ * ------------------------------------------------
+ * Member Personal volume
+ * ------------------------------------------------
+*/
+	function afl_member_personal_volume_callback ($uid = '') {
+		if (empty($uid)) {
+			$uid = get_uid();
+		}
+
+		return _get_user_pv($uid);
+	}
+/*
+ * ----------------------------------------------------
+ * Cancel a member account
+ * ----------------------------------------------------
+*/
+	function afl_member_account_cancelation_callback ($uid = '') {
+		require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/plan/common/afl-member-account-cancelation.php';
+		if (function_exists('_afl_member_account_cancel')) {
+			_afl_member_account_cancel();
+		}
 	}

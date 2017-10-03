@@ -88,7 +88,7 @@
 		$pagination = new CI_Pagination;
 
 		$config['total_rows'] =  count(_get_logs());
-		$config['base_url'] 	= '?'.http_build_query($_GET);
+		$config['base_url'] 	= '?page=affiliate-eps-recent-log-messages';
 		$config['per_page'] 	= 50;
 
 		

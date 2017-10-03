@@ -10,35 +10,37 @@
     $uid = $_GET['uid'];
    }
    // pr($uid);
-   $query = array();
-   $query['#select'] = 'wp_afl_user_downlines';
-   $query['#join']  = array(
-      'wp_users' => array(
-        '#condition' => '`wp_users`.`ID`=`wp_afl_user_downlines`.`downline_user_id`'
-      ),
-      'wp_afl_user_genealogy' => array(
-        '#condition' => '`wp_afl_user_genealogy`.`uid`=`wp_afl_user_downlines`.`downline_user_id`'
-      ),
-    );
-   $query['#fields']  = array(
-      'wp_users' => array(
+     $table_name = _table_name('afl_user_downlines');
+     $query = array();
+     $query['#select'] = $table_name;
+     $query['#join']  = array(
+        'wp_users' => array(
+          '#condition' => '`wp_users`.`ID`=`'._table_name('afl_user_downlines').'`.`downline_user_id`'
+        ),
+        _table_name('afl_user_genealogy') => array(
+          '#condition' => '`'._table_name('afl_user_genealogy').'`.`uid`=`'._table_name('afl_user_downlines').'`.`downline_user_id`'
+        ),
+      );
+    $query['#fields']  = array(
+      _table_name('users') => array(
         'display_name',
         'user_login',
         'ID'
       ),
-      'wp_afl_user_downlines' => array(
+      _table_name('afl_user_downlines') => array(
         'downline_user_id',
         'uid',
         'relative_position',
-        'level'
+        'level',
       ),
-      'wp_afl_user_genealogy' => array(
-        'parent_uid'
+      _table_name('afl_user_genealogy') => array(
+        'parent_uid',
+        'status'
       )
     );
    $query['#where'] = array(
-      '`wp_afl_user_downlines`.`uid`='.$uid.'',
-      '`wp_afl_user_downlines`.`level`=1',
+      '`'._table_name('afl_user_downlines').'`.`uid`='.$uid.'',
+      '`'._table_name('afl_user_downlines').'`.`level`=1',
     );
    $query['#order_by'] = array(
       '`level`' => 'ASC'
@@ -72,7 +74,13 @@ if (!empty($parent)) :
 
                     <div class="hv-item-parent">
                         <div class="person">
-                            <img src="<?= EPSAFFILIATE_PLUGIN_ASSETS.'images/avathar.png'; ?>" alt="">
+                            <?php 
+                              if ( $parent->status == 0 ){ ?>
+                                <img src="<?= EPSAFFILIATE_PLUGIN_ASSETS.'images/block.png'; ?>" alt="">
+                            <?php  } else { ?>
+                                <img src="<?= EPSAFFILIATE_PLUGIN_ASSETS.'images/avathar.png'; ?>" alt="">
+                            <?php }
+                            ?>
                             <p class="name">
                                 <?= $parent->user_login.' ('.$parent->ID.')'; ?>
                             </p>
@@ -89,7 +97,11 @@ if (!empty($parent)) :
                             <div class="hv-item">
                                   <div class="">
                                     <div class="person">
-                                        <img src="<?= EPSAFFILIATE_PLUGIN_ASSETS.'images/avathar.png'; ?>" alt="">
+                                       <?php  if ( $tree[$level[$i]]->status == 0 )
+                                              echo '<img src="'.EPSAFFILIATE_PLUGIN_ASSETS.'images/block.png'.'" alt="">';
+                                            else
+                                              echo '<img src="'.EPSAFFILIATE_PLUGIN_ASSETS.'images/avathar.png'.'" alt="">';
+                                        ?>
                                         <p class="name">
                                           <?= $tree[$level[$i]]->user_login.' ('.$tree[$level[$i]]->ID.')'; ?>
                                         </p>

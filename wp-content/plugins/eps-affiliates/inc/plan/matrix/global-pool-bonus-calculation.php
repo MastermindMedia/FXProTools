@@ -131,8 +131,11 @@ function _calculate_global_pool_bonus () {
 						 
 						 //check already paid the bonus
 						 $check = _check_global_pool_alredy_paid('this_month',$uid);
+						 
+						 //check he has a distrib kit
+						 $hs_distrib_kit = _has_distributor_kit_renewal($uid);
 
-						 	if (!$check) {
+						 	if ( !$check && $hs_distrib_kit ) {
 			 			 	 $rank_name 	= strtoupper(afl_variable_get('rank_'.$i.'_name','Rank '.$i));
 		 			 		 $transaction = array();
 						   $transaction['uid'] 								= $uid;

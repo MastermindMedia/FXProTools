@@ -4,7 +4,7 @@ add_action('init', 'common_scripts_load');
 function common_scripts_load(){
 
   wp_enqueue_style( 'fontawsome-css', EPSAFFILIATE_PLUGIN_ASSETS.'plugins/font-awesome-4.7.0/css/font-awesome.min.css');
-	wp_enqueue_style( 'bootstrap-css', EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css');
+	// wp_enqueue_style( 'bootstrap-css', EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css');
 
 
 
@@ -168,6 +168,14 @@ function eps_affiliates_admin_notices () {
 */
  add_action('wp_ajax_member_users_autocomplete', 'member_users_auto_complete_callback');
  add_action('wp_ajax_nopriv_member_users_autocomplete', 'member_users_auto_complete_callback');
+
+/*
+ * ------------------------------------------------------------
+ * Auto complete under a particular user downlines
+ * ------------------------------------------------------------
+*/
+ add_action('wp_ajax_member_downlines_autocomplete', 'member_downlines_auto_complete_callback');
+ add_action('wp_ajax_nopriv_member_downlines_autocomplete', 'member_downlines_auto_complete_callback');
 /*
  * ------------------------------------------------------------
  * Get the admin bar
@@ -478,6 +486,7 @@ function eps_affiliates_admin_notices () {
 			'affiliate-eps-my-customers',
 			'affiliate-eps-user-holding-toggle-placement',
 			'affiliate-eps-user-holding-genealogy-toggle-placement',
+			'affiliate-eps-direct-uplines-tree',
 
 			//unilevel network
 			'affiliate-eps-unilevel-user-network',
@@ -488,6 +497,7 @@ function eps_affiliates_admin_notices () {
 			'affiliate-eps-unilevel-add-new-customer',
 			'affiliate-eps-unilevel-my-customers',
 			'affiliate-eps-user-unilevel-holding-genealogy-toggle-placement',
+			'affiliate-eps-unilevel-direct-uplines-tree',
 
 			//e-wallet
 			'affiliate-eps-e-wallet-summary',
@@ -542,7 +552,9 @@ function eps_affiliates_admin_notices () {
 			'eps-test-codes',
 			'eps-fund-deposit',
 			'affiliate-eps-business-profit',
-			'affiliate-eps-remote-user-get'
+			'affiliate-eps-remote-user-get',
+			'affiliate-eps-shortcode-demo',
+			'affiliate-eps-processing-queue',
 		);
 
 		return apply_filters('eps_affiliates_style_applied_pages',$pages);

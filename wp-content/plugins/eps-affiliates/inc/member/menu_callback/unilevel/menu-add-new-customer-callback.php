@@ -54,9 +54,28 @@
 
     				$post_data['sponsor_uid'] = $matches[1];
 	        
-	        	//palce the user into the sposnosrs customer table
-    				do_action('eps_affiliates_place_customer_under_sponsor',$post_data['uid'] ,$post_data['sponsor_uid'] );
-    				do_action('eps_affiliates_unilevel_place_user_in_holding_tank',$post_data['uid'] ,$post_data['sponsor_uid'] );
+	        	
+	        	/*
+	        	 * ---------------------------------------------------------------------
+	        	 * If the sponsor is a customer, then place directly to the unilevel
+	        	 * genealogy
+	        	 * ---------------------------------------------------------------------
+	        	*/
+	        		$roles = afl_user_roles($post_data['sponsor_uid']);
+	        		
+	        		if (array_key_exists('afl_customer', $roles)) {
+	    					do_action('eps_affiliates_place_customer_under_sponsor',$post_data['uid'] ,$post_data['sponsor_uid'] );
+	    					do_action('eps_affiliates_unilevel_place_user_under_sponsor',$post_data['uid'] ,$post_data['sponsor_uid'] );
+	        			
+	        		} else {
+			        	//place the user into the sposnosrs customer table
+		    				do_action('eps_affiliates_place_customer_under_sponsor',$post_data['uid'] ,$post_data['sponsor_uid'] );
+		    				do_action('eps_affiliates_unilevel_place_user_in_holding_tank',$post_data['uid'] ,$post_data['sponsor_uid'] );
+		    			}
+
+
+
+
     				
 	        	$post_data['uid'] = $user_uid;
 	        	//extract sponsor uid
