@@ -186,7 +186,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 
 									<?php
 									$my_orders_columns = get_order_columns();
-									$customer_orders = get_purchases(get_current_user_id());
+									$customer_orders = get_purchased_items(get_current_user_id());
 									if ( $customer_orders ){ ?>
 										<p class="text-bold hide-on-cancel">Purchases</p>
 										<table class="shop_table shop_table_responsive my_account_orders">

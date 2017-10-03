@@ -123,7 +123,8 @@ function get_funnels()
 	return get_posts($args);
 }
 
-function property_occurence_count($array, $property, $value){
+function property_occurence_count($array, $property, $value)
+{
 	$count = 0;
 	foreach ($array as $object) {
 	    if ( preg_replace('{/$}', '', $object->{$property} ) == $value) $count++;
@@ -349,9 +350,9 @@ function forced_lesson_time()
 	} 
 }
 
-function get_trial_end_date(){
+function get_trial_end_date()
+{
 	$subscriptions = wcs_get_users_subscriptions();
-	
 	foreach($subscriptions as $s){
 		$related_orders_ids = $s->get_related_orders();
 
@@ -369,9 +370,7 @@ function get_trial_end_date(){
 		    }
 		}
 	}
-
 	return 0;
-
 }
 
 function is_user_fx_customer()
@@ -408,7 +407,8 @@ function user_has_coaching()
 	return wcs_user_has_subscription( '', 50, 'active');
 }
 
-function get_customer_orders($user_id){
+function get_customer_orders($user_id)
+{
 	$order_statuses = array('wc-on-hold', 'wc-processing', 'wc-completed', 'wc-pending', 'wc-cancelled', 'wc-refunded', 'wc-failed');
 	$customer_user_id = $user_id;
 
@@ -422,7 +422,8 @@ function get_customer_orders($user_id){
 	return $customer_orders;
 }
 
-function get_order_columns(){
+function get_order_columns()
+{
 	$my_orders_columns = apply_filters( 'woocommerce_my_account_my_orders_columns', array(
 		'order-number'  => __( 'Order', 'woocommerce' ),
 		'order-date'    => __( 'Date', 'woocommerce' ),
@@ -433,7 +434,8 @@ function get_order_columns(){
 	return $my_orders_columns;
 }
 
-function get_purchases($user_id){
+function get_purchased_items($user_id)
+{
 	$customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
 		'numberposts' => $order_count,
 		'meta_key'    => '_customer_user',
@@ -444,7 +446,8 @@ function get_purchases($user_id){
 	return $customer_orders;
 }
 
-function get_query_string(){
+function get_query_string()
+{
 	$string = '';
 	$counter = 1;
 	foreach($_GET as $key => $val){

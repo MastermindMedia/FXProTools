@@ -174,7 +174,7 @@ foreach($_POST as $user_key => $user_value)
 
 									<?php
 									$my_orders_columns = get_order_columns();
-									$customer_orders = get_purchases($_GET['id']);
+									$customer_orders = get_purchased_items($_GET['id']);
 									if ( $customer_orders ){ ?>
 										<p class="text-bold hide-on-cancel">Purchases</p>
 										<table class="shop_table shop_table_responsive my_account_orders">
