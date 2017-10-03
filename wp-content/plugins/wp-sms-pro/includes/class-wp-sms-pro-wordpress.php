@@ -151,7 +151,7 @@ class WP_SMS_Pro_Wordpress {
 		}
 
 		if ( empty( $message ) ) {
-			return '<div class="message">' . __( 'Please enter verification code', 'wp-sms-pro' ) . '<br></div>';
+			return '<div class="message">' . __( 'Please enter mobile verification code', 'wp-sms-pro' ) . '<br></div>';
 		} else {
 			return $message;
 		}
@@ -168,7 +168,7 @@ class WP_SMS_Pro_Wordpress {
 
 	public function check_user_login( $user_login, $user ) {
 		// Check user role
-		if ( ! isset( $user->caps['subscriber'] ) ) {
+		if ( isset( $user->allcaps['manage_options'] ) ) {
 			return;
 		}
 

@@ -1,16 +1,26 @@
+v2.2.8 (2017-09-30)
+- Supported with WP-Job-Manager for sending notifications to admin & employers.
+- Updated libraries and dependencies of gateways.
+- Updated smsfactor.com gateway.
+
+v2.2.7 (2017-09-09)
+- Added Order number variable to Woocommerce notifications message (Notify for new order for admin and customer).
+- Fixed issue in verify mobile number when user registered in Woocommerce.
+- Improvement getting mobile number in BoddyPress & Woocommerce.
+
 v2.2.6 (2017-06-08)
-- WordPress 3.8 compatibility
+- WordPress 4.8 compatibility
 - Supported sending bulk message for bulksms and clickatell gateway
 
 v2.2.5 (2017-03-24)
-- Fixes smsapi.com gateway to get credit and sending sms
-- Fixes clockworksms.com gateway to get credit
-- Fixes yamamah.com gateway to sending sms
-- Fixes mobily.ws gateway to sending sms
+- Fixed smsapi.com gateway to get credit and sending sms
+- Fixed clockworksms.com gateway to get credit
+- Fixed yamamah.com gateway to sending sms
+- Fixed mobily.ws gateway to sending sms
 
 v2.2.4 (2017-02-04)
 - Improvement request to the gateway
-- Fixes twilio gateway to get credit
+- Fixed twilio gateway to get credit
 - Updated German translations
 
 v2.2.3 (2017-01-24)

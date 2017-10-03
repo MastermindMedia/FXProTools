@@ -86,7 +86,6 @@ class AbstractApiClient
         }
 
         $opts = array(
-            CURLOPT_SSL_VERIFYPEER => false,
             CURLOPT_FRESH_CONNECT => 1,
             CURLOPT_CONNECTTIMEOUT => 60,
             CURLOPT_TIMEOUT => 120,

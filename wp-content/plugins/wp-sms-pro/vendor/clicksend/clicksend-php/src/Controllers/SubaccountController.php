@@ -2,7 +2,7 @@
 /*
  * ClickSend
  *
- * This file was automatically generated for ClickSend by APIMATIC v2.0 ( https://apimatic.io ) on 06/01/2016
+ * This file was automatically generated for ClickSend by APIMATIC v2.0 ( https://apimatic.io ).
  */
 
 namespace ClickSendLib\Controllers;
@@ -11,19 +11,23 @@ use ClickSendLib\APIException;
 use ClickSendLib\APIHelper;
 use ClickSendLib\Configuration;
 use ClickSendLib\Models;
+use ClickSendLib\Exceptions;
+use ClickSendLib\Http\HttpRequest;
+use ClickSendLib\Http\HttpResponse;
+use ClickSendLib\Http\HttpMethod;
+use ClickSendLib\Http\HttpContext;
 use Unirest\Request;
-use \apimatic\jsonmapper\JsonMapper;
 
 /**
  * @todo Add a general description for this controller.
  */
-class SubaccountController {
-
+class SubaccountController extends BaseController
+{
     /**
      * @var SubaccountController The reference to *Singleton* instance of this class
      */
     private static $instance;
-    
+
     /**
      * Returns the *Singleton* instance of this class.
      * @return SubaccountController The *Singleton* instance.
@@ -39,9 +43,13 @@ class SubaccountController {
 
     /**
      * Get all subaccounts
-     * @return string response from the API call*/
-    public function getSubaccounts () 
+     *
+     * @return string response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function getSubaccounts()
     {
+
         //the base uri for api requests
         $_queryBuilder = Configuration::$BASEURI;
         
@@ -59,158 +67,107 @@ class SubaccountController {
         //set HTTP basic auth parameters
         Request::auth(Configuration::$username, Configuration::$key);
 
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::GET, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
         //and invoke the API call request to fetch the response
         $response = Request::get($_queryUrl, $_headers);
 
-        //Error handling using HTTP status codes
-        if ($response->code == 400) {
-            throw new APIException('BAD_REQUEST', 400, $response->body);
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
         }
 
-        else if ($response->code == 401) {
-            throw new APIException('UNAUTHORIZED', 401, $response->body);
-        }
-
-        else if ($response->code == 403) {
-            throw new APIException('FORBIDDEN', 403, $response->body);
-        }
-
-        else if ($response->code == 404) {
-            throw new APIException('NOT_FOUND', 404, $response->body);
-        }
-
-        else if ($response->code == 405) {
-            throw new APIException('METHOD_NOT_FOUND', 405, $response->body);
-        }
-
-        else if ($response->code == 429) {
-            throw new APIException('TOO_MANY_REQUESTS', 429, $response->body);
-        }
-
-        else if ($response->code == 500) {
-            throw new APIException('INTERNAL_SERVER_ERROR', 500, $response->body);
-        }
-
-        else if (($response->code < 200) || ($response->code > 206)) { //[200,206] = HTTP OK
-            throw new APIException("HTTP Response Not OK", $response->code, $response->body);
-        }
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
 
         return $response->body;
     }
-        
+
     /**
-     * Create new subaccount
-     * @param  array         $apiUsername          Required parameter: Your new api username.
-     * @param  string        $password             Required parameter: Your new password
-     * @param  string        $email                Required parameter: Your new email.
-     * @param  string        $phoneNumber          Required parameter: Your phone number in E.164 format.
-     * @param  string        $firstName            Required parameter: Your firstname
-     * @param  string        $lastName             Required parameter: Your lastname
-     * @param  bool|null     $accessUsers          Optional parameter: Your access users flag value, must be 1 or 0.
-     * @param  bool|null     $accessBilling        Optional parameter: Your access billing flag value, must be 1 or 0.
-     * @param  bool|null     $accessReporting      Optional parameter: Your access reporting flag value, must be 1 or 0.
-     * @param  bool|null     $accessContacts       Optional parameter: Your access contacts flag value, must be 1 or 0.
-     * @param  bool|null     $accessSettings       Optional parameter: Your access settings flag value, must be 1 or 0.
-     * @return string response from the API call*/
-    public function createSubaccount (
-                $apiUsername,
-                $password,
-                $email,
-                $phoneNumber,
-                $firstName,
-                $lastName,
-                $accessUsers = true,
-                $accessBilling = true,
-                $accessReporting = true,
-                $accessContacts = false,
-                $accessSettings = true) 
-    { 
+     * Update subaccount
+     *
+     * @param integer           $subaccountId  TODO: type description here
+     * @param Models\Subaccount $subaccount    TODO: type description here
+     * @return string response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function updateSubaccount(
+        $subaccountId,
+        $subaccount
+    ) {
         //check that all required arguments are provided
-        if(!isset($apiUsername, $password, $email, $phoneNumber, $firstName, $lastName))
+        if (!isset($subaccountId, $subaccount)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
 
 
         //the base uri for api requests
         $_queryBuilder = Configuration::$BASEURI;
         
         //prepare query string for API call
-        $_queryBuilder = $_queryBuilder.'/subaccounts';
+        $_queryBuilder = $_queryBuilder.'/subaccounts/{subaccount_id}';
 
         //process optional query parameters
-        APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
-            'api_username'     => $apiUsername,
-            'password'         => $password,
-            'email'            => $email,
-            'phone_number'     => $phoneNumber,
-            'first_name'       => $firstName,
-            'last_name'        => $lastName,
-            'access_users'     => (null != $accessUsers) ? var_export($accessUsers, true) : true,
-            'access_billing'   => (null != $accessBilling) ? var_export($accessBilling, true) : true,
-            'access_reporting' => (null != $accessReporting) ? var_export($accessReporting, true) : true,
-            'access_contacts'  => (null != $accessContacts) ? var_export($accessContacts, true) : false,
-            'access_settings'  => (null != $accessSettings) ? var_export($accessSettings, true) : true,
-        ));
+        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
+            'subaccount_id' => $subaccountId,
+            ));
 
         //validate and preprocess url
         $_queryUrl = APIHelper::cleanUrl($_queryBuilder);
 
         //prepare headers
         $_headers = array (
-            'user-agent'     => 'ClickSendSDK'
+            'user-agent'    => 'ClickSendSDK',
+            'content-type'  => 'application/json; charset=utf-8'
         );
 
         //set HTTP basic auth parameters
         Request::auth(Configuration::$username, Configuration::$key);
 
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::PUT, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
         //and invoke the API call request to fetch the response
-        $response = Request::post($_queryUrl, $_headers);
+        $response = Request::put($_queryUrl, $_headers, Request\Body::Json($subaccount));
 
-        //Error handling using HTTP status codes
-        if ($response->code == 400) {
-            throw new APIException('BAD_REQUEST', 400, $response->body);
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
         }
 
-        else if ($response->code == 401) {
-            throw new APIException('UNAUTHORIZED', 401, $response->body);
-        }
-
-        else if ($response->code == 403) {
-            throw new APIException('FORBIDDEN', 403, $response->body);
-        }
-
-        else if ($response->code == 404) {
-            throw new APIException('NOT_FOUND', 404, $response->body);
-        }
-
-        else if ($response->code == 405) {
-            throw new APIException('METHOD_NOT_FOUND', 405, $response->body);
-        }
-
-        else if ($response->code == 429) {
-            throw new APIException('TOO_MANY_REQUESTS', 429, $response->body);
-        }
-
-        else if ($response->code == 500) {
-            throw new APIException('INTERNAL_SERVER_ERROR', 500, $response->body);
-        }
-
-        else if (($response->code < 200) || ($response->code > 206)) { //[200,206] = HTTP OK
-            throw new APIException("HTTP Response Not OK", $response->code, $response->body);
-        }
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
 
         return $response->body;
     }
-        
+
     /**
      * Get specific subaccount
-     * @param  int     $subaccountId      Required parameter: Example: 
-     * @return string response from the API call*/
-    public function getSubaccount (
-                $subaccountId) 
-    { 
+     *
+     * @param integer $subaccountId  TODO: type description here
+     * @return string response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function getSubaccount(
+        $subaccountId
+    ) {
         //check that all required arguments are provided
-        if(!isset($subaccountId))
+        if (!isset($subaccountId)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
 
 
         //the base uri for api requests
@@ -220,7 +177,7 @@ class SubaccountController {
         $_queryBuilder = $_queryBuilder.'/subaccounts/{subaccount_id}';
 
         //process optional query parameters
-        APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
+        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
             'subaccount_id' => $subaccountId,
             ));
 
@@ -234,56 +191,44 @@ class SubaccountController {
 
         //set HTTP basic auth parameters
         Request::auth(Configuration::$username, Configuration::$key);
+
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::GET, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
 
         //and invoke the API call request to fetch the response
         $response = Request::get($_queryUrl, $_headers);
 
-        //Error handling using HTTP status codes
-        if ($response->code == 400) {
-            throw new APIException('BAD_REQUEST', 400, $response->body);
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
         }
 
-        else if ($response->code == 401) {
-            throw new APIException('UNAUTHORIZED', 401, $response->body);
-        }
-
-        else if ($response->code == 403) {
-            throw new APIException('FORBIDDEN', 403, $response->body);
-        }
-
-        else if ($response->code == 404) {
-            throw new APIException('NOT_FOUND', 404, $response->body);
-        }
-
-        else if ($response->code == 405) {
-            throw new APIException('METHOD_NOT_FOUND', 405, $response->body);
-        }
-
-        else if ($response->code == 429) {
-            throw new APIException('TOO_MANY_REQUESTS', 429, $response->body);
-        }
-
-        else if ($response->code == 500) {
-            throw new APIException('INTERNAL_SERVER_ERROR', 500, $response->body);
-        }
-
-        else if (($response->code < 200) || ($response->code > 206)) { //[200,206] = HTTP OK
-            throw new APIException("HTTP Response Not OK", $response->code, $response->body);
-        }
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
 
         return $response->body;
     }
-        
+
     /**
      * Delete a subaccount
-     * @param  int     $subaccountId      Required parameter: Example: 
-     * @return string response from the API call*/
-    public function deleteSubaccount (
-                $subaccountId) 
-    { 
+     *
+     * @param integer $subaccountId  TODO: type description here
+     * @return string response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function deleteSubaccount(
+        $subaccountId
+    ) {
         //check that all required arguments are provided
-        if(!isset($subaccountId))
+        if (!isset($subaccountId)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
 
 
         //the base uri for api requests
@@ -293,7 +238,7 @@ class SubaccountController {
         $_queryBuilder = $_queryBuilder.'/subaccounts/{subaccount_id}';
 
         //process optional query parameters
-        APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
+        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
             'subaccount_id' => $subaccountId,
             ));
 
@@ -307,56 +252,44 @@ class SubaccountController {
 
         //set HTTP basic auth parameters
         Request::auth(Configuration::$username, Configuration::$key);
+
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::DELETE, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
 
         //and invoke the API call request to fetch the response
         $response = Request::delete($_queryUrl, $_headers);
 
-        //Error handling using HTTP status codes
-        if ($response->code == 400) {
-            throw new APIException('BAD_REQUEST', 400, $response->body);
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
         }
 
-        else if ($response->code == 401) {
-            throw new APIException('UNAUTHORIZED', 401, $response->body);
-        }
-
-        else if ($response->code == 403) {
-            throw new APIException('FORBIDDEN', 403, $response->body);
-        }
-
-        else if ($response->code == 404) {
-            throw new APIException('NOT_FOUND', 404, $response->body);
-        }
-
-        else if ($response->code == 405) {
-            throw new APIException('METHOD_NOT_FOUND', 405, $response->body);
-        }
-
-        else if ($response->code == 429) {
-            throw new APIException('TOO_MANY_REQUESTS', 429, $response->body);
-        }
-
-        else if ($response->code == 500) {
-            throw new APIException('INTERNAL_SERVER_ERROR', 500, $response->body);
-        }
-
-        else if (($response->code < 200) || ($response->code > 206)) { //[200,206] = HTTP OK
-            throw new APIException("HTTP Response Not OK", $response->code, $response->body);
-        }
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
 
         return $response->body;
     }
-        
+
     /**
      * Regenerate an API Key
-     * @param  int     $subaccountId      Required parameter: Example: 
-     * @return string response from the API call*/
-    public function regenerateApiKey (
-                $subaccountId) 
-    { 
+     *
+     * @param integer $subaccountId  TODO: type description here
+     * @return string response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function regenerateApiKey(
+        $subaccountId
+    ) {
         //check that all required arguments are provided
-        if(!isset($subaccountId))
+        if (!isset($subaccountId)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
 
 
         //the base uri for api requests
@@ -366,7 +299,7 @@ class SubaccountController {
         $_queryBuilder = $_queryBuilder.'/subaccounts/{subaccount_id}/regen-api-key';
 
         //process optional query parameters
-        APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
+        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
             'subaccount_id' => $subaccountId,
             ));
 
@@ -381,160 +314,83 @@ class SubaccountController {
         //set HTTP basic auth parameters
         Request::auth(Configuration::$username, Configuration::$key);
 
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::PUT, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
         //and invoke the API call request to fetch the response
         $response = Request::put($_queryUrl, $_headers);
 
-        //Error handling using HTTP status codes
-        if ($response->code == 400) {
-            throw new APIException('BAD_REQUEST', 400, $response->body);
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
         }
 
-        else if ($response->code == 401) {
-            throw new APIException('UNAUTHORIZED', 401, $response->body);
-        }
-
-        else if ($response->code == 403) {
-            throw new APIException('FORBIDDEN', 403, $response->body);
-        }
-
-        else if ($response->code == 404) {
-            throw new APIException('NOT_FOUND', 404, $response->body);
-        }
-
-        else if ($response->code == 405) {
-            throw new APIException('METHOD_NOT_FOUND', 405, $response->body);
-        }
-
-        else if ($response->code == 429) {
-            throw new APIException('TOO_MANY_REQUESTS', 429, $response->body);
-        }
-
-        else if ($response->code == 500) {
-            throw new APIException('INTERNAL_SERVER_ERROR', 500, $response->body);
-        }
-
-        else if (($response->code < 200) || ($response->code > 206)) { //[200,206] = HTTP OK
-            throw new APIException("HTTP Response Not OK", $response->code, $response->body);
-        }
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
 
         return $response->body;
     }
-        
+
     /**
-     * Update subaccount
-     * @param  int             $subaccountId         Required parameter: Example: 
-     * @param  string|null     $password             Optional parameter: Example: 
-     * @param  string|null     $email                Optional parameter: Example: 
-     * @param  string|null     $phoneNumber          Optional parameter: Example: 
-     * @param  string|null     $firstName            Optional parameter: Example: 
-     * @param  string|null     $lastName             Optional parameter: Example: 
-     * @param  bool|null       $accessUsers          Optional parameter: Example: true
-     * @param  bool|null       $accessBilling        Optional parameter: Example: true
-     * @param  bool|null       $accessReporting      Optional parameter: Example: true
-     * @param  bool|null       $accessContacts       Optional parameter: Example: false
-     * @param  bool|null       $accessSettings       Optional parameter: Example: true
-     * @return string response from the API call*/
-    public function updateSubaccount (
-                $subaccountId,
-                $password = NULL,
-                $email = NULL,
-                $phoneNumber = NULL,
-                $firstName = NULL,
-                $lastName = NULL,
-                $accessUsers = true,
-                $accessBilling = true,
-                $accessReporting = true,
-                $accessContacts = false,
-                $accessSettings = true) 
-    { 
+     * Create new subaccount
+     *
+     * @param Models\Subaccount $subaccount TODO: type description here
+     * @return string response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function createSubaccount(
+        $subaccount
+    ) {
         //check that all required arguments are provided
-        if(!isset($subaccountId))
+        if (!isset($subaccount)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
 
 
         //the base uri for api requests
         $_queryBuilder = Configuration::$BASEURI;
         
         //prepare query string for API call
-        $_queryBuilder = $_queryBuilder.'/subaccounts/{subaccount_id}';
-
-        //process optional query parameters
-        APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
-            'subaccount_id'    => $subaccountId,
-            ));
-
-        //process optional query parameters
-        APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
-            'password'         => $password,
-            'email'            => $email,
-            'phone_number'     => $phoneNumber,
-            'first_name'       => $firstName,
-            'last_name'        => $lastName,
-            'access_users'     => (null != $accessUsers) ? var_export($accessUsers, true) : true,
-            'access_billing'   => (null != $accessBilling) ? var_export($accessBilling, true) : true,
-            'access_reporting' => (null != $accessReporting) ? var_export($accessReporting, true) : true,
-            'access_contacts'  => (null != $accessContacts) ? var_export($accessContacts, true) : false,
-            'access_settings'  => (null != $accessSettings) ? var_export($accessSettings, true) : true,
-        ));
+        $_queryBuilder = $_queryBuilder.'/subaccounts';
 
         //validate and preprocess url
         $_queryUrl = APIHelper::cleanUrl($_queryBuilder);
 
         //prepare headers
         $_headers = array (
-            'user-agent'     => 'ClickSendSDK'
+            'user-agent'    => 'ClickSendSDK',
+            'content-type'  => 'application/json; charset=utf-8'
         );
 
         //set HTTP basic auth parameters
         Request::auth(Configuration::$username, Configuration::$key);
 
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::POST, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
         //and invoke the API call request to fetch the response
-        $response = Request::put($_queryUrl, $_headers);
+        $response = Request::post($_queryUrl, $_headers, Request\Body::Json($subaccount));
 
-        //Error handling using HTTP status codes
-        if ($response->code == 400) {
-            throw new APIException('BAD_REQUEST', 400, $response->body);
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
         }
 
-        else if ($response->code == 401) {
-            throw new APIException('UNAUTHORIZED', 401, $response->body);
-        }
-
-        else if ($response->code == 403) {
-            throw new APIException('FORBIDDEN', 403, $response->body);
-        }
-
-        else if ($response->code == 404) {
-            throw new APIException('NOT_FOUND', 404, $response->body);
-        }
-
-        else if ($response->code == 405) {
-            throw new APIException('METHOD_NOT_FOUND', 405, $response->body);
-        }
-
-        else if ($response->code == 429) {
-            throw new APIException('TOO_MANY_REQUESTS', 429, $response->body);
-        }
-
-        else if ($response->code == 500) {
-            throw new APIException('INTERNAL_SERVER_ERROR', 500, $response->body);
-        }
-
-        else if (($response->code < 200) || ($response->code > 206)) { //[200,206] = HTTP OK
-            throw new APIException("HTTP Response Not OK", $response->code, $response->body);
-        }
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
 
         return $response->body;
-    }
-        
-
-    /**
-     * Get a new JsonMapper instance for mapping objects
-     * @return \apimatic\jsonmapper\JsonMapper JsonMapper instance
-     */
-    protected function getJsonMapper()
-    {
-        $mapper = new JsonMapper();
-        return $mapper;
     }
 }

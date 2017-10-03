@@ -13,7 +13,7 @@ use Nexmo\Client\Credentials\Container;
 use Nexmo\Client\Credentials\CredentialsInterface;
 use Nexmo\Client\Credentials\Keypair;
 use Nexmo\Client\Credentials\OAuth;
-use Nexmo\Client\Credentials\SharedSecret;
+use Nexmo\Client\Credentials\SignatureSecret;
 use Nexmo\Client\Factory\FactoryInterface;
 use Nexmo\Client\Factory\MapFactory;
 use Nexmo\Client\Response\Response;
@@ -22,20 +22,23 @@ use Nexmo\Entity\EntityInterface;
 use Nexmo\Verify\Verification;
 use Psr\Http\Message\RequestInterface;
 use Zend\Diactoros\Uri;
+use Zend\Diactoros\Request;
 
 /**
  * Nexmo API Client, allows access to the API from PHP.
  *
  * @property \Nexmo\Message\Client $message
+ * @property \Nexmo\Call\Collection|\Nexmo\Call\Call[] $calls
+ *
  * @method \Nexmo\Message\Client message()
  * @method \Nexmo\Verify\Client  verify()
  * @method \Nexmo\Application\Client applications()
- * @method \Nexmo\Calls\Client calls()
+ * @method \Nexmo\Call\Collection calls()
  * @method \Nexmo\Numbers\Client numbers()
  */
 class Client
 {
-    const VERSION = '1.0.0-beta1';
+    const VERSION = '1.0.0';
 
     const BASE_API  = 'https://api.nexmo.com';
     const BASE_REST = 'https://rest.nexmo.com';
@@ -74,7 +77,7 @@ class Client
         $this->setHttpClient($client);
 
         //make sure we know how to use the credentials
-        if(!($credentials instanceof Container) && !($credentials instanceof Basic) && !($credentials instanceof SharedSecret) && !($credentials instanceof OAuth)){
+        if(!($credentials instanceof Container) && !($credentials instanceof Basic) && !($credentials instanceof SignatureSecret) && !($credentials instanceof OAuth) && !($credentials instanceof Keypair)){
             throw new \RuntimeException('unknown credentials type: ' . get_class($credentials));
         }
 
@@ -82,12 +85,19 @@ class Client
 
         $this->options = $options;
 
+        // If they've provided an app name, validate it
+        if (isset($options['app'])) {
+            $this->validateAppOptions($options['app']);
+        }
+
         $this->setFactory(new MapFactory([
+            'account' => 'Nexmo\Account\Client',
+            'insights' => 'Nexmo\Insights\Client',
             'message' => 'Nexmo\Message\Client',
             'verify'  => 'Nexmo\Verify\Client',
             'applications' => 'Nexmo\Application\Client',
             'numbers' => 'Nexmo\Numbers\Client',
-            'calls' => 'Nexmo\Calls\Client',
+            'calls' => 'Nexmo\Call\Collection',
         ], $this));
     }
 
@@ -133,7 +143,7 @@ class Client
      * @param Signature $signature
      * @return RequestInterface
      */
-    public static function signRequest(RequestInterface $request, SharedSecret $credentials)
+    public static function signRequest(RequestInterface $request, SignatureSecret $credentials)
     {
         switch($request->getHeaderLine('content-type')){
             case 'application/json':
@@ -142,7 +152,7 @@ class Client
                 $content = $body->getContents();
                 $params = json_decode($content, true);
                 $params['api_key'] = $credentials['api_key'];
-                $signature = new Signature($params, $credentials['shared_secret']);
+                $signature = new Signature($params, $credentials['signature_secret']);
                 $body->rewind();
                 $body->write(json_encode($signature->getSignedParams()));
                 break;
@@ -153,7 +163,7 @@ class Client
                 $params = [];
                 parse_str($content, $params);
                 $params['api_key'] = $credentials['api_key'];
-                $signature = new Signature($params, $credentials['shared_secret']);
+                $signature = new Signature($params, $credentials['signature_secret']);
                 $params = $signature->getSignedParams();
                 $body->rewind();
                 $body->write(http_build_query($params, null, '&'));
@@ -162,7 +172,7 @@ class Client
                 $query = [];
                 parse_str($request->getUri()->getQuery(), $query);
                 $query['api_key'] = $credentials['api_key'];
-                $signature = new Signature($query, $credentials['shared_secret']);
+                $signature = new Signature($query, $credentials['signature_secret']);
                 $request = $request->withUri($request->getUri()->withQuery(http_build_query($signature->getSignedParams())));
                 break;
         }
@@ -172,17 +182,6 @@ class Client
 
     public static function authRequest(RequestInterface $request, Basic $credentials)
     {
-        $path = $request->getUri()->getPath();
-
-        //todo: needs to be tested
-        if(0 === strpos($path, '/v1/applications')){
-            $query = [];
-            parse_str($request->getUri()->getQuery(), $query);
-            $query = array_merge($query, $credentials->asArray());
-            $request = $request->withUri($request->getUri()->withQuery(http_build_query($query)));
-            return $request;
-        }
-
         switch($request->getHeaderLine('content-type')){
             case 'application/json':
                 $body = $request->getBody();
@@ -215,6 +214,83 @@ class Client
     }
     
     /**
+     * Takes a URL and a key=>value array to generate a GET PSR-7 request object
+     *
+     * @param string $url The URL to make a request to
+     * @param array $params Key=>Value array of data to use as the query string
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function get($url, array $params = [])
+    {
+       $queryString = '?' . http_build_query($params);
+
+       $url = $url . $queryString;
+
+       $request = new Request(
+            $url,
+            'GET'
+        );
+
+        return $this->send($request);
+    }
+
+    /**
+     * Takes a URL and a key=>value array to generate a POST PSR-7 request object
+     *
+     * @param string $url The URL to make a request to
+     * @param array $params Key=>Value array of data to send
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function post($url, array $params)
+    {
+        $request = new Request(
+            $url,
+            'POST',
+            'php://temp',
+            ['content-type' => 'application/json']
+        );
+
+        $request->getBody()->write(json_encode($params));
+        return $this->send($request);
+    }
+
+    /**
+     * Takes a URL and a key=>value array to generate a PUT PSR-7 request object
+     *
+     * @param string $url The URL to make a request to
+     * @param array $params Key=>Value array of data to send
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function put($url, array $params)
+    {
+        $request = new Request(
+            $url,
+            'PUT',
+            'php://temp',
+            ['content-type' => 'application/json']
+        );
+
+        $request->getBody()->write(json_encode($params));
+        return $this->send($request);
+    }
+
+    /**
+     * Takes a URL and a key=>value array to generate a DELETE PSR-7 request object
+     *
+     * @param string $url The URL to make a request to
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function delete($url)
+    {
+        $request = new Request(
+            $url,
+            'DELETE'
+        );
+
+        return $this->send($request);
+    }
+
+     /**
      * Wraps the HTTP Client, creates a new PSR-7 request adding authentication, signatures, etc.
      *
      * @param \Psr\Http\Message\RequestInterface $request
@@ -223,14 +299,14 @@ class Client
     public function send(\Psr\Http\Message\RequestInterface $request)
     {
         if($this->credentials instanceof Container) {
-            if (strpos($request->getUri()->getPath(), '/v1/calls') === 0) {
-                $request = $request->withHeader('Authorization', 'Bearer ' . $this->credentials->get(Keypair::class)->getJwt());
+            if ($this->needsKeypairAuthentication($request)) {
+                $request = $request->withHeader('Authorization', 'Bearer ' . $this->credentials->get(Keypair::class)->generateJwt());
             } else {
                 $request = self::authRequest($request, $this->credentials->get(Basic::class));
             }
         } elseif($this->credentials instanceof Keypair){
-            $request = $request->withHeader('Authorization', 'Bearer ' . $this->credentials->get(Keypair::class)->getJwt());
-        } elseif($this->credentials instanceof SharedSecret){
+            $request = $request->withHeader('Authorization', 'Bearer ' . $this->credentials->generateJwt());
+        } elseif($this->credentials instanceof SignatureSecret){
             $request = self::signRequest($request, $this->credentials);
         } elseif($this->credentials instanceof Basic){
             $request = self::authRequest($request, $this->credentials);
@@ -250,15 +326,43 @@ class Client
             }
         }
 
-        //set the user-agent
-        $request = $request->withHeader('user-agent', implode('/', [
-            'nexmo-php',
-            self::VERSION,
-            'PHP-' . implode('.', [PHP_MAJOR_VERSION, PHP_MINOR_VERSION])
-        ]));
+        // The user agent must be in the following format:
+        // LIBRARY-NAME/LIBRARY-VERSION LANGUAGE-NAME/LANGUAGE-VERSION [APP-NAME/APP-VERSION]
+        // See https://github.com/Nexmo/client-library-specification/blob/master/SPECIFICATION.md#reporting
+        $userAgent = [];
+
+        // Library name
+        $userAgent[] = 'nexmo-php/'.self::VERSION;
+
+        // Language name
+        $userAgent[] = 'php/'.PHP_MAJOR_VERSION.'.'.PHP_MINOR_VERSION;
+
+        // If we have an app set, add that to the UA
+        if (isset($this->options['app'])) {
+            $app = $this->options['app'];
+            $userAgent[] = $app['name'].'/'.$app['version'];
+        }
+
+        // Set the header. Build by joining all the parts we have with a space
+        $request = $request->withHeader('user-agent', implode(" ", $userAgent));
 
         $response = $this->client->sendRequest($request);
         return $response;
+    }
+
+    protected function validateAppOptions($app) {
+        $disallowedCharacters = ['/', ' ', "\t", "\n"];
+        foreach (['name', 'version'] as $key) {
+            if (!isset($app[$key])) {
+                throw new \InvalidArgumentException('app.'.$key.' has not been set');
+            }
+
+            foreach ($disallowedCharacters as $char) {
+                if (strpos($app[$key], $char) !== false) {
+                    throw new \InvalidArgumentException('app.'.$key.' cannot contain the '.$char.' character');
+                }
+            }
+        }
     }
 
     public function serialize(EntityInterface $entity)
@@ -289,6 +393,30 @@ class Client
             throw new \RuntimeException('no api namespace found: ' . $name);
         }
 
+        $collection = $this->factory->getApi($name);
+
+        if(empty($args)){
+            return $collection;
+        }
+
+        return call_user_func_array($collection, $args);
+    }
+
+    public function __get($name)
+    {
+        if(!$this->factory->hasApi($name)){
+            throw new \RuntimeException('no api namespace found: ' . $name);
+        }
+
         return $this->factory->getApi($name);
+    }
+
+    protected function needsKeypairAuthentication(\Psr\Http\Message\RequestInterface $request)
+    {
+        $path = $request->getUri()->getPath();
+        $isCallEndpoint = strpos($path, '/v1/calls') === 0;
+        $isRecordingUrl = strpos($path, '/v1/files') === 0;
+
+        return $isCallEndpoint || $isRecordingUrl;
     }
 }

@@ -2,7 +2,7 @@
 /*
  * ClickSend
  *
- * This file was automatically generated for ClickSend by APIMATIC v2.0 ( https://apimatic.io ) on 06/01/2016
+ * This file was automatically generated for ClickSend by APIMATIC v2.0 ( https://apimatic.io ).
  */
 
 namespace ClickSendLib\Controllers;
@@ -11,19 +11,23 @@ use ClickSendLib\APIException;
 use ClickSendLib\APIHelper;
 use ClickSendLib\Configuration;
 use ClickSendLib\Models;
+use ClickSendLib\Exceptions;
+use ClickSendLib\Http\HttpRequest;
+use ClickSendLib\Http\HttpResponse;
+use ClickSendLib\Http\HttpMethod;
+use ClickSendLib\Http\HttpContext;
 use Unirest\Request;
-use \apimatic\jsonmapper\JsonMapper;
 
 /**
  * @todo Add a general description for this controller.
  */
-class AccountController {
-
+class AccountController extends BaseController
+{
     /**
      * @var AccountController The reference to *Singleton* instance of this class
      */
     private static $instance;
-    
+
     /**
      * Returns the *Singleton* instance of this class.
      * @return AccountController The *Singleton* instance.
@@ -39,9 +43,13 @@ class AccountController {
 
     /**
      * Get account details
-     * @return string response from the API call*/
-    public function getAccount () 
+     *
+     * @return string response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function getAccount()
     {
+
         //the base uri for api requests
         $_queryBuilder = Configuration::$BASEURI;
         
@@ -58,70 +66,44 @@ class AccountController {
 
         //set HTTP basic auth parameters
         Request::auth(Configuration::$username, Configuration::$key);
+
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::GET, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
 
         //and invoke the API call request to fetch the response
         $response = Request::get($_queryUrl, $_headers);
 
-        //Error handling using HTTP status codes
-        if ($response->code == 400) {
-            throw new APIException('BAD_REQUEST', 400, $response->body);
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
         }
 
-        else if ($response->code == 401) {
-            throw new APIException('UNAUTHORIZED', 401, $response->body);
-        }
-
-        else if ($response->code == 403) {
-            throw new APIException('FORBIDDEN', 403, $response->body);
-        }
-
-        else if ($response->code == 404) {
-            throw new APIException('NOT_FOUND', 404, $response->body);
-        }
-
-        else if ($response->code == 405) {
-            throw new APIException('METHOD_NOT_FOUND', 405, $response->body);
-        }
-
-        else if ($response->code == 429) {
-            throw new APIException('TOO_MANY_REQUESTS', 429, $response->body);
-        }
-
-        else if ($response->code == 500) {
-            throw new APIException('INTERNAL_SERVER_ERROR', 500, $response->body);
-        }
-
-        else if (($response->code < 200) || ($response->code > 206)) { //[200,206] = HTTP OK
-            throw new APIException("HTTP Response Not OK", $response->code, $response->body);
-        }
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
 
         return $response->body;
     }
-        
+
     /**
      * Create An Account
-     * @param  string     $username            Required parameter: Your username
-     * @param  string     $password            Required parameter: Your password
-     * @param  string     $userPhone           Required parameter: Your phone number in E.164 format.
-     * @param  string     $userEmail           Required parameter: Your email
-     * @param  string     $userFirstName       Required parameter: Your firstname
-     * @param  string     $userLastName        Required parameter: Your lastname
-     * @param  string     $accountName         Required parameter: Your delivery to value.
-     * @param  string     $country             Required parameter: Your country
-     * @return string response from the API call*/
-    public function createAccount (
-                $username,
-                $password,
-                $userPhone,
-                $userEmail,
-                $userFirstName,
-                $userLastName,
-                $accountName,
-                $country) 
-    { 
+     *
+     * @param array $account TODO: type description here
+     * @return string response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function createAccount(
+        $account
+    ) {
         //check that all required arguments are provided
-        if(!isset($username, $password, $userPhone, $userEmail, $userFirstName, $userLastName, $accountName, $country))
+        if (!isset($account)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
 
 
         //the base uri for api requests
@@ -130,82 +112,59 @@ class AccountController {
         //prepare query string for API call
         $_queryBuilder = $_queryBuilder.'/account';
 
-        //process optional query parameters
-        APIHelper::appendUrlWithQueryParameters($_queryBuilder, array (
-            'username'        => $username,
-            'password'        => $password,
-            'user_phone'      => $userPhone,
-            'user_email'      => $userEmail,
-            'user_first_name' => $userFirstName,
-            'user_last_name'  => $userLastName,
-            'account_name'    => $accountName,
-            'country'         => $country,
-        ));
-
         //validate and preprocess url
         $_queryUrl = APIHelper::cleanUrl($_queryBuilder);
 
         //prepare headers
         $_headers = array (
-            'user-agent'    => 'ClickSendSDK'
+            'user-agent'    => 'ClickSendSDK',
+            'content-type'  => 'application/json; charset=utf-8'
         );
 
         //set HTTP basic auth parameters
         Request::auth(Configuration::$username, Configuration::$key);
 
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::POST, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
         //and invoke the API call request to fetch the response
-        $response = Request::post($_queryUrl, $_headers);
+        $response = Request::post($_queryUrl, $_headers, Request\Body::Json($account));
 
-        //Error handling using HTTP status codes
-        if ($response->code == 400) {
-            throw new APIException('BAD_REQUEST', 400, $response->body);
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
         }
 
-        else if ($response->code == 401) {
-            throw new APIException('UNAUTHORIZED', 401, $response->body);
-        }
-
-        else if ($response->code == 403) {
-            throw new APIException('FORBIDDEN', 403, $response->body);
-        }
-
-        else if ($response->code == 404) {
-            throw new APIException('NOT_FOUND', 404, $response->body);
-        }
-
-        else if ($response->code == 405) {
-            throw new APIException('METHOD_NOT_FOUND', 405, $response->body);
-        }
-
-        else if ($response->code == 429) {
-            throw new APIException('TOO_MANY_REQUESTS', 429, $response->body);
-        }
-
-        else if ($response->code == 500) {
-            throw new APIException('INTERNAL_SERVER_ERROR', 500, $response->body);
-        }
-
-        else if (($response->code < 200) || ($response->code > 206)) { //[200,206] = HTTP OK
-            throw new APIException("HTTP Response Not OK", $response->code, $response->body);
-        }
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
 
         return $response->body;
     }
-        
+
     /**
      * Send account activation token
-     * @param  string     $userPhone      Required parameter: Your phone number
-     * @param  string     $type           Required parameter: Activation type
-     * @param  string     $country        Required parameter: Your country
-     * @return string response from the API call*/
-    public function activationToken (
-                $userPhone,
-                $type,
-                $country) 
-    { 
+     *
+     * @param string $userPhone  Your phone number
+     * @param string $type       Activation type
+     * @param string $country    Your country
+     * @return string response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function activationToken(
+        $userPhone,
+        $type,
+        $country
+    ) {
         //check that all required arguments are provided
-        if(!isset($userPhone, $type, $country))
+        if (!isset($userPhone, $type, $country)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
 
 
         //the base uri for api requests
@@ -232,55 +191,43 @@ class AccountController {
         //set HTTP basic auth parameters
         Request::auth(Configuration::$username, Configuration::$key);
 
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::PUT, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
         //and invoke the API call request to fetch the response
         $response = Request::put($_queryUrl, $_headers);
 
-        //Error handling using HTTP status codes
-        if ($response->code == 400) {
-            throw new APIException('BAD_REQUEST', 400, $response->body);
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
         }
 
-        else if ($response->code == 401) {
-            throw new APIException('UNAUTHORIZED', 401, $response->body);
-        }
-
-        else if ($response->code == 403) {
-            throw new APIException('FORBIDDEN', 403, $response->body);
-        }
-
-        else if ($response->code == 404) {
-            throw new APIException('NOT_FOUND', 404, $response->body);
-        }
-
-        else if ($response->code == 405) {
-            throw new APIException('METHOD_NOT_FOUND', 405, $response->body);
-        }
-
-        else if ($response->code == 429) {
-            throw new APIException('TOO_MANY_REQUESTS', 429, $response->body);
-        }
-
-        else if ($response->code == 500) {
-            throw new APIException('INTERNAL_SERVER_ERROR', 500, $response->body);
-        }
-
-        else if (($response->code < 200) || ($response->code > 206)) { //[200,206] = HTTP OK
-            throw new APIException("HTTP Response Not OK", $response->code, $response->body);
-        }
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
 
         return $response->body;
     }
-        
+
     /**
      * Verify new account
-     * @param  string     $activationToken      Required parameter: Example: 
-     * @return string response from the API call*/
-    public function verifyAccount (
-                $activationToken) 
-    { 
+     *
+     * @param string $activationToken  TODO: type description here
+     * @return string response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function verifyAccount(
+        $activationToken
+    ) {
         //check that all required arguments are provided
-        if(!isset($activationToken))
+        if (!isset($activationToken)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
 
 
         //the base uri for api requests
@@ -290,7 +237,7 @@ class AccountController {
         $_queryBuilder = $_queryBuilder.'/account-verify/verify/{activation_token}';
 
         //process optional query parameters
-        APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
+        $_queryBuilder = APIHelper::appendUrlWithTemplateParameters($_queryBuilder, array (
             'activation_token' => $activationToken,
             ));
 
@@ -305,56 +252,44 @@ class AccountController {
         //set HTTP basic auth parameters
         Request::auth(Configuration::$username, Configuration::$key);
 
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::PUT, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
         //and invoke the API call request to fetch the response
         $response = Request::put($_queryUrl, $_headers);
 
-        //Error handling using HTTP status codes
-        if ($response->code == 400) {
-            throw new APIException('BAD_REQUEST', 400, $response->body);
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
         }
 
-        else if ($response->code == 401) {
-            throw new APIException('UNAUTHORIZED', 401, $response->body);
-        }
-
-        else if ($response->code == 403) {
-            throw new APIException('FORBIDDEN', 403, $response->body);
-        }
-
-        else if ($response->code == 404) {
-            throw new APIException('NOT_FOUND', 404, $response->body);
-        }
-
-        else if ($response->code == 405) {
-            throw new APIException('METHOD_NOT_FOUND', 405, $response->body);
-        }
-
-        else if ($response->code == 429) {
-            throw new APIException('TOO_MANY_REQUESTS', 429, $response->body);
-        }
-
-        else if ($response->code == 500) {
-            throw new APIException('INTERNAL_SERVER_ERROR', 500, $response->body);
-        }
-
-        else if (($response->code < 200) || ($response->code > 206)) { //[200,206] = HTTP OK
-            throw new APIException("HTTP Response Not OK", $response->code, $response->body);
-        }
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
 
         return $response->body;
     }
-        
+
     /**
      * Forgot username
-     * @param  string|null     $email            Optional parameter: Example: 
-     * @param  string|null     $phoneNumber      Optional parameter: Example: 
-     * @param  string|null     $country          Optional parameter: Example: 
-     * @return string response from the API call*/
-    public function forgotUsername (
-                $email = NULL,
-                $phoneNumber = NULL,
-                $country = NULL) 
-    {
+     *
+     * @param string $email        (optional) TODO: type description here
+     * @param string $phoneNumber  (optional) TODO: type description here
+     * @param string $country      (optional) TODO: type description here
+     * @return string response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function forgotUsername(
+        $email = null,
+        $phoneNumber = null,
+        $country = null
+    ) {
+
         //the base uri for api requests
         $_queryBuilder = Configuration::$BASEURI;
         
@@ -379,55 +314,43 @@ class AccountController {
         //set HTTP basic auth parameters
         Request::auth(Configuration::$username, Configuration::$key);
 
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::PUT, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
         //and invoke the API call request to fetch the response
         $response = Request::put($_queryUrl, $_headers);
 
-        //Error handling using HTTP status codes
-        if ($response->code == 400) {
-            throw new APIException('BAD_REQUEST', 400, $response->body);
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
         }
 
-        else if ($response->code == 401) {
-            throw new APIException('UNAUTHORIZED', 401, $response->body);
-        }
-
-        else if ($response->code == 403) {
-            throw new APIException('FORBIDDEN', 403, $response->body);
-        }
-
-        else if ($response->code == 404) {
-            throw new APIException('NOT_FOUND', 404, $response->body);
-        }
-
-        else if ($response->code == 405) {
-            throw new APIException('METHOD_NOT_FOUND', 405, $response->body);
-        }
-
-        else if ($response->code == 429) {
-            throw new APIException('TOO_MANY_REQUESTS', 429, $response->body);
-        }
-
-        else if ($response->code == 500) {
-            throw new APIException('INTERNAL_SERVER_ERROR', 500, $response->body);
-        }
-
-        else if (($response->code < 200) || ($response->code > 206)) { //[200,206] = HTTP OK
-            throw new APIException("HTTP Response Not OK", $response->code, $response->body);
-        }
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
 
         return $response->body;
     }
-        
+
     /**
      * Forgot password
-     * @param  string     $username     Required parameter: Example: 
-     * @return string response from the API call*/
-    public function forgotPassword (
-                $username) 
-    { 
+     *
+     * @param string $username TODO: type description here
+     * @return string response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function forgotPassword(
+        $username
+    ) {
         //check that all required arguments are provided
-        if(!isset($username))
+        if (!isset($username)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
 
 
         //the base uri for api requests
@@ -452,59 +375,47 @@ class AccountController {
         //set HTTP basic auth parameters
         Request::auth(Configuration::$username, Configuration::$key);
 
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::PUT, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
         //and invoke the API call request to fetch the response
         $response = Request::put($_queryUrl, $_headers);
 
-        //Error handling using HTTP status codes
-        if ($response->code == 400) {
-            throw new APIException('BAD_REQUEST', 400, $response->body);
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
         }
 
-        else if ($response->code == 401) {
-            throw new APIException('UNAUTHORIZED', 401, $response->body);
-        }
-
-        else if ($response->code == 403) {
-            throw new APIException('FORBIDDEN', 403, $response->body);
-        }
-
-        else if ($response->code == 404) {
-            throw new APIException('NOT_FOUND', 404, $response->body);
-        }
-
-        else if ($response->code == 405) {
-            throw new APIException('METHOD_NOT_FOUND', 405, $response->body);
-        }
-
-        else if ($response->code == 429) {
-            throw new APIException('TOO_MANY_REQUESTS', 429, $response->body);
-        }
-
-        else if ($response->code == 500) {
-            throw new APIException('INTERNAL_SERVER_ERROR', 500, $response->body);
-        }
-
-        else if (($response->code < 200) || ($response->code > 206)) { //[200,206] = HTTP OK
-            throw new APIException("HTTP Response Not OK", $response->code, $response->body);
-        }
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
 
         return $response->body;
     }
-        
+
     /**
      * Verify forgot password
-     * @param  int        $subaccountId         Required parameter: Your subaccount id.
-     * @param  string     $activationToken      Required parameter: Your email activation token.
-     * @param  string     $password             Required parameter: Your new password.
-     * @return string response from the API call*/
-    public function verifyForgotPassword (
-                $subaccountId,
-                $activationToken,
-                $password) 
-    { 
+     *
+     * @param integer $subaccountId     Your subaccount id.
+     * @param string  $activationToken  Your email activation token.
+     * @param string  $password         Your new password.
+     * @return string response from the API call
+     * @throws APIException Thrown if API call fails
+     */
+    public function verifyForgotPassword(
+        $subaccountId,
+        $activationToken,
+        $password
+    ) {
         //check that all required arguments are provided
-        if(!isset($subaccountId, $activationToken, $password))
+        if (!isset($subaccountId, $activationToken, $password)) {
             throw new \InvalidArgumentException("One or more required arguments were NULL.");
+        }
 
 
         //the base uri for api requests
@@ -531,53 +442,26 @@ class AccountController {
         //set HTTP basic auth parameters
         Request::auth(Configuration::$username, Configuration::$key);
 
+        //call on-before Http callback
+        $_httpRequest = new HttpRequest(HttpMethod::PUT, $_headers, $_queryUrl);
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnBeforeRequest($_httpRequest);
+        }
+
         //and invoke the API call request to fetch the response
         $response = Request::put($_queryUrl, $_headers);
 
-        //Error handling using HTTP status codes
-        if ($response->code == 400) {
-            throw new APIException('BAD_REQUEST', 400, $response->body);
+        $_httpResponse = new HttpResponse($response->code, $response->headers, $response->raw_body);
+        $_httpContext = new HttpContext($_httpRequest, $_httpResponse);
+
+        //call on-after Http callback
+        if ($this->getHttpCallBack() != null) {
+            $this->getHttpCallBack()->callOnAfterRequest($_httpContext);
         }
 
-        else if ($response->code == 401) {
-            throw new APIException('UNAUTHORIZED', 401, $response->body);
-        }
-
-        else if ($response->code == 403) {
-            throw new APIException('FORBIDDEN', 403, $response->body);
-        }
-
-        else if ($response->code == 404) {
-            throw new APIException('NOT_FOUND', 404, $response->body);
-        }
-
-        else if ($response->code == 405) {
-            throw new APIException('METHOD_NOT_FOUND', 405, $response->body);
-        }
-
-        else if ($response->code == 429) {
-            throw new APIException('TOO_MANY_REQUESTS', 429, $response->body);
-        }
-
-        else if ($response->code == 500) {
-            throw new APIException('INTERNAL_SERVER_ERROR', 500, $response->body);
-        }
-
-        else if (($response->code < 200) || ($response->code > 206)) { //[200,206] = HTTP OK
-            throw new APIException("HTTP Response Not OK", $response->code, $response->body);
-        }
+        //handle errors defined at the API level
+        $this->validateResponse($_httpResponse, $_httpContext);
 
         return $response->body;
-    }
-        
-
-    /**
-     * Get a new JsonMapper instance for mapping objects
-     * @return \apimatic\jsonmapper\JsonMapper JsonMapper instance
-     */
-    protected function getJsonMapper()
-    {
-        $mapper = new JsonMapper();
-        return $mapper;
     }
 }

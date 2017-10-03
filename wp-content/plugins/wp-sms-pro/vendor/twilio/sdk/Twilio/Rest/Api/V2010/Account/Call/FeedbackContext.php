@@ -25,38 +25,38 @@ class FeedbackContext extends InstanceContext {
      */
     public function __construct(Version $version, $accountSid, $callSid) {
         parent::__construct($version);
-        
+
         // Path Solution
         $this->solution = array(
             'accountSid' => $accountSid,
             'callSid' => $callSid,
         );
-        
+
         $this->uri = '/Accounts/' . rawurlencode($accountSid) . '/Calls/' . rawurlencode($callSid) . '/Feedback.json';
     }
 
     /**
      * Create a new FeedbackInstance
      * 
-     * @param string $qualityScore The quality_score
+     * @param integer $qualityScore The quality_score
      * @param array|Options $options Optional Arguments
      * @return FeedbackInstance Newly created FeedbackInstance
      */
     public function create($qualityScore, $options = array()) {
         $options = new Values($options);
-        
+
         $data = Values::of(array(
             'QualityScore' => $qualityScore,
             'Issue' => $options['issue'],
         ));
-        
+
         $payload = $this->version->create(
             'POST',
             $this->uri,
             array(),
             $data
         );
-        
+
         return new FeedbackInstance(
             $this->version,
             $payload,
@@ -72,13 +72,13 @@ class FeedbackContext extends InstanceContext {
      */
     public function fetch() {
         $params = Values::of(array());
-        
+
         $payload = $this->version->fetch(
             'GET',
             $this->uri,
             $params
         );
-        
+
         return new FeedbackInstance(
             $this->version,
             $payload,
@@ -90,25 +90,25 @@ class FeedbackContext extends InstanceContext {
     /**
      * Update the FeedbackInstance
      * 
-     * @param string $qualityScore An integer from 1 to 5
+     * @param integer $qualityScore An integer from 1 to 5
      * @param array|Options $options Optional Arguments
      * @return FeedbackInstance Updated FeedbackInstance
      */
     public function update($qualityScore, $options = array()) {
         $options = new Values($options);
-        
+
         $data = Values::of(array(
             'QualityScore' => $qualityScore,
             'Issue' => $options['issue'],
         ));
-        
+
         $payload = $this->version->update(
             'POST',
             $this->uri,
             array(),
             $data
         );
-        
+
         return new FeedbackInstance(
             $this->version,
             $payload,

@@ -2,7 +2,7 @@
 /*
  * ClickSend
  *
- * This file was automatically generated for ClickSend by APIMATIC v2.0 ( https://apimatic.io ) on 06/01/2016
+ * This file was automatically generated for ClickSend by APIMATIC v2.0 ( https://apimatic.io ).
  */
 
 namespace ClickSendLib;
@@ -12,21 +12,25 @@ use InvalidArgumentException;
 /**
  * API utility class
  */
-class APIHelper {
+class APIHelper
+{
     /**
     * Replaces template parameters in the given url
-    * @param	string	$queryBuilder    The query string builder to replace the template parameters
-    * @param	array	$parameters	The parameters to replace in the url
-    * @return	void */
-    public static function appendUrlWithTemplateParameters(&$queryBuilder, $parameters)
+    * @param    string  $url         The query string builder to replace the template parameters
+    * @param    array   $parameters  The parameters to replace in the url
+    * @return   string  The processed url
+    */
+    public static function appendUrlWithTemplateParameters($url, $parameters)
     {
         //perform parameter validation
-        if (is_null($queryBuilder) || !is_string($queryBuilder)) {
+        if (is_null($url) || !is_string($url)) {
             throw new InvalidArgumentException('Given value for parameter "queryBuilder" is invalid.');
         }
+
         if (is_null($parameters)) {
-            return;
+            return $url;
         }
+
         //iterate and append parameters
         foreach ($parameters as $key => $value) {
             $replaceValue = '';
@@ -41,15 +45,18 @@ class APIHelper {
             }
 
             //find the template parameter and replace it with its value
-            $queryBuilder = str_replace('{' . strval($key) . '}', $replaceValue, $queryBuilder);
+            $url = str_replace('{' . strval($key) . '}', $replaceValue, $url);
         }
+
+        return $url;
     }
 
     /**
     * Appends the given set of parameters to the given query string
-    * @param	string	$queryBuilder	The query url string to append the parameters
-    * @param	array	$parameters	The parameters to append
-    * @return	void */
+    * @param    string  $queryBuilder   The query url string to append the parameters
+    * @param    array   $parameters     The parameters to append
+    * @return   void
+    */
     public static function appendUrlWithQueryParameters(&$queryBuilder, $parameters)
     {
         //perform parameter validation
@@ -71,12 +78,12 @@ class APIHelper {
 
     /**
     * Validates and processes the given Url
-    * @param    string	$url The given Url to process
-    * @return   string	Pre-processed Url as string */
+    * @param    string  $url The given Url to process
+    * @return   string       Pre-processed Url as string */
     public static function cleanUrl($url)
     {
         //perform parameter validation
-        if(is_null($url) || !is_string($url)) {
+        if (is_null($url) || !is_string($url)) {
             throw new InvalidArgumentException('Invalid Url.');
         }
         //ensure that the urls are absolute
@@ -95,30 +102,35 @@ class APIHelper {
         return $protocol.$query;
     }
 
-	/**
+    /**
      * Encode multidimentional arrays for sending as post field in CURL
      *
      * Will handle files as well as models if found in the $data.
      *
      * @source https://bugs.php.net/patch-display.php?bug_id=67477&patch=add-http_build_query_develop-function&revision=latest
-     * 
+     *
      * @param  array $data Input data to be encoded
      * @return array       Encoded data
      */
-    public static function httpBuildQueryDevelop($data) {
+    public static function httpBuildQueryDevelop($data)
+    {
         // if not array, $data is okay
-        if(!is_array($data)) {
+        if (!is_array($data)) {
             return $data;
         }
-        foreach($data as $key => $val) {
-            if(is_array($val)) {
-                foreach($val as $k => $v) {
-                    if(is_array($v)) {
+
+        foreach ($data as $key => $val) {
+            if (is_array($val)) {
+                foreach ($val as $k => $v) {
+                    if (is_array($v)) {
                         // flatten array and merge
-                        $data = array_merge($data, statis::httpBuildQueryDevelop(array( "{$key}[{$k}]" => $v)));
-                    } else if(is_object($v)) {
+                        $data = array_merge($data, static::httpBuildQueryDevelop(array( "{$key}[{$k}]" => $v)));
+                    } elseif (is_object($v)) {
                         // flatten object to array and merge
-                        $data = array_merge($data, static::httpBuildQueryDevelop(array( "{$key}[{$k}]" => $v->jsonSerialize())));
+                        $data = array_merge(
+                            $data,
+                            static::httpBuildQueryDevelop(array( "{$key}[{$k}]" => $v->jsonSerialize()))
+                        );
                     } else {
                         // does not need flattening; primitive
                         $data["{$key}[{$k}]"] = $v;
@@ -128,5 +140,26 @@ class APIHelper {
             }
         }
         return $data;
+    }
+
+    /**
+     * Deserialize a Json string
+     * @param  string   $json       A valid Json string
+     * @param  mixed    $instance   Instance of an object to map the json into
+     * @param  boolean  $isArray    Is the Json an object array?
+     * @return mixed                Decoded Json
+     */
+    public static function deserialize($json, $instance = null, $isArray = false)
+    {
+        if ($instance == null) {
+            return json_decode($json, true);
+        } else {
+            $mapper = new \apimatic\jsonmapper\JsonMapper();
+            if ($isArray) {
+                return $mapper->mapArray(json_decode($json), array(), $instance);
+            } else {
+                return $mapper->map(json_decode($json), $instance);
+            }
+        }
     }
 }

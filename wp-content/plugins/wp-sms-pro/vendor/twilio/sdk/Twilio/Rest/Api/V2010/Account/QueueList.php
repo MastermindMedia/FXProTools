@@ -24,12 +24,12 @@ class QueueList extends ListResource {
      */
     public function __construct(Version $version, $accountSid) {
         parent::__construct($version);
-        
+
         // Path Solution
         $this->solution = array(
             'accountSid' => $accountSid,
         );
-        
+
         $this->uri = '/Accounts/' . rawurlencode($accountSid) . '/Queues.json';
     }
 
@@ -53,9 +53,9 @@ class QueueList extends ListResource {
      */
     public function stream($limit = null, $pageSize = null) {
         $limits = $this->version->readLimits($limit, $pageSize);
-        
+
         $page = $this->page($limits['pageSize']);
-        
+
         return $this->version->stream($page, $limits['limit'], $limits['pageLimit']);
     }
 
@@ -74,7 +74,7 @@ class QueueList extends ListResource {
      *                        efficient page size, i.e. min(limit, 1000)
      * @return QueueInstance[] Array of results
      */
-    public function read($limit = null, $pageSize = Values::NONE) {
+    public function read($limit = null, $pageSize = null) {
         return iterator_to_array($this->stream($limit, $pageSize), false);
     }
 
@@ -93,37 +93,55 @@ class QueueList extends ListResource {
             'Page' => $pageNumber,
             'PageSize' => $pageSize,
         ));
-        
+
         $response = $this->version->page(
             'GET',
             $this->uri,
             $params
         );
-        
+
+        return new QueuePage($this->version, $response, $this->solution);
+    }
+
+    /**
+     * Retrieve a specific page of QueueInstance records from the API.
+     * Request is executed immediately
+     * 
+     * @param string $targetUrl API-generated URL for the requested results page
+     * @return \Twilio\Page Page of QueueInstance
+     */
+    public function getPage($targetUrl) {
+        $response = $this->version->getDomain()->getClient()->request(
+            'GET',
+            $targetUrl
+        );
+
         return new QueuePage($this->version, $response, $this->solution);
     }
 
     /**
      * Create a new QueueInstance
      * 
+     * @param string $friendlyName A user-provided string that identifies this
+     *                             queue.
      * @param array|Options $options Optional Arguments
      * @return QueueInstance Newly created QueueInstance
      */
-    public function create($options = array()) {
+    public function create($friendlyName, $options = array()) {
         $options = new Values($options);
-        
+
         $data = Values::of(array(
-            'FriendlyName' => $options['friendlyName'],
+            'FriendlyName' => $friendlyName,
             'MaxSize' => $options['maxSize'],
         ));
-        
+
         $payload = $this->version->create(
             'POST',
             $this->uri,
             array(),
             $data
         );
-        
+
         return new QueueInstance(
             $this->version,
             $payload,

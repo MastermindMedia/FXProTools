@@ -11,6 +11,7 @@ namespace Twilio\Rest\Api\V2010\Account;
 
 use Twilio\ListResource;
 use Twilio\Options;
+use Twilio\Serialize;
 use Twilio\Values;
 use Twilio\Version;
 
@@ -24,12 +25,12 @@ class MessageList extends ListResource {
      */
     public function __construct(Version $version, $accountSid) {
         parent::__construct($version);
-        
+
         // Path Solution
         $this->solution = array(
             'accountSid' => $accountSid,
         );
-        
+
         $this->uri = '/Accounts/' . rawurlencode($accountSid) . '/Messages.json';
     }
 
@@ -42,7 +43,7 @@ class MessageList extends ListResource {
      */
     public function create($to, $options = array()) {
         $options = new Values($options);
-        
+
         $data = Values::of(array(
             'To' => $to,
             'From' => $options['from'],
@@ -52,16 +53,22 @@ class MessageList extends ListResource {
             'StatusCallback' => $options['statusCallback'],
             'ApplicationSid' => $options['applicationSid'],
             'MaxPrice' => $options['maxPrice'],
-            'ProvideFeedback' => $options['provideFeedback'],
+            'ProvideFeedback' => Serialize::booleanToString($options['provideFeedback']),
+            'ValidityPeriod' => $options['validityPeriod'],
+            'MaxRate' => $options['maxRate'],
+            'ForceDelivery' => Serialize::booleanToString($options['forceDelivery']),
+            'ProviderSid' => $options['providerSid'],
+            'ContentRetention' => $options['contentRetention'],
+            'AddressRetention' => $options['addressRetention'],
         ));
-        
+
         $payload = $this->version->create(
             'POST',
             $this->uri,
             array(),
             $data
         );
-        
+
         return new MessageInstance(
             $this->version,
             $payload,
@@ -90,9 +97,9 @@ class MessageList extends ListResource {
      */
     public function stream($options = array(), $limit = null, $pageSize = null) {
         $limits = $this->version->readLimits($limit, $pageSize);
-        
+
         $page = $this->page($options, $limits['pageSize']);
-        
+
         return $this->version->stream($page, $limits['limit'], $limits['pageLimit']);
     }
 
@@ -112,7 +119,7 @@ class MessageList extends ListResource {
      *                        efficient page size, i.e. min(limit, 1000)
      * @return MessageInstance[] Array of results
      */
-    public function read($options = array(), $limit = null, $pageSize = Values::NONE) {
+    public function read($options = array(), $limit = null, $pageSize = null) {
         return iterator_to_array($this->stream($options, $limit, $pageSize), false);
     }
 
@@ -131,20 +138,36 @@ class MessageList extends ListResource {
         $params = Values::of(array(
             'To' => $options['to'],
             'From' => $options['from'],
-            'DateSent<' => $options['dateSentBefore'],
-            'DateSent' => $options['dateSent'],
-            'DateSent>' => $options['dateSentAfter'],
+            'DateSent<' => Serialize::iso8601DateTime($options['dateSentBefore']),
+            'DateSent' => Serialize::iso8601DateTime($options['dateSent']),
+            'DateSent>' => Serialize::iso8601DateTime($options['dateSentAfter']),
             'PageToken' => $pageToken,
             'Page' => $pageNumber,
             'PageSize' => $pageSize,
         ));
-        
+
         $response = $this->version->page(
             'GET',
             $this->uri,
             $params
         );
-        
+
+        return new MessagePage($this->version, $response, $this->solution);
+    }
+
+    /**
+     * Retrieve a specific page of MessageInstance records from the API.
+     * Request is executed immediately
+     * 
+     * @param string $targetUrl API-generated URL for the requested results page
+     * @return \Twilio\Page Page of MessageInstance
+     */
+    public function getPage($targetUrl) {
+        $response = $this->version->getDomain()->getClient()->request(
+            'GET',
+            $targetUrl
+        );
+
         return new MessagePage($this->version, $response, $this->solution);
     }
 

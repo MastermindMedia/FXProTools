@@ -1,7 +1,7 @@
 <?php
 
 class smsfactor extends WP_SMS {
-	private $wsdl_link = "";
+	private $wsdl_link = "https://api.smsfactor.com/";
 	public $tariff = "http://smsfactor.com/";
 	public $unitrial = false;
 	public $unit;
@@ -13,9 +13,6 @@ class smsfactor extends WP_SMS {
 
 		// Set validate number
 		$this->validateNumber = "99XXXXXXXX,98XXXXXXXX";
-
-		// Include library gateway
-		require_once( 'includes/smsfactor/sendSMSclass.php' );
 	}
 
 	public function SendSMS() {
@@ -51,13 +48,41 @@ class smsfactor extends WP_SMS {
 		 */
 		$this->msg = apply_filters( 'wp_sms_msg', $this->msg );
 
-		// Create new object of class
-		$smsfactor = new SendSMSclass();
+		foreach ( $this->to as $to ) {
+			$recipients[] = array( 'value' => $to );
+		}
 
-		// Sending SMS
-		$result = $smsfactor->SendSMS( $this->username, $this->password, $this->from, $this->msg, $this->to );
+		$body = array(
+			'sms' => array(
+				'authentication' => array(
+					'username' => $this->username,
+					'password' => $this->password
+				),
+				'message'        => array(
+					'text'   => $this->msg,
+					'sender' => $this->from,
+				),
+				'recipients'     => array( 'gsm' => $recipients )
+			)
+		);
 
-		if ( $result ) {
+		$headers = array(
+			'headers' => array(
+				'Accept' => 'application/json',
+			),
+			'body'    => json_encode( $body ),
+		);
+
+		$response = wp_remote_post( $this->wsdl_link . "send", $headers );
+
+		// Check the response
+		if ( is_wp_error( $response ) ) {
+			return new WP_Error( 'send-sms', $response->get_error_message() );
+		}
+
+		$json = json_decode( $response['body'] );
+
+		if ( isset( $json->message ) and $json->message == 'OK' ) {
 			$this->InsertToDB( $this->from, $this->msg, $this->to );
 
 			/**
@@ -67,19 +92,41 @@ class smsfactor extends WP_SMS {
 			 *
 			 * @param string $result result output.
 			 */
-			do_action( 'wp_sms_send', $result );
+			do_action( 'wp_sms_send', $json );
 
-			return $result;
+			return $json;
 		} else {
-			return new WP_Error( 'send-sms', $result );
+			return new WP_Error( 'account-credit', $json->message );
 		}
-
 	}
 
 	public function GetCredit() {
 		// Check username and password
 		if ( ! $this->username or ! $this->password ) {
 			return new WP_Error( 'account-credit', __( 'Username/Password does not set for this gateway', 'wp-sms-pro' ) );
+		}
+
+		$headers = array(
+			'headers' => array(
+				'Accept'     => 'application/json',
+				'sfusername' => $this->username,
+				'sfpassword' => $this->password,
+			)
+		);
+
+		$response = wp_remote_get( $this->wsdl_link . "credits", $headers );
+
+		// Check the response
+		if ( is_wp_error( $response ) ) {
+			return new WP_Error( 'account-credit', $response->get_error_message() );
+		}
+
+		$json = json_decode( $response['body'] );
+
+		if ( isset( $json->message ) and $json->message == 'OK' ) {
+			return $json->credits;
+		} else {
+			return new WP_Error( 'account-credit', $json->message );
 		}
 
 		return true;

@@ -83,6 +83,7 @@ class WP_SMS_Pro_Edd {
 	}
 
 	public function notify_customer() {
+	    // Check the mobile
 		if ( ! $_REQUEST['edd_mobile'] ) {
 			return;
 		}

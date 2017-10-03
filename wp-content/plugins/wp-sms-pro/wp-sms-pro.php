@@ -3,7 +3,7 @@
 Plugin Name: WP SMS - Professional Package
 Plugin URI: http://wordpresssmsplugin.com/
 Description: Complementary package for add new capability to WP SMS Plugin.
-Version: 2.2.6
+Version: 2.2.8
 Author: Mostafa Soufi
 Author URI: http://mostafa-soufi.ir/
 Text Domain: wp-sms-pro
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 } // Exit if accessed directly
 
 // Plugin defines
-define( 'WP_SMS_PRO_VERSION', '2.2.6' );
+define( 'WP_SMS_PRO_VERSION', '2.2.8' );
 define( 'WP_SMS_PRO_DIR_PLUGIN', plugin_dir_url( __FILE__ ) );
 
 // Get options
@@ -141,6 +141,7 @@ class WP_SMS_Pro {
 			'includes/class-wp-sms-pro-gravityforms',
 			'includes/class-wp-sms-pro-quform',
 			'includes/class-wp-sms-pro-easy-digital-downloads',
+			'includes/class-wp-sms-pro-wp-job-manager',
 		);
 
 		foreach ( $files as $file ) {

@@ -2,16 +2,17 @@
 /*
  * ClickSend
  *
- * This file was automatically generated for ClickSend by APIMATIC v2.0 ( https://apimatic.io ) on 06/01/2016
+ * This file was automatically generated for ClickSend by APIMATIC v2.0 ( https://apimatic.io ).
  */
 
 namespace ClickSendLib;
 
 /**
  * All configuration including auth info and base URI for the API access
- * are configured in this class. 
+ * are configured in this class.
  */
-class Configuration {
+class Configuration
+{
     /**
      * The base Uri for API calls
      * @var string
@@ -35,5 +36,4 @@ class Configuration {
      * @todo Replace the $key with an appropriate value
      */
     public static $key = 'TODO: Replace';
-
 }

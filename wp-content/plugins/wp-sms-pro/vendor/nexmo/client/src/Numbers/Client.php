@@ -69,49 +69,187 @@ class Client implements ClientAwareInterface
         return $this->get($body['msisdn']);
     }
 
-    public function get($number)
+    public function get($number = null)
     {
-        if($number instanceof Number){
-            $query = ['pattern' => $number->getId()];
-        } else {
-            $query = ['pattern' => $number];
+        $items =  $this->search($number);
+
+        // This is legacy behaviour, so we need to keep it even though
+        // it isn't technically the correct message
+        if (count($items) != 1) {
+            throw new Exception\Request('number not found', 404);
+        }
+
+        return $items[0];
+    }
+
+    /**
+     * @param null|string $number
+     * @return array []Number
+     * @deprecated Use `searchOwned` instead
+     */
+    public function search($number = null)
+    {
+        return $this->searchOwned($number);
+    }
+
+    public function searchAvailable($country, $options = [])
+    {
+        $query = [
+            'country' => $country
+        ];
+
+        // These are all optional parameters
+        $possibleParameters = [
+            'pattern',
+            'search_pattern',
+            'features',
+            'size',
+            'index'
+        ];
+
+        foreach ($possibleParameters as $param) {
+            if (isset($options[$param])) {
+                $query[$param] = $options[$param];
+            }
         }
 
         $request = new Request(
-            \Nexmo\Client::BASE_REST . '/account/numbers?' . http_build_query($query),
+            \Nexmo\Client::BASE_REST . '/number/search?' . http_build_query($query),
             'GET',
             'php://temp'
         );
 
         $response = $this->client->send($request);
 
+        return $this->handleNumberSearchResult($response, null);
+    }
+
+    public function searchOwned($number = null)
+    {
+        $queryString = '';
+        if ($number !== null) {
+            if($number instanceof Number){
+                $query = ['pattern' => $number->getId()];
+            } else {
+                $query = ['pattern' => $number];
+            }
+
+            $queryString = http_build_query($query);
+        }
+
+        $request = new Request(
+            \Nexmo\Client::BASE_REST . '/account/numbers?' . $queryString,
+            'GET',
+            'php://temp'
+        );
+
+        $response = $this->client->send($request);
+        return $this->handleNumberSearchResult($response, $number);
+    }
+
+    private function handleNumberSearchResult($response, $number)
+    {
         if($response->getStatusCode() != '200'){
             throw $this->getException($response);
         }
 
-        $body = json_decode($response->getBody()->getContents(), true);
-        if(empty($body)){
+        $searchResults = json_decode($response->getBody()->getContents(), true);
+        if(empty($searchResults)){
             throw new Exception\Request('number not found', 404);
         }
 
-        if(!isset($body['count']) OR !isset($body['numbers'])){
+        if(!isset($searchResults['count']) OR !isset($searchResults['numbers'])){
             throw new Exception\Exception('unexpected response format');
         }
 
-        if($body['count'] != '1'){
-            throw new Exception\Request('number not found', 404);
+        // We're going to return a list of numbers
+        $numbers = [];
+
+        // If they provided a number initially, we'll only get one response
+        // so let's reuse the object
+        if($number instanceof Number){
+            $number->jsonUnserialize($searchResults['numbers'][0]);
+            $numbers[] = $number;
+        } else {
+            // Otherwise, we return everything that matches
+            foreach ($searchResults['numbers'] as $returnedNumber) {
+                $number = new Number();
+                $number->jsonUnserialize($returnedNumber);
+                $numbers[] = $number;
+            }
         }
 
-        if(!($number instanceof Number)){
-            $number = new Number();
-        }
-
-        $number->JsonUnserialize($body['numbers'][0]);
-
-        return $number;
+        return $numbers;
     }
 
+    public function purchase($number) {
+        // We cheat here and fetch a number using the API so that we have the country code which is required
+        // to make a cancel request
+        if (!$number instanceof Number) {
+            $number = $this->get($number);
+        }
 
+        $body = [
+            'msisdn' => $number->getMsisdn(),
+            'country' => $number->getCountry()
+        ];
+
+        $request = new Request(
+            \Nexmo\Client::BASE_REST . '/number/buy',
+            'POST',
+            'php://temp',
+            [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/x-www-form-urlencoded'
+            ]
+        );
+
+        $request->getBody()->write(http_build_query($body));
+        $response = $this->client->send($request);
+
+        // Sadly we can't distinguish *why* purchasing fails, just that it
+        // has failed. Here are a few of the tests I attempted and their associated
+        // error codes + body
+        //
+        // Mismatch number/country :: 420 :: method failed
+        // Already own number :: 420 :: method failed
+        // Someone else owns the number :: 420 :: method failed
+        if('200' != $response->getStatusCode()){
+            throw $this->getException($response);
+        }
+    }
+
+    public function cancel($number) {
+        // We cheat here and fetch a number using the API so that we have the country code which is required
+        // to make a cancel request
+        if (!$number instanceof Number) {
+            $number = $this->get($number);
+        }
+
+        $body = [
+            'msisdn' => $number->getMsisdn(),
+            'country' => $number->getCountry()
+        ];
+
+        $request = new Request(
+            \Nexmo\Client::BASE_REST . '/number/cancel',
+            'POST',
+            'php://temp',
+            [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/x-www-form-urlencoded'
+            ]
+        );
+
+        $request->getBody()->write(http_build_query($body));
+        $response = $this->client->send($request);
+
+        // Sadly we can't distinguish *why* purchasing fails, just that it
+        // has failed.
+        if('200' != $response->getStatusCode()){
+            throw $this->getException($response);
+        }
+    }
 
     protected function getException(ResponseInterface $response)
     {

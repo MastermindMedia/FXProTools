@@ -2,7 +2,7 @@
 /*
  * ClickSend
  *
- * This file was automatically generated for ClickSend by APIMATIC v2.0 ( https://apimatic.io ) on 06/01/2016
+ * This file was automatically generated for ClickSend by APIMATIC v2.0 ( https://apimatic.io ).
  */
 
 namespace ClickSendLib;
@@ -12,29 +12,51 @@ use Exception;
 /**
  * Class for exceptions when there is a network error, status code error, etc.
  */
-class APIException extends Exception {
+class APIException extends Exception
+{
     /**
-     * HTTP status code
-     * @var int
+     * Error message
+     * @var string
      */
-    private $responseCode;
+    private $errorMessage;
 
     /**
-     * Response body
-     * @var mixed
+     * HTTP context
+     * @var Http\HttpContext
      */
-    private $responseBody;
+    private $context;
     
     /**
      * The HTTP response code from the API request
      * @param string $reason the reason for raising an exception
      * @param int $responseCode the HTTP response code from the API request
+     * @param string $responseBody the HTTP response body from the API request
      */
-    public function __construct($reason, $responseCode, $responseBody)
+    public function __construct($reason, $context)
     {
-        parent::__construct($reason, $responseCode, NULL);
-        $this->responseCode = $responseCode;
-        $this->responseBody = $responseBody;
+        parent::__construct($reason, $context->getResponse()->getStatusCode());
+        $this->context = $context;
+        $this->errorMessage = $reason;
+
+        if (get_class() != 'APIException') {
+            $this->unbox();
+        }
+    }
+
+    /**
+     * Unbox response into this exception class
+     */
+    public function unbox()
+    {
+    }
+
+    /**
+     * The HTTP context from the API request
+     * @return Http\HttpContext
+     */
+    public function getContext()
+    {
+        return $this->context;
     }
 
     /**
@@ -43,7 +65,7 @@ class APIException extends Exception {
      */
     public function getResponseCode()
     {
-        return $this->responseCode;
+        return $this->context->getResponse()->getStatusCode();
     }
 
     /**
@@ -52,7 +74,7 @@ class APIException extends Exception {
      */
     public function getResponseBody()
     {
-        return $this->responseBody;
+        return $this->context->getResponse()->getRawBody();
     }
 
     /**

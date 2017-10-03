@@ -57,6 +57,14 @@ class WP_SMS_Pro_Buddypress {
 
 	// Buddypress mention
 	public function mention_notification( $activity, $subject, $message, $content, $receiver_user_id ) {
+		// Get user mobile
+		$user_mobile = $this->get_mobile( $receiver_user_id );
+
+		// Check the mobile
+		if ( ! $user_mobile ) {
+			return;
+		}
+
 		$user_posted    = get_userdata( $activity->user_id );
 		$user_receiver  = get_userdata( $receiver_user_id );
 		$template_vars  = array(
@@ -67,13 +75,21 @@ class WP_SMS_Pro_Buddypress {
 			'%receiver_user_display_name%' => $user_receiver->display_name,
 		);
 		$message        = str_replace( array_keys( $template_vars ), array_values( $template_vars ), $this->options['bp_mention_message'] );
-		$this->sms->to  = array( $this->get_mobile( $receiver_user_id ) );
+		$this->sms->to  = array( $user_mobile );
 		$this->sms->msg = $message;
 		$this->sms->SendSMS();
 	}
 
 	// Buddypress comments
 	public function comments_reply_notification( $user_id, $subject, $message, $comment_id, $commenter_id, $params ) {
+		// Get user mobile
+		$user_mobile = $this->get_mobile( $user_id );
+
+		// Check the mobile
+		if ( ! $user_mobile ) {
+			return;
+		}
+
 		$user_posted    = get_userdata( $params['user_id'] );
 		$user_receiver  = get_userdata( $user_id );
 		$template_vars  = array(
@@ -82,7 +98,7 @@ class WP_SMS_Pro_Buddypress {
 			'%receiver_user_display_name%' => $user_receiver->display_name,
 		);
 		$message        = str_replace( array_keys( $template_vars ), array_values( $template_vars ), $this->options['bp_comments_reply_message'] );
-		$this->sms->to  = array( $this->get_mobile( $user_id ) );
+		$this->sms->to  = array( $user_mobile );
 		$this->sms->msg = $message;
 		$this->sms->SendSMS();
 	}

@@ -171,19 +171,20 @@ class Client implements ClientAwareInterface
         $response = $this->client->send($request);
 
         $response->getBody()->rewind();
-        
-        $data = json_decode($response->getBody()->getContents(), true);
 
-        if(!$data){
-            throw new Exception\Request('no message found for `' . $id . '`');
-        }
+        $data = json_decode($response->getBody()->getContents(), true);
 
         if($response->getStatusCode() != '200' && isset($data['error-code'])){
             throw new Exception\Request($data['error-code-label'], $data['error-code']);
+        } elseif($response->getStatusCode() == '429'){
+            throw new Exception\Request('too many concurrent requests', $response->getStatusCode());
         } elseif($response->getStatusCode() != '200'){
             throw new Exception\Request('error status from API', $response->getStatusCode());
         }
 
+        if(!$data){
+            throw new Exception\Request('no message found for `' . $id . '`');
+        }
 
         switch($data['type']){
             case 'MT':
@@ -210,6 +211,56 @@ class Client implements ClientAwareInterface
 
         $message->setResponse($response);
         return $message;
+    }
+
+    public function searchRejections(Query $query) {
+
+        $params = $query->getParams();
+        $request = new Request(
+            \Nexmo\Client::BASE_REST . '/search/messages?' . http_build_query($params),
+            'GET',
+            'php://temp',
+            ['Accept' => 'application/json']
+        );
+
+        $response = $this->client->send($request);
+        $response->getBody()->rewind();
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        if($response->getStatusCode() != '200' && isset($data['error-code'])){
+            throw new Exception\Request($data['error-code-label'], $data['error-code']);
+        } elseif($response->getStatusCode() != '200'){
+            throw new Exception\Request('error status from API', $response->getStatusCode());
+        }
+
+        if(!isset($data['items'])){
+            throw new Exception\Exception('unexpected response from API');
+        }
+
+        if(count($data['items']) == 0){
+            return [];
+        }
+
+        $collection = [];
+
+        foreach($data['items'] as $index => $item){
+            switch($item['type']){
+                case 'MT':
+                    $new = new Message($item['message-id']);
+                    break;
+                case 'MO':
+                    $new = new InboundMessage($item['message-id']);
+                    break;
+                default:
+                    throw new Exception\Exception('unexpected response from API');
+            }
+
+            $new->setResponse($response);
+            $new->setIndex($index);
+            $collection[] = $new;
+        }
+
+        return $collection;
     }
 
     /**

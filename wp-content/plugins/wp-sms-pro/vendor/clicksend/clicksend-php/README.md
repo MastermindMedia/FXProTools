@@ -45,32 +45,36 @@ Sample Code:
 
 require 'vendor/autoload.php';
 
-\ClickSendLib\Configuration::$username = 'YOUR USERNAME';
-\ClickSendLib\Configuration::$key = 'YOUR API KEY';
-
-$messages =  [
-    [
-        "source" => "php",
-        "from" => "sendmobile",
-        "body" => "Jelly liquorice marshmallow candy carrot cake 4Eyffjs1vL.",
-        "to" => "+61411111111",
-        "schedule" => 1536874701,
-        "custom_string" => "this is a test"
-    ],
-    [
-        "source" => "php",
-        "from" => "sendlist",
-        "body" => "Chocolate bar icing icing oat cake carrot cake jelly cotton MWEvciEPIr.",
-        "list_id" => 428,
-        "schedule" => "1436876011",
-        "custom_string" => "This is a test"
-    ]
-];
-
 try {
 
-    $controller = new \ClickSendLib\Controllers\SMSController();
-    $response = $controller->sendSms(['messages' => $messages]);
+    // Prepare ClickSend client.
+    $client = new \ClickSendLib\ClickSendClient('YOUR USERNAME', 'YOUR API KEY');
+
+    // Get SMS instance.
+    $sms = $client->getSMS();
+
+    // The payload.
+    $messages =  [
+        [
+            "source" => "php",
+            "from" => "sendmobile",
+            "body" => "Jelly liquorice marshmallow candy carrot cake 4Eyffjs1vL.",
+            "to" => "+61411111111",
+            "schedule" => 1536874701,
+            "custom_string" => "this is a test"
+        ],
+        [
+            "source" => "php",
+            "from" => "sendlist",
+            "body" => "Chocolate bar icing icing oat cake carrot cake jelly cotton MWEvciEPIr.",
+            "list_id" => 428,
+            "schedule" => "1436876011",
+            "custom_string" => "This is a test"
+        ]
+    ];
+
+    // Send SMS.
+    $response = $sms->sendSms(['messages' => $messages]);
 
     print_r($response);
 
@@ -81,4 +85,3 @@ try {
 }
 #END OF PHP FILE
 ```
-

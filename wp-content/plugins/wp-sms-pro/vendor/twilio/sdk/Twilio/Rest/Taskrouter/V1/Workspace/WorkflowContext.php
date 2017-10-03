@@ -12,16 +12,24 @@ namespace Twilio\Rest\Taskrouter\V1\Workspace;
 use Twilio\Exceptions\TwilioException;
 use Twilio\InstanceContext;
 use Twilio\Options;
+use Twilio\Rest\Taskrouter\V1\Workspace\Workflow\WorkflowCumulativeStatisticsList;
+use Twilio\Rest\Taskrouter\V1\Workspace\Workflow\WorkflowRealTimeStatisticsList;
 use Twilio\Rest\Taskrouter\V1\Workspace\Workflow\WorkflowStatisticsList;
 use Twilio\Values;
 use Twilio\Version;
 
 /**
  * @property \Twilio\Rest\Taskrouter\V1\Workspace\Workflow\WorkflowStatisticsList statistics
+ * @property \Twilio\Rest\Taskrouter\V1\Workspace\Workflow\WorkflowRealTimeStatisticsList workflowRealTimeStatistics
+ * @property \Twilio\Rest\Taskrouter\V1\Workspace\Workflow\WorkflowCumulativeStatisticsList workflowCumulativeStatistics
  * @method \Twilio\Rest\Taskrouter\V1\Workspace\Workflow\WorkflowStatisticsContext statistics()
+ * @method \Twilio\Rest\Taskrouter\V1\Workspace\Workflow\WorkflowRealTimeStatisticsContext workflowRealTimeStatistics()
+ * @method \Twilio\Rest\Taskrouter\V1\Workspace\Workflow\WorkflowCumulativeStatisticsContext workflowCumulativeStatistics()
  */
 class WorkflowContext extends InstanceContext {
     protected $_statistics = null;
+    protected $_workflowRealTimeStatistics = null;
+    protected $_workflowCumulativeStatistics = null;
 
     /**
      * Initialize the WorkflowContext
@@ -33,13 +41,13 @@ class WorkflowContext extends InstanceContext {
      */
     public function __construct(Version $version, $workspaceSid, $sid) {
         parent::__construct($version);
-        
+
         // Path Solution
         $this->solution = array(
             'workspaceSid' => $workspaceSid,
             'sid' => $sid,
         );
-        
+
         $this->uri = '/Workspaces/' . rawurlencode($workspaceSid) . '/Workflows/' . rawurlencode($sid) . '';
     }
 
@@ -50,13 +58,13 @@ class WorkflowContext extends InstanceContext {
      */
     public function fetch() {
         $params = Values::of(array());
-        
+
         $payload = $this->version->fetch(
             'GET',
             $this->uri,
             $params
         );
-        
+
         return new WorkflowInstance(
             $this->version,
             $payload,
@@ -73,7 +81,7 @@ class WorkflowContext extends InstanceContext {
      */
     public function update($options = array()) {
         $options = new Values($options);
-        
+
         $data = Values::of(array(
             'FriendlyName' => $options['friendlyName'],
             'AssignmentCallbackUrl' => $options['assignmentCallbackUrl'],
@@ -81,14 +89,14 @@ class WorkflowContext extends InstanceContext {
             'Configuration' => $options['configuration'],
             'TaskReservationTimeout' => $options['taskReservationTimeout'],
         ));
-        
+
         $payload = $this->version->update(
             'POST',
             $this->uri,
             array(),
             $data
         );
-        
+
         return new WorkflowInstance(
             $this->version,
             $payload,
@@ -119,8 +127,42 @@ class WorkflowContext extends InstanceContext {
                 $this->solution['sid']
             );
         }
-        
+
         return $this->_statistics;
+    }
+
+    /**
+     * Access the workflowRealTimeStatistics
+     * 
+     * @return \Twilio\Rest\Taskrouter\V1\Workspace\Workflow\WorkflowRealTimeStatisticsList 
+     */
+    protected function getWorkflowRealTimeStatistics() {
+        if (!$this->_workflowRealTimeStatistics) {
+            $this->_workflowRealTimeStatistics = new WorkflowRealTimeStatisticsList(
+                $this->version,
+                $this->solution['workspaceSid'],
+                $this->solution['sid']
+            );
+        }
+
+        return $this->_workflowRealTimeStatistics;
+    }
+
+    /**
+     * Access the workflowCumulativeStatistics
+     * 
+     * @return \Twilio\Rest\Taskrouter\V1\Workspace\Workflow\WorkflowCumulativeStatisticsList 
+     */
+    protected function getWorkflowCumulativeStatistics() {
+        if (!$this->_workflowCumulativeStatistics) {
+            $this->_workflowCumulativeStatistics = new WorkflowCumulativeStatisticsList(
+                $this->version,
+                $this->solution['workspaceSid'],
+                $this->solution['sid']
+            );
+        }
+
+        return $this->_workflowCumulativeStatistics;
     }
 
     /**
@@ -135,7 +177,7 @@ class WorkflowContext extends InstanceContext {
             $method = 'get' . ucfirst($name);
             return $this->$method();
         }
-        
+
         throw new TwilioException('Unknown subresource ' . $name);
     }
 
@@ -152,7 +194,7 @@ class WorkflowContext extends InstanceContext {
         if (method_exists($property, 'getContext')) {
             return call_user_func_array(array($property, 'getContext'), $arguments);
         }
-        
+
         throw new TwilioException('Resource does not have a context');
     }
 

@@ -19,7 +19,10 @@ use Twilio\Rest\Taskrouter\V1\Workspace\TaskList;
 use Twilio\Rest\Taskrouter\V1\Workspace\TaskQueueList;
 use Twilio\Rest\Taskrouter\V1\Workspace\WorkerList;
 use Twilio\Rest\Taskrouter\V1\Workspace\WorkflowList;
+use Twilio\Rest\Taskrouter\V1\Workspace\WorkspaceCumulativeStatisticsList;
+use Twilio\Rest\Taskrouter\V1\Workspace\WorkspaceRealTimeStatisticsList;
 use Twilio\Rest\Taskrouter\V1\Workspace\WorkspaceStatisticsList;
+use Twilio\Serialize;
 use Twilio\Values;
 use Twilio\Version;
 
@@ -31,6 +34,8 @@ use Twilio\Version;
  * @property \Twilio\Rest\Taskrouter\V1\Workspace\WorkerList workers
  * @property \Twilio\Rest\Taskrouter\V1\Workspace\WorkflowList workflows
  * @property \Twilio\Rest\Taskrouter\V1\Workspace\WorkspaceStatisticsList statistics
+ * @property \Twilio\Rest\Taskrouter\V1\Workspace\WorkspaceRealTimeStatisticsList workspaceRealTimeStatistics
+ * @property \Twilio\Rest\Taskrouter\V1\Workspace\WorkspaceCumulativeStatisticsList workspaceCumulativeStatistics
  * @property \Twilio\Rest\Taskrouter\V1\Workspace\TaskChannelList taskChannels
  * @method \Twilio\Rest\Taskrouter\V1\Workspace\ActivityContext activities(string $sid)
  * @method \Twilio\Rest\Taskrouter\V1\Workspace\EventContext events(string $sid)
@@ -39,6 +44,8 @@ use Twilio\Version;
  * @method \Twilio\Rest\Taskrouter\V1\Workspace\WorkerContext workers(string $sid)
  * @method \Twilio\Rest\Taskrouter\V1\Workspace\WorkflowContext workflows(string $sid)
  * @method \Twilio\Rest\Taskrouter\V1\Workspace\WorkspaceStatisticsContext statistics()
+ * @method \Twilio\Rest\Taskrouter\V1\Workspace\WorkspaceRealTimeStatisticsContext workspaceRealTimeStatistics()
+ * @method \Twilio\Rest\Taskrouter\V1\Workspace\WorkspaceCumulativeStatisticsContext workspaceCumulativeStatistics()
  * @method \Twilio\Rest\Taskrouter\V1\Workspace\TaskChannelContext taskChannels(string $sid)
  */
 class WorkspaceContext extends InstanceContext {
@@ -49,6 +56,8 @@ class WorkspaceContext extends InstanceContext {
     protected $_workers = null;
     protected $_workflows = null;
     protected $_statistics = null;
+    protected $_workspaceRealTimeStatistics = null;
+    protected $_workspaceCumulativeStatistics = null;
     protected $_taskChannels = null;
 
     /**
@@ -60,12 +69,12 @@ class WorkspaceContext extends InstanceContext {
      */
     public function __construct(Version $version, $sid) {
         parent::__construct($version);
-        
+
         // Path Solution
         $this->solution = array(
             'sid' => $sid,
         );
-        
+
         $this->uri = '/Workspaces/' . rawurlencode($sid) . '';
     }
 
@@ -76,13 +85,13 @@ class WorkspaceContext extends InstanceContext {
      */
     public function fetch() {
         $params = Values::of(array());
-        
+
         $payload = $this->version->fetch(
             'GET',
             $this->uri,
             $params
         );
-        
+
         return new WorkspaceInstance(
             $this->version,
             $payload,
@@ -98,23 +107,24 @@ class WorkspaceContext extends InstanceContext {
      */
     public function update($options = array()) {
         $options = new Values($options);
-        
+
         $data = Values::of(array(
             'DefaultActivitySid' => $options['defaultActivitySid'],
             'EventCallbackUrl' => $options['eventCallbackUrl'],
             'EventsFilter' => $options['eventsFilter'],
             'FriendlyName' => $options['friendlyName'],
-            'MultiTaskEnabled' => $options['multiTaskEnabled'],
+            'MultiTaskEnabled' => Serialize::booleanToString($options['multiTaskEnabled']),
             'TimeoutActivitySid' => $options['timeoutActivitySid'],
+            'PrioritizeQueueOrder' => $options['prioritizeQueueOrder'],
         ));
-        
+
         $payload = $this->version->update(
             'POST',
             $this->uri,
             array(),
             $data
         );
-        
+
         return new WorkspaceInstance(
             $this->version,
             $payload,
@@ -143,7 +153,7 @@ class WorkspaceContext extends InstanceContext {
                 $this->solution['sid']
             );
         }
-        
+
         return $this->_activities;
     }
 
@@ -159,7 +169,7 @@ class WorkspaceContext extends InstanceContext {
                 $this->solution['sid']
             );
         }
-        
+
         return $this->_events;
     }
 
@@ -175,7 +185,7 @@ class WorkspaceContext extends InstanceContext {
                 $this->solution['sid']
             );
         }
-        
+
         return $this->_tasks;
     }
 
@@ -191,7 +201,7 @@ class WorkspaceContext extends InstanceContext {
                 $this->solution['sid']
             );
         }
-        
+
         return $this->_taskQueues;
     }
 
@@ -207,7 +217,7 @@ class WorkspaceContext extends InstanceContext {
                 $this->solution['sid']
             );
         }
-        
+
         return $this->_workers;
     }
 
@@ -223,7 +233,7 @@ class WorkspaceContext extends InstanceContext {
                 $this->solution['sid']
             );
         }
-        
+
         return $this->_workflows;
     }
 
@@ -239,8 +249,40 @@ class WorkspaceContext extends InstanceContext {
                 $this->solution['sid']
             );
         }
-        
+
         return $this->_statistics;
+    }
+
+    /**
+     * Access the workspaceRealTimeStatistics
+     * 
+     * @return \Twilio\Rest\Taskrouter\V1\Workspace\WorkspaceRealTimeStatisticsList 
+     */
+    protected function getWorkspaceRealTimeStatistics() {
+        if (!$this->_workspaceRealTimeStatistics) {
+            $this->_workspaceRealTimeStatistics = new WorkspaceRealTimeStatisticsList(
+                $this->version,
+                $this->solution['sid']
+            );
+        }
+
+        return $this->_workspaceRealTimeStatistics;
+    }
+
+    /**
+     * Access the workspaceCumulativeStatistics
+     * 
+     * @return \Twilio\Rest\Taskrouter\V1\Workspace\WorkspaceCumulativeStatisticsList 
+     */
+    protected function getWorkspaceCumulativeStatistics() {
+        if (!$this->_workspaceCumulativeStatistics) {
+            $this->_workspaceCumulativeStatistics = new WorkspaceCumulativeStatisticsList(
+                $this->version,
+                $this->solution['sid']
+            );
+        }
+
+        return $this->_workspaceCumulativeStatistics;
     }
 
     /**
@@ -255,7 +297,7 @@ class WorkspaceContext extends InstanceContext {
                 $this->solution['sid']
             );
         }
-        
+
         return $this->_taskChannels;
     }
 
@@ -271,7 +313,7 @@ class WorkspaceContext extends InstanceContext {
             $method = 'get' . ucfirst($name);
             return $this->$method();
         }
-        
+
         throw new TwilioException('Unknown subresource ' . $name);
     }
 
@@ -288,7 +330,7 @@ class WorkspaceContext extends InstanceContext {
         if (method_exists($property, 'getContext')) {
             return call_user_func_array(array($property, 'getContext'), $arguments);
         }
-        
+
         throw new TwilioException('Resource does not have a context');
     }
 

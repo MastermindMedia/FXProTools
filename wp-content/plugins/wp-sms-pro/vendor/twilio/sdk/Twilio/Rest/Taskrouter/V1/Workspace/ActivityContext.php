@@ -10,6 +10,7 @@
 namespace Twilio\Rest\Taskrouter\V1\Workspace;
 
 use Twilio\InstanceContext;
+use Twilio\Options;
 use Twilio\Values;
 use Twilio\Version;
 
@@ -24,13 +25,13 @@ class ActivityContext extends InstanceContext {
      */
     public function __construct(Version $version, $workspaceSid, $sid) {
         parent::__construct($version);
-        
+
         // Path Solution
         $this->solution = array(
             'workspaceSid' => $workspaceSid,
             'sid' => $sid,
         );
-        
+
         $this->uri = '/Workspaces/' . rawurlencode($workspaceSid) . '/Activities/' . rawurlencode($sid) . '';
     }
 
@@ -41,13 +42,13 @@ class ActivityContext extends InstanceContext {
      */
     public function fetch() {
         $params = Values::of(array());
-        
+
         $payload = $this->version->fetch(
             'GET',
             $this->uri,
             $params
         );
-        
+
         return new ActivityInstance(
             $this->version,
             $payload,
@@ -59,21 +60,23 @@ class ActivityContext extends InstanceContext {
     /**
      * Update the ActivityInstance
      * 
-     * @param string $friendlyName The friendly_name
+     * @param array|Options $options Optional Arguments
      * @return ActivityInstance Updated ActivityInstance
      */
-    public function update($friendlyName) {
+    public function update($options = array()) {
+        $options = new Values($options);
+
         $data = Values::of(array(
-            'FriendlyName' => $friendlyName,
+            'FriendlyName' => $options['friendlyName'],
         ));
-        
+
         $payload = $this->version->update(
             'POST',
             $this->uri,
             array(),
             $data
         );
-        
+
         return new ActivityInstance(
             $this->version,
             $payload,

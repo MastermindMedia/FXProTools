@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wordpress SMS\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-24 19:50+0330\n"
-"PO-Revision-Date: 2017-01-24 19:50+0330\n"
+"POT-Creation-Date: 2017-09-12 20:31+0330\n"
+"PO-Revision-Date: 2017-09-12 20:32+0330\n"
 "Last-Translator: Mostafa Soufi <mostafa.soufi@hotmail.com>\n"
 "Language-Team: Parsi Wordpress\n"
 "Language: fa_IR\n"
@@ -19,41 +19,41 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: F:\\xampp\\htdocs\\cms\\wordpress\\wp-content"
 "\\plugins\\wp-sms-pro\\vendor\n"
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-buddypress.php:45
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-buddypress.php:48
 msgid "Your mobile number for get sms"
 msgstr "شماره موبایل شما برای دریافت پیامک"
 
 #: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-easy-digital-downloads.php:41
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-easy-digital-downloads.php:43
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-easy-digital-downloads.php:67
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-woocommerce.php:56
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-easy-digital-downloads.php:44
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-easy-digital-downloads.php:69
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-woocommerce.php:58
 msgid "Mobile Number"
 msgstr "شماره موبایل"
 
 #: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-easy-digital-downloads.php:42
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-easy-digital-downloads.php:52
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-easy-digital-downloads.php:53
 msgid "Please enter mobile number for get sms"
 msgstr "لطفاً شماره موبایل دریافت کننده پیامک را وارد کنید"
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-woocommerce.php:57
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-woocommerce.php:59
 msgid "Enter your mobile number to get any notifications about your order"
 msgstr "برای دریافت اطلاعیه‌‌های سفارش، شماره موبایل خود را وارد کنید"
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-woocommerce.php:70
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-woocommerce.php:72
 msgid "Please enter mobile number."
 msgstr "لطفا شماره موبایل را وارد کنید."
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-wordpress.php:68
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-wordpress.php:67
 #: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/verify-sms-field.php:5
 msgid "Verified"
 msgstr "تأیید شده"
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-wordpress.php:69
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-wordpress.php:68
 msgid "Verification code"
 msgstr "کدفعال سازی"
 
 #: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-wordpress.php:88
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/verify-sms-field.php:10
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/verify-sms-field.php:11
 msgid "Yes"
 msgstr "بله"
 
@@ -61,155 +61,164 @@ msgstr "بله"
 msgid "No"
 msgstr "خیر"
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-wordpress.php:143
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-wordpress.php:144
 #, php-format
 msgid "Verification code: %s"
 msgstr "کدفعال سازی: %s"
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-wordpress.php:153
-msgid "Please enter verification code"
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-wordpress.php:154
+msgid "Please enter mobile verification code"
 msgstr "لطفا کدفعال سازی را وارد کنید"
 
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-wp-job-manager.php:37
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-wp-job-manager.php:57
+msgid "Mobile number"
+msgstr "شماره موبایل"
+
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-wp-job-manager.php:41
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/class-wp-sms-pro-wp-job-manager.php:59
+#, php-format
+msgid "e.g. %s"
+msgstr "مثال: %s"
+
 #: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/bulksms.class.php:21
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/bulksmshyderabad.class.php:19
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/cellsynt.class.php:18
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/bulksmshyderabad.class.php:20
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/cellsynt.class.php:19
 #: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/clickatell.class.php:21
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/clicksend.class.php:20
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/clockworksms.class.php:20
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/cmtelecom.class.php:21
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/cpsms.class.php:18
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/dot4all.class.php:18
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/dsms.class.php:18
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/esms.class.php:18
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/infobip.class.php:21
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/isms.class.php:17
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/livesms.class.php:18
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/magicdeal4u.class.php:18
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/mobily.class.php:18
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/moceansms.class.php:20
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/msg91.class.php:19
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/nexmo.class.php:20
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/ozioma.class.php:19
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/plivo.class.php:22
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/pswin.class.php:17
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/ra.class.php:18
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/sendsms247.class.php:18
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/clicksend.class.php:21
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/clockworksms.class.php:21
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/cmtelecom.class.php:22
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/cpsms.class.php:19
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/dot4all.class.php:19
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/dsms.class.php:19
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/esms.class.php:19
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/infobip.class.php:22
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/isms.class.php:18
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/livesms.class.php:19
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/magicdeal4u.class.php:19
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/mobily.class.php:19
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/moceansms.class.php:21
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/msg91.class.php:20
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/nexmo.class.php:21
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/ozioma.class.php:20
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/plivo.class.php:23
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/pswin.class.php:18
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/ra.class.php:19
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/sendsms247.class.php:19
 #: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/smsapicom.class.php:20
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/smsfactor.class.php:23
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/smslive247.class.php:19
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/smstrade.class.php:17
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/ssdindia.class.php:19
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/textmarketer.class.php:20
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/twilio.class.php:22
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/viensms.class.php:17
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/vsms.class.php:19
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/websms.class.php:21
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/smsfactor.class.php:24
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/smslive247.class.php:20
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/smstrade.class.php:18
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/ssdindia.class.php:20
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/textmarketer.class.php:21
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/twilio.class.php:20
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/viensms.class.php:18
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/vsms.class.php:20
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/websms.class.php:22
 #: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/yamamah.class.php:19
 msgid "Your account does not credit for sending sms."
 msgstr "حساب کاربری شما اعتبار کافی برای ارسال پیامک ندارد."
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/bulksms.class.php:73
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/bulksmshyderabad.class.php:72
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/cellsynt.class.php:69
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/clickatell.class.php:72
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/clicksend.class.php:83
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/clockworksms.class.php:77
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/cmtelecom.class.php:74
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/cpsms.class.php:77
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/dot4all.class.php:71
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/dsms.class.php:71
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/esms.class.php:93
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/infobip.class.php:80
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/isms.class.php:71
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/livesms.class.php:70
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/magicdeal4u.class.php:70
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/mobily.class.php:72
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/moceansms.class.php:70
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/msg91.class.php:72
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/nexmo.class.php:76
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/ozioma.class.php:74
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/plivo.class.php:83
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/pswin.class.php:103
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/ra.class.php:71
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/sendsms247.class.php:70
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/smsapicom.class.php:82
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/smsfactor.class.php:77
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/smslive247.class.php:76
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/smstrade.class.php:70
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/ssdindia.class.php:98
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/textmarketer.class.php:71
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/twilio.class.php:81
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/viensms.class.php:71
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/vsms.class.php:90
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/websms.class.php:107
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/yamamah.class.php:69
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/bulksms.class.php:83
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/bulksmshyderabad.class.php:77
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/cellsynt.class.php:74
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/clickatell.class.php:76
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/clicksend.class.php:87
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/clockworksms.class.php:85
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/cmtelecom.class.php:79
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/cpsms.class.php:82
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/dot4all.class.php:76
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/dsms.class.php:76
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/esms.class.php:98
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/infobip.class.php:85
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/isms.class.php:76
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/livesms.class.php:75
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/magicdeal4u.class.php:75
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/mobily.class.php:76
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/moceansms.class.php:75
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/msg91.class.php:77
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/ozioma.class.php:79
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/plivo.class.php:88
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/pswin.class.php:110
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/ra.class.php:76
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/sendsms247.class.php:75
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/smsapicom.class.php:90
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/smsfactor.class.php:82
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/smslive247.class.php:82
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/smstrade.class.php:75
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/ssdindia.class.php:103
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/textmarketer.class.php:76
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/twilio.class.php:83
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/viensms.class.php:76
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/vsms.class.php:96
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/websms.class.php:112
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/yamamah.class.php:70
 msgid "Username/Password does not set for this gateway"
 msgstr "نام کاربری/رمز عبور برای این درگاه تنظیم نشده است."
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/clickatell.class.php:76
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/clicksend.class.php:87
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/infobip.class.php:84
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/moceansms.class.php:74
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/smsapicom.class.php:86
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/textmarketer.class.php:75
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/twilio.class.php:85
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/clickatell.class.php:80
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/clicksend.class.php:91
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/infobip.class.php:89
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/moceansms.class.php:79
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/smsapicom.class.php:94
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/textmarketer.class.php:80
 msgid "CURL extension not found in your server. please enable curl extenstion."
 msgstr "اکستنشن CURL در سرور شما یافت نشد. لطفا آن را در سرور فعال کنید."
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/clockworksms.class.php:81
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/clockworksms.class.php:89
 msgid "Class DOMDocument not found in your php."
 msgstr "کلاس DOMDocument در php‌ شما یافت نشد."
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/esms.class.php:97
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/esms.class.php:102
 msgid "Function simplexml_load_string not found in your php."
 msgstr "تابع simplexml_load_string در php شما یافت نشد."
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/yamamah.class.php:73
-msgid "Class SoapClient not found. please enable php_soap in your php."
-msgstr "کلاس SoapClient یافت نشد. لطفا php_soap را در php خود فعال کنید."
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/gateways/twilio.class.php:87
+msgid "CURL extension not found in your server. please enable curl extension."
+msgstr "اکستنشن CURL در سرور شما یافت نشد. لطفا آن را در سرور فعال کنید."
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:10
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms.php:3
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:12
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms.php:5
 msgid "Login with mobile"
 msgstr "ورود با موبایل"
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:50
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:52
 msgid ""
 "Security code have beed send in your mobile. please enter the code for login "
 "to wordpress."
 msgstr ""
 "کد امنیتی به شماره موبایل ارسال شد. لطفا برای ورود به وردپرس کد را وارد کنید."
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:53
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:55
 msgid "Mobile number not found!"
 msgstr "شماره موبایل یافت نشد!"
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:57
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:59
 msgid "User does not exist"
 msgstr "کاربر وجود ندارد"
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:72
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:74
 msgid "Security code is wrong"
 msgstr "کد امنیتی اشتباه است"
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:79
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:84
 msgid "Error"
 msgstr "خطا"
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:83
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:84
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:89
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:90
 msgid "Username"
 msgstr "نام‌کاربری"
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:85
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:92
 msgid "Submit"
 msgstr "ثبت"
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:91
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:98
 msgid "Code"
 msgstr "کد"
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:92
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/includes/templates/login-sms-popup.php:100
 msgid "Submit code"
 msgstr "ثبت کد"
 
@@ -221,15 +230,15 @@ msgstr "کدفعال سازی"
 msgid "Verify status"
 msgstr "وضعیت تأییدیه"
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/wp-sms-pro.php:78
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/wp-sms-pro.php:82
 msgid "WP SMS - Professional Package"
 msgstr "پیامک وردپرس - بسته حرفه ای"
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/wp-sms-pro.php:79
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/wp-sms-pro.php:83
 msgid "Complementary package for add new capability to WP SMS Plugin."
 msgstr "بسته مکمل برای افزایش قابلیت های جدید به افزونه پیامک وردپرس."
 
-#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/wp-sms-pro.php:101
+#: F:\xampp\htdocs\cms\wordpress\wp-content\plugins\wp-sms-pro/wp-sms-pro.php:106
 #, php-format
 msgid ""
 "Please Install/Active <a href=\"%s\" class=\"thickbox\">WP-SMS</a> to run "
@@ -237,6 +246,9 @@ msgid ""
 msgstr ""
 "برای ادامه، لطفأ پلاگین <a href=\"%s\" class=\"thickbox\">WP-SMS</a> را نصب/"
 "فعال کنید."
+
+#~ msgid "Class SoapClient not found. please enable php_soap in your php."
+#~ msgstr "کلاس SoapClient یافت نشد. لطفا php_soap را در php خود فعال کنید."
 
 #~ msgid "Verified?"
 #~ msgstr "تأیید شده؟"

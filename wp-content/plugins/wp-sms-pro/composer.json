@@ -2,7 +2,7 @@
     "require": {
         "twilio/sdk": "^5.4",
         "nexmo/client": "^1.0.0-beta3",
-        "infobip/infobip-api-php-client": "dev-master",
+        "infobip/infobip-api-php-client": "^2.0.1",
         "arcturial/clickatell": "^2.1.6",
         "plivo/plivo-php": "^v1.1.5",
         "anlutro/bulk-sms": "^2.1.0",

@@ -48,6 +48,8 @@ class WP_SMS_Pro_Woocommerce {
 	/**
 	 * WooCommerce Features
 	 * Add the field to the checkout page
+	 *
+	 * @param $checkout
 	 */
 	public function checkout_field( $checkout ) {
 		woocommerce_form_field( 'mobile', array(
@@ -74,6 +76,8 @@ class WP_SMS_Pro_Woocommerce {
 	/**
 	 * WooCommerce Features
 	 * Update the order meta with field value
+	 *
+	 * @param $order_id
 	 */
 	public function update_order_meta( $order_id ) {
 		if ( ! empty( $_POST['mobile'] ) ) {
@@ -83,6 +87,8 @@ class WP_SMS_Pro_Woocommerce {
 
 	/**
 	 * WooCommerce notification new product
+	 *
+	 * @param $post_ID
 	 */
 	public function notification_new_order( $post_ID ) {
 		global $wpdb, $table_prefix;
@@ -111,13 +117,16 @@ class WP_SMS_Pro_Woocommerce {
 
 	/**
 	 * WooCommerce admin notification order
+	 *
+	 * @param $order_id
 	 */
 	public function admin_notification_order( $order_id ) {
 		$order          = new WC_Order( $order_id );
 		$this->sms->to  = array( $this->options['wc_notify_order_receiver'] );
 		$template_vars  = array(
-			'%order_id%' => $order_id,
-			'%status%'   => $order->get_status()
+			'%order_id%'     => $order_id,
+			'%order_number%' => $order->get_order_number(),
+			'%status%'       => $order->get_status()
 		);
 		$message        = str_replace( array_keys( $template_vars ), array_values( $template_vars ), $this->options['wc_notify_order_message'] );
 		$this->sms->msg = $message;
@@ -126,12 +135,20 @@ class WP_SMS_Pro_Woocommerce {
 
 	/**
 	 * WooCommerce customer notification order
+	 *
+	 * @param $order_id
 	 */
 	public function customer_notification_order( $order_id ) {
+		// Check the mobile field is empty
+		if ( empty( $_REQUEST['mobile'] ) ) {
+			return;
+		}
+
 		$order          = new WC_Order( $order_id );
 		$this->sms->to  = array( $_REQUEST['mobile'] );
 		$template_vars  = array(
 			'%order_id%'           => $order_id,
+			'%order_number%'       => $order->get_order_number(),
 			'%status%'             => $order->get_status(),
 			'%billing_first_name%' => $_REQUEST['billing_first_name'],
 			'%billing_last_name%'  => $_REQUEST['billing_last_name'],
@@ -143,6 +160,8 @@ class WP_SMS_Pro_Woocommerce {
 
 	/**
 	 * WooCommerce notification low stock
+	 *
+	 * @param $stock
 	 */
 	public function admin_notification_low_stock( $stock ) {
 		$this->sms->to  = array( $this->options['wc_notify_stock_receiver'] );
@@ -157,6 +176,8 @@ class WP_SMS_Pro_Woocommerce {
 
 	/**
 	 * WooCommerce notification change status
+	 *
+	 * @param $order_id
 	 */
 	public function notification_change_order_status( $order_id ) {
 		$order      = new WC_Order( $order_id );

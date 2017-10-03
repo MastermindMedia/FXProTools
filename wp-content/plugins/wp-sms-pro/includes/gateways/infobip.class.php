@@ -102,6 +102,8 @@ class infobip extends WP_SMS {
 
 			return $response->getBalance();
 		} catch ( Exception $e ) {
+			$error = json_decode( $e->getMessage() );
+
 			return new WP_Error( 'account-credit', $e->getMessage() );
 		}
 	}

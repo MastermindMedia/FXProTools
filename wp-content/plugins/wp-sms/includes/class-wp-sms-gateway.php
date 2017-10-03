@@ -9,8 +9,14 @@
  */
 class WP_SMS_Gateway {
 
+	/**
+	 * @var
+	 */
 	static $error_message;
 
+	/**
+	 * @return mixed|void
+	 */
 	public static function gateway() {
 		$gateways = array(
 			''               => array(
@@ -24,7 +30,8 @@ class WP_SMS_Gateway {
 				'spirius'       => 'spirius.com',
 			),
 			'united kingdom' => array(
-				'_textplode' => 'textplode.com',
+				'_textplode'   => 'textplode.com',
+				'textanywhere' => 'textanywhere.net',
 			),
 			'french'         => array(
 				'primotexto' => 'primotexto.com',
@@ -175,6 +182,8 @@ class WP_SMS_Gateway {
 				'kavenegar'      => 'kavenegar.com',
 				'_18sms'         => '18sms.ir',
 				'parandhost'     => 'parandhost.com',
+				'eshare'         => 'eshare.com',
+				'abrestan'       => 'abrestan.com',
 			),
 			'pakistan'       => array(
 				'difaan' => 'difaan',
@@ -203,7 +212,7 @@ class WP_SMS_Gateway {
 	}
 
 	/**
-	 * Get gateway status
+	 * @return string
 	 */
 	public static function status() {
 		global $sms;
@@ -229,10 +238,16 @@ class WP_SMS_Gateway {
 		}
 	}
 
+	/**
+	 * @return mixed
+	 */
 	public static function response() {
 		return self::$error_message;
 	}
 
+	/**
+	 * @return mixed
+	 */
 	public static function help() {
 		global $sms;
 
@@ -240,6 +255,19 @@ class WP_SMS_Gateway {
 		return $sms->help;
 	}
 
+	/**
+	 * @return mixed
+	 */
+	public static function from() {
+		global $sms;
+
+		// Get gateway from
+		return $sms->from;
+	}
+
+	/**
+	 * @return string
+	 */
 	public static function bulk_status() {
 		global $sms;
 
@@ -253,6 +281,9 @@ class WP_SMS_Gateway {
 		}
 	}
 
+	/**
+	 * @return int
+	 */
 	public static function credit() {
 		global $sms;
 		// Get credit
