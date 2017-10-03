@@ -142,8 +142,6 @@ if(!class_exists('ThemeSettings')){
 		{
 			return false;
 		}
-
-		
 		
 		function track_user_history()
 		{

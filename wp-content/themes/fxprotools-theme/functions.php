@@ -66,6 +66,16 @@ if($custom_functions){
 	}
 }
 
+
+/**
+ * --------------
+ * Sendgrid - Contacts 
+ * --------------
+ * Sendgrid gateway class
+ */
+
+require('inc/sendgrid/sendgrid.php');
+
 /**
  * ---------------------------------------------------
  * ANET - Customer Informatio and Subscription Manager
@@ -91,6 +101,7 @@ if($custom_functions){
 
 
 /** Meta Box for the Page Menu*/
+/*
 add_action( 'add_meta_boxes', 'cd_meta_box_add' );
 function cd_meta_box_add()
 {
@@ -117,4 +128,4 @@ function cd_meta_box_cb()
         ?>
     </select>
     <?php         
-}
+}*/
