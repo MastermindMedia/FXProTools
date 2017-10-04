@@ -90,11 +90,14 @@ function apyc_fxprotools_setup(){
 		'firstName' => 'Allan',
 		'email' => 'allan@mail.com',
 	);
-	$create = apyc_create_registrant('530845699094496258', $body);
+	//$create = apyc_create_registrant('530845699094496258', $body);
 	//$get = apyc_get_all_webinars_cache();
-	echo '<pre>';
+	/*echo '<pre>';
 	print_r($create);
-	echo '</pre>';
-	exit();
+	echo '</pre>';*/
+	//echo Apyc_View::get_instance()->get_in_theme('inc/apyc');
+	//echo Apyc_View::get_instance()->get_view_part('inc/apyc');
+	//exit();
+	Apyc_Modal::get_instance();
 }
-//add_action( 'after_setup_theme', 'apyc_fxprotools_setup' );
+add_action( 'after_setup_theme', 'apyc_fxprotools_setup' );

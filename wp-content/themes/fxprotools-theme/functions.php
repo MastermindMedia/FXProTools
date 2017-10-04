@@ -102,7 +102,7 @@ if($sendgrid){
 /**
 Added by Allan / APYC
 **/
-require plugin_dir_path( __FILE__ ) . 'inc/apyc/init.php';
+require_once plugin_dir_path( __FILE__ ) . 'inc/apyc/init.php';
 /**
 Added by Allan / APYC
 **/
