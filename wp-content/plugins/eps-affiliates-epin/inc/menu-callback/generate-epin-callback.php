@@ -171,7 +171,7 @@ function afl_epin_generate_form_validation($form_state){
 	if($e_pin_amount >= $min_amount && $e_pin_amount <= $max_amount){
 		$balance = $wpdb->get_var("SELECT  SUM(`wp_afl_user_transactions`.`balance`) as balance FROM `wp_afl_user_transactions` WHERE `uid` = $uid AND `deleted` = 0 AND `int_payout` = 0 AND `int_return` = 0");	
 	 	$net_amount = ($e_pin_amount + $gen_fee) * $no_of_pins;
-	 	if($net_amount > $balance){ pr($net_amount);
+	 	if($net_amount > $balance){ 
 	 			echo wp_set_message( ('You dont have sufficient balance to generate E-pin of'.afl_get_commerce_amount($net_amount) ),'danger'  );
 	 			return FALSE;
 	    }
