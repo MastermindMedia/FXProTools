@@ -6,41 +6,41 @@
 */
 function eps_affiliates_install() {
 
-	//install tables
-	$afl_tables = new Eps_affiliates_tables;
+	// //install tables
+	// $afl_tables = new Eps_affiliates_tables;
 
-	//create basic roles 
-	create_eps_roles();
+	// //create basic roles 
+	// create_eps_roles();
 
-	//create business user
-	create_business_users();
+	// //create business user
+	// create_business_users();
 
-	//add all the capabilities to admin
-	// Create affiliate caps
-	// $roles = new Eps_affiliates_Capabilities;
-	// $roles->add_caps();
+	// //add all the capabilities to admin
+	// // Create affiliate caps
+	// // $roles = new Eps_affiliates_Capabilities;
+	// // $roles->add_caps();
 
 
 
-	//create page 
-	if ( ! get_option( 'eps_afl_is_installed' ) ) {
-		$affiliate_area = wp_insert_post(
-			array(
-				'post_title'     => __( 'EPS-Affiliates', 'eps-affiliates' ),
-				'post_content'   => '[eps_affiliates]',
-				'post_status'    => 'publish',
-				'post_author'    => get_current_user_id(),
-				'post_type'      => 'page',
-				'comment_status' => 'closed'
-			)
-		);
-	}
-	//set the variable for install
-	add_option( 'eps_afl_is_installed', 1 );
-	//set the variable for page id
-	add_option( 'eps_affiliate_page', $affiliate_area );
+	// //create page 
+	// if ( ! get_option( 'eps_afl_is_installed' ) ) {
+	// 	$affiliate_area = wp_insert_post(
+	// 		array(
+	// 			'post_title'     => __( 'EPS-Affiliates', 'eps-affiliates' ),
+	// 			'post_content'   => '[eps_affiliates]',
+	// 			'post_status'    => 'publish',
+	// 			'post_author'    => get_current_user_id(),
+	// 			'post_type'      => 'page',
+	// 			'comment_status' => 'closed'
+	// 		)
+	// 	);
+	// }
+	// //set the variable for install
+	// add_option( 'eps_afl_is_installed', 1 );
+	// //set the variable for page id
+	// add_option( 'eps_affiliate_page', $affiliate_area );
 
-	$Eps_affiliate_install  = new stdClass();
+	// $Eps_affiliate_install  = new stdClass();
 }
 /*
  * ------------------------------------------------------------
