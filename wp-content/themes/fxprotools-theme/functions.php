@@ -42,7 +42,6 @@ $theme_version	= $theme['Version'];
 $core_settings = [
 	'core-admin-settings.php',
 	'core-theme-settings.php',
-    'core-woocommerce-settings.php'
 ];
 
 foreach ($core_settings as $cs) {
@@ -58,6 +57,7 @@ foreach ($core_settings as $cs) {
 $settings = array(
     'settings-cpt', // Custom post/taxonomy settings
     'settings-mb',  // Metabox Settings
+    'settings-woocommerce',  // Woocommerce Settings
 );
 
 if($settings){
@@ -90,7 +90,15 @@ if($custom_functions){
  * Sendgrid gateway class
  */
 
-require('inc/sendgrid/sendgrid.php');
+$sendgrid = array(
+    'sendgrid-api', 
+    'sendgrid-ajax',  
+);
+if($sendgrid){
+    foreach($sendgrid as $key => $sg){
+        require_once('inc/sendgrid/'.$sg.'.php');
+    }
+}
 
 /**
  * ---------------------------------------------------

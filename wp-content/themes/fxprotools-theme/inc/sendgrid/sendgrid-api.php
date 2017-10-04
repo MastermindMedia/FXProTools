@@ -1,9 +1,9 @@
 <?php
 require ABSPATH . 'vendor/autoload.php';
 
-if(!class_exists('FX_Sendgrid')){
+if(!class_exists('FX_Sendgrid_Api')){
 
-	class FX_Sendgrid {
+	class FX_Sendgrid_Api {
 
 		const SENDGRID_API_KEY = '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';
 		const SENDGRID_FXPROTOOLS_LIST_ID = '2027971';
@@ -43,5 +43,5 @@ if(!class_exists('FX_Sendgrid')){
 }
 
 //$recipient = array('email' => 'user'.rand().'@gmail.com', "first_name" => 'test', 'last_name' => 'test', 'campaign' => '123' );
-//$recipient_id = FX_Sendgrid::add_recipient($recipient);
-//FX_Sendgrid::add_recipient_to_list($recipient_id);
+//$recipient_id = FX_Sendgrid_Api::add_recipient($recipient);
+//FX_Sendgrid_Api::add_recipient_to_list($recipient_id);

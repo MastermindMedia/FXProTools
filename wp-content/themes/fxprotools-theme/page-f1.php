@@ -21,12 +21,15 @@
 								<h1>Join The Exciting Market Of  Foreign Exchange Trading</h1>
 								<p>Our elite group of traders have achieved master level profits with strategies & techniques learned directly from our training courses. Achieving profits of $4,954.35 & higher at night while they sleep!</p>
 							</div>
-							<div class="fx-input-email">
-								<input type="email" class="form-control" placeholder="E-mail ...">
-							</div>
-							<div class="text-center m-t-md">
-								<a href="#" class="btn btn-danger btn-lg">Click To Get Access</a>
-							</div>
+							<form class="fx-sendgrid" method="post">
+								<div class="fx-input-email">
+									<input type="email" class="form-control" placeholder="E-mail ..." name="email">
+								</div>
+								<div class="text-center m-t-md">
+									<input type="hidden" name="funnel_id" value="f1">
+									<button type="submit" class="btn btn-danger btn-lg">Click To Get Access</button>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>

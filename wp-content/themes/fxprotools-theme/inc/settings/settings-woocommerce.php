@@ -1,18 +1,12 @@
 <?php
-/**
- * --------------
- * Theme Settings
- * --------------
- * Theme related settings
- */
 
 if(!defined('ABSPATH')){
 	exit;
 }
 
-if(!class_exists('WoocommerceSettings')){
+if(!class_exists('Woocommerce_Settings')){
 
-	class WoocommerceSettings {
+	class Woocommerce_Settings {
 		
 		public function __construct()
 		{
@@ -66,4 +60,4 @@ if(!class_exists('WoocommerceSettings')){
 	}
 }
 
-return new WoocommerceSettings();
+return new Woocommerce_Settings();

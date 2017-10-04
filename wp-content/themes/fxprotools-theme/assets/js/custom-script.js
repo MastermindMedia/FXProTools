@@ -5,7 +5,7 @@ jQuery(document).ready( function($) {
 
 		if( lesson_id > 1){
 			$.ajax({
-				url: lms.ajax_url,
+				url: fx.ajax_url,
 				type : 'post',
 				data : {
 					action : 'lms_lesson_complete',
