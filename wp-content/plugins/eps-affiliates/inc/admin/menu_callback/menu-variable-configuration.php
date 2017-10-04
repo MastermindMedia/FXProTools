@@ -102,6 +102,14 @@ function afl_admin_variable_configurations (){
 	 		'#suffix' 				=> '</div>'
 	 	);
 
+	 	//Incentive paid status
+	 	$form['afl_var_incentive_paid_status'] = array(
+	 		'#type' 					=> 'text-area',
+	 		'#title' 					=> 'Incentive Paid status',
+	 		'#default_value' 	=> afl_variable_get('afl_var_incentive_paid_status', ''),
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>'
+	 	);
 
 	 	global $wp_roles;
 	  $all_roles 			= $wp_roles->roles;

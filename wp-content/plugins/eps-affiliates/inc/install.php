@@ -36,9 +36,9 @@ function eps_affiliates_install() {
 		);
 	}
 	//set the variable for install
-	update_option( 'eps_afl_is_installed', 1 );
+	add_option( 'eps_afl_is_installed', 1 );
 	//set the variable for page id
-	update_option( 'eps_affiliate_page', $affiliate_area );
+	add_option( 'eps_affiliate_page', $affiliate_area );
 
 	$Eps_affiliate_install  = new stdClass();
 }

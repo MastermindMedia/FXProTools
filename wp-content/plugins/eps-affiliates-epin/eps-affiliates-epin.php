@@ -286,5 +286,3 @@ function eps_affiliates_e_pin() {
 
 
 eps_affiliates_e_pin();
-
-?>

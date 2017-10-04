@@ -12,7 +12,7 @@ function afl_admin_processing_queue_data_table () {
 	$pagination = new CI_Pagination;
 
 		$config['total_rows'] =  count(_get_queues());
-		$config['base_url'] 	= '?'.http_build_query($_GET);
+		$config['base_url'] 	= '?page=affiliate-eps-processing-queue';
 		$config['per_page'] 	= 50;
 
 		
@@ -64,7 +64,7 @@ function afl_admin_processing_queue_data_table () {
 
 			$rows[$key]['markup_3'] = array(
 				'#type' =>'markup',
-				'#markup'=> $value->status
+				'#markup'=> _render_queue_status($value->status)
 			);
 
 			$rows[$key]['markup_4'] = array(
@@ -115,18 +115,18 @@ function afl_admin_clear_queue_form () {
 
  	$form1['fieldset'] = array(
  		'#type'=>'fieldset',
- 		'#title'=>'Reset last API Fetch ID'
+ 		'#title'=>'Clear Processing Queue'
  	);
  	
  	$form1['fieldset']['markup'] = array(
  		'#type' => 'markup',
- 		'#markup' => 'Current value : '.afl_variable_get('remote_user_get_last_get_id',1),
+ 		'#markup' => 'Last fetch Id : '.afl_variable_get('remote_user_get_last_get_id',1),
  	);
 
  	$form1['fieldset']['reset_processing_queue'] = array(
  		'#name' => 'reset_processing_queue',
  		'#type' => 'submit',
- 		'#value' => 'Reset',
+ 		'#value' => 'Clear',
  		'#attributes' => array(
  			'class' => array(
  				'btn','btn-primary'
@@ -134,4 +134,27 @@ function afl_admin_clear_queue_form () {
  		),
  	);
  	echo afl_render_form($form1);
+}
+
+function _render_queue_status ($status = '') {
+	$ret_val = 'unverified';
+	switch ($status) {
+		case 0:
+			$ret_val = 'processing';
+		break;
+		case 1:
+			$ret_val = 'successfully processed';
+		break;
+		case 2:
+			$ret_val = 'Re-process';
+		break;
+		case 3:
+			$ret_val = 'Failed';
+		break;
+		default:
+			$ret_val = 'Queued';
+		break;
+	}
+
+	return $ret_val;
 }

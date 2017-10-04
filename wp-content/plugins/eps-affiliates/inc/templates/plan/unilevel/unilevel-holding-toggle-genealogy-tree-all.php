@@ -33,7 +33,7 @@
         'level'
       ),
       _table_name('afl_unilevel_user_genealogy') => array(
-        'parent_uid'
+        'parent_uid','status'
       )
     );
    $query['#where'] = array(
@@ -69,7 +69,13 @@ if (!empty($parent)) :
                 <div class="hv-item">
                     <div class="hv-item-parent">
                         <div class="person">
-                            <img src="<?= EPSAFFILIATE_PLUGIN_ASSETS.'images/avathar.png'; ?>" alt="">
+                            <?php 
+                              if ( $parent->status == 0 ){ ?>
+                                <img src="<?= EPSAFFILIATE_PLUGIN_ASSETS.'images/block.png'; ?>" alt="">
+                            <?php  } else { ?>
+                                <img src="<?= EPSAFFILIATE_PLUGIN_ASSETS.'images/avathar.png'; ?>" alt="">
+                            <?php }
+                            ?>
                             <p class="name">
                                 <?= $parent->user_login.' ('.$parent->ID.')'; ?>
                             </p>
@@ -86,7 +92,15 @@ if (!empty($parent)) :
                             <div class="hv-item">
                                   <div class="">
                                     <div class="person">
-                                        <img src="<?= EPSAFFILIATE_PLUGIN_ASSETS.'images/avathar.png'; ?>" alt="">
+                                        <?php 
+                                          $user_roles = afl_user_roles($tree[$level[$i]]->ID); 
+                                          if ( array_key_exists('afl_customer', $user_roles)) {
+                                            echo '<img src="'.EPSAFFILIATE_PLUGIN_ASSETS.'images/customer.png'.'" alt="">';
+                                          } else if ( $tree[$level[$i]]->status == 0 )
+                                              echo '<img src="'.EPSAFFILIATE_PLUGIN_ASSETS.'images/block.png'.'" alt="">';
+                                            else
+                                              echo '<img src="'.EPSAFFILIATE_PLUGIN_ASSETS.'images/avathar.png'.'" alt="">';
+                                        ?>
                                         <p class="name">
                                           <?= $tree[$level[$i]]->user_login.' ('.$tree[$level[$i]]->ID.')'; ?>
                                         </p>

@@ -2072,7 +2072,7 @@ function afl_root_user() {
  * Extract the text area data
  * -----------------------------------------------------------------------
 */
- function list_extract_allowed_values($string, $field_type, $generate_keys) {
+ function list_extract_allowed_values($string, $field_type, $generate_keys = '') {
   	$values = array();
 
 	  $list = explode("\n", $string);
