@@ -5,7 +5,7 @@ if(!class_exists('FX_Sendgrid_Api')){
 
 	class FX_Sendgrid_Api {
 
-		const SENDGRID_API_KEY = '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';
+		const SENDGRID_API_KEY = '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';
 		const SENDGRID_FXPROTOOLS_LIST_ID = '2027971';
 		
 		public function __construct()
