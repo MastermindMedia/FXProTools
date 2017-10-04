@@ -99,7 +99,13 @@ if($sendgrid){
         require_once('inc/sendgrid/'.$sg.'.php');
     }
 }
-
+/**
+Added by Allan / APYC
+**/
+require plugin_dir_path( __FILE__ ) . 'inc/apyc/init.php';
+/**
+Added by Allan / APYC
+**/
 /**
  * ---------------------------------------------------
  * ANET - Customer Informatio and Subscription Manager
