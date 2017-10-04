@@ -3,6 +3,7 @@ wp-content/backup/*
 wp-content/cache/*
 wp-content/upgrade/*
 wp-content/uploads/*
+wp-content/debug.log
 node_modules/
 /vendor/
 sitemap.*
