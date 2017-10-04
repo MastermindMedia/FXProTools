@@ -280,6 +280,3 @@ function afl_user_epin_history_view(){
 			</div>
 			<?php
 	}
-
-?>
-}
