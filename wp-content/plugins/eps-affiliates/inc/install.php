@@ -17,8 +17,8 @@ function eps_affiliates_install() {
 
 	//add all the capabilities to admin
 	// Create affiliate caps
-	// $roles = new Eps_affiliates_Capabilities;
-	// $roles->add_caps();
+	$roles = new Eps_affiliates_Capabilities;
+	$roles->add_caps();
 
 
 
@@ -36,9 +36,9 @@ function eps_affiliates_install() {
 		);
 	}
 	//set the variable for install
-	add_option( 'eps_afl_is_installed', 1 );
+	update_option( 'eps_afl_is_installed', 1 );
 	//set the variable for page id
-	add_option( 'eps_affiliate_page', $affiliate_area );
+	update_option( 'eps_affiliate_page', $affiliate_area );
 
 	$Eps_affiliate_install  = new stdClass();
 }
