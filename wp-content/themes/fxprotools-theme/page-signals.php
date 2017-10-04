@@ -466,7 +466,7 @@
 				<div class="col-md-8 col-md-offset-2">
 					<h2 class="m-t-none"2>Want To Learn More?</h2>
 					<p>You can join our experts live on our next online webinar for an in-depth look at our platform and recieve free forex tips.</p>
-					<a href="#" class="btn btn-lg btn-outline m-t-xs">Reserve Your Seat</a>
+					<a href="#" class="btn btn-lg btn-outline m-t-xs" id="reserve-your-seat">Reserve Your Seat</a>
 				</div>
 			</div>
 		</div>

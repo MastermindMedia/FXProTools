@@ -11,7 +11,8 @@ jQuery(document).ready(function($){
 			success : function( response ) {
 				response = JSON.parse( response );
 				if(response.status == "OK"){
-					console.log("success");
+					var redirect_to = $('.fx-sendgrid').find('input[name="redirect_to"]').val();
+					window.location.replace( redirect_to );
 				}
 				else{
 					alert("Sending email information failed.");

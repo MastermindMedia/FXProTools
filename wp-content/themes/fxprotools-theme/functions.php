@@ -100,8 +100,6 @@ if($sendgrid){
     }
 }
 
-add_theme_support( 'menus' );
-
 /**
  * ---------------------------------------------------
  * ANET - Customer Informatio and Subscription Manager
