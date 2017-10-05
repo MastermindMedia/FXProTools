@@ -109,7 +109,6 @@ if($sendgrid){
 
 add_theme_support( 'menus' );
 
-<?php
 /**
  * Register our sidebars and widgetized areas.
  *
@@ -127,7 +126,7 @@ function arphabet_widgets_init() {
 
 }
 add_action( 'widgets_init', 'arphabet_widgets_init' );
-?>
+
 
 /**
 Added by Allan / APYC
