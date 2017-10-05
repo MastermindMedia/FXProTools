@@ -12,7 +12,7 @@ if(!class_exists('Woocommerce_Settings')){
 		{
 			add_action('woocommerce_thankyou', array($this, 'wc_after_checkout_redirect'));
 			add_filter('wc_authorize_net_cim_credit_card_payment_form_save_payment_method_checkbox_html', array($this,'wc_auth_net_cim_save_payment_method_default_checked'), 10, 2 );
-			add_filter ( 'add_to_cart_redirect', array($this, 'wc_redirect_to_checkout') );
+			add_filter ( 'woocommerce_add_to_cart_redirect ', array($this, 'wc_redirect_to_checkout') );
 			add_action( 'template_redirect', array($this, 'wc_redirect_to_checkout_if_cart') );
 			add_action( 'woocommerce_add_cart_item_data', array($this, 'wc_clear_cart'), 0 );
 		}
