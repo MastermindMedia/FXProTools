@@ -7,9 +7,11 @@
 				<div class="col-md-4">
 					<ul class="footer-nav">
 						<?php dynamic_sidebar( 'footer_menu_1' ); ?>
+						<!-- 
 						<li><a href="#">Become A Customer</a></li>
 						<li><a href="#">Become A Distributor</a></li>
 						<li><a href="#">Member Login</a></li>
+						-->
 					</ul>
 				</div>
 				<div class="col-md-4">

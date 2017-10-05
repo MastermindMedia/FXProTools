@@ -118,8 +118,8 @@ function arphabet_widgets_init() {
     register_sidebar( array(
         'name'          => 'Footer Menu 1',
         'id'            => 'footer_menu_1',
-        'before_widget' => '<div>',
-        'after_widget'  => '</div>',
+        'before_widget' => '',
+        'after_widget'  => '',
         'before_title'  => '<h2 class="rounded">',
         'after_title'   => '</h2>',
     ) );
