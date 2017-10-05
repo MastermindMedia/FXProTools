@@ -1,8 +1,6 @@
 <?php
 $product_id = 48; //business package
-$wp_query->query_vars['_prod_id'] = $product_id;
-$_product = wc_get_product( $product_id );
-$wp_query->query_vars['_prod_data'] = $_product;
+$product = wc_get_product( $product_id );
 
 $category_slug = 'stats';
 $category = get_term_by('slug', $category_slug, 'ld_course_category' );

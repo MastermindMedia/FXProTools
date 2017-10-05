@@ -1,8 +1,7 @@
 <?php
 $product_id = 48; //business package
-$wp_query->query_vars['_prod_id'] = $product_id;
-$_product = wc_get_product( $product_id );
-$wp_query->query_vars['_prod_data'] = $_product;
+$product = wc_get_product( $product_id );
+
 $category_slug = 'funnels';
 $category = get_term_by('slug', $category_slug, 'ld_course_category' );
 $courses = get_courses_by_category_id($category->term_id);

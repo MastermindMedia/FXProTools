@@ -243,7 +243,7 @@ function custom_override_default_locale_fields( $fields ) {
 		$items = $order->get_items();
 	    foreach( $items as $item ) {
 			$customer_recent_orders[$counter]['image'] = "https://s3.amazonaws.com/da-my/proof/229/map_229448.png";
-			$customer_recent_orders[$counter]['name'] = get_user_meta($order->user_id, 'first_name',true) . ' ' . get_user_meta($order->user_id, 'last_name',true) . ', ' . get_user_meta($order->user_id, 'billing_city',true) . ', ' . get_user_meta($order->user_id, 'billing_state',true);
+			$customer_recent_orders[$counter]['name'] = get_user_meta($order->get_user_id(), 'first_name',true) . ' ' . get_user_meta($order->get_user_id(), 'last_name',true) . ', ' . get_user_meta($order->get_user_id(), 'billing_city',true) . ', ' . get_user_meta($order->get_user_id(), 'billing_state',true);
 			$customer_recent_orders[$counter]['activity'] = "Recently ordered " . $item['name'];
 			$customer_recent_orders[$counter]['time'] = random_checkout_time_elapsed();
 			$counter++;
