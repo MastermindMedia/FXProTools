@@ -7,10 +7,14 @@ function afl_admin_test_codes(){
 }
 
 function afl_test_codes_callback () {
- require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/plan/common/bonus-incentive-calculation.php';
-    if (function_exists('_member_bonus_incentive_calculation')) {
-      _member_bonus_incentive_calculation();
-    }
+  $args = array(
+    'uid' => 37,
+    'amount_paid' => 1,
+    'afl_point' => 0,
+    'category' =>'E-pin Purchase',
+    'order_id'=>2,
+  );
+ pr(apply_filters('eps_affiliates_epin_purchase_complete',37,'22RE7',$args));
 }
 
 

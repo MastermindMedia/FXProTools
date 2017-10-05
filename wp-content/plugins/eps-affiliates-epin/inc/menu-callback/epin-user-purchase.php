@@ -70,6 +70,7 @@ function afl_epin_purchase_form_validation($form_state){
       echo wp_set_message(__("Wrong E-pin number. Please enter a correct Pin number"),'danger');
       return FALSE;
   }
+  
   $ebalance = afl_get_payment_amount($val->balance);
   $estatus = $val->status;
   $etransferable = $val->transferable;

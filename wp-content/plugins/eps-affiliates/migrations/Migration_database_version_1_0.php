@@ -53,8 +53,8 @@
 	 		$this->afl_bonus_incentive_history();
 	 		
 	 		//tables for procedures
-	 		$this->tmp_table();
-	 		$this->tmp_table_down();
+	 		// $this->tmp_table();
+	 		// $this->tmp_table_down();
 
  		/*
  		 * --------------------------------------------------

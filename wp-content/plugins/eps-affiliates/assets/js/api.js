@@ -40,13 +40,19 @@ var i	= 0;
         timer = window.setInterval(progressBarIncrement, 1000);
       },
       success: function(data) {
-       window.clearInterval(timer);
-       $("#progress").html('<div class="progress-bar" role="progressbar"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>');
-       $('.progress-bar').css('transition-duration','300ms');
-       $('.progress-bar').css( 'width' ,'100%');
-       $('#message').html('Processing');
-       _upload_details_to_processing_queue(data);
-       // $('#message').html('Completed');
+        fetch_data  = jQuery.parseJSON(data);
+        total_count = data.count;
+
+       
+        window.clearInterval(timer);
+        $("#progress").html('<div class="progress-bar" role="progressbar"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>');
+        $('.progress-bar').css('transition-duration','300ms');
+        $('.progress-bar').css( 'width' ,'100%');
+        $('#message').html('Processing');
+        _upload_details_to_processing_queue(data);
+        $('#message').html('Completed');
+         // setTimeout(function() { window.location.reload(true); }, 500 );
+
       }
     });
  }

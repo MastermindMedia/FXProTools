@@ -77,7 +77,7 @@
 					'#page_callback' 	=> 'afl_epin_configurations', 
 				);
 				
-				$menu['e_pin_config'] = array(
+				$menu['e_pin_config_'] = array(
 					'#parent'					=> 'e-pin',
 					'#page_title'			=> __( 'E-Pin Purchase', 'e-pin-purchase' ),
 					'#menu_title' 		=> __( 'E-pin Purchase', 'e-pin-purchase' ),
