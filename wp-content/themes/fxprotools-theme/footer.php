@@ -16,6 +16,7 @@
 				</div>
 				<div class="col-md-4">
 					<ul class="footer-nav">
+						<?php dynamic_sidebar( 'footer_menu_2' ); ?>
 						<li><a href="#">Privacy Policy</a></li>
 						<li><a href="#">Terms of Service</a></li>
 						<li><a href="#">Policies &amp; Procedures</a></li>
@@ -23,6 +24,7 @@
 				</div>
 				<div class="col-md-4">
 					<ul class="footer-nav">
+						<?php dynamic_sidebar( 'footer_menu_3' ); ?>
 						<li><a href="#">IBO Agreement</a></li>
 						<li><a href="#">Earnings Disclaimer</a></li>
 						<li><a href="?php echo wp_logout_url('/login/'); ?>">Logout</a></li>
