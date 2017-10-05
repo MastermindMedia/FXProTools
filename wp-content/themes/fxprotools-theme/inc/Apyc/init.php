@@ -14,6 +14,7 @@ function apyc_fxprotools_autoload_class($class_name){
 		$include_classes_dir = realpath( get_template_directory( __FILE__ ) ) .'/inc'. DIRECTORY_SEPARATOR;
 		$admin_classes_dir = realpath( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR;
 		$class_file = str_replace( '_', DIRECTORY_SEPARATOR, $class_name ) . '.php';
+		//echo $include_classes_dir . $class_file.'<br>';
 		if( file_exists($include_classes_dir . $class_file) ){
 			require_once $include_classes_dir . $class_file;
 		}

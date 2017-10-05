@@ -72,6 +72,7 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 		
 		$token = apyc_get_access_token();
 		if( $token ){
+			$body = array();
 			$args = array(
 				'headers' => array(
 					'Content-Type' => 'application/json',
@@ -88,14 +89,17 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 			} else {
 				$response_code = wp_remote_retrieve_response_code( $response );
 				$body_res = wp_remote_retrieve_body( $response );
-				$body = json_decode(preg_replace('/("\w+"):(\d+(\.\d+)?)/', '\\1:"\\2"', $body_res));
-				//json_decode(preg_replace('/("\w+"):(\d+(\.\d+)?)/', '\\1:"\\2"', $get))
-				if( $response_code != 200 ){
-					throw new Exception( $body->int_err_code . ' - ' . $body->msg );
+				if( $response_code == 200 ){
+					$body = json_decode(preg_replace('/("\w+"):(\d+(\.\d+)?)/', '\\1:"\\2"', $body_res));
+					return $body;
+				}else{
+					$body = json_decode($body_res);
+					write_log(isset($body->category) ? $body->category:'' .' '.isset($body->message) ? $body->message:'');
+					return false;
 				}
-				return $body;
 			}
 		}
+		return false;
 	}
 	
 	public function cache($reset = false){
@@ -120,6 +124,7 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 		);
 		$query_args = wp_parse_args( $args, $defaults );
 		$get_data = $this->get();
+
 		if( $get_data ){
 			$number_post = $query_args['number_post'];
 			$i = 0;
