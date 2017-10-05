@@ -362,6 +362,7 @@
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-bonus-summary-report.php';
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-shortcodes-demo.php';
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-processing-queue.php';
+				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-incentive-history-report.php';
 
 			/* 
 			 * -----------------------------------------------------------------------------------------------
@@ -436,6 +437,7 @@
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/member/menu_callback/unilevel/menu-my-customers.php';
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/member/menu_callback/unilevel/menu-unilevel-holding-genealogy-toggle-placement.php';
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/member/menu_callback/unilevel/menu-direct-uplines-tree.php';
+				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/member/menu_callback/menu-my-purhcases.php';
 
 			/* 
 			 * -----------------------------------------------------------------------------------------------

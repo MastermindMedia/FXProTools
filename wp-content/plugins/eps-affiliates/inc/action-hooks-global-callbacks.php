@@ -33,11 +33,11 @@
 	 	}
 
 	 		//check afl_point exists or not
-	 	if (empty($args['afl_point'])) {
-	 		$response['status'] 	= 0;
-	 		$response['response']	=	'Failure';
-	 		$response['error'][] 	= 'Affiliate point cannot be null';
-	 	}
+	 	// if (empty($args['afl_point'])) {
+	 	// 	$response['status'] 	= 0;
+	 	// 	$response['response']	=	'Failure';
+	 	// 	$response['error'][] 	= 'Affiliate point cannot be null';
+	 	// }
 
 	 	//check user id field is an integer
 	 	if (!empty($args['uid']) && !is_numeric($args['uid'])){
@@ -61,11 +61,11 @@
 	 	}
 
  		//check afl_point is integer
-	 	if (!empty($args['afl_point']) && !is_numeric($args['afl_point'])){
-	 		$response['status'] 	= 0;
-	 		$response['response']	=	'Failure';
-	 		$response['error'][] 	= 'Affiliate point needs to be an integer number';
-	 	}
+	 	// if (!empty($args['afl_point']) && !is_numeric($args['afl_point'])){
+	 	// 	$response['status'] 	= 0;
+	 	// 	$response['response']	=	'Failure';
+	 	// 	$response['error'][] 	= 'Affiliate point needs to be an integer number';
+	 	// }
 	 	if ( empty($response['error'])){
 		 	//details enter to the purchase table
 		 	$ins = afl_purchase($args);

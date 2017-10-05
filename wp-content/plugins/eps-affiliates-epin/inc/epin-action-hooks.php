@@ -24,6 +24,7 @@
  	$pages[]  = 'my-e-pin';	
  	$pages[]  = 'all-e-pin';	
  	$pages[]	=	'e-pin-purchase';
+ 	$pages[]	=	'e-pin-history';
  	
  	return $pages;
  }
@@ -38,3 +39,25 @@
  * ------------------------------------------------------------
 */
  add_filter('epsaffliates_epin_delete_my_pin', 'epsaffliates_epin_delete_my_pin_callback', 10, 1);
+
+/*
+ * ----------------------------------------------------------
+ * Get the pin details
+ * ----------------------------------------------------------
+*/
+	add_filter('eps_affiliates_epin_details',
+		         'eps_affiliates_epin_details_callback', 10, 1);
+/*
+ * -----------------------------------------------------------
+ * Check valid E-pin
+ * -----------------------------------------------------------
+*/
+	add_filter('eps_affiliates_check_epin_validity',
+						 'check_epin_valid_or_not', 10, 3);
+/*
+ * -----------------------------------------------------------
+ * E-pin purchase complete
+ * -----------------------------------------------------------
+*/
+	add_filter('eps_affiliates_epin_purchase_complete',
+						 'eps_affiliates_epin_purchase_complete_callback', 10, 3);

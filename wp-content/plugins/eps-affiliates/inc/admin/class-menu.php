@@ -13,13 +13,19 @@
 			public function __construct() {
 
 				add_action( 'admin_menu', array( $this , 'afl_network_menus' ) );
+
 				add_action( 'admin_menu', array( $this , 'afl_ewallet_menus') );
+
 				add_action( 'admin_menu', array( $this , 'afl_unilevel_network_menus' ) );
-				// add_action( 'admin_menu', array( $this , 'afl_epin_menus') );
+
 				add_action( 'admin_menu', array( $this , 'afl_business_menus') );
+
 				add_action( 'admin_menu', array( $this , 'afl_manage_members_menus') );
+
 				add_action( 'admin_menu', array( $this , 'afl_promotion_tools_menus') );
+
 				add_action( 'admin_menu', array( $this , 'afl_payout_menus') );
+
 				add_action( 'admin_menu', array( $this , 'afl_general_help_menus') );
 
 				add_action( 'admin_menu', array( $this , 'afl_system_settings') );
