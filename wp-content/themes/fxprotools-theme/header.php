@@ -10,7 +10,7 @@
 <body <?php body_class(); ?>>
 
 	<div class="<?php echo !is_home() ? 'fx-wrapper' : ''; ?> <?php echo is_page(array('login', 'forgot-password')) ? 'fx-login' : ''; ?>">
-		
+
 		<?php if( is_user_logged_in() && !is_page(array('login', 'forgot-password', 'f1', 'f2', 'f3', 'f4', 'signals')) && !is_home() ): ?>
 		<nav class="navbar fx-navbar-main" role="navigation">
 			<div class="container">
@@ -44,7 +44,7 @@
 								</a>
 							</li>
 							<li>
-								<a href="<?php bloginfo('url'); ?>/team">
+								<a href="<?php bloginfo('url'); ?>/referred-members">
 									<img src="<?php bloginfo('template_url'); ?>/assets/img/ico-team.png" class="img-responsive" width="50" height="44">
 									<span>Team</span>
 								</a>
