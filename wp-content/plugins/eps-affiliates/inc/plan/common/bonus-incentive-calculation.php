@@ -27,7 +27,7 @@
 		$afl_date_splits  = afl_date_splits($current_date);
 
 		$time_period 	= afl_variable_get('rank_holding_consecutive_days',90);
-		$date_behind_period_days = strtotime('-'.$time_period.' days',$current_date);
+		$date_behind_period_days = strtotime('-'.$time_period,$current_date);
 
 		//get users from the matrix genealogy
 		$query = array();
@@ -46,12 +46,7 @@
 				$incentives  = '';
 				if ( $member_rank ) {
 					for ( $i = 1; $i <= $member_rank; $i++ ) {
-						$incen_arr = list_extract_allowed_values(afl_variable_get('rank_'.$i.'_incentives',''),'list_text');
-						if ( !empty($incen_arr)) {
-							foreach ($incen_arr  as $key => $inc_name) {
-								$incentives .= '* '.$inc_name.'<br>';
-							}
-						}
+						$incentives .= ' '.afl_variable_get('rank_'.$i.'_incentives','');
 					}
 
 				  $incentive_history = array();

@@ -121,13 +121,6 @@
 			'#title' 				=> __('AFL Bonus Summary Overview'),
 			'#description' 	=> 'affiliates bonus summary overview '
 		);
-
-		//Incentives summary report
-		$permissions['afl_incentive_history_report'] = array(
-			'#title' 				=> __('AFL Incentives Overview'),
-			'#description' 	=> 'affiliates incentives overview '
-		);
-		
 		//user payment method configuration
 		$permissions['user_payment_method_conf'] = array(
 			'#title' 				=> __('AFL User payment method configuration'),

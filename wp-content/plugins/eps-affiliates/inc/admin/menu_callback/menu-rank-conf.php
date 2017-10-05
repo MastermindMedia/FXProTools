@@ -162,7 +162,7 @@
 		);
 
 		$form['field_'.$rank]['rank_'.$rank.'_incentives'] = array(
-			'#type' 				=> 'textarea',
+			'#type' 				=> 'text',
 			'#title'				=> 'Incentives',
 			'#default_value' 	=> isset($form_state['rank_'.$rank.'_incentives']) ? $form_state['rank_'.$rank.'_incentives']:afl_variable_get('rank_'.$rank.'_incentives'),
 			'#prefix'=>'<div class="form-group row">',

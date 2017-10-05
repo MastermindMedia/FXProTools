@@ -7,7 +7,7 @@ function afl_admin_test_codes(){
 }
 
 function afl_test_codes_callback () {
-  require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/plan/common/bonus-incentive-calculation.php';
+ require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/plan/common/bonus-incentive-calculation.php';
     if (function_exists('_member_bonus_incentive_calculation')) {
       _member_bonus_incentive_calculation();
     }

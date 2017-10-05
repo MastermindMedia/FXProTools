@@ -96,8 +96,8 @@
 		  		$tbl_prefix.'afl_processing_queue',
 		  		$tbl_prefix.'afl_referal_downlines',
 		  		
-		  		// $tbl_prefix.'tmp_table',
-		  		// $tbl_prefix.'tmp_table_down',
+		  		$tbl_prefix.'tmp_table',
+		  		$tbl_prefix.'tmp_table_down',
 		  	);
 		  return $tables;
 		  }

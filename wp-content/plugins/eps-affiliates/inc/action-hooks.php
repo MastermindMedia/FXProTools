@@ -73,7 +73,7 @@ function common_scripts_load(){
  *  Check eps-afl installed or not
  * ----------------------------------------------------------
 */
-	// add_action( 'admin_init', 'eps_affiliate_check_if_installed' );
+	add_action( 'admin_init', 'eps_affiliate_check_if_installed' );
 /*
  * ------------------------------------------------------------
  * Install features on install plugin
@@ -540,7 +540,6 @@ function eps_affiliates_admin_notices () {
 			'affiliate-eps-payout',
 			'affiliate-eps-payout-in-remittance',
 			'affiliate-eps-bonus-summary-report',
-			'affiliate-eps-incentive-history-report',
 			//manage members
 			'affiliate-eps-manage-members',
 			'affiliate-eps-blocked-members',
