@@ -112,7 +112,7 @@ add_theme_support( 'menus' );
 /**
 Added by Allan / APYC
 **/
-require_once plugin_dir_path( __FILE__ ) . 'inc/Apyc/init.php';
+//require_once plugin_dir_path( __FILE__ ) . 'inc/Apyc/init.php';
 /**
 Added by Allan / APYC
 /**
