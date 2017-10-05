@@ -9,9 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-	  <pre>
-	  <?php print_r($webinars); ?>
-	  </pre> 			
+	
 		<form>
 			<div class="form-group">
 				<label for="fullname">Full Name</label>
@@ -27,8 +25,10 @@
 			</div>
 			<div class="form-check">
 				<label class="form-check-label">
-				<input type="checkbox" class="form-check-input">
-					Webinar Dates
+					<?php foreach($webinars as $k => $v){ ?>
+					<p><input name="webinars[]" type="checkbox" class="form-check-input" value="<?php echo $v['parse']['key'];?>">
+						<?php echo $v['parse']['startTime'];?></p>
+					<?php } ?>
 				</label>
 			</div>
 			<button type="submit" class="btn btn-primary webinar-register-now">Register Now</button>
