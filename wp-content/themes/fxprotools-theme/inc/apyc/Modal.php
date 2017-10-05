@@ -47,12 +47,12 @@ class Apyc_Modal{
 
 	public function init(){
 		$data = array();
-		Apyc_View::get_instance()->view_theme('inc/apyc/view/modal.php');
+		Apyc_View::get_instance()->view_theme('inc/Apyc/view/modal.php');
 	}
 	
 	public function equeue_scripts(){
 		global $theme_version;
-		wp_enqueue_script('modal-js-script', get_bloginfo('template_url').'/inc/apyc/js/modal.js', $theme_version);
+		wp_enqueue_script('modal-js-script', get_bloginfo('template_url').'/inc/Apyc/js/modal.js', $theme_version);
 	}
 	
 	public function __construct() {

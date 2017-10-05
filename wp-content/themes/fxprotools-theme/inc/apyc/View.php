@@ -159,7 +159,7 @@ class Apyc_View{
 		extract($data);
 		$template = $this->get_in_theme($template_file);
 		if( $template ){
-			require $template;
+			require_once $template;
 		}else{
 			return false;
 		}
@@ -188,7 +188,7 @@ class Apyc_View{
 			//check in plugin
 			$template_file = apply_filters('apyc_display_template_file', $template_file, $data, 10, 2);
 			if( $require ){
-				require $template_file;
+				require_once $template_file;
 			}else{
 				return $template_file;
 			}
