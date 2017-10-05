@@ -22,7 +22,7 @@
 						</div>
 						<div class="video"></div>
 						<div class="text-center">
-							<a href="#" class="btn btn-danger btn-lg btn-lg-w-text">
+							<a href="#trial-products" class="btn btn-danger btn-lg btn-lg-w-text">
 								Create your Account Now!
 								<span>Sign up takes less than 60 seconds</span>
 							</a>
@@ -341,7 +341,7 @@
 								<img src="http://via.placeholder.com/960x500?text=Video" class="img-responsive centered-block m-b-sm">
 							</div>
 							<div class="text-center">
-								<a href="#" class="btn btn-danger btn-lg btn-lg-w-text">
+								<a href="#trial-products" class="btn btn-danger btn-lg btn-lg-w-text">
 									Create Your Account Today!
 									<span>Sign up takes less than 60 seconds</span>
 								</a>
@@ -393,7 +393,7 @@
 											<h1 class="text-green text-lg m-b-md">$1.00</h1>
 										</div>
 										<div class="text-center">
-											<a href="#" class="btn btn-success btn-lg btn-lg-w-text">
+											<a href="#trial-products" class="btn btn-success btn-lg btn-lg-w-text">
 												Get Your Access For $1.00 Trial Now!
 												<span>Sign up takes less than 60 seconds. Pick a plan to get started</span>
 											</a>
@@ -414,7 +414,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="section-eight">
+		<div id="trial-products" class="section-eight">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6">
@@ -426,7 +426,7 @@
 								</div>
 								<div class="text-center">
 									<h2 class="m-b-md">14 Day FREE Trial!</h2>
-									<a href="#" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
+									<a href="<?php echo site_url('checkout/?add-to-cart=2699&variation_id=2928&attribute_subscription-type=trial');?>" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
 										Start Your Trial Now!
 										<span>Training + Forex & Binary Market Signals</span>
 									</a>
@@ -444,7 +444,7 @@
 								<p>Our Forex & Binary AI will track & backtest all the contracts that we go through and predict the market direction with up to a 90% accuracy rate - so you can let our software do the thinking for you.</p>
 								<hr/>
 								<div class="text-center">
-									<a href="#" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
+									<a  href="<?php echo site_url('checkout/?add-to-cart=2699&variation_id=2928&attribute_subscription-type=trial');?>" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
 										Start Your Trial Now!
 										<span>Training + Forex & Binary Market Signals</span>
 									</a>
@@ -463,7 +463,7 @@
 								</div>
 								<div class="text-center">
 									<h2 class="m-b-md">14 Day FREE Trial!</h2>
-									<a href="#" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
+									<a href="<?php echo site_url('checkout/?add-to-cart=47&variation_id=2931&attribute_subscription-type=trial');?>" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
 										Start Your Trial Now!
 										<span>Training + Forex & Binary Market Signals</span>
 									</a>
@@ -482,7 +482,7 @@
 								<p>Start trading the markets today by taking advantage of our massive price reduction. </p>
 								<hr/>
 								<div class="text-center">
-									<a href="#" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
+									<a href="<?php echo site_url('checkout/?add-to-cart=47&variation_id=2931&attribute_subscription-type=trial');?>" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
 										Start Your Trial Now!
 										<span>Training + Forex & Binary Market Signals</span>
 									</a>
@@ -552,7 +552,7 @@
 								</div>
 							</div>
 							<div class="text-center m-t-md">
-								<a href="#" class="btn btn-success btn-lg m-b-md btn-lg-w-text">
+								<a href="#trial-products" class="btn btn-success btn-lg m-b-md btn-lg-w-text">
 									Get Your Access For $1.00 Trial Now!
 									<span>Sign-up takes less than 60 seconds. Pick a plan to get started!</span>
 								</a>
@@ -629,7 +629,7 @@
 								</div>
 								<div class="text-center">
 									<h2 class="m-b-md">$160</h2>
-									<a href="#" class="btn btn-danger block btn-lg m-b-md btn-lg-w-text">
+									<a href="<?php echo site_url('checkout/?add-to-cart=48&variation_id=2921&attribute_subscription-type=trial');?>" class="btn btn-danger block btn-lg m-b-md btn-lg-w-text">
 										Start Your Business
 										<span>Training + Forex & Binary Market Signals</span>
 									</a>
@@ -739,7 +739,7 @@
 								</div>
 								<div class="row">
 									<div class="col-md-8 col-md-offset-2">
-										<a href="#" class="btn btn-success block btn-lg btn-lg-w-text">
+										<a href="#trial-products" class="btn btn-success block btn-lg btn-lg-w-text">
 											Get Your Access For $1.00 Trial Now!
 											<span>Sign-up takes less than 60 seconds. Pick a plan to get started!</span>
 										</a>
@@ -764,7 +764,7 @@
 									</div>
 									<div class="clearfix"></div>
 									<div class="col-md-8 col-md-offset-2">
-										<a href="#" class="btn btn-success block btn-lg btn-lg-w-text m-t-md">
+										<a href="#trial-products" class="btn btn-success block btn-lg btn-lg-w-text m-t-md">
 											Get Your Access For $1.00 Trial Now!
 											<span>Sign-up takes less than 60 seconds. Pick a plan to get started!</span>
 										</a>
@@ -788,5 +788,17 @@
 			</div>
 		</div>
 	</div>
-
+	<script type="text/javascript">
+		jQuery(document).ready(function($){
+			$("a[href='#trial-products'").on('click', function(event) {
+				if (this.hash !== "") {
+					event.preventDefault();
+					var hash = this.hash;
+					$('html, body').animate({
+						scrollTop: $(hash).offset().top - 30
+					}, 600);
+				} // End if
+			});
+		});
+	</script>
 <?php get_footer(); ?>
