@@ -721,7 +721,7 @@
 		 * --------------------------------------------------------------------------
 		*/
 		 function eps_admin_test_menus () {
-		 	$menu = array();
+		 		$menu = array();
 				$menu['test_menu'] = array(
 					'#page_title'			=> __( 'Test', 'Test' ),
 					'#menu_title' 		=> __( 'Test', 'Test' ),
@@ -771,13 +771,22 @@
 		 * --------------------------------------------------------------------------
 		*/
 		 function eps_admin_purchase () {
-		 	$menu['purchase'] = array(
+			 	$menu = array();
+			 	$menu['purchase'] = array(
 					'#page_title'			=> __( 'Purchase', 'Purchase' ),
 					'#menu_title' 		=> __( 'Purchase', 'Purchase' ),
 					'#access_callback'=> 'afl_purchase', 
 					'#menu_slug' 			=> 'affiliate-eps-purchases', 
 					'#page_callback' 	=> 'afl_test_purchases',
 					'#weight' 				=> 8, 
+				);
+				$menu['purchase_'] = array(
+					'#parent'					=> 'affiliate-eps-purchases',
+					'#page_title'			=> __( 'My Purchases', 'My Purchases' ),
+					'#menu_title' 		=> __( 'My Purchases', 'My Purchases' ),
+					'#access_callback'=> 'afl_purchase', 
+					'#menu_slug' 			=> 'affiliate-eps-my-purchases', 
+					'#page_callback' 	=> 'afl_my_purchase',
 				);
 				afl_system_admin_menu($menu);
 		 }
@@ -787,6 +796,7 @@
 		 * --------------------------------------------------------------------------
 		*/
 		 function afl_reports () {
+		 	$menu = array();
 		 		$menu['reports'] = array(
 					'#page_title'			=> __( 'Reports', 'Reports' ),
 					'#menu_title' 		=> __( 'Reports', 'Reports' ),
@@ -821,10 +831,21 @@
 					'#menu_slug' 			=> 'affiliate-eps-bonus-summary-report', 
 					'#page_callback' 	=> 'afl_bonus_summary_report',
 				);
+
+				$menu['incentive_history'] = array(
+					'#parent' 				=> 'affiliate-eps-reports',
+					'#page_title'			=> __( 'Incentive History', 'Incentive History' ),
+					'#menu_title' 		=> __( 'Incentive History', 'Incentive History' ),
+					'#access_callback'=> 'afl_incentive_history_report', 
+					'#menu_slug' 			=> 'affiliate-eps-incentive-history-report', 
+					'#page_callback' 	=> 'afl_incentive_history_report',
+				);
+
 				afl_system_admin_menu($menu);
 		 }
 
 		 function afl_no_parent_pages(){
+		 	$menu = array();
 		 	$payment_methods= list_extract_allowed_values(afl_variable_get('payment_methods'),'list_text',FALSE);
 		 	foreach ($payment_methods as $key => $value) {
 		 		$menu['payout_method_conf_'.$key] = array(
@@ -844,7 +865,7 @@
 		 * ---------------------------------------------------------------------------
 		*/
      function afl_admin_remote_api () {
-
+     		$menu = array();
 				//Remote users
 				$menu['remote_users'] = array(
 					'#page_title'			=> __( 'Remote API', 'eps-affiliates' ), 
@@ -861,7 +882,7 @@
 		 * ---------------------------------------------------------------------------
 		*/
      function afl_shortcode_demo () {
-
+     		$menu = array();
 				//Remote users
 				$menu['shortcode_demo'] = array(
 					'#page_title'			=> __( 'Shortcode Demo', 'eps-affiliates' ), 

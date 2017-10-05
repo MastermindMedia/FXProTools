@@ -62,7 +62,9 @@
 					$all_permissions = custom_permissions();
 					foreach ($all_permissions as $key => $value) {
 						$wp_roles->add_cap( 'administrator', $key);
-						afl_variable_set($permission_name.'_administrator');
+						$wp_roles->add_cap( 'business_admin', $key);
+						afl_variable_set($key.'_administrator',TRUE);
+						afl_variable_set($key.'_business_admin',TRUE);
 					}
 			}
 		}
