@@ -228,6 +228,7 @@
 
 				//all the hooks
 				require_once EPSAFFILIATE_EPIN_PLUGIN_DIR . 'inc/epin-action-hooks.php';
+				require_once EPSAFFILIATE_EPIN_PLUGIN_DIR . 'inc/action-hooks-callbacks.php';
 				// Permissions
 				require_once EPSAFFILIATE_EPIN_PLUGIN_DIR . 'eps-affliates-epin-permission.php';
 				// install file
@@ -286,5 +287,3 @@ function eps_affiliates_e_pin() {
 
 
 eps_affiliates_e_pin();
-
-?>

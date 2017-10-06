@@ -305,4 +305,3 @@ function afl_admin_all_e_pin_view(){
 			<?php
 	}
 
-?>

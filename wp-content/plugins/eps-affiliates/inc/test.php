@@ -580,10 +580,18 @@ function afl_generate_purchase () {
 				case 'advanced':
 					$args['amount_paid']	=	5185 * $count;
 				break;
+				case 'distrib_kit':
+					$args['category']			=	'Distributor Kit';
+					$args['amount_paid']	=	0;
+					$args['afl_point'] 		= 0;
+				break;
 			}
 
-			$resp = apply_filters('eps_commerce_purchase_complete', $args);
-
+			if ($product == 'distrib_kit') {
+				$resp = apply_filters('eps_commerce_distributor_kit_purchase_complete', $args);
+			} else {
+				$resp = apply_filters('eps_commerce_purchase_complete', $args);
+			}
 
 			if ($resp['status'] == 1) {
 				echo wp_set_message('Purchase product', 'success');
@@ -622,7 +630,8 @@ function afl_generate_purchase () {
 				'professional' 	=> 'Professional',
 				'business' 			=> 'Business',
 				'auto-trader'		=> 'Auto Trader',
-				'advanced'			=> 'Advanced'
+				'advanced'			=> 'Advanced',
+				'distrib_kit'			=> 'Distributor Kit',
 			)
 
 		);
@@ -675,9 +684,18 @@ function afl_generate_purchase () {
 				case 'advanced':
 					$args['amount_paid']	=	5185 * $count;
 				break;
+				case 'distrib_kit':
+						$args['category']			=	'Distributor Kit';
+						$args['amount_paid']	=	0;
+						$args['afl_point'] 		= 0;
+					break;
 			}
 
-			$resp = apply_filters('eps_commerce_purchase_complete', $args);
+				if ($product == 'distrib_kit') {
+					$resp = apply_filters('eps_commerce_distributor_kit_purchase_complete', $args);
+				} else {
+					$resp = apply_filters('eps_commerce_purchase_complete', $args);
+				}
 
 
 			if ($resp['status'] == 1) {
@@ -716,7 +734,8 @@ function afl_generate_purchase () {
 				'professional' 	=> 'Professional',
 				'business' 			=> 'Business',
 				'auto-trader'		=> 'Auto Trader',
-				'advanced'			=> 'Advanced'
+				'advanced'			=> 'Advanced',
+				'distrib_kit'			=> 'Distributor Kit',
 			)
 
 		);

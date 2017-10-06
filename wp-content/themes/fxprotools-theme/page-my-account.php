@@ -4,7 +4,18 @@ $checklist = get_user_checklist();
 
 if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 	foreach($_POST as $key => $value){
-		update_usermeta( get_current_user_id(), $key,  $value );
+		if($key == "user_email_subs" || $key == "user_sms_subs")
+		{
+			if($value == "on"){
+				update_user_meta( get_current_user_id(), $key,  "yes" );
+			}
+			else{
+				update_user_meta( get_current_user_id(), $key,  "no" );
+			}
+		}
+		else{
+			update_user_meta( get_current_user_id(), $key,  $value );
+		}
 	}
 	//for onboard checklist
 	if( !$checklist['verified_profile'] ){
@@ -87,6 +98,15 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 													<li><span>Google Plus:</span> <?php echo get_the_author_meta('googleplus', get_current_user_id()); ?></li>
 												</ul>
 											</div>
+											<div class="col-md-6 m-b-lg">
+												<p class="text-bold text-center">Account Information</p>
+												<ul class="list-info list-info-fields">
+													<li><span>Affiliate ID:</span> <?php echo affwp_get_affiliate_id( get_current_user_id() ) ?></li>
+													<li><span>Username:</span> <?php echo get_the_author_meta('user_login', get_current_user_id()) ?></li>
+													<li><span>SMS/Text Messaging:</span> <?php echo get_the_author_meta('user_sms_subs', get_current_user_id()) ?></li>
+													<li><span>Email Updates:</span> <?php echo get_the_author_meta('user_email_subs', get_current_user_id()) ?></li>
+												</ul>
+											</div>
 											<div class="clearfix"></div>
 											<div class="col-md-6">
 												<p class="text-bold text-center">Billing Information</p>
@@ -134,13 +154,15 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 													<li><span>Username:</span> <input type="text" readonly value="<?php echo get_the_author_meta('user_login', get_current_user_id()) ?>" /></li>
 													<li><span>SMS/Text Messaging:</span>
 														<span class="form-checkbox-holder">
-															<input class="fx-slide-toggle" id="user_sms_subs" type="checkbox">
+															<input type="hidden" value="no" name="user_sms_subs">
+															<input class="fx-slide-toggle" name="user_sms_subs" id="user_sms_subs" type="checkbox" <?php if(get_the_author_meta('user_sms_subs', get_current_user_id()) == "yes"){echo 'checked';} ?>>
 															<label class="fx-slide-toggle-btn" for="user_sms_subs"></label>
 														</span>
 													</li>
 													<li><span>Email Updates:</span> 
 														<span class="form-checkbox-holder">
-															<input class="fx-slide-toggle" id="user_email_subs" type="checkbox">
+														<input type="hidden" value="no" name="user_email_subs">
+															<input class="fx-slide-toggle" name="user_email_subs" id="user_email_subs" type="checkbox" <?php if(get_the_author_meta('user_email_subs', get_current_user_id()) == "yes"){echo 'checked';} ?>>
 															<label class="fx-slide-toggle-btn" for="user_email_subs"></label>
 														</span>
 													</li>

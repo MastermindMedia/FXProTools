@@ -645,6 +645,7 @@ function expandUnilevelTree(obj) {
  * -------------------------------------------------------------
 */
   function _toggle_holding_node_left(object){
+    console.log('sss');
     var toggle_left_id = $(object).attr('data-toggle-uid');
     var sponsor        = $('#sponsor').val(); 
     var tree           = $('#tree').val();

@@ -355,5 +355,3 @@ function afl_user_epin_view(){
 			</div>
 			<?php
 	}
-
-?>

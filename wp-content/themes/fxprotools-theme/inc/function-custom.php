@@ -578,3 +578,39 @@ function track_user_history()
     array_push($track_user_history, $data);
 	update_user_meta(get_current_user_id(), 'track_user_history', $track_user_history);
 }
+
+add_action( 'show_user_profile', 'add_extra_profile_fields' );
+add_action( 'edit_user_profile', 'add_extra_profile_fields' );
+function add_extra_profile_fields( $user ) { ?>
+	<h3>Extra profile information</h3>
+	<table class="form-table">
+		<tr>
+			<th><label for="user_sms_subs">SMS/Text Messaging</label></th>
+			<td>
+				<select id="user_sms_subs" name="user_sms_subs">
+					<option value="no" <?php if(get_the_author_meta( 'user_sms_subs', $user->ID ) == "no"){echo 'selected';} ?>>no</option>
+					<option value="yes" <?php if(get_the_author_meta( 'user_sms_subs', $user->ID ) == "yes"){echo 'selected';} ?>>yes</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<th><label for="user_email_subs">Email Updates</label></th>
+			<td>
+				<select id="user_email_subs" name="user_email_subs">
+					<option value="no" <?php if(get_the_author_meta( 'user_email_subs', $user->ID ) == "no"){echo 'selected';} ?>>no</option>
+					<option value="yes" <?php if(get_the_author_meta( 'user_email_subs', $user->ID ) == "yes"){echo 'selected';} ?>>yes</option>
+				</select>
+			</td>
+		</tr>
+	</table>
+<?php }
+
+add_action( 'personal_options_update', 'save_extra_profile_fields' );
+add_action( 'edit_user_profile_update', 'save_extra_profile_fields' );
+function save_extra_profile_fields( $user_id ) {
+	if ( !current_user_can( 'edit_user', $user_id ) )
+		return false;
+
+	update_usermeta( $user_id, 'user_sms_subs', $_POST['user_sms_subs'] );
+	update_usermeta( $user_id, 'user_email_subs', $_POST['user_email_subs'] );
+}
