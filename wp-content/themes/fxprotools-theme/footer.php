@@ -27,6 +27,7 @@
 				<div class="col-md-4">
 					<ul class="footer-nav">
 						<?php dynamic_sidebar( 'footer_menu_3' ); ?>
+						<li><a href="?php echo wp_logout_url('/login/'); ?>">Logout</a></li>
 						<!--
 						<li><a href="#">IBO Agreement</a></li>
 						<li><a href="#">Earnings Disclaimer</a></li>
