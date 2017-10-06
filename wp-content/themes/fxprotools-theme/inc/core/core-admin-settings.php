@@ -21,7 +21,8 @@ if(!class_exists('AdminSettings')){
 			add_filter('login_headerurl', array($this, 'login_logo_link'));
 			add_action('admin_menu',  array($this, 'remove_admin_menus'), 99);
 			add_action('admin_init', array($this, 'remove_dashboard_meta'));
-			// add_action('admin_menu', array($this, 'page_anet'));
+			add_action('after_setup_theme', array($this, 'remove_admin_bar_non_admin'));
+
 		}
 
 		// Admin assets
@@ -67,6 +68,13 @@ if(!class_exists('AdminSettings')){
 				remove_meta_box('dashboard_right_now', 'dashboard', 'normal');
 				remove_meta_box('dashboard_activity', 'dashboard', 'normal');
 			}
+		}
+
+
+		public function remove_admin_bar_non_admin() {
+		     if ( !current_user_can('manage_options') && !is_admin()) {
+		         show_admin_bar(false);
+		     }
 		}
 
 		// Custom page - Authorize.net CIM and Subscriptions Manager

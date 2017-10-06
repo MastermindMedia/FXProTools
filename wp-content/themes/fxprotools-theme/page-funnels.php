@@ -6,7 +6,7 @@ $category_slug = 'funnels';
 $category = get_term_by('slug', $category_slug, 'ld_course_category' );
 $courses = get_courses_by_category_id($category->term_id);
 $funnels = get_funnels();
-$referral = "/?ref=" . affwp_get_affiliate_id( get_current_user_id() );
+$referral = "/?ref=" .  wp_get_current_user()->user_login;
 ?>
 <?php get_header(); ?>
 	<?php if ( is_user_fx_distributor() || current_user_can('administrator') ): ?>
@@ -70,7 +70,7 @@ $referral = "/?ref=" . affwp_get_affiliate_id( get_current_user_id() );
 														$title = rwmb_meta('capture_page_title');
 														$subtitle = rwmb_meta('capture_sub_title');
 														$page_url = rwmb_meta('capture_page_url') . $referral;
-														$thumbnail = reset(rwmb_meta('capture_page_thumbnail'));
+														$thumbnail = rwmb_meta('capture_page_thumbnail');
 														?>
 														<div class="row">
 															<div class="col-md-9">
@@ -169,7 +169,7 @@ $referral = "/?ref=" . affwp_get_affiliate_id( get_current_user_id() );
 														$title = rwmb_meta('landing_page_title');
 														$subtitle = rwmb_meta('landing_sub_title');
 														$page_url = rwmb_meta('landing_page_url') . $referral;
-														$thumbnail = reset(rwmb_meta('landing_page_thumbnail'));
+														$thumbnail = rwmb_meta('landing_page_thumbnail');
 														?>
 														<div class="row">
 															<div class="col-md-9">
