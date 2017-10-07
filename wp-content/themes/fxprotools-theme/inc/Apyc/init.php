@@ -83,22 +83,22 @@ if ( ! function_exists('apyc_create_registrant')) {
 		}
    }
 }
+if ( ! function_exists('apyc_get_webinar_free')) {
+   function apyc_get_webinar_free($arg)  {
+		try{
+			$defaults = array(
+				'filter_by_subject' => 'Weekly Q & A'
+			);
+			$query_args = wp_parse_args( $arg, $defaults );
+			$get = Apyc_Citrix_GoToWebinar_GetAll::get_instance()->query($query_args);
+			return $get;
+		}catch(Exception $e){
+			write_log('get free webinar error : ' . $e->getMessage());
+			return false;
+		}
+   }
+}
 function apyc_fxprotools_setup(){
-	//$token = apyc_get_token();
-	//print_r($token);
-	$body = array(
-		'lastName' => 'Casilum',
-		'firstName' => 'Allan',
-		'email' => 'allan@mail.com',
-	);
-	//$create = apyc_create_registrant('530845699094496258', $body);
-	//$get = apyc_get_all_webinars_cache();
-	/*echo '<pre>';
-	print_r($create);
-	echo '</pre>';*/
-	//echo Apyc_View::get_instance()->get_in_theme('inc/apyc');
-	//echo Apyc_View::get_instance()->get_view_part('inc/apyc');
-	//exit();
 	Apyc_Modal::get_instance();
 }
 add_action( 'after_setup_theme', 'apyc_fxprotools_setup' );

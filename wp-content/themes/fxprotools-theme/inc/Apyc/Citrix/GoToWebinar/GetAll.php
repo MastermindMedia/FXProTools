@@ -121,22 +121,42 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 		$data = array();
 		$defaults = array(
 			'number_post' => 5,
+			'filter_by_subject' => ''
 		);
+		
 		$query_args = wp_parse_args( $args, $defaults );
-		$get_data = $this->get();
+		//$get_data = $this->get();
+		$get_data = $this->cache();
 
 		if( $get_data ){
-			$number_post = $query_args['number_post'];
+			$number_post = $query_args['number_post'] - 1;
 			$i = 0;
-			for($i = 0; $i < $number_post; $i++){
+			foreach($get_data as $k => $v){
+				$subject = str_replace(' ', '', strtolower($v->subject));
+				$filter_by_subject = str_replace(' ', '', strtolower($query_args['filter_by_subject']));
+				
 				$parse_data = array(
-					'key' => $get_data[$i]->webinarKey,
-					'startTime' => date("l, M.jS, h:i A e", strtotime($get_data[$i]->times[0]->startTime)),
+					'key' => $v->webinarKey,
+					'startTime' => date("l, M.jS, h:i A e", strtotime($v->times[0]->startTime)),
 				);
-				$data[] = array(
-					'raw' => $get_data[$i],
-					'parse' => $parse_data
-				);
+				
+				if( trim($query_args['filter_by_subject']) != '' ){
+					if( strcasecmp($subject,$filter_by_subject) == 0 ){
+						//echo $i.$number_post.strcasecmp($subject,$filter_by_subject).'-'.$subject.'-'.$filter_by_subject.$_get_data_raw->webinarKey.'<br>';
+						$data[] = array(
+							'raw' => $v,
+							'parse' => $parse_data
+						);
+						if( $i++ == $number_post) break;
+					}
+				}else{
+					$data[] = array(
+						'raw' => $v,
+						'parse' => $parse_data
+					);
+					if( $i++ == $number_post) break;
+				}
+				
 			}
 			return $data;
 		}
