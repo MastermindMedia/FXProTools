@@ -127,7 +127,9 @@ function property_occurence_count($array, $property, $value)
 {
 	$count = 0;
 	foreach ($array as $object) {
-	    if ( preg_replace('{/$}', '', $object->{$property} ) == $value) $count++;
+		if ( preg_replace('{/$}', '', $object->{$property} ) == preg_replace('{/$}', '', $value ) ){
+			$count++;
+		}
 	}
 	return $count;
 }
@@ -136,7 +138,7 @@ function get_unique_property_count($array, $property, $url)
 {
 	$count = 0;
 	foreach($array as $object){
-		if($object->url == $url){
+		if( preg_replace('{/$}', '', $object->url) == preg_replace('{/$}', '', $url) ){
 			$value = $object->{$property};
 			$occurrence = property_occurence_count($array, $property, $value);
 			if($occurrence == 1) $count += 1;
@@ -149,8 +151,8 @@ function get_property_count($array, $property, $url)
 {
 	$count = 0;
 	foreach($array as $object){
-		if($object->url == $url){
-			if($object->{$property} > 0) $count++;
+		if( preg_replace('{/$}', '', $object->url) == preg_replace('{/$}', '', $url) ){
+			if( (int) $object->{$property} > 0) $count++;
 		}
 	}
 	return $count;
@@ -187,18 +189,23 @@ function get_funnel_stats($funnel_id, $date_filter = array())
 	$sales_stats = array( 'customer_sales' => 0, 'distributor_sales' => 0);
 
 	//all
-	$cp_stats['page_views']['all'] = property_occurence_count($visits, 'url', preg_replace('{/$}', '', $funnel['cp_url']) );
-	$lp_stats['page_views']['all'] = property_occurence_count($visits, 'url', preg_replace('{/$}', '', $funnel['lp_url']) );
+	$cp_stats['page_views']['all'] = property_occurence_count($visits, 'url',  $funnel['cp_url'] );
+	$lp_stats['page_views']['all'] = property_occurence_count($visits, 'url', $funnel['lp_url'] );
 
 	//unique
 	$cp_stats['page_views']['unique'] = get_unique_property_count($visits, 'ip', $funnel['cp_url']);
 	$lp_stats['page_views']['unique'] = get_unique_property_count($visits, 'ip', $funnel['lp_url']);
 
 	//opt ins
-	$cp_stats['opt_ins']['count'] = get_property_count($visits, 'referral_id', $funnel['cp_url']);
-	$cp_stats['opt_ins']['rate'] = $cp_stats['opt_ins']['count'] < 1 ? 0 :  round( $cp_stats['opt_ins']['count'] / $cp_stats['page_views']['all'] * 100, 2);
+	$funnel_id = trim( parse_url( rwmb_meta('capture_page_url', '', $funnel_id), PHP_URL_PATH ), '/');
+	$search = FX_Sendgrid_Api::search_contacts('campaign', $funnel_id);
+	$cp_stats['opt_ins']['all'] = $search->recipient_count;
+	$cp_stats['opt_ins']['rate'] = $cp_stats['opt_ins']['all'] < 1 ? 0 :  round( $cp_stats['opt_ins']['all'] / $cp_stats['page_views']['all'] * 100, 2);
 
 	//sales
+	$cp_stats['sales']['count'] = get_property_count($visits, 'referral_id', $funnel['cp_url']);
+	$cp_stats['sales']['rate'] = $cp_stats['sales']['count'] < 1 ? 0 :  round( $cp_stats['sales']['count'] / $cp_stats['page_views']['all'] * 100, 2);
+	
 	$lp_stats['sales']['count'] = get_property_count($visits, 'referral_id', $funnel['lp_url']);
 	$lp_stats['sales']['rate'] = $lp_stats['sales']['count'] < 1 ? 0 :  round( $lp_stats['sales']['count'] / $lp_stats['page_views']['all'] * 100, 2);
 	
@@ -461,6 +468,10 @@ function get_query_string()
 	return $string;
 }
 
+/* -------------------------
+	Actions and Filters
+ --------------------------*/
+
 add_action('wp_ajax_nopriv_lms_lesson_complete', 'lms_lesson_complete');
 add_action('wp_ajax_lms_lesson_complete', 'lms_lesson_complete');
 function lms_lesson_complete()
@@ -481,7 +492,7 @@ function enforce_page_access()
 	if( !isset($post) ) return;
 	$slug = $post->post_name;
 	$guest_allowed_post_type = array( 'product' );
-	$guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'funnels', 'f1', 'f2', 'f3', 'f4' );
+	$guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'funnels', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4' );
 
 	if( is_user_logged_in() ) return 0;
 	if( !is_product() && !is_cart() && !is_checkout() && !is_shop() && !is_404() && !is_front_page() ) {

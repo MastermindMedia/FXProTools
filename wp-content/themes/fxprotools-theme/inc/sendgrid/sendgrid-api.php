@@ -21,6 +21,14 @@ if(!class_exists('FX_Sendgrid_Api')){
 			return $response->body();
 		}
 
+		static function search_contacts( $field_name, $field_value )
+		{
+			$query_params = json_decode('{"' . $field_name . '" : "' . $field_value .'"}');
+			$sg = new \SendGrid( self::SENDGRID_API_KEY );
+			$response =  $sg->client->contactdb()->recipients()->search()->get(null, $query_params);
+			return json_decode( $response->body() );
+		}
+
 		public function add_recipient( $recipient = array() ){
 			$sg = new \SendGrid( self::SENDGRID_API_KEY );
 			$request_body = array( (object) $recipient );
@@ -44,4 +52,5 @@ if(!class_exists('FX_Sendgrid_Api')){
 
 //$recipient = array('email' => 'user'.rand().'@gmail.com', "first_name" => 'test', 'last_name' => 'test', 'campaign' => '123' );
 //$recipient_id = FX_Sendgrid_Api::add_recipient($recipient);
-//FX_Sendgrid_Api::add_recipient_to_list($recipient_id);
+//dd( FX_Sendgrid_Api::search_contacts('campaign', 'f1' ) );
+

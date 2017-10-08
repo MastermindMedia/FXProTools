@@ -102,13 +102,48 @@ if(!class_exists('SettingsMB')){
 					array(
 						'id'   => $prefix . 'capture_page_url',
 						'type' => 'text',
-						'name' => 'Funnel URL',
+						'name' => 'Capture Page URL',
 						'size' => 80,
 					),
 					array(
 						'id'   => $prefix . 'capture_page_thumbnail',
 						'type' => 'image_advanced',
 						'name' => 'Cature Page Thumbnail',
+						'force_delete' => false,
+						'max_file_uploads' => '1',
+					),
+				),
+			);
+			$meta_boxes[] = array(
+				'id'         => 'landing_page_fields',
+				'title'      => 'Landing Page Fields',
+				'post_types' => array( 'fx_funnel' ),
+				'context'    => 'advanced',
+				'priority'   => 'high',
+				'autosave'   => false,
+				'fields' => array(
+					array(
+						'id'   => $prefix . 'landing_page_title',
+						'type' => 'text',
+						'name' => 'Capture Page Title',
+						'size' => 80,
+					),
+					array(
+						'id'   => $prefix . 'landing_sub_title',
+						'type' => 'text',
+						'name' => 'Capture Sub Title',
+						'size' => 80,
+					),
+					array(
+						'id'   => $prefix . 'landing_page_url',
+						'type' => 'text',
+						'name' => 'Landing Page URL',
+						'size' => 80,
+					),
+					array(
+						'id'   => $prefix . 'landing_page_thumbnail',
+						'type' => 'image_advanced',
+						'name' => 'Landing Page Thumbnail',
 						'force_delete' => false,
 						'max_file_uploads' => '1',
 					),
