@@ -1,7 +1,7 @@
 <?php 
 get_header(); 
 $checklist = get_user_checklist();
-
+//$wpdb->update($wpdb->users, array('user_login' => "elvinpaula"), array('ID' => get_current_user_id()));
 if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 	foreach($_POST as $key => $value){
 		if($key == "user_email_subs" || $key == "user_sms_subs")
@@ -12,6 +12,9 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 			else{
 				update_user_meta( get_current_user_id(), $key,  "no" );
 			}
+		}
+		elseif($key == "user_login"){
+			$wpdb->update($wpdb->users, array('user_login' => $value), array('ID' => get_current_user_id()));
 		}
 		else{
 			update_user_meta( get_current_user_id(), $key,  $value );
@@ -151,7 +154,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 												<p class="text-bold text-center">Account Information</p>
 												<ul class="list-info list-info-fields">
 													<li><span>Affiliate ID:</span> <input type="text" readonly value="<?php echo affwp_get_affiliate_id( get_current_user_id() ) ?>" /></li>
-													<li><span>Username:</span> <input type="text" readonly value="<?php echo get_the_author_meta('user_login', get_current_user_id()) ?>" /></li>
+													<li><span>Username:</span> <input type="text" name="user_login" id="user_login" value="<?php echo get_the_author_meta('user_login', get_current_user_id()) ?>" /></li>
 													<li><span>SMS/Text Messaging:</span>
 														<span class="form-checkbox-holder">
 															<input type="hidden" value="no" name="user_sms_subs">
@@ -649,7 +652,44 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 			$('#view-purchase-details').hide();
 			$('#table-purchases').fadeIn();
 		});
+		//check username
+		var textInput = document.getElementById('user_login');
+		var timeout = null;
+		textInput.onkeyup = function (e) {
+			clearTimeout(timeout);
+			$('.form-edit button[type="submit"]').attr('disabled','disabled');
 
+			timeout = setTimeout(function () {
+				var username = $('#user_login').val();
+				var id = $('#user_login').attr('id');
+		        $.ajax({
+			        url: "<?php echo get_option('home'); ?>/wp-admin/admin-ajax.php",
+			        data: {
+			            'action':'check_username',
+			            'new_username' : username
+			        },
+			        beforeSend: function(){
+			        	$('#' + 'validation-'+ id).remove();
+			        	$('#user_login').parent().after('<li id="validation-'+ id +'" class="validation-field"></li>');
+			        	$('#' + 'validation-'+ id).append('<span class="alert alert-warning">Verifying your new username...</span>');
+			        },
+			        success:function(data) {
+			            if(data == "0"){
+			            	$('#' + 'validation-'+ id + ' .alert').remove();
+			            	$('#' + 'validation-'+ id).append('<span class="alert alert-danger">username "'+ username +'" is not available <i class="fa fa-times"></i></span>');
+			            	$('.form-edit button[type="submit"]').attr('disabled','disabled');
+			            }else{
+			            	$('#' + 'validation-'+ id + ' .alert').remove();
+			            	$('#' + 'validation-'+ id).append('<span class="alert alert-success">username "'+ username +'" is available <i class="fa fa-check"></i></span>');
+			            	$('.form-edit button[type="submit"]').removeAttr('disabled');
+			            }
+			        },
+			        error: function(errorThrown){
+			            console.log(errorThrown);
+			        }
+			    }); 
+		    }, 1000);
+		};
 	});
 </script>
 

@@ -939,12 +939,24 @@
 			span{
 				display: inline-block;
 				vertical-align: middle;
-				min-width: 150px;
+				width: 36%;
+			}
+			button, input, select, textarea{
+				width: 62%;
 			}
 		}
 	}
 	.form-checkbox-holder{
 		padding-top: 5px;
+	}
+	.validation-field{
+		text-align: right;
+		.alert{
+			width: 100%;
+			padding: 3px 0;
+			margin: 10px 0;
+			text-align: center;
+		}
 	}
 }
 
