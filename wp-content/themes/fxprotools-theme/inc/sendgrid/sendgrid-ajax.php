@@ -24,8 +24,7 @@ if(!class_exists('FX_Sendgrid_Ajax')){
 					echo json_encode( array( 'status' => 'FAIL') );
 				}
 			}
-			wp_die();
-			
+			wp_die();	
 		}
 	}
 }

@@ -6,23 +6,33 @@
 			<div class="row">
 				<div class="col-md-4">
 					<ul class="footer-nav">
+						<?php dynamic_sidebar( 'footer_menu_1' ); ?>
+						<!-- 
 						<li><a href="#">Become A Customer</a></li>
 						<li><a href="#">Become A Distributor</a></li>
 						<li><a href="#">Member Login</a></li>
+						-->
 					</ul>
 				</div>
 				<div class="col-md-4">
 					<ul class="footer-nav">
+						<?php dynamic_sidebar( 'footer_menu_2' ); ?>
+						<!--- 
 						<li><a href="#">Privacy Policy</a></li>
 						<li><a href="#">Terms of Service</a></li>
 						<li><a href="#">Policies &amp; Procedures</a></li>
+						-->
 					</ul>
 				</div>
 				<div class="col-md-4">
 					<ul class="footer-nav">
+						<?php dynamic_sidebar( 'footer_menu_3' ); ?>
+						<li><a href="?php echo wp_logout_url('/login/'); ?>">Logout</a></li>
+						<!--
 						<li><a href="#">IBO Agreement</a></li>
 						<li><a href="#">Earnings Disclaimer</a></li>
 						<li><a href="?php echo wp_logout_url('/login/'); ?>">Logout</a></li>
+						-->
 					</ul>
 				</div>
 				<div class="clearfix"></div>

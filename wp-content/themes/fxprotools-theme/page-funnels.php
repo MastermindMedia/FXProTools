@@ -1,13 +1,12 @@
 <?php
 $product_id = 48; //business package
-$wp_query->query_vars['_prod_id'] = $product_id;
-$_product = wc_get_product( $product_id );
-$wp_query->query_vars['_prod_data'] = $_product;
+$product = wc_get_product( $product_id );
+
 $category_slug = 'funnels';
 $category = get_term_by('slug', $category_slug, 'ld_course_category' );
 $courses = get_courses_by_category_id($category->term_id);
 $funnels = get_funnels();
-$referral = "/?ref=" . affwp_get_affiliate_id( get_current_user_id() );
+$referral = "/?ref=" .  wp_get_current_user()->user_login;
 ?>
 <?php get_header(); ?>
 	<?php if ( is_user_fx_distributor() || current_user_can('administrator') ): ?>
@@ -71,7 +70,7 @@ $referral = "/?ref=" . affwp_get_affiliate_id( get_current_user_id() );
 														$title = rwmb_meta('capture_page_title');
 														$subtitle = rwmb_meta('capture_sub_title');
 														$page_url = rwmb_meta('capture_page_url') . $referral;
-														$thumbnail = reset(rwmb_meta('capture_page_thumbnail'));
+														$thumbnail = rwmb_meta('capture_page_thumbnail');
 														?>
 														<div class="row">
 															<div class="col-md-9">
@@ -103,47 +102,10 @@ $referral = "/?ref=" . affwp_get_affiliate_id( get_current_user_id() );
 																			<a href="<?php echo $page_url; ?>" class="btn btn-default" target="_blank">Preview</a>
 																			<div class="clearfix"></div>
 																		</div>
-																		<div class="form-group url-group two">
-																			<label>Custom Video Embed:</label>
-																			<div class="clearfix"></div>
-																			<textarea class="form-control"></textarea>
-																			<a href="#" class="btn btn-default">Save</a>
-																			<div class="clearfix"></div>
-																		</div>
-																		<div class="form-group url-group two">
-																			<label>Custom Background Image:</label>
-																			<input type="text" class="form-control" value="">
-																			<a href="#" class="btn btn-default">Upload</a>
-																			<a href="#" class="btn btn-default">Preview</a>
-																			<div class="clearfix"></div>
-																		</div>
 																	</div>
 																</div>
 															</div>
 															<div class="col-md-3">
-																<div class="panel panel-default">
-																	<div class="panel-body">
-																		<label>Page Settings</label>
-																		<hr class="m-xs"/>
-																		<table>
-																			<tr>
-																				<td>Custom Video</td>
-																				<td class="toggle-action">
-																					<input class="fx-slide-toggle" id="capture-custom-video-<?php echo $count;?>" type="checkbox">
-																					<label class="fx-slide-toggle-btn" for="capture-custom-video-<?php echo $count;?>"></label>
-																				</td>
-																			</tr>
-																			<tr>
-																				<td>Background</td>
-																				<td class="toggle-action">
-																					<input class="fx-slide-toggle" id="capture-custom-bg-<?php echo $count;?>" type="checkbox" type="checkbox">
-																					<label class="fx-slide-toggle-btn" for="capture-custom-bg-<?php echo $count;?>"></label>
-																				</td>
-																			</tr>
-																		</table>
-																	</div>
-																</div>
-																<br/>
 																<div class="panel panel-default">
 																	<div class="panel-body">
 																		<label>Page Views</label>
@@ -170,7 +132,7 @@ $referral = "/?ref=" . affwp_get_affiliate_id( get_current_user_id() );
 														$title = rwmb_meta('landing_page_title');
 														$subtitle = rwmb_meta('landing_sub_title');
 														$page_url = rwmb_meta('landing_page_url') . $referral;
-														$thumbnail = reset(rwmb_meta('landing_page_thumbnail'));
+														$thumbnail = rwmb_meta('landing_page_thumbnail');
 														?>
 														<div class="row">
 															<div class="col-md-9">
@@ -202,47 +164,10 @@ $referral = "/?ref=" . affwp_get_affiliate_id( get_current_user_id() );
 																			<a href="<?php echo $page_url; ?>" class="btn btn-default" target="_blank">Preview</a>
 																			<div class="clearfix"></div>
 																		</div>
-																		<div class="form-group url-group one">
-																			<label>Custom Video Embed:</label>
-																			<div class="clearfix"></div>
-																			<textarea class="form-control"></textarea>
-																			<a href="#" class="btn btn-default">Save</a>
-																			<div class="clearfix"></div>
-																		</div>
-																		<div class="form-group url-group two">
-																			<label>Custom Background Image:</label>
-																			<input type="text" class="form-control" value="">
-																			<a href="#" class="btn btn-default">Upload</a>
-																			<a href="#" class="btn btn-default">Preview</a>
-																			<div class="clearfix"></div>
-																		</div>
 																	</div>
 																</div>
 															</div>
 															<div class="col-md-3">
-																<div class="panel panel-default">
-																	<div class="panel-body">
-																		<label>Page Settings</label>
-																		<hr class="m-xs"/>
-																		<table>
-																			<tr>
-																				<td>Custom Video</td>
-																				<td class="toggle-action">
-																					<input class="fx-slide-toggle" id="landing-custom-video-<?php echo $count;?>" type="checkbox">
-																					<label class="fx-slide-toggle-btn" for="landing-custom-video-<?php echo $count;?>"></label>
-																				</td>
-																			</tr>
-																			<tr>
-																				<td>Background</td>
-																				<td class="toggle-action">
-																					<input class="fx-slide-toggle" id="landing-custom-bg-<?php echo $count;?>" type="checkbox" type="checkbox">
-																					<label class="fx-slide-toggle-btn" for="landing-custom-bg-<?php echo $count;?>"></label>
-																				</td>
-																			</tr>
-																		</table>
-																	</div>
-																</div>
-																<br/>
 																<div class="panel panel-default">
 																	<div class="panel-body">
 																		<label>Page Views</label>

@@ -9,8 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-	
-		<form>
+		<form name="register-webinar" class="register-webinar" method="post">
 			<div class="form-group">
 				<label for="fullname">Full Name</label>
 				<input type="text" class="form-control" name="fullName" id="fullName" placeholder="Full Name">
@@ -25,10 +24,9 @@
 			</div>
 			<div class="form-check">
 				<label class="form-check-label">
-					<?php foreach($webinars as $k => $v){ ?>
-					<p><input name="webinars[]" type="checkbox" class="form-check-input" value="<?php echo $v['parse']['key'];?>">
-						<?php echo $v['parse']['startTime'];?></p>
-					<?php } ?>
+					<div class="ajax-webinars">
+						
+					</div>
 				</label>
 			</div>
 			<button type="submit" class="btn btn-primary webinar-register-now">Register Now</button>

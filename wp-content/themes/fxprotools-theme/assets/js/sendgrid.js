@@ -12,7 +12,7 @@ jQuery(document).ready(function($){
 				response = JSON.parse( response );
 				if(response.status == "OK"){
 					var redirect_to = $('.fx-sendgrid').find('input[name="redirect_to"]').val();
-					window.location.replace( redirect_to );
+					window.location.href =  redirect_to ;
 				}
 				else{
 					alert("Sending email information failed.");

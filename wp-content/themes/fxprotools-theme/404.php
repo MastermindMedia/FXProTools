@@ -70,7 +70,7 @@
 				<div class="note">
 					<img src="http://via.placeholder.com/600x300?text=Video" class="img-responsive centered-block m-b-sm">
 					<p class="text-center">Find out about becoming a trader during the next free webinar.</p>
-					<a href="#" class="btn btn-danger block btn-lg m-b-md btn-lg-w-text">Register Now</a>
+					<a href="#" class="btn btn-danger block btn-lg m-b-md btn-lg-w-text reserve-your-seat">Register Now</a>
 				</div>
 			</div>
 		</div>

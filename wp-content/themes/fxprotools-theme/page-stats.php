@@ -1,14 +1,12 @@
 <?php
 $product_id = 48; //business package
-$wp_query->query_vars['_prod_id'] = $product_id;
-$_product = wc_get_product( $product_id );
-$wp_query->query_vars['_prod_data'] = $_product;
+$product = wc_get_product( $product_id );
 
 $category_slug = 'stats';
 $category = get_term_by('slug', $category_slug, 'ld_course_category' );
 $courses = get_courses_by_category_id($category->term_id);
 $funnels = get_funnels();
-$date_filter = isset($_GET['date_from']) ? array( 'date_from' => $_GET['date_from'], 'date_to' => $_GET['date_to']) : array();  
+$date_filter = isset($_GET['date_from']) ? array( 'date_from' => $_GET['date_from'], 'date_to' => $_GET['date_to']) : '';  
 ?>
 <?php get_header(); ?>
 
@@ -33,10 +31,10 @@ $date_filter = isset($_GET['date_from']) ? array( 'date_from' => $_GET['date_fro
 					<div class="form-inline m-b-md">
 						<form class="date-filter">
 							<div class="form-group">
-								<input data-provide="datepicker" data-date-format="mm/dd/yyyy" type="text" class="form-control" value="<?php echo $_GET['date_from'];?>" name="date_from" placeholder="Starting: MM/DD/YYYY">
+								<input data-provide="datepicker" data-date-format="mm/dd/yyyy" type="text" class="form-control" value="<?php echo $date_filter ? $date_filter['date_from'] : '';?>" name="date_from" placeholder="Starting: MM/DD/YYYY">
 							</div>
 							<div class="form-group">
-								<input data-provide="datepicker" data-date-format="mm/dd/yyyy" type="text" class="form-control" value="<?php echo $_GET['date_to'];?>" name="date_to"  placeholder="Ending: MM/DD/YYYY">
+								<input data-provide="datepicker" data-date-format="mm/dd/yyyy" type="text" class="form-control" value="<?php echo $date_filter ? $date_filter['date_to'] : '';?>" name="date_to"  placeholder="Ending: MM/DD/YYYY">
 								<input type="submit" class="btn btn-primary" value="Filter">
 							</div>
 						</form>

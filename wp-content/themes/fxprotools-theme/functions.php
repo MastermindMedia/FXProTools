@@ -110,6 +110,43 @@ if($sendgrid){
 add_theme_support( 'menus' );
 
 /**
+ * Register our sidebars and widgetized areas.
+ *
+ */
+function arphabet_widgets_init() {
+
+    register_sidebar( array(
+        'name'          => 'Footer Menu 1',
+        'id'            => 'footer_menu_1',
+        'before_widget' => '',
+        'after_widget'  => '',
+        'before_title'  => '<h2 class="widget-title">',
+        'after_title'   => '</h2>',
+    ) );
+
+    register_sidebar( array(
+        'name'          => 'Footer Menu 2',
+        'id'            => 'footer_menu_2',
+        'before_widget' => '',
+        'after_widget'  => '',
+        'before_title'  => '<h2 class="widget-title">',
+        'after_title'   => '</h2>',
+    ) );
+
+    register_sidebar( array(
+        'name'          => 'Footer Menu 3',
+        'id'            => 'footer_menu_3',
+        'before_widget' => '',
+        'after_widget'  => '',
+        'before_title'  => '<h2 class="widget-title">',
+        'after_title'   => '</h2>',
+    ) );
+
+}
+add_action( 'widgets_init', 'arphabet_widgets_init' );
+
+
+/**
 Added by Allan / APYC
 **/
 require_once plugin_dir_path( __FILE__ ) . 'inc/Apyc/init.php';
