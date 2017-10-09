@@ -21,11 +21,11 @@ var Modal = function(){
 		init:function(){
 			//$(document).on('click','#reserve-your-seat',function(e){
 			$('.webinar-modal-lg').on('shown.bs.modal', function (e) {
-				$('.ajax-webinars').html('<p>Getting Webinars, please wait...</p>');
+				//$('.ajax-webinars').html('<p>Getting Webinars, please wait...</p>');
 				$('.webinar-register-now').hide();
 				ajaxGetWebinar().done(function(data){
 					$('.ajax-webinars').html(data);
-					$('.webinar-register-now').show();
+					//$('.webinar-register-now').show();
 				});
 			})
 			$('.webinar-modal-lg').on('hidden.bs.modal', function (e) {
