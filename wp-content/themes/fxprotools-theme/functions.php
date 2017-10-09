@@ -58,6 +58,7 @@ $settings = array(
     'settings-cpt', // Custom post/taxonomy settings
     'settings-mb',  // Metabox Settings
     'settings-woocommerce',  // Woocommerce Settings
+    'settings-wc-subscriptions', //WC Subscription settings
 );
 
 if($settings){

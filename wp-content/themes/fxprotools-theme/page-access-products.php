@@ -32,7 +32,7 @@ $coaching = wc_customer_bought_product( '', get_current_user_id(), 50);
 					</div>
 					<div class="fx-board-content">
 						<ol>
-							<?php if($trial_remaining_days > 0): ?><li>Free Trial (<?php echo $trial_remaining_days; ?> Days / Active)</li><?php endif;?>
+							<?php if( isset($trial_remaining_days) ): ?><li>Free Trial (<?php echo $trial_remaining_days; ?> Days / Active)</li><?php endif;?>
 							<li>Distributor Package (<?php echo $distributor_package  || current_user_can('administrator') ? 'Active' : 'Upgrade'; ?>)</li>
 							<li>FX Auto Trader (<?php echo $auto_trader || current_user_can('administrator')  ? 'Active' : 'Upgrade'; ?>)</li>
 							<li>Coaching (<?php echo $coaching || current_user_can('administrator')  ? 'Active' : 'Upgrade'; ?>)</li>
