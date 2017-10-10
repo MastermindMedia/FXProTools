@@ -625,19 +625,3 @@ function save_extra_profile_fields( $user_id ) {
 	update_usermeta( $user_id, 'user_sms_subs', $_POST['user_sms_subs'] );
 	update_usermeta( $user_id, 'user_email_subs', $_POST['user_email_subs'] );
 }
-
-add_action("wp_ajax_check_username", "check_username");
-add_action("wp_ajax_nopriv_check_username", "check_username");
-function check_username()
-{
-	$new_username = $_REQUEST['new_username'];
-	if (validate_username($new_username) && !username_exists($new_username))
-	{
-		echo "1";
-	}
-	else{
-		echo "0";
-	}
-
-	wp_die();
-}

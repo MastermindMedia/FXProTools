@@ -22,7 +22,8 @@ if(!class_exists('AdminSettings')){
 			add_action('admin_menu',  array($this, 'remove_admin_menus'), 99);
 			add_action('admin_init', array($this, 'remove_dashboard_meta'));
 			add_action('after_setup_theme', array($this, 'remove_admin_bar_non_admin'));
-
+			add_theme_support('menus');
+			add_action('widgets_init', array($this, 'register_widget_options'));
 		}
 
 		// Admin assets
@@ -70,11 +71,43 @@ if(!class_exists('AdminSettings')){
 			}
 		}
 
-
-		public function remove_admin_bar_non_admin() {
+		// Remove admin bar for Non-admin
+		public function remove_admin_bar_non_admin()
+		{
 		     if ( !current_user_can('manage_options') && !is_admin()) {
 		         show_admin_bar(false);
 		     }
+		}
+
+		// Register Widget Options
+		public function register_widget_options()
+		{
+		    register_sidebar( array(
+		        'name'          => 'Footer Menu 1',
+		        'id'            => 'footer_menu_1',
+		        'before_widget' => '',
+		        'after_widget'  => '',
+		        'before_title'  => '<h2 class="widget-title">',
+		        'after_title'   => '</h2>',
+		    ));
+
+		    register_sidebar( array(
+		        'name'          => 'Footer Menu 2',
+		        'id'            => 'footer_menu_2',
+		        'before_widget' => '',
+		        'after_widget'  => '',
+		        'before_title'  => '<h2 class="widget-title">',
+		        'after_title'   => '</h2>',
+		    ));
+
+		    register_sidebar( array(
+		        'name'          => 'Footer Menu 3',
+		        'id'            => 'footer_menu_3',
+		        'before_widget' => '',
+		        'after_widget'  => '',
+		        'before_title'  => '<h2 class="widget-title">',
+		        'after_title'   => '</h2>',
+		    ));
 		}
 
 		// Custom page - Authorize.net CIM and Subscriptions Manager
