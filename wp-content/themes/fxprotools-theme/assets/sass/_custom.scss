@@ -665,13 +665,11 @@
 	    // border: 1px solid #DDD;
 	    li {
 			display: inline-block;
-			margin-right: 10px;
 			position: relative;
 			&:last-child { margin-right: 0; }
 			a {
 				display: inline-block;
 				padding: 10px 15px;
-				width: 200px;
 				&:hover, &:focus, &:active {
 					text-decoration: none;
 				}
