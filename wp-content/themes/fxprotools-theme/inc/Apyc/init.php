@@ -100,5 +100,56 @@ if ( ! function_exists('apyc_get_webinar_free')) {
 }
 function apyc_fxprotools_setup(){
 	Apyc_Modal::get_instance();
+	
 }
 add_action( 'after_setup_theme', 'apyc_fxprotools_setup' );
+function apyc_init(){
+	$_arg = array( 
+		'role__in' => array(
+			'Customer', 
+			'Distributor', 
+			'Subscriber'
+		),
+		'meta_query' => array(
+			'key'	=> 'mobile',
+			'value' => 'EXISTS'
+		)
+	);
+	$arg = array(
+		'role__in' => array(
+			'Customer', 
+			'Distributor', 
+			'Subscriber'
+		),
+		'meta_query' => array(
+			array(
+				'key'     => 'mobile',
+				'value' => '',
+				'compare' => '!='
+			),
+		)
+	);
+	$user_query = new WP_User_Query($arg);
+	//$blogusers = get_users( [ 'role__in' => [ 'Customer', 'Distributor' ] ] );
+	$author_info = get_userdata( 2918 );
+	dd($user_query);
+	dd($author_info);
+	//use Twilio\Rest\Client;
+
+	// Your Account Sid and Auth Token from twilio.com/user/account
+	$sid = "ACeed6641354498872901ff6aa63342ac1";
+	$token = "6924aec30f4903169f928a1d8c65886b";
+	$client = new Twilio\Rest\Client($sid, $token);
+
+	// Get an object from its sid. If you do not have a sid,
+	// check out the list resource examples on this page
+	// You can call $client->account to access the authenticated account
+	// you used to initialize the client.
+	// Use $client->account->fetch() to get the instance
+	$account = $client->api
+		->accounts("ACeed6641354498872901ff6aa63342ac1")
+		->fetch();
+
+	dd($account);
+}
+add_action('init', 'apyc_init');
