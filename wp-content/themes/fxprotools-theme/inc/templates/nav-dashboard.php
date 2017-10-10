@@ -4,7 +4,7 @@
 			<div class="col-md-12">
 				<ul class="fx-nav-options">
 					<li class="dashboard">
-						<a href="<?php bloginfo('url'); ?>/dashboard" class="icon icon-wallet">Quickstart</a>
+						<a href="<?php bloginfo('url'); ?>/dashboard" class="icon icon-quickstart">Quickstart</a>
 					</li>
 					<li class="active">
 						<a href="<?php bloginfo('url'); ?>/dashboard">
