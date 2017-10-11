@@ -17,27 +17,27 @@ $coaching = wc_customer_bought_product( '', get_current_user_id(), 50);
 			<div class="col-md-12">
 				<div class="fx-header-title">
 					<h1>Awesome! You Can Now Access Your Products</h1>
-					<p>Step#2 - Accessing Your FX Pro Tools Products</p>
+					<p><span class="label-red">Step 2:</span> - Supercharge your learning experience using our products</p>
 				</div>
 			</div>
 			<div class="col-md-8">
 				<div class="fx-video-container"></div>
 			</div>
 			<div class="col-md-4">
-				<div class="fx-board">
-					<div class="fx-board-title w-text">
-						<span>Your Products</span>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua.</p>
+				<div class="fx-board access-products">
+					<div class="fx-board-title">
+						Your Membership Package
 					</div>
 					<div class="fx-board-content">
-						<ol>
-							<?php if( isset($trial_remaining_days) ): ?><li>Free Trial (<?php echo $trial_remaining_days; ?> Days / Active)</li><?php endif;?>
-							<li>Distributor Package (<?php echo $distributor_package  || current_user_can('administrator') ? 'Active' : 'Upgrade'; ?>)</li>
-							<li>FX Auto Trader (<?php echo $auto_trader || current_user_can('administrator')  ? 'Active' : 'Upgrade'; ?>)</li>
-							<li>Coaching (<?php echo $coaching || current_user_can('administrator')  ? 'Active' : 'Upgrade'; ?>)</li>
-						</ol>
+						<p class="text-center">You are currently subscribed to the <strong>Customer Package</strong> at <strong>$140/Month</strong></p>
+						<ul class="list-status">
+							<li><label>Status</label> <span>Active</span></li>
+							<li><label>Start Date</label> <span>2 mins ago</span></li>
+							<li><label>Next Payment</label> <span>November 10, 2017</span></li>
+							<li><label>End Date</label> <span>December 10, 2018</span></li>
+						</ul>
 					</div>
+					<p class="text-center small">Auto Renew is Enabled. To change this, go to Account Settings</p>
 				</div>
 			</div>
 		</div>

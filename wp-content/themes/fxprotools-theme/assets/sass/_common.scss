@@ -222,6 +222,36 @@
 			}
 		}
 	}
+	&.access-products {
+		padding-bottom: 10px;
+		.fx-board-title {
+			text-align: center;
+			background-color: $red;
+			padding: 20px 0;
+			color: $white;
+			font-size: 18px;
+		}
+		.fx-board-content {
+			padding: 15px 35px 10px 35px;
+			.list-status {
+				list-style: none;
+				padding: 0;
+				border: 1px solid #DDD;
+				margin: 15px 0 5px;
+				li {
+					border-bottom: 1px solid #DDD;
+					padding: 5px 10px;
+					font-size: 14px;
+					label {
+						font-weight: normal;
+					}
+					&:last-child {
+						border-bottom: none;
+					}
+				}
+			}
+		}
+	}
 }
 
 // Tabs - Full
