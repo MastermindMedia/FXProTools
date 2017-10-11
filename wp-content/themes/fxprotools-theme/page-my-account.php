@@ -29,7 +29,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 		$checklist['verified_profile'] = true;
 		update_user_meta( get_current_user_id(), '_onboard_checklist', $checklist );
 	}
-	wp_redirect( home_url() . '/login.php?user_id=' . get_current_user_id() );
+	wp_redirect( home_url() . '/autologin?user_id=' . get_current_user_id() );
 }
 
 get_header(); 
