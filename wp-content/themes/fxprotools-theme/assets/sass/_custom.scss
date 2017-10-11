@@ -1387,6 +1387,11 @@
 
 // Checkout
 .checkout-holder{
+	.shop_table .blockUI.blockOverlay {
+	  position: relative!important;
+	  display: none!important;
+	}
+
 	.col2-set{
 		.col-1{
 			width: 66.66%;

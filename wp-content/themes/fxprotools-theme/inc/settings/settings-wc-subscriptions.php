@@ -23,6 +23,7 @@ if(!class_exists('WC_Subscriptions_Settings')){
 
 		    if  ( self::wc_is_subcription_trial( $subscription) ){
 		    	$new_subscription = self:: wc_create_new_subscription( $subscription );
+		    	echo $new_subscription->is_manual();
 		    	dd( $new_subscription );
 		    } else{	
 		    	

@@ -360,18 +360,14 @@ function forced_lesson_time()
 function get_trial_end_date()
 {
 	$subscriptions = wcs_get_users_subscriptions();
+
 	foreach($subscriptions as $s){
-		$related_orders_ids = $s->get_related_orders();
-
-		foreach ( $related_orders_ids as $order_id ) {
-		    $order = new WC_Order( $order_id );
-		    $items = $order->get_items();
-
+		if( $s->has_status('active') ){
+			$items = $s->get_items();
 		    foreach($items as $key => $item){
 		    	$subscription_type = wc_get_order_item_meta($key, 'subscription-type', true);
-		    	
 		    	if($subscription_type == 'trial'){
-					$subscription = wcs_get_subscription( $s->ID );
+					$subscription = wcs_get_subscription( $s->get_id() );
 					return $subscription->get_date( 'end' );
 		    	}
 		    }
@@ -468,6 +464,20 @@ function get_query_string()
 	return $string;
 }
 
+function get_recent_subscriptions ($limit = 15)
+{
+	$subscriptions = get_posts( array(
+        'post_type' => 'shop_subscription', 
+        'post_status' => array( 'wc-processing', 'wc-completed', 'wc-expired', 'wc-on-hold' ),
+        'numberposts' => $limit,
+        'posts_per_page' => $limit
+	) );
+	$subscription_list = array();
+	foreach($subscriptions as $s){
+		$subscription_list[] = wc_get_order( $s->ID );
+	}
+	return $subscription_list;
+}
 /* -------------------------
 	Actions and Filters
  --------------------------*/
