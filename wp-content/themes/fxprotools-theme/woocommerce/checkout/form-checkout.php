@@ -32,49 +32,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 	return;
 }
  
-add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields1' );
-function custom_override_checkout_fields1( $fields ) {
-	unset($fields['order']['order_comments']);
-	unset($fields['billing']['billing_address_2']);
-	unset($fields['billing']['billing_company']);
-    return $fields;
-}
 
-/* WooCommerce: The Code Below Removes The Additional Information Tab */
-add_filter( 'woocommerce_product_tabs', 'woo_remove_product_tabs', 98 );
-function woo_remove_product_tabs( $tabs ) {
-	unset( $tabs['additional_information'] );
-	return $tabs;
-}
-
-add_filter('woocommerce_product_additional_information_heading', 'isa_product_additional_information_heading');
-function isa_product_additional_information_heading() {
-    echo '';
-}
-
-add_filter("woocommerce_checkout_fields", "custom_override_checkout_fields2", 1);
-function custom_override_checkout_fields2($fields) {
-    $fields['billing']['billing_first_name']['priority'] = 1;
-    $fields['billing']['billing_last_name']['priority'] = 2;
-    $fields['billing']['billing_email']['priority'] = 3;
-    $fields['billing']['billing_phone']['priority'] = 4;
-    $fields['billing']['billing_state']['priority'] = 5;
-    $fields['billing']['billing_address_1']['priority'] = 6;
-    $fields['billing']['billing_address_2']['priority'] = 7;
-    $fields['billing']['billing_city']['priority'] = 8;
-    $fields['billing']['billing_postcode']['priority'] = 9;
-    $fields['billing']['billing_company']['priority'] = 10;
-    $fields['billing']['billing_country']['priority'] = 11;
-    return $fields;
-}
-
-add_filter( 'woocommerce_default_address_fields', 'custom_override_default_locale_fields' );
-function custom_override_default_locale_fields( $fields ) {
-    $fields['email']['priority'] = 3;
-    $fields['address_1']['priority'] = 6;
-    $fields['address_2']['priority'] = 7;
-    return $fields;
-}
 
 ?>
 
@@ -229,8 +187,6 @@ function custom_override_default_locale_fields( $fields ) {
 </div>
 
 <?php  
-
-/*
 	$subscriptions = get_recent_subscriptions( 15 );
 	$orders = array();
 
@@ -311,5 +267,3 @@ if ( isset($popup_type) ):
 	});
 </script>
 <?php endif; ?>
-
-*/
