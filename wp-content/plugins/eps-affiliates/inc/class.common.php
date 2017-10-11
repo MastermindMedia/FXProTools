@@ -30,23 +30,23 @@ class Eps_affiliates_common {
 			// wp_register_script( 'jquery-js',  EPSAFFILIATE_PLUGIN_ASSETS.'js/jquery.min.js');
 			// wp_enqueue_script( 'jquery-js' );
 
-			wp_register_script( 'bootstrap-js',  EPSAFFILIATE_PLUGIN_ASSETS.'js/bootstrap.min.js');
-			wp_enqueue_script( 'bootstrap-js' );
+			// wp_register_script( 'bootstrap-js',  EPSAFFILIATE_PLUGIN_ASSETS.'js/bootstrap.min.js');
+			// wp_enqueue_script( 'bootstrap-js' );
 
-			wp_register_script( 'jquery-ui',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/jquery-ui/jquery-ui.min.js');
-			wp_enqueue_script( 'jquery-ui' );
+			// wp_register_script( 'jquery-ui',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/jquery-ui/jquery-ui.min.js');
+			// wp_enqueue_script( 'jquery-ui' );
 
-			wp_register_script( 'autocomplete-ui',  EPSAFFILIATE_PLUGIN_ASSETS.'js/jquery.autocomplete.min.js');
-			wp_enqueue_script( 'autocomplete-ui' );
+			// wp_register_script( 'autocomplete-ui',  EPSAFFILIATE_PLUGIN_ASSETS.'js/jquery.autocomplete.min.js');
+			// wp_enqueue_script( 'autocomplete-ui' );
 
-			wp_register_script( 'bootstrap-typehead-ui',  EPSAFFILIATE_PLUGIN_ASSETS.'js/bootstrap-typeahead.js');
-			wp_enqueue_script( 'bootstrap-typehead-ui' );
+			// wp_register_script( 'bootstrap-typehead-ui',  EPSAFFILIATE_PLUGIN_ASSETS.'js/bootstrap-typeahead.js');
+			// wp_enqueue_script( 'bootstrap-typehead-ui' );
 
-			// wp_register_script( 'common-js',  EPSAFFILIATE_PLUGIN_ASSETS.'js/common.js');
-			// wp_enqueue_script( 'common-js' );
+			// // wp_register_script( 'common-js',  EPSAFFILIATE_PLUGIN_ASSETS.'js/common.js');
+			// // wp_enqueue_script( 'common-js' );
 
-			wp_register_script( 'widget-scripts',  EPSAFFILIATE_PLUGIN_ASSETS.'js/widget-scripts.js');
-			wp_enqueue_script( 'widget-scripts' );
+			// wp_register_script( 'widget-scripts',  EPSAFFILIATE_PLUGIN_ASSETS.'js/widget-scripts.js');
+			// wp_enqueue_script( 'widget-scripts' );
 
 	    // wp_localize_script( 'common-js', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
 		}
@@ -642,6 +642,8 @@ if(!function_exists('afl_get_levels')){
  * -----------------------------------------------------------
 */
 	function wp_set_message($msg = '', $action = 'success'){
+		$obje = new Afl_enque_scripts('eps-toaster');
+
 		if ($action == 'danger')
 			$action = 'error';
 
@@ -651,8 +653,13 @@ if(!function_exists('afl_get_levels')){
 		$alert .='</div>';
 
 		$alert = '';
-		$alert = '<script>$(function(){toastr["'.$action.'"]("'.$msg.'");});</script>';
-		echo $alert;
+
+		$alert .= '';
+	 	wp_enqueue_script( 'jq-toast', EPSAFFILIATE_PLUGIN_ASSETS.'js/jquery.min.js', array(), '1.0' );
+ 	 	wp_add_inline_script( 'jq-toast', '$(function(){toastr["'.$action.'"]("'.$msg.'");});' );
+
+		// // $alert .= '<script>$(function(){toastr["'.$action.'"]("'.$msg.'");});</script>';
+		// echo $alert;
 	}
 /**
  * -----------------------------------------------------------
@@ -2855,3 +2862,5 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 			return FALSE;
 		}
 	}
+
+	

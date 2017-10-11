@@ -21,7 +21,6 @@
 	 		);
 			// $query['#limit'] 		 = 100;
 	 		$users  = db_select($query, 'get_results');
-	 		// pr($users,1);
 	 		
 
 
@@ -29,7 +28,7 @@
 				
 				//cannot give the bonus, if the user has no renewal on this month
 				$hs_distrib_kit = _has_distributor_kit_renewal($user->uid);
-				if (!$hs_distrib_kit) {
+				if (!$hs_distrib_kit && afl_variable_get('deactive_member_if_no_distrib_pack',0) ) {
 					//update the status of the user, blocked
 					apply_filters('eps_affiliates_block_member',$user->uid);
 					continue;
@@ -51,6 +50,9 @@
 	 			$months_actived = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
 	 			$months_actived = $months_actived + 0;
 	 			$maximum_period = afl_variable_get('matrix_compensation_period_maximum', 3);
+	 			pr(afl_system_date_format($current_date,1));
+	 			pr(afl_system_date_format($actived_on,1));
+	 		pr( floor($diff / (60 * 60 * 24)),1);
 
 	 			if (!empty($months_actived)) {
 	 				//check the difference greater than maximum period

@@ -601,6 +601,20 @@ function afl_admin_compensation_plan_form_submit($POST){
 	 		'#required'=>TRUE
 	  );
 
+
+
+	  //Deactivate member if no distributor package 
+	  	$form['fieldset_1'] = array(
+	 		'#type'=>'fieldset',
+	 		'#title'=>'Deactive Member if No distributor Package'
+	 	);
+
+	 	$form['fieldset_1']['deactive_member_if_no_distrib_pack'] = array(
+	 		'#title' 	=> 'Enable / Disable Deactivate Member when he doesnt have active distributor package ',
+	 		'#type'  	=> 'checkbox',
+	 		'#default_value'=> !empty($post['deactive_member_if_no_distrib_pack']) ? $post['deactive_member_if_no_distrib_pack'] : afl_variable_get('deactive_member_if_no_distrib_pack',''),
+	  );
+
    	$form['submit'] = array(
 	 		'#type' => 'submit',
 	 		'#value' => 'Save configuration'
@@ -640,8 +654,18 @@ function afl_admin_compensation_plan_form_submit($POST){
  * -------------------------------------------------------------------------
 */
 	function afl_admin_extra_config_submit ($form_state = array()) {
+		$checkboxes = array();
+		$checkboxes[] = 'deactive_member_if_no_distrib_pack';
+
 		foreach ($form_state as $key => $value) {
 			afl_variable_set($key, $value);
+			
 		}
+	  foreach ($checkboxes as $checkbox) {
+			if ( !array_key_exists($checkbox, $form_state) ) {
+				afl_variable_set($checkbox, '');
+			}
+	 	}
+
 		wp_set_message('Configuration has been saved successfully', 'success');
 	}
