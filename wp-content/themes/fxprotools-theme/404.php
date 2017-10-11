@@ -1,40 +1,7 @@
 <?php get_header(); ?>
 
-<div class="fx-404-container">
-	<div class="fx-404-top">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-6">
-					<ul class="fx-missing-left fx-missing-nav">
-						<li><a href="mailto:support@fxprotools.com">support@fxprotools.com</a></li>
-						<li><a href="tel:+1 800 781 0187">+1 800 781 0187</a></li>
-						<li>Mon-Fri 10am-10pm EST</li>
-					</ul>
-				</div>
-				<div class="col-sm-6">
-					<ul class="fx-missing-right fx-missing-nav">
-						<li><a href="#" class="btn-flag">English</a></li>
-						<li class="fx-nav-btn"><a href="<?php echo get_option('home'); ?>/login">Members Login</a></li>
-					</ul>
-				</div>		
-			</div>
-		</div>
-	</div>
-	<div class="section-one">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-6">
-					<a href="http://fxprotools.com" class="logo">Fx Pro Tools</a>
-				</div>
-				<div class="col-sm-6">
-					<ul class="fx-nav">
-						<li><a href="<?php echo get_option('home'); ?>/login">Become a Customer</a></li>
-						<li><a href="<?php echo get_option('home'); ?>/login">Become a Distributor</a></li>
-					</ul>
-				</div>		
-			</div>
-		</div>
-	</div>
+<div class="fx-404-container fx-landing main">
+	<?php get_template_part('inc/templates/nav-capture-page'); ?>
 	<div class="section-note">
 		<div class="container">
 			<div class="row">
@@ -44,7 +11,6 @@
 			</div>
 		</div>
 	</div>
-
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
