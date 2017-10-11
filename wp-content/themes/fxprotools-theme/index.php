@@ -788,17 +788,4 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-		jQuery(document).ready(function($){
-			$("a[href='#trial-products'").on('click', function(event) {
-				if (this.hash !== "") {
-					event.preventDefault();
-					var hash = this.hash;
-					$('html, body').animate({
-						scrollTop: $(hash).offset().top - 30
-					}, 600);
-				} // End if
-			});
-		});
-	</script>
 <?php get_footer(); ?>
