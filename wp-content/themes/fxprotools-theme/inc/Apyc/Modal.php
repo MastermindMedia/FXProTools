@@ -81,8 +81,9 @@ class Apyc_Modal{
 		if( isset($ajax['webinars']) 
 			&& !empty($ajax['webinars'])
 		){
+			print_r($body_input);
 			foreach($ajax['webinars'] as $v){
-				//apyc_create_registrant($v, $body);
+				//apyc_create_registrant($v, $body_input);
 			}
 		}
 		wp_die();

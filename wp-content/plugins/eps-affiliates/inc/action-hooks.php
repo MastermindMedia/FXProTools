@@ -1,6 +1,6 @@
 <?php
 /* --------- All the action hooks ------------------------*/
-add_action('init', 'common_scripts_load');
+// add_action('init', 'common_scripts_load');
 function common_scripts_load(){
 
   wp_enqueue_style( 'fontawsome-css', EPSAFFILIATE_PLUGIN_ASSETS.'plugins/font-awesome-4.7.0/css/font-awesome.min.css');
@@ -85,7 +85,16 @@ function common_scripts_load(){
  * Disable features on un-install plugin
  * ------------------------------------------------------------
 */
-	register_deactivation_hook( EPSAFFILIATE_PLUGIN_FILE, 'eps_affiliates_uninstall');
+	register_deactivation_hook(  EPSAFFILIATE_PLUGIN_FILE, 'check_depend_plugin_uninstall');
+
+	//before un install need to uninstall depend plugins
+	function check_depend_plugin_uninstall () {
+		if ( is_plugin_active( 'eps-affiliates-epin/eps-affiliates-epin.php' ) ) {
+        wp_die('Sorry, You need to uninstall <b>Eps affliates epin</b> Before perform this operation. <br><a href="' . admin_url( 'plugins.php' ) . '">&laquo; Return to Plugins</a>');
+    }else {
+    	eps_affiliates_uninstall();
+    }
+	}
 /*
  * ------------------------------------------------------------
  * Admin notices
@@ -392,7 +401,7 @@ function eps_affiliates_admin_notices () {
  * SEt cookie values for ajax callbackz  
  * ------------------------------------------------------------
 */
-	add_action('init', 'eps_affiliates_set_cookies');
+	// add_action('init', 'eps_affiliates_set_cookies');
 	function eps_affiliates_set_cookies() {
 		//dashboard widget dowlines count visible value
     if (!isset($_COOKIE['eps_afl_widget_downlines_visible_value'])) {

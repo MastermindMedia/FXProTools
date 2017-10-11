@@ -14,6 +14,7 @@ function afl_admin_advanced_configuration() {
  * -------------------------------------------------------------------
 */
 function afl_admin_advanced_config_(){
+	new Afl_enque_scripts('test');
 	 if ( isset($_POST['submit']) ) {
 	 	$validation = afl_admin_advanced_configuration_form_validation($_POST);
 	 	if (!empty($validation)) {

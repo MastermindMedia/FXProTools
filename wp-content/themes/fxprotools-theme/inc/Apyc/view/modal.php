@@ -29,7 +29,7 @@
 					</div>
 				</label>
 			</div>
-			<button type="submit" class="btn btn-primary webinar-register-now">Register Now</button>
+			
 		</form>
       </div>
       <div class="modal-footer">

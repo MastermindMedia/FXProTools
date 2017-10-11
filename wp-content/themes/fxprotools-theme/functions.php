@@ -40,12 +40,12 @@ if($mb_extenstions){
 $theme          = wp_get_theme('fxprotools-theme');
 $theme_version	= $theme['Version'];
 $core_settings = [
-	'core-admin-settings.php',
-	'core-theme-settings.php',
+	'core-admin-settings',
+	'core-theme-settings',
 ];
 
 foreach ($core_settings as $cs) {
-    require_once('inc/core/'.$cs);
+    require_once('inc/core/'.$cs.'.php');
 }
 
 /**
@@ -58,6 +58,7 @@ $settings = array(
     'settings-cpt', // Custom post/taxonomy settings
     'settings-mb',  // Metabox Settings
     'settings-woocommerce',  // Woocommerce Settings
+    'settings-wc-subscriptions', //WC Subscription settings
 );
 
 if($settings){
@@ -73,13 +74,14 @@ if($settings){
  * Includes all custom functions
  */
 $custom_functions = array(
-	'function-helper.php',
-	'function-custom.php'
+	'function-helper', // All Helper functions
+	'function-custom', // All custom functions
+    'function-ajax'    // All ajax calls
 );
 
 if($custom_functions){
 	foreach($custom_functions as $key => $cf){
-		require_once('inc/'.$cf);
+		require_once('inc/'.$cf.'.php');
 	}
 }
 
@@ -101,57 +103,12 @@ if($sendgrid){
 }
 
 /**
- * --------------
- * Menu Function
- * --------------
- * 
- */
-
-add_theme_support( 'menus' );
-
-/**
- * Register our sidebars and widgetized areas.
- *
- */
-function arphabet_widgets_init() {
-
-    register_sidebar( array(
-        'name'          => 'Footer Menu 1',
-        'id'            => 'footer_menu_1',
-        'before_widget' => '',
-        'after_widget'  => '',
-        'before_title'  => '<h2 class="widget-title">',
-        'after_title'   => '</h2>',
-    ) );
-
-    register_sidebar( array(
-        'name'          => 'Footer Menu 2',
-        'id'            => 'footer_menu_2',
-        'before_widget' => '',
-        'after_widget'  => '',
-        'before_title'  => '<h2 class="widget-title">',
-        'after_title'   => '</h2>',
-    ) );
-
-    register_sidebar( array(
-        'name'          => 'Footer Menu 3',
-        'id'            => 'footer_menu_3',
-        'before_widget' => '',
-        'after_widget'  => '',
-        'before_title'  => '<h2 class="widget-title">',
-        'after_title'   => '</h2>',
-    ) );
-
-}
-add_action( 'widgets_init', 'arphabet_widgets_init' );
-
-
-/**
 Added by Allan / APYC
 **/
 require_once plugin_dir_path( __FILE__ ) . 'inc/Apyc/init.php';
 /**
 Added by Allan / APYC
+
 /**
  * ---------------------------------------------------
  * ANET - Customer Informatio and Subscription Manager

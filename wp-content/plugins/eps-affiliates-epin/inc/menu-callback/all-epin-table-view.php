@@ -65,7 +65,8 @@
 			parent::__construct( $args );
 
 			$this->get_affiliates_counts();
-
+			new Afl_epin_enque_scripts('epin');
+			
 		}
 	/**
 	 * Retrieve the discount code counts

@@ -16,17 +16,9 @@ function afl_business_summary(){
 	//get user downlines details based on the uid
 
 	afl_content_wrapper_begin();
-
-	wp_register_script( 'jquery-data-table',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/dataTables/js/jquery.dataTables.min.js');
-	wp_enqueue_script( 'jquery-data-table' );
-
-	wp_register_script( 'jquery-data-bootstrap-table',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/dataTables/js/dataTables.bootstrap.min.js');
-	wp_enqueue_script( 'jquery-data-bootstrap-table' );
-
-	wp_enqueue_style( 'plan-develoepr', EPSAFFILIATE_PLUGIN_ASSETS.'plugins/dataTables/css/dataTables.bootstrap.min.css');
-
-	// wp_enqueue_scripts( 'jquery-data-table', EPSAFFILIATE_PLUGIN_ASSETS.'js/dataTables.bootstrap.min.js');
-	// wp_enqueue_scripts( 'jquery-data-table', EPSAFFILIATE_PLUGIN_ASSETS.'js/jquery.dataTables.min.js');
+	
+	//enque the styles 
+	new Afl_enque_scripts('eps-jquery-tables');
 
 ?>
 <div class="data-filters"></div>
@@ -55,16 +47,8 @@ function afl_business_transactions(){
 
 	afl_content_wrapper_begin();
 
-	wp_register_script( 'jquery-data-table',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/dataTables/js/jquery.dataTables.min.js');
-	wp_enqueue_script( 'jquery-data-table' );
-
-	wp_register_script( 'jquery-data-bootstrap-table',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/dataTables/js/dataTables.bootstrap.min.js');
-	wp_enqueue_script( 'jquery-data-bootstrap-table' );
-
-	wp_enqueue_style( 'plan-develoepr', EPSAFFILIATE_PLUGIN_ASSETS.'plugins/dataTables/css/dataTables.bootstrap.min.css');
-
-	// wp_enqueue_scripts( 'jquery-data-table', EPSAFFILIATE_PLUGIN_ASSETS.'js/dataTables.bootstrap.min.js');
-	// wp_enqueue_scripts( 'jquery-data-table', EPSAFFILIATE_PLUGIN_ASSETS.'js/jquery.dataTables.min.js');
+	//enque the styles 
+	new Afl_enque_scripts('eps-jquery-tables');
 
 ?>
 <div class="data-filters"></div>
@@ -97,16 +81,8 @@ function afl_business_income_history(){
 
 	afl_content_wrapper_begin();
 
-	wp_register_script( 'jquery-data-table',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/dataTables/js/jquery.dataTables.min.js');
-	wp_enqueue_script( 'jquery-data-table' );
-
-	wp_register_script( 'jquery-data-bootstrap-table',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/dataTables/js/dataTables.bootstrap.min.js');
-	wp_enqueue_script( 'jquery-data-bootstrap-table' );
-
-	wp_enqueue_style( 'plan-develoepr', EPSAFFILIATE_PLUGIN_ASSETS.'plugins/dataTables/css/dataTables.bootstrap.min.css');
-
-	// wp_enqueue_scripts( 'jquery-data-table', EPSAFFILIATE_PLUGIN_ASSETS.'js/dataTables.bootstrap.min.js');
-	// wp_enqueue_scripts( 'jquery-data-table', EPSAFFILIATE_PLUGIN_ASSETS.'js/jquery.dataTables.min.js');
+	//enque the styles 
+	new Afl_enque_scripts('eps-jquery-tables');
 
 ?>
 <div class="data-filters"></div>
@@ -140,16 +116,8 @@ function afl_business_expense_history(){
 
 	afl_content_wrapper_begin();
 
-	wp_register_script( 'jquery-data-table',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/dataTables/js/jquery.dataTables.min.js');
-	wp_enqueue_script( 'jquery-data-table' );
-
-	wp_register_script( 'jquery-data-bootstrap-table',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/dataTables/js/dataTables.bootstrap.min.js');
-	wp_enqueue_script( 'jquery-data-bootstrap-table' );
-
-	wp_enqueue_style( 'plan-develoepr', EPSAFFILIATE_PLUGIN_ASSETS.'plugins/dataTables/css/dataTables.bootstrap.min.css');
-
-	// wp_enqueue_scripts( 'jquery-data-table', EPSAFFILIATE_PLUGIN_ASSETS.'js/dataTables.bootstrap.min.js');
-	// wp_enqueue_scripts( 'jquery-data-table', EPSAFFILIATE_PLUGIN_ASSETS.'js/jquery.dataTables.min.js');
+	//enque the styles 
+	new Afl_enque_scripts('eps-jquery-tables');
 
 ?>
 <div class="data-filters"></div>

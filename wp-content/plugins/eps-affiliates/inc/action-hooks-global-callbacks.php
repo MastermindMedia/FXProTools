@@ -195,8 +195,8 @@
 	 	if ( empty($response['error'])){
 	 		$ins = afl_purchase($args);
 	 		if ( $ins ){
-		 		//update the status of the user and set actived_on date today
-		 		apply_filters('eps_affiliates_unblock_member',$args['uid']);
+
+		 		
 
 		 		global $wpdb;
 		 		$wpdb->update(
@@ -205,7 +205,8 @@
 		 				'actived_on' => afl_date()
 		 			),
 		 			array(
-		 				'uid' => $args['uid']
+		 				'uid' 		=> $args['uid'],
+		 				'status'	=>0
 		 			)
 		 		);
 
@@ -215,10 +216,14 @@
 		 				'actived_on' => afl_date()
 		 			),
 		 			array(
-		 				'uid' => $args['uid']
+		 				'uid' 		=> $args['uid'],
+		 				'status'	=> 0
 		 			)
 		 		);
 
+		 		//update the status of the user and set actived_on date today
+	 			apply_filters('eps_affiliates_unblock_member',$args['uid']);
+		 		
 	 		}
 	 	}
 

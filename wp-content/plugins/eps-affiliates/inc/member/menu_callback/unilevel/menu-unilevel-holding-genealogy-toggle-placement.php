@@ -7,15 +7,8 @@
 	}
 
 	function afl_unilevel_holding_tank_genealogy_toggle_placement_callback() {
-		wp_enqueue_style( 'plan-heirarchy', EPSAFFILIATE_PLUGIN_PLAN.'/matrix/css/heirarchy/css/hierarchy-view.css');
-		wp_enqueue_style( 'plan-style', EPSAFFILIATE_PLUGIN_PLAN.'matrix/css/heirarchy/css/main.css');
-
-		wp_register_script( 'jquery-confirm-js',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/jquery-confirm/js/jquery-confirm.js');
-		wp_enqueue_script( 'jquery-confirm-js' );
-		wp_register_style( 'jquery-confirm-cs',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/jquery-confirm/css/jquery-confirm.css');
-		wp_enqueue_style( 'jquery-confirm-cs' );
-
-		// wp_enqueue_style( 'plan-style', EPSAFFILIATE_PLUGIN_PLAN.'matrix/css/tree-new/style.css');
+		new Afl_enque_scripts('eps-holding-tank-toggle-tree');
+		
 		$path = EPSAFFILIATE_PLUGIN_PLAN.'matrix/';
 		afl_get_template('plan/unilevel/unilevel-holding-toggle-genealogy-tree-all.php');
 	}

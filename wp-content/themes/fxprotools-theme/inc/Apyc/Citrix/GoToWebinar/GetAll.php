@@ -91,10 +91,20 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 				$body_res = wp_remote_retrieve_body( $response );
 				if( $response_code == 200 ){
 					$body = json_decode(preg_replace('/("\w+"):(\d+(\.\d+)?)/', '\\1:"\\2"', $body_res));
-					return $body;
+					return array(
+						'status' => 200,
+						'data' => $body
+					);
 				}else{
 					$body = json_decode($body_res);
-					write_log(isset($body->category) ? $body->category:'' .' '.isset($body->message) ? $body->message:'');
+					//print_r($body);
+					write_log($body);
+					if( $response_code == 403 ){
+						return array(
+							'status' => 403,
+							'msg' => $body->errorCode . ' ' . $body->description
+						);
+					}
 					return false;
 				}
 			}
@@ -125,10 +135,10 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 		);
 		
 		$query_args = wp_parse_args( $args, $defaults );
-		//$get_data = $this->get();
-		$get_data = $this->cache();
+		$get_data = $this->get();
+		//$get_data = $this->cache();
 
-		if( $get_data ){
+		if( $get_data && $get_data['status'] == 200 ){
 			$number_post = $query_args['number_post'] - 1;
 			$i = 0;
 			foreach($get_data as $k => $v){
@@ -160,7 +170,7 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 			}
 			return $data;
 		}
-		return $data;
+		return $get_data;
 	}
 	
 	public function __construct() {}

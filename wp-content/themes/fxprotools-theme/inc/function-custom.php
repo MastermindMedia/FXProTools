@@ -577,21 +577,24 @@ add_action('wp', 'track_user_history');
 function track_user_history()
 {
 	//delete_user_meta(get_current_user_id(), "track_user_history");
-    $track_user_history = get_user_meta( get_current_user_id(), "track_user_history" )[0];
-    if(!$track_user_history){
-    	$track_user_history = array();
-    }
-    $link = '<a href="'. get_the_permalink() .'">' . get_the_permalink() . '</a>';
-    if($_POST['user_login']){
-    	$link = $link . " " . get_the_author_meta('first_name', get_current_user_id()) . " " . get_the_author_meta('last_name', get_current_user_id()) . " changed his username to " . $_POST['user_login'];
-    }
-    $data = array(
-    	'time' => date("Y-m-d h:i:sa"),
-    	'link' => $link,
-    	'title' => get_the_title()
-    );
-    array_push($track_user_history, $data);
-	update_user_meta(get_current_user_id(), 'track_user_history', $track_user_history);
+	$recent_activity = get_user_meta( get_current_user_id(), "track_user_history" )[0];
+	$reverse = array_reverse($recent_activity, true);
+	$last_url = $reverse[count($reverse)-1]['link'];
+	    $track_user_history = get_user_meta( get_current_user_id(), "track_user_history" )[0];
+	    if(!$track_user_history){
+	    	$track_user_history = array();
+	    }
+	    $link = '<a href="'. get_the_permalink() .'">' . get_the_permalink() . '</a>';
+	    if($_POST['user_login']){
+	    	$link = $link . " " . get_the_author_meta('first_name', get_current_user_id()) . " " . get_the_author_meta('last_name', get_current_user_id()) . " changed his username to " . $_POST['user_login'];
+	    }
+	    $data = array(
+	    	'time' => date("Y-m-d h:i:sa"),
+	    	'link' => $link,
+	    	'title' => get_the_title()
+	    );
+	    array_push($track_user_history, $data);
+		update_user_meta(get_current_user_id(), 'track_user_history', $track_user_history);
 }
 
 add_action( 'show_user_profile', 'add_extra_profile_fields' );
@@ -630,9 +633,9 @@ function save_extra_profile_fields( $user_id ) {
 	update_usermeta( $user_id, 'user_email_subs', $_POST['user_email_subs'] );
 }
 
-add_action("wp_ajax_check_username", "check_username");
-add_action("wp_ajax_nopriv_check_username", "check_username");
-function check_username()
+add_action("wp_ajax_check_valid_username", "check_valid_username");
+add_action("wp_ajax_nopriv_check_valid_username", "check_valid_username");
+function check_valid_username()
 {
 	$new_username = $_REQUEST['new_username'];
 	if (validate_username($new_username) && !username_exists($new_username))

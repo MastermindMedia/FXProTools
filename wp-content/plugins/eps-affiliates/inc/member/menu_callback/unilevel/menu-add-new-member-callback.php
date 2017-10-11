@@ -5,6 +5,7 @@
  * ---------------------------------------------
 */
  function afl_unilevel_add_new_member () {
+	$obje = new Afl_enque_scripts('eps-add-new-member');
 
  	echo afl_eps_page_header();
 	 // $obj = new Eps_affiliates_registration;

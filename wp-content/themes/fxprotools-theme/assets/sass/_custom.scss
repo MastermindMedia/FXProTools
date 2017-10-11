@@ -600,9 +600,7 @@
 	position: relative;
 	border-radius: 0;
 	background-color: $red;
-	-webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-	-moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
-	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+	margin-bottom: 0;
 	.fx-nav-options {
 		list-style: none;
 		padding: 0;
@@ -658,31 +656,72 @@
 .fx-navbar-sub {
 	position: relative;
     min-height: inherit;
+    border-top: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
     .fx-nav-options {
 		margin: 0;
-	    padding: 10px;
+	    padding: 5px 0;
 	    list-style: none;
-	    border: 1px solid #DDD;
+	    // border: 1px solid #DDD;
 	    li {
 			display: inline-block;
-			margin-right: 10px;
+			position: relative;
 			&:last-child { margin-right: 0; }
 			a {
 				display: inline-block;
 				padding: 10px 15px;
-				width: 200px;
-				border: 1px solid #DDD;
 				&:hover, &:focus, &:active {
 					text-decoration: none;
+				}
+				.text {
+					color: $black;
+					padding-bottom: 5px;
+					font-weight: bold;
+				}
+				.number {
+					display: inline-block;
+					color: $white;
+					background-color: $red;
+					padding: 6px 0;
+					height: 35px;
+					width: 35px;
+					text-align: center;
+					font-weight: bold;
+					margin-right: 10px;
+					@include border-radius(50%);
 				}
 			}
 			&.dashboard a {
 				width: 45px;
+				background-color: $red;
+				text-indent: -999999px;
+				&.icon {
+					background-repeat: no-repeat;
+					background-position: center;
+				}
+				&.icon-quickstart {
+					background-image: url('../img/ico-quickstart.png');
+					background-size: 35px;
+				}
+				&.icon-products {
+					background-image: url('../img/ico-products.png');
+					background-size: 30px;
+				}
+				&.icon-share {
+					background-image: url('../img/ico-share.png');
+					background-size: 30px;
+				}
+				&.icon-team {
+					background-image: url('../img/ico-team.png');
+					background-size: 30px;
+				}
+				&.icon-wallet {
+					background-image: url('../img/ico-wallet.png');
+					background-size: 30px;
+				}
 			}
-			&.active a {
-				background-color: #23527c;
-				color: $white;
-				border-color: #23527c;
+			&.active a .text {
+				border-bottom: 3px solid $red;
 			}
 			&.locked a {
 				background-color: #DDD;

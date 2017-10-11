@@ -25,7 +25,7 @@ var Modal = function(){
 				$('.webinar-register-now').hide();
 				ajaxGetWebinar().done(function(data){
 					$('.ajax-webinars').html(data);
-					$('.webinar-register-now').show();
+					//$('.webinar-register-now').show();
 				});
 			})
 			$('.webinar-modal-lg').on('hidden.bs.modal', function (e) {
