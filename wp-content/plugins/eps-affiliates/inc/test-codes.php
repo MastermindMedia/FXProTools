@@ -17,34 +17,26 @@ function check_rank_achied() {
 }
 
 function afl_test_codes_callback () {
-  $genealogy_tree = _table_name('afl_unilevel_user_genealogy');
-  $uid = 162;
-
-  $query = array();
-  $query['#select']  = $genealogy_tree;
-  $query['#join'] = array(
-    _table_name('users') => array(
-     '#condition'=> '`'._table_name('users').'`.`ID` = `'.$genealogy_tree.'`.`uid` '
-    )
+  global $wpdb;
+  $args1 = array(
+   'role' => 'holding_member',
+   'orderby' => 'user_nicename',
+   'order' => 'ASC'
   );
-  if (!eps_is_admin()) {
-    $query['#where'] = array(
-      '`'.$genealogy_tree.'`.`referrer_uid` = '.$uid
-    );
-    $query['#where_or'] = array(
-      '`'.$genealogy_tree.'`.`uid` = '.$uid
-    );
-  }
-  $query['#fields'] = array(
-    _table_name('users') => array('user_login', 'ID')
-  );
-  $result = db_select($query, 'get_results');
-  
-
-  foreach ($result as $key => $value) {
-    $response[] = array('name'=> ($value->user_login.' ('.$value->ID.')'));
-  }
-  echo json_encode($response);
+   $subscribers = get_users($args1);
+  echo '<ul>';
+   foreach ($subscribers as $user) {
+      // $wpdb->delete(
+      //   'wp_users',
+      //   array(
+      //     'ID' => $user->ID
+      //   )
+      // );
+      echo '<pre>';
+      print_r($user->ID);
+      echo '</pre>';
+   }
+  echo '</ul>';
 }
 
 

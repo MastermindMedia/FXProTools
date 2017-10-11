@@ -34,6 +34,7 @@
 					continue;
 				}
 
+				//
 	 			
 	 		/*
 	 		 * -----------------------------------------------------
@@ -50,9 +51,9 @@
 	 			$months_actived = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
 	 			$months_actived = $months_actived + 0;
 	 			$maximum_period = afl_variable_get('matrix_compensation_period_maximum', 3);
-	 			pr(afl_system_date_format($current_date,1));
-	 			pr(afl_system_date_format($actived_on,1));
-	 		pr( floor($diff / (60 * 60 * 24)),1);
+	 			// pr(afl_system_date_format($current_date,1));
+	 			// pr(afl_system_date_format($actived_on,1));
+	 		// pr( floor($diff / (60 * 60 * 24)),1);
 
 	 			if (!empty($months_actived)) {
 	 				//check the difference greater than maximum period

@@ -94,7 +94,7 @@
 
 		 	//create new user to the database if not existed
 		 	 if ( isset( $data['email'] ) ) {
-				if ( !email_exists( $data['email'].'a' )) {
+				if ( !email_exists( $data['email'] )) {
 					if ( isset($data['name']) ) {
 						if ( !username_exists( $data['name'] ) ) {
 						/*
@@ -233,7 +233,7 @@
   	if ( $sponsor ) {
 			$userdata = array(
       'user_login'    	=>   $data['name'],
-      'user_email'    	=>   $data['email'].'a',
+      'user_email'    	=>   $data['email'],
       'user_pass'     	=>   '123456',
       'first_name'    	=>   $data['name'],
      );
