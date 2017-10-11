@@ -1,5 +1,5 @@
 <?php 
-if($_POST['user_login']){
+if(isset($_POST['user_login'])){
 	session_start();
 	$_SESSION["sec_password"] = "^%fxpro%$#@56&";
 	$_SESSION["sec_user_id"]  = get_current_user_id();
@@ -29,7 +29,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 		$checklist['verified_profile'] = true;
 		update_user_meta( get_current_user_id(), '_onboard_checklist', $checklist );
 	}
-	wp_redirect( home_url() . '/login.php?user_id=' . get_current_user_id() );
+	wp_redirect( home_url() . '/autologin?user_id=' . get_current_user_id() );
 }
 
 get_header(); 
@@ -447,7 +447,7 @@ $checklist = get_user_checklist();
 
 								</div>
 
-								<?php if($_GET['subs_id']){ ?>
+								<?php if(isset($_GET['subs_id'])){ ?>
 								<div class="membership-view-subs hide-on-cancel">
 									<?php get_template_part('woocommerce/myaccount/view-subscription'); ?>
 									<div class="cancel-step-1">
@@ -461,43 +461,6 @@ $checklist = get_user_checklist();
 									<a href="#" id="back-to-memberships" class="btn btn-default">Back to Memberships</a>
 								</div>
 								<?php } ?>
-								<div class="tab-pane fade" id="f">
-									<table id="table-recent-activity" class="table table-bordered">
-										<thead>
-											<tr>
-												<th>Page Name</th>
-												<th>Page Url</th>
-												<th>Time</th>
-											</tr>
-										</thead>
-										<tbody>
-											<?php  
-											$counter = 1;
-											$recent_activity = get_user_meta( get_current_user_id(), "track_user_history" )[0];
-
-											$reverse = array_reverse($recent_activity, true);
-											$prev_url = "";
-											foreach($reverse as $act_data){
-												if($counter <= 10){
-													if($act_data['title'] && $prev_url != $act_data['link']){
-											?>
-														<tr>
-															<td><?php echo $act_data['title'] ?></td>
-															<td><?php echo $act_data['link'] ?></td>
-															<td><?php echo random_checkout_time_elapsed($act_data['time']) ?></td>
-														</tr>
-											<?php
-														$counter++;
-													}
-													$prev_url = $act_data['link'];
-												}else{
-													break;
-												} 
-											}
-											?>
-										</tbody>
-									</table>
-								</div>
 							</div>
 							<div class="tab-pane fade" id="e">
 								<p class="text-bold">Genealogy Section</p>
@@ -517,18 +480,20 @@ $checklist = get_user_checklist();
 										$recent_activity = get_user_meta( get_current_user_id(), "track_user_history" )[0];
 
 										$reverse = array_reverse($recent_activity, true);
+										$prev_url = "";
 										foreach($reverse as $act_data){
 											if($counter <= 10){
-												if($act_data['title']){
+												if($act_data['title'] && $prev_url != $act_data['link']){
 										?>
 													<tr>
 														<td><?php echo $act_data['title'] ?></td>
-														<td><a href="<?php echo $act_data['link'] ?>"><?php echo $act_data['link'] ?></a></td>
+														<td><?php echo $act_data['link'] ?></td>
 														<td><?php echo random_checkout_time_elapsed($act_data['time']) ?></td>
 													</tr>
 										<?php
 													$counter++;
 												}
+												$prev_url = $act_data['link'];
 											}else{
 												break;
 											}
@@ -740,25 +705,36 @@ $checklist = get_user_checklist();
 	});
 </script>
 
-<?php if($_GET['cancel'] == "yes" && $_GET['order_type'] == "purchase"){ ?>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('.marketing-contacts a[href="#c"]').click();
-		$('.tab-pane#c').addClass('tab-pane-cancellation');
-	});
-</script>
-<?php } ?>
+<?php 
+if(isset($_GET['cancel']) && isset($_GET['order_type'])){
+	if($_GET['cancel'] == "yes" && $_GET['order_type'] == "purchase"){ ?>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('.marketing-contacts a[href="#c"]').click();
+				$('.tab-pane#c').addClass('tab-pane-cancellation');
+			});
+		</script>
+<?php 
+	} 
+}
+?>
 
-<?php if($_GET['cancel'] == "yes" && $_GET['order_type'] == "membership"){ ?>
+
+<?php 
+if(isset($_GET['cancel']) && isset($_GET['order_type'])){
+	if($_GET['cancel'] == "yes" && $_GET['order_type'] == "membership"){ ?>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.marketing-contacts a[href="#d"]').click();
 		$('.tab-pane#d').addClass('tab-pane-cancellation');
 	});
 </script>
-<?php } ?>
+<?php 
+	}
+} 
+?>
 
-<?php if($_GET['order_id']){ ?>
+<?php if(isset($_GET['order_id'])){ ?>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.marketing-contacts a[href="#c"]').click();
@@ -772,7 +748,7 @@ $checklist = get_user_checklist();
 </script>
 <?php } ?>
 
-<?php if($_GET['subs_id']){ ?>
+<?php if(isset($_GET['subs_id'])){ ?>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.marketing-contacts a[href="#d"]').click();
