@@ -170,10 +170,6 @@ class Apyc_SendSMS{
 				}
 			}
 		}
-		
-		
-		//$account = $client->api->accounts($this->sid)->fetch();
-		//dd($account);
 	}
 	
 	public function __construct() {}
