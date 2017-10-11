@@ -6,17 +6,29 @@
  * Author: John Benedict
  */
 
+// ---------
 // Main Font
+// ---------
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
 $font-lato: 'Lato', sans-serif;
 
+// ---------
+// Libraries
+// ---------
+@import 'library/bourbon/_bourbon';
+
+// ---------------
 // Color Variables
+// ---------------
 $white: #fff;
 $black: #000;
 $yellow: #f5cd2b;
 $red: #de1515;
 $green: #03ae78;
 
+// -------
+// Modules
+// -------
 @import '_helper'; // Helper Classes
 @import '_global'; // Global Styles
 @import '_common'; // Common Styles

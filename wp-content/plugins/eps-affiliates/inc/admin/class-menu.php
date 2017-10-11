@@ -699,7 +699,10 @@
 			public function eps_affiiliates_dashboard () {
 				add_dashboard_page( 'EPS Dashboard', 'EPS Dashboard', 'eps_affiliates_dashboard', 'eps-dashboard', array( $this,'eps_affiliates_dashboard_callback') );
 			}
+
 			public function eps_affiliates_dashboard_callback () {
+				
+				$obje = new Afl_enque_scripts('eps-dashboard');
 				afl_get_template('dashboard/eps_dashboard_template.php');
 			}
 		

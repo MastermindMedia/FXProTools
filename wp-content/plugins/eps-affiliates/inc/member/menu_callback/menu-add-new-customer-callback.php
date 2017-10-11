@@ -11,7 +11,8 @@
  	do_action('afl_content_wrapper_end');
  }
  function afl_add_new_customer_form () {
-
+	$obje = new Afl_enque_scripts('eps-add-new-member');
+ 	
  	$post = array();
  	if ( isset($_POST['submit'] ) ) {
         $rules = create_customer_validation_rules($_POST);

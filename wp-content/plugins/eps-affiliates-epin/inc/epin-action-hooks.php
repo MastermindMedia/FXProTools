@@ -5,7 +5,7 @@
  * -----------------------------------------------------------
 */
  	add_action( 'admin_init', 'eps_affiliate_epin_check_if_installed' );
- 	add_action('init', 'common_assets_load');
+ 	// add_action('init', 'common_assets_load');
 	function common_assets_load(){ 
  	wp_register_script('epin-js',EPSAFFILIATE_EPIN_PLUGIN_ASSETS.'js/epin.js');
 	wp_enqueue_script('epin-js');

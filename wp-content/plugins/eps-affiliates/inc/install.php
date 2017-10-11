@@ -34,11 +34,11 @@ function eps_affiliates_install() {
 				'comment_status' => 'closed'
 			)
 		);
+	//set the variable for page id
+	update_option( 'eps_affiliate_page', $affiliate_area );
 	}
 	//set the variable for install
 	update_option( 'eps_afl_is_installed', 1 );
-	//set the variable for page id
-	update_option( 'eps_affiliate_page', $affiliate_area );
 
 	$Eps_affiliate_install  = new stdClass();
 }

@@ -9,6 +9,9 @@ function afl_generate_users () {
 }
 
 function afl_generate_users_form () {
+	
+	new Afl_enque_scripts('test');
+
 	$website = "http://example.com";
 
 	afl_generate_users_form_callback();
@@ -130,6 +133,9 @@ function _get_last_inserted($string_prefix = '') {
 	return ($begin + 1);
 }
 function afl_generate_users_form_callback( ){
+	new Afl_enque_scripts('test');
+
+
 	$form = array();
 	$form['#method'] = 'post';
 	$form['#action'] = $_SERVER['REQUEST_URI'];
@@ -165,6 +171,9 @@ function afl_generate_users_form_validation ($name) {
 
 
 function afl_generate_customers_form () {
+	new Afl_enque_scripts('test');
+
+
 	$website = "http://example.com";
 
 	afl_generate_customers_form_callback();
@@ -265,6 +274,9 @@ function afl_test_purchases () {
 }
 
 function afl_test_purchses_form() {
+	new Afl_enque_scripts('test');
+
+	
 	if (isset($_POST['submit']) && !empty($_POST['product'])) {
 		afl_test_purchses_form_submit($_POST);
 	}
