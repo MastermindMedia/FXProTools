@@ -2,7 +2,7 @@
 
 <div class="fx-404-container fx-landing main">
 	<?php get_template_part('inc/templates/nav-capture-page'); ?>
-	<div class="section-note">
+	<div class="fx-red-note">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
