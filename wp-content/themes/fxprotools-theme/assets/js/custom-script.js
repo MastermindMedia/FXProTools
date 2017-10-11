@@ -63,7 +63,7 @@ jQuery(document).ready( function($) {
 });
 
 // Events
-$(document).on('click', 'a[href="#trial-products"]', function(e) {
+$(document).on('click', '.scroll-to', function(e) {
 	e.preventDefault();
 	if (this.hash !== "")
 	var hash = this.hash;

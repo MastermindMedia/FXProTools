@@ -22,7 +22,7 @@
 						</div>
 						<div class="video"></div>
 						<div class="text-center">
-							<a href="#trial-products" class="btn btn-danger btn-lg btn-lg-w-text">
+							<a href="#trial-products" class="btn btn-danger btn-lg btn-lg-w-text scroll-to">
 								Create your Account Now!
 								<span>Sign up takes less than 60 seconds</span>
 							</a>
