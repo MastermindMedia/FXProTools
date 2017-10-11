@@ -581,9 +581,13 @@ function track_user_history()
     if(!$track_user_history){
     	$track_user_history = array();
     }
+    $link = '<a href="'. get_the_permalink() .'">' . get_the_permalink() . '</a>';
+    if($_POST['user_login']){
+    	$link = $link . " " . get_the_author_meta('first_name', get_current_user_id()) . " " . get_the_author_meta('last_name', get_current_user_id()) . " changed his username to " . $_POST['user_login'];
+    }
     $data = array(
     	'time' => date("Y-m-d h:i:sa"),
-    	'link' => get_the_permalink(),
+    	'link' => $link,
     	'title' => get_the_title()
     );
     array_push($track_user_history, $data);
@@ -633,11 +637,30 @@ function check_username()
 	$new_username = $_REQUEST['new_username'];
 	if (validate_username($new_username) && !username_exists($new_username))
 	{
-		echo "1";
+		if(strlen($new_username) <= 30 && strlen($new_username) >= 3 && preg_match("/^([[:alnum:]])*$/", $new_username))
+		{
+			echo "1";
+		}
+		else
+		{
+			echo "2";
+		}
 	}
 	else{
-		echo "0";
+		if(!strlen($new_username) <= 30 || !strlen($new_username) >= 3 || !preg_match("/^([[:alnum:]])*$/", $new_username))
+		{
+			echo "2";
+		}
+		else
+		{
+			echo "0";
+		}		
 	}
 
 	wp_die();
 }
+function sess_start() {
+    if (!session_id())
+    session_start();
+}
+add_action('init','sess_start');
