@@ -360,18 +360,14 @@ function forced_lesson_time()
 function get_trial_end_date()
 {
 	$subscriptions = wcs_get_users_subscriptions();
+
 	foreach($subscriptions as $s){
-		$related_orders_ids = $s->get_related_orders();
-
-		foreach ( $related_orders_ids as $order_id ) {
-		    $order = new WC_Order( $order_id );
-		    $items = $order->get_items();
-
+		if( $s->has_status('active') ){
+			$items = $s->get_items();
 		    foreach($items as $key => $item){
 		    	$subscription_type = wc_get_order_item_meta($key, 'subscription-type', true);
-		    	
 		    	if($subscription_type == 'trial'){
-					$subscription = wcs_get_subscription( $s->ID );
+					$subscription = wcs_get_subscription( $s->get_id() );
 					return $subscription->get_date( 'end' );
 		    	}
 		    }
@@ -468,22 +464,23 @@ function get_query_string()
 	return $string;
 }
 
+function get_recent_subscriptions ($limit = 15)
+{
+	$subscriptions = get_posts( array(
+        'post_type' => 'shop_subscription', 
+        'post_status' => array( 'wc-processing', 'wc-completed', 'wc-expired', 'wc-on-hold' ),
+        'numberposts' => $limit,
+        'posts_per_page' => $limit
+	) );
+	$subscription_list = array();
+	foreach($subscriptions as $s){
+		$subscription_list[] = wc_get_order( $s->ID );
+	}
+	return $subscription_list;
+}
 /* -------------------------
 	Actions and Filters
  --------------------------*/
-
-add_action('wp_ajax_nopriv_lms_lesson_complete', 'lms_lesson_complete');
-add_action('wp_ajax_lms_lesson_complete', 'lms_lesson_complete');
-function lms_lesson_complete()
-{
-	$user_id = get_current_user_id();
-	$lesson_id = $_POST['lesson_id'];
-
-	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
-		echo learndash_is_lesson_complete( $user_id , $lesson_id );
-	}
-	wp_die();
-}
 
 add_action('wp', 'enforce_page_access');
 function enforce_page_access()
@@ -585,7 +582,7 @@ function track_user_history()
 	    	$track_user_history = array();
 	    }
 	    $link = '<a href="'. get_the_permalink() .'">' . get_the_permalink() . '</a>';
-	    if($_POST['user_login']){
+	    if(isset($_POST['user_login'])){
 	    	$link = $link . " " . get_the_author_meta('first_name', get_current_user_id()) . " " . get_the_author_meta('last_name', get_current_user_id()) . " changed his username to " . $_POST['user_login'];
 	    }
 	    $data = array(

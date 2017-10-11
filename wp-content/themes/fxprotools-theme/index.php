@@ -22,7 +22,7 @@
 						</div>
 						<div class="video"></div>
 						<div class="text-center">
-							<a href="#trial-products" class="btn btn-danger btn-lg btn-lg-w-text">
+							<a href="#trial-products" class="btn btn-danger btn-lg btn-lg-w-text scroll-to">
 								Create your Account Now!
 								<span>Sign up takes less than 60 seconds</span>
 							</a>
@@ -788,17 +788,4 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-		jQuery(document).ready(function($){
-			$("a[href='#trial-products'").on('click', function(event) {
-				if (this.hash !== "") {
-					event.preventDefault();
-					var hash = this.hash;
-					$('html, body').animate({
-						scrollTop: $(hash).offset().top - 30
-					}, 600);
-				} // End if
-			});
-		});
-	</script>
 <?php get_footer(); ?>

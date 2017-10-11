@@ -222,6 +222,40 @@
 			}
 		}
 	}
+	// Page - Access Products
+	&.access-products {
+		padding-bottom: 10px;
+		.fx-board-title {
+			text-align: center;
+			background-color: $red;
+			padding: 20px 0;
+			color: $white;
+			font-size: 18px;
+		}
+		.fx-board-content {
+			padding: 15px 35px 10px 35px;
+			.list-status {
+				list-style: none;
+				padding: 0;
+				border: 1px solid #DDD;
+				margin: 15px 0 5px;
+				li {
+					border-bottom: 1px solid #DDD;
+					padding: 5px 10px;
+					font-size: 14px;
+					label {
+						font-weight: normal;
+					}
+					&:last-child {
+						border-bottom: none;
+					}
+				}
+			}
+		}
+		p.small {
+			font-size: 12px;
+		}
+	}
 }
 
 // Tabs - Full
@@ -323,16 +357,28 @@
 	padding: 0;
 	margin: 0;
 	li {
-		border-bottom: 1px solid #DDD;
-		border-left: 1px solid #DDD;
-		border-right: 1px solid #DDD;
-		padding: 28px 20px;
+		border: 1px solid #DDD;	
+		padding: 30px 20px;
 		position: relative;
+		margin-bottom: 10px;
 		&:first-child { border-top: 1px solid #DDD; }
+		&:before {
+			content: ' ';
+			height: 5px;
+			width: 100%;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background-color: $red;
+		}
+		span {
+			font-weight: bold;
+			font-size: 17px;
+		}
 		.action {
 			display: block;
 			width: 150px;
-			border: 1px solid #DDD;
 			padding: 9px;
 			text-align: center;
 			position: absolute;

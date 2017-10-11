@@ -6,9 +6,8 @@
 .fx-landing {
 	position: relative;
 	background: #F0F0F0;
-	.section-one {
+	.section-nav {
 		background: $white;
-		padding: 25px 0;
 		.logo {
 			font-weight: bold;
 			text-transform: uppercase;
@@ -18,21 +17,104 @@
 				color: $black;
 			}
 		}
-		.fx-nav {
-			text-align: right;
-			padding: 0;
-			margin: 0;
-			list-style: none;
-			li {
-				display: inline-block;
-				margin-right: 10px;
-				&:last-child {
-					margin-right: 0;
+		.fx-top-nav {
+			li a {
+				color: $black;
+			}
+			&.one {
+				padding: 15px 0;
+				border-bottom: 2px solid #dedede;
+				.fx-nav {
+					list-style: none;
+					margin: 0;
+					padding: 0;
+					li {
+						display: inline-block;
+						a {
+							display: block;
+						}
+					}
+					&.w-border {
+						margin-top: 5px;
+						li {
+							font-size: 13px;
+							border-right: 1px solid $black;
+							margin-right: 10px;
+							padding-right: 10px;
+							line-height: 1;
+							&:last-child {
+								border-right: 0;
+							}
+						}
+					}
+					&.w-flag {
+						text-align: right;
+						li {
+							font-size: 13px;
+							margin-left: 15px;
+							line-height: 1;
+							a {
+								color: $black;
+								&.btn-flag {
+									padding: 5px 0 5px 33px;
+									&:before {
+										content: "";
+										display: inline-block;
+										vertical-align: middle;
+										background: url(../img/us-flag.png) no-repeat left center;
+										background-size: 30px;
+										width: 25px;
+										height: 25px;
+										border-radius: 5px;
+										margin-right: 7px;
+									}
+									&:hover, &:active, &:focus {
+										text-decoration: none;
+										opacity: .8;
+									}
+								}
+							}
+							&.fx-nav-btn {
+								a {
+									background: $red;
+									color: #fff;
+									padding: 8px 12px;
+									border-radius: 4px;
+									border: 1px solid $red;
+									&:hover, &:active, &:focus {
+										background: #fff;
+										color: $red;
+										text-decoration: none;
+									}
+								}
+							}
+						}
+					}
 				}
-				a {
-					color: $black;
-					&:hover, &:focus, &:active {
-						color: $black;
+			}
+			&.two {
+				padding: 25px 0;
+				.fx-nav {
+					text-align: right;
+					padding: 0;
+					margin: 0;
+					list-style: none;
+					li {
+						display: inline-block;
+						margin-right: 10px;
+						&:last-child {
+							margin-right: 0;
+						}
+						a {
+							color: $black;
+							border: 1px solid $red;
+							padding: 5px 10px;
+							@include border-radius(5px);
+							font-size: 13px;
+							&:hover, &:focus, &:active {
+								color: $black;
+							}
+						}
 					}
 				}
 			}
@@ -1176,92 +1258,17 @@
 }
 
 // Access Denied
-.fx-access-denied, .fx-404{
-	.fx-navbar-main{
-		display: none;
-	}
-	.fx-access-denied-top, .fx-404-top{
-		border-bottom: 2px solid #dedede;
-		padding: 15px 0;
-	}
-	.fx-missing-nav{
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		li{
-			display: inline-block;
-			a{
-				display: block;
-			}
-		}
-	}
-	.fx-missing-left{
-		li{
-			font-size: 13px;
-			border-right: 1px solid #000;
-			margin-right: 10px;
-			padding-right: 10px;
-			line-height: 1;
-			&:last-child{
-				border-right: 0;
-			}
-			a{
-				color: #000;
-			}
-		}
-	}
-	.fx-missing-right{
-		text-align: right;
-		li{
-			font-size: 13px;
-			margin-left: 15px;
-			line-height: 1;
-			a{
-				color: #000;
-				&.btn-flag{
-					padding: 5px 0 5px 33px;
-					&:before{
-						content: "";
-						display: inline-block;
-						vertical-align: middle;
-						background: url(../img/us-flag.png) no-repeat left center;
-						background-size: 30px;
-						width: 25px;
-						height: 25px;
-						border-radius: 5px;
-						margin-right: 7px;
-					}
-					&:hover{
-						text-decoration: none;
-						opacity: .8;
-					}
-				}
-			}
-			&.fx-nav-btn{
-				a{
-					background: $red;
-					color: #fff;
-					padding: 8px 12px;
-					border-radius: 4px;
-					border: 1px solid $red;
-					&:hover{
-						background: #fff;
-						color: $red;
-						text-decoration: none;
-					}
-				}
-			}
-		}
-	}
+.fx-access-denied, .fx-404 {	
 	.fx-header-title{
-		h1{
+		margin: 35px 0;
+		h1 {
 			font-size: 32px;
 		}
-		p{
+		p {
 			font-size: 20px;
 		}
 	}
-	.section-one{
+	.section-one {
 		padding: 20px 0;
 		.logo{
 			font-weight: bold;
@@ -1294,46 +1301,17 @@
 			}
 		}
 	}
-	.section-note{
-		background: #de1515;
-    	padding: 15px 0;
-    	text-align: center;
-    	margin-bottom: 20px;
-    	p{
-    		color: #fff;
-		    margin-bottom: 0;
-		    font-size: 18px;
-    	}
-	}
-	.note{
-		.btn{
-			border: 1px solid #940000;
-			font-size: 18px;
-			padding: 15px 25px 15px 25px;
-			max-width: 72%;
-			margin: 0 auto;
-			border-radius: 3px;
-			background: #fe1111;
-			background: -moz-linear-gradient(top, #fe1111 0%, #e10101 100%);
-			background: -webkit-linear-gradient(top, #fe1111 0%,#e10101 100%);
-			background: linear-gradient(to bottom, #fe1111 0%,#e10101 100%);
-			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fe1111', endColorstr='#e10101',GradientType=0 );
-			&:hover{
-				background: #e10101;
-			}
-		}
-	}
-	.note-gray{
+	.note-gray {
 		background: #f9f9f9;
 		padding: 40px;
 		margin-bottom: 25px;
-		p{
+		p {
 			margin-bottom: 20px;
 			&:last-child{
 				margin: 0;
 			}
 		}
-		a{
+		a {
 			color: #000;
 			text-decoration: none;
 			border-bottom: 1px solid #8A8A8A;
@@ -1364,29 +1342,15 @@
 			}
 		}
 	}
-	@media (max-width: 767px){
-		.fx-missing-nav{
-			text-align: center;
-			margin-bottom: 10px;
-		}
-		.section-one{
-			text-align: center;
-			.logo{
-				margin-bottom: 10px;
-				display: block;
-			}
-			.fx-nav{
-				text-align: center;
-				li{
-					margin: 5px 0;
-				}
-			}
-		}
-	}
 }
 
 // Checkout
 .checkout-holder{
+	.shop_table .blockUI.blockOverlay {
+	  position: relative!important;
+	  display: none!important;
+	}
+
 	.col2-set{
 		.col-1{
 			width: 66.66%;
