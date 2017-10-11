@@ -98,9 +98,29 @@ if ( ! function_exists('apyc_get_webinar_free')) {
 		}
    }
 }
+/**
+* Will get user group with mobile only
+* @see Apyc_User
+* @param $group	array | string
+* @return Apyc_User
+**/
+if ( ! function_exists('apyc_get_usergroup_withmobile')) {
+   function apyc_get_usergroup_withmobile()  {
+		try{
+			$defaults = array(
+				'filter_by_subject' => 'Weekly Q & A'
+			);
+			$query_args = wp_parse_args( $arg, $defaults );
+			$get = Apyc_Citrix_GoToWebinar_GetAll::get_instance()->query($query_args);
+			return $get;
+		}catch(Exception $e){
+			write_log('get free webinar error : ' . $e->getMessage());
+			return false;
+		}
+   }
+}
 function apyc_fxprotools_setup(){
 	Apyc_Modal::get_instance();
-	
 }
 add_action( 'after_setup_theme', 'apyc_fxprotools_setup' );
 function apyc_init(){
@@ -152,4 +172,8 @@ function apyc_init(){
 
 	dd($account);
 }
-add_action('init', 'apyc_init');
+function apyc_user(){
+	$arg = array('sending_to'=>array('Customer'));
+	Apyc_User::get_instance()->getWithMobileNumber($arg);
+}
+add_action('init', 'apyc_user');
