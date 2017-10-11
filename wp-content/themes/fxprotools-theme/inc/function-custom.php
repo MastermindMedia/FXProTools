@@ -576,7 +576,7 @@ function track_user_history()
 	if( is_user_logged_in() ){
 		//delete_user_meta(get_current_user_id(), "track_user_history");
 		$track_user_history = get_user_meta( get_current_user_id(), "track_user_history", true );
-		$track_user_history = isset( $track_user_history ) ? $track_user_history : array();
+		$track_user_history = $track_user_history  ? $track_user_history : array();
 	    $link = '<a href="'. get_the_permalink() .'">' . get_the_permalink() . '</a>';
 	    if( isset($_POST['user_login']) ){
 	    	$link = $link . " " . get_the_author_meta('first_name', get_current_user_id()) . " " . get_the_author_meta('last_name', get_current_user_id()) . " changed his username to " . $_POST['user_login'];
