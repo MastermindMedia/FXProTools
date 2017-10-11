@@ -66,9 +66,18 @@ class Apyc_User{
 	*		$arg = array(
 	*			'sending_to' => array('Customer', 'Distributor', 'All')		
 	*		);
-	*	@return	WP_User_Query return
+	*	@return	array of names with id and mobile number
+	*	array(
+	*		array(
+	*			id => 0,
+	*			name => name,
+	*			mobile => mobile_number,
+	*		)
+	*		....
+	*	)
 	**/
-	public function getWithMobileNumber($arg = array()){
+	public function getGroupWithMobileNumber($arg = array()){
+		$user_array = array();
 		$query = array(
 			'role__in' => isset($arg['sending_to']) ? $arg['sending_to'] : array('All'),
 			'meta_query' => array(
@@ -79,7 +88,19 @@ class Apyc_User{
 				),
 			)
 		);
-		return = new WP_User_Query($query);
+		$user_query = new WP_User_Query($query);
+		
+		if ( ! empty( $user_query->results ) ) {
+			foreach ( $user_query->results as $user ) {
+				//echo '<p>' . $user->display_name . '</p>';
+				$user_array[] = array(
+					'id' => $user->ID,
+					'name' => $user->display_name, 
+					'mobile' => $user->mobile 
+				);
+			}
+		}
+		return $user_array;
 	}
 	
 	public function __construct() {}

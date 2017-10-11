@@ -5,6 +5,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 define('GOTOWEBINAR_USERID', 'fxprotools@gmail.com');
 define('GOTOWEBINAR_PASSWORD', 'Admin4web');
 define('GOTOWEBINAR_CONSUMERKEY', 'aInr3HOEuTfGxGW7PF9yD90AGzIehCj5');
+define('TWILIO_ACCOUNT_SID', 'ACeed6641354498872901ff6aa63342ac1');
+define('TWILIO_TOKEN', '6924aec30f4903169f928a1d8c65886b');
 /**
  * For autoloading classes
  * */
@@ -102,21 +104,15 @@ if ( ! function_exists('apyc_get_webinar_free')) {
 * Will get user group with mobile only
 * @see Apyc_User
 * @param $group	array | string
-* @return Apyc_User
+* @return Apyc_User | Array
 **/
 if ( ! function_exists('apyc_get_usergroup_withmobile')) {
-   function apyc_get_usergroup_withmobile()  {
-		try{
-			$defaults = array(
-				'filter_by_subject' => 'Weekly Q & A'
-			);
-			$query_args = wp_parse_args( $arg, $defaults );
-			$get = Apyc_Citrix_GoToWebinar_GetAll::get_instance()->query($query_args);
-			return $get;
-		}catch(Exception $e){
-			write_log('get free webinar error : ' . $e->getMessage());
-			return false;
+   function apyc_get_usergroup_withmobile($group = array())  {
+		if( !empty($group) ){
+			$user = new Apyc_User;
+			return $user->getGroupWithMobileNumber($group);
 		}
+		return false;
    }
 }
 function apyc_fxprotools_setup(){
@@ -149,7 +145,9 @@ function apyc_init(){
 			),
 		)
 	);
-	$user_query = new WP_User_Query($arg);
+	$arg_group = array('Customer','Distributor');
+	//$user_query = new WP_User_Query($arg);
+	$user_query = apyc_get_usergroup_withmobile($arg_group);
 	//$blogusers = get_users( [ 'role__in' => [ 'Customer', 'Distributor' ] ] );
 	$author_info = get_userdata( 2918 );
 	dd($user_query);
@@ -157,7 +155,7 @@ function apyc_init(){
 	//use Twilio\Rest\Client;
 
 	// Your Account Sid and Auth Token from twilio.com/user/account
-	$sid = "ACeed6641354498872901ff6aa63342ac1";
+	/*$sid = "ACeed6641354498872901ff6aa63342ac1";
 	$token = "6924aec30f4903169f928a1d8c65886b";
 	$client = new Twilio\Rest\Client($sid, $token);
 
@@ -170,10 +168,34 @@ function apyc_init(){
 		->accounts("ACeed6641354498872901ff6aa63342ac1")
 		->fetch();
 
-	dd($account);
+	dd($account);*/
 }
 function apyc_user(){
-	$arg = array('sending_to'=>array('Customer'));
-	Apyc_User::get_instance()->getWithMobileNumber($arg);
+	$arg_group = array(
+		'sending_to' => array('Customer','Distributor')
+	);
+	//$user_query = new WP_User_Query($arg);
+	//$user_query['send_to'] = apyc_get_usergroup_withmobile($arg_group);
+	$user_query['send_to'] = array(
+		array(
+			'id'=> 2918,
+			'name'=> 'amrinder',
+			'mobile'=> '45646456456',
+		),
+		array(
+			'id'=> 2917,
+			'name'=> 'johnd',
+			'mobile'=> '09469353425',
+		),
+		array(
+			'id'=> 2922,
+			'name'=> 'kapoor',
+			'mobile'=> '4545454545',
+		),
+	);
+	$user_query['msg'] = 'Hello Twilio';
+	dd($user_query);
+	Apyc_SendSMS::get_instance()->send($user_query);
+	exit();
 }
 add_action('init', 'apyc_user');
