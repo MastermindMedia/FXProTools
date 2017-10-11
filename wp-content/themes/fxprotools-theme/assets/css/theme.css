@@ -813,7 +813,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .fx-tabs li.active a {
   border-bottom: 1px solid #DDD;
-  background: #23527c;
+  background: #de1515;
   color: #FFF
 }
 
@@ -837,7 +837,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .fx-tabs-bordered li.active a {
   border-bottom: 1px solid #DDD;
-  background: #23527c;
+  background: #de1515;
   color: #FFF
 }
 
@@ -878,7 +878,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .fx-tabs-vertical .nav-tabs li.active a {
-  background-color: #23527c;
+  background-color: #de1515;
   color: #FFF
 }
 
@@ -974,10 +974,12 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 136px
 }
 
+
 .fx-list-courses .list-item .left .box {
-  border: 1px solid #DDD;
-  position: relative;
-  height: 110px
+    border: 1px solid #DDD;
+    position: relative;
+    height: 110px;
+    background-color: #fff;
 }
 
 .fx-list-courses .list-item .left .box .sash {
@@ -1013,6 +1015,7 @@ h1, h2, h3, h4, h5, h6 {
   float: left;
   border: 1px solid #DDD;
   padding: 25px 25px 15px 25px
+  background-color: #fff;
 }
 
 .fx-list-courses .list-item .right .title {
