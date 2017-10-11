@@ -482,19 +482,6 @@ function get_recent_subscriptions ($limit = 15)
 	Actions and Filters
  --------------------------*/
 
-add_action('wp_ajax_nopriv_lms_lesson_complete', 'lms_lesson_complete');
-add_action('wp_ajax_lms_lesson_complete', 'lms_lesson_complete');
-function lms_lesson_complete()
-{
-	$user_id = get_current_user_id();
-	$lesson_id = $_POST['lesson_id'];
-
-	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
-		echo learndash_is_lesson_complete( $user_id , $lesson_id );
-	}
-	wp_die();
-}
-
 add_action('wp', 'enforce_page_access');
 function enforce_page_access()
 {
