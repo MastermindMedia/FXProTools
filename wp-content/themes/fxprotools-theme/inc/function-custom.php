@@ -674,7 +674,7 @@ add_filter('woocommerce_product_add_to_cart_url', 'filter_woocommerce_product_ad
 function filter_woocommerce_product_add_to_cart_url($url, $instance) {
     // limit the replacement with the type of products in /shop
     if (in_array($instance->get_type(), ['subscription','variable-subscription'])) {
-        return get_home_url() . '#trial-products';
+        return $instance->get_permalink();
     }
     return $url;
 }
