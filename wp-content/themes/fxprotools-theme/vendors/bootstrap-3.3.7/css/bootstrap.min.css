@@ -2538,7 +2538,7 @@ pre code {
 }
 
 table {
-  background-color: transparent
+  background-color: #fff;
 }
 
 caption {
@@ -3245,9 +3245,10 @@ a.btn.disabled, fieldset[disabled] a.btn {
 }
 
 .btn-default {
-  color: #333;
-  background-color: #fff;
-  border-color: #ccc
+    color: #fff;
+    font-size: 16px;
+    background-color: #de1515;
+    border-color: none;
 }
 
 .btn-default.focus, .btn-default:focus {
@@ -5828,7 +5829,6 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:focus, a.list-g
     background-color: #fff;
     border-color: #ddd;
     border-left: 5px solid #de1515;
-    margin-bottom: 15px;
     padding: 20px;
 }
 
