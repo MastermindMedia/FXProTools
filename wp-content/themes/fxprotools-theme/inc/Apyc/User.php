@@ -88,11 +88,11 @@ class Apyc_User{
 				),
 			)
 		);
+
 		$user_query = new WP_User_Query($query);
 		
 		if ( ! empty( $user_query->results ) ) {
 			foreach ( $user_query->results as $user ) {
-				//echo '<p>' . $user->display_name . '</p>';
 				$user_array[] = array(
 					'id' => $user->ID,
 					'name' => $user->display_name, 

@@ -169,7 +169,9 @@ class Apyc_SendSMS{
 					}
 				}
 			}
+			return true;
 		}
+		return false;
 	}
 	
 	public function __construct() {}
