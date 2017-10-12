@@ -13,7 +13,7 @@
     $query['#select'] = _table_name('afl_unilevel_user_holding_tank');
     $query['#join']  = array(
       _table_name('users') => array(
-        '#condition' => '`'_table_name('users').'`.`ID`=`'._table_name('afl_unilevel_user_holding_tank').'`.`uid`'
+        '#condition' => '`'._table_name('users').'`.`ID`=`'._table_name('afl_unilevel_user_holding_tank').'`.`uid`'
       ),
     );
     $query['#fields']  = array(
