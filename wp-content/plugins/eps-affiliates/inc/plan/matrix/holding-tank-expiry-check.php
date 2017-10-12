@@ -17,12 +17,13 @@
 
 			$query = array();
 			$query['#select'] 	 = _table_name('afl_user_holding_tank');
-			$query['#where'] 		 = array(
-				'last_updated <'.$current_date
-			);
+			// $query['#where'] 		 = array(
+			// 	'last_updated <'.$current_date
+			// );
 
-			$query['#limit'] 		 = 100;
+			$query['#limit'] 		 = 1000;
 			$holding_tank_users  = db_select($query, 'get_results');
+			
 			foreach ($holding_tank_users as $key => $user) {
 				$created_date  = $user->created;
 				$datediff 		 = $current_date - $created_date;

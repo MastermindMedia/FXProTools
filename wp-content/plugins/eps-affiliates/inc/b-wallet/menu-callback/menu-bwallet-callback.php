@@ -19,6 +19,8 @@ function afl_business_summary(){
 	
 	//enque the styles 
 	new Afl_enque_scripts('eps-jquery-tables');
+	new Afl_enque_scripts('common');
+
 
 ?>
 <div class="data-filters"></div>
@@ -37,6 +39,8 @@ function afl_business_summary(){
 }
 
 function afl_business_transactions(){
+		
+
 	echo afl_eps_page_header();
 	$uid = get_current_user_id();
 
@@ -49,6 +53,8 @@ function afl_business_transactions(){
 
 	//enque the styles 
 	new Afl_enque_scripts('eps-jquery-tables');
+		new Afl_enque_scripts('common');
+	
 
 ?>
 <div class="data-filters"></div>
@@ -72,6 +78,8 @@ function afl_business_transactions(){
 
 function afl_business_income_history(){
 	echo afl_eps_page_header();
+		
+
 	$uid = get_current_user_id();
 
 	if (isset($_GET['uid'])) {
@@ -83,6 +91,8 @@ function afl_business_income_history(){
 
 	//enque the styles 
 	new Afl_enque_scripts('eps-jquery-tables');
+	new Afl_enque_scripts('common');
+
 
 ?>
 <div class="data-filters"></div>
@@ -106,6 +116,7 @@ function afl_business_income_history(){
 }
 
 function afl_business_expense_history(){
+
 	echo afl_eps_page_header();
 	$uid = get_current_user_id();
 
@@ -118,6 +129,8 @@ function afl_business_expense_history(){
 
 	//enque the styles 
 	new Afl_enque_scripts('eps-jquery-tables');
+	new Afl_enque_scripts('common');
+
 
 ?>
 <div class="data-filters"></div>

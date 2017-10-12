@@ -9,6 +9,8 @@ function afl_genealogy_tree() {
 
 function afl_genealogy_tree_callback() {
 	$obje = new Afl_enque_scripts('eps-genealogy') ;
+		new Afl_enque_scripts('common');
+	
 	
 	// wp_enqueue_style( 'plan-style', EPSAFFILIATE_PLUGIN_PLAN.'matrix/css/tree-new/style.css');
 	$path = EPSAFFILIATE_PLUGIN_PLAN.'matrix/';

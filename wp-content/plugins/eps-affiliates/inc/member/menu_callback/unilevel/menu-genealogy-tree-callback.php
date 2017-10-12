@@ -9,6 +9,7 @@ function afl_unilevel_genealogy_tree() {
 
 function afl_unilevel_genealogy_tree_callback() {
 	$obje = new Afl_enque_scripts('eps-genealogy') ;
+		new Afl_enque_scripts('common');
 	
 	$path = EPSAFFILIATE_PLUGIN_PLAN.'unilevel/';
 	afl_get_template('plan/unilevel/genealogy-tree-all.php');

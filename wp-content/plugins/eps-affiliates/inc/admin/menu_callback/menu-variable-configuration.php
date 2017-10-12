@@ -4,6 +4,8 @@ function afl_admin_variable_configurations (){
 	echo afl_content_wrapper_begin();
 		afl_admin_config_variable_form(afl_variable_tabs());
 	echo afl_content_wrapper_end();
+		new Afl_enque_scripts('common');
+	
 }
 /*
  * ------------------------------------------------------------
@@ -11,6 +13,8 @@ function afl_admin_variable_configurations (){
  * ------------------------------------------------------------
 */
  function afl_variable_tabs () {
+		new Afl_enque_scripts('common');
+ 	
  	$tabs = array();
  	$tabs['system_variables'] = array(
  		'page_callback' => 'afl_system_variables_form',
@@ -20,9 +24,13 @@ function afl_admin_variable_configurations (){
  		'page_callback' => 'afl_payment_methods_form',
  		'title'					=> 'Payment Methods'
  	);
- 		$tabs['widget_var'] = array(
+ 	$tabs['widget_var'] = array(
  		'page_callback' => 'afl_widget_settings_form',
  		'title'					=> 'Widgets Settings'
+ 	);
+ 	$tabs['extra_var'] = array(
+ 		'page_callback' => 'afl_extra_variable_conf',
+ 		'title'					=> 'Extra Settings'
  	);
  	return apply_filters('eps_affiliates_system_variable_tabs',$tabs);
  }
@@ -445,4 +453,51 @@ function afl_widget_settings_form_submit ($form_state = array()) {
 		afl_variable_set($key, maybe_serialize($value));
 	}
 	echo wp_set_message('Configuration has been saved successfully', 'success');
+}
+
+function afl_extra_variable_conf () {
+
+		// if (isset($_POST['submit'])) {
+ 	// 		$variables = $_POST;
+ 	// 		unset($variables['submit']);
+ 	// 		afl_extra_variable_conf_submit($variables);
+ 	// 	}
+
+ 	// 	$form = array();
+ 	// 	$form['#method'] = 'post';
+		// $form['#action'] = $_SERVER['REQUEST_URI'];
+		// $form['#prefix'] ='<div class="form-group row">';
+	 // 	$form['#suffix'] ='</div>';
+
+	 // 	//payment source
+	 // 	$form['afl_enable_que_processing'] = array(
+	 // 		'#type' 					=> 'checkbox',
+	 // 		'#title' 					=> 'Enable / Disable remote users embedd que processing',
+	 // 		'#default_value' 	=> afl_variable_get('afl_enable_que_processing', ''),
+	 // 		'#prefix'					=> '<div class="form-group row">',
+	 // 		'#suffix' 				=> '</div>',
+
+	 // 	);
+
+ 	// 	$form['submit'] = array(
+	 // 		'#type' => 'submit',
+	 // 		'#value'=>' Save configuration'
+	 // 	);
+	 // 	echo afl_render_form($form);
+}
+
+function afl_extra_variable_conf_submit ($vars = array()) {
+	// $checkboxes = array(
+	// 	'afl_enable_que_processing'
+	// );
+	
+	// foreach ($vars as $key => $value) {
+	// 	afl_variable_set($key, $value);
+	// }
+	// foreach ($checkboxes as $checkbox) {
+	// 	if ( !array_key_exists($checkbox, $vars)) {
+	// 		afl_variable_set($checkbox, '');
+	// 	}
+	// }
+	// wp_set_message('Configuration has been saved successfully', 'success');
 }

@@ -29,12 +29,12 @@ $product_price = $product_price == 0 ? $product->get_regular_price() : $product_
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6">
-					<a href="http://fxprotools.com" class="logo">Fx Pro Tools</a>
+					<a href="<?php bloginfo('url');?>" class="logo">CopyProfitShare</a>
 				</div>
 				<div class="col-sm-6">
 					<ul class="fx-nav">
-						<li><a href="<?php echo get_option('home'); ?>/login">Become a Customer</a></li>
-						<li><a href="<?php echo get_option('home'); ?>/login">Become a Distributor</a></li>
+						<li><a href="<?php echo get_option('home'); ?>/#trial-products">Become a Customer</a></li>
+						<li><a href="<?php echo get_option('home'); ?>/#trial-products">Become a Distributor</a></li>
 					</ul>
 				</div>		
 			</div>

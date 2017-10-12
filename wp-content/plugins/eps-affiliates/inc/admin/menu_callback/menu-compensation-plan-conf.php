@@ -17,6 +17,8 @@ function afl_admin_compensation_plan_configuration() {
  * ------------------------------------------------------------------
 */
 	function afl_admin_compensation_plan_config_tabs () {
+		new Afl_enque_scripts('common');
+
 		$matrix_active = $basic_active = $fsb_active = $incentives_active = $other = '';
 		$active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'basic';  
 		
@@ -83,6 +85,7 @@ function afl_admin_compensation_plan_configuration() {
  * -------------------------------------------------------------------
 */
 function afl_admin_compensation_plan_config_(){
+		
 	 if ( isset($_POST['submit']) ) {
 	 	$validation = afl_admin_compensation_plan_form_validation($_POST);
 	 	if (!empty($validation)) {

@@ -8,7 +8,6 @@
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
-
 	<div class="<?php echo !is_home() ? 'fx-wrapper' : ''; ?> <?php echo is_page(array('login', 'forgot-password')) ? 'fx-login' : ''; ?>">
 
 		<?php if( is_user_logged_in() && !is_page(array('login', 'forgot-password', 'f1', 'f2', 'f3', 'f4', 'signals')) && !is_home() && !is_404() ): ?>

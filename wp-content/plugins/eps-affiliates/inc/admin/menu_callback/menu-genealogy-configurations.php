@@ -2,6 +2,7 @@
 
 function afl_system_genealogy_configurations () {
 	echo afl_eps_page_header();
+		new Afl_enque_scripts('common');
 	
 
 	$post = array();

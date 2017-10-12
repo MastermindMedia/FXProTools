@@ -8,6 +8,8 @@
 	}
 
 	function afl_admin_recent_log_messages_filter_form () {
+		new Afl_enque_scripts('common');
+
 		$active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'all';  
 	  //here render the tabs
 	  echo '<ul class="tabs--primary nav nav-tabs">';

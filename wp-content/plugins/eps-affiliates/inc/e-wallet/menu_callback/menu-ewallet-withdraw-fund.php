@@ -17,6 +17,8 @@ function afl_ewallet_withdraw_fund(){
  * -------------------------------------------------------------------
 */
 function afl_ewallet_withdraw_fund_form(){
+		new Afl_enque_scripts('common');
+	
 	global $wpdb;
 	$uid 					 = get_current_user_id();
 

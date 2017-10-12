@@ -214,10 +214,13 @@
 */
 
  function eps_affiliates_remote_users_embedd_cron_callback () {
+ 	//check the configuration for processing import remote user
+ 	if ( afl_variable_get('afl_enable_que_processing')) {
 	 	require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/API/api-remote-user-embedd-cron-callback.php';
 		if (function_exists('_process_embedd_users_queue')) {
 			_process_embedd_users_queue();
 		}
+ 	}
  }
 
 

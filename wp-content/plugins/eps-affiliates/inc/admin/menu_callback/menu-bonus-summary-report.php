@@ -9,11 +9,15 @@ function afl_bonus_summary_report () {
 
 
 function _afl_bonus_summary_report () {
+		
 	afl_get_template('plan/matrix/bonus-summary-widgets-template.php');
 	_bonus_nd_incentives_table();
 }
 
 function _bonus_nd_incentives_table () {
+
+		new Afl_enque_scripts('common');
+
 		$pagination = new CI_Pagination;
 
 		$config['total_rows'] =  count(_get_bonus_nd_incentives());

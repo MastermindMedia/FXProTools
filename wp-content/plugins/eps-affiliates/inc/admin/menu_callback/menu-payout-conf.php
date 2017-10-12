@@ -23,6 +23,7 @@ function afl_admin_payout_configuration(){
  * ------------------------------------------------
 */
 function afl_payout_configuration_form($post){
+		new Afl_enque_scripts('common');
 
 $payout_methods = list_extract_allowed_values(afl_variable_get('payout_methods'),'list_text',FALSE);
 

@@ -22,7 +22,7 @@
 
 				add_action( 'admin_menu', array( $this , 'afl_manage_members_menus') );
 
-				add_action( 'admin_menu', array( $this , 'afl_promotion_tools_menus') );
+				// add_action( 'admin_menu', array( $this , 'afl_promotion_tools_menus') );
 
 				add_action( 'admin_menu', array( $this , 'afl_payout_menus') );
 
@@ -715,8 +715,8 @@
 		 		$menu = array();
 				$menu['feactures_and_settings'] = array(
 					'#parent'					=> 'affiliate-eps-system-configurations',
-					'#page_title'			=> __( 'Feactures & configuration settings', 'Feactures & configuration settings' ),
-					'#menu_title' 		=> __( 'Feactures & configuration settings', 'Feactures & configuration settings' ),
+					'#page_title'			=> __( 'Features & configuration settings', 'Features & configuration settings' ),
+					'#menu_title' 		=> __( 'Features & configuration settings', 'Features & configuration settings' ),
 					'#access_callback'=> 'features_and_configuration', 
 					'#menu_slug' 			=> 'affiliate-eps-features-and-configurations', 
 					'#page_callback' 	=> 'afl_system_features_and_configurations', 

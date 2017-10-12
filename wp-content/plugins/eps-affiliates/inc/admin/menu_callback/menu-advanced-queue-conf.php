@@ -7,6 +7,8 @@
  }
 
 function afl_admin_advanced_queue_conf_form () {
+	new Afl_enque_scripts('common');
+
 	$post = array();
 	if (!empty( $_POST['submit'] )) {
 		unset($_POST['submit']);
@@ -34,6 +36,16 @@ function afl_admin_advanced_queue_conf_form () {
  		
  	);
  	
+ 	$form['afl_enable_que_processing'] = array(
+	 		'#type' 					=> 'checkbox',
+	 		'#title' 					=> 'Enable / Disable remote users embedd que processing',
+	 		'#default_value' 	=> afl_variable_get('afl_enable_que_processing', ''),
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>',
+
+	 	);
+
+
  	$form['submit'] = array(
  		'#title' => 'Submit',
  		'#type' => 'submit',
@@ -56,6 +68,16 @@ function afl_admin_advanced_queue_conf_form_validation () {
 function afl_admin_advanced_queue_conf_form_submit ($form_state = array()) {
 	foreach ($form_state as $key => $value) {
 		afl_variable_set($key,$value);
+	}
+
+	$checkboxes = array(
+		'afl_enable_que_processing'
+	);
+	
+	foreach ($checkboxes as $checkbox) {
+		if ( !array_key_exists($checkbox, $form_state)) {
+			afl_variable_set($checkbox, '');
+		}
 	}
 	wp_set_message('Configuration has been saved successfully','success');
 }

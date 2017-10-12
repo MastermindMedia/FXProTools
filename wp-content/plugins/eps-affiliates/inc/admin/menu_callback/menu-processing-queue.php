@@ -9,6 +9,8 @@ function afl_admin_processing_queue_data () {
 }
 
 function afl_admin_processing_queue_data_table () {
+	new Afl_enque_scripts('common');
+	
 	$pagination = new CI_Pagination;
 
 		$config['total_rows'] =  count(_get_queues());

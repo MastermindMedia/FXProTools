@@ -11,6 +11,8 @@ function afl_add_edit_business_system_members () {
  * ------------------------------------------------------
 */
  function afl_add_edit_business_system_members_form () { 
+	new Afl_enque_scripts('common');
+ 	
  	$table = array();
  	$add_new_button = '';   
  	afl_content_wrapper_begin();

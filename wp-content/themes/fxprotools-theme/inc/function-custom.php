@@ -573,16 +573,12 @@ function disable_affiliate_welcome_email()
 add_action('wp', 'track_user_history');
 function track_user_history()
 {
-	//delete_user_meta(get_current_user_id(), "track_user_history");
-	$recent_activity = get_user_meta( get_current_user_id(), "track_user_history" )[0];
-	$reverse = array_reverse($recent_activity, true);
-	$last_url = $reverse[count($reverse)-1]['link'];
-	    $track_user_history = get_user_meta( get_current_user_id(), "track_user_history" )[0];
-	    if(!$track_user_history){
-	    	$track_user_history = array();
-	    }
+	if( is_user_logged_in() ){
+		//delete_user_meta(get_current_user_id(), "track_user_history");
+		$track_user_history = get_user_meta( get_current_user_id(), "track_user_history", true );
+		$track_user_history = $track_user_history  ? $track_user_history : array();
 	    $link = '<a href="'. get_the_permalink() .'">' . get_the_permalink() . '</a>';
-	    if(isset($_POST['user_login'])){
+	    if( isset($_POST['user_login']) ){
 	    	$link = $link . " " . get_the_author_meta('first_name', get_current_user_id()) . " " . get_the_author_meta('last_name', get_current_user_id()) . " changed his username to " . $_POST['user_login'];
 	    }
 	    $data = array(
@@ -591,7 +587,9 @@ function track_user_history()
 	    	'title' => get_the_title()
 	    );
 	    array_push($track_user_history, $data);
-		update_user_meta(get_current_user_id(), 'track_user_history', $track_user_history);
+		update_user_meta(get_current_user_id(), 'track_user_history', $track_user_history);	
+	}
+	
 }
 
 add_action( 'show_user_profile', 'add_extra_profile_fields' );

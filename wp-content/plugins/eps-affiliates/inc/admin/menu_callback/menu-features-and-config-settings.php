@@ -1,5 +1,7 @@
 <?php 
 function afl_system_features_and_configurations () {
+		new Afl_enque_scripts('common');
+	
 	echo afl_eps_page_header();
 	echo afl_content_wrapper_begin();
 

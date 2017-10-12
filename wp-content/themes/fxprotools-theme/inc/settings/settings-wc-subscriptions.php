@@ -1,5 +1,5 @@
 <?php
-
+//only parent order charges, subscriptions not
 if(!defined('ABSPATH')){
 	exit;
 }
@@ -10,7 +10,11 @@ if(!class_exists('WC_Subscriptions_Settings')){
 		
 		public function __construct()
 		{
+
+			add_filter('woocommerce_subscriptions_is_duplicate_site', array($this, 'wc_is_duplicate_site'), 10, 1);
 			add_action('woocommerce_scheduled_subscription_expiration', array($this, 'wc_scheduled_subscription_expiration'), 10, 1);
+			add_action('woocommerce_checkout_subscription_created', array($this, 'wc_force_automatic_renewal'), 10, 3);
+			
 		}
 		
 		/**
@@ -25,6 +29,8 @@ if(!class_exists('WC_Subscriptions_Settings')){
 		    	$new_subscription = self:: wc_create_new_subscription( $subscription );
 		    	echo $new_subscription->is_manual();
 		    	dd( $new_subscription );
+		    	exit;
+
 		    } else{	
 		    	
 		    }
@@ -71,7 +77,7 @@ if(!class_exists('WC_Subscriptions_Settings')){
 		 * @param  WC_Subscription
 		 * @return integer
 		 */
-		public function wc_create_new_subscription( $old_subscription ){
+		public static function wc_create_new_subscription( $old_subscription ){
 			$address = $old_subscription->get_address('billing');
 			$product = wc_get_product( self::wc_get_subscription_product_id( $old_subscription ) );
 			$args = array(
@@ -81,25 +87,58 @@ if(!class_exists('WC_Subscriptions_Settings')){
 			$product = wc_get_product($product_variation); 
 			$quantity = 1;
 
-		    // Create the order first, then the subscription
-		    $order = wc_create_order( array( 'customer_id' => $old_subscription->get_customer_id() ));
-
-		    $order->add_product( $product, $quantity, $args);
-		    $order->set_address( $address, 'billing' );
-		    $order->calculate_totals();
-   			$order->update_status( 'processing', '[auto renewal via fxprotools]', TRUE);
-
    			// Order created, now create sub attached to it
    			$period = WC_Subscriptions_Product::get_period( $product );
 		    $interval = WC_Subscriptions_Product::get_interval( $product );
 
-		    $subscription = wcs_create_subscription( array('order_id' => $order->id, 'billing_period' => $period, 'billing_interval' => $interval) );
-		    $subscription->add_product( $product, $quantity, $args);
-		    $subscription->set_address( $address, 'billing' );
-		    $subscription->calculate_totals();
-		    WC_Subscriptions_Manager::activate_subscriptions_for_order($order);
-    		return $subscription;
+		    $order = new WC_Order( $old_subscription->get_parent_id() );
+
+			$regular_subscription = wcs_create_subscription( array(
+				'order_id'         => wcs_get_objects_property( $order, 'id' ),
+				'customer_id'      => $order->get_user_id(),
+				'billing_period'   => $period,
+				'billing_interval' => $interval,
+				'customer_note'    => wcs_get_objects_property( $order, 'customer_note' ),
+			) );
+
+		    $item_id = $regular_subscription->add_product(
+				$product,
+				1,
+				array(
+					'variation' => ( method_exists( $product, 'get_variation_attributes' ) ) ? $product->get_variation_attributes() : array(),
+					'totals'    => array(
+						'subtotal'     => $product->get_price(),
+						'subtotal_tax' => 0,
+						'total'        => $product->get_price(),
+						'tax'          => 0,
+						'tax_data'     => array( 'subtotal' => array(), 'total' => array() ),
+					),
+				)
+			);
+
+			$regular_subscription->set_address( $address, 'billing' );
+			$regular_subscription->update_dates( array(
+				'end'  => 0,
+			) );
+			$regular_subscription->set_total( 0, 'tax' );
+			$regular_subscription->set_total( $product->get_price(), 'total' );
+			$regular_subscription->set_payment_method( 'authorize_net_cim_credit_card' );
+			$regular_subscription->set_requires_manual_renewal( false );
+			$regular_subscription->calculate_totals();
+			$regular_subscription->add_order_note( __( 'Pending subscription created.', 'woocommerce-subscriptions' ) );
+			WC_Subscriptions_Manager::activate_subscriptions_for_order($order);
+    		return $regular_subscription;
 		}
+
+		public function wc_force_automatic_renewal( $subscription, $order, $recurring_cart = '' ){
+			$subscription->set_requires_manual_renewal( false );
+		}
+
+		public function wc_is_duplicate_site($is_duplicate){
+			return false;
+		}
+
+
 	}
 }
 

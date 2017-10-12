@@ -4,23 +4,28 @@
     if (current_user_can('administrator')) {
       $uid = afl_root_user();
     }
+    
+    if (!empty($_GET['uid'])) {
+      $uid = $_GET['uid'];
+    }
+
     $query = array();
-    $query['#select'] = 'wp_afl_user_holding_tank';
+    $query['#select'] = _table_name('afl_user_holding_tank');
     $query['#join']  = array(
-      'wp_users' => array(
-        '#condition' => '`wp_users`.`ID`=`wp_afl_user_holding_tank`.`uid`'
+      _table_name('users') => array(
+        '#condition' => '`'._table_name('users').'`.`ID`=`'._table_name('afl_user_holding_tank').'`.`uid`'
       ),
     );
     $query['#fields']  = array(
-      'wp_users' => array(
+      _table_name('users') => array(
         'display_name'
       ),
-      'wp_afl_user_holding_tank' => array(
+      _table_name('afl_user_holding_tank') => array(
         'parent_uid','uid','created','day_remains','remote_sponsor_mlmid'
       )
     );
    	$query['#where'] = array(
-      '`wp_afl_user_holding_tank`.`referrer_uid`='.$uid.'',
+      '`'._table_name('afl_user_holding_tank').'`.`referrer_uid`='.$uid.'',
     );
    	$query['#order_by'] = array(
       '`level`' => 'ASC',
@@ -29,7 +34,7 @@
     
     $tank_users = db_select($query, 'get_results');
     $count = count($tank_users);
-
+    
 if ( !function_exists('_check_remote_mlmid_exist')) {
   require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/API/api-remote-user-embedd-cron-callback.php';
 }
