@@ -17,26 +17,26 @@ function check_rank_achied() {
 }
 
 function afl_test_codes_callback () {
-  global $wpdb;
-  $args1 = array(
-   'role' => 'holding_member',
-   'orderby' => 'user_nicename',
-   'order' => 'ASC'
+   new Afl_enque_scripts('common');
+
+  $query = array();
+  $query['#select']  =_table_name('afl_user_genealogy');
+  $query['#where'] = array(
+    'status=1'
   );
-   $subscribers = get_users($args1);
-  echo '<ul>';
-   foreach ($subscribers as $user) {
-      // $wpdb->delete(
-      //   'wp_users',
-      //   array(
-      //     'ID' => $user->ID
-      //   )
-      // );
-      echo '<pre>';
-      print_r($user->ID);
-      echo '</pre>';
-   }
-  echo '</ul>';
+  $res = db_select($query,'get_results');
+  pr($res);
+
+   global $wpdb;
+  $wpdb->update(
+    _table_name('afl_user_genealogy'),
+    array(
+      'status' => 1
+    ),
+    array(
+      'status'=>0
+    )
+  );
 }
 
 

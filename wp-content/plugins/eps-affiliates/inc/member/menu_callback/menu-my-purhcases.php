@@ -9,6 +9,8 @@ function afl_my_purchase () {
 
 
 function afl_my_purchase_callback () {
+		new Afl_enque_scripts('common');
+	
 		$uid = get_uid();
 
 		if (isset($_GET['uid'])) {

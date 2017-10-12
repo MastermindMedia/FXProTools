@@ -17,6 +17,8 @@ function afl_rank_performance_overview () {
 */
 
 	function afl_rank_group_volume_details () {
+		new Afl_enque_scripts('common');
+		
 		$uid = get_uid();
 		if (isset($_GET['uid'])) {
 			$uid = $_GET['uid'];

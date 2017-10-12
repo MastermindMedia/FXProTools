@@ -7,6 +7,8 @@
  }
 
 function afl_admin_advanced_queue_conf_form () {
+	new Afl_enque_scripts('common');
+
 	$post = array();
 	if (!empty( $_POST['submit'] )) {
 		unset($_POST['submit']);

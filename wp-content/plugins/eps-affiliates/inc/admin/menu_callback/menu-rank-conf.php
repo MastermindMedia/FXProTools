@@ -19,6 +19,8 @@
  * -------------------------------------------------------------------
 */
 	function afl_rank_configuration_form_tabs() {
+		new Afl_enque_scripts('common');
+		
 	 $post = array();
 	 /*
 	  * ------------------------------------

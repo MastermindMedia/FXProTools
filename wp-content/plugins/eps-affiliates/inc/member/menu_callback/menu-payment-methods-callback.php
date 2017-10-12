@@ -16,6 +16,8 @@ function afl_user_payment_methods(){
 * ------------------------------------------------------------
 */
 function afl_user_payment_method_conf_form(){
+		new Afl_enque_scripts('common');
+	
 	global $wpdb;
 	$uid 					 = get_current_user_id();
 	$table = $wpdb->prefix. 'afl_user_payment_methods';

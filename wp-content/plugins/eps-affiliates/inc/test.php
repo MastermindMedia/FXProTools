@@ -11,6 +11,7 @@ function afl_generate_users () {
 function afl_generate_users_form () {
 	
 	new Afl_enque_scripts('test');
+		new Afl_enque_scripts('common');
 
 	$website = "http://example.com";
 
@@ -134,6 +135,7 @@ function _get_last_inserted($string_prefix = '') {
 }
 function afl_generate_users_form_callback( ){
 	new Afl_enque_scripts('test');
+	new Afl_enque_scripts('common');
 
 
 	$form = array();
@@ -172,6 +174,7 @@ function afl_generate_users_form_validation ($name) {
 
 function afl_generate_customers_form () {
 	new Afl_enque_scripts('test');
+	new Afl_enque_scripts('common');
 
 
 	$website = "http://example.com";
@@ -275,6 +278,7 @@ function afl_test_purchases () {
 
 function afl_test_purchses_form() {
 	new Afl_enque_scripts('test');
+	new Afl_enque_scripts('common');
 
 	
 	if (isset($_POST['submit']) && !empty($_POST['product'])) {
@@ -569,6 +573,8 @@ function afl_generate_purchase () {
  * ------------------------------------------------------
 */
 	function afl_generate_purchase_form () {
+		new Afl_enque_scripts('common');
+
 		if ( isset ( $_POST['submit'] ) ) {
 			$uid = extract_sponsor_id($_POST['user']);
 			$product = $_POST['package'];
@@ -776,6 +782,8 @@ function afl_admin_fund_deposit () {
 }
 
 function afl_admin_fund_deposit_callback () {
+		new Afl_enque_scripts('common');
+	
 	if ( isset($_POST['submit'])) {
 		unset($_POST['submit']);
 		$validation = afl_admin_fund_deposit_validation($_POST); 

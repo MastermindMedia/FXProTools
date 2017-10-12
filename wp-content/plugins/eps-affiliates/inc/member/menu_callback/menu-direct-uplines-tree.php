@@ -9,6 +9,7 @@ function afl_network_direct_uplines () {
 
 function afl_network_direct_uplines_callback () {
 		new Afl_enque_scripts('eps-direct-uplines');
+		new Afl_enque_scripts('common');
 		
 		afl_get_template('plan/matrix/member-direct-uplines.php');
 }

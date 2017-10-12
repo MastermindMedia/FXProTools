@@ -9,7 +9,8 @@ function afl_team_purchases_overview () {
 }
 
 function afl_team_purchase_overview_template () {
-
+		new Afl_enque_scripts('common');
+	
 		$affiliates_table = new Eps_team_purchases_data_table();
 	?>
 		 

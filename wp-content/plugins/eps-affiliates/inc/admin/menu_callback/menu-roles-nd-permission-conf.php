@@ -12,7 +12,8 @@
 */
 	function afl_roles_config_settings(){
 		echo afl_eps_page_header();
-
+		new Afl_enque_scripts('common');
+		
 		if (isset($_POST['submit'])) {
 			afl_roles_config_settings_form_submit($_POST);
 		}

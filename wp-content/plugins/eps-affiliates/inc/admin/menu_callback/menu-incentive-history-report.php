@@ -8,6 +8,8 @@ function afl_incentive_history_report () {
 }
 
 function afl_incentive_history_report_table () {
+		new Afl_enque_scripts('common');
+	
 	$pagination = new CI_Pagination;
 
 		$config['total_rows'] =  count(_incentive_history_report());

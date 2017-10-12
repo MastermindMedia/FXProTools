@@ -11,6 +11,8 @@ function afl_admin_variable_configurations (){
  * ------------------------------------------------------------
 */
  function afl_variable_tabs () {
+		new Afl_enque_scripts('common');
+ 	
  	$tabs = array();
  	$tabs['system_variables'] = array(
  		'page_callback' => 'afl_system_variables_form',

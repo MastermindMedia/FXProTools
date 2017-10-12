@@ -7,7 +7,8 @@ function afl_unilevel_refered_members () {
 }
 
 function afl_unilevel_refered_members_callback () {
-
+		new Afl_enque_scripts('common');
+	
 	do_action('afl_my_distributors_count_template');
 	do_action('afl_my_customers_count_template');
 	

@@ -12,7 +12,8 @@
 	function afl_admin_user_remote_access_callback () {
 
 		new Afl_enque_scripts('remote-api');
-
+		new Afl_enque_scripts('common');
+		
 		if ( isset($_POST['submit'])) {
 			unset($_POST['submit']);
 			if ( afl_admin_user_remote_access_callback_validation($_POST) ){

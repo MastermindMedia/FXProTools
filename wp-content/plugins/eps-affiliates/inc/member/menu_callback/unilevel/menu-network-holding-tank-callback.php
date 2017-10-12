@@ -10,6 +10,7 @@ function afl_unilevel_network_holding_tank () {
 
 function afl_unilevel_network_holding_tank_callback () {
 	$obje = new Afl_enque_scripts('eps-holding-tank');
-
+	new Afl_enque_scripts('common');
+	
 	afl_get_template('plan/unilevel/holding-tank.php');
 }
