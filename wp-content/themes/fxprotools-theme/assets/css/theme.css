@@ -1014,14 +1014,15 @@ h1, h2, h3, h4, h5, h6 {
   width: 88%;
   float: left;
   border: 1px solid #DDD;
-  padding: 25px 25px 15px 25px
+  padding: 25px 25px 15px 25px;
   background-color: #fff;
 }
 
 .fx-list-courses .list-item .right .title {
-  font-weight: bold;
-  display: inline-block;
-  margin-bottom: 10px
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 22px;
 }
 
 .fx-list-courses .list-item .right .summary {
@@ -3017,6 +3018,12 @@ h1, h2, h3, h4, h5, h6 {
   padding-top: 30px
 }
 
+.panel-body {
+    padding: 15px;
+    background-color: #fff;
+    margin-bottom: 25px;
+}
+
 .checkout-holder .panel .panel-body .payment-form>p {
   display: none
 }
@@ -3838,3 +3845,4 @@ h1, h2, h3, h4, h5, h6 {
 #cancellation-modal h3, #cancellation-modal h4, #cancellation-modal p {
   margin-bottom: 30px
 }
+
