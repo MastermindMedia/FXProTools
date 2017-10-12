@@ -7,6 +7,7 @@ function afl_epin_configurations(){
 	do_action('afl_content_wrapper_end');
 }
 function afl_epin_configuration_form(){
+	new Afl_enque_scripts('common');
 	
 	if (isset($_POST['submit']) ){
 			$post = $_POST;

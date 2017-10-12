@@ -6,6 +6,8 @@ function afl_epin_generate(){
 	do_action('afl_content_wrapper_end');
 }
 function afl_epin_generate_form(){
+	new Afl_enque_scripts('common');
+	
 	$min_amount = afl_format_payment_amount(afl_commerce_amount(afl_variable_get('epin_minimum_amount',0)));
 	$max_amount = afl_format_payment_amount(afl_commerce_amount(afl_variable_get('epin_maximum_amount',0)));
 	$no_of_pins = afl_variable_get('epin_members_active_epins',FALSE);

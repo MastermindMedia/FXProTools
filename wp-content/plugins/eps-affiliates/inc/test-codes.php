@@ -17,26 +17,44 @@ function check_rank_achied() {
 }
 
 function afl_test_codes_callback () {
-   new Afl_enque_scripts('common');
+   $uid = get_uid();
+  
+  if (isset($_POST['search_key'])) {
+    $search_key = $_POST['search_key'];
+  }
+
+  $response = array();
+
+  $tree = _table_name('afl_user_downlines');
+  if ( !empty($_POST['tree_mode']) && $_POST['tree_mode'] == 'unilevel') {
+    $tree = _table_name('afl_unilevel_user_downlines');
+  }
 
   $query = array();
-  $query['#select']  =_table_name('afl_user_genealogy');
-  $query['#where'] = array(
-    'status=1'
-  );
-  $res = db_select($query,'get_results');
-  pr($res);
-
-   global $wpdb;
-  $wpdb->update(
-    _table_name('afl_user_genealogy'),
-    array(
-      'status' => 1
-    ),
-    array(
-      'status'=>0
+  $query['#select']  = $tree;
+  $query['#join'] = array(
+    _table_name('users') => array(
+     '#condition'=> '`'._table_name('users').'`.`ID` = `'.$tree.'`.`downline_user_id` '
     )
   );
+  // if (!eps_is_admin()) {
+    $query['#where'] = array(
+      '`'.$tree.'`.`uid` = '.$uid
+    );
+  // }
+  $query['#fields'] = array(
+    _table_name('users') => array('user_login','ID')
+  );
+  // $query['#expression'] = array(
+  //   'DISTINCT(`'._table_name('users').'`.`user_login`) as `user_login`'
+  // );
+  $result = db_select($query, 'get_results');
+  
+
+  foreach ($result as $key => $value) {
+    $response[] = array('name'=> ($value->user_login.' ('.$value->ID.')'));
+  }
+  pr($response);
 }
 
 
