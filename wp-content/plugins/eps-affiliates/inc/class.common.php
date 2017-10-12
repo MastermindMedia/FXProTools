@@ -642,7 +642,6 @@ if(!function_exists('afl_get_levels')){
  * -----------------------------------------------------------
 */
 	function wp_set_message($msg = '', $action = 'success'){
-		$obje = new Afl_enque_scripts('eps-toaster');
 
 		if ($action == 'danger')
 			$action = 'error';
@@ -655,6 +654,8 @@ if(!function_exists('afl_get_levels')){
 		$alert = '';
 
 		$alert .= '';
+		new Afl_enque_scripts('common');
+		
 	 	wp_enqueue_script( 'jq-toast', EPSAFFILIATE_PLUGIN_ASSETS.'js/jquery.min.js', array(), '1.0' );
  	 	wp_add_inline_script( 'jq-toast', '$(function(){toastr["'.$action.'"]("'.$msg.'");});' );
 
