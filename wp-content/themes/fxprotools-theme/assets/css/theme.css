@@ -807,8 +807,10 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .fx-tabs li a {
-  border: 1px solid #DDD;
-  border-radius: 0
+    border: 1px solid #DDD;
+    border-radius: 0;
+    color: #777;
+    background-color: #fff;
 }
 
 .fx-tabs li.active a {
@@ -916,6 +918,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 30px 20px;
   position: relative;
   margin-bottom: 10px
+  background-color: #fff;
 }
 
 .fx-list-training li:first-child {
@@ -2353,7 +2356,8 @@ h1, h2, h3, h4, h5, h6 {
 .fx-ref-links {
   margin-top: 30px;
   border: 1px solid #DDD;
-  padding: 15px 30px 30px 30px
+  padding: 15px 30px 30px 30px;
+  background-color: #fff;
 }
 
 .fx-ref-links .fx-ref-title {
@@ -2372,10 +2376,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .fx-ref-links .box .link {
-  margin-top: 10px;
-  border: 1px solid #DDD;
-  padding: 15px;
-  position: relative
+    margin-top: 10px;
+    border: 1px solid #DDD;
+    padding: 15px;
+    position: relative;
+    background-color: #fafafa;
 }
 
 .fx-ref-links .box .btn {
@@ -2384,6 +2389,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .fx-coaching-tab {
   position: relative
+}
+
+.webinar-list {
+    padding: 15px;
+    background-color: #fff;
 }
 
 .fx-coaching-tab .tab-pane {
@@ -3845,4 +3855,6 @@ h1, h2, h3, h4, h5, h6 {
 #cancellation-modal h3, #cancellation-modal h4, #cancellation-modal p {
   margin-bottom: 30px
 }
+
+
 
