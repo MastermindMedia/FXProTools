@@ -22,12 +22,12 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">
-					<a href="<?php bloginfo('url'); ?>" class="logo">Fx Pro Tools</a>
+					<a href="<?php bloginfo('url'); ?>" class="logo">CopyProfitShare</a>
 				</div>
 				<div class="col-md-6">
 					<ul class="fx-nav">
-						<li><a href="<?php bloginfo('url'); ?>/login">Become a Customer</a></li>
-						<li><a href="<?php bloginfo('url'); ?>/login">Become a Distributor</a></li>
+						<li><a href="<?php bloginfo('url'); ?>/#trial-products">Become a Customer</a></li>
+						<li><a href="<?php bloginfo('url'); ?>/#trial-products">Become a Distributor</a></li>
 					</ul>
 				</div>		
 			</div>

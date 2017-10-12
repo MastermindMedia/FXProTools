@@ -1,5 +1,5 @@
 <?php
-
+//only parent order charges, subscriptions not
 if(!defined('ABSPATH')){
 	exit;
 }
@@ -13,7 +13,7 @@ if(!class_exists('WC_Subscriptions_Settings')){
 
 			add_filter('woocommerce_subscriptions_is_duplicate_site', array($this, 'wc_is_duplicate_site'), 10, 1);
 			add_action('woocommerce_scheduled_subscription_expiration', array($this, 'wc_scheduled_subscription_expiration'), 10, 1);
-			//add_action('woocommerce_checkout_subscription_created', array($this, 'wc_schedule_auto_renewal'), 10, 3);
+			add_action('woocommerce_checkout_subscription_created', array($this, 'wc_force_automatic_renewal'), 10, 3);
 			
 		}
 		
@@ -130,50 +130,8 @@ if(!class_exists('WC_Subscriptions_Settings')){
     		return $regular_subscription;
 		}
 
-		public function wc_schedule_auto_renewal( $subscription, $order, $recurring_cart = '' ){
-			$product = wc_get_product( self::wc_get_subscription_product_id( $subscription ) );
-			$args = array(
-		        'attribute_subscription-type' => 'normal'
-		    );
-		    $product_variation = $product->get_matching_variation($args);
-			$product = wc_get_product($product_variation); 
-			$period = WC_Subscriptions_Product::get_period( $product );
-		    $interval = WC_Subscriptions_Product::get_interval( $product );
-
-			$regular_subscription = wcs_create_subscription( array(
-				'start_date'       => $subscription->get_date('end','site'),
-				'order_id'         => wcs_get_objects_property( $order, 'id' ),
-				'customer_id'      => $order->get_user_id(),
-				'billing_period'   => $period,
-				'billing_interval' => $interval,
-				'customer_note'    => wcs_get_objects_property( $order, 'customer_note' ),
-			) );
-
-			$item_id = $regular_subscription->add_product(
-				$product,
-				1,
-				array(
-					'variation' => ( method_exists( $product, 'get_variation_attributes' ) ) ? $product->get_variation_attributes() : array(),
-					'totals'    => array(
-						'subtotal'     => $product->get_price(),
-						'subtotal_tax' => 0,
-						'total'        => $product->get_price(),
-						'tax'          => 0,
-						'tax_data'     => array( 'subtotal' => array(), 'total' => array() ),
-					),
-				)
-			);
-			$regular_subscription->update_dates( array(
-				'end'  => 0,
-			) );
-			// Set the recurring totals on the subscription
-			$regular_subscription->set_total( 0, 'tax' );
-			$regular_subscription->set_total( $product->get_price(), 'total' );
-			$subscription->add_order_note( __( 'Pending subscription created.', 'woocommerce-subscriptions' ) );
-		}
-
-		public function wc_process_subscription_data($subscription, $posted_data){
-			return $subscription;
+		public function wc_force_automatic_renewal( $subscription, $order, $recurring_cart = '' ){
+			$subscription->set_requires_manual_renewal( false );
 		}
 
 		public function wc_is_duplicate_site($is_duplicate){
