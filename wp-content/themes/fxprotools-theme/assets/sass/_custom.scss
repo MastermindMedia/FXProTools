@@ -2057,6 +2057,23 @@
 	}
 }
 
+
+// Tab Panel Styling
+li.false {
+	background-color: $white;
+	color: $grey;
+}
+
+	.nav-tabs>li.active>a,
+	.nav-tabs>li.active>a:focus,
+	.nav-tabs>li.active>a:hover {
+		background: $red;
+		border: none;
+		color: $grey;
+	}
+
+
+
 // WooCommerce Shop
 .woocommerce .added_to_cart.wc-forward {
 	padding: 6px;

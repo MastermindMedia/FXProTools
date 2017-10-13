@@ -1,5 +1,5 @@
 <?php
-$category_slug = get_query_var('category_slug'); 
+$category_slug = get_query_var('category_slug');
 $category = get_term_by('slug', $category_slug, 'ld_course_category' );
 $child_categories = get_course_category_children($category->term_id);
 ?>
@@ -13,12 +13,6 @@ $child_categories = get_course_category_children($category->term_id);
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<div class="fx-header-title">
-						<h1>List of <?php echo $category->name;?></h1>
-						<p>Filter <?php echo $category->name;?> With Buttons Below</p>
-					</div>
-				</div>
-				<div class="col-md-12">
 					<div role="tabpanel">
 						<ul class="nav nav-tabs fx-tabs" role="tablist">
 							<?php foreach($child_categories as $key => $category): ?>
@@ -31,8 +25,8 @@ $child_categories = get_course_category_children($category->term_id);
 							<?php foreach($child_categories as $key => $category): ?>
 								<div role="tabpanel" class="tab-pane <?php echo $key == 0 ? 'active' : 'false';?>" id="category-<?php echo $key + 1;?>">
 									<div class="fx-mid-header">
-										<h2>Get The Most Out Of FX Pro Tools</h2>
-										<p>Supercharge your learning experience using FX Pro Tools</p>
+										<h1><?php echo $category->name;?></h1>
+										<p>Everything Your Need To Know About <?php echo $category->name;?> Is Below:</p>
 									</div>
 									<ul class="fx-list-courses">
 										<?php $courses = get_courses_by_category_id($category->term_id); ?>

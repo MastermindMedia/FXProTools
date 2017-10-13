@@ -280,7 +280,7 @@
 			background: #de1515;
 			color: #FFF;
 			&:focus, &:hover, &:active {
-				border-bottom: 1px solid #DDD;				
+				border-bottom: 1px solid #DDD;
 			}
 		}
 	}
@@ -301,7 +301,7 @@
 			background: #de1515;
 			color: #FFF;
 			&:focus, &:hover, &:active {
-				border-bottom: 1px solid #DDD;				
+				border-bottom: 1px solid #DDD;
 			}
 		}
 	}
@@ -362,7 +362,7 @@
 	padding: 0;
 	margin: 0;
 	li {
-		border: 1px solid #DDD;	
+		border: 1px solid #DDD;
 		padding: 30px 20px;
 		position: relative;
 		margin-bottom: 10px;
@@ -415,6 +415,7 @@
 				border: 1px solid #DDD;
 				position: relative;
 				height: 110px;
+        background-color: $white;
 				.sash {
 					position: absolute;
 					background: #5cb85c;
@@ -424,7 +425,7 @@
 					display: inline-block;
 					font-size: 11px;
 					top: 5px;
-					left: -10px;	
+					left: -10px;
 				}
 				.number {
 					display: block;
@@ -434,7 +435,7 @@
 					left: 0;
 					right: 0;
 					text-align: center;
-					font-size: 20px;
+					font-size: 24px;
 					font-weight: bold;
 					height: 35px;
 					width: 35px;
@@ -448,10 +449,12 @@
 			float: left;
 			border: 1px solid #DDD;
 			padding: 25px 25px 15px 25px;
+      background-color: $white;
 			.title {
 				font-weight: bold;
 				display: inline-block;
 				margin-bottom: 10px;
+        font-size: 24px;
 			}
 			.summary {
 				width: 80%;
@@ -668,7 +671,7 @@
 		width: 6px;
 		display: inline-block;
 		-webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
-		animation: sk-stretchdelay 1.2s infinite ease-in-out;	
+		animation: sk-stretchdelay 1.2s infinite ease-in-out;
 	}
 }
 
@@ -695,17 +698,17 @@
 @-webkit-keyframes sk-stretchdelay {
 	0%, 40%, 100% {
 		-webkit-transform: scaleY(0.4)
-	}  
+	}
 	20% {
 		-webkit-transform: scaleY(1.0)
 	}
 }
 
 @keyframes sk-stretchdelay {
-  0%, 40%, 100% { 
+  0%, 40%, 100% {
     transform: scaleY(0.4);
     -webkit-transform: scaleY(0.4);
-  }  20% { 
+  }  20% {
     transform: scaleY(1.0);
     -webkit-transform: scaleY(1.0);
   }
