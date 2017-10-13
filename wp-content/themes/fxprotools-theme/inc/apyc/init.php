@@ -45,8 +45,12 @@ require_once plugin_dir_path( __FILE__ ) . 'functions-gotowebinar.php';
 require_once plugin_dir_path( __FILE__ ) . 'functions-sms.php';
 
 function apyc_fxprotools_setup(){
-	Apyc_Modal::get_instance();
-	Apyc_SMSPage::get_instance();
+	if( method_exists('Apyc_Modal','get_instance') ){
+		Apyc_Modal::get_instance();
+	}
+	if( method_exists('Apyc_SMSPage','get_instance') ){
+		Apyc_SMSPage::get_instance();
+	}
 }
 add_action( 'after_setup_theme', 'apyc_fxprotools_setup' );
 function apyc_init(){

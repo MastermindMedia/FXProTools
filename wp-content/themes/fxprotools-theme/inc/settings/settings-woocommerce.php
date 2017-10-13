@@ -56,7 +56,7 @@ if(!class_exists('Woocommerce_Settings')){
 		{
 		    $order = new WC_Order( $order_id );
 		    $url = home_url(). '/dashboard';
-		    if ( $order->status != 'failed' ) {
+		    if ( $order->get_status() != 'failed' ) {
 		        wp_redirect($url);
 		        exit;
 		    }
