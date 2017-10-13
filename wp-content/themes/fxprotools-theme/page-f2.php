@@ -28,7 +28,7 @@
 				</div>
 				<div class="col-md-4">
 					<div class="fx-board checklist">
-						<div class="fx-board-title w-text text-center">
+						<div class="fx-board-header w-text text-center">
 							<h3 class="inline-block">Tell Us Your <br/> <span class="label-red inline-block m-t-xs">Biggest Frustration</span></h3>
 						</div>
 						<ul class="fx-board-list">

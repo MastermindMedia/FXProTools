@@ -25,7 +25,7 @@ $coaching = wc_customer_bought_product( '', get_current_user_id(), 50);
 			</div>
 			<div class="col-md-4">
 				<div class="fx-board access-products">
-					<div class="fx-board-title">
+					<div class="fx-board-header">
 						Your Membership Package
 					</div>
 					<div class="fx-board-content">

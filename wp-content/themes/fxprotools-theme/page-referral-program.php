@@ -19,7 +19,7 @@ $referral_count = count(get_user_referrals());
 			</div>
 			<div class="col-md-4">
 				<div class="fx-board checklist">
-					<div class="fx-board-title w-text">
+					<div class="fx-board-header w-text">
 						<span>Refer 3 & Your Free</span>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 						tempor incididunt ut labore et dolore magna aliqua.</p>
