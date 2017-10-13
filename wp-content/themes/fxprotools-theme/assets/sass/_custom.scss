@@ -21,6 +21,31 @@
 			font-weight: bold;
 		}
 	}
+	.fx-board-list.w-toggle {
+		list-style: none;
+		li {
+			cursor: pointer;
+			position: relative;
+			.content {
+				font-size: 13px;
+				padding-left: 35px;
+				display: none;
+			}
+			.fx-text {
+				font-weight: bold;
+			}
+			.icon {
+				display: block;
+			    position: absolute;
+			    right: 10px;
+			    top: 0;
+			    font-size: 25px;
+			    bottom: 0;
+			    margin: auto;
+			    margin-top: 7px;
+			}
+		}
+	}
 }
 
 // Landing Page
