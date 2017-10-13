@@ -81,7 +81,7 @@ class Apyc_Citrix_GoToWebinar_DirectLogin{
 			$response_code = wp_remote_retrieve_response_code( $response );
 			$body = json_decode( wp_remote_retrieve_body( $response ) );
 			if( $response_code != 200 ){
-				throw new Exception( $body->int_err_code . ' - ' . $body->msg );
+				throw new Exception( isset($body->int_err_code) ? $body->int_err_code :'' . ' - ' . isset($body->msg) ? $body->msg:'' );
 			}
 			return $body;
 		}

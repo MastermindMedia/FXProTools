@@ -2,9 +2,13 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-define('GOTOWEBINAR_USERID', 'fxprotools@gmail.com');
+/*define('GOTOWEBINAR_USERID', 'fxprotools@gmail.com');
 define('GOTOWEBINAR_PASSWORD', 'Admin4web');
-define('GOTOWEBINAR_CONSUMERKEY', 'aInr3HOEuTfGxGW7PF9yD90AGzIehCj5');
+define('GOTOWEBINAR_CONSUMERKEY', 'aInr3HOEuTfGxGW7PF9yD90AGzIehCj5');*/
+define('GOTOWEBINAR_USERID', 'volishon@gmail.com');
+define('GOTOWEBINAR_PASSWORD', 'Password123');
+define('GOTOWEBINAR_CONSUMERKEY', '1HcxAF4IGb4wQmTphYYldWHIcwNBhEF6');
+define('GOTOWEBINAR_FREE_GROUP', 'FREE Weekly Q&A');
 define('TWILIO_ACCOUNT_SID', 'ACeed6641354498872901ff6aa63342ac1');
 define('TWILIO_TOKEN', '6924aec30f4903169f928a1d8c65886b');
 /**

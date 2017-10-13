@@ -53,8 +53,21 @@ class Apyc_Modal{
 	
 	public function get_webinars(){
 		$data = array();
-		$data['webinars'] = Apyc_Citrix_GoToWebinar_GetAll::get_instance()->query();
-		Apyc_View::get_instance()->view_theme('inc/templates/modal-ajax-data.php', $data);
+
+		$webinars = apyc_get_webinar_free();
+		$data['webinars'] = $webinars;
+
+		if( is_array($webinars)
+			&& !empty($webinars)
+		){
+			Apyc_View::get_instance()->view_theme('inc/templates/modal-ajax-data.php', $data);
+		}else{
+			$ret = array(
+				'status' => 'no-webinar',
+				'msg' => 'No Webinar'
+			);
+			echo json_encode($ret);
+		}
 		wp_die();
 	}
 	
