@@ -1,36 +1,36 @@
-/*============*/
-/*== COMMON ==*/ 
-/*============*/
+// ------
+// Common
+// ------
 
-// Buttons {
+// Buttons
 .btn-lg-w-text {
-	font-size: 25px;
-	padding: 10px 25px 10px 25px;
-	span {
-		font-size: 12px;
-		display: block;
-	}
+    font-size: 25px;
+    padding: 10px 25px 10px 25px;
+    span {
+        font-size: 12px;
+        display: block;
+    }
 }
 
 // Label & Text
 .text-white {
-	color: $white;
+    color: $white;
 }
 .text-red {
-	color: $red;
+    color: $red;
 }
 .text-green {
-	color: $green;
+    color: $green;
 }
 .label-green {
-	background-color: $green;
-	color: $white;
-	padding: 4px 10px;
+    background-color: $green;
+    color: $white;
+    padding: 4px 10px;
 }
 .label-red {
-	background-color: $red;
-	color: $white;
-	padding: 4px 10px;
+    background-color: $red;
+    color: $white;
+    padding: 4px 10px;
 }
 
 // Wrapper
@@ -598,34 +598,78 @@
 	}
 }
 
-// Transition & Animations
-@mixin trans($speed,$type) {
-  transition: all $speed $type;
-  -webkit-transition: all $speed $type;
-  -o-transition: all $speed $type;
+// Slide Toggle - Checkbox Transformation
+.fx-slide-toggle {
+	display: none;
+	// add default box-sizing for this scope
+	&, &:after, &:before, & *, & *:after, & *:before, & + .fx-slide-toggle-btn {
+		box-sizing: border-box;
+		&::selection {
+			background: none;
+		}
+	}
+	+ .fx-slide-toggle-btn {
+		outline: 0;
+		display: block;
+		width: 50px;
+		height: 25px;
+		position: relative;
+		cursor: pointer;
+    	user-select: none;
+		&:after,
+    	&:before {
+			position: relative;
+			display: block;
+			content: "";
+			width: 50%;
+			height: 100%;
+		}
+		&:after {
+			left: 0;
+		}
+		&:before {
+			display: none;
+		}
+	}
+	&:checked + .fx-slide-toggle-btn:after {
+		left: 50%;
+	}
+	+ .fx-slide-toggle-btn {
+		background: #f0f0f0;
+		border-radius: 2em;
+		padding: 2px;
+		transition: all .4s ease;
+		&:after {
+			border-radius: 50%;
+			background: #fff;
+			transition: all .2s ease;
+		}
+	}
+	&:checked + .fx-slide-toggle-btn {
+		background: #5cb85c;
+	}
 }
 
+// Loader - Spinner
 .spinner {
-  margin: 100px auto;
-  width: 40px;
-  height: 20px;
-  text-align: center;
-  font-size: 10px;
-}
-
-.spinner > div {
-  background-color: #333;
-  height: 100%;
-  width: 6px;
-  display: inline-block;
-  
-  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
-  animation: sk-stretchdelay 1.2s infinite ease-in-out;
+	margin: 100px auto;
+	width: 40px;
+	height: 20px;
+	text-align: center;
+	font-size: 10px;
+	> div {
+		background-color: #333;
+		height: 100%;
+		width: 6px;
+		display: inline-block;
+		-webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+		animation: sk-stretchdelay 1.2s infinite ease-in-out;	
+	}
 }
 
 .spinner .rect2 {
-  -webkit-animation-delay: -1.1s;
-  animation-delay: -1.1s;
+	-webkit-animation-delay: -1.1s;
+	animation-delay: -1.1s;
 }
 
 .spinner .rect3 {
@@ -644,8 +688,12 @@
 }
 
 @-webkit-keyframes sk-stretchdelay {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
-  20% { -webkit-transform: scaleY(1.0) }
+	0%, 40%, 100% {
+		-webkit-transform: scaleY(0.4)
+	}  
+	20% {
+		-webkit-transform: scaleY(1.0)
+	}
 }
 
 @keyframes sk-stretchdelay {
