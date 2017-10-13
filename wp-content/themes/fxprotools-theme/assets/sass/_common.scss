@@ -101,12 +101,18 @@
 	position: relative;
 	border: 1px solid #DDD;
 	background-color: $white;
-	.fx-board-title {
+	.fx-board-header {
 		padding: 15px;
-		span {
-			font-weight: bold;
-			text-align: center;
+		.title, .sub {
 			display: block;
+		}
+		.title {
+			font-weight: bold;
+			font-size: 20px;
+		}
+		.sub {
+			font-size: 14px;
+			font-weight: 300;
 		}
 		&.w-text {
 			position: relative;
@@ -120,7 +126,6 @@
 	}
 	// With Checklist
 	&.checklist {
-		list-style: none;
 		padding: 0;
 		margin: 0;
 		li {
@@ -272,7 +277,7 @@
 		}
 		&.active a {
 			border-bottom: 1px solid #DDD;
-			background: #23527c;
+			background: #de1515;
 			color: #FFF;
 			&:focus, &:hover, &:active {
 				border-bottom: 1px solid #DDD;				
@@ -293,7 +298,7 @@
 		}
 		&.active a {
 			border-bottom: 1px solid #DDD;
-			background: #23527c;
+			background: #de1515;
 			color: #FFF;
 			&:focus, &:hover, &:active {
 				border-bottom: 1px solid #DDD;				
@@ -325,7 +330,7 @@
 				border-radius: 0;
 			}
 			&.active a {
-				background-color: #23527c;
+				background-color: #de1515;
 				color: #FFF;
 			}
 		}

@@ -2,6 +2,27 @@
 // Custom
 // ------
 
+// Dashboard - ChecklisT
+.fx-board.checklist {
+	.group-title {
+		float: left;
+		width: 80%;
+		padding-left: 5px;
+	}
+	.group-counter {
+		width: 20%;
+		float: left;
+		text-align: center;
+		img {
+			margin: -5px auto 0 auto;
+			width: 50px;
+		}
+		.number {
+			font-weight: bold;
+		}
+	}
+}
+
 // Landing Page
 .fx-landing {
 	position: relative;

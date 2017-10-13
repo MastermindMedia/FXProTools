@@ -10,7 +10,7 @@ $checklist = get_user_checklist();
 			<div class="col-md-12">
 				<div class="fx-header-title">
 					<h1>Welcome! Thanks for Being A Loyal Distributor</h1>
-					<p>Step#1 - The Vision & Your FX Pro Tools Onboarding</p>
+					<p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of CopyProfitShare!</p>
 				</div>
 			</div>
 			<div class="col-md-8">
@@ -18,8 +18,16 @@ $checklist = get_user_checklist();
 			</div>
 			<div class="col-md-4">
 				<div class="fx-board checklist">
-					<div class="fx-board-title">
-						<span>Onboard Checklist</span>
+					<div class="fx-board-header">
+						<div class="group-title">
+							<span class="title">Onboarding Checklist</span>
+							<span class="sub">Learn More About CPS 3.0</span>
+						</div>
+						<div class="group-counter">
+							<img src="<?php bloginfo('template_url'); ?>/assets/img/meter.png" class="img-responsive">
+							<span class="number">0</span> of <span class="number">7</span>
+						</div>
+						<div class="clearfix"></div>
 					</div>
 					<ul class="fx-board-list">
 						<li>
