@@ -2056,3 +2056,16 @@
 		margin-bottom: 30px;
 	}
 }
+
+// WooCommerce Shop
+.woocommerce .added_to_cart.wc-forward {
+	padding: 6px;
+	background-color: #de1515;
+	color: #fff;
+	&:hover {
+		background-color: #e6e6e6;
+		color: #333;
+		border: 1px solid #adadad;
+		padding: 5px;
+	}
+}
