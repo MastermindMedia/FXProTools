@@ -1,4 +1,5 @@
 <?php
+if (isset($_SERVER["HTTP_X_FORWARDED_PROTO"]) && $_SERVER["HTTP_X_FORWARDED_PROTO"] == "https") $_SERVER["HTTPS"] = "on";
 /**
  * The base configuration for WordPress
  *
@@ -20,19 +21,19 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'fxprotools');
+define('DB_NAME', 'c9');
 
 /** MySQL database username */
-define('DB_USER', 'root');
+define('DB_USER', substr(getenv('C9_USER'), 0, 16));
 
 /** MySQL database password */
-define('DB_PASSWORD', 'root');
+define('DB_PASSWORD', '');
 
 /** MySQL hostname */
-define('DB_HOST', 'localhost');
+define('DB_HOST', getenv('IP'));
 
 /** Database Charset to use in creating database tables. */
-define('DB_CHARSET', 'utf8mb4');
+define('DB_CHARSET', 'utf8');
 
 /** The Database Collate type. Don't change this if in doubt. */
 define('DB_COLLATE', '');
@@ -46,14 +47,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         'ba$c0Lz0}1HE(S^kjl[0g[Un=cgf*3pj^a#fL.9~;p?f??dTTDIV~k1/5i8#@kpP');
-define('SECURE_AUTH_KEY',  '*6W>YC13)SJx(04{Wp#f(7lw7x|4?}K)-fF]6T;UDj$CRBt+)</us2f`= Tw8e/A');
-define('LOGGED_IN_KEY',    'cGIjVwop!`GU9phpFDfeAQ9<-2mxDS!r+2+z@XEweT&K[Hyp9J1Ue5AyM{t16wV!');
-define('NONCE_KEY',        'g1)ixkoq{o}!F!|tk#Q~SY`$6O` y8lc;aYUa) *Kzhd*GAs9)YqMbU;@e(ln)F.');
-define('AUTH_SALT',        'W++QS/t@q`]5wBXVU>#Jr#QF(:Q!G!PYfM<LVyk:FSH>~vC@z.O8;}G9(*NWJWnT');
-define('SECURE_AUTH_SALT', '6a2}K?;t?[)abu6b6!We89V@zyr-vbCo+{q|}Ff0mg:3YdC%`!6bGJ4c&Y@x:f@O');
-define('LOGGED_IN_SALT',   'ylG7ek}O*miORv-UGDjPK/f*G/K/M>}m#W1=u,(~8uFIOB!CiHa#5kgL8NxN`Gdc');
-define('NONCE_SALT',       'XsixA}A9lC-sqwdouR^|O#a[ikGjf-/!jXEiktw>?(Z`EM@e1b?LzbLE:2 Y9e1p');
+define('AUTH_KEY',         'put your unique phrase here');
+define('SECURE_AUTH_KEY',  'put your unique phrase here');
+define('LOGGED_IN_KEY',    'put your unique phrase here');
+define('NONCE_KEY',        'put your unique phrase here');
+define('AUTH_SALT',        'put your unique phrase here');
+define('SECURE_AUTH_SALT', 'put your unique phrase here');
+define('LOGGED_IN_SALT',   'put your unique phrase here');
+define('NONCE_SALT',       'put your unique phrase here');
 
 /**#@-*/
 
@@ -77,26 +78,9 @@ $table_prefix  = 'wp_';
  *
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
-
-// Enable WP_DEBUG mode
-define( 'WP_DEBUG', true );
-
-// Enable Debug logging to the /wp-content/debug.log file
-define( 'WP_DEBUG_LOG', true );
-
-// Disable display of errors and warnings
-define( 'WP_DEBUG_DISPLAY', true );
-@ini_set( 'display_errors', 0 );
-
-// Use dev versions of core JS and CSS files (only needed if you are modifying these core files)
-define( 'SCRIPT_DEBUG', true );
-
-
-
-
-
-
-
+define('WP_DEBUG', false);
+$_SERVER["HTTP_HOST"] = $_SERVER["SERVER_NAME"];
+$_SERVER["HTTP_HOST"] = $_SERVER["SERVER_NAME"];
 
 /* That's all, stop editing! Happy blogging. */
 

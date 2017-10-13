@@ -130,3 +130,10 @@ Added by Allan / APYC
  * Authorize.net payment gateway class
  */
 //require('inc/fx-authorize-net/fx-authorize-net.php');
+
+/**
+ * ---------------------------------------------------
+ * Added by JC - Customizations for the Email post type
+ * ---------------------------------------------------
+ */
+require_once plugin_dir_path( __FILE__ ) . 'inc/function-email.php';
