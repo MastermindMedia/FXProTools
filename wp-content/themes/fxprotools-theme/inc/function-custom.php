@@ -104,7 +104,6 @@ function get_course_category_children($course_cat_id)
 		    'taxonomy'   => 'ld_course_category',
 		    'include'    => $children_ids,
 		    'hide_empty' => false,
-		) ); 
 		) );
 		return !$child_categories ? false: $child_categories;
 	} else{
@@ -712,7 +711,7 @@ function get_mb_nav($mb_group_id) {
 						'link_after'      => '',
 						'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
 						'depth'           => 0,
-						'walker'          => new Nav_Secondary_Header_Menu(),
+						'walker'          => new Nav_Secondary_Header_Menu_Walker(),
 					);
 					wp_nav_menu( $params );
 				else :

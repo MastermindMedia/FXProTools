@@ -1,5 +1,5 @@
 <?php
-class Nav_Secondary_Header_Menu extends Walker_Nav_Menu {
+class Nav_Secondary_Header_Menu_Walker extends Walker_Nav_Menu {
 
     public function start_lvl( &$output, $depth = 0, $args = array() ) {
         if ( isset( $args->item_spacing ) && 'discard' === $args->item_spacing ) {
