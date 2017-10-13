@@ -376,37 +376,27 @@ function get_trial_end_date()
 	return 0;
 }
 
-function fx_customer_subscription_products()
-{
-	return array( 2699, 47 );
-}
-
-function fx_distributor_subscription_products()
-{
-	return array( 48 );
-}
-
 function is_user_fx_customer()
 {
-	$subscription_products = fx_customer_subscription_products();
+	$subscription_products = array( 2699, 47 );
 	foreach($subscription_products as $s){
 		if( wcs_user_has_subscription( '', $s, 'active') ){
 			return true;
-		} 
+		}
 	}
-	return false;  
+	return false;
 }
 
 
 function is_user_fx_distributor()
 {
-	$subscription_products = fx_distributor_subscription_products();
+	$subscription_products = array( 48 );
 	foreach($subscription_products as $s){
 		if( wcs_user_has_subscription( '', $s, 'active') ){
 			return true;
-		} 
+		}
 	}
-	return false;  
+	return false;
 }
 
 function user_has_autotrader()
@@ -457,82 +447,6 @@ function get_purchased_items($user_id)
 		'post_status' => array_keys( wc_get_order_statuses() ),
 	) ) );
 	return $customer_orders;
-}
-
-function get_users_who_ordered($product_ids, $user_fields = array('user_email'))
-{
-    global $wpdb;
-    $select = [];
-    
-    foreach ($user_fields as $field) {
-    	$select[] = 'users.' . $field . ' as ' . $field;
-    }
-    
-    $select = implode(', ', $select);
-    $ids = implode(',', $product_ids);
-
-    $results = $wpdb->get_results($sql = "SELECT DISTINCT {$select}
-        FROM {$wpdb->prefix}woocommerce_order_items as order_items
-        LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta as order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id
-        INNER JOIN {$wpdb->prefix}postmeta as user_id ON user_id.post_id = order_items.order_id AND user_id.meta_key = '_customer_user'
-        INNER JOIN {$wpdb->users} as users ON users.ID = user_id.meta_value
-        INNER JOIN {$wpdb->posts} as posts ON posts.ID = order_items.order_id AND post_type = 'shop_order'
-        WHERE order_items.order_item_type = 'line_item'
-        AND order_item_meta.meta_key = '_product_id'
-        AND order_item_meta.meta_value IN ($ids)
-    ");
-    
-    return $results;
-}
-
-function get_users_with_active_subscriptions($subscription_ids, $user_fields = array('user_email'))
-{
-    global $wpdb;
-    $select = [];
-    
-    foreach ($user_fields as $field) {
-    	$select[] = 'users.' . $field . ' as ' . $field;
-    }
-    
-    $select = implode(', ', $select);
-    $ids = implode(',', $subscription_ids);
-
-    $results = $wpdb->get_results($sql = "SELECT DISTINCT {$select}
-        FROM {$wpdb->prefix}woocommerce_order_items as order_items
-        LEFT JOIN {$wpdb->prefix}woocommerce_order_itemmeta as order_item_meta ON order_items.order_item_id = order_item_meta.order_item_id
-        INNER JOIN {$wpdb->prefix}postmeta as user_id ON user_id.post_id = order_items.order_id AND user_id.meta_key = '_customer_user'
-        INNER JOIN {$wpdb->users} as users ON users.ID = user_id.meta_value
-        INNER JOIN {$wpdb->posts} as posts ON posts.ID = order_items.order_id AND post_status = 'wc-active' AND post_type = 'shop_subscription'
-        WHERE order_items.order_item_type = 'line_item'
-        AND order_item_meta.meta_key = '_product_id'
-        AND order_item_meta.meta_value IN ($ids)
-    ");
-    
-    return $results;
-}
-
-function get_emails_for_user($statuses, $user_id = null)
-{
-	if (!$user_id) {
-		$user_id = get_current_user_id();
-	}
-	
-	$response = get_posts(array(
-		'posts_per_page'	=> -1,
-		'orderby'			=> 'modified',
-		'order'				=> 'DESC',
-		'post_type'			=> 'fx_email',
-        'meta_key'			=> '_user_' . $user_id . '_state',
-		'meta_query'		=> array(
-			array(
-				'key'       => '_user_' . $user_id . '_state',
-				'value'     => $statuses,
-				'compare'   => 'IN',
-			)
-		)
-	));
-	
-	return $response;
 }
 
 function get_query_string()

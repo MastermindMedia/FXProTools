@@ -61,7 +61,7 @@
 							<!-- <li><a href="#" title="Select Language"><i class="fa fa-th-large" aria-hidden="true"></i></a></li> -->
 							<li class="account"><a href="<?php bloginfo('url'); ?>/my-account">My Account</a></li>
 							<li>
-								<a href="<?php bloginfo('url'); ?>/my-account/inbox" title="Support Icon">
+								<a href="#" title="Support Icon">
 									<i class="fa fa-inbox block icon-inbox"></i>
 									<span>Inbox</span>
 								</a>
