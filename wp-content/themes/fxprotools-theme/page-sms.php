@@ -4,12 +4,14 @@ get_header();
 $action = isset($_GET['action']) ? $_GET['action']:'';
 //holds data to pass to template
 $data = array();
-
+$sms_view = 'inc/templates/sms';
+$data['sms_view'] = $sms_view;
 switch($action){
 	default:
 		$data['title'] = _('SMS Marketing');
 		$data['sub_heading'] = _('Sub Heading Here');
-		Apyc_View::get_instance()->view_theme('inc/templates/sms/main.php', $data);
+		//dd($data);
+		Apyc_View::get_instance()->view_theme($sms_view . '/main.php', $data);
 	break;
 }
 
