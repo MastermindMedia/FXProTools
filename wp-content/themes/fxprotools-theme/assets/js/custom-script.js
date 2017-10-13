@@ -63,6 +63,13 @@ jQuery(document).ready( function($) {
 });
 
 // Events
+$(document).on('click', '.fx-board-list.w-toggle li', function(){
+	$('.fx-board-list.w-toggle li').removeClass('open');
+	$(this).addClass('open');
+	$(this).find('.icon').toggleClass('fa-angle-up fa-angle-down');
+	$(this).find('.content').slideToggle('fast');
+});
+
 $(document).on('click', '.scroll-to', function(e) {
 	e.preventDefault();
 	if (this.hash !== "")
