@@ -198,19 +198,19 @@ if(!class_exists('SettingsMB')){
 		// MB - Page Template Options
 		public function mb_page_template_options($meta_boxes)
 		{
-			$prefix = 'pto';
+			$prefix = 'pto1_';
 			$meta_boxes[] = array(
-				'id'         => 'page_template_options',
+				'id'         => 'page_template_options_1',
 				'title'      => 'Page Template Options',
 				'post_types' => array( 'post', 'page' ),
 				'context'    => 'advanced',
 				'priority'   => 'high',
 				'autosave'   => false,
 				'include' => array(
-					'relation'        => 'OR',
-					'ID'              => '',
-					'parent'          => '',
-					'slug'            => array( 'wallet' ),
+					'relation'	=> 'OR',
+					'ID'		=> array( 2560, 2578, 2598, 2550 ),
+					'parent'	=> '',
+					'slug'		=> '',
 				),
 				'fields' => array(
 					// Group - Menus
