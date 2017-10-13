@@ -57,7 +57,7 @@ if ( ! function_exists('apyc_get_webinar_free')) {
    function apyc_get_webinar_free($arg)  {
 		try{
 			$defaults = array(
-				'filter_by_subject' => 'Weekly Q & A'
+				'filter_by_subject' => GOTOWEBINAR_FREE_GROUP
 			);
 			$query_args = wp_parse_args( $arg, $defaults );
 			$get = Apyc_Citrix_GoToWebinar_GetAll::get_instance()->query($query_args);
