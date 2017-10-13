@@ -9,7 +9,7 @@ switch($action){
 	default:
 		$data['title'] = _('SMS Marketing');
 		$data['sub_heading'] = _('Sub Heading Here');
-		Apyc_View::get_instance()->view_theme('inc/Apyc/view/sms/main.php', $data);
+		Apyc_View::get_instance()->view_theme('inc/templates/sms/main.php', $data);
 	break;
 }
 
