@@ -23,7 +23,7 @@ function apyc_fxprotools_autoload_class($class_name){
 		//echo $class_name.'-'.$include_classes_dir . $class_file.'<br>';
 		if( file_exists($include_classes_dir . strtolower($class_file)) ){
 			//echo $class_name.'-'.$include_classes_dir . strtolower($class_file).'<br>';
-			require_once $include_classes_dir . $class_file;
+			require_once $include_classes_dir . strtolower( $class_file );
 		}
 		if( file_exists($admin_classes_dir . $class_file) ){
 			require_once $admin_classes_dir . $class_file;
