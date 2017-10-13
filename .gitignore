@@ -16,3 +16,4 @@ phplog
 *.Trashes
 
 .htaccess
+wp-content/themes/fxprotools-theme/prepros-6.config
