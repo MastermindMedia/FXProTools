@@ -19,7 +19,7 @@ $mb_extenstions = array(
     'extensions/meta-box-include-exclude/meta-box-include-exclude.php',
     'extensions/meta-box-show-hide/meta-box-show-hide.php',
     'extensions/meta-box-tabs/meta-box-tabs.php',
-    'extensions/meta-box-template/meta-box-template.php',
+    // 'extensions/meta-box-template/meta-box-template.php',
     'extensions/meta-box-tooltip/meta-box-tooltip.php',
 );
 
