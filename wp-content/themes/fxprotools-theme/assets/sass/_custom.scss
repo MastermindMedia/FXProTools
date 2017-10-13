@@ -1,5 +1,5 @@
 /*============*/
-/*== CUSTOM ==*/ 
+/*== CUSTOM ==*/
 /*============*/
 
 // Landing Page
@@ -406,7 +406,7 @@
 			padding: 0;
 			margin: 15px 0;
 			li {
-				font-size: 22px; 
+				font-size: 22px;
 				span {
 					color: $red;
 					font-weight: bold;
@@ -773,33 +773,48 @@
 					@include border-radius(50%);
 				}
 			}
-			&.dashboard a {
-				width: 45px;
-				background-color: $red;
-				text-indent: -999999px;
+			&.dashboard{
+				a{
+					width: 45px;
+					background-color: $red;
+					text-indent: -999999px;
+				}
 				&.icon {
-					background-repeat: no-repeat;
-					background-position: center;
+					a{
+						background-repeat: no-repeat;
+						background-position: center;
+					}
 				}
 				&.icon-quickstart {
-					background-image: url('../img/ico-quickstart.png');
-					background-size: 35px;
+					a{
+						background-image: url('../img/ico-quickstart.png');
+						background-size: 35px;
+					}
 				}
 				&.icon-products {
-					background-image: url('../img/ico-products.png');
-					background-size: 30px;
+					a{
+						background-image: url('../img/ico-products.png');
+						background-size: 30px;
+					}
 				}
 				&.icon-share {
-					background-image: url('../img/ico-share.png');
-					background-size: 30px;
+					a{
+						background-image: url('../img/ico-share.png');
+						background-size: 30px;
+					}
 				}
 				&.icon-team {
-					background-image: url('../img/ico-team.png');
-					background-size: 30px;
+					a{
+						background-image: url('../img/ico-team.png');
+						background-size: 30px;
+					}
 				}
 				&.icon-wallet {
-					background-image: url('../img/ico-wallet.png');
-					background-size: 30px;
+					a{
+						background-image: url('../img/ico-wallet.png');
+						background-size: 30px;
+					}
+
 				}
 			}
 			&.active a .text {
@@ -1258,7 +1273,7 @@
 }
 
 // Access Denied
-.fx-access-denied, .fx-404 {	
+.fx-access-denied, .fx-404 {
 	.fx-header-title{
 		margin: 35px 0;
 		h1 {
@@ -1440,7 +1455,7 @@
 			padding: 11px 18px;
 		}
 		.panel-body{
-			padding-top: 30px; 
+			padding-top: 30px;
 
 			.payment-form{
 				> p{

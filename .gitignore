@@ -9,7 +9,7 @@ node_modules/
 sitemap.*
 wp-config.php
 phplog
- 
+
 # Hidden system files
 *.DS_Store
 *[Tt]humbs.db

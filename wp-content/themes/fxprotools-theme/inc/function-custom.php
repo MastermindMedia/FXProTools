@@ -662,3 +662,19 @@ function sess_start() {
     session_start();
 }
 add_action('init','sess_start');
+
+// Overrides the default WooCommerce button
+add_filter('woocommerce_product_add_to_cart_text', 'woo_archive_custom_cart_button_text');
+function woo_archive_custom_cart_button_text() {
+    return __('Learn More', 'woocommerce');
+}
+
+// Overrides the URL of WooCommerce button
+add_filter('woocommerce_product_add_to_cart_url', 'filter_woocommerce_product_add_to_cart_url', 10, 2);
+function filter_woocommerce_product_add_to_cart_url($url, $instance) {
+    // limit the replacement with the type of products in /shop
+    if (in_array($instance->get_type(), ['subscription','variable-subscription'])) {
+        return $instance->get_permalink();
+    }
+    return $url;
+}

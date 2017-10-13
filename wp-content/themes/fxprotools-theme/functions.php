@@ -19,7 +19,7 @@ $mb_extenstions = array(
     'extensions/meta-box-include-exclude/meta-box-include-exclude.php',
     'extensions/meta-box-show-hide/meta-box-show-hide.php',
     'extensions/meta-box-tabs/meta-box-tabs.php',
-    // 'extensions/meta-box-template/meta-box-template.php',
+    'extensions/meta-box-template/meta-box-template.php',
     'extensions/meta-box-tooltip/meta-box-tooltip.php',
 );
 
@@ -86,15 +86,30 @@ if($custom_functions){
 }
 
 /**
+ * ----------------
+ * Custom Walker/s
+ * ----------------
+ */
+$custom_walkers = array(
+    'nav-secondary-walker' // Secondary Header Menu
+);
+
+if($custom_walkers){
+    foreach($custom_walkers as $key => $cw){
+        require_once('inc/walkers/'.$cw.'.php');
+    }
+}
+
+/**
  * --------------
- * Sendgrid - Contacts 
+ * Sendgrid - Contacts
  * --------------
  * Sendgrid gateway class
  */
 
 $sendgrid = array(
-    'sendgrid-api', 
-    'sendgrid-ajax',  
+    'sendgrid-api',
+    'sendgrid-ajax',
 );
 if($sendgrid){
     foreach($sendgrid as $key => $sg){
@@ -125,7 +140,7 @@ Added by Allan / APYC
 
 /**
  * --------------
- * ANET - Payment 
+ * ANET - Payment
  * --------------
  * Authorize.net payment gateway class
  */
