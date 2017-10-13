@@ -6,7 +6,8 @@ function afl_epin_user_purchase(){
 	do_action('afl_content_wrapper_end');
 }
 function afl_epin_purchase_form(){
-
+	new Afl_enque_scripts('common');
+	
 	if ( isset($_POST['submit']) ) {
 	 	$validation = afl_epin_purchase_form_validation($_POST);
 	 	if (!empty($validation)) {

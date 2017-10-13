@@ -1,20 +1,15 @@
-$(document).ready(function(){
+jQuery(document).ready(function(){
 
-	$( ".date_time_picker" ).datepicker();
+	jQuery( ".date_time_picker" ).datepicker();
 
-  $('[data-toggle="tooltip"]').tooltip();   
+  jQuery('[data-toggle="tooltip"]').tooltip();   
   
    
     
 
 });
 
-$(function () {
-     $('.bxslider').bxSlider({
-      pager: false, // disables pager
-      slideWidth: 150,
-    
-    });
+jQuery(function () {
      
     toastr.options = {
       "closeButton": true,
@@ -35,33 +30,33 @@ $(function () {
       "hideMethod": "fadeOut"
     }
   
-    $('.navbar-toggle').click(function () {
-        $('.navbar-nav').toggleClass('slide-in');
-        $('.side-body').toggleClass('body-slide-in');
-        $('#search').removeClass('in').addClass('collapse').slideUp(200);
+    jQuery('.navbar-toggle').click(function () {
+        jQuery('.navbar-nav').toggleClass('slide-in');
+        jQuery('.side-body').toggleClass('body-slide-in');
+        jQuery('#search').removeClass('in').addClass('collapse').slideUp(200);
 
         /// uncomment code for absolute positioning tweek see top comment in css
-        //$('.absolute-wrapper').toggleClass('slide-in');
+        //jQuery('.absolute-wrapper').toggleClass('slide-in');
         
     });
     
-     $('.auto_complete').on('keyup click',function(){
+     jQuery('.auto_complete').on('keyup click',function(){
   		var autoArray = [];
-    	var path 			 = $(this).attr('data-path');
-    	var search_key = $(this).val();
+    	var path 			 = jQuery(this).attr('data-path');
+    	var search_key = jQuery(this).val();
     	if (path != '#' && search_key!=undefined) {
-    		$.ajax({
+    		jQuery.ajax({
 			   	type :'POST',
 			   	data : {
 			   		action:path,
-            tree_mode : $('#tree-mode').val(),
+            tree_mode : jQuery('#tree-mode').val(),
 			   	},
 			   	url:ajax_object.ajaxurl,
 			   	success: function(data){
 							var arr = JSON.parse(data);
 							var i 	= 0;
 							var data_array = [];
-							$('.auto_complete').typeahead({
+							jQuery('.auto_complete').typeahead({
                 source: arr,
               });
 			   	}
@@ -73,10 +68,10 @@ $(function () {
 * Data tables for user downlines
  * -------------------------------------------
 */
-  if ($('.custom-data-tables').length) {
+  if (jQuery('.custom-data-tables').length) {
 
       var table; 
-      table = $(".custom-data-tables").DataTable({
+      table = jQuery(".custom-data-tables").DataTable({
        "processing": true, 
        "serverSide": true, 
        "pageLength": 50,
@@ -99,10 +94,10 @@ $(function () {
 * Data tables for user refred members
  * -------------------------------------------
 */
-  if ($('.refered-members').length) {
+  if (jQuery('.refered-members').length) {
 
       var table; 
-      table = $(".refered-members").DataTable({
+      table = jQuery(".refered-members").DataTable({
        "processing": true, 
        "serverSide": true, 
        "pageLength": 50,
@@ -125,9 +120,9 @@ $(function () {
 * Data tables for ewallet summary
 * -------------------------------------------
 */
-if ($('.custom-ewallet-summary-table').length) {
+if (jQuery('.custom-ewallet-summary-table').length) {
       var table; 
-      table = $(".custom-ewallet-summary-table").DataTable({
+      table = jQuery(".custom-ewallet-summary-table").DataTable({
       "bFilter" : false, 
       "bInfo": false,
       "searching": false,
@@ -155,9 +150,9 @@ if ($('.custom-ewallet-summary-table').length) {
 * Data tables for ewallet transaction
 * -------------------------------------------
 */
-if ($('.custom-ewallet-all-trans-table').length) {
+if (jQuery('.custom-ewallet-all-trans-table').length) {
       var table; 
-      table = $(".custom-ewallet-all-trans-table").DataTable({
+      table = jQuery(".custom-ewallet-all-trans-table").DataTable({
        "processing": true, 
        "serverSide": true, 
        "pageLength": 50,
@@ -180,9 +175,9 @@ if ($('.custom-ewallet-all-trans-table').length) {
 * Data tables for ewallet Income report 
 * -------------------------------------------
 */
-if ($('.custom-ewallet-income-table').length) {
+if (jQuery('.custom-ewallet-income-table').length) {
       var table; 
-      table = $(".custom-ewallet-income-table").DataTable({
+      table = jQuery(".custom-ewallet-income-table").DataTable({
        "processing": true, 
        "serverSide": true, 
        "pageLength": 50,
@@ -205,9 +200,9 @@ if ($('.custom-ewallet-income-table').length) {
 * Data tables for ewallet Expense report 
 * -------------------------------------------
 */
-if ($('.custom-ewallet-expense-table').length) {
+if (jQuery('.custom-ewallet-expense-table').length) {
       var table; 
-      table = $(".custom-ewallet-expense-table").DataTable({
+      table = jQuery(".custom-ewallet-expense-table").DataTable({
        "processing": true, 
        "serverSide": true,
        "pageLength": 50, 
@@ -231,9 +226,9 @@ if ($('.custom-ewallet-expense-table').length) {
 * Data tables for business transaction summary  
 * ------------------------------------------- 
 */
-if ($('.custom-business-summary-table').length) {
+if (jQuery('.custom-business-summary-table').length) {
       var table; 
-      table = $(".custom-business-summary-table").DataTable({
+      table = jQuery(".custom-business-summary-table").DataTable({
       "bFilter" : false, 
       "bInfo": false,
       "searching": false,
@@ -260,9 +255,9 @@ if ($('.custom-business-summary-table').length) {
 * Data tables for business All transaction
 * -------------------------------------------
 */
-if ($('.custom-business-all-trans-table').length) {
+if (jQuery('.custom-business-all-trans-table').length) {
       var table; 
-      table = $(".custom-business-all-trans-table").DataTable({
+      table = jQuery(".custom-business-all-trans-table").DataTable({
        "processing": true, 
        "serverSide": true, 
        "pageLength": 50,
@@ -287,9 +282,9 @@ if ($('.custom-business-all-trans-table').length) {
 * Data tables for business income report
 * -------------------------------------------
 */
-if ($('.custom-business-income-history-table').length) {
+if (jQuery('.custom-business-income-history-table').length) {
       var table; 
-      table = $(".custom-business-income-history-table").DataTable({
+      table = jQuery(".custom-business-income-history-table").DataTable({
        "processing": true, 
        "serverSide": true, 
        "pageLength": 50,
@@ -312,9 +307,9 @@ if ($('.custom-business-income-history-table').length) {
 * Data tables for business expense report
 * -------------------------------------------
 */
-if ($('.custom-business-expense-history-table').length) {
+if (jQuery('.custom-business-expense-history-table').length) {
       var table; 
-      table = $(".custom-business-expense-history-table").DataTable({
+      table = jQuery(".custom-business-expense-history-table").DataTable({
        "processing": true, 
        "serverSide": true, 
        "pageLength": 50,
@@ -337,27 +332,27 @@ if ($('.custom-business-expense-history-table').length) {
   * On click Holding tank user
   * -------------------------------------------
 */
-   $('.holding-tank-profiles li').click(function(){
-    $('#seleted-user-id').val($(this).attr('data-user-id'));
-    $('.progress').css('width','0px');
-    $('#holding-tank-change-model').modal('show');
+   jQuery('.holding-tank-profiles li').click(function(){
+    jQuery('#seleted-user-id').val(jQuery(this).attr('data-user-id'));
+    jQuery('.progress').css('width','0px');
+    jQuery('#holding-tank-change-model').modal('show');
    });
 
-   $('#place-user').click(function() {
-    if ($('#choose-parent').val() == '') {
-      $('.notification').html('please choose the parent');
-      $('.notification').css('color', 'red');
+   jQuery('#place-user').click(function() {
+    if (jQuery('#choose-parent').val() == '') {
+      jQuery('.notification').html('please choose the parent');
+      jQuery('.notification').css('color', 'red');
     } else {
       //load the availbale free spaces
-         var parent     = $('#choose-parent').val();
-         var sponsor    = $('#current-user-id').val();
-         var user_id    = $('#seleted-user-id').val();
-         var tree_mode  = $('#tree-mode').val();
+         var parent     = jQuery('#choose-parent').val();
+         var sponsor    = jQuery('#current-user-id').val();
+         var user_id    = jQuery('#seleted-user-id').val();
+         var tree_mode  = jQuery('#tree-mode').val();
 
          if (user_id != '' && sponsor!= '' && parent!='' ){
-          var position = $('input[name="free_space"]:checked').attr('id');
+          var position = jQuery('input[name="free_space"]:checked').attr('id');
           if (position) {
-            $.ajax({
+            jQuery.ajax({
               type :'POST',
               data : {
                 action:'afl_place_user_from_tank',
@@ -370,55 +365,55 @@ if ($('.custom-business-expense-history-table').length) {
               url:ajax_object.ajaxurl,
               beforeSend:function(){
                   for(var i = 1; i <=100 ; i++){
-                    $('.progress').css('width',i+'%');
+                    jQuery('.progress').css('width',i+'%');
                   }
               },
               complete:function(){
-                  $('.progress').css('width','100%');
+                  jQuery('.progress').css('width','100%');
 
               },
               success: function(data){
                 var data = JSON.parse(data);
-                $('.progress').css('width','100%');
+                jQuery('.progress').css('width','100%');
                 if (data['status'] == 1) {
-                  $('.notification').html('Member Placed successfully');
+                  jQuery('.notification').html('Member Placed successfully');
                    setTimeout(function() { window.location.reload(true); }, 500 );
                 }
               }
             });
           } else {
-            $('.notification').html('Unable to select a position.You cannot place a member without the position.');
-            $('.notification').css('color', 'red');
+            jQuery('.notification').html('Unable to select a position.You cannot place a member without the position.');
+            jQuery('.notification').css('color', 'red');
           }
           
          }
     }
    });
 
-  $('#choose-parent').change(function(){
-    if ($('#choose-parent').val() !=''){
-      $.ajax({
+  jQuery('#choose-parent').change(function(){
+    if (jQuery('#choose-parent').val() !=''){
+      jQuery.ajax({
         type :'POST',
         data : {
           action:'afl_get_available_free_space',
-          sponsor : $('#current-user-id').val(),
-          uid     : $('#seleted-user-id').val(),
-          parent  : $('#choose-parent').val(),
-          tree_mode : $('#tree-mode').val(),
+          sponsor : jQuery('#current-user-id').val(),
+          uid     : jQuery('#seleted-user-id').val(),
+          parent  : jQuery('#choose-parent').val(),
+          tree_mode : jQuery('#tree-mode').val(),
 
         },
         url:ajax_object.ajaxurl,
         success: function(data){
-            $('#available-free-spaces').html(data);
+            jQuery('#available-free-spaces').html(data);
         }
       });
     }
   });
 
-  $('div.pricingTable').on('click', function(){
-    $(this).parent().parent().find('div.pricingTable').removeClass('selected');
-    $(this).addClass('selected');
-    $(this).find('input[type="radio"]').prop("checked", true);
+  jQuery('div.pricingTable').on('click', function(){
+    jQuery(this).parent().parent().find('div.pricingTable').removeClass('selected');
+    jQuery(this).addClass('selected');
+    jQuery(this).find('input[type="radio"]').prop("checked", true);
     
   });
 /*
@@ -428,35 +423,35 @@ if ($('.custom-business-expense-history-table').length) {
  * user automatically place under a user
  * -------------------------------------------------------------
 */  
- $('#auto-place-user').click(function (){
-    var sponsor = $('#current-user-id').val();
-    var uid     = $('#seleted-user-id').val();
-    var choose_sponsor  = $('#choose-parent').val();
+ jQuery('#auto-place-user').click(function (){
+    var sponsor = jQuery('#current-user-id').val();
+    var uid     = jQuery('#seleted-user-id').val();
+    var choose_sponsor  = jQuery('#choose-parent').val();
     if ( choose_sponsor ) {
       sponsor = choose_sponsor.match(/\((\d+)\)/)[1];
     }
     
-    $.ajax({
+    jQuery.ajax({
       type :'POST',
       data : {
         action:'afl_auto_place_user_ajax',
         sponsor : sponsor,
-        uid     : $('#seleted-user-id').val(),
-        tree_mode : $('#tree-mode').val(),
+        uid     : jQuery('#seleted-user-id').val(),
+        tree_mode : jQuery('#tree-mode').val(),
       },
       url:ajax_object.ajaxurl,
       beforeSend:function(){
           for(var i = 1; i <=100 ; i++){
-            $('.progress').css('width',i+'%');
+            jQuery('.progress').css('width',i+'%');
           }
       },
       complete:function(){
-        $('.progress').css('width','100%');
+        jQuery('.progress').css('width','100%');
 
       },
       success: function(data){
-        $('.progress').css('width','100%');
-        $('.notification').html('Completed');
+        jQuery('.progress').css('width','100%');
+        jQuery('.notification').html('Completed');
 
         setTimeout(function() { window.location.reload(true); }, 500 );
       }
@@ -474,28 +469,28 @@ if ($('.custom-business-expense-history-table').length) {
  * -------------------------------------------------------------
 */
 function expandMatrixTree(obj) {
-  $(obj).find('i').toggleClass('fa-times-circle fa-plus-circle');
-    var $uid = $(obj).attr('data-user-id');
+  jQuery(obj).find('i').toggleClass('fa-times-circle fa-plus-circle');
+    var jQueryuid = jQuery(obj).attr('data-user-id');
 
-    if($(obj).find('i').hasClass('fa-plus-circle')){
-      $('.append-child-'+$uid).html('');
-      $(obj).parent().parent().removeClass('hv-item-parent');
+    if(jQuery(obj).find('i').hasClass('fa-plus-circle')){
+      jQuery('.append-child-'+jQueryuid).html('');
+      jQuery(obj).parent().parent().removeClass('hv-item-parent');
 
     } else{
-      $(obj).parent().parent().addClass('hv-item-parent');
+      jQuery(obj).parent().parent().addClass('hv-item-parent');
 
-      if ($uid != undefined) {
-        $.ajax({
+      if (jQueryuid != undefined) {
+        jQuery.ajax({
           type :'POST',
           data : {
             action:'afl_user_expand_genealogy',
-            uid:$uid,
+            uid:jQueryuid,
           },
           url:ajax_object.ajaxurl,
           success: function(data){
             if (data.length) {
-              $(data).hide().appendTo('.append-child-'+$uid).fadeIn(1000);
-              // $('.append-child-'+$uid).append(data).fadeIn('slow');
+              jQuery(data).hide().appendTo('.append-child-'+jQueryuid).fadeIn(1000);
+              // jQuery('.append-child-'+jQueryuid).append(data).fadeIn('slow');
             }
           }
         });
@@ -508,28 +503,28 @@ function expandMatrixTree(obj) {
  * -------------------------------------------------------------
 */
 function expandUnilevelTree(obj) {
-  $(obj).find('i').toggleClass('fa-times-circle fa-plus-circle');
-    var $uid = $(obj).attr('data-user-id');
+  jQuery(obj).find('i').toggleClass('fa-times-circle fa-plus-circle');
+    var jQueryuid = jQuery(obj).attr('data-user-id');
 
-    if($(obj).find('i').hasClass('fa-plus-circle')){
-      $('.append-child-'+$uid).html('');
-      $(obj).parent().parent().removeClass('hv-item-parent');
+    if(jQuery(obj).find('i').hasClass('fa-plus-circle')){
+      jQuery('.append-child-'+jQueryuid).html('');
+      jQuery(obj).parent().parent().removeClass('hv-item-parent');
 
     } else{
-      $(obj).parent().parent().addClass('hv-item-parent');
+      jQuery(obj).parent().parent().addClass('hv-item-parent');
 
-      if ($uid != undefined) {
-        $.ajax({
+      if (jQueryuid != undefined) {
+        jQuery.ajax({
           type :'POST',
           data : {
             action:'afl_unilevel_user_expand_genealogy',
-            uid:$uid,
+            uid:jQueryuid,
           },
           url:ajax_object.ajaxurl,
           success: function(data){
             if (data.length) {
-              $(data).hide().appendTo('.append-child-'+$uid).fadeIn(1000);
-              // $('.append-child-'+$uid).append(data).fadeIn('slow');
+              jQuery(data).hide().appendTo('.append-child-'+jQueryuid).fadeIn(1000);
+              // jQuery('.append-child-'+jQueryuid).append(data).fadeIn('slow');
             }
           }
         });
@@ -544,28 +539,28 @@ function expandUnilevelTree(obj) {
  * -------------------------------------------------------------
 */
   function expandToggleMatrixTree(obj) {
-    $(obj).find('i').toggleClass('fa-times-circle fa-plus-circle');
-      var $uid = $(obj).attr('data-user-id');
+    jQuery(obj).find('i').toggleClass('fa-times-circle fa-plus-circle');
+      var jQueryuid = jQuery(obj).attr('data-user-id');
 
-      if($(obj).find('i').hasClass('fa-plus-circle')){
-        $('.append-child-'+$uid).html('');
-        $(obj).parent().parent().removeClass('hv-item-parent');
+      if(jQuery(obj).find('i').hasClass('fa-plus-circle')){
+        jQuery('.append-child-'+jQueryuid).html('');
+        jQuery(obj).parent().parent().removeClass('hv-item-parent');
 
       } else{
-        $(obj).parent().parent().addClass('hv-item-parent');
+        jQuery(obj).parent().parent().addClass('hv-item-parent');
 
-        if ($uid != undefined) {
-          $.ajax({
+        if (jQueryuid != undefined) {
+          jQuery.ajax({
             type :'POST',
             data : {
               action:'afl_user_expand_toggle_genealogy',
-              uid:$uid,
+              uid:jQueryuid,
             },
             url:ajax_object.ajaxurl,
             success: function(data){
               if (data.length) {
-                $(data).hide().appendTo('.append-child-'+$uid).fadeIn(1000);
-                // $('.append-child-'+$uid).append(data).fadeIn('slow');
+                jQuery(data).hide().appendTo('.append-child-'+jQueryuid).fadeIn(1000);
+                // jQuery('.append-child-'+jQueryuid).append(data).fadeIn('slow');
               }
             }
           });
@@ -578,28 +573,28 @@ function expandUnilevelTree(obj) {
  * -------------------------------------------------------------
 */
   function expandToggleUnilevelTree(obj) {
-    $(obj).find('i').toggleClass('fa-times-circle fa-plus-circle');
-      var $uid = $(obj).attr('data-user-id');
+    jQuery(obj).find('i').toggleClass('fa-times-circle fa-plus-circle');
+      var jQueryuid = jQuery(obj).attr('data-user-id');
 
-      if($(obj).find('i').hasClass('fa-plus-circle')){
-        $('.append-child-'+$uid).html('');
-        $(obj).parent().parent().removeClass('hv-item-parent');
+      if(jQuery(obj).find('i').hasClass('fa-plus-circle')){
+        jQuery('.append-child-'+jQueryuid).html('');
+        jQuery(obj).parent().parent().removeClass('hv-item-parent');
 
       } else{
-        $(obj).parent().parent().addClass('hv-item-parent');
+        jQuery(obj).parent().parent().addClass('hv-item-parent');
 
-        if ($uid != undefined) {
-          $.ajax({
+        if (jQueryuid != undefined) {
+          jQuery.ajax({
             type :'POST',
             data : {
               action:'afl_unilevel_user_expand_toggle_genealogy',
-              uid:$uid,
+              uid:jQueryuid,
             },
             url:ajax_object.ajaxurl,
             success: function(data){
               if (data.length) {
-                $(data).hide().appendTo('.append-child-'+$uid).fadeIn(1000);
-                // $('.append-child-'+$uid).append(data).fadeIn('slow');
+                jQuery(data).hide().appendTo('.append-child-'+jQueryuid).fadeIn(1000);
+                // jQuery('.append-child-'+jQueryuid).append(data).fadeIn('slow');
               }
             }
           });
@@ -613,8 +608,8 @@ function expandUnilevelTree(obj) {
 */
 
  function inform_error (id = '') {
-  $('#'+id).addClass('required error');
-  $('#'+id).parent('div').addClass('has-error');
+  jQuery('#'+id).addClass('required error');
+  jQuery('#'+id).parent('div').addClass('has-error');
  }
 
 /*
@@ -623,8 +618,8 @@ function expandUnilevelTree(obj) {
  * -------------------------------------------------------------
 */
   function progressBarIncrement () {
-    var width   = $('.progress-bar').css('width');
-    parentWidth = $('.progress-bar').offsetParent().width(),
+    var width   = jQuery('.progress-bar').css('width');
+    parentWidth = jQuery('.progress-bar').offsetParent().width(),
     
     
     percent = Math.round(100 * parseInt(width) / parseInt(parentWidth));
@@ -633,10 +628,10 @@ function expandUnilevelTree(obj) {
       percent = 1;
     
     if (percent <= 98) {
-       $('#message').html('authenticating API....');
-       $("#progress").html('<div class="progress-bar" role="progressbar"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>');
-       $('.progress-bar').css('transition-duration','300ms');
-       $('.progress-bar').css( 'width' ,percent+'%');
+       jQuery('#message').html('authenticating API....');
+       jQuery("#progress").html('<div class="progress-bar" role="progressbar"  aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>');
+       jQuery('.progress-bar').css('transition-duration','300ms');
+       jQuery('.progress-bar').css( 'width' ,percent+'%');
     }
   }
 /*
@@ -646,10 +641,10 @@ function expandUnilevelTree(obj) {
 */
   function _toggle_holding_node_left(object){
     console.log('sss');
-    var toggle_left_id = $(object).attr('data-toggle-uid');
-    var sponsor        = $('#sponsor').val(); 
-    var tree           = $('#tree').val();
-    $.ajax({
+    var toggle_left_id = jQuery(object).attr('data-toggle-uid');
+    var sponsor        = jQuery('#sponsor').val(); 
+    var tree           = jQuery('#tree').val();
+    jQuery.ajax({
       type :'POST',
       data : {
         action:'afl_user_holding_genealogy_toggle_left',
@@ -662,9 +657,9 @@ function expandUnilevelTree(obj) {
       success: function(data){
          data = JSON.parse(data);
         if (data!=null) {
-         $('.toggle-save-placement-button').attr('data-toggle-uid',data.uid)
+         jQuery('.toggle-save-placement-button').attr('data-toggle-uid',data.uid)
          html_tag = _theme_toggle_holding_genealogy_user(data);
-         $(object).parent('.toggle-user-placement-toggle-area').html(html_tag);
+         jQuery(object).parent('.toggle-user-placement-toggle-area').html(html_tag);
         }
       }
     });
@@ -675,11 +670,11 @@ function expandUnilevelTree(obj) {
  * -------------------------------------------------------------
 */
   function _toggle_holding_node_right(object){
-    var toggle_right_id = $(object).attr('data-toggle-uid');
-    var sponsor         = $('#sponsor').val(); 
-    var tree            = $('#tree').val();
+    var toggle_right_id = jQuery(object).attr('data-toggle-uid');
+    var sponsor         = jQuery('#sponsor').val(); 
+    var tree            = jQuery('#tree').val();
     
-      $.ajax({
+      jQuery.ajax({
         type :'POST',
         data : {
           action:'afl_user_holding_genealogy_toggle_right',
@@ -692,9 +687,9 @@ function expandUnilevelTree(obj) {
         success: function(data){
             data = JSON.parse(data);
           if (data!=null) {
-            $('.toggle-save-placement-button').attr('data-toggle-uid',data.uid)
+            jQuery('.toggle-save-placement-button').attr('data-toggle-uid',data.uid)
             html_tag = _theme_toggle_holding_genealogy_user(data);
-            $(object).parent('.toggle-user-placement-toggle-area').html(html_tag);
+            jQuery(object).parent('.toggle-user-placement-toggle-area').html(html_tag);
           }
         }
       });
@@ -705,16 +700,16 @@ function expandUnilevelTree(obj) {
  * -------------------------------------------------------------
 */
   function _toggle_holding_node_place(object){
-    var place_holding_uid       = $(object).attr('data-toggle-uid');
-    var place_holding_parent    = $(object).attr('data-toggle-parent');
-    var place_holding_position  = $(object).attr('data-toggle-position');
-    var tree_mode               = $('#tree').val(); 
-    var sponsor                 = $('#sponsor').val(); 
+    var place_holding_uid       = jQuery(object).attr('data-toggle-uid');
+    var place_holding_parent    = jQuery(object).attr('data-toggle-parent');
+    var place_holding_position  = jQuery(object).attr('data-toggle-position');
+    var tree_mode               = jQuery('#tree').val(); 
+    var sponsor                 = jQuery('#sponsor').val(); 
     if ( place_holding_uid == 0) {
       alert('Please choose a holding user.');
       return false;
     }
-    $.confirm({
+    jQuery.confirm({
       title: 'Confirm',
       content: 'Really you want to place the holding user to this parent?',
       icon: 'fa fa-question-circle',
@@ -726,7 +721,7 @@ function expandUnilevelTree(obj) {
             text: 'Proceed',
             btnClass: 'btn-blue',
             action: function () {
-              $.ajax({
+              jQuery.ajax({
                 type :'POST',
                 data : {
                   action:'afl_place_user_from_tank',
@@ -740,7 +735,7 @@ function expandUnilevelTree(obj) {
                 success: function(data){
                   var data = JSON.parse(data);
                   if (data['status'] == 1) {
-                    $.alert('Success. the member has been placed successfully.');
+                    jQuery.alert('Success. the member has been placed successfully.');
                   }
                    setTimeout(function() { window.location.reload(true); }, 500 );
                 }

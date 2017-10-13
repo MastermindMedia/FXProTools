@@ -7,7 +7,7 @@
       <div class="region region-title-extra">
         
         <?php if( eps_is_admin()): ?>
-
+          
         <div id="block-afl-widgets-afl-bwallet-income" class="block block-afl-widgets contextual-links-region clearfix">
         </div> 
 

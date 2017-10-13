@@ -32,49 +32,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 	return;
 }
  
-add_filter( 'woocommerce_checkout_fields' , 'custom_override_checkout_fields1' );
-function custom_override_checkout_fields1( $fields ) {
-	unset($fields['order']['order_comments']);
-	unset($fields['billing']['billing_address_2']);
-	unset($fields['billing']['billing_company']);
-    return $fields;
-}
 
-/* WooCommerce: The Code Below Removes The Additional Information Tab */
-add_filter( 'woocommerce_product_tabs', 'woo_remove_product_tabs', 98 );
-function woo_remove_product_tabs( $tabs ) {
-	unset( $tabs['additional_information'] );
-	return $tabs;
-}
-
-add_filter('woocommerce_product_additional_information_heading', 'isa_product_additional_information_heading');
-function isa_product_additional_information_heading() {
-    echo '';
-}
-
-add_filter("woocommerce_checkout_fields", "custom_override_checkout_fields2", 1);
-function custom_override_checkout_fields2($fields) {
-    $fields['billing']['billing_first_name']['priority'] = 1;
-    $fields['billing']['billing_last_name']['priority'] = 2;
-    $fields['billing']['billing_email']['priority'] = 3;
-    $fields['billing']['billing_phone']['priority'] = 4;
-    $fields['billing']['billing_state']['priority'] = 5;
-    $fields['billing']['billing_address_1']['priority'] = 6;
-    $fields['billing']['billing_address_2']['priority'] = 7;
-    $fields['billing']['billing_city']['priority'] = 8;
-    $fields['billing']['billing_postcode']['priority'] = 9;
-    $fields['billing']['billing_company']['priority'] = 10;
-    $fields['billing']['billing_country']['priority'] = 11;
-    return $fields;
-}
-
-add_filter( 'woocommerce_default_address_fields', 'custom_override_default_locale_fields' );
-function custom_override_default_locale_fields( $fields ) {
-    $fields['email']['priority'] = 3;
-    $fields['address_1']['priority'] = 6;
-    $fields['address_2']['priority'] = 7;
-    return $fields;
-}
 
 ?>
 
@@ -229,32 +187,26 @@ function custom_override_default_locale_fields( $fields ) {
 </div>
 
 <?php  
+	$subscriptions = get_recent_subscriptions( 15 );
+	$orders = array();
 
-	$recent_orders = get_posts( array(
-	        'post_type' => 'shop_order', 
-	        'post_status' => 'wc-completed',
-	        'numberposts' => 15
-	) );
-	$customer_recent_orders = array();
-	$counter = 0;
-
-	foreach($recent_orders as $recent_order){
-		$order = new WC_Order( $recent_order->ID );
-		$items = $order->get_items();
+	foreach($subscriptions as $s){
+		$items = $s->get_items();
 	    foreach( $items as $item ) {
-			$customer_recent_orders[$counter]['image'] = "https://s3.amazonaws.com/da-my/proof/229/map_229448.png";
-			$customer_recent_orders[$counter]['name'] = get_user_meta($order->get_user_id(), 'first_name',true) . ' ' . get_user_meta($order->get_user_id(), 'last_name',true) . ', ' . get_user_meta($order->get_user_id(), 'billing_city',true) . ', ' . get_user_meta($order->get_user_id(), 'billing_state',true);
-			$customer_recent_orders[$counter]['activity'] = "Recently ordered " . $item['name'];
-			$customer_recent_orders[$counter]['time'] = random_checkout_time_elapsed();
-			$counter++;
+	    	$place = $s->get_billing_city() . ', ' . $s->get_billing_state();
+			$orders[] = array ( 'image' => 	"https://maps.googleapis.com/maps/api/staticmap?center=" . urlencode( $place ) . "&zoom=13&size=120x120&maptype=roadmap&key=AIzaSyAMRPELYMjUR8a0q0UArdw8oLRYrjuLA6o" ,
+								'name' 	=>  $s->get_billing_first_name() . ' ' . $s->get_billing_last_name() . ', '. $place,
+								'activity' => "Recently ordered " . $item['name'],
+								'time' => random_checkout_time_elapsed()
+						);
 	    }
 	}
 	?>
 
 	<script type="text/javascript">
 		jQuery(document).ready(function(){
-			var customer_notif = <?php echo json_encode($customer_recent_orders) ?>;
-			var customer_size = customer_notif.length;
+			var notifications = <?php echo json_encode($orders) ?>;
+			var customer_size = notifications.length;
 			var counter = 1;
 
 			jQuery('[data-toggle="popover"]').popover(); 
@@ -267,14 +219,14 @@ function custom_override_default_locale_fields( $fields ) {
 				new Noty({
 					type: 'alert',
 					layout: 'bottomLeft',
-				    text: '<div class="customer-notif"><img src="'+ customer_notif[customer_index].image +'"><div class="customer-notif-main"><div class="customer-name">'+ customer_notif[customer_index].name +'</div><div class="customer-activity">'+ customer_notif[customer_index].activity +'</div><div class="customer-time">'+ customer_notif[customer_index].time +'</div></div></div>',
+				    text: '<div class="customer-notif"><img src="'+ notifications[customer_index].image +'"><div class="customer-notif-main"><div class="customer-name">'+ notifications[customer_index].name +'</div><div class="customer-activity">'+ notifications[customer_index].activity +'</div><div class="customer-time">'+ notifications[customer_index].time +'</div></div></div>',
 				    theme: 'relax',
 				    progressBar: false,
 				    timeout: 7000,
 				    visibilityControl: false
 				}).show();
 				counter++;
-			},10000);
+			},7000);
 		});
 	</script>
 

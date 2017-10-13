@@ -48,13 +48,26 @@ class Apyc_Modal{
 	public function init(){
 		$data = array();
 		$data['webinars'] = Apyc_Citrix_GoToWebinar_GetAll::get_instance()->query();
-		Apyc_View::get_instance()->view_theme('inc/Apyc/view/modal.php', $data);
+		Apyc_View::get_instance()->view_theme('inc/templates/modal.php', $data);
 	}
 	
 	public function get_webinars(){
 		$data = array();
-		$data['webinars'] = Apyc_Citrix_GoToWebinar_GetAll::get_instance()->query();
-		Apyc_View::get_instance()->view_theme('inc/Apyc/view/modal-ajax-data.php', $data);
+
+		$webinars = apyc_get_webinar_free();
+		$data['webinars'] = $webinars;
+
+		if( is_array($webinars)
+			&& !empty($webinars)
+		){
+			Apyc_View::get_instance()->view_theme('inc/templates/modal-ajax-data.php', $data);
+		}else{
+			$ret = array(
+				'status' => 'no-webinar',
+				'msg' => 'No Webinar'
+			);
+			echo json_encode($ret);
+		}
 		wp_die();
 	}
 	
@@ -91,7 +104,7 @@ class Apyc_Modal{
 	
 	public function equeue_scripts(){
 		global $theme_version;
-		wp_enqueue_script('modal-js-script', get_bloginfo('template_url').'/inc/Apyc/js/modal.js', $theme_version);
+		wp_enqueue_script('modal-js-script', get_bloginfo('template_url').'/assets/js/modal.js', $theme_version);
 	}
 	
 	public function __construct() {

@@ -7,6 +7,10 @@ function afl_downline_members() {
 }
 
 function afl_downline_members_callback(){
+
+		new Afl_enque_scripts('common');
+
+		
 	do_action('afl_my_distributors_count_template');
 	do_action('afl_my_customers_count_template');
 	

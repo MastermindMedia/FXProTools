@@ -8,7 +8,7 @@
 
 function get_courses_by_product_id($product_id)
 {
-	$courses_ids = get_post_meta($product_id , '_related_course'); 
+	$courses_ids = get_post_meta($product_id , '_related_course');
 	$courses     = array();
 	if($courses_ids){
 		foreach($courses_ids as $id){
@@ -114,7 +114,7 @@ function get_course_lesson_progress($course_id, $lesson_id)
 
 function get_lesson_parent_course($lesson_id)
 {
-	$course_id = get_post_meta($lesson_id , 'course_id',true); 
+	$course_id = get_post_meta($lesson_id , 'course_id',true);
 	$course = get_post($course_id);
 	return !$course ? false : $course;
 }
@@ -128,7 +128,7 @@ function get_course_category_children($course_cat_id)
 		    'taxonomy'   => 'ld_course_category',
 		    'include'    => $children_ids,
 		    'hide_empty' => false,
-		) ); 
+		) );
 		return !$child_categories ? false: $child_categories;
 	} else{
 		return false;
@@ -185,8 +185,8 @@ function get_property_count($array, $property, $url)
 
 function date_is_in_range($date_from, $date_to, $date)
 {
-	$start_ts = strtotime($date_from); 
- 	$end_ts = strtotime($date_to); 
+	$start_ts = strtotime($date_from);
+ 	$end_ts = strtotime($date_to);
 	$ts = strtotime($date);
  	return (($ts >= $start_ts) && ($ts <= $end_ts));
 }
@@ -229,10 +229,10 @@ function get_funnel_stats($funnel_id, $date_filter = array())
 	//sales
 	$cp_stats['sales']['count'] = get_property_count($visits, 'referral_id', $funnel['cp_url']);
 	$cp_stats['sales']['rate'] = $cp_stats['sales']['count'] < 1 ? 0 :  round( $cp_stats['sales']['count'] / $cp_stats['page_views']['all'] * 100, 2);
-	
+
 	$lp_stats['sales']['count'] = get_property_count($visits, 'referral_id', $funnel['lp_url']);
 	$lp_stats['sales']['rate'] = $lp_stats['sales']['count'] < 1 ? 0 :  round( $lp_stats['sales']['count'] / $lp_stats['page_views']['all'] * 100, 2);
-	
+
 	$stats = array( 'capture' => $cp_stats,
 					'landing' => $lp_stats,
 					'totals' => $sales_stats,
@@ -306,11 +306,11 @@ function get_user_referrals()
 	}
 }
 
-function random_checkout_time_elapsed(  $full = false) 
+function random_checkout_time_elapsed(  $full = false)
 {
     $now = new DateTime;
     $ago = new DateTime;
-    $ago->modify("-" .  mt_rand(15, 3600) . " seconds"); 
+    $ago->modify("-" .  mt_rand(15, 3600) . " seconds");
     $diff = $now->diff($ago);
     $diff->w = floor($diff->d / 7);
     $diff->d -= $diff->w * 7;
@@ -335,7 +335,7 @@ function random_checkout_time_elapsed(  $full = false)
     return $string ? implode(', ', $string) . ' ago' : 'just now';
 }
 
-function is_lesson_progression_enabled($course_id) 
+function is_lesson_progression_enabled($course_id)
 {
 	$meta = get_post_meta( $course_id, '_sfwd-courses' );
 	return empty( $meta[0]['sfwd-courses_course_disable_lesson_progression'] );
@@ -367,7 +367,7 @@ function forced_lesson_time()
 			$time = (int)$timeval;
 		}
 	}
-	
+
 	if ( !empty( $time ) ) {
 		$button_disabled = " disabled='disabled' ";
 		echo '<script>
@@ -378,28 +378,24 @@ function forced_lesson_time()
 				input#learndash_mark_complete_button[disabled] {     color: #333;    background: #ccc;    border-color: #ccc;}
 			</style>';
 		return $button_disabled;
-	} 
+	}
 }
 
 function get_trial_end_date()
 {
 	$subscriptions = wcs_get_users_subscriptions();
-	foreach($subscriptions as $s){
-		
-		if( $s->get_parent_id() ){
-			$order = $s->get_parent();
-		    $items = $order->get_items();
 
+	foreach($subscriptions as $s){
+		if( $s->has_status('active') ){
+			$items = $s->get_items();
 		    foreach($items as $key => $item){
 		    	$subscription_type = wc_get_order_item_meta($key, 'subscription-type', true);
-		    	
 		    	if($subscription_type == 'trial'){
 					$subscription = wcs_get_subscription( $s->get_id() );
 					return $subscription->get_date( 'end' );
 		    	}
 		    }
 		}
-		
 	}
 	return 0;
 }
@@ -420,9 +416,9 @@ function is_user_fx_customer()
 	foreach($subscription_products as $s){
 		if( wcs_user_has_subscription( '', $s, 'active') ){
 			return true;
-		} 
+		}
 	}
-	return false;  
+	return false;
 }
 
 
@@ -432,9 +428,9 @@ function is_user_fx_distributor()
 	foreach($subscription_products as $s){
 		if( wcs_user_has_subscription( '', $s, 'active') ){
 			return true;
-		} 
+		}
 	}
-	return false;  
+	return false;
 }
 
 function user_has_autotrader()
@@ -456,7 +452,7 @@ function get_customer_orders($user_id)
 	$customer_orders=get_posts( array(
 	        'meta_key' => '_customer_user',
 	        'meta_value' => $customer_user_id,
-	        'post_type' => 'shop_order', 
+	        'post_type' => 'shop_order',
 	        'post_status' => $order_statuses,
 	        'numberposts' => -1
 	) );
@@ -554,22 +550,23 @@ function get_query_string()
 	return $string;
 }
 
+function get_recent_subscriptions ($limit = 15)
+{
+	$subscriptions = get_posts( array(
+        'post_type' => 'shop_subscription',
+        'post_status' => array( 'wc-processing', 'wc-completed', 'wc-expired', 'wc-on-hold' ),
+        'numberposts' => $limit,
+        'posts_per_page' => $limit
+	) );
+	$subscription_list = array();
+	foreach($subscriptions as $s){
+		$subscription_list[] = wc_get_order( $s->ID );
+	}
+	return $subscription_list;
+}
 /* -------------------------
 	Actions and Filters
  --------------------------*/
-
-add_action('wp_ajax_nopriv_lms_lesson_complete', 'lms_lesson_complete');
-add_action('wp_ajax_lms_lesson_complete', 'lms_lesson_complete');
-function lms_lesson_complete()
-{
-	$user_id = get_current_user_id();
-	$lesson_id = $_POST['lesson_id'];
-
-	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
-		echo learndash_is_lesson_complete( $user_id , $lesson_id );
-	}
-	wp_die();
-}
 
 add_action('wp', 'enforce_page_access');
 function enforce_page_access()
@@ -578,7 +575,7 @@ function enforce_page_access()
 	if( !isset($post) ) return;
 	$slug = $post->post_name;
 	$guest_allowed_post_type = array( 'product' );
-	$guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'funnels', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4' );
+	$guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'funnels', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'autologin' );
 
 	if( is_user_logged_in() ) return 0;
 	if( !is_product() && !is_cart() && !is_checkout() && !is_shop() && !is_404() && !is_front_page() ) {
@@ -622,7 +619,7 @@ add_action('user_register', 'register_user_checklist');
 function register_user_checklist($user_id)
 {
 	$checklist = array(
-		'verified_email' 	=> false, 
+		'verified_email' 	=> false,
 		'verified_profile'	=> false,
 		'scheduled_webinar'	=> false,
 		'accessed_products' => false,
@@ -662,18 +659,23 @@ function disable_affiliate_welcome_email()
 add_action('wp', 'track_user_history');
 function track_user_history()
 {
-	//delete_user_meta(get_current_user_id(), "track_user_history");
-    $track_user_history = get_user_meta( get_current_user_id(), "track_user_history" )[0];
-    if(!$track_user_history){
-    	$track_user_history = array();
-    }
-    $data = array(
-    	'time' => date("Y-m-d h:i:sa"),
-    	'link' => get_the_permalink(),
-    	'title' => get_the_title()
-    );
-    array_push($track_user_history, $data);
-	update_user_meta(get_current_user_id(), 'track_user_history', $track_user_history);
+	if( is_user_logged_in() ){
+		//delete_user_meta(get_current_user_id(), "track_user_history");
+		$track_user_history = get_user_meta( get_current_user_id(), "track_user_history", true );
+		$track_user_history = $track_user_history  ? $track_user_history : array();
+	    $link = '<a href="'. get_the_permalink() .'">' . get_the_permalink() . '</a>';
+	    if( isset($_POST['user_login']) ){
+	    	$link = $link . " " . get_the_author_meta('first_name', get_current_user_id()) . " " . get_the_author_meta('last_name', get_current_user_id()) . " changed his username to " . $_POST['user_login'];
+	    }
+	    $data = array(
+	    	'time' => date("Y-m-d h:i:sa"),
+	    	'link' => $link,
+	    	'title' => get_the_title()
+	    );
+	    array_push($track_user_history, $data);
+		update_user_meta(get_current_user_id(), 'track_user_history', $track_user_history);
+	}
+
 }
 
 add_action( 'show_user_profile', 'add_extra_profile_fields' );
@@ -710,4 +712,121 @@ function save_extra_profile_fields( $user_id ) {
 
 	update_usermeta( $user_id, 'user_sms_subs', $_POST['user_sms_subs'] );
 	update_usermeta( $user_id, 'user_email_subs', $_POST['user_email_subs'] );
+}
+
+add_action("wp_ajax_check_valid_username", "check_valid_username");
+add_action("wp_ajax_nopriv_check_valid_username", "check_valid_username");
+function check_valid_username()
+{
+	$new_username = $_REQUEST['new_username'];
+	if (validate_username($new_username) && !username_exists($new_username))
+	{
+		if(strlen($new_username) <= 30 && strlen($new_username) >= 3 && preg_match("/^([[:alnum:]])*$/", $new_username))
+		{
+			echo "1";
+		}
+		else
+		{
+			echo "2";
+		}
+	}
+	else{
+		if(!strlen($new_username) <= 30 || !strlen($new_username) >= 3 || !preg_match("/^([[:alnum:]])*$/", $new_username))
+		{
+			echo "2";
+		}
+		else
+		{
+			echo "0";
+		}
+	}
+
+	wp_die();
+}
+function sess_start() {
+    if (!session_id())
+    session_start();
+}
+add_action('init','sess_start');
+
+/**
+ * Use to render customized nav menus
+ * @param  string $mb_group_id metabox group id
+ * @author Austin N. <[austin.nicomedez@gmail.com]>
+ */
+function get_mb_nav($mb_group_id) {
+
+	$menus = rwmb_meta( $mb_group_id );
+
+	switch ( $mb_group_id ) {
+		case 'pto1_menus':
+
+			if( $menus !== '' ) :
+				$display_header_menu = array_key_exists('pto1_display_header_menu', $menus) ? $menus['pto1_display_header_menu'] : null;
+				$secondary_header_menu = array_key_exists('pto1_secondary_header_menu', $menus) ? $menus['pto1_secondary_header_menu'] : null;
+				if( $display_header_menu == 'yes' && !$secondary_header_menu == null ) :
+					$params = array(
+						'menu'            => $secondary_header_menu,
+						'theme_location'  => '',
+						'container'       => false,
+						'container_class' => '',
+						'container_id'    => '',
+						'menu_id'         => $secondary_header_menu,
+						'menu_class'      => 'fx-nav-options',
+						'echo'            => true,
+						'fallback_cb'     => 'wp_page_menu',
+						'before'          => '',
+						'after'           => '',
+						'link_before'     => '',
+						'link_after'      => '',
+						'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+						'depth'           => 0,
+						'walker'          => new Nav_Secondary_Header_Menu_Walker(),
+					);
+					wp_nav_menu( $params );
+				else :
+					$html = '<div class="alert alert-warning" role="alert">';
+					$html .= 'Menu is not yet selected.';
+					$html .= '</div>';
+					echo $html;
+				endif;
+			else :
+				$html2 = '<div class="alert alert-warning" role="alert">';
+				$html2 .= 'Default menu here.';
+				$html2 .= '</div>';
+				echo $html2;
+			endif;
+
+			break;
+
+		default:
+			# code...
+			break;
+	}
+}
+
+add_filter( 'woocommerce_breadcrumb_defaults', 'filter_woocommerce_breadcrumbs' );
+function filter_woocommerce_breadcrumbs() {
+	$link        = is_shop() ? get_permalink( wc_get_page_id( 'shop' ) ) : get_permalink();
+	$wrap_before = <<<HTML
+<div class="navbar fx-navbar-sub">
+    <ul class="fx-nav-options">
+        <li class="dashboard">
+            <a class="icon icon-share" href="{$link}">&nbsp;</a>
+        </li>
+HTML;
+
+	$wrap_after = <<<HTML
+    </ul>
+</div>
+HTML;
+
+	return array(
+		'delimiter'   => '',
+		'wrap_before' => $wrap_before,
+		'wrap_after'  => $wrap_after,
+		'before'      => '',
+		'after'       => '',
+		'home'        => _x( 'Home', 'breadcrumb', 'woocommerce' ),
+	);
 }

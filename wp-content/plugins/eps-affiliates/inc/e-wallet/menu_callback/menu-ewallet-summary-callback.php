@@ -38,6 +38,8 @@ function afl_ewallet_withdrawal_report(){
 }
 
 function afl_ewallet_summary_callback(){
+		new Afl_enque_scripts('common');
+
 		$uid = get_uid();
 		if (isset($_GET['uid'])) {
 			$uid = $_GET['uid'];
@@ -132,6 +134,8 @@ function afl_ewallet_summary_callback(){
  * ------------------------------------------------
 */
 function afl_ewallet_all_transactions_callback(){
+		new Afl_enque_scripts('common');
+
 		$uid = get_uid();
 		if (isset($_GET['uid'])) {
 			$uid = $_GET['uid'];
@@ -233,6 +237,9 @@ function afl_ewallet_all_transactions_callback(){
 
 
 function afl_ewallet_income_report_callback(){
+
+		new Afl_enque_scripts('common');
+
 		$uid = get_uid();
 		if (isset($_GET['uid'])) {
 			$uid = $_GET['uid'];
@@ -329,6 +336,9 @@ function afl_ewallet_income_report_callback(){
 
 
 function afl_ewallet_withdrawal_report_callback(){
+
+		new Afl_enque_scripts('common');
+	
 	$uid = get_uid();
 		if (isset($_GET['uid'])) {
 			$uid = $_GET['uid'];

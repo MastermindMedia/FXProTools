@@ -6,15 +6,55 @@ function afl_admin_test_codes(){
   echo afl_content_wrapper_begin();
 }
 
+
+function check_rank_achied() {
+ pr(_check_required_pv_meets(4021,2));
+ pr(_check_required_gv_meets(4021,2));
+ pr(_check_required_distributors_meets(4021,2));
+ pr(_check_required_qualifications_meets(4021,2));
+ pr(_check_required_customer_rule(4021,2));
+  
+}
+
 function afl_test_codes_callback () {
-  $args = array(
-    'uid' => 37,
-    'amount_paid' => 1,
-    'afl_point' => 0,
-    'category' =>'E-pin Purchase',
-    'order_id'=>2,
+   $uid = get_uid();
+  
+  if (isset($_POST['search_key'])) {
+    $search_key = $_POST['search_key'];
+  }
+
+  $response = array();
+
+  $tree = _table_name('afl_user_downlines');
+  if ( !empty($_POST['tree_mode']) && $_POST['tree_mode'] == 'unilevel') {
+    $tree = _table_name('afl_unilevel_user_downlines');
+  }
+
+  $query = array();
+  $query['#select']  = $tree;
+  $query['#join'] = array(
+    _table_name('users') => array(
+     '#condition'=> '`'._table_name('users').'`.`ID` = `'.$tree.'`.`downline_user_id` '
+    )
   );
- pr(apply_filters('eps_affiliates_epin_purchase_complete',37,'22RE7',$args));
+  // if (!eps_is_admin()) {
+    $query['#where'] = array(
+      '`'.$tree.'`.`uid` = '.$uid
+    );
+  // }
+  $query['#fields'] = array(
+    _table_name('users') => array('user_login','ID')
+  );
+  // $query['#expression'] = array(
+  //   'DISTINCT(`'._table_name('users').'`.`user_login`) as `user_login`'
+  // );
+  $result = db_select($query, 'get_results');
+  
+
+  foreach ($result as $key => $value) {
+    $response[] = array('name'=> ($value->user_login.' ('.$value->ID.')'));
+  }
+  pr($response);
 }
 
 

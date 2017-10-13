@@ -3,13 +3,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 /**
- * GotoWebinar Direct Login
- *
- *
- * @since 3.12
+ * This will auto created a page name 'sms'
  * @access (protected, public)
  * */
-class Apyc_Citrix_GoToWebinar_DirectLogin{
+class Apyc_SMSPage{
 	/**
 	 * instance of this class
 	 *
@@ -30,16 +27,10 @@ class Apyc_Citrix_GoToWebinar_DirectLogin{
      * */
     protected $vars = array();
 	
-	/**
-	The url endpoint
-	**/
-	protected $url = 'https://api.citrixonline.com/oauth/access_token';
+	public $page_title = 'SMS';
+	public $page_slug = 'sms';
 	
 	/**
-	**/
-	protected $grant_type = 'password';
-	
-    /**
 	 * Return an instance of this class.
 	 *
 	 * @since     1.0.0
@@ -64,29 +55,44 @@ class Apyc_Citrix_GoToWebinar_DirectLogin{
 
 		return self::$instance;
 	}
+	
 	/**
-	We will get the access token, which is valid for 356 days
+	* Check if slug exists
+	* @param	$post_name	string	name of the slug post
+	* @return $wpdb->get_row()
 	**/
-	public function login(){
-		$url = $this->url 
-			. '?grant_type=' . $this->grant_type 
-			. '&user_id=' . GOTOWEBINAR_USERID 
-			. '&password='. GOTOWEBINAR_PASSWORD 
-			. '&client_id=' . GOTOWEBINAR_CONSUMERKEY;
-		$response = wp_remote_get( $url );
-		if ( is_wp_error( $response ) ) {
-		   $error_message = $response->get_error_message();
-		   throw new Exception( $error_message );
+	public function isSlugExists($post_name){
+		global $wpdb;
+		if($wpdb->get_row("SELECT post_name FROM wp_posts WHERE post_name = '" . $post_name . "'", 'ARRAY_A')) {
+			return true;
 		} else {
-			$response_code = wp_remote_retrieve_response_code( $response );
-			$body = json_decode( wp_remote_retrieve_body( $response ) );
-			if( $response_code != 200 ){
-				throw new Exception( $body->int_err_code . ' - ' . $body->msg );
-			}
-			return $body;
+			return false;
 		}
 	}
 	
-	public function __construct() {}
+	/**
+	* Create page
+	* @see https://developer.wordpress.org/reference/functions/wp_insert_post/
+	* @return wp_insert_post
+	**/
+	public function createPage(){
+		$page_slug = $this->page_slug;
+		$page_title = $this->page_title;
+		$page_check = get_page_by_title($page_title);
+		$page = array(
+			'post_type' => 'page',
+			'post_title' => $page_title,
+			'post_status' => 'publish',
+			'post_slug' => 'sms'
+		);
+		if(!isset($page_check->ID) && !$this->isSlugExists($page_slug)){
+			return wp_insert_post($page);
+		}
+		return false;
+	}
+	
+	public function __construct() {
+		$this->createPage();
+	}
 
 }

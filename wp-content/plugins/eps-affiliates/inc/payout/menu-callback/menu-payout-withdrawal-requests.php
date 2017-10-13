@@ -33,6 +33,8 @@ function afl_payout_withdrawal_requests () {
 
 
 function afl_payout_withdrawal_request_active(){	
+		new Afl_enque_scripts('common');
+	
 	$affiliates_table = new Eps_withdraw_request_data_table();
 	?>
 			<div class="wrap">

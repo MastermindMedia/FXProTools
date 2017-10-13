@@ -8,7 +8,8 @@ function afl_network_direct_uplines () {
 }
 
 function afl_network_direct_uplines_callback () {
-		wp_register_style( 'zig-zag-timeline-cs',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/zigzag-timeline/Zigzagtimeline.css');
-		wp_enqueue_style( 'zig-zag-timeline-cs' );
+		new Afl_enque_scripts('eps-direct-uplines');
+		new Afl_enque_scripts('common');
+		
 		afl_get_template('plan/matrix/member-direct-uplines.php');
 }

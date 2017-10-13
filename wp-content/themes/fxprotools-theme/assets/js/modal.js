@@ -1,6 +1,13 @@
 var Modal = function(){
 	var ajax_url = fx;
-
+	function isJson(str) {
+		try {
+			JSON.parse(str);
+		} catch (e) {
+			return false;
+		}
+		return true;
+	}
 	function ajaxGetWebinar(){
 		var ajaxCall = $.ajax({
 		  method: "GET",
@@ -19,12 +26,22 @@ var Modal = function(){
 	}
 	return {
 		init:function(){
-			//$(document).on('click','#reserve-your-seat',function(e){
 			$('.webinar-modal-lg').on('shown.bs.modal', function (e) {
 				$('.ajax-webinars').html('<p>Getting Webinars, please wait...</p>');
 				$('.webinar-register-now').hide();
 				ajaxGetWebinar().done(function(data){
-					$('.ajax-webinars').html(data);
+					
+					if( isJson(data) ){
+						data = jQuery.parseJSON(data);
+						if( data.status == 'no-webinar' ){
+							$('.ajax-webinars').html('<p>' + data.msg + '</p>');
+						}
+						//console.log(data);
+					}else{
+						//console.log(data);
+						$('.ajax-webinars').html(data);
+					}
+					
 					//$('.webinar-register-now').show();
 				});
 			})

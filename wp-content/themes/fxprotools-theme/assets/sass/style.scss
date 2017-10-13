@@ -29,8 +29,8 @@ $green: #03ae78;
 // -------
 // Modules
 // -------
-@import '_helper'; // Helper Classes
-@import '_global'; // Global Styles
-@import '_common'; // Common Styles
-@import '_forms';  // Form Styles
-@import '_custom'; // All custom styles that are not common to other pages
+@import '_helper';     // Helper Classes
+@import '_global';     // Global Styles
+@import '_common';     // Common Styles
+@import '_navigation'; // Navigation Styles
+@import '_custom';     // All custom styles that are not common to other pages

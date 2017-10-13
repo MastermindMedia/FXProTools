@@ -1,10 +1,10 @@
-$(document).ready(function() {
+jQuery(document).ready(function() {
 	/*
  	 * --------------------------------------------------
 	 * Downline members
  	 * --------------------------------------------------
 	*/
-	 if ($('#afl-widgets-afl-downline-members-panel').length) {
+	 if (jQuery('#afl-widgets-afl-downline-members-panel').length) {
 	 	eps_dashboard_panel_grid(
 	 		'#afl-widgets-afl-downline-members-panel',
 	 		'afl_user_downlines_count'
@@ -16,7 +16,7 @@ $(document).ready(function() {
 	 * E-wallet
  	 * --------------------------------------------------
 	*/
-	 if ($('#afl-widgets-afl-e-wallet').length) {
+	 if (jQuery('#afl-widgets-afl-e-wallet').length) {
 	 	eps_dashboard_panel_grid(
 	 		'#afl-widgets-afl-e-wallet',
 	 		'afl_user_e_wallet'
@@ -27,7 +27,7 @@ $(document).ready(function() {
 	 * income and Credits
  	 * --------------------------------------------------
 	*/
-	 if ($('#afl-widgets-afl-total-credits').length) {
+	 if (jQuery('#afl-widgets-afl-total-credits').length) {
 	 	eps_dashboard_panel_grid(
 	 		'#afl-widgets-afl-total-credits',
 	 		'afl_user_total_credits'
@@ -38,7 +38,7 @@ $(document).ready(function() {
 	 * Expense and Debits
  	 * --------------------------------------------------
 	*/
-	 if ($('#afl-widgets-afl-total-debits').length) {
+	 if (jQuery('#afl-widgets-afl-total-debits').length) {
 	 	eps_dashboard_panel_grid(
 	 		'#afl-widgets-afl-total-debits',
 	 		'afl_user_total_debits'
@@ -49,7 +49,7 @@ $(document).ready(function() {
 	 * e-wallet sum
  	 * --------------------------------------------------
 	*/
-	 if ($('#afl-widgets-afl-ewallet-sum-panel').length) {
+	 if (jQuery('#afl-widgets-afl-ewallet-sum-panel').length) {
 	 	eps_dashboard_panel_grid_full_width(
 	 		'#afl-widgets-afl-ewallet-sum-panel',
 	 		'afl_user_e_wallet_sum'
@@ -60,7 +60,7 @@ $(document).ready(function() {
 	 * B-wallet income
  	 * --------------------------------------------------
 	*/
-	 if ($('#block-afl-widgets-afl-bwallet-income').length) {
+	 if (jQuery('#block-afl-widgets-afl-bwallet-income').length) {
 	 	eps_business_panel_blocks(
 	 		'#block-afl-widgets-afl-bwallet-income',
 	 		'afl_b_wallet_income'
@@ -71,7 +71,7 @@ $(document).ready(function() {
 	 * B-wallet expense
  	 * --------------------------------------------------
 	*/
-	 if ($('#block-afl-widgets-afl-bwallet-expenses').length) {
+	 if (jQuery('#block-afl-widgets-afl-bwallet-expenses').length) {
 	 	eps_business_panel_blocks(
 	 		'#block-afl-widgets-afl-bwallet-expenses',
 	 		'afl_b_wallet_expense'
@@ -83,7 +83,7 @@ $(document).ready(function() {
 	 * B-wallet balance
  	 * --------------------------------------------------
 	*/
-	 if ($('#block-afl-widgets-afl-bwallet-balance').length) {
+	 if (jQuery('#block-afl-widgets-afl-bwallet-balance').length) {
 	 	eps_business_panel_blocks(
 	 		'#block-afl-widgets-afl-bwallet-balance',
 	 		'afl_b_wallet_balance'
@@ -95,7 +95,7 @@ $(document).ready(function() {
 	 * User rank
  	 * --------------------------------------------------
 	*/
-	 if ($('#block-afl-widgets-afl-member-rank').length) {
+	 if (jQuery('#block-afl-widgets-afl-member-rank').length) {
 	 	eps_render_template(
 	 		'#block-afl-widgets-afl-member-rank',
 	 		'afl_member_rank'
@@ -107,7 +107,7 @@ $(document).ready(function() {
 	 * E-wallet transactions chart
  	 * --------------------------------------------------
 	*/
-		if ($('#afl-widgets-afl-e-wallet-transaction-chart').length) {
+		if (jQuery('#afl-widgets-afl-e-wallet-transaction-chart').length) {
 	 	eps_high_charts(
 	 		'#afl-widgets-afl-e-wallet-transaction-chart',
 	 		'afl_e_wallet_transaction_chart'
@@ -118,7 +118,7 @@ $(document).ready(function() {
 	 * E-wallet summary
  	 * --------------------------------------------------
 	*/
-		if ($('#afl-widgets-afl-e-wallet-summary').length) {
+		if (jQuery('#afl-widgets-afl-e-wallet-summary').length) {
 	 	eps_render_template(
 	 		'#afl-widgets-afl-e-wallet-summary',
 	 		'afl_e_wallet_summary'
@@ -130,7 +130,7 @@ $(document).ready(function() {
 	 * B-wallet transactions chart
  	 * --------------------------------------------------
 	*/
-		if ($('#afl-widgets-afl-b-wallet-transaction-chart').length) {
+		if (jQuery('#afl-widgets-afl-b-wallet-transaction-chart').length) {
 	 	eps_high_charts(
 	 		'#afl-widgets-afl-b-wallet-transaction-chart',
 	 		'afl_b_wallet_transactions_chart'
@@ -141,7 +141,7 @@ $(document).ready(function() {
 	 * B-wallet report
  	 * --------------------------------------------------
 	*/
-		if ($('#afl-widgets-afl-b-wallet-report').length) {
+		if (jQuery('#afl-widgets-afl-b-wallet-report').length) {
 	 	eps_high_charts(
 	 		'#afl-widgets-afl-b-wallet-report',
 	 		'afl_b_wallet_report_chart'
@@ -152,7 +152,7 @@ $(document).ready(function() {
 	 * Downlines level users count
  	 * --------------------------------------------------
 	*/
-		if ($('#afl-widgets-afl-dashboard-level-user-counts').length) {
+		if (jQuery('#afl-widgets-afl-dashboard-level-user-counts').length) {
 	 	eps_level_users_count(
 	 		'#afl-widgets-afl-dashboard-level-user-counts',
 	 		'afl_each_level_user_count'
@@ -163,7 +163,7 @@ $(document).ready(function() {
 	 * Downlines chart
  	 * --------------------------------------------------
 	*/
-		if ($('#afl-widgets-afl-dashboard-downline-chart').length) {
+		if (jQuery('#afl-widgets-afl-dashboard-downline-chart').length) {
 	 	eps_high_charts(
 	 		'#afl-widgets-afl-dashboard-downline-chart',
 	 		'afl_downline_members_chart'
@@ -186,7 +186,7 @@ $(document).ready(function() {
  * --------------------------------------------------
 */
  function eps_dashboard_panel_grid (obj,ajax_url) {
- 		$.ajax({
+ 		jQuery.ajax({
 	   	type :'POST',
 	   	data : {
 	   		action:ajax_url,
@@ -196,15 +196,15 @@ $(document).ready(function() {
 	   		jsonDatas = JSON.parse(data);
 	   		if (jsonDatas) {
 					var html_tag = theme_panelGridAjax(jsonDatas);
-					$(obj).html(html_tag);
+					jQuery(obj).html(html_tag);
 	   		} else {
 	   			var html_tag = theme_panel_error();
-					$(obj).html(html_tag);
+					jQuery(obj).html(html_tag);
 	   		}
 	   	},
 	   	error: function(xhr, textStatus, errorThrown){
 	       var html_tag = theme_panel_error();
-				$(obj).html(html_tag);
+				jQuery(obj).html(html_tag);
 	    }
 	  });
  }
@@ -214,7 +214,7 @@ $(document).ready(function() {
  * --------------------------------------------------
 */
   function eps_dashboard_panel_grid_full_width (obj,ajax_url) {
-  	$.ajax({
+  	jQuery.ajax({
 	   	type :'POST',
 	   	data : {
 	   		action:ajax_url,
@@ -224,15 +224,15 @@ $(document).ready(function() {
 	   		jsonDatas = JSON.parse(data);
 	   		if (jsonDatas) {
 					var html_tag = theme_panelGridGold(jsonDatas);
-					$(obj).html(html_tag);
+					jQuery(obj).html(html_tag);
 	   		} else {
 	   			var html_tag = theme_panel_error();
-					$(obj).html(html_tag);
+					jQuery(obj).html(html_tag);
 	   		}
 	   	},
 	   	error: function(xhr, textStatus, errorThrown){
 	       var html_tag = theme_panel_error();
-				$(obj).html(html_tag);
+				jQuery(obj).html(html_tag);
 	    }
 	  });
   }
@@ -244,7 +244,7 @@ $(document).ready(function() {
 */
 	function eps_business_panel_blocks (obj,ajax_url) {
 		var html_tag = '';
-		$.ajax({
+		jQuery.ajax({
 	   	type :'POST',
 	   	data : {
 	   		action:ajax_url,
@@ -254,15 +254,15 @@ $(document).ready(function() {
 	   		jsonDatas = JSON.parse(data);
 	   		if (jsonDatas) {
 					var html_tag = theme_business_blocks(jsonDatas);
-					$(obj).html(html_tag);
+					jQuery(obj).html(html_tag);
 	   		} else {
 	   			var html_tag = theme_panel_error();
-					$(obj).html(html_tag);
+					jQuery(obj).html(html_tag);
 	   		}
 	   	},
 	   	error: function(xhr, textStatus, errorThrown){
 	       var html_tag = theme_panel_error();
-				$(obj).html(html_tag);
+				jQuery(obj).html(html_tag);
 	    }
 	  });
 	}
@@ -273,7 +273,7 @@ $(document).ready(function() {
 */
 	function eps_render_template (obj,ajax_url) {
 		var html_tag = '';
-		$.ajax({
+		jQuery.ajax({
 	   	type :'POST',
 	   	data : {
 	   		action:ajax_url,
@@ -281,15 +281,15 @@ $(document).ready(function() {
 	   	url:ajax_object.ajaxurl,
 	   	success: function(data){
 	   		if (data) {
-					$(obj).html(data);
+					jQuery(obj).html(data);
 	   		} else {
 	   			var html_tag = theme_panel_error();
-					$(obj).html(html_tag);
+					jQuery(obj).html(html_tag);
 	   		}
 	   	},
 	   	error: function(xhr, textStatus, errorThrown){
 	       var html_tag = theme_panel_error();
-				$(obj).html(html_tag);
+				jQuery(obj).html(html_tag);
 	    }
 	  });
 	}
@@ -300,7 +300,7 @@ $(document).ready(function() {
 */
 	function eps_high_charts (obj,ajax_url) {
 		var html_tag = '';
-		$.ajax({
+		jQuery.ajax({
 	   	type :'POST',
 	   	data : {
 	   		action:ajax_url,
@@ -310,16 +310,16 @@ $(document).ready(function() {
 	   		if (jsonDatas) {
 	   			jsonDatas = JSON.parse(jsonDatas);
 	   			var html_tag = theme_high_charts(jsonDatas);
-					$(obj).html(html_tag);
-					$(obj).children('.afl-widget-chart').children('.chart').highcharts(jsonDatas.text);
+					jQuery(obj).html(html_tag);
+					jQuery(obj).children('.afl-widget-chart').children('.chart').highcharts(jsonDatas.text);
 	   		} else {
 	   			var html_tag = theme_panel_error();
-					$(obj).html(html_tag);
+					jQuery(obj).html(html_tag);
 	   		}
 	   	},
 	   	error: function(xhr, textStatus, errorThrown){
 	       var html_tag = theme_panel_error();
-				$(obj).html(html_tag);
+				jQuery(obj).html(html_tag);
 	    }
 	  });
 	}
@@ -331,7 +331,7 @@ $(document).ready(function() {
 
  function eps_level_users_count (obj,ajax_url) {
  	var html_tag = '';
-		$.ajax({
+		jQuery.ajax({
 	   	type :'POST',
 	   	data : {
 	   		action:ajax_url,
@@ -341,15 +341,15 @@ $(document).ready(function() {
 	   		if (jsonDatas) {
 	   			jsonDatas = JSON.parse(jsonDatas);
 	   			var html_tag = theme_level_user_counts(jsonDatas);
-					$(obj).html(html_tag);
+					jQuery(obj).html(html_tag);
 	   		} else {
 	   			var html_tag = theme_panel_error();
-					$(obj).html(html_tag);
+					jQuery(obj).html(html_tag);
 	   		}
 	   	},
 	   	error: function(xhr, textStatus, errorThrown){
 	       var html_tag = theme_panel_error();
-				$(obj).html(html_tag);
+				jQuery(obj).html(html_tag);
 	    }
 	  });
  }
@@ -483,7 +483,7 @@ $(document).ready(function() {
       pan_width = 100/(arr_count);
     }
     
-    $.each(jsonData, function(key, value){
+    jQuery.each(jsonData, function(key, value){
       var color_timer = key%2;
       cls = '';
       if (ar_half_round % 2 == 0 && key >= ar_count_half && arr_count > 5) {

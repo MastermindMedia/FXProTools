@@ -225,6 +225,8 @@
 		 *
 	 	*/
 			private function includes() {
+				//enque scripts
+				require_once EPSAFFILIATE_EPIN_PLUGIN_DIR . 'inc/class.enque-scripts.php';
 
 				//all the hooks
 				require_once EPSAFFILIATE_EPIN_PLUGIN_DIR . 'inc/epin-action-hooks.php';

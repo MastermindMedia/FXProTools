@@ -8,12 +8,12 @@ node_modules/
 /vendor/
 sitemap.*
 wp-config.php
-composer.lock
 phplog
- 
+
 # Hidden system files
 *.DS_Store
 *[Tt]humbs.db
 *.Trashes
 
 .htaccess
+wp-content/themes/fxprotools-theme/prepros-6.config

@@ -154,11 +154,11 @@ function member_downlines_auto_complete_callback($search_key = '') {
      '#condition'=> '`'._table_name('users').'`.`ID` = `'.$tree.'`.`downline_user_id` '
     )
   );
-  if (!eps_is_admin()) {
+  // if (!eps_is_admin()) {
     $query['#where'] = array(
       '`'.$tree.'`.`uid` = '.$uid
     );
-  }
+  // }
   $query['#fields'] = array(
     _table_name('users') => array('user_login', 'ID')
   );

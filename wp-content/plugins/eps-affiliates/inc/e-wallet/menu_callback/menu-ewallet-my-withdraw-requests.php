@@ -13,6 +13,8 @@ function afl_ewallet_my_withdraw_requests(){
  * ------------------------------------------------------------
 */
  function afl_user_withdrawal_request () {
+		new Afl_enque_scripts('common');
+ 	
  	$active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'active_requestes';  
 
 		  //here render the tabs

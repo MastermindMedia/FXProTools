@@ -7,6 +7,8 @@ function afl_unilevel_my_customers () {
 }
 
 function afl_unilevel_my_customers_form () {
+		new Afl_enque_scripts('common');
+		
 		$pagination = new CI_Pagination;
 
 		$config['total_rows'] =  count(_my_customers_uni());

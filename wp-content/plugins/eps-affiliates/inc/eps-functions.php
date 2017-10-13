@@ -243,11 +243,11 @@
  		//get maximum taken from a leg
  		//check with the maximum 
  		$user_gv = 0;
- 		// pr($legs_gv);
+ 		
+ 		$flag = 1;
  		foreach ($legs_gv as $leg_uid => $amount) {
  			//get the maximum taken from the leg
  			$leg_gv 						= ($amount > $maximum_taken) ? $maximum_taken : $amount;
- 			// pr($amount);
  			//get the customers sales details from the leg uid
  			$leg_customer_sale 	= get_user_downline_customers_sales($leg_uid,TRUE);
  			// pr($leg_customer_sale);
@@ -258,11 +258,13 @@
 
  			//check the leg rule amount greater than or equal to the leg_customer_sale
  			if ( empty($leg_customer_sale) || ($leg_rule_amount >= $leg_customer_sale)  ) {
- 				return FALSE;
+ 				$flag = $flag * 0;
  			}
 
- 			return TRUE;
+			$flag = $flag * 1;
  		}
+
+ 		return $flag;
  }
 /*
  * ---------------------------------------------------

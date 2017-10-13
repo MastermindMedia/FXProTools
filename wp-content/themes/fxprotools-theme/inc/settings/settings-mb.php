@@ -13,11 +13,21 @@ if(!defined('ABSPATH')){
 if(!class_exists('SettingsMB')){
 
 	class SettingsMB {
-		
+
 		// Initialize function(s)
 		public function __construct()
 		{
+<<<<<<< HEAD
 			$metaboxes = array('mb_courses', 'mb_products', 'mb_capture_page', 'mb_webinar', 'mb_emails');
+=======
+			$metaboxes = array(
+				'mb_courses',
+				'mb_products',
+				'mb_capture_page',
+				'mb_webinar',
+				'mb_page_template_options'
+			);
+>>>>>>> 8fbef56fd1aea46df24e5cc0eab521fe34e0214d
 			if($metaboxes) {
 				foreach ($metaboxes as $key => $mb) {
 					add_filter('rwmb_meta_boxes', array($this, $mb));
@@ -269,7 +279,92 @@ if(!class_exists('SettingsMB')){
 			
 			return $meta_boxes;
 		}
-	
+		
+		// MB - Page Template Options
+		public function mb_page_template_options($meta_boxes)
+		{
+			$prefix = 'pto1_';
+			$meta_boxes[] = array(
+				'id'         => 'page_template_options_1',
+				'title'      => 'Page Template Options',
+				'post_types' => array( 'post', 'page' ),
+				'context'    => 'advanced',
+				'priority'   => 'high',
+				'autosave'   => false,
+				'include' => array(
+					'relation'	=> 'OR',
+					'ID'		=> array( 2560, 2578, 2598, 2550 ),
+					'parent'	=> '',
+					'slug'		=> '',
+				),
+				'fields' => array(
+					// Group - Menus
+					array(
+						'name'		=> 'Menus',
+						'id' 		=> $prefix . 'menus',
+						'type' 		=> 'group',
+						// List of sub-fields
+						'fields' 	=> array(
+							array(
+								'name' 		=> 'Display Header Menu',
+								'id' 		=> $prefix . 'display_header_menu',
+								'type' 		=> 'select',
+								'desc'		=> 'Choose to show or hide the header',
+								'placeholder'	=> 'Default',
+								'options'	=> array(
+									'yes'		=> 'Yes',
+									'no'		=> 'No',
+								)
+							),
+							array(
+								'name' 			=> 'Secondary Header Menu',
+								'id' 			=> $prefix . 'secondary_header_menu',
+								'type' 			=> 'taxonomy',
+								'taxonomy'		=> array('nav_menu'),
+								'field_type'	=> 'select',
+								'placeholder'	=> 'Default',
+							),
+							array(
+								'name' 			=> 'Display Footer Menu',
+								'id' 			=> $prefix . 'display_footer_menu',
+								'type' 			=> 'select',
+								'desc'			=> 'Choose to show or hide the header',
+								'placeholder'	=> 'Default',
+								'options'		=> array(
+									'yes'		=> 'Yes',
+									'no'		=> 'No',
+								),
+							),
+							array(
+								'name' 			=> 'Footer Menu ( Far Left )',
+								'id' 			=> $prefix . 'footer_menu_fl',
+								'type' 			=> 'taxonomy',
+								'taxonomy'		=> array('nav_menu'),
+								'field_type'	=> 'select',
+								'placeholder'	=> 'Default',
+							),
+							array(
+								'name' 			=> 'Footer Menu ( Middle )',
+								'id' 			=> $prefix . 'footer_menu_mid',
+								'type' 			=> 'taxonomy',
+								'taxonomy'		=> array('nav_menu'),
+								'field_type'	=> 'select',
+								'placeholder'	=> 'Default',
+							),
+							array(
+								'name' 			=> 'Footer Menu ( Far Right )',
+								'id' 			=> $prefix . 'footer_menu_fr',
+								'type' 			=> 'taxonomy',
+								'taxonomy'		=> array('nav_menu'),
+								'field_type'	=> 'select',
+								'placeholder'	=> 'Default',
+							),
+						),
+					),
+				),
+			);
+			return $meta_boxes;
+		}
 	}
 
 }

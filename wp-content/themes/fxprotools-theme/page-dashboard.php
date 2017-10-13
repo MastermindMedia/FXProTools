@@ -10,7 +10,7 @@ $checklist = get_user_checklist();
 			<div class="col-md-12">
 				<div class="fx-header-title">
 					<h1>Welcome! Thanks for Being A Loyal Distributor</h1>
-					<p>Step#1 - The Vision & Your FX Pro Tools Onboarding</p>
+					<p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of CopyProfitShare!</p>
 				</div>
 			</div>
 			<div class="col-md-8">
@@ -18,37 +18,80 @@ $checklist = get_user_checklist();
 			</div>
 			<div class="col-md-4">
 				<div class="fx-board checklist">
-					<div class="fx-board-title">
-						<span>Onboard Checklist</span>
+					<div class="fx-board-header">
+						<div class="group-title">
+							<span class="title">Onboarding Checklist</span>
+							<span class="sub">Learn More About CPS 3.0</span>
+						</div>
+						<div class="group-counter">
+							<img src="<?php bloginfo('template_url'); ?>/assets/img/meter.png" class="img-responsive">
+							<span class="number">0</span> of <span class="number">7</span>
+						</div>
+						<div class="clearfix"></div>
 					</div>
-					<ul class="fx-board-list">
+					<ul class="fx-board-list w-toggle">
 						<li>
 							<span class="fx-checkbox <?php echo $checklist['verified_email'] ? 'checked' : '';?>"></span>
 							<span class="fx-text">Verify your e-mail</span>
+							<div class="content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt.
+							</div>
+							<span class="fa fa-angle-down icon"></span>
 						</li>
 						<li>
 							<span class="fx-checkbox <?php echo $checklist['verified_profile'] ? 'checked' : '';?>"></span>
 							<span class="fx-text">Update/Verify Profile (SMS #)</span>
+							<div class="content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt.
+							</div>
+							<span class="fa fa-angle-down icon"></span>
 						</li>
 						<li>
 							<span class="fx-checkbox <?php echo $checklist['scheduled_webinar'] ? 'checked' : '';?>"></span>
 							<span class="fx-text">Schedule For Webinar</span>
+							<div class="content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt.
+							</div>
+							<span class="fa fa-angle-down icon"></span>
 						</li>
 						<li>
 							<span class="fx-checkbox <?php echo $checklist['accessed_products'] ? 'checked' : '';?>"></span>
 							<span class="fx-text">Access your product</span>
+							<div class="content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt.
+							</div>
+							<span class="fa fa-angle-down icon"></span>
 						</li>
 						<li>
 							<span class="fx-checkbox <?php echo $checklist['got_shirt'] ? 'checked' : '';?>"></span>
 							<span class="fx-text">Get your free shirt</span>
+							<div class="content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt.
+							</div>
+							<span class="fa fa-angle-down icon"></span>
 						</li>
 						<li>
 							<span class="fx-checkbox <?php echo $checklist['shared_video'] ? 'checked' : '';?>"></span>
 							<span class="fx-text">Share Video</span>
+							<div class="content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt.
+							</div>
+							<span class="fa fa-angle-down icon"></span>
 						</li>
 						<li>
 							<span class="fx-checkbox <?php echo $checklist['referred_friend'] ? 'checked' : '';?>"></span>
 							<span class="fx-text">Refer A Friend</span>
+							<div class="content">
+								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+								tempor incididunt.
+							</div>
+							<span class="fa fa-angle-down icon"></span>
 						</li>
 						<li><a href="<?php echo get_checklist_next_step_url();?>" class="btn btn-danger btn-lg fx-btn block">I'm ready for the next step</a></li>
 					</ul>

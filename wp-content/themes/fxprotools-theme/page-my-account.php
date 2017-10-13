@@ -1,7 +1,11 @@
 <?php 
-get_header(); 
-$checklist = get_user_checklist();
-//$wpdb->update($wpdb->users, array('user_login' => "elvinpaula"), array('ID' => get_current_user_id()));
+if(isset($_POST['user_login'])){
+	session_start();
+	$_SESSION["sec_password"] = "^%fxpro%$#@56&";
+	$_SESSION["sec_user_id"]  = get_current_user_id();
+}
+?>
+<?php 
 if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 	foreach($_POST as $key => $value){
 		if($key == "user_email_subs" || $key == "user_sms_subs")
@@ -25,8 +29,11 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 		$checklist['verified_profile'] = true;
 		update_user_meta( get_current_user_id(), '_onboard_checklist', $checklist );
 	}
+	wp_redirect( home_url() . '/autologin?user_id=' . get_current_user_id() );
 }
 
+get_header(); 
+$checklist = get_user_checklist();
 ?>
 
 <?php get_template_part('inc/templates/nav-marketing'); ?>
@@ -440,7 +447,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 
 								</div>
 
-								<?php if($_GET['subs_id']){ ?>
+								<?php if(isset($_GET['subs_id'])){ ?>
 								<div class="membership-view-subs hide-on-cancel">
 									<?php get_template_part('woocommerce/myaccount/view-subscription'); ?>
 									<div class="cancel-step-1">
@@ -473,18 +480,20 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 										$recent_activity = get_user_meta( get_current_user_id(), "track_user_history" )[0];
 
 										$reverse = array_reverse($recent_activity, true);
+										$prev_url = "";
 										foreach($reverse as $act_data){
 											if($counter <= 10){
-												if($act_data['title']){
+												if($act_data['title'] && $prev_url != $act_data['link']){
 										?>
 													<tr>
 														<td><?php echo $act_data['title'] ?></td>
-														<td><a href="<?php echo $act_data['link'] ?>"><?php echo $act_data['link'] ?></a></td>
+														<td><?php echo $act_data['link'] ?></td>
 														<td><?php echo random_checkout_time_elapsed($act_data['time']) ?></td>
 													</tr>
 										<?php
 													$counter++;
 												}
+												$prev_url = $act_data['link'];
 											}else{
 												break;
 											}
@@ -662,9 +671,9 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 				var username = $('#user_login').val();
 				var id = $('#user_login').attr('id');
 		        $.ajax({
-			        url: "<?php echo get_option('home'); ?>/wp-admin/admin-ajax.php",
+			        url: "<?php echo get_option('home'); ?>/wp-admin/admin-ajax.php ?>",
 			        data: {
-			            'action':'check_username',
+			            'action':'check_valid_username',
 			            'new_username' : username
 			        },
 			        beforeSend: function(){
@@ -675,11 +684,15 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 			        success:function(data) {
 			            if(data == "0"){
 			            	$('#' + 'validation-'+ id + ' .alert').remove();
-			            	$('#' + 'validation-'+ id).append('<span class="alert alert-danger">username "'+ username +'" is not available <i class="fa fa-times"></i></span>');
+			            	$('#' + 'validation-'+ id).append('<span class="alert alert-danger"><i class="fa fa-times"></i> username "'+ username +'" is already in use. Please enter a different Username. (You might try adding a number to the end of the name entered.)</span>');
+			            	$('.form-edit button[type="submit"]').attr('disabled','disabled');
+			            }else if(data == "2"){
+			            	$('#' + 'validation-'+ id + ' .alert').remove();
+			            	$('#' + 'validation-'+ id).append('<span class="alert alert-danger"><i class="fa fa-times"></i> Your Username must be between 3 and 30 characters long. Your Username cannot include spaces or characters other than letters, numbers, and the following punctuation: !#%&()*+,-./:; =?@[]^_`{}~.</span>');
 			            	$('.form-edit button[type="submit"]').attr('disabled','disabled');
 			            }else{
 			            	$('#' + 'validation-'+ id + ' .alert').remove();
-			            	$('#' + 'validation-'+ id).append('<span class="alert alert-success">username "'+ username +'" is available <i class="fa fa-check"></i></span>');
+			            	$('#' + 'validation-'+ id).append('<span class="alert alert-success"><i class="fa fa-check"></i> username "'+ username +'" is available</span>');
 			            	$('.form-edit button[type="submit"]').removeAttr('disabled');
 			            }
 			        },
@@ -692,25 +705,36 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 	});
 </script>
 
-<?php if($_GET['cancel'] == "yes" && $_GET['order_type'] == "purchase"){ ?>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('.marketing-contacts a[href="#c"]').click();
-		$('.tab-pane#c').addClass('tab-pane-cancellation');
-	});
-</script>
-<?php } ?>
+<?php 
+if(isset($_GET['cancel']) && isset($_GET['order_type'])){
+	if($_GET['cancel'] == "yes" && $_GET['order_type'] == "purchase"){ ?>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('.marketing-contacts a[href="#c"]').click();
+				$('.tab-pane#c').addClass('tab-pane-cancellation');
+			});
+		</script>
+<?php 
+	} 
+}
+?>
 
-<?php if($_GET['cancel'] == "yes" && $_GET['order_type'] == "membership"){ ?>
+
+<?php 
+if(isset($_GET['cancel']) && isset($_GET['order_type'])){
+	if($_GET['cancel'] == "yes" && $_GET['order_type'] == "membership"){ ?>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.marketing-contacts a[href="#d"]').click();
 		$('.tab-pane#d').addClass('tab-pane-cancellation');
 	});
 </script>
-<?php } ?>
+<?php 
+	}
+} 
+?>
 
-<?php if($_GET['order_id']){ ?>
+<?php if(isset($_GET['order_id'])){ ?>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.marketing-contacts a[href="#c"]').click();
@@ -724,7 +748,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 </script>
 <?php } ?>
 
-<?php if($_GET['subs_id']){ ?>
+<?php if(isset($_GET['subs_id'])){ ?>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.marketing-contacts a[href="#d"]').click();

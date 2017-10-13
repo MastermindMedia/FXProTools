@@ -70,7 +70,8 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 	public function get(){
 		global $wp_version;
 		
-		$token = apyc_get_access_token();
+		//$token = apyc_get_access_token();
+		$token = apyc_get_token();
 		if( $token ){
 			$body = array();
 			$args = array(
@@ -137,11 +138,11 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 		$query_args = wp_parse_args( $args, $defaults );
 		$get_data = $this->get();
 		//$get_data = $this->cache();
-
-		if( $get_data && $get_data['status'] == 200 ){
+		//dd($get_data);
+		if( $get_data['data'] && $get_data['status'] == 200 ){
 			$number_post = $query_args['number_post'] - 1;
 			$i = 0;
-			foreach($get_data as $k => $v){
+			foreach($get_data['data'] as $k => $v){
 				$subject = str_replace(' ', '', strtolower($v->subject));
 				$filter_by_subject = str_replace(' ', '', strtolower($query_args['filter_by_subject']));
 				
@@ -170,7 +171,7 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 			}
 			return $data;
 		}
-		return $get_data;
+		return $data;
 	}
 	
 	public function __construct() {}

@@ -2,36 +2,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-define('GOTOWEBINAR_USERID', 'fxprotools@gmail.com');
-define('GOTOWEBINAR_PASSWORD', 'Admin4web');
-define('GOTOWEBINAR_CONSUMERKEY', 'aInr3HOEuTfGxGW7PF9yD90AGzIehCj5');
-/**
- * For autoloading classes
- * */
-spl_autoload_register('apyc_fxprotools_autoload_class');
-function apyc_fxprotools_autoload_class($class_name){
-    if ( false !== strpos( $class_name, 'Apyc' ) ) {
-		$include_classes_dir = realpath( get_template_directory( __FILE__ ) ) .'/inc'. DIRECTORY_SEPARATOR;
-		$admin_classes_dir = realpath( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR;
-		$class_file = str_replace( '_', DIRECTORY_SEPARATOR, $class_name ) . '.php';
-		//echo $include_classes_dir . $class_file.'<br>';
-		if( file_exists($include_classes_dir . $class_file) ){
-			require_once $include_classes_dir . $class_file;
-		}
-		if( file_exists($admin_classes_dir . $class_file) ){
-			require_once $admin_classes_dir . $class_file;
-		}
-	}
-}
-if ( ! function_exists('write_log')) {
-   function write_log ( $log )  {
-      if ( is_array( $log ) || is_object( $log ) ) {
-         error_log( print_r( $log, true ) );
-      } else {
-         error_log( $log );
-      }
-   }
-}
 if ( ! function_exists('apyc_get_token')) {
    function apyc_get_token ( )  {
 	try{
@@ -87,7 +57,7 @@ if ( ! function_exists('apyc_get_webinar_free')) {
    function apyc_get_webinar_free($arg)  {
 		try{
 			$defaults = array(
-				'filter_by_subject' => 'Weekly Q & A'
+				'filter_by_subject' => GOTOWEBINAR_FREE_GROUP
 			);
 			$query_args = wp_parse_args( $arg, $defaults );
 			$get = Apyc_Citrix_GoToWebinar_GetAll::get_instance()->query($query_args);
@@ -98,7 +68,3 @@ if ( ! function_exists('apyc_get_webinar_free')) {
 		}
    }
 }
-function apyc_fxprotools_setup(){
-	Apyc_Modal::get_instance();
-}
-add_action( 'after_setup_theme', 'apyc_fxprotools_setup' );

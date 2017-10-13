@@ -86,15 +86,30 @@ if($custom_functions){
 }
 
 /**
+ * ----------------
+ * Custom Walker/s
+ * ----------------
+ */
+$custom_walkers = array(
+    'nav-secondary-walker' // Secondary Header Menu
+);
+
+if($custom_walkers){
+    foreach($custom_walkers as $key => $cw){
+        require_once('inc/walkers/'.$cw.'.php');
+    }
+}
+
+/**
  * --------------
- * Sendgrid - Contacts 
+ * Sendgrid - Contacts
  * --------------
  * Sendgrid gateway class
  */
 
 $sendgrid = array(
-    'sendgrid-api', 
-    'sendgrid-ajax',  
+    'sendgrid-api',
+    'sendgrid-ajax',
 );
 if($sendgrid){
     foreach($sendgrid as $key => $sg){
@@ -105,7 +120,7 @@ if($sendgrid){
 /**
 Added by Allan / APYC
 **/
-require_once plugin_dir_path( __FILE__ ) . 'inc/Apyc/init.php';
+require_once plugin_dir_path( __FILE__ ) . 'inc/apyc/init.php';
 /**
 Added by Allan / APYC
 
@@ -125,11 +140,12 @@ Added by Allan / APYC
 
 /**
  * --------------
- * ANET - Payment 
+ * ANET - Payment
  * --------------
  * Authorize.net payment gateway class
  */
 //require('inc/fx-authorize-net/fx-authorize-net.php');
+
 
 /**
  * ---------------------------------------------------

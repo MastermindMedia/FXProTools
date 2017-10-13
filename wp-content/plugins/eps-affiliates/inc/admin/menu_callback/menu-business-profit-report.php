@@ -8,6 +8,8 @@ function afl_system_business_profit_report () {
 }
 
 function afl_system_business_profit_report_ () {
+		new Afl_enque_scripts('common');
+
 	 	$pagination = new CI_Pagination;
 
 		$config['total_rows'] =  count(_get_profit());

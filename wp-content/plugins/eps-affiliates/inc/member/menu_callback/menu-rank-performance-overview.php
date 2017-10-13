@@ -17,6 +17,8 @@ function afl_rank_performance_overview () {
 */
 
 	function afl_rank_group_volume_details () {
+		new Afl_enque_scripts('common');
+		
 		$uid = get_uid();
 		if (isset($_GET['uid'])) {
 			$uid = $_GET['uid'];
@@ -123,6 +125,13 @@ function afl_rank_performance_overview () {
 		if (isset($_GET['uid'])) {
 			$uid = $_GET['uid'];
 		}
+	
+		$node = afl_genealogy_node($uid);
+		if ( empty($node)) {
+			$node = afl_genealogy_node($uid, 'unilevel');
+		}
+
+		$member_rank = $node->member_rank;
 
 		$table = array();
 		$table['#name'] 			= '';
@@ -251,7 +260,7 @@ function afl_rank_performance_overview () {
 		 		$markup .= '<th></th>';
 		 		$markup .= '</tr>';
 		 		$markup .= '</thead>';
-
+		 		// pr($legs_gv);
 		 		foreach ($legs_gv as $leg_uid => $amount) {
 
 		 			$markup .= '<tr>';
@@ -281,7 +290,13 @@ function afl_rank_performance_overview () {
 		 		}
 		 		$markup .= '</tr>';
 		 		$markup .= '</table>';
+		 		if ($i <= $member_rank)  {
+		 			$markup  = '';
+		 			$markup .= '<label class="label text-info m-l-xs">Rule : '.$leg_rule.'</label><br>';
+		 			$markup .= 'Rules meets before and Rank achieved';
 
+	 			}
+		 			
 	 			$rows[$i]['customer_leg_rule'] = array(
 					'#type' => 'markup',
 					'#markup'=> $markup,

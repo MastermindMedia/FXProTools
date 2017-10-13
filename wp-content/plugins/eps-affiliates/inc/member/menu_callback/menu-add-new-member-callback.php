@@ -5,7 +5,10 @@
  * ---------------------------------------------
 */
  function afl_add_new_member () {
-
+	$obje = new Afl_enque_scripts('eps-add-new-member');
+		new Afl_enque_scripts('common');
+	
+ 	
  	echo afl_eps_page_header();
 	 // $obj = new Eps_affiliates_registration;
 	 // $post = array('uid'=>50,'sponsor_uid'=>37);

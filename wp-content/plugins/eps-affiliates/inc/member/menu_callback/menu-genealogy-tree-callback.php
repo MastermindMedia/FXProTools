@@ -8,10 +8,10 @@ function afl_genealogy_tree() {
 }
 
 function afl_genealogy_tree_callback() {
-	wp_enqueue_style( 'plan-heirarchy', EPSAFFILIATE_PLUGIN_PLAN.'/matrix/css/heirarchy/css/hierarchy-view.css');
-	wp_enqueue_style( 'plan-style', EPSAFFILIATE_PLUGIN_PLAN.'matrix/css/heirarchy/css/main.css');
-
-
+	$obje = new Afl_enque_scripts('eps-genealogy') ;
+		new Afl_enque_scripts('common');
+	
+	
 	// wp_enqueue_style( 'plan-style', EPSAFFILIATE_PLUGIN_PLAN.'matrix/css/tree-new/style.css');
 	$path = EPSAFFILIATE_PLUGIN_PLAN.'matrix/';
 	afl_get_template('plan/matrix/genealogy-tree-all.php');

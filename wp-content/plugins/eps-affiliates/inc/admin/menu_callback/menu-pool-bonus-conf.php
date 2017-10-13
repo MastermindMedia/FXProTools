@@ -6,8 +6,11 @@
  * -------------------------------------------------------------------
 */
 function afl_admin_pool_bonus_configuration(){
+		new Afl_enque_scripts('common');
+	
 	echo afl_eps_page_header();
 	echo afl_content_wrapper_begin();
+	
 	if ( isset($_POST['submit']) ) {  
 	 $validation = afl_admin_pool_bonus_configuration_form_validation($_POST);
 	 	if (!empty($validation)) {
@@ -71,21 +74,21 @@ function afl_admin_pool_bonus_configuration_form_validation($POST){
 	foreach ($POST as $key => $value) {
 		if (empty($value)) { 
 			$msg = str_replace('_', ' ', $key);
-	    $reg_errors->add($key, '"'.$msg.'" 	is required.');
+	    $reg_errors->add($key, $msg.'is required.');
 		}	
 		$posative = preg_replace('/[0-9]+/', '', $key);
 		// pr($posative);
 		if (in_array($posative, $posative_int)){  
   		if (!is_numeric($value) || $value < 0 ) {  
   			$msg = str_replace('_', ' ', $key);
-	    		$reg_errors->add($key, '"'.$msg.'" 	is not correct value.');
+	    		$reg_errors->add($key, $msg.'	is not correct value.');
 			}
   	}
 	}
 	if ( is_wp_error( $reg_errors ) ) {
     foreach ( $reg_errors->get_error_messages() as $error ) {
 				$flag = 0;
-    		echo wp_set_message($error, 'danger');
+    		wp_set_message($error, 'danger');
     }
 	}
 	return $flag;
@@ -93,8 +96,9 @@ function afl_admin_pool_bonus_configuration_form_validation($POST){
 
 
 function afl_admin_pool_bonus_configuration_form_submit($POST){
+
 		foreach ($POST as $key => $value) {
 				afl_variable_set($key, maybe_serialize($value));
 			}
-	echo wp_set_message(__('Configuration has been saved successfully.'), 'success');
+	wp_set_message(__('Configuration has been saved successfully.'), 'success');
 }

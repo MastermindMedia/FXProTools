@@ -32,6 +32,7 @@ function afl_payout_in_remittance(){
  }
 
 function afl_payout_in_remittance_datatable(){
+		new Afl_enque_scripts('common');
 	
 
 	$affiliates_table = new Eps_payout_in_remitance_datatable();

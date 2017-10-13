@@ -1302,7 +1302,7 @@
   * ----------------------------------------------------------------------------------------------------------
  */
 	 private function afl_bonus_incentive_history () {
-	 		$table_name = $this->tbl_prefix . 'afl_unilevel_tree_last_insertion_positions';
+	 		$table_name = $this->tbl_prefix . 'afl_bonus_incentive_history';
 	    $sql = "CREATE TABLE IF NOT EXISTS `$table_name` (
 						  `afl_incentive_history_id` int(11) NOT NULL,
 						  `uid` int(11) NOT NULL,

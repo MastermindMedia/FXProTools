@@ -1,14 +1,19 @@
 <?php 
-   /* get all the downlines of this user */
+    /* get all the downlines of this user */
     $uid = get_current_user_id();
     if (current_user_can('administrator')) {
       $uid = afl_root_user();
     }
+
+    if (!empty($_GET['uid'])) {
+      $uid = $_GET['uid'];
+    }
+
     $query = array();
     $query['#select'] = _table_name('afl_unilevel_user_holding_tank');
     $query['#join']  = array(
       _table_name('users') => array(
-        '#condition' => '`wp_users`.`ID`=`'._table_name('afl_unilevel_user_holding_tank').'`.`uid`'
+        '#condition' => '`'._table_name('users').'`.`ID`=`'._table_name('afl_unilevel_user_holding_tank').'`.`uid`'
       ),
     );
     $query['#fields']  = array(

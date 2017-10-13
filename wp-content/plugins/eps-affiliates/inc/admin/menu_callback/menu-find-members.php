@@ -44,7 +44,8 @@
 
 	}
  function member_find_table () {
-
+		new Afl_enque_scripts('common');
+ 		
 	 	// do_action('eps_table_filter_user');
 	  // do_action('eps_table_filter_sponsor');
 	  // do_action('eps_table_filter_parent');
