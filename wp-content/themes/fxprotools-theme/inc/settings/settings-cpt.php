@@ -17,7 +17,7 @@ if(!class_exists('CptSettings')){
 		// Initialize function(s)
 		public function __construct()
 		{
-			$cpts = array('init_cpt_webinar', 'init_cpt_funnels', 'init_cpt_emails');
+			$cpts = array('init_cpt_webinar', 'init_cpt_funnels',);
 			if($cpts) {
 				foreach ($cpts as $key => $cpt) {
 					add_filter('init', array($this, $cpt));
@@ -132,58 +132,6 @@ if(!class_exists('CptSettings')){
 			);
 		}
 
-		// Custom Post - Email
-		public function init_cpt_emails()
-		{
-			register_post_type('fx_email',
-				array(
-					'capability_type'     => 'page',
-					'hierarchical'        => false,
-					'public'              => false,
-					'show_ui'             => true,
-					'has_archive'         => true,
-					'publicly_queryable'  => false,
-					'exclude_from_search' => true,
-					'show_in_menu'        => true,
-					'show_in_nav_menus'   => false,
-					'show_in_admin_bar'   => true,
-					'can_export'          => true,
-					'menu_position'       => 7,
-					'menu_icon'           => 'dashicons-email',
-					'supports'            => array('title'),
-					'labels' => array(
-						'name'                  => 'Emails',
-						'singular_name'         => 'Email',
-						'menu_name'             => 'Emails',
-						'name_admin_bar'        => 'Email',
-						'archives'              => 'Email Archives',
-						'attributes'            => 'Email Attributes',
-						'parent_item_colon'     => 'Parent Email:',
-						'all_items'             => 'All Emails',
-						'add_new_item'          => 'Send New Email',
-						'add_new'               => 'Send Email',
-						'new_item'              => 'New Email',
-						'edit_item'             => 'Edit Email',
-						'update_item'           => 'Update Email',
-						'view_item'             => 'View Email',
-						'view_items'            => 'View Emails',
-						'search_items'          => 'Search Email',
-						'not_found'             => 'Not found',
-						'not_found_in_trash'    => 'Not found in Trash',
-						'featured_image'        => 'Featured Image',
-						'set_featured_image'    => 'Set featured image',
-						'remove_featured_image' => 'Remove featured image',
-						'use_featured_image'    => 'Use as featured image',
-						'insert_into_item'      => 'Insert into item',
-						'uploaded_to_this_item' => 'Uploaded to this Email',
-						'items_list'            => 'Emails list',
-						'items_list_navigation' => 'Emails list navigation',
-						'filter_items_list'     => 'Filter Emails list',
-					)
-				)
-			);
-		}
-		
 		// Fix Permalink - Makes permalink work
 		public function theme_flush_rewrite()
 		{

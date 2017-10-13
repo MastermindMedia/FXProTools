@@ -47,31 +47,6 @@ if(!class_exists('FX_Sendgrid_Api')){
 			$response = $sg->client->contactdb()->lists()->_($list_id)->recipients()->post($request_body);
 			return $response->statusCode();
 		}
-		
-		public function send_to_many($personalizations, $subject, $content)
-		{
-			if (!is_array($personalizations) || !$content || !$subject) return;
-			
-			$sg = new \SendGrid( self::SENDGRID_API_KEY );
-			$request_body = array(
-				'personalizations' => $personalizations,
-				'subject' => $subject,
-				'from' => array(
-					'email' => 'support@copyprofitshareglobal.com'
-				),
-				'content' => array(array(
-					'type' => 'text/html',
-					'value' => $content
-				))
-			);
-			
-			$response = $sg->client->mail()->send()->post($request_body);
-			
-			return array(
-				'status_code' => $response->statusCode(),
-				'body' => $response->body()
-			);
-		}
 	}
 }
 

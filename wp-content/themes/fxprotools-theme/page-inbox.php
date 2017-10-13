@@ -1,13 +1,5 @@
 <?php get_header(); ?>
-<script>var EMAIL_TYPE = <?php
-if ($_GET['inbox_type'] == 'sent') {
-	echo json_encode('sent');
-} else if ($_GET['inbox_type'] == 'trash') {
-	echo json_encode('trash');
-} else {
-	echo json_encode('inbox');
-}
-?>;</script>
+
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
@@ -21,23 +13,11 @@ if ($_GET['inbox_type'] == 'sent') {
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-3">
-									<?php
-									if (current_user_can('administrator')) {
-									?>
-									<a href="<?php echo admin_url('post-new.php?post_type=fx_email'); ?>" title="Compose" class="btn btn-danger block ">Compose Mail</a>
-									<?php
-									}
-									?>
+									<a href="#modalCompose" data-toggle="modal" title="Compose" class="btn btn-danger block ">Compose Mail</a>
 									<ul class="fx-inbox-nav">
-										<li <?php if (!isset($_GET['inbox_type']) || $_GET['inbox_type'] == 'inbox') { ?> class="active" <?php } ?>><a href="<?php bloginfo('url'); ?>/my-account/inbox"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right" id="unreadCount">0</span></a></li>
-										<?php
-										if (current_user_can('administrator')) {
-										?>
-										<li <?php if (!isset($_GET['inbox_type']) || $_GET['inbox_type'] == 'sent') { ?> class="active" <?php } ?>><a href="<?php bloginfo('url'); ?>/my-account/inbox?inbox_type=sent"><i class="fa fa-envelope-o"></i> Sent</a></li>
-										<?php
-										}
-										?>
-										<li <?php if (!isset($_GET['inbox_type']) || $_GET['inbox_type'] == 'trash') { ?> class="active" <?php } ?>><a href="<?php bloginfo('url'); ?>/my-account/inbox?inbox_type=trash"><i class=" fa fa-trash-o"></i> Trash</a></li>
+										<li class="active"><a href="#"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right">2</span></a></li>
+										<li><a href="#"><i class="fa fa-envelope-o"></i> Sent</a></li>
+										<li><a href="#"><i class=" fa fa-trash-o"></i> Trash</a></li>
 									</ul>
 								</div>
 								<div class="col-md-9">
@@ -62,12 +42,74 @@ if ($_GET['inbox_type'] == 'sent') {
 									<table class="table table-bordered table-hover fx-table-inbox with-padding no-border-l-r m-t-sm">
 										<thead>
 											<th class="text-center"><input type="checkbox"></th>
-											<th class="small" style="width: 75%;">Subject</th>
+											<th class="small">Subject</th>
+											<th class="small">Participants</th>
 											<th class="small text-center">Date</th>
 										</thead>
-										<tbody id="mailContainer">
+										<tbody>
+											<tr class="unread">
+												<td class="text-center">
+													<input type="checkbox">
+												</td>
+												<td>Subject 1</td>
+												<td>Participant 1, Participant 2, Participant 3</td>
+												<td class="text-center">9:27 AM</td>
+											</tr>
+											<tr class="unread">
+												<td class="text-center">
+													<input type="checkbox">
+												</td>
+												<td>Subject 2</td>
+												<td>Participant 1, Participant 2, Participant 3</td>
+												<td class="text-center">9:27 AM</td>
+											</tr>
 											<tr>
-												<td colspan="3">Loading...</td>
+												<td class="text-center">
+													<input type="checkbox">
+												</td>
+												<td>Subject 3</td>
+												<td>Participant 1, Participant 2, Participant 3</td>
+												<td class="text-center">9:27 AM</td>
+											</tr>
+											<tr>
+												<td class="text-center">
+													<input type="checkbox">
+												</td>
+												<td>Subject 4</td>
+												<td>Participant 1, Participant 2, Participant 3</td>
+												<td class="text-center">9:27 AM</td>
+											</tr>
+											<tr>
+												<td class="text-center">
+													<input type="checkbox">
+												</td>
+												<td>Subject 5</td>
+												<td>Participant 1, Participant 2, Participant 3</td>
+												<td class="text-center">9:27 AM</td>
+											</tr>
+											<tr>
+												<td class="text-center">
+													<input type="checkbox">
+												</td>
+												<td>Subject 6</td>
+												<td>Participant 1, Participant 2, Participant 3</td>
+												<td class="text-center">9:27 AM</td>
+											</tr>
+											<tr>
+												<td class="text-center">
+													<input type="checkbox">
+												</td>
+												<td>Subject 7</td>
+												<td>Participant 1, Participant 2, Participant 3</td>
+												<td class="text-center">9:27 AM</td>
+											</tr>
+											<tr>
+												<td class="text-center">
+													<input type="checkbox">
+												</td>
+												<td>Subject 8</td>
+												<td>Participant 1, Participant 2, Participant 3</td>
+												<td class="text-center">9:27 AM</td>
 											</tr>
 										</tbody>
 									</table>
