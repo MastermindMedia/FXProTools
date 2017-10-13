@@ -734,3 +734,29 @@ function get_mb_nav($mb_group_id) {
 			break;
 	}
 }
+
+add_filter( 'woocommerce_breadcrumb_defaults', 'filter_woocommerce_breadcrumbs' );
+function filter_woocommerce_breadcrumbs() {
+	$link        = is_shop() ? get_permalink( wc_get_page_id( 'shop' ) ) : get_permalink();
+	$wrap_before = <<<HTML
+<div class="navbar fx-navbar-sub">
+    <ul class="fx-nav-options">
+        <li class="dashboard">
+            <a class="icon icon-share" href="{$link}">&nbsp;</a>
+        </li>
+HTML;
+
+	$wrap_after = <<<HTML
+    </ul>
+</div>
+HTML;
+
+	return array(
+		'delimiter'   => '',
+		'wrap_before' => $wrap_before,
+		'wrap_after'  => $wrap_after,
+		'before'      => '',
+		'after'       => '',
+		'home'        => _x( 'Home', 'breadcrumb', 'woocommerce' ),
+	);
+}

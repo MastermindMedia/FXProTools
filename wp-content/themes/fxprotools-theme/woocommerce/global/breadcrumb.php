@@ -25,14 +25,17 @@ if ( ! empty( $breadcrumb ) ) {
 
 	echo $wrap_before;
 
+	$ctr  = 1;
+	$link = is_shop() ? get_permalink( wc_get_page_id( 'shop' ) ) : get_permalink();
+
 	foreach ( $breadcrumb as $key => $crumb ) {
 
 		echo $before;
 
 		if ( ! empty( $crumb[1] ) && sizeof( $breadcrumb ) !== $key + 1 ) {
-			echo '<a href="' . esc_url( $crumb[1] ) . '">' . esc_html( $crumb[0] ) . '</a>';
+			echo '<li><a href="' . esc_url( $crumb[1] ) . '"><span class="number">' . $ctr . '</span><span class="text">' . esc_html( $crumb[0] ) . '</span></a></li>';
 		} else {
-			echo esc_html( $crumb[0] );
+			echo '<li class="active"><a href="' . $link . '"><span class="number">' . $ctr . '</span><span class="text">' . esc_html( $crumb[0] ) . '</span></a></li>';
 		}
 
 		echo $after;
@@ -40,6 +43,7 @@ if ( ! empty( $breadcrumb ) ) {
 		if ( sizeof( $breadcrumb ) !== $key + 1 ) {
 			echo $delimiter;
 		}
+		$ctr ++;
 	}
 
 	echo $wrap_after;
