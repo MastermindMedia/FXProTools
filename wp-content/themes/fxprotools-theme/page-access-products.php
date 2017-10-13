@@ -21,7 +21,7 @@ $coaching = wc_customer_bought_product( '', get_current_user_id(), 50);
 				</div>
 			</div>
 			<div class="col-md-8">
-				<div class="fx-video-container"></div>
+				<div class="fx-video-container" style="background: #000; height: 320px;"></div>
 			</div>
 			<div class="col-md-4">
 				<div class="fx-board access-products">
