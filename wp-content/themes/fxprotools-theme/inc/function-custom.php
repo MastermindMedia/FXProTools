@@ -804,3 +804,9 @@ function get_users_with_active_subscriptions($subscription_ids, $user_fields = a
     
     return $results;
 }
+
+// redirect to custom login page instead of wordpress page
+add_action('wp_login_failed', 'curtom_redirect_login_failed');
+function curtom_redirect_login_failed($username) {
+	wp_redirect(get_bloginfo('url') . '/login?login=failed&username=' . urlencode(sanitize_text_field($username)) );
+}
