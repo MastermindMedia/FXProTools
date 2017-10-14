@@ -33,7 +33,7 @@ if($mb_extenstions){
  * -------------------
  * FXprotools Settings
  * -------------------
- * Fxprotools admin/theme settings
+ * Fxprotools core admin/theme settings
  */
 
 // Set the theme version number as a global variable
@@ -49,25 +49,6 @@ foreach ($core_settings as $cs) {
 }
 
 /**
- * ---------------
- * Settings MB/CPT
- * ---------------
- * Settings for custom post/taxonomy and metabox
- */
-$settings = array(
-    'settings-cpt', // Custom post/taxonomy settings
-    'settings-mb',  // Metabox Settings
-    'settings-woocommerce',  // Woocommerce Settings
-    'settings-wc-subscriptions', //WC Subscription settings
-);
-
-if($settings){
-    foreach ($settings as $key => $setting) {
-        require_once('inc/settings/'.$setting.'.php');
-    }
-}
-
-/**
  * ----------------
  * Custom Functions
  * ----------------
@@ -75,8 +56,13 @@ if($settings){
  */
 $custom_functions = array(
 	'function-helper', // All Helper functions
-	'function-custom', // All custom functions
-    'function-ajax'    // All ajax calls
+    'function-ajax',   // All Ajax Calls
+    'function-custom', // All custom functions
+    'function-cpt', // Custom post/taxonomy settings
+    'function-mb',  // Metabox Settings
+    'function-woocommerce', // Woocommerce Settings
+    'function-wc-subscriptions', // WC Subscription settings,
+    'function-email' // Email
 );
 
 if($custom_functions){
@@ -86,68 +72,29 @@ if($custom_functions){
 }
 
 /**
- * ----------------
- * Custom Walker/s
- * ----------------
+ * ------------------
+ * FXprotools Modules
+ * ------------------
+ * Includes all third party libraries
  */
-$custom_walkers = array(
-    'nav-secondary-walker' // Secondary Header Menu
+$modules = array(
+    // ANET - Customer Informatio and Subscription Manager
+    // 'authorize-net/auth-api.php',
+    // 'authorize-net/auth-ajax.php',
+
+    // Sendgrid - Contacts
+    'sendgrid/sendgrid-api',
+    'sendgrid/sendgrid-ajax',
+
+    // APYC
+    'apyc/init',
+
+    // Walkers
+    'walkers/nav-secondary-walker'
 );
 
-if($custom_walkers){
-    foreach($custom_walkers as $key => $cw){
-        require_once('inc/walkers/'.$cw.'.php');
+if($modules){
+    foreach($modules as $key => $md){
+        require_once('inc/modules/'.$md.'.php');
     }
 }
-
-/**
- * --------------
- * Sendgrid - Contacts
- * --------------
- * Sendgrid gateway class
- */
-
-$sendgrid = array(
-    'sendgrid-api',
-    'sendgrid-ajax',
-);
-if($sendgrid){
-    foreach($sendgrid as $key => $sg){
-        require_once('inc/sendgrid/'.$sg.'.php');
-    }
-}
-
-/**
-Added by Allan / APYC
-**/
-require_once plugin_dir_path( __FILE__ ) . 'inc/apyc/init.php';
-/**
-Added by Allan / APYC
-
-/**
- * ---------------------------------------------------
- * ANET - Customer Informatio and Subscription Manager
- * ---------------------------------------------------
- * Authorize.net customer information and subscription manager
- */
-// $anet_includes = [
-	// 'auth-api.php',
-	// 'auth-ajax.php',
-// ];
-// foreach ($anet_includes as $a) {
-// 	require_once('inc/authorize-net/'.$a);
-// }
-
-/**
- * --------------
- * ANET - Payment
- * --------------
- * Authorize.net payment gateway class
- */
-//require('inc/fx-authorize-net/fx-authorize-net.php');
-/**
- * ---------------------------------------------------
- * Added by JC - Customizations for the Email post type
- * ---------------------------------------------------
- */
-require_once plugin_dir_path( __FILE__ ) . 'inc/function-email.php';
