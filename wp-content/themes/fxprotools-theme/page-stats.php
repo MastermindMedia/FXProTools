@@ -81,15 +81,25 @@ $date_filter = isset($_GET['date_from']) ? array( 'date_from' => $_GET['date_fro
 							</tr>
 						</tbody>
 					</table>
+
+
 					<div class="row m-b-md">
 						<div class="col-md-6">
-							<span class="total-count funnel-stats">Total Customer Sales: <?php echo $stats['totals']['customer_sales'];?></span>
+							<div class="panel panel-default text-center">
+							  <div class="panel-heading">Distributors</div>
+							  <div class="panel-body"><?php echo $stats['totals']['distributor_sales'];?></div>
+							</div>
 						</div>
 						<div class="col-md-6">
-							<span class="total-count funnel-stats">Total Distributor Sales: <?php echo $stats['totals']['distributor_sales'];?></span>
+							<div class="panel panel-default text-center">
+							  <div class="panel-heading">Total Customer Sales:</div>
+							  <div class="panel-body"><?php echo $stats['totals']['customer_sales'];?></div>
+							</div>
 						</div>
 					</div>
-				</div>
+
+
+					
 
 
 
