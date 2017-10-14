@@ -806,17 +806,23 @@ function get_users_with_active_subscriptions($subscription_ids, $user_fields = a
 }
 
 // redirect to custom login page instead of wordpress page
-add_action('wp_login_failed', 'curtom_redirect_login_failed');
-function curtom_redirect_login_failed($username) {
+add_action('wp_login_failed', 'custom_redirect_login_failed');
+function custom_redirect_login_failed($username) {
 	wp_redirect(get_bloginfo('url') . '/login?login=failed&username=' . urlencode(sanitize_text_field($username)) );
 }
 
 // redirects the user to dashboard if already logged in and went to /login
-add_action( 'wp', 'add_login_check' );
-function add_login_check() {
+add_action( 'wp', 'check_if_logged_in' );
+function check_if_logged_in() {
 	global $post;
 	if ( is_user_logged_in() && $post->post_name == 'login' ) {
 		wp_redirect( '/dashboard' );
 		exit;
 	}
+}
+
+add_action('wp_logout','redirect_to_home_after_logout');
+function redirect_to_home_after_logout(){
+	wp_redirect( home_url() );
+	exit();
 }
