@@ -437,6 +437,15 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 5px;
     font-weight: bold; }
 
+.fx-mid-header {
+  position: relative;
+  text-align: center;
+  padding: 35px 0; }
+  .fx-mid-header h2 {
+    font-size: 20px;
+    margin-top: 0;
+    font-weight: bold; }
+
 .fx-separator {
   border-top: 1px solid #DDD;
   margin: 15px 0; }
@@ -1955,6 +1964,18 @@ h1, h2, h3, h4, h5, h6 {
       vertical-align: middle;
       margin: -5px 5px 0 0; }
 
+.fx-mid-header {
+  position: relative;
+  text-align: center;
+  padding: 35px 0;
+  padding-bottom: 15px;
+  font-size: 39px; }
+
+.fx-mid-header h2 {
+  font-size: 29px;
+  margin-top: 0;
+  font-weight: bold; }
+
 .fx-list-training {
   list-style: none;
   padding: 0;
@@ -2493,6 +2514,11 @@ h1, h2, h3, h4, h5, h6 {
       padding: 10px 15px; }
       .checkout-popup .modal-body .btn-success span {
         font-size: 14px; } }
+
+.panel-body {
+  padding: 15px;
+  background-color: #fff;
+  margin-bottom: 25px; }
 
 .fx-capture-page {
   position: relative; }

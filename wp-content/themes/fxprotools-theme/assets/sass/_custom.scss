@@ -173,8 +173,8 @@
 			box-shadow: none;
 			border-radius: 0;
 			border: none;
-			border-left: 3px solid #DDD;
-			border-right: 3px solid #DDD;
+			border-left: 3px solid $lightgrey;
+			border-right: 3px solid $lightgrey;
 			.panel-body {
 				padding: 50px;
 			}
@@ -264,7 +264,7 @@
 	}
 	.section-three {
 		.panel-steps {
-			border: 2px solid #DDD;
+			border: 2px solid $lightgrey;
 			background: #fbfbfb;
 			.panel-body {
 				padding: 30px;
@@ -399,7 +399,7 @@
 			}
 		}
 		.step-item {
-			border-top: 1px solid #DDD;
+			border-top: 1px solid $lightgrey;
 			padding: 40px 0;
 			h2 {
 				margin: 0 0 10px 0;
@@ -473,7 +473,7 @@
 		}
 		.faq-item {
 			position: relative;
-			border-bottom: 2px solid #DDD;
+			border-bottom: 2px solid $lightgrey;
 			padding: 25px 0;
 			height: 200px;
 			&.no-border {
@@ -726,7 +726,7 @@
 // Referral Program
 .fx-ref-links {
 	margin-top: 30px;
-	border: 1px solid #DDD;
+	border: 1px solid $lightgrey;
 	padding: 15px 30px 30px 30px;
 	.fx-ref-title {
 		text-align: center;
@@ -736,12 +736,12 @@
 		}
 	}
 	.box {
-		border: 1px solid #DDD;
+		border: 1px solid $lightgrey;
 		padding: 15px;
 		margin-top: 20px;
 		.link {
 			margin-top: 10px;
-			border: 1px solid #DDD;
+			border: 1px solid $lightgrey;
 			padding: 15px;
 			position: relative;
 		}
@@ -755,9 +755,9 @@
 .fx-coaching-tab {
 	position: relative;
 	.tab-pane {
-		border-left: 1px solid #DDD;
-		border-right: 1px solid #DDD;
-		border-bottom: 1px solid #DDD;
+		border-left: 1px solid $lightgrey;
+		border-right: 1px solid $lightgrey;
+		border-bottom: 1px solid $lightgrey;
 	}
 }
 
@@ -829,7 +829,7 @@
 	}
 }
 .total-count.funnel-stats {
-	border: 1px solid #DDD;
+	border: 1px solid $lightgrey;
 	text-align: center;
 	display: block;
 	padding: 15px;
@@ -958,13 +958,13 @@
     margin: 0;
     padding: 0;
     width: 100%;
-    border-top: 1px solid #DDD;
+    border-top: 1px solid $lightgrey;
     margin-top: 15px;
     li {
 		display: inline-block;
 		line-height: 45px;
 		width: 100%;
-		border-bottom: 1px solid #DDD;
+		border-bottom: 1px solid $lightgrey;
 		&:last-child {
 			border-bottom: none;
 		}
@@ -1004,7 +1004,7 @@
 		display: inline-block;
 	    padding: 10px 15px;
 	    width: 200px;
-	    border: 1px solid #DDD;
+	    border: 1px solid $lightgrey;
 	}
 }
 
@@ -1092,7 +1092,7 @@
 	}
 }
 
-
+// Access Products Styling
 
 .fx-mid-header {
     position: relative;
@@ -1113,14 +1113,14 @@
   padding: 0;
   margin: 0; }
   .fx-list-training li {
-    border: 1px solid #DDD;
+    border: 1px solid $lightgrey;
     padding: 30px 20px;
     position: relative;
     margin-bottom: 10px;
 		background-color: $white;
 	 }
     .fx-list-training li:first-child {
-      border-top: 1px solid #DDD; }
+      border-top: 1px solid $lightgrey; }
     .fx-list-training li:before {
       content: ' ';
       height: 5px;
@@ -1146,6 +1146,7 @@
       height: 40px;
 
 	}
+
 
 
 
@@ -1772,6 +1773,23 @@
 	}
 }
 
+
+
+// Funnel - Marketing Links
+
+.panel-default>.panel-heading+.panel-collapse>.panel-body {
+    border-top-color: $lightgrey;
+    background: $white;
+}
+
+.accordion-group.panel-default {
+    margin-bottom: 15px;
+}
+
+
+
+
+
 // Capture Page
 .fx-capture-page {
 	position: relative;
@@ -1986,7 +2004,7 @@
 		border-bottom: 0;
 		&:last-child{
 			margin-bottom: 20px;
-			border-bottom: 1px solid #ddd;
+			border-bottom: 1px solid $lightgrey;
 		}
 		h2{
 			text-align: center;
@@ -2013,7 +2031,7 @@
 			}
 		}
 		.cancel-box{
-			border: 1px solid #dddddd;
+			border: 1px solid $lightgreyddd;
 			text-align: center;
 			padding: 10px 20px 40px;
 			margin-bottom: 30px;
