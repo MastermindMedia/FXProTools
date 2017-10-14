@@ -53,6 +53,7 @@ if(!class_exists('AdminSettings')){
 			// remove_menu_page('users.php');                  // Users
 			//remove_menu_page('tools.php');                  // Tools
 			// remove_menu_page('options-general.php');        // Settings
+			remove_menu_page('edit.php?post_type=meta-box');    // Metabox IO
 		}
 
 		// Remove Dashboard Widgets
