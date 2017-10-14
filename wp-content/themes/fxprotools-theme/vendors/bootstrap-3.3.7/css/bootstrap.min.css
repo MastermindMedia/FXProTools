@@ -5822,13 +5822,14 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:focus, a.list-g
 }
 
 .panel-default>.panel-heading {
-    color: #333;
-    background-color: #f8f8f8;
-    border-color: #ddd;
-    border-left: 5px solid #de1515;
-    padding: 20px;
-    font-weight: bold;
-}
+      color: #333;
+      background-color: #fff;
+      border-color: #ddd;
+      border-left: 5px solid #de1515;
+      padding: 20px;
+      border-bottom: 1px solid #ddd;
+      font-weight: bold;
+  }
 
 .panel-default>.panel-heading+.panel-collapse>.panel-body {
   border-top-color: #ddd
