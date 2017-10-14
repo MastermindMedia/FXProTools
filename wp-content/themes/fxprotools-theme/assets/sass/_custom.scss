@@ -211,7 +211,7 @@
 			bottom: 0;
 			width: 100%;
 			height: 100%;
-			background-image: url('../img/splash.png');
+			background-image: url('../../img/splash.png');
 			background-repeat: no-repeat;
 			background-position: top center;
 			background-size: cover;
@@ -328,7 +328,7 @@
 	}
 	.section-four {
 		position: relative;
-		background-image: url('../img/big_img2.jpg');
+		background-image: url('../../img/big_img2.jpg');
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: cover;
@@ -408,7 +408,7 @@
 	}
 	.section-six {
 		position: relative;
-	    background-image: url(../img/market-trading.jpg);
+	    background-image: url(../../img/market-trading.jpg);
 	    background-repeat: no-repeat;
 	    background-position: center;
 	    background-size: cover;
@@ -429,7 +429,7 @@
 			font-size: 35px;
 		}
 		.image-market-trading {
-			background-image: url('../img/market-trading.jpg');
+			background-image: url('../../img/market-trading.jpg');
 			background-repeat: no-repeat;
 			background-position: center;
 			background-size: cover;
@@ -493,7 +493,7 @@
 	}
 	.section-ten {
 		position: relative;
-		background-image: url('../img/splash2.png');
+		background-image: url('../../img/splash2.png');
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: cover;
@@ -593,7 +593,7 @@
 			height: 550px;
 			border-bottom: none;
 			&:before {
-				background-image: url('../img/splash-signals.png');
+				background-image: url('../../img/splash-signals.png');
 			}
 		}
 		.section-three {
@@ -631,7 +631,7 @@
 			}
 		}
 		.section-testimonials {
-			background-image: url('../img/splash2.png');
+			background-image: url('../../img/splash2.png');
 			background-position: top center;
 			background-color: $black;
 			.intro-note {
@@ -1055,7 +1055,7 @@
 		&:before{
 			content: "";
 			display: block;
-			background: url('../img/lesson-table-ribbon-yellow.png') no-repeat left top;
+			background: url('../../img/lesson-table-ribbon-yellow.png') no-repeat left top;
 			width: 71px;
 			height: 53px;
 			position: absolute;
@@ -1067,7 +1067,7 @@
 	.lesson-table-red{
 		.lesson-table-broker{
 			&:before{
-				background-image: url('../img/lesson-table-ribbon-red.png');
+				background-image: url('../../img/lesson-table-ribbon-red.png');
 			}
 		}
 	}
@@ -1076,7 +1076,7 @@
 	}
 	.lesson-table-btn{
 		position: relative;
-		background: url('../img/lesson-yellow-btn.jpg') repeat-x left top;
+		background: url('../../img/lesson-yellow-btn.jpg') repeat-x left top;
 		color: #fff;
 		font-weight: bold;
 		height: 45px;
@@ -1087,7 +1087,7 @@
 		background-size: auto 45px;
 		font-size: 14px;
 		&.red-btn{
-			background-image: url('../img/lesson-red-btn.jpg');
+			background-image: url('../../img/lesson-red-btn.jpg');
 			&:hover{
 				background: #af0018;
 			}
@@ -1099,7 +1099,7 @@
 		&:before{
 			content: "";
 			display: inline-block;
-			background: url('../img/btn-star.png') repeat-x left top;
+			background: url('../../img/btn-star.png') repeat-x left top;
 			width: 20px;
 			height: 19px;
 			background-size: 20px;
@@ -1195,7 +1195,7 @@
 					height: 25px;
 					border: 2px solid #c4c8d2;
 					border-radius: 50%;
-					background: url('../img/red-triangle.png') no-repeat center center #fff;
+					background: url('../../img/red-triangle.png') no-repeat center center #fff;
 					background-size: 7px;
 				}
 			}
@@ -1832,7 +1832,7 @@
 					bottom: 0;
 					width: 100%;
 					height: 100%;
-					background-image: url('../img/funnel-bg/f1-bg.png');
+					background-image: url('../../img/funnel-bg/f1-bg.png');
 					background-repeat: no-repeat;
 					background-position: right;
 					background-size: contain;
@@ -1853,7 +1853,7 @@
 			}
 			.fx-input-email {
 				padding: 20px;
-				background: url('../img/yellow-gradient.jpg') no-repeat center;
+				background: url('../../img/yellow-gradient.jpg') no-repeat center;
 				background-size: cover;
 				margin-top: 15px;
 				input {
@@ -1916,7 +1916,7 @@
 				bottom: 0;
 				width: 100%;
 				height: 100%;
-				background-image: url('../img/splash.png');
+				background-image: url('../../img/splash.png');
 				background-repeat: no-repeat;
 				background-position: top center;
 				background-size: cover;
@@ -1972,7 +1972,7 @@
 			}
 		}
 		.tab-form {
-			background: url('../img/yellow-gradient.jpg') no-repeat center;
+			background: url('../../img/yellow-gradient.jpg') no-repeat center;
 			background-size: cover;
 			padding: 10px;
 			.nav-tabs>li.active>a,
