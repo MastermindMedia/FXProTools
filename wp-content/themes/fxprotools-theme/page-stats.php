@@ -6,7 +6,7 @@ $category_slug = 'stats';
 $category = get_term_by('slug', $category_slug, 'ld_course_category' );
 $courses = get_courses_by_category_id($category->term_id);
 $funnels = get_funnels();
-$date_filter = isset($_GET['date_from']) ? array( 'date_from' => $_GET['date_from'], 'date_to' => $_GET['date_to']) : '';  
+$date_filter = isset($_GET['date_from']) ? array( 'date_from' => $_GET['date_from'], 'date_to' => $_GET['date_to']) : '';
 ?>
 <?php get_header(); ?>
 
@@ -40,6 +40,8 @@ $date_filter = isset($_GET['date_from']) ? array( 'date_from' => $_GET['date_fro
 						</form>
 					</div>
 					<?php foreach ($funnels as $key => $post): setup_postdata($post); $stats = get_funnel_stats($post->ID, $date_filter); ?>
+
+					<div class="stats-container">
 					<table class="table table-bordered">
 						<thead>
 							<tr>
@@ -87,6 +89,10 @@ $date_filter = isset($_GET['date_from']) ? array( 'date_from' => $_GET['date_fro
 							<span class="total-count funnel-stats">Total Distributor Sales: <?php echo $stats['totals']['distributor_sales'];?></span>
 						</div>
 					</div>
+				</div>
+
+
+
 					<?php endforeach;?>
 				</div>
 			</div>

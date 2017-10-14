@@ -1760,6 +1760,9 @@ h1, h2, h3, h4, h5, h6 {
   display: block;
   padding: 15px; }
 
+.stats-container {
+  background-color: #fff; }
+
 .fx-contact-panel {
   position: relative; }
   .fx-contact-panel .media-body {
