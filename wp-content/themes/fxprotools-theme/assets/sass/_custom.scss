@@ -835,18 +835,20 @@
 	padding: 15px;
 }
 
+
+
 .stats-container {
     background-color: $white;
     padding: 15px;
     margin-bottom: 15px;
-}
+			thead {
+    		background-color: $red;
+    		color: $white;
+    		font-size: 18px;
+			}
+		}
 
 
-thead.stats-container {
-    background-color: $red;
-    color: $white;
-    font-size: 18px;
-}
 
 // Marketing Contacts
 .fx-contact-panel {
