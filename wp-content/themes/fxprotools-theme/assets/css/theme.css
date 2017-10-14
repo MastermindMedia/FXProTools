@@ -1761,7 +1761,14 @@ h1, h2, h3, h4, h5, h6 {
   padding: 15px; }
 
 .stats-container {
-  background-color: #fff; }
+  background-color: #fff;
+  padding: 15px;
+  margin-bottom: 15px; }
+
+thead.stats-container {
+  background-color: #de1515;
+  color: #fff;
+  font-size: 18px; }
 
 .fx-contact-panel {
   position: relative; }
