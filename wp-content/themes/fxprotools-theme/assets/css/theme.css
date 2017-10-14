@@ -437,15 +437,6 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 5px;
     font-weight: bold; }
 
-.fx-mid-header {
-  position: relative;
-  text-align: center;
-  padding: 35px 0; }
-  .fx-mid-header h2 {
-    font-size: 20px;
-    margin-top: 0;
-    font-weight: bold; }
-
 .fx-separator {
   border-top: 1px solid #DDD;
   margin: 15px 0; }
@@ -1963,6 +1954,47 @@ h1, h2, h3, h4, h5, h6 {
       background-size: 20px;
       vertical-align: middle;
       margin: -5px 5px 0 0; }
+
+.fx-list-training {
+  list-style: none;
+  padding: 0;
+  margin: 0; }
+
+.fx-list-training li {
+  border: 1px solid #DDD;
+  padding: 30px 20px;
+  position: relative;
+  margin-bottom: 10px;
+  background-color: #fff; }
+
+.fx-list-training li:first-child {
+  border-top: 1px solid #DDD; }
+
+.fx-list-training li:before {
+  content: ' ';
+  height: 5px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #de1515; }
+
+.fx-list-training li span {
+  font-weight: bold;
+  font-size: 17px; }
+
+.fx-list-training li .action {
+  display: block;
+  width: 150px;
+  padding: 9px;
+  text-align: center;
+  position: absolute;
+  right: 20px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 40px; }
 
 .fx-course-navigation ul {
   list-style: none;
