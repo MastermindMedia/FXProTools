@@ -2516,12 +2516,8 @@ h1, h2, h3, h4, h5, h6 {
         font-size: 14px; } }
 
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #ddd;
-  background: #fff;
-  border-left: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
-  border-right: 1px solid #ddd;
-  margin-bottom: 25px; }
+  border: 1px solid #ddd;
+  background: #fff; }
 
 .accordion-group.panel-default {
   margin-bottom: 15px; }
