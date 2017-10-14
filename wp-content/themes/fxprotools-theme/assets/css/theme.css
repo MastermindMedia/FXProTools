@@ -2794,8 +2794,7 @@ li.false {
 .nav-tabs > li.active > a:focus,
 .nav-tabs > li.active > a:hover {
   background: #de1515;
-  border: none;
-  color: #777; }
+  border: none; }
 
 .woocommerce .added_to_cart.wc-forward {
   padding: 6px;
