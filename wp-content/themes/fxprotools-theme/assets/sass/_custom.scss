@@ -2169,17 +2169,29 @@ li.false {
 		border: none;
 	}
 
-
-
 // WooCommerce Shop
-.woocommerce .added_to_cart.wc-forward {
-	padding: 6px;
-	background-color: #de1515;
-	color: #fff;
-	&:hover {
-		background-color: #e6e6e6;
-		color: #333;
-		border: 1px solid #adadad;
-		padding: 5px;
+.woocommerce {
+	.added_to_cart.wc-forward {
+		padding: 6px;
+		background-color: #de1515;
+		color: #fff;
+		&:hover {
+			background-color: #e6e6e6;
+			color: #333;
+			border: 1px solid #adadad;
+			padding: 5px;
+		}
+	}
+
+	.single_add_to_cart_button.button.alt {
+		color: #fff;
+		background-color: #de1515;
+		padding: 7px 15px;
+		&:hover {
+			color: #333;
+			background-color: #e6e6e6;
+			border: 1px solid #adadad;
+			padding: 6px 15px;
+		}
 	}
 }
