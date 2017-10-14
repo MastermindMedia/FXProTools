@@ -847,6 +847,9 @@ function filter_woocommerce_product_data_tabs( $product_data_tabs ) {
 	return $product_data_tabs;
 };
 
+define('ENABLE_BUY_BUTTON','_enable_buy_button');
+define('BUY_BUTTON_URL','_buy_button_url');
+define('BUY_BUTTON_TEXT','_buy_button_text');
 /**
  * Creates the field inside Buy Button Tab
  */
@@ -858,7 +861,7 @@ function fxpro_custom_product_data_fields() {
 
 		woocommerce_wp_checkbox(
 			array(
-				'id' => '_enable_buy_button',
+				'id' => ENABLE_BUY_BUTTON,
 				'label' => __('Enable/Disable', 'woocommerce' ),
 				'description' => __( 'Do you want to enable this custom buy button URL?', 'woocommerce' )
 			)
@@ -866,7 +869,7 @@ function fxpro_custom_product_data_fields() {
 
 		woocommerce_wp_text_input(
 			array(
-				'id' => '_buy_button_url',
+				'id' => BUY_BUTTON_URL,
 				'label' => __( 'Button URL', 'woocommerce' ),
 				'desc_tip' => 'true',
 				'description' => __( 'link for the button.', 'woocommerce' )
@@ -875,7 +878,7 @@ function fxpro_custom_product_data_fields() {
 
 		woocommerce_wp_text_input(
 			array(
-				'id' => '_buy_button_text',
+				'id' => BUY_BUTTON_TEXT,
 				'label' => __( 'Button Text', 'woocommerce' ),
 				'desc_tip' => 'true',
 				'description' => __( 'text for the button.', 'woocommerce' )
@@ -886,23 +889,18 @@ function fxpro_custom_product_data_fields() {
     </div><?php
 }
 
-add_action( 'woocommerce_process_product_meta_simple', 'fxpro_save_proddata_custom_fields', 10, 1 );
-add_action( 'woocommerce_process_product_meta_variable', 'fxpro_save_proddata_custom_fields', 10, 1 );
-function fxpro_save_proddata_custom_fields( $post_id ) {
+add_action( 'woocommerce_admin_process_product_object', 'fxpro_save_proddata_custom_fields', 10, 1 );
+function fxpro_save_proddata_custom_fields( $product ) {
 	// Save enable/disable
-	$enable_buy_button = isset( $_POST['_enable_buy_button'] ) ? 'yes' : 'no';
-	update_post_meta( $post_id, '_enable_buy_button', $enable_buy_button );
+	$enable_buy_button = isset( $_POST[ ENABLE_BUY_BUTTON ] ) ? 'yes' : 'no';
+	update_post_meta( $product->get_id(), ENABLE_BUY_BUTTON, $enable_buy_button );
 
 	// Save Button URL
-	$buy_button_url = $_POST['_buy_button_url'];
-	if ( ! empty( $buy_button_url ) ) {
-		update_post_meta( $post_id, '_buy_button_url', esc_attr( $buy_button_url ) );
-	}
+	$buy_button_url = $_POST[ BUY_BUTTON_URL ];
+	update_post_meta( $product->get_id(), BUY_BUTTON_URL, $buy_button_url );
 
 	// Save Button Text
-	$buy_button_text = $_POST['_buy_button_text'];
-	if ( ! empty( $buy_button_text ) ) {
-		update_post_meta( $post_id, '_buy_button_text', esc_attr( $buy_button_text ) );
-	}
+	$buy_button_text = $_POST[ BUY_BUTTON_TEXT ];
+	update_post_meta( $product->get_id(), BUY_BUTTON_TEXT, $buy_button_text );
 }
 
