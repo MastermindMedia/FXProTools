@@ -1971,6 +1971,9 @@ h1, h2, h3, h4, h5, h6 {
   padding-bottom: 15px;
   font-size: 39px; }
 
+.fx-mid-header p {
+  font-size: 18px; }
+
 .fx-mid-header h2 {
   font-size: 29px;
   margin-top: 0;
@@ -2660,7 +2663,7 @@ h1, h2, h3, h4, h5, h6 {
           text-align: center; }
           .fx-capture-page.f3 .tab-form .nav-tabs li a {
             border: none;
-            color: #999999;
+            color: #fff;
             padding: 5px 15px; }
             .fx-capture-page.f3 .tab-form .nav-tabs li a label {
               display: block;

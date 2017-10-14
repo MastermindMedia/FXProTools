@@ -1102,6 +1102,10 @@
     font-size: 39px;
 }
 
+.fx-mid-header p {
+	font-size: 18px;
+}
+
 .fx-mid-header h2 {
     font-size: 29px;
     margin-top: 0;
@@ -1968,7 +1972,7 @@
 					text-align: center;
 					a {
 						border: none;
-						color: #999999;
+						color: $white;
 						padding: 5px 15px;
 						label {
 							display: block;
