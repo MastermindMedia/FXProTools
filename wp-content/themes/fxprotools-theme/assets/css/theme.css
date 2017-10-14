@@ -1758,7 +1758,8 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid #ddd;
   text-align: center;
   display: block;
-  padding: 15px; }
+  padding: 15px;
+  background-color: #f8f8f8; }
 
 .stats-container {
   background-color: #fff;
