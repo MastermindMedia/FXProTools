@@ -1776,10 +1776,13 @@
 
 
 // Funnel - Marketing Links
-
 .panel-default>.panel-heading+.panel-collapse>.panel-body {
     border-top-color: $lightgrey;
     background: $white;
+		border-left: 1px solid $lightgrey;
+    border-bottom: 1px solid $lightgrey;
+    border-right: 1px solid $lightgrey;
+    margin-bottom: 25px;
 }
 
 .accordion-group.panel-default {
@@ -2031,7 +2034,7 @@
 			}
 		}
 		.cancel-box{
-			border: 1px solid $lightgreyddd;
+			border: 1px solid $lightgrey;
 			text-align: center;
 			padding: 10px 20px 40px;
 			margin-bottom: 30px;
