@@ -810,3 +810,13 @@ add_action('wp_login_failed', 'curtom_redirect_login_failed');
 function curtom_redirect_login_failed($username) {
 	wp_redirect(get_bloginfo('url') . '/login?login=failed&username=' . urlencode(sanitize_text_field($username)) );
 }
+
+// redirects the user to dashboard if already logged in and went to /login
+add_action( 'wp', 'add_login_check' );
+function add_login_check() {
+	global $post;
+	if ( is_user_logged_in() && $post->post_name == 'login' ) {
+		wp_redirect( '/dashboard' );
+		exit;
+	}
+}
