@@ -821,8 +821,19 @@ function check_if_logged_in() {
 	}
 }
 
+// redirect to homepage after logging out
 add_action('wp_logout','redirect_to_home_after_logout');
 function redirect_to_home_after_logout(){
 	wp_redirect( home_url() );
 	exit();
+}
+
+// redirect to /login when accessing wp-login.php
+add_action('init','redirect_to_login');
+function redirect_to_login(){
+	global $pagenow;
+	if( 'wp-login.php' == $pagenow && !is_user_logged_in()) {
+		wp_redirect('/login');
+		exit();
+	}
 }
