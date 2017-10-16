@@ -832,7 +832,7 @@ function redirect_to_home_after_logout(){
 add_action('init','redirect_to_login');
 function redirect_to_login(){
 	global $pagenow;
-	if( 'wp-login.php' == $pagenow && !is_user_logged_in()) {
+	if( 'wp-login.php' == $pagenow && !is_user_logged_in() && empty($_POST)) {
 		wp_redirect('/login');
 		exit();
 	}
