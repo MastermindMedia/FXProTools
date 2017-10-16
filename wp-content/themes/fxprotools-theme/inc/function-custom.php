@@ -676,51 +676,70 @@ add_action('init','sess_start');
 /**
  * Use to render customized nav menus
  * @param  string $mb_group_id metabox group id
- * @author Austin N. <[austin.nicomedez@gmail.com]>
  */
-function get_mb_nav($mb_group_id) {
+function get_mb_pto1( $mb_group_id, $page_element ) {
 
-	$menus = rwmb_meta( $mb_group_id );
+	$group = rwmb_meta( $mb_group_id );
+	// Validate if metabox group id already declared
+	if( $group == '' ) {
+		$html = '<div class="alert alert-warning" role="alert">';
+		$html .= 'Not a valid metabox field';
+		$html .= '</div>';
+		echo $html;
+		return;
+	} else {
+		$display_header_menu = array_key_exists('pto1_display_header_menu', $group) ? $group['pto1_display_header_menu'] : null;
+		$display_footer_menu = array_key_exists('pto1_display_footer_menu', $group) ? $group['pto1_display_footer_menu'] : null;
+	}
 
-	switch ( $mb_group_id ) {
-		case 'pto1_menus':
+	switch ( $page_element ) {
+		case 'secondary_header_menu':
 
-			if( $menus !== '' ) :
-				$display_header_menu = array_key_exists('pto1_display_header_menu', $menus) ? $menus['pto1_display_header_menu'] : null;
-				$secondary_header_menu = array_key_exists('pto1_secondary_header_menu', $menus) ? $menus['pto1_secondary_header_menu'] : null;
-				if( $display_header_menu == 'yes' && !$secondary_header_menu == null ) :
-					$params = array(
-						'menu'            => $secondary_header_menu,
-						'theme_location'  => '',
-						'container'       => false,
-						'container_class' => '',
-						'container_id'    => '',
-						'menu_id'         => $secondary_header_menu,
-						'menu_class'      => 'fx-nav-options',
-						'echo'            => true,
-						'fallback_cb'     => 'wp_page_menu',
-						'before'          => '',
-						'after'           => '',
-						'link_before'     => '',
-						'link_after'      => '',
-						'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-						'depth'           => 0,
-						'walker'          => new Nav_Secondary_Header_Menu_Walker(),
-					);
-					wp_nav_menu( $params );
-				else :
-					$html = '<div class="alert alert-warning" role="alert">';
-					$html .= 'Menu is not yet selected.';
-					$html .= '</div>';
-					echo $html;
-				endif;
+			$secondary_header_menu = array_key_exists('pto1_secondary_header_menu', $group) ? $group['pto1_secondary_header_menu'] : null;
+			if( $display_header_menu == 'yes' && !$secondary_header_menu == null ) :
+				$params = array(
+					'menu'            => $secondary_header_menu,
+					'theme_location'  => '',
+					'container'       => false,
+					'container_class' => '',
+					'container_id'    => '',
+					'menu_id'         => $secondary_header_menu,
+					'menu_class'      => 'fx-nav-options',
+					'echo'            => true,
+					'fallback_cb'     => 'wp_page_menu',
+					'before'          => '',
+					'after'           => '',
+					'link_before'     => '',
+					'link_after'      => '',
+					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+					'depth'           => 0,
+					'walker'          => new Nav_Secondary_Header_Menu_Walker(),
+				);
+				wp_nav_menu( $params );
+			elseif ( $display_header_menu == 'no' ) :
+				return;
 			else :
-				$html2 = '<div class="alert alert-warning" role="alert">';
-				$html2 .= 'Default menu here.';
-				$html2 .= '</div>';
-				echo $html2;
+				$html = '<div class="alert alert-warning" role="alert">';
+				$html .= 'Menu is not yet selected.';
+				$html .= '</div>';
+				echo $html;
 			endif;
 
+			break;
+
+		case 'footer_left_menu':
+			$footer_left_menu = array_key_exists('pto1_footer_menu_fl', $group) ? $group['pto1_footer_menu_fl'] : null;
+			mb_pto1_footer($display_footer_menu, $footer_left_menu);
+			break;
+
+		case 'footer_middle_menu':
+			$footer_mid_menu = array_key_exists('pto1_footer_menu_mid', $group) ? $group['pto1_footer_menu_mid'] : null;
+			mb_pto1_footer($display_footer_menu, $footer_mid_menu);
+			break;
+
+		case 'footer_right_menu':
+			$footer_right_menu = array_key_exists('pto1_footer_menu_fr', $group) ? $group['pto1_footer_menu_fr'] : null;
+			mb_pto1_footer($display_footer_menu, $footer_right_menu);
 			break;
 
 		default:
@@ -729,12 +748,45 @@ function get_mb_nav($mb_group_id) {
 	}
 }
 
+function mb_pto1_footer($footer_display, $footer_loc) {
+	if( $footer_display == 'yes' && !$footer_loc == null ) :
+		$params = array(
+			'menu'            => $footer_loc,
+			'theme_location'  => '',
+			'container'       => false,
+			'container_class' => '',
+			'container_id'    => '',
+			'menu_id'         => $footer_loc,
+			'menu_class'      => '',
+			'echo'            => true,
+			'fallback_cb'     => 'wp_page_menu',
+			'before'          => '',
+			'after'           => '',
+			'link_before'     => '',
+			'link_after'      => '',
+			'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+			'depth'           => 0,
+			'walker'          => '',
+		);
+		echo '<ul class="footer-nav">';
+		wp_nav_menu( $params );
+		echo '</ul>';
+	elseif ( $footer_display == 'no' ) :
+		return;
+	else :
+		$html = '<div class="alert alert-warning" role="alert">';
+		$html .= 'Menu is not yet selected.';
+		$html .= '</div>';
+		echo $html;
+	endif;
+}
+
 function get_emails_for_user($statuses, $user_id = null)
 {
 	if (!$user_id) {
 		$user_id = get_current_user_id();
 	}
-	
+
 	$response = get_posts(array(
 		'posts_per_page'	=> -1,
 		'orderby'			=> 'modified',
@@ -749,7 +801,7 @@ function get_emails_for_user($statuses, $user_id = null)
 			)
 		)
 	));
-	
+
 	return $response;
 }
 
@@ -757,11 +809,11 @@ function get_users_who_ordered($product_ids, $user_fields = array('user_email'))
 {
     global $wpdb;
     $select = [];
-    
+
     foreach ($user_fields as $field) {
     	$select[] = 'users.' . $field . ' as ' . $field;
     }
-    
+
     $select = implode(', ', $select);
     $ids = implode(',', $product_ids);
 
@@ -775,7 +827,7 @@ function get_users_who_ordered($product_ids, $user_fields = array('user_email'))
         AND order_item_meta.meta_key = '_product_id'
         AND order_item_meta.meta_value IN ($ids)
     ");
-    
+
     return $results;
 }
 
@@ -783,11 +835,11 @@ function get_users_with_active_subscriptions($subscription_ids, $user_fields = a
 {
     global $wpdb;
     $select = [];
-    
+
     foreach ($user_fields as $field) {
     	$select[] = 'users.' . $field . ' as ' . $field;
     }
-    
+
     $select = implode(', ', $select);
     $ids = implode(',', $subscription_ids);
 
@@ -801,7 +853,7 @@ function get_users_with_active_subscriptions($subscription_ids, $user_fields = a
         AND order_item_meta.meta_key = '_product_id'
         AND order_item_meta.meta_value IN ($ids)
     ");
-    
+
     return $results;
 }
 
