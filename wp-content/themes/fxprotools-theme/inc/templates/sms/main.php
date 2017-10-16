@@ -22,10 +22,10 @@
 									<div class="tab-content">
 										<!-- sms inbox -->
 										<div role="tabpanel" class="tab-pane active" id="sms-inbox">
-											<?php Apyc_View::get_instance()->view_theme('inc/Apyc/view/sms/inbox.php', array()); ?>
+											<?php $obj_view->view_theme($view_template . 'sms/inbox.php', array()); ?>
 										</div>
 										<!-- sms inbox -->
-										<div role="tabpanel" class="tab-pane" id="sms-compose"><?php Apyc_View::get_instance()->view_theme('inc/Apyc/view/sms/compose.php', array()); ?></div>
+										<div role="tabpanel" class="tab-pane" id="sms-compose"><?php $obj_view->view_theme($view_template . 'sms/compose.php', array()); ?></div>
 									</div><!-- tab content -->
 									
 								</div><!-- col-md-9 -->
