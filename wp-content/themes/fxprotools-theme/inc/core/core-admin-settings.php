@@ -13,7 +13,7 @@ if(!defined('ABSPATH')){
 if(!class_exists('AdminSettings')){
 
 	class AdminSettings {
-		
+
 		public function __construct()
 		{
 			add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_assets'));
@@ -53,7 +53,7 @@ if(!class_exists('AdminSettings')){
 			// remove_menu_page('users.php');                  // Users
 			//remove_menu_page('tools.php');                  // Tools
 			// remove_menu_page('options-general.php');        // Settings
-			remove_menu_page('edit.php?post_type=meta-box');    // Metabox IO
+			//remove_menu_page('edit.php?post_type=meta-box');    // Metabox IO
 		}
 
 		// Remove Dashboard Widgets
@@ -125,7 +125,7 @@ if(!class_exists('AdminSettings')){
 		// 	);
 		// 	add_action('load-' . $page_settings, 'page_assets');
 
-		// 	function page_assets(){	
+		// 	function page_assets(){
 		// 		// CSS
 		// 		wp_enqueue_style('css-bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css', array(), '', 'all');
 		// 		wp_enqueue_style('css-datatable', 'https://cdn.datatables.net/v/bs/dt-1.10.12/datatables.min.css', array(), '', 'all');
@@ -136,13 +136,13 @@ if(!class_exists('AdminSettings')){
 		// 		wp_enqueue_script('js-bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js', FALSE, '', TRUE);
 		// 		wp_enqueue_script('js-datatable', 'https://cdn.datatables.net/v/bs/dt-1.10.13/datatables.min.js', FALSE, '', TRUE);
 		// 		wp_enqueue_script('js-admin', get_stylesheet_directory_uri() . '/assets/js/admin-anet.js', FALSE, '', TRUE);
-				
+
 		// 		// Declare the URL to the file that handles the AJAX request (wp-admin/admin-ajax.php)
 		// 		wp_localize_script('js-admin', 'wpAjax', array(
 		// 			'ajaxUrl'   => admin_url('admin-ajax.php'),
 		// 			'ajaxNonce' => wp_create_nonce('wp_nonce')
 		// 		));
-					
+
 		// 	}
 
 		// 	function page_content(){
