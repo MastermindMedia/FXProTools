@@ -3,8 +3,8 @@
 		<div class="row">
 			<div class="col-md-12">
 				<?php
-					// Customized Metabox Nav Menu
-					get_mb_nav( 'pto1_menus' );
+					// Metabox Page Template Option
+					get_mb_pto1( 'pto1_menus', 'secondary_header_menu' );
 				?>
 			</div>
 		</div>

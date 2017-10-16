@@ -1,11 +1,221 @@
 <?php
 /**
  * ----------------------------
- * Fxprotools - Custom Functions
+ * Fxprotools - Cusom Functions
  * ----------------------------
  * All custom functions
  */
 
+function get_courses_by_product_id($product_id)
+{
+	$courses_ids = get_post_meta($product_id , '_related_course');
+	$courses     = array();
+	if($courses_ids){
+		foreach($courses_ids as $id){
+			$courses[] = get_post($id[0]);
+		}
+	}
+	return $courses;
+}
+
+function get_courses_by_category_id($category_id)
+{
+	$args = array(
+			'posts_per_page'   => -1,
+			'orderby'          => 'menu_order',
+			'order'			   => 'ASC',
+			'post_status'      => 'publish',
+			'post_type'		   => 'sfwd-courses',
+			'tax_query' => array(
+			array(
+				'taxonomy'    	 => 'ld_course_category',
+				'field'  		 => 'term_id',
+				'terms'			 => $category_id,
+			),
+		),
+	);
+	$courses = get_posts($args);
+	return !$courses ? false : $courses;
+}
+
+function get_course_metadata($course_id)
+{
+	return get_post_meta( $course_id, '_sfwd-courses', true );
+}
+
+function get_course_price_by_id($course_id)
+{
+	$course_data = get_course_metadata($course_id);
+	$price = $course_data['sfwd-courses_course_price'];
+	return is_numeric($price) ? $price : 0;
+}
+
+function get_lessons_by_course_id($course_id)
+{
+	$orderby = learndash_get_setting( $course_id, 'course_lesson_orderby' );
+	$order   = learndash_get_setting( $course_id, 'course_lesson_order' );
+	$args = array(
+			'posts_per_page'   => -1,
+			'orderby'          => $orderby,
+			'order'			   => $order,
+			'post_status'      => 'publish',
+			'post_type'		   => 'sfwd-lessons',
+			'meta_query' => array(
+			array(
+				'key'     => 'course_id',
+				'value'   => $course_id,
+				'compare' => '=',
+			),
+		),
+	);
+	$lessons = get_posts($args);
+	return !$lessons ? false : $lessons;
+}
+
+function get_user_progress()
+{
+	if(!is_user_logged_in()) return false;
+	$current_user    = wp_get_current_user();
+	$user_id         = $current_user->ID;
+	$course_progress = get_user_meta( $user_id, '_sfwd-course_progress', true );
+	return !$course_progress ? false : $course_progress;
+}
+
+function get_course_lesson_progress($course_id, $lesson_id)
+{
+	if(!$course_id || !$lesson_id) return false;
+	$course_progress = get_user_progress();
+	return $course_progress[$course_id]['lessons'][$lesson_id];
+}
+
+function get_lesson_parent_course($lesson_id)
+{
+	$course_id = get_post_meta($lesson_id , 'course_id',true);
+	$course = get_post($course_id);
+	return !$course ? false : $course;
+}
+
+function get_course_category_children($course_cat_id)
+{
+	$children_ids = get_term_children($course_cat_id , 'ld_course_category');
+
+	if( !empty($children_ids) ){
+		$child_categories = get_terms( array(
+		    'taxonomy'   => 'ld_course_category',
+		    'include'    => $children_ids,
+		    'hide_empty' => false,
+		) );
+		return !$child_categories ? false: $child_categories;
+	} else{
+		return false;
+	}
+}
+
+function get_funnels()
+{
+	$args = array(
+		'posts_per_page'   => -1,
+		'orderby'          => 'menu_order',
+		'order'			   => 'ASC',
+		'post_status'      => 'publish',
+		'post_type'		   => 'fx_funnel',
+	);
+	return get_posts($args);
+}
+
+function property_occurence_count($array, $property, $value)
+{
+	$count = 0;
+	foreach ($array as $object) {
+		if ( preg_replace('{/$}', '', $object->{$property} ) == preg_replace('{/$}', '', $value ) ){
+			$count++;
+		}
+	}
+	return $count;
+}
+
+function get_unique_property_count($array, $property, $url)
+{
+	$count = 0;
+	foreach($array as $object){
+		if( preg_replace('{/$}', '', $object->url) == preg_replace('{/$}', '', $url) ){
+			$value = $object->{$property};
+			$occurrence = property_occurence_count($array, $property, $value);
+			if($occurrence == 1) $count += 1;
+		}
+	}
+	return $count;
+}
+
+function get_property_count($array, $property, $url)
+{
+	$count = 0;
+	foreach($array as $object){
+		if( preg_replace('{/$}', '', $object->url) == preg_replace('{/$}', '', $url) ){
+			if( (int) $object->{$property} > 0) $count++;
+		}
+	}
+	return $count;
+}
+
+
+function date_is_in_range($date_from, $date_to, $date)
+{
+	$start_ts = strtotime($date_from);
+ 	$end_ts = strtotime($date_to);
+	$ts = strtotime($date);
+ 	return (($ts >= $start_ts) && ($ts <= $end_ts));
+}
+
+function get_funnel_stats($funnel_id, $date_filter = array())
+{
+	$visits = affiliate_wp()->visits->get_visits( array( 'affiliate_id' => affwp_get_affiliate_id( get_current_user_id()), 'order_by' => 'visit_id' ) );
+	if( $date_filter ){
+		foreach($visits as $key => $visit){
+			 if( !date_is_in_range($date_filter['date_from'], $date_filter['date_to'], date("m/d/Y", strtotime($visit->date))) ) unset($visits[$key]);
+		}
+	}
+	$funnel = array( 'cp_url' => rwmb_meta('capture_page_url', '', $funnel_id),
+		 			 'lp_url' => rwmb_meta('landing_page_url', '', $funnel_id)
+		 			);
+	$cp_stats = array( 'page_views' => array('all' 	 => 0, 'unique' => 0),
+					   'opt_ins' 	=> array('all' 	 => 0, 'rate' 	 => 0),
+					   'sales' 		=> array('count' => 0, 'rate'	 => 0),
+				);
+	$lp_stats = array( 'page_views' => array('all' 	 => 0, 'unique' => 0),
+					   'opt_ins' 	=> array('all' 	 => 0, 'rate' 	 => 0),
+					   'sales' 		=> array('count' => 0, 'rate' 	 => 0),
+				);
+	$sales_stats = array( 'customer_sales' => 0, 'distributor_sales' => 0);
+
+	//all
+	$cp_stats['page_views']['all'] = property_occurence_count($visits, 'url',  $funnel['cp_url'] );
+	$lp_stats['page_views']['all'] = property_occurence_count($visits, 'url', $funnel['lp_url'] );
+
+	//unique
+	$cp_stats['page_views']['unique'] = get_unique_property_count($visits, 'ip', $funnel['cp_url']);
+	$lp_stats['page_views']['unique'] = get_unique_property_count($visits, 'ip', $funnel['lp_url']);
+
+	//opt ins
+	$funnel_id = trim( parse_url( rwmb_meta('capture_page_url', '', $funnel_id), PHP_URL_PATH ), '/');
+	$search = FX_Sendgrid_Api::search_contacts('campaign', $funnel_id);
+	$cp_stats['opt_ins']['all'] = $search->recipient_count;
+	$cp_stats['opt_ins']['rate'] = $cp_stats['opt_ins']['all'] < 1 ? 0 :  round( $cp_stats['opt_ins']['all'] / $cp_stats['page_views']['all'] * 100, 2);
+
+	//sales
+	$cp_stats['sales']['count'] = get_property_count($visits, 'referral_id', $funnel['cp_url']);
+	$cp_stats['sales']['rate'] = $cp_stats['sales']['count'] < 1 ? 0 :  round( $cp_stats['sales']['count'] / $cp_stats['page_views']['all'] * 100, 2);
+
+	$lp_stats['sales']['count'] = get_property_count($visits, 'referral_id', $funnel['lp_url']);
+	$lp_stats['sales']['rate'] = $lp_stats['sales']['count'] < 1 ? 0 :  round( $lp_stats['sales']['count'] / $lp_stats['page_views']['all'] * 100, 2);
+
+	$stats = array( 'capture' => $cp_stats,
+					'landing' => $lp_stats,
+					'totals' => $sales_stats,
+				);
+
+	return $stats;
+}
 
 function get_user_checklist()
 {
@@ -35,7 +245,7 @@ function get_checklist_next_step_url()
 function resend_email_verification()
 {
 	if( get_current_user_id() > 0){
-		send_email_verification(get_current_user_id());
+		ThemeSettings::send_email_verification(get_current_user_id());
 	}
 }
 
@@ -60,6 +270,17 @@ function verify_email_address($verification_code)
 	}
 }
 
+function get_user_referrals()
+{
+	if(get_current_user_id() > 0){
+		$affiliate_id = affwp_get_affiliate_id( get_current_user_id() );
+		$affiliate_referrals = affiliate_wp()->referrals->get_referrals( array(
+			'number'       => -1,
+			'affiliate_id' => $affiliate_id
+		) );
+		return $affiliate_referrals;
+	}
+}
 
 function random_checkout_time_elapsed(  $full = false)
 {
@@ -88,6 +309,52 @@ function random_checkout_time_elapsed(  $full = false)
 
     if (!$full) $string = array_slice($string, 0, 1);
     return $string ? implode(', ', $string) . ' ago' : 'just now';
+}
+
+function is_lesson_progression_enabled($course_id)
+{
+	$meta = get_post_meta( $course_id, '_sfwd-courses' );
+	return empty( $meta[0]['sfwd-courses_course_disable_lesson_progression'] );
+}
+
+function forced_lesson_time()
+{
+	$timeval = learndash_forced_lesson_time();
+
+	if ( ! empty( $timeval ) ) {
+		$time_sections = explode( ' ', $timeval );
+		$h = $m = $s = 0;
+
+		foreach ( $time_sections as $k => $v ) {
+			$value = trim( $v );
+
+			if ( strpos( $value, 'h' ) ) {
+				$h = intVal( $value );
+			} else if ( strpos( $value, 'm' ) ) {
+				$m = intVal( $value );
+			} else if ( strpos( $value, 's' ) ) {
+				$s = intVal( $value );
+			}
+		}
+
+		$time = $h * 60 * 60 + $m * 60 + $s;
+
+		if ( $time == 0 ) {
+			$time = (int)$timeval;
+		}
+	}
+
+	if ( !empty( $time ) ) {
+		$button_disabled = " disabled='disabled' ";
+		echo '<script>
+				var learndash_forced_lesson_time = ' . $time . ' ;
+				var learndash_timer_var = setInterval(function(){learndash_timer()},1000);
+			</script>
+			<style>
+				input#learndash_mark_complete_button[disabled] {     color: #333;    background: #ccc;    border-color: #ccc;}
+			</style>';
+		return $button_disabled;
+	}
 }
 
 function get_trial_end_date()
@@ -221,7 +488,6 @@ function get_recent_subscriptions ($limit = 15)
 	}
 	return $subscription_list;
 }
-
 /* -------------------------
 	Actions and Filters
  --------------------------*/
@@ -410,51 +676,70 @@ add_action('init','sess_start');
 /**
  * Use to render customized nav menus
  * @param  string $mb_group_id metabox group id
- * @author Austin N. <[austin.nicomedez@gmail.com]>
  */
-function get_mb_nav($mb_group_id) {
+function get_mb_pto1( $mb_group_id, $page_element ) {
 
-	$menus = rwmb_meta( $mb_group_id );
+	$group = rwmb_meta( $mb_group_id );
+	// Validate if metabox group id already declared
+	if( $group == '' ) {
+		$html = '<div class="alert alert-warning" role="alert">';
+		$html .= 'Not a valid metabox field';
+		$html .= '</div>';
+		echo $html;
+		return;
+	} else {
+		$display_header_menu = array_key_exists('pto1_display_header_menu', $group) ? $group['pto1_display_header_menu'] : null;
+		$display_footer_menu = array_key_exists('pto1_display_footer_menu', $group) ? $group['pto1_display_footer_menu'] : null;
+	}
 
-	switch ( $mb_group_id ) {
-		case 'pto1_menus':
+	switch ( $page_element ) {
+		case 'secondary_header_menu':
 
-			if( $menus !== '' ) :
-				$display_header_menu = array_key_exists('pto1_display_header_menu', $menus) ? $menus['pto1_display_header_menu'] : null;
-				$secondary_header_menu = array_key_exists('pto1_secondary_header_menu', $menus) ? $menus['pto1_secondary_header_menu'] : null;
-				if( $display_header_menu == 'yes' && !$secondary_header_menu == null ) :
-					$params = array(
-						'menu'            => $secondary_header_menu,
-						'theme_location'  => '',
-						'container'       => false,
-						'container_class' => '',
-						'container_id'    => '',
-						'menu_id'         => $secondary_header_menu,
-						'menu_class'      => 'fx-nav-options',
-						'echo'            => true,
-						'fallback_cb'     => 'wp_page_menu',
-						'before'          => '',
-						'after'           => '',
-						'link_before'     => '',
-						'link_after'      => '',
-						'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-						'depth'           => 0,
-						'walker'          => new Nav_Secondary_Header_Menu_Walker(),
-					);
-					wp_nav_menu( $params );
-				else :
-					$html = '<div class="alert alert-warning" role="alert">';
-					$html .= 'Menu is not yet selected.';
-					$html .= '</div>';
-					echo $html;
-				endif;
+			$secondary_header_menu = array_key_exists('pto1_secondary_header_menu', $group) ? $group['pto1_secondary_header_menu'] : null;
+			if( $display_header_menu == 'yes' && !$secondary_header_menu == null ) :
+				$params = array(
+					'menu'            => $secondary_header_menu,
+					'theme_location'  => '',
+					'container'       => false,
+					'container_class' => '',
+					'container_id'    => '',
+					'menu_id'         => $secondary_header_menu,
+					'menu_class'      => 'fx-nav-options',
+					'echo'            => true,
+					'fallback_cb'     => 'wp_page_menu',
+					'before'          => '',
+					'after'           => '',
+					'link_before'     => '',
+					'link_after'      => '',
+					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+					'depth'           => 0,
+					'walker'          => new Nav_Secondary_Header_Menu_Walker(),
+				);
+				wp_nav_menu( $params );
+			elseif ( $display_header_menu == 'no' ) :
+				return;
 			else :
-				$html2 = '<div class="alert alert-warning" role="alert">';
-				$html2 .= 'Default menu here.';
-				$html2 .= '</div>';
-				echo $html2;
+				$html = '<div class="alert alert-warning" role="alert">';
+				$html .= 'Menu is not yet selected.';
+				$html .= '</div>';
+				echo $html;
 			endif;
 
+			break;
+
+		case 'footer_left_menu':
+			$footer_left_menu = array_key_exists('pto1_footer_menu_fl', $group) ? $group['pto1_footer_menu_fl'] : null;
+			mb_pto1_footer($display_footer_menu, $footer_left_menu);
+			break;
+
+		case 'footer_middle_menu':
+			$footer_mid_menu = array_key_exists('pto1_footer_menu_mid', $group) ? $group['pto1_footer_menu_mid'] : null;
+			mb_pto1_footer($display_footer_menu, $footer_mid_menu);
+			break;
+
+		case 'footer_right_menu':
+			$footer_right_menu = array_key_exists('pto1_footer_menu_fr', $group) ? $group['pto1_footer_menu_fr'] : null;
+			mb_pto1_footer($display_footer_menu, $footer_right_menu);
 			break;
 
 		default:
@@ -463,12 +748,45 @@ function get_mb_nav($mb_group_id) {
 	}
 }
 
+function mb_pto1_footer($footer_display, $footer_loc) {
+	if( $footer_display == 'yes' && !$footer_loc == null ) :
+		$params = array(
+			'menu'            => $footer_loc,
+			'theme_location'  => '',
+			'container'       => false,
+			'container_class' => '',
+			'container_id'    => '',
+			'menu_id'         => $footer_loc,
+			'menu_class'      => '',
+			'echo'            => true,
+			'fallback_cb'     => 'wp_page_menu',
+			'before'          => '',
+			'after'           => '',
+			'link_before'     => '',
+			'link_after'      => '',
+			'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+			'depth'           => 0,
+			'walker'          => '',
+		);
+		echo '<ul class="footer-nav">';
+		wp_nav_menu( $params );
+		echo '</ul>';
+	elseif ( $footer_display == 'no' ) :
+		return;
+	else :
+		$html = '<div class="alert alert-warning" role="alert">';
+		$html .= 'Menu is not yet selected.';
+		$html .= '</div>';
+		echo $html;
+	endif;
+}
+
 function get_emails_for_user($statuses, $user_id = null)
 {
 	if (!$user_id) {
 		$user_id = get_current_user_id();
 	}
-	
+
 	$response = get_posts(array(
 		'posts_per_page'	=> -1,
 		'orderby'			=> 'modified',
@@ -483,7 +801,7 @@ function get_emails_for_user($statuses, $user_id = null)
 			)
 		)
 	));
-	
+
 	return $response;
 }
 
@@ -491,11 +809,11 @@ function get_users_who_ordered($product_ids, $user_fields = array('user_email'))
 {
     global $wpdb;
     $select = [];
-    
+
     foreach ($user_fields as $field) {
     	$select[] = 'users.' . $field . ' as ' . $field;
     }
-    
+
     $select = implode(', ', $select);
     $ids = implode(',', $product_ids);
 
@@ -509,7 +827,7 @@ function get_users_who_ordered($product_ids, $user_fields = array('user_email'))
         AND order_item_meta.meta_key = '_product_id'
         AND order_item_meta.meta_value IN ($ids)
     ");
-    
+
     return $results;
 }
 
@@ -517,11 +835,11 @@ function get_users_with_active_subscriptions($subscription_ids, $user_fields = a
 {
     global $wpdb;
     $select = [];
-    
+
     foreach ($user_fields as $field) {
     	$select[] = 'users.' . $field . ' as ' . $field;
     }
-    
+
     $select = implode(', ', $select);
     $ids = implode(',', $subscription_ids);
 
@@ -535,7 +853,7 @@ function get_users_with_active_subscriptions($subscription_ids, $user_fields = a
         AND order_item_meta.meta_key = '_product_id'
         AND order_item_meta.meta_value IN ($ids)
     ");
-    
+
     return $results;
 }
 
@@ -548,8 +866,7 @@ function custom_redirect_login_failed($username) {
 // redirects the user to dashboard if already logged in and went to /login
 add_action( 'wp', 'check_if_logged_in' );
 function check_if_logged_in() {
-	global $post;
-	if ( is_user_logged_in() && is_page('login') ) {
+	if ( is_user_logged_in() && is_page('login' )) {
 		wp_redirect( '/dashboard' );
 		exit;
 	}

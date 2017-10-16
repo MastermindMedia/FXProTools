@@ -71,34 +71,86 @@ class Apyc_Modal{
 		wp_die();
 	}
 	
+	/**
+	* register webinar
+	* https://goto-developer.logmeininc.com/content/gotowebinar-api-reference#!/Registrants/createRegistrant
+	**/
 	public function register_webinar(){
 		$data = array();
 		$post = $_POST;
+		$error = false;
+		$error_array = array();
+		
 		$data = json_decode($post['post_data'], true);
 		parse_str($post['post_data'], $ajax);
+		//dd($ajax);
 		$full_name = explode(' ', $ajax['fullName']);
-		
+		//dd($full_name);
 		$first_name = '';
 		if( isset($full_name[0]) ){
 			$first_name = $full_name[0];
 		}
 		
-		$last_name = isset($full_name[1]) ? $full_name[1]:'' . isset($full_name[2]) ? $full_name[2]:'';
+		$last_name = isset($full_name[1]) ? $full_name[1]:'';
 		
-		$body_input = array(
-			'lastName' => $last_name,
-			'firstName' => $first_name,
-			'phone ' => isset($ajax['phone']) ? $ajax['phone']:'',
-		);
-		$webinars_key = false;
-		if( isset($ajax['webinars']) 
-			&& !empty($ajax['webinars'])
+		if( isset($ajax['fullName']) 
+			&& trim($ajax['fullName']) == '' 
 		){
-			print_r($body_input);
-			foreach($ajax['webinars'] as $v){
-				//apyc_create_registrant($v, $body_input);
-			}
+			$error_array[] = _('Please dont leave name blank');
 		}
+		if( isset($ajax['email']) 
+			&& trim($ajax['email']) == '' 
+		){
+			$error_array[] = _('Please dont leave email blank');
+		}
+		if( isset($ajax['phone']) 
+			&& trim($ajax['phone']) == '' 
+		){
+			$error_array[] = _('Please dont leave phone blank');
+		}
+		//echo count($ajax['webinars']);
+		if( !isset($ajax['webinars']) 
+			&& count($ajax['webinars']) == 0
+		){
+			$error_array[] = _('Please choose webinar to join');
+		}
+		if( empty($error_array) 
+			&& count($error_array) == 0 
+		){
+			$body_input = array(
+				'lastName' => $last_name,
+				'firstName' => $first_name,
+				'phone' => isset($ajax['phone']) ? $ajax['phone']:'',
+				'email' => isset($ajax['email']) ? $ajax['email']:''
+			);
+			$webinars_key = false;
+			if( isset($ajax['webinars']) 
+				&& !empty($ajax['webinars'])
+			){
+				$webinar_key = array();
+				$webinar_ret = array();
+				//print_r($body_input);
+				foreach($ajax['webinars'] as $v){
+					$webinar_key[] = $v;
+					$webinar_ret[] = apyc_create_registrant($v, $body_input);
+				}
+			}
+			$ret = array(
+				'status' => 'success',
+				'msg' => _('Webinar Scheduled, please check your email for confirmation'),
+				'data' => $ajax,
+				'webinar_keys' => $webinar_key,
+				'webinar_ret' => $webinar_ret
+			);
+		}else{
+			$ret = array(
+				'status' => 'error',
+				'msg' => $error_array,
+				'data' => $ajax
+			);
+		}
+
+		echo json_encode($ret);
 		wp_die();
 	}
 	
@@ -108,7 +160,7 @@ class Apyc_Modal{
 	}
 	
 	public function __construct() {
-		add_action( 'wp_enqueue_scripts', array($this,'equeue_scripts') );
+		//add_action( 'wp_enqueue_scripts', array($this,'equeue_scripts') );
 		add_action( 'wp_footer', array($this,'init') );
 		add_action( 'wp_ajax_get_webinars', array($this, 'get_webinars') );
 		add_action( 'wp_ajax_nopriv_get_webinars', array($this, 'get_webinars') );

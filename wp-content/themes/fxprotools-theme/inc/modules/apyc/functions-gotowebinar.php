@@ -46,7 +46,9 @@ if ( ! function_exists('apyc_get_access_token')) {
 if ( ! function_exists('apyc_create_registrant')) {
    function apyc_create_registrant($webinarKey, $body)  {
 		try{
-			return Apyc_Citrix_GoToWebinar_CreateRegistrant::get_instance()->create($webinarKey, $body);
+			$ret = Apyc_Citrix_GoToWebinar_CreateRegistrant::get_instance()->create($webinarKey, $body);
+			write_log('create registrant : ' . $ret);
+			return $ret;
 		}catch(Exception $e){
 			write_log('create registrant error : ' . $e->getMessage());
 			return false;

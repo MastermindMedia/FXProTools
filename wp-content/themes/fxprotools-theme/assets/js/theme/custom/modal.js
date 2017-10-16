@@ -54,12 +54,29 @@ var Modal = function(){
 			});
 		},
 		registerNow:function(){
-			$('.webinar-register-now').on('click', function(e){
+			//$('.webinar-register-now').on('click', function(e){
+			$(document).on('click', '.webinar-register-now', function(e){
 				e.preventDefault();
+				$('.ajax-webinar-lists').hide();
+				$('.ajax-webinars-msg').html('<p>Registering to webinar please wait</p>');
 				var post_data = $(".register-webinar").serialize();
 				ajaxRegisterWebinar(post_data).done(function(data){
-					console.log(data);
-				});;
+					//console.log(data);
+					$('.ajax-webinars-msg').html('');
+					if( isJson(data) ){
+						data = jQuery.parseJSON(data);
+						if( data.status == 'error' ){
+							console.log(data);
+							$.each( data.msg, function( key, value ) {
+								$('.ajax-webinars-msg').append('<p>'+value+'</p>');
+							});
+						}else{
+							console.log(data);
+							$('.ajax-webinars-msg').html('<p>'+data.msg+'</p>');
+						}
+					}
+					$('.ajax-webinar-lists').show();
+				});
 			});
 		}
 	};
