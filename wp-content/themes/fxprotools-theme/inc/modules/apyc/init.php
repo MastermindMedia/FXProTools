@@ -11,16 +11,18 @@ define('GOTOWEBINAR_CONSUMERKEY', '1HcxAF4IGb4wQmTphYYldWHIcwNBhEF6');
 define('GOTOWEBINAR_FREE_GROUP', 'FREE Weekly Q&A');
 define('TWILIO_ACCOUNT_SID', 'ACeed6641354498872901ff6aa63342ac1');
 define('TWILIO_TOKEN', '6924aec30f4903169f928a1d8c65886b');
+define('ASSETS_JS_PATH', get_bloginfo('template_url') . '/assets/js/theme/custom/');
+define('TEMPLATE_PATH', 'inc/templates/');
 /**
  * For autoloading classes
  * */
 spl_autoload_register('apyc_fxprotools_autoload_class');
 function apyc_fxprotools_autoload_class($class_name){
     if ( false !== strpos( $class_name, 'Apyc' ) ) {
-		$include_classes_dir = realpath( get_template_directory( __FILE__ ) ) .'/inc'. DIRECTORY_SEPARATOR;
+		$include_classes_dir = realpath( get_template_directory( __FILE__ ) ) .'/inc/modules/'. DIRECTORY_SEPARATOR;
 		$admin_classes_dir = realpath( plugin_dir_path( __FILE__ ) ) . DIRECTORY_SEPARATOR;
 		$class_file = str_replace( '_', DIRECTORY_SEPARATOR, $class_name ) . '.php';
-		//echo $class_name.'-'.$include_classes_dir . $class_file.'<br>';
+		//echo $class_name.'-'.$include_classes_dir . strtolower($class_file).'<br>';
 		if( file_exists($include_classes_dir . strtolower($class_file)) ){
 			//echo $class_name.'-'.$include_classes_dir . strtolower($class_file).'<br>';
 			require_once $include_classes_dir . strtolower( $class_file );

@@ -73,7 +73,15 @@ class Apyc_View{
 	public function get_view_folder(){
 		
 	}
-
+	
+	public function get_view_templates(){
+		return 'inc/templates/';
+	}
+	
+	public function get_assets_js_theme(){
+		return get_bloginfo('template_url') . '/assets/js/theme/custom/';
+	}
+	
 	/**
 	 * check and get template in theme
 	 *
@@ -158,6 +166,7 @@ class Apyc_View{
 	public function view_theme($template_file, $data = array()){
 		extract($data);
 		$template = $this->get_in_theme($template_file);
+		
 		if( $template ){
 			require_once $template;
 		}else{
