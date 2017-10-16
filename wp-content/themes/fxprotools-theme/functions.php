@@ -63,6 +63,7 @@ $custom_functions = array(
     'function-mb',  // Metabox Settings
     'function-woocommerce', // Woocommerce Settings
     'function-wc-subscriptions', // WC Subscription settings,
+    'function-subscriptions', //  Subscription functions,
     'function-email', // Email,
     'function-custom', // All custom functions
 );

@@ -1,9 +1,9 @@
 <?php
-$verification_code = $_GET['code'];
+$verification_code = isset( $_GET['code'] ) ? $_GET['code'] : '';
 ?>
 <?php get_header(); ?>
 	<div class="container">
-		<?php if( $_GET['action'] == 'resend' ): resend_email_verification();?>
+		<?php if( isset($_GET['action']) && $_GET['action'] == 'resend' ): resend_email_verification();?>
 			<p>Verification email has been sent to your email. </p>
 		<?php elseif( verify_email_address($verification_code) ): ?>
 			<p>Your email has been been verified.</p>
