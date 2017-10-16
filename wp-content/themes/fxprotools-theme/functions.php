@@ -57,13 +57,14 @@ foreach ($core_settings as $cs) {
 $custom_functions = array(
 	'function-helper', // All Helper functions
     'function-ajax',   // All Ajax Calls
-    'function-custom', // All custom functions
+    'function-learndash', //Learndash LMS,
+    'function-marketing', //Marketing related functions
     'function-cpt', // Custom post/taxonomy settings
     'function-mb',  // Metabox Settings
     'function-woocommerce', // Woocommerce Settings
     'function-wc-subscriptions', // WC Subscription settings,
     'function-email', // Email,
-    'function-learndash' //Learndash LMS
+    'function-custom', // All custom functions
 );
 
 if($custom_functions){

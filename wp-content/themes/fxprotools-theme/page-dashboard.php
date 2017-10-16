@@ -14,7 +14,9 @@ $checklist = get_user_checklist();
 				</div>
 			</div>
 			<div class="col-md-8">
-				<div class="fx-video-container"></div>
+				<div class="fx-video-container" style="background:#000;height: 480px;">
+					
+				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="fx-board checklist">

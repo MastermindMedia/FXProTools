@@ -1,11 +1,10 @@
 <?php
 /**
- * ----------------------------
- * Fxprotools - Marketing Functions
- * ----------------------------
- * Funnels, Stats, Contacts
+ * -----------------------
+ * Fxprotools - Custom functions for marketing pages
+ * -----------------------
+ * custom functions funnels, stats, contacts
  */
-
 
 function get_funnels()
 {
