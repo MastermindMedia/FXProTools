@@ -866,8 +866,7 @@ function custom_redirect_login_failed($username) {
 // redirects the user to dashboard if already logged in and went to /login
 add_action( 'wp', 'check_if_logged_in' );
 function check_if_logged_in() {
-	global $post;
-	if ( is_user_logged_in() && $post->post_name == 'login' ) {
+	if ( is_user_logged_in() && is_page('login' )) {
 		wp_redirect( '/dashboard' );
 		exit;
 	}
