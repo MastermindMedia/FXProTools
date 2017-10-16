@@ -54,7 +54,7 @@ function apyc_fxprotools_setup(){
 		Apyc_SMSPage::get_instance();
 	}
 }
-add_action( 'after_setup_theme', 'apyc_fxprotools_setup' );
+add_action( 'init', 'apyc_fxprotools_setup' );
 function apyc_init(){
 	$arg_group = array(
 		'sending_to' => array('Customer','Distributor'),

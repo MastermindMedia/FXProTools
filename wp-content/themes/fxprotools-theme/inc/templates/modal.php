@@ -24,9 +24,8 @@
 			</div>
 			<div class="form-check">
 				<label class="form-check-label">
-					<div class="ajax-webinars">
-						
-					</div>
+					<div class="ajax-webinars-msg"></div>
+					<div class="ajax-webinars"></div>
 				</label>
 			</div>
 			

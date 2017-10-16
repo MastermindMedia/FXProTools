@@ -70,7 +70,7 @@ class Apyc_Citrix_GoToWebinar_CreateRegistrant{
 	public function create($webinarKey, $body = array()){
 		global $wp_version;
 		
-		$token = apyc_get_access_token();
+		$token = apyc_get_token();
 		if( $token 
 			&& !empty($body)
 		){
@@ -84,15 +84,24 @@ class Apyc_Citrix_GoToWebinar_CreateRegistrant{
 			); 
 			$url = $this->url . $token->organizer_key . '/webinars/' . $webinarKey . '/registrants';
 			$response = wp_remote_post( $url, $args );
+
 			if ( is_wp_error( $response ) ) {
 			   $error_message = $response->get_error_message();
-			   write_log('gotowebinar get all webinars error : ' . $error_message);
+			   write_log('gotowebinar create registrar error : ' . $error_message);
 			   throw new Exception( $error_message );
 			} else {
 				$response_code = wp_remote_retrieve_response_code( $response );
-				$body = json_decode( wp_remote_retrieve_body( $response ) );
-								
-				return $body;
+				if( $response_code == 200 ){
+					$body = json_decode( wp_remote_retrieve_body( $response ) );
+					write_log('gotowebinar create registrar : ' . $body);				
+					return $body;
+				}else{
+					write_log('gotowebinar create registrar error : ' . $body);
+					return array(
+						'code' => $response_code,
+						'body' => $body
+					);
+				}
 			}
 		}
 	}
