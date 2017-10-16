@@ -927,7 +927,15 @@
 		padding-bottom: 10px;
 	}
 }
-
+.membership-view-subs{
+	.subscription_details{
+		tbody{
+			tr:last-child{
+				display: none;
+			}
+		}
+	}
+}
 .tab-pane-cancellation{
 	#table-purchases, .purchases-view-order{
 		display: none;
