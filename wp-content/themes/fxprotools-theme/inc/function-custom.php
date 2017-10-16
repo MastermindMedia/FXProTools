@@ -534,3 +534,29 @@ function redirect_to_login(){
 		exit();
 	}
 }
+
+// redirect to custom logout confirmation page
+add_action( 'login_form_logout', 'custom_logout_notice' );
+function custom_logout_notice() {
+	if ( ! is_user_logged_in() ) {
+		wp_redirect( '/login' );
+		exit();
+	} elseif ( 'logout' == $_GET['action'] && ! isset( $_GET['_wpnonce'] ) ) {
+		wp_safe_redirect( '/log-out-notice' );
+		exit();
+	}
+	// avoid CSRF security exploits
+	check_admin_referer( 'log-out' );
+	wp_logout();
+}
+
+// checks if _wpnonce is not tampered
+add_action( 'check_admin_referer', 'custom_check_admin_referer', 10, 2 );
+function custom_check_admin_referer( $action, $result ) {
+	if ( ! $result ) {
+		wp_safe_redirect( '/log-out-notice' );
+		exit();
+	}
+
+	return $result;
+}
