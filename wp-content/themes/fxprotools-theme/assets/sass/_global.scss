@@ -1,6 +1,6 @@
-/*============*/
-/*== GLOBAL ==*/ 
-/*============*/
+// ------
+// Global
+// ------
 
 *, *:after, *::before {
     -moz-box-sizing: border-box;
@@ -23,7 +23,7 @@ body {
     font-family: $font-lato!important;
     color: $black;
     font-size: 15px;
-    background-color: #f8f8f8;
+    background-color: $smokey;
 }
 
 // Typography

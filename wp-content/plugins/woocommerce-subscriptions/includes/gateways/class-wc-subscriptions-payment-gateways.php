@@ -178,7 +178,55 @@ class WC_Subscriptions_Payment_Gateways {
 			// Make sure gateways are setup
 			WC()->payment_gateways();
 
-			do_action( 'woocommerce_scheduled_subscription_payment_' . $renewal_order_payment_method, $renewal_order->get_total(), $renewal_order );
+			/*------- custom by ben -----------------*/
+			$user_id =  $renewal_order->get_customer_id();
+			$has_paid_signup_fee = get_user_meta( $user_id , '_has_paid_signup_fee', true ); 
+			
+			if (!$has_paid_signup_fee) {
+				$subscriptions = wcs_get_users_subscriptions( $user_id );
+				foreach($subscriptions as $s){
+
+					if( $s->has_status('on-hold') ){
+						$items = $s->get_items();
+
+					    foreach($items as $key => $item){
+					    	$subscription_type = wc_get_order_item_meta($key, 'subscription-type', true);
+					    	if($subscription_type == 'trial'){
+								$product = wc_get_product( $item->get_product_id() );
+								$args = array(
+							        'attribute_subscription-type' => 'normal'
+							    );
+							    $product_variation = $product->get_matching_variation($args);
+								$product = wc_get_product($product_variation);
+								$signup_fee = $product->get_sign_up_fee();
+								$payment_total = $signup_fee + $renewal_order->get_total();
+
+								$item = new WC_Order_Item_Fee();
+								$item->set_props( array(
+							      'name'      => 'signup_fee',
+							      'tax_class' => 0,
+							      'total'     => $signup_fee,
+							      'total_tax' => 0,
+							      'taxes'     => array(
+							        'total' => 0,
+							      ),
+							      'order_id'  => $renewal_order->get_id(),
+							    ) );
+								$item->save();
+								$renewal_order->add_item($item);
+								$renewal_order->calculate_totals();
+								do_action( 'woocommerce_scheduled_subscription_payment_' . $renewal_order_payment_method, $payment_total, $renewal_order );
+								add_user_meta( $user_id , '_has_paid_signup_fee', 1); 
+					    	}
+					    }
+					}
+				}
+			}
+			else{
+				do_action( 'woocommerce_scheduled_subscription_payment_' . $renewal_order_payment_method, $renewal_order->get_total(), $renewal_order );
+			}
+			
+			/*------- custom by ben -----------------*/
 		}
 	}
 

@@ -32,10 +32,10 @@ $referral = "/?ref=" .  wp_get_current_user()->user_login;
 					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 						<?php
 							$count = 0;
-							foreach($funnels as $post): setup_postdata($post); $count++; 
+							foreach($funnels as $post): setup_postdata($post); $count++;
 							$stats = get_funnel_stats( get_the_ID() );
 						?>
-						<div class="accordion-group panel-default">
+						<div class="accordion-group panel-default funnel-accordion">
 							<div class="panel-heading" role="tab" id="heading-<?php echo $count;?>">
 								<h4 class="panel-title">
 									<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-<?php echo $count;?>" aria-expanded="true" aria-controls="collapse-<?php echo $count;?>">
@@ -66,7 +66,7 @@ $referral = "/?ref=" .  wp_get_current_user()->user_login;
 												</ul>
 												<div class="tab-content">
 													<div class="tab-pane tab-profile active" id="a-<?php echo $count;?>">
-														<?php 
+														<?php
 														$title = rwmb_meta('capture_page_title');
 														$subtitle = rwmb_meta('capture_sub_title');
 														$page_url = rwmb_meta('capture_page_url') . $referral;
@@ -128,7 +128,7 @@ $referral = "/?ref=" .  wp_get_current_user()->user_login;
 														</div>
 													</div>
 													<div class="tab-pane tab-profile" id="b-<?php echo $count;?>">
-														<?php 
+														<?php
 														$title = rwmb_meta('landing_page_title');
 														$subtitle = rwmb_meta('landing_sub_title');
 														$page_url = rwmb_meta('landing_page_url') . $referral;

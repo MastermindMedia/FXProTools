@@ -9,7 +9,6 @@
 </head>
 <body <?php body_class(); ?>>
 	<div class="<?php echo !is_home() ? 'fx-wrapper' : ''; ?> <?php echo is_page(array('login', 'forgot-password')) ? 'fx-login' : ''; ?>">
-
 		<?php if( is_user_logged_in() && !is_page(array('login', 'forgot-password', 'f1', 'f2', 'f3', 'f4', 'signals')) && !is_home() && !is_404() ): ?>
 		<nav class="navbar fx-navbar-main" role="navigation">
 			<div class="container">
@@ -62,7 +61,7 @@
 							<!-- <li><a href="#" title="Select Language"><i class="fa fa-th-large" aria-hidden="true"></i></a></li> -->
 							<li class="account"><a href="<?php bloginfo('url'); ?>/my-account">My Account</a></li>
 							<li>
-								<a href="#" title="Support Icon">
+								<a href="<?php bloginfo('url'); ?>/my-account/inbox" title="Support Icon">
 									<i class="fa fa-inbox block icon-inbox"></i>
 									<span>Inbox</span>
 								</a>

@@ -1,0 +1,194 @@
+// ----------
+// Navigation
+// ----------
+
+// Main Navigation
+.fx-navbar-main {
+	position: relative;
+	border-radius: 0;
+	background-color: $red;
+	margin-bottom: 0;
+	.fx-nav-options {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		li {
+			float: left;
+			margin-right: 10px;
+			&:last-child { margin-right: 0; }
+			a {
+			    display: block;
+			    padding: 25px 10px;
+			    line-height: 30px;
+			    text-align: center;
+			    color: $white;
+			    .image {
+			    	border: 1px solid #DDD;
+			    	height: 50px;
+					img {
+						margin: 0 auto;
+					}
+			    }
+			    span {
+					font-size: 13px;
+					display: block;
+			    }
+			    &:hover, &:active, &:focus {
+			    	text-decoration: none;
+			    }
+			    .icon-inbox {
+			    	font-size: 44px;
+			    }
+			}
+			&.account {
+				padding-top: 40px;
+				a {
+					background: #ba1213;
+					line-height: 5px;
+					padding: 20px 25px;
+					font-size: 13px;
+				}
+			}
+		}
+	}
+	.fx-navbar-header .navbar-brand {
+		height: auto;
+		img {
+			margin-top: 30px;
+		}
+	}
+}
+
+// Sub Navigation
+.fx-navbar-sub {
+	position: relative;
+    min-height: inherit;
+    border-top: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
+		background-color: $white;
+    .fx-nav-options {
+		margin: 0;
+	    padding: 5px 0;
+	    list-style: none;
+	    // border: 1px solid #DDD;
+	    li {
+			display: inline-block;
+			position: relative;
+			&:last-child { margin-right: 0; }
+			a {
+				display: inline-block;
+				padding: 10px 15px;
+				&:hover, &:focus, &:active {
+					text-decoration: none;
+				}
+				.text {
+					color: $black;
+					padding-bottom: 5px;
+					font-weight: bold;
+				}
+				.number {
+					display: inline-block;
+					color: $white;
+					background-color: $red;
+					padding: 6px 0;
+					height: 35px;
+					width: 35px;
+					text-align: center;
+					font-weight: bold;
+					margin-right: 10px;
+					@include border-radius(50%);
+				}
+			}
+			&.dashboard{
+				a{
+					width: 45px;
+					background-color: $red;
+					text-indent: -999999px;
+				}
+				&.icon {
+					a{
+						background-repeat: no-repeat;
+						background-position: center;
+					}
+				}
+				&.icon-quickstart {
+					a{
+						background-image: url('../../img/ico-quickstart.png');
+						background-size: 35px;
+					}
+				}
+				&.icon-products {
+					a{
+						background-image: url('../../img/ico-products.png');
+						background-size: 30px;
+					}
+				}
+				&.icon-share {
+					a{
+						background-image: url('../../img/ico-share.png');
+						background-size: 30px;
+					}
+				}
+				&.icon-team {
+					a{
+						background-image: url('../../img/ico-team.png');
+						background-size: 30px;
+					}
+				}
+				&.icon-wallet {
+					a{
+						background-image: url('../../img/ico-wallet.png');
+						background-size: 30px;
+					}
+
+				}
+			}
+			&.active a .text {
+				border-bottom: 3px solid $red;
+			}
+			&.locked a {
+				background-color: #DDD;
+				color: $white;
+				cursor: not-allowed;
+			}
+		}
+	}
+}
+
+// Footer
+.fx-footer {
+	position: relative;
+	background: #2f2f2f;
+	padding: 60px 0;
+	span {
+		color: $white;
+		font-size: 13px;
+		display: inline-block;
+	}
+	.credit-cards {
+		width: 160px;
+		margin: 0 15px;
+	}
+	.footer-nav {
+		margin: 0;
+		padding: 0;
+		text-align: center;
+		li {
+			display: block;
+			margin-bottom: 15px;
+			a {
+				color: $white;
+				font-size: 14px;
+			}
+		}
+	}
+}
+.fx-disclosure {
+	background: $black;
+	padding: 30px 0;
+	p {
+		color: #a1a1a1;
+		font-size: 12px;
+		margin-bottom: 0;
+	}
+}

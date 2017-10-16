@@ -1,36 +1,36 @@
-/*============*/
-/*== COMMON ==*/ 
-/*============*/
+// ------
+// Common
+// ------
 
-// Buttons {
+// Buttons
 .btn-lg-w-text {
-	font-size: 25px;
-	padding: 10px 25px 10px 25px;
-	span {
-		font-size: 12px;
-		display: block;
-	}
+    font-size: 25px;
+    padding: 10px 25px 10px 25px;
+    span {
+        font-size: 12px;
+        display: block;
+    }
 }
 
 // Label & Text
 .text-white {
-	color: $white;
+    color: $white;
 }
 .text-red {
-	color: $red;
+    color: $red;
 }
 .text-green {
-	color: $green;
+    color: $green;
 }
 .label-green {
-	background-color: $green;
-	color: $white;
-	padding: 4px 10px;
+    background-color: $green;
+    color: $white;
+    padding: 4px 10px;
 }
 .label-red {
-	background-color: $red;
-	color: $white;
-	padding: 4px 10px;
+    background-color: $red;
+    color: $white;
+    padding: 4px 10px;
 }
 
 // Wrapper
@@ -101,12 +101,18 @@
 	position: relative;
 	border: 1px solid #DDD;
 	background-color: $white;
-	.fx-board-title {
+	.fx-board-header {
 		padding: 15px;
-		span {
-			font-weight: bold;
-			text-align: center;
+		.title, .sub {
 			display: block;
+		}
+		.title {
+			font-weight: bold;
+			font-size: 20px;
+		}
+		.sub {
+			font-size: 14px;
+			font-weight: 300;
 		}
 		&.w-text {
 			position: relative;
@@ -120,7 +126,6 @@
 	}
 	// With Checklist
 	&.checklist {
-		list-style: none;
 		padding: 0;
 		margin: 0;
 		li {
@@ -272,10 +277,10 @@
 		}
 		&.active a {
 			border-bottom: 1px solid #DDD;
-			background: #23527c;
+			background: #de1515;
 			color: #FFF;
 			&:focus, &:hover, &:active {
-				border-bottom: 1px solid #DDD;				
+				border-bottom: 1px solid #DDD;
 			}
 		}
 	}
@@ -293,10 +298,10 @@
 		}
 		&.active a {
 			border-bottom: 1px solid #DDD;
-			background: #23527c;
+			background: #de1515;
 			color: #FFF;
 			&:focus, &:hover, &:active {
-				border-bottom: 1px solid #DDD;				
+				border-bottom: 1px solid #DDD;
 			}
 		}
 	}
@@ -325,7 +330,7 @@
 				border-radius: 0;
 			}
 			&.active a {
-				background-color: #23527c;
+				background-color: #de1515;
 				color: #FFF;
 			}
 		}
@@ -357,7 +362,7 @@
 	padding: 0;
 	margin: 0;
 	li {
-		border: 1px solid #DDD;	
+		border: 1px solid #DDD;
 		padding: 30px 20px;
 		position: relative;
 		margin-bottom: 10px;
@@ -410,6 +415,7 @@
 				border: 1px solid #DDD;
 				position: relative;
 				height: 110px;
+        background-color: $white;
 				.sash {
 					position: absolute;
 					background: #5cb85c;
@@ -419,7 +425,7 @@
 					display: inline-block;
 					font-size: 11px;
 					top: 5px;
-					left: -10px;	
+					left: -10px;
 				}
 				.number {
 					display: block;
@@ -429,7 +435,7 @@
 					left: 0;
 					right: 0;
 					text-align: center;
-					font-size: 20px;
+					font-size: 24px;
 					font-weight: bold;
 					height: 35px;
 					width: 35px;
@@ -443,10 +449,12 @@
 			float: left;
 			border: 1px solid #DDD;
 			padding: 25px 25px 15px 25px;
+      background-color: $white;
 			.title {
 				font-weight: bold;
 				display: inline-block;
 				margin-bottom: 10px;
+        font-size: 24px;
 			}
 			.summary {
 				width: 80%;
@@ -598,34 +606,78 @@
 	}
 }
 
-// Transition & Animations
-@mixin trans($speed,$type) {
-  transition: all $speed $type;
-  -webkit-transition: all $speed $type;
-  -o-transition: all $speed $type;
+// Slide Toggle - Checkbox Transformation
+.fx-slide-toggle {
+	display: none;
+	// add default box-sizing for this scope
+	&, &:after, &:before, & *, & *:after, & *:before, & + .fx-slide-toggle-btn {
+		box-sizing: border-box;
+		&::selection {
+			background: none;
+		}
+	}
+	+ .fx-slide-toggle-btn {
+		outline: 0;
+		display: block;
+		width: 50px;
+		height: 25px;
+		position: relative;
+		cursor: pointer;
+    	user-select: none;
+		&:after,
+    	&:before {
+			position: relative;
+			display: block;
+			content: "";
+			width: 50%;
+			height: 100%;
+		}
+		&:after {
+			left: 0;
+		}
+		&:before {
+			display: none;
+		}
+	}
+	&:checked + .fx-slide-toggle-btn:after {
+		left: 50%;
+	}
+	+ .fx-slide-toggle-btn {
+		background: #f0f0f0;
+		border-radius: 2em;
+		padding: 2px;
+		transition: all .4s ease;
+		&:after {
+			border-radius: 50%;
+			background: #fff;
+			transition: all .2s ease;
+		}
+	}
+	&:checked + .fx-slide-toggle-btn {
+		background: #5cb85c;
+	}
 }
 
+// Loader - Spinner
 .spinner {
-  margin: 100px auto;
-  width: 40px;
-  height: 20px;
-  text-align: center;
-  font-size: 10px;
-}
-
-.spinner > div {
-  background-color: #333;
-  height: 100%;
-  width: 6px;
-  display: inline-block;
-  
-  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
-  animation: sk-stretchdelay 1.2s infinite ease-in-out;
+	margin: 100px auto;
+	width: 40px;
+	height: 20px;
+	text-align: center;
+	font-size: 10px;
+	> div {
+		background-color: #333;
+		height: 100%;
+		width: 6px;
+		display: inline-block;
+		-webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+		animation: sk-stretchdelay 1.2s infinite ease-in-out;
+	}
 }
 
 .spinner .rect2 {
-  -webkit-animation-delay: -1.1s;
-  animation-delay: -1.1s;
+	-webkit-animation-delay: -1.1s;
+	animation-delay: -1.1s;
 }
 
 .spinner .rect3 {
@@ -644,15 +696,19 @@
 }
 
 @-webkit-keyframes sk-stretchdelay {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
-  20% { -webkit-transform: scaleY(1.0) }
+	0%, 40%, 100% {
+		-webkit-transform: scaleY(0.4)
+	}
+	20% {
+		-webkit-transform: scaleY(1.0)
+	}
 }
 
 @keyframes sk-stretchdelay {
-  0%, 40%, 100% { 
+  0%, 40%, 100% {
     transform: scaleY(0.4);
     -webkit-transform: scaleY(0.4);
-  }  20% { 
+  }  20% {
     transform: scaleY(1.0);
     -webkit-transform: scaleY(1.0);
   }
