@@ -182,7 +182,7 @@ class WC_Subscriptions_Payment_Gateways {
 			$user_id =  $renewal_order->get_customer_id();
 			$has_paid_signup_fee = get_user_meta( $user_id , '_has_paid_signup_fee', true ); 
 			
-			if (!$has_paid_signup_fee) {
+			if ( !$has_paid_signup_fee)  {
 				$subscriptions = wcs_get_users_subscriptions( $user_id );
 				foreach($subscriptions as $s){
 
@@ -203,14 +203,14 @@ class WC_Subscriptions_Payment_Gateways {
 
 								$item = new WC_Order_Item_Fee();
 								$item->set_props( array(
-							      'name'      => 'signup_fee',
-							      'tax_class' => 0,
-							      'total'     => $signup_fee,
-							      'total_tax' => 0,
-							      'taxes'     => array(
-							        'total' => 0,
-							      ),
-							      'order_id'  => $renewal_order->get_id(),
+										'name'      => 'Signup Fee',
+										'tax_class' => 0,
+										'total'     => $signup_fee,
+										'total_tax' => 0,
+										'taxes'     => array(
+										'total' => 0,
+									),
+									'order_id'  => $renewal_order->get_id(),
 							    ) );
 								$item->save();
 								$renewal_order->add_item($item);

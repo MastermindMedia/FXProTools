@@ -44,6 +44,8 @@ if(!class_exists('AuthAjax')){
 			wp_die();
 		}
 
+		
+
 	}
 
 }

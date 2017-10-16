@@ -1,7 +1,7 @@
 <?php
 /**
  * -------------------
- * Metabox Extesntions
+ * Metabox Extensions
  * -------------------
  * Force Loading of metabox plugin and extensions
  */
@@ -62,7 +62,8 @@ $custom_functions = array(
     'function-mb',  // Metabox Settings
     'function-woocommerce', // Woocommerce Settings
     'function-wc-subscriptions', // WC Subscription settings,
-    'function-email' // Email
+    'function-email', // Email,
+    'function-learndash' //Learndash LMS
 );
 
 if($custom_functions){
@@ -79,8 +80,8 @@ if($custom_functions){
  */
 $modules = array(
     // ANET - Customer Informatio and Subscription Manager
-    // 'authorize-net/auth-api.php',
-    // 'authorize-net/auth-ajax.php',
+    'authorize-net/auth-api',
+    'authorize-net/auth-ajax',
 
     // Sendgrid - Contacts
     'sendgrid/sendgrid-api',

@@ -17,6 +17,7 @@ function wp_parse_user($username, $password, $email, $phone_number, $start_date)
 			'role'          => 'subscriber'
 		);
 		$user_id = wp_insert_user($user_data);
+		add_user_meta( $user_id, '_imported_user', '1' ); 
 		$status = ( !is_wp_error($user_id) ? 'success' : 'failed' );
 		
 		if($status == 'success') {

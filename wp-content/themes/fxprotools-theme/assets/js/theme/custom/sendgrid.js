@@ -1,4 +1,5 @@
 jQuery(document).ready(function($){
+	
 	$('.fx-sendgrid').submit(function(e){
 		$.ajax({
 			url: fx.ajax_url,

@@ -169,7 +169,7 @@ foreach($_POST as $user_key => $user_value)
 												<button type="button" data-toggle="modal" data-target="#cancellation-modal" class="btn btn-danger btn-block btn-lg">Finalize Cancellation</button>
 											</div>
 										</div>
-										<p><strong>IMPORTANT:</strong> If you cancel your account, please note that your username (USER_NAME) will be made available for someone else; any progress and access to pages you've created will be disabled; optins and leads will not be collected; and videos will not display if you added your own.</p>
+										<p><strong>IMPORTANT:</strong> If you cancel your account, please note that your username (<?php echo  wp_get_current_user()->user_login;?>) will be made available for someone else; any progress and access to pages you've created will be disabled; optins and leads will not be collected; and videos will not display if you added your own.</p>
 									</div>
 
 									<?php
@@ -447,90 +447,7 @@ foreach($_POST as $user_key => $user_value)
 		</div>
 	</div>
 
-<!-- Modal -->
-<div class="modal fade" id="cancellation-modal">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="exampleModalLabel">ARE YOU SURE?</h4>
-      </div>
-      <div class="modal-body">
-        <p><strong>IMPORTANT:</strong> If you cancel your account, please note that your username (<?php echo get_the_author_meta('user_login', $_GET['id']); ?>) will be made available for someone else; any progress and access to pages you've created will be disabled; optins and leads will not be collected; and videos will not display if you added your own.</p>
-        <div class="title-loader">
-        	<div class="spinner">
-			  <div class="rect1"></div>
-			  <div class="rect2"></div>
-			  <div class="rect3"></div>
-			  <div class="rect4"></div>
-			  <div class="rect5"></div>
-			</div>
-			<h4>Removing Access to Training...</h4>
-        </div>
-        <p>4 Binary Options Courses<br>
-		12 Training Lessons<br>
-		4 Forex Courses<br>
-		14 Forex Training Lessons</p>
-		<div class="title-loader">
-        	<div class="spinner">
-			  <div class="rect1"></div>
-			  <div class="rect2"></div>
-			  <div class="rect3"></div>
-			  <div class="rect4"></div>
-			  <div class="rect5"></div>
-			</div>
-			<h4>Removing Access to Software...</h4>
-        </div>
-		<p>1 Forex Scanners<br>
-		1 Binary Scanner<br>
-		All Trading Tools</p>
-		<div class="title-loader">
-        	<div class="spinner">
-			  <div class="rect1"></div>
-			  <div class="rect2"></div>
-			  <div class="rect3"></div>
-			  <div class="rect4"></div>
-			  <div class="rect5"></div>
-			</div>
-			<h4>Removing Access to Webinars / Coaching...</h4>
-        </div>
-		<p>30 Forex Webinars<br>
-		20 Binary Webinars</p>
-		<div class="title-loader">
-        	<div class="spinner">
-			  <div class="rect1"></div>
-			  <div class="rect2"></div>
-			  <div class="rect3"></div>
-			  <div class="rect4"></div>
-			  <div class="rect5"></div>
-			</div>
-			<h4>Deleting Contacts...</h4>
-        </div>
-		<div class="title-loader">
-        	<div class="spinner">
-			  <div class="rect1"></div>
-			  <div class="rect2"></div>
-			  <div class="rect3"></div>
-			  <div class="rect4"></div>
-			  <div class="rect5"></div>
-			</div>
-			<h4>Removing Access To Pages...</h4>
-        </div>
-		<div class="row">
-			<div class="col-md-6">
-				<h4>Or...Finalize Account Cancellation:</h4>
-			</div>
-			<div class="col-md-6">
-				<div class="btn-2-holder">
-					<button type="button" class="btn btn-success" data-dismiss="modal">NO</button>
-					<button type="button" class="btn btn-danger">YES</button>
-				</div>
-			</div>
-		</div>
-		<p><strong>IMPORTANT:</strong> If you cancel your account, please note that your username (USER_NAME) will be made available for someone else; any progress and access to pages you've created will be disabled; optins and leads will not be collected; and videos will not display if you added your own.</p>
-      </div>
-    </div>
-  </div>
-</div>
+<?php require_once('inc/templates/my-account/modal.php'); ?>
 
 <?php get_footer(); ?>
 
@@ -553,7 +470,7 @@ foreach($_POST as $user_key => $user_value)
 	});
 </script>
 
-<?php if($_GET['cancel'] == "yes" && $_GET['order_type'] == "purchase"){ ?>
+<?php if( isset($_GET['cancel']) && $_GET['cancel'] == "yes" && $_GET['order_type'] == "purchase"){ ?>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.marketing-contacts a[href="#c"]').click();
@@ -562,7 +479,7 @@ foreach($_POST as $user_key => $user_value)
 </script>
 <?php } ?>
 
-<?php if($_GET['cancel'] == "yes" && $_GET['order_type'] == "membership"){ ?>
+<?php if( isset($_GET['cancel']) && $_GET['cancel'] == "yes" && $_GET['order_type'] == "membership"){ ?>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.marketing-contacts a[href="#d"]').click();
@@ -571,7 +488,7 @@ foreach($_POST as $user_key => $user_value)
 </script>
 <?php } ?>
 
-<?php if($_GET['order_id']){ ?>
+<?php if( isset($_GET['order_id']) ){ ?>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.marketing-contacts a[href="#c"]').click();
@@ -585,7 +502,7 @@ foreach($_POST as $user_key => $user_value)
 </script>
 <?php } ?>
 
-<?php if($_GET['subs_id']){ ?>
+<?php if(isset($_GET['subs_id'])){ ?>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.marketing-contacts a[href="#d"]').click();
