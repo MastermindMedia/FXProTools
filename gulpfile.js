@@ -12,7 +12,7 @@ var gulp = require('gulp'),
 var theme_location = './wp-content/themes/fxprotools-theme',
 	config = {
 		theme_sass: theme_location + '/assets/sass/**/*.scss',
-		theme_js: theme_location + '/assets/js/theme/**/*.js',
+		theme_js: theme_location + '/assets/js/theme/custom/**/*.js',
 		output: theme_location + '/assets'
 	};
 
