@@ -1,7 +1,7 @@
 <?php
 /**
  * ----------------
- * Metaboc Settings
+ * Metabox Settings
  * ----------------
  * Metabox Setup - See https://metabox.io/docs/ for documentation
  */

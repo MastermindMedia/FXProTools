@@ -1,4 +1,11 @@
 <?php
+/**
+ * ----------------
+ * Woocommerce Subscription  Settings
+ * ----------------
+ * Hooks and Filters
+ */
+
 if(!defined('ABSPATH')){
 	exit;
 }
@@ -107,9 +114,6 @@ if(!class_exists('WC_Subscriptions_Settings')){
 				),
 			);
 
-			echo 'args';
-			dd($order_args);
-
 			$item_id = $sub->add_product( $product, 1, $order_args);
    			$sub->set_address( $address, 'billing' );
    			$sub->calculate_totals();
@@ -118,8 +122,6 @@ if(!class_exists('WC_Subscriptions_Settings')){
 
    			WC_Subscriptions_Manager::activate_subscriptions_for_order($order);
 			
-			echo 'created subscription';
-   			dd($sub);
 
    			$renewal_order = wcs_create_renewal_order($sub);
    			$renewal_order->set_payment_method( wc_get_payment_gateway_by_order( $order ) ); 
