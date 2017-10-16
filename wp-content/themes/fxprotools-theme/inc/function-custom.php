@@ -145,7 +145,7 @@ function enforce_page_access()
 	if( !isset($post) ) return;
 	$slug = $post->post_name;
 	$guest_allowed_post_type = array( 'product' );
-	$guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'funnels', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'autologin' );
+	$guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'autologin' );
 
 	if( is_user_logged_in() ) return 0;
 	if( !is_product() && !is_cart() && !is_checkout() && !is_shop() && !is_404() && !is_front_page() ) {
@@ -506,7 +506,12 @@ function get_users_with_active_subscriptions($subscription_ids, $user_fields = a
 // redirect to custom login page instead of wordpress page
 add_action('wp_login_failed', 'custom_redirect_login_failed');
 function custom_redirect_login_failed($username) {
-	wp_redirect(get_bloginfo('url') . '/login?login=failed&username=' . urlencode(sanitize_text_field($username)) );
+    $args = [
+        'login' => 'failed',
+        'username' => urlencode(sanitize_text_field($username))
+    ];
+
+	wp_redirect(get_bloginfo('url') . '/login?' . http_build_query($args));
 }
 
 // redirects the user to dashboard if already logged in and went to /login
