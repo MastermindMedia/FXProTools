@@ -565,3 +565,14 @@ function custom_check_admin_referer( $action, $result ) {
 
 	return $result;
 }
+/**
+* Check if user has active subscription
+* @see class Apyc_User
+* @param	$user_id	integer		the user id, if its null we get the current user id loged in
+* @return boolean	| 	Apyc_User method hasActiveSubscription()
+**/
+if ( ! function_exists('apyc_has_active_user_subscription')) {
+	function apyc_has_active_user_subscription ($user_id = null)  {
+		return Apyc_User::get_instance()->hasActiveSubscription($user_id);
+	}
+}

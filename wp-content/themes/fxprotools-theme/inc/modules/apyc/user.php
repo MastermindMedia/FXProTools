@@ -103,6 +103,36 @@ class Apyc_User{
 		return $user_array;
 	}
 	
+	/**
+	* Check if a user has active subscription
+	* @param	$user_id	integer		the user id, if its null we get the current user id loged in
+	* @return boolean
+	*/
+	public function hasActiveSubscription($user_id = null){
+		//check if the user is null, meaning we get the current logedin user id
+		if( is_null($user_id) ){
+			$user_id = get_current_user_id();
+		}
+		//we get active subscription
+		//since its a post type
+		$active_subscriptions = get_posts( array(
+			'numberposts' => -1,
+			'meta_key'    => '_customer_user',
+			'meta_value'  => $user_id,
+			'post_type'   => 'shop_subscription', // Subscription post type
+			'post_status' => 'wc-active', // Active subscription
+
+		) );
+		//we check if its empty
+		if( !empty($active_subscriptions) ){
+			//not empty | user found
+			return true;
+		}else{
+			//empty | user not found
+			return false;
+		}
+	}
+	
 	public function __construct() {}
 
 }
