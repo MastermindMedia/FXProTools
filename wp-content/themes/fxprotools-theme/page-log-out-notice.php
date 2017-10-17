@@ -9,7 +9,6 @@
         </div>
     </div>
 </div>
-
 <div class="fx-landing log-out-notice">
     <div class="section-w-panel">
         <div class="container">
