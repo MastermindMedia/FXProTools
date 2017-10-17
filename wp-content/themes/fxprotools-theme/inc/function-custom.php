@@ -546,6 +546,17 @@ function redirect_to_login(){
 	}
 }
 
+// redirect to custom logout confirmation page
+add_action( 'login_form_logout', 'custom_logout_notice' );
+function custom_logout_notice() {
+	if ( ! is_user_logged_in() ) {
+		wp_redirect( '/login' );
+		exit();
+	}
+	wp_logout();
+	exit();
+}
+
 /**
 * Check if user has active subscription
 * @see class Apyc_User
