@@ -2202,6 +2202,18 @@ li.false {
 			padding: 6px 15px;
 		}
 	}
+
+	.summary {
+		.product_title  ~ .price{
+			display: none;
+		}
+
+		.variations{
+			display: none;
+		}
+	}
+
+	
 }
 
 // Login page

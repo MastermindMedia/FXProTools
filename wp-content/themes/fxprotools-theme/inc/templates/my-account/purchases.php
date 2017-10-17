@@ -27,7 +27,7 @@
 
 <?php
 $my_orders_columns = get_order_columns();
-$customer_orders = get_purchased_items(get_current_user_id());
+$customer_orders = get_purchased_items(get_query_var('acc_id'));
 if ( $customer_orders ){ ?>
 	<p class="text-bold hide-on-cancel">Purchases</p>
 	<table class="shop_table shop_table_responsive my_account_orders">
@@ -92,7 +92,7 @@ if ( $customer_orders ){ ?>
 
 									if ( $actions = apply_filters( 'woocommerce_my_account_my_orders_actions', $actions, $order ) ) {
 										foreach ( $actions as $key => $action ) {
-											echo '<a href="' . get_the_permalink() . '?id=' . get_current_user_id() . '&order_id=' . $order->get_order_number() . '" class="button ' . sanitize_html_class( $key ) . '">' . esc_html( $action['name'] ) . '</a>';
+											echo '<a href="' . get_the_permalink() . '?id=' . get_query_var('acc_id') . '&order_id=' . $order->get_order_number() . '" class="button ' . sanitize_html_class( $key ) . '">' . esc_html( $action['name'] ) . '</a>';
 										}
 									}
 								?>
@@ -112,7 +112,7 @@ if ( $customer_orders ){ ?>
 			<div class="progress">
 			  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="width: 33%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">STEP 1 of 3</div>
 			</div>
-			<p><a href="<?php echo get_option('home'); ?>/cancel-step-1?id=<?php echo get_current_user_id() ?>&order_id=<?php echo $_GET['order_id'] ?>&order_type=purchase" class="btn btn-danger btn-lg">Start Cancellation Process</a></p>
+			<p><a href="<?php echo get_option('home'); ?>/cancel-step-1?id=<?php echo get_query_var('acc_id') ?>&order_id=<?php echo $_GET['order_id'] ?>&order_type=purchase" class="btn btn-danger btn-lg">Start Cancellation Process</a></p>
 			<p><strong>IMPORTANT:</strong> If you cancel your account, please note that your subdomain (mastermindmedia) will be made available for someone else; any funnels and pages you've created will be disabled; optins and leads will not be collected; and videos will not play.</p>
 		</div>
 		<a href="#" id="back-to-purchases" class="btn btn-default">Back to Purchases</a>

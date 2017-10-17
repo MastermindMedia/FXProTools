@@ -9,7 +9,7 @@
 	<tbody>
 		<?php  
 		$counter = 1;
-		$recent_activity = get_user_meta( get_current_user_id(), "track_user_history" )[0];
+		$recent_activity = get_user_meta( get_query_var('acc_id'), "track_user_history" )[0];
 
 		$reverse = array_reverse($recent_activity, true);
 		$prev_url = "";

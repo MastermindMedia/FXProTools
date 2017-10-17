@@ -22,20 +22,6 @@ function check_username()
 	wp_die();
 }
 
-
-add_action('wp_ajax_nopriv_lms_lesson_complete', 'lms_lesson_complete');
-add_action('wp_ajax_lms_lesson_complete', 'lms_lesson_complete');
-function lms_lesson_complete()
-{
-	$user_id = get_current_user_id();
-	$lesson_id = isset( $_POST['lesson_id'] ) ? $_POST['lesson_id'] : 0;
-
-	if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
-		echo learndash_is_lesson_complete( $user_id , $lesson_id );
-	}
-	wp_die();
-}
-
 add_action("wp_ajax_email_inbox", "email_inbox");
 add_action("wp_ajax_email_inbox_count", "email_inbox_count");
 add_action("wp_ajax_email_trash", "email_trash");
