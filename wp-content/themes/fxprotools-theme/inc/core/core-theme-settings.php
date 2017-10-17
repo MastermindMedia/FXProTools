@@ -49,7 +49,9 @@ if(!class_exists('ThemeSettings')){
 			// wp_enqueue_script('custom-js-email', get_bloginfo('template_url').'/assets/js/email.js', $theme_version);
 			wp_enqueue_script('theme-js', get_bloginfo('template_url').'/assets/js/theme/theme.js', $theme_version);
 			wp_localize_script('theme-js', 'fx', array(
-				'ajax_url' => admin_url( 'admin-ajax.php' )
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'login_url' => site_url( 'login' ),
+				'logout_url' => wp_logout_url()
 			));
 		}
 	}

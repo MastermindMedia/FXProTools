@@ -62,6 +62,7 @@ if(!class_exists('AuthAPI')){
 		// Get profile information
 		public function get_customer_profile($customer_id)
 		{
+			ini_set('max_execution_time', 0);
 			$profile_id = get_user_meta($customer_id, '_anet_profile_id', true);
 			if( $profile_id ){
 				$response = $this->get_customer_profile_request($profile_id);
@@ -77,7 +78,7 @@ if(!class_exists('AuthAPI')){
 			}
 
 			else{
-				$profile_ids = $this->get_profile_ids();
+				$profile_ids = array_reverse( $this->get_profile_ids() );
 				foreach($profile_ids as $id){
 					$response = $this->get_customer_profile_request($id);
 					
@@ -93,7 +94,8 @@ if(!class_exists('AuthAPI')){
 					}
 				}
 			}
-			
+
+			return 0;
 		}
 
 		//create ARB Subscriptions directly to authorize.net
@@ -169,17 +171,3 @@ if(!class_exists('AuthAPI')){
 	}
 
 }
-
-$auth_api = new AuthAPI();
-$subscription = array( 
-				'name' => 'Cancellation Subscription',
-				'interval' => 1,
-				'unit' => 'months',
-				'start_date' => new DateTime(),
-				'occurences' => 9999,
-				'amount' => 9.99 );
-
-//dd( $auth_api->cancel_customer_subscription(4788578));
-//$customer_profile = $auth_api->get_customer_profile(6481);
-//$subscription_id = $auth_api->create_customer_subscription( $subscription, $customer_profile );
-//dd($subscription_id);
