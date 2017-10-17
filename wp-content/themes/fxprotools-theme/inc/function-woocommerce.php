@@ -13,12 +13,15 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 		const META_BUY_BUTTON_TEXT = '_buy_button_text';
 
 		public function __construct() {
+			update_option( 'woocommerce_cart_redirect_after_add', 'no' );
+			update_option( 'woocommerce_enable_ajax_add_to_cart', 'no' );
+
 			// Filters
 			add_filter( 'woocommerce_checkout_fields', array( $this, 'wc_setup_checkout_fields' ) );
 			add_filter( 'woocommerce_product_tabs', array( $this, 'wc_remove_product_tabs' ) );
 			add_filter( 'woocommerce_product_additional_information_heading', array( $this, 'wc_remove_additional_info_heading' ) );
 			add_filter( 'wc_authorize_net_cim_credit_card_payment_form_save_payment_method_checkbox_html', array( $this, 'wc_auth_net_cim_save_payment_method_default_checked' ), 10, 2 );
-			add_filter( 'woocommerce_add_to_cart_redirect ', array( $this, 'wc_add_to_cart_redirect' ) );
+			add_filter( 'add_to_cart_redirect', array( $this, 'wc_add_to_cart_redirect' ));
 			add_filter( 'woocommerce_add_cart_item_data', array( $this, 'wc_clear_cart' ) );
 			add_filter( 'wc_add_to_cart_message_html', array( $this, 'wc_clear_add_to_cart_message' ) );
 			add_filter( 'woocommerce_product_data_tabs', array( $this, 'wc_add_buy_button_tab' ) );
@@ -81,8 +84,10 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 			return str_replace( 'type="checkbox"', 'type="checkbox" checked="checked"', $html );
 		}
 
-		public function wc_add_to_cart_redirect( $wc_get_cart_url ) {
-			return site_url( '#trial-products' );
+		public function wc_add_to_cart_redirect( ) {
+			global $woocommerce;
+			$checkout_url = $woocommerce->cart->get_checkout_url();
+			return $checkout_url;
 		}
 
 
