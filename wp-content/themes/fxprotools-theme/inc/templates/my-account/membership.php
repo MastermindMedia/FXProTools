@@ -28,7 +28,7 @@
 <p class="text-bold hide-on-cancel">Memberships Section</p>
 <?php 
 	//update subscription data based on user id param
-	$subscriptions = wcs_get_users_subscriptions( get_current_user_id() );
+	$subscriptions = wcs_get_users_subscriptions( get_query_var('acc_id') );
 ?>
 
 <div class="woocommerce_account_subscriptions hide-on-cancel">
@@ -75,7 +75,7 @@
 				<?php echo wp_kses_post( $subscription->get_formatted_order_total() ); ?>
 			</td>
 			<td class="subscription-actions order-actions">
-				<a href="<?php echo get_the_permalink() . '?id=' . get_current_user_id() . '&subs_id=' . $subscription->get_order_number() ?>" class="button view"><?php echo esc_html_x( 'View', 'view a subscription', 'woocommerce-subscriptions' ); ?></a>
+				<a href="<?php echo get_the_permalink() . '?id=' . get_query_var('acc_id') . '&subs_id=' . $subscription->get_order_number() ?>" class="button view"><?php echo esc_html_x( 'View', 'view a subscription', 'woocommerce-subscriptions' ); ?></a>
 				<?php do_action( 'woocommerce_my_subscriptions_actions', $subscription ); ?>
 			</td>
 		</tr>
@@ -104,7 +104,7 @@
 		<div class="progress">
 		  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="width: 33%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">STEP 1 of 3</div>
 		</div>
-		<p><a href="<?php echo get_option('home'); ?>/cancel-step-1?id=<?php echo get_current_user_id() ?>&subs_id=<?php echo $_GET['subs_id'] ?>&order_type=membership" class="btn btn-danger btn-lg">Start Cancellation Process</a></p>
+		<p><a href="<?php echo get_option('home'); ?>/cancel-step-1?id=<?php echo get_query_var('acc_id') ?>&subs_id=<?php echo $_GET['subs_id'] ?>&order_type=membership" class="btn btn-danger btn-lg">Start Cancellation Process</a></p>
 		<p><strong>IMPORTANT:</strong> If you cancel your account, please note that your subdomain (mastermindmedia) will be made available for someone else; any funnels and pages you've created will be disabled; optins and leads will not be collected; and videos will not play.</p>
 	</div>
 	<a href="#" id="back-to-memberships" class="btn btn-default">Back to Memberships</a>

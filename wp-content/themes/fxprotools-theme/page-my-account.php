@@ -1,8 +1,11 @@
 <?php 
+set_query_var('acc_id', get_current_user_id());
 if(isset($_POST['user_login'])){
 	session_start();
 	$_SESSION["sec_password"] = "^%fxpro%$#@56&";
-	$_SESSION["sec_user_id"]  = get_current_user_id();
+	$_SESSION["sec_user_id"]  = get_query_var('acc_id');
+	$_SESSION["sec_redir"]  = get_option('home') . $_SERVER['REQUEST_URI'];
+	$_SESSION["sec_login"] = 1;
 }
 ?>
 <?php 
@@ -11,25 +14,25 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 		if($key == "user_email_subs" || $key == "user_sms_subs")
 		{
 			if($value == "on"){
-				update_user_meta( get_current_user_id(), $key,  "yes" );
+				update_user_meta( get_query_var('acc_id'), $key,  "yes" );
 			}
 			else{
-				update_user_meta( get_current_user_id(), $key,  "no" );
+				update_user_meta( get_query_var('acc_id'), $key,  "no" );
 			}
 		}
 		elseif($key == "user_login"){
-			$wpdb->update($wpdb->users, array('user_login' => $value), array('ID' => get_current_user_id()));
+			$wpdb->update($wpdb->users, array('user_login' => $value), array('ID' => get_query_var('acc_id')));
 		}
 		else{
-			update_user_meta( get_current_user_id(), $key,  $value );
+			update_user_meta( get_query_var('acc_id'), $key,  $value );
 		}
 	}
 	//for onboard checklist
 	if( !$checklist['verified_profile'] ){
 		$checklist['verified_profile'] = true;
-		update_user_meta( get_current_user_id(), '_onboard_checklist', $checklist );
+		update_user_meta( get_query_var('acc_id'), '_onboard_checklist', $checklist );
 	}
-	wp_redirect( home_url() . '/autologin?user_id=' . get_current_user_id() );
+	wp_redirect( home_url() . '/autologin?user_id=' . get_query_var('acc_id') );
 }
 
 get_header(); 
