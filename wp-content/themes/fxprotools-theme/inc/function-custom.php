@@ -320,7 +320,7 @@ function sess_start() {
 add_action('init','sess_start');
 
 /**
- * Use to render customized nav menus
+ * Use to render metabox page template option #1
  * @param  string $mb_group_id metabox group id
  */
 function get_mb_pto1( $mb_group_id, $page_element ) {
@@ -329,7 +329,7 @@ function get_mb_pto1( $mb_group_id, $page_element ) {
 	// Validate if metabox group id already declared
 	if( $group == '' ) {
 		$html = '<div class="alert alert-warning" role="alert">';
-		$html .= 'Not a valid metabox field';
+		$html .= 'Not a valid metabox field / Empty metabox option';
 		$html .= '</div>';
 		echo $html;
 		return;
@@ -340,7 +340,6 @@ function get_mb_pto1( $mb_group_id, $page_element ) {
 
 	switch ( $page_element ) {
 		case 'secondary_header_menu':
-
 			$secondary_header_menu = array_key_exists('pto1_secondary_header_menu', $group) ? $group['pto1_secondary_header_menu'] : null;
 			if( $display_header_menu == 'yes' && !$secondary_header_menu == null ) :
 				$params = array(
@@ -370,7 +369,6 @@ function get_mb_pto1( $mb_group_id, $page_element ) {
 				$html .= '</div>';
 				echo $html;
 			endif;
-
 			break;
 
 		case 'footer_left_menu':
@@ -386,6 +384,17 @@ function get_mb_pto1( $mb_group_id, $page_element ) {
 		case 'footer_right_menu':
 			$footer_right_menu = array_key_exists('pto1_footer_menu_fr', $group) ? $group['pto1_footer_menu_fr'] : null;
 			mb_pto1_footer($display_footer_menu, $footer_right_menu);
+			break;
+
+		case 'video_embed':
+			$video_url 				= array_key_exists('pto1_video_url', $group) 			? $group['pto1_video_url'] : null;
+			$video_autostart 		= array_key_exists('pto1_video_autostart', $group) 		? $group['pto1_video_autostart'] : null;
+			$video_show_controls 	= array_key_exists('pto1_video_show_controls', $group) 	? $group['pto1_video_show_controls'] : null;
+			$video_scrolling_video	= array_key_exists('pto1_video_scrolling', $group) 		? $group['pto1_video_scrolling'] : null;
+			$video_floating			= array_key_exists('pto1_video_floating', $group) 		? $group['pto1_video_floating'] : null;
+
+			return wp_oembed_get($video_url);
+
 			break;
 
 		default:
