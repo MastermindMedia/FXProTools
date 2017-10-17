@@ -48,7 +48,7 @@
 .fx-header-title {
 	text-align: center;
 	margin: 15px 0 40px 0;
-	h1 {
+	h1, h2 {
 		font-size: 25px;
 		margin-top: 0;
 		margin-bottom: 5px;
@@ -268,19 +268,22 @@
 	position: relative;
 	width: 100%;
 	border-bottom: none;
+	margin-bottom: 30px;
 	li {
 		width: 50%;
 		text-align: center;
 		a {
 			border: 1px solid #DDD;
 			border-radius: 0;
+			color: $grey;
 		}
 		&.active a {
 			border-bottom: 1px solid #DDD;
 			background: #de1515;
-			color: #FFF;
+			color: $white;
 			&:focus, &:hover, &:active {
 				border-bottom: 1px solid #DDD;
+				color: $white;
 			}
 		}
 	}
@@ -415,7 +418,7 @@
 				border: 1px solid #DDD;
 				position: relative;
 				height: 110px;
-        background-color: $white;
+       			background-color: $white;
 				.sash {
 					position: absolute;
 					background: #5cb85c;
@@ -435,7 +438,7 @@
 					left: 0;
 					right: 0;
 					text-align: center;
-					font-size: 24px;
+					font-size: 30px;
 					font-weight: bold;
 					height: 35px;
 					width: 35px;
@@ -449,12 +452,14 @@
 			float: left;
 			border: 1px solid #DDD;
 			padding: 25px 25px 15px 25px;
-      background-color: $white;
+      		background-color: $white;
 			.title {
-				font-weight: bold;
-				display: inline-block;
-				margin-bottom: 10px;
-        font-size: 24px;
+				font-weight: 700;
+				display: block;
+				margin-bottom: 15px;
+				font-size: 20px;
+				border-bottom: 1px solid #f0f0f0;
+				padding-bottom: 15px;
 			}
 			.summary {
 				width: 80%;
