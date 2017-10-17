@@ -46,7 +46,19 @@ gulp.task('fx-js', function(){
 		.pipe(notify('JS processed'));
 });
 
+// Default Task for watching sass
+gulp.task('watch-sass', ['fx-sass'], function(){
+	gulp.watch(config.theme_sass, ['fx-sass']);
+});
+
+// Default Task for watching js
+gulp.task('watch-js', ['fx-js'], function(){
+	gulp.watch(config.theme_js, ['fx-js']);
+});
+
+// Default Task for watching both sass/js
 gulp.task('default', ['fx-sass', 'fx-js'], function(){
 	gulp.watch(config.theme_sass, ['fx-sass']);
 	gulp.watch(config.theme_js, ['fx-js']);
 });
+
