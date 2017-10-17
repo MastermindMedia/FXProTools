@@ -55,13 +55,3 @@ function apyc_fxprotools_setup(){
 	}
 }
 add_action( 'init', 'apyc_fxprotools_setup' );
-function apyc_init(){
-	$arg_group = array(
-		'sending_to' => array('Customer','Distributor'),
-		'msg' => 'Hello from Twilio',
-	);
-	dd($arg_group);
-	apyc_send_sms($arg_group);
-	exit();
-}
-//add_action('init', 'apyc_init');

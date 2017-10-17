@@ -1,6 +1,6 @@
 	</div><!-- /fx-wrapper -->
 
-	<?php if(!is_page(array('login', 'forgot-password')) ): ?>
+	<?php if(!is_page(array('login', 'forgot-password', 'log-out-notice')) ): ?>
 	<div class="fx-footer">
 		<div class="container">
 			<div class="row">

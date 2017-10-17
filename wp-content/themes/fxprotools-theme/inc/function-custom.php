@@ -145,7 +145,7 @@ function enforce_page_access()
 	if( !isset($post) ) return;
 	$slug = $post->post_name;
 	$guest_allowed_post_type = array( 'product' );
-	$guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'funnels', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'autologin' );
+	$guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'autologin' );
 
 	if( is_user_logged_in() ) return 0;
 	if( !is_product() && !is_cart() && !is_checkout() && !is_shop() && !is_404() && !is_front_page() ) {
@@ -506,7 +506,12 @@ function get_users_with_active_subscriptions($subscription_ids, $user_fields = a
 // redirect to custom login page instead of wordpress page
 add_action('wp_login_failed', 'custom_redirect_login_failed');
 function custom_redirect_login_failed($username) {
-	wp_redirect(get_bloginfo('url') . '/login?login=failed&username=' . urlencode(sanitize_text_field($username)) );
+    $args = [
+        'login' => 'failed',
+        'username' => $username
+    ];
+
+	wp_redirect(get_bloginfo('url') . '/login?' . http_build_query($args));
 }
 
 // redirects the user to dashboard if already logged in and went to /login
@@ -532,5 +537,42 @@ function redirect_to_login(){
 	if( 'wp-login.php' == $pagenow && !is_user_logged_in() && empty($_POST)) {
 		wp_redirect('/login');
 		exit();
+	}
+}
+
+// redirect to custom logout confirmation page
+add_action( 'login_form_logout', 'custom_logout_notice' );
+function custom_logout_notice() {
+	if ( ! is_user_logged_in() ) {
+		wp_redirect( '/login' );
+		exit();
+	} elseif ( 'logout' == $_GET['action'] && ! isset( $_GET['_wpnonce'] ) ) {
+		wp_safe_redirect( '/log-out-notice' );
+		exit();
+	}
+	// avoid CSRF security exploits
+	check_admin_referer( 'log-out' );
+	wp_logout();
+}
+
+// checks if _wpnonce is not tampered
+add_action( 'check_admin_referer', 'custom_check_admin_referer', 10, 2 );
+function custom_check_admin_referer( $action, $result ) {
+	if ( ! $result ) {
+		wp_safe_redirect( '/log-out-notice' );
+		exit();
+	}
+
+	return $result;
+}
+/**
+* Check if user has active subscription
+* @see class Apyc_User
+* @param	$user_id	integer		the user id, if its null we get the current user id loged in
+* @return boolean	| 	Apyc_User method hasActiveSubscription()
+**/
+if ( ! function_exists('apyc_has_active_user_subscription')) {
+	function apyc_has_active_user_subscription ($user_id = null)  {
+		return Apyc_User::get_instance()->hasActiveSubscription($user_id);
 	}
 }
