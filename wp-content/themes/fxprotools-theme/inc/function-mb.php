@@ -214,6 +214,57 @@ if(!class_exists('SettingsMB')){
 					'slug'		=> '',
 				),
 				'fields' => array(
+					// Group - Video
+					array(
+						'name'		=> 'Video',
+						'id' 		=> $prefix . 'video',
+						'type' 		=> 'group',
+						// List of sub-fields
+						'fields' 	=> array(
+							array(
+								'name' 			=> 'Video URL',
+								'id' 			=> $prefix . 'video_url',
+								'type' 			=> 'text',
+								'placeholder'	=> '',
+							),
+							array(
+								'name' 			=> 'Autostart Video',
+								'id' 			=> $prefix . 'video_autostart',
+								'type' 			=> 'checkbox_list',
+								'placeholder'	=> '',
+								'options'		=> array(
+									'yes'		=> '',
+								),
+							),
+							array(
+								'name' 			=> 'Show Video Controls',
+								'id' 			=> $prefix . 'video_show_controls',
+								'type' 			=> 'checkbox_list',
+								'placeholder'	=> '',
+								'options'		=> array(
+									'yes'		=> '',
+								),
+							),
+							array(
+								'name' 			=> 'Scrolling Video',
+								'id' 			=> $prefix . 'video_scrolling_video',
+								'type' 			=> 'checkbox_list',
+								'placeholder'	=> '',
+								'options'		=> array(
+									'yes'		=> '',
+								),
+							),
+							array(
+								'name' 			=> 'Floating Video',
+								'id' 			=> $prefix . 'video_floating_video',
+								'type' 			=> 'checkbox_list',
+								'placeholder'	=> '',
+								'options'		=> array(
+									'yes'		=> '',
+								),
+							),
+						),
+					),
 					// Group - Menus
 					array(
 						'name'		=> 'Menus',
@@ -281,7 +332,7 @@ if(!class_exists('SettingsMB')){
 			);
 			return $meta_boxes;
 		}
-		
+
 		// MB - Email
 		public function mb_emails($meta_boxes)
 		{
@@ -360,7 +411,7 @@ if(!class_exists('SettingsMB')){
 					)
 				)
 			);
-			
+
 			return $meta_boxes;
 		}
 	}
