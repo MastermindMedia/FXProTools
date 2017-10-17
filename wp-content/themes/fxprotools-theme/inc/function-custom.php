@@ -328,7 +328,7 @@ function get_mb_pto1( $mb_group_id, $page_element ) {
 	$group = rwmb_meta( $mb_group_id );
 	// Validate if metabox group id already declared
 	if( $group == '' ) {
-		$html = '<div class="alert alert-warning" role="alert">';
+		$html = '<div class="alert alert-warning m-b-none no-border-radius" role="alert">';
 		$html .= 'Not a valid metabox field';
 		$html .= '</div>';
 		echo $html;
