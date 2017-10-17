@@ -94,7 +94,10 @@ class Apyc_Citrix_GoToWebinar_CreateRegistrant{
 				if( $response_code == 200 ){
 					$body = json_decode( wp_remote_retrieve_body( $response ) );
 					write_log('gotowebinar create registrar : ' . $body);				
-					return $body;
+					return array(
+						'code' => $response_code,
+						'body' => $body
+					);
 				}else{
 					write_log('gotowebinar create registrar error : ' . $body);
 					return array(

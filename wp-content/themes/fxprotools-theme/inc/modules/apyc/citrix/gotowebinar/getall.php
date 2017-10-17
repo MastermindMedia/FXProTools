@@ -63,29 +63,49 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 		return self::$instance;
 	}
 	
+	public function token(){
+		return apyc_get_token();
+	}
+	
 	/**
 		Get All Webinars
 		/organizers/{organizerKey}/webinars  
 	**/
-	public function get(){
-		global $wp_version;
-		
-		//$token = apyc_get_access_token();
-		$token = apyc_get_token();
-		if( $token ){
+	public function getAll(){
+		if( $this->token() ){
+			$url = $this->url . $this->token()->organizer_key . '/webinars';
+			return $this->response($url);
+		}
+		return false;
+	}
+	
+	/**
+		Get All Upcoming Webinars
+		/organizers/{organizerKey}/upcomingWebinars  
+	**/
+	public function getUpcomingWebinars(){
+		if( $this->token() ){
+			$url = $this->url . $this->token()->organizer_key . '/upcomingWebinars';
+			return $this->response($url);
+		}
+		return false;
+	}
+	
+	public function response($url){
+		if( $this->token() ){
 			$body = array();
 			$args = array(
 				'headers' => array(
 					'Content-Type' => 'application/json',
 					'Accept' => 'application/json',
-					'Authorization' => $token->access_token,
+					'Authorization' => $this->token()->access_token,
 				),
 			); 
-			$url = $this->url . $token->organizer_key . '/webinars';
+			
 			$response = wp_remote_get( $url, $args );
 			if ( is_wp_error( $response ) ) {
 			   $error_message = $response->get_error_message();
-			   write_log('gotowebinar get all webinars error : ' . $error_message);
+			   write_log('gotowebinar get webinars error : ' . $error_message);
 			   throw new Exception( $error_message );
 			} else {
 				$response_code = wp_remote_retrieve_response_code( $response );
@@ -136,7 +156,7 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 		);
 		
 		$query_args = wp_parse_args( $args, $defaults );
-		$get_data = $this->get();
+		$get_data = $this->getUpcomingWebinars();
 		//$get_data = $this->cache();
 		//dd($get_data);
 		if( $get_data['data'] && $get_data['status'] == 200 ){

@@ -17,7 +17,7 @@ if ( ! function_exists('apyc_get_token')) {
 if ( ! function_exists('apyc_get_all_webinars')) {
    function apyc_get_all_webinars ( )  {
 		try{
-			return Apyc_Citrix_GoToWebinar_GetAll::get_instance()->get();
+			return Apyc_Citrix_GoToWebinar_GetAll::get_instance()->getAll();
 		}catch(Exception $e){
 			write_log('get access token error : ' . $e->getMessage());
 			return false;
