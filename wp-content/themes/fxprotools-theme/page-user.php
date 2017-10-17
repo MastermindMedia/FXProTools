@@ -157,7 +157,7 @@ foreach($_POST as $user_key => $user_value)
 												<h3>Pause Account - $9.99 Month</h3>
 											</div>
 											<div class="col-md-6">
-												<a href="#" class="btn btn-danger btn-block btn-lg">Pause My Account - $9.99 / Month</a>
+												<a href="#" class="btn btn-danger btn-block btn-lg btn-pause" data-subscription-id="<?php echo isset( $_GET['subs_id'] ) ? $_GET['subs_id'] : 0;?>">Pause My Account - $9.99 / Month</a>
 											</div>
 										</div>
 										<p>(If you pause, your pages will not display live, you won't be able to use the ClickFunnels App... but we'll keep your subdomain reserved and all your pages and funnels waiting so you can resume your account anytime.)</p>
@@ -299,7 +299,7 @@ foreach($_POST as $user_key => $user_value)
 												<h3>Pause Account - $9.99 Month</h3>
 											</div>
 											<div class="col-md-6">
-												<a href="#" class="btn btn-danger btn-block btn-lg">Pause My Account - $9.99 / Month</a>
+												<a href="#" class="btn btn-danger btn-block btn-lg btn-pause" data-subscription-id="<?php echo isset( $_GET['subs_id'] ) ? $_GET['subs_id'] : 0;?>">Pause My Account - $9.99 / Month</a>
 											</div>
 										</div>
 										<p>(If you pause, your pages will not display live, you won't be able to use the ClickFunnels App... but we'll keep your subdomain reserved and all your pages and funnels waiting so you can resume your account anytime.)</p>
