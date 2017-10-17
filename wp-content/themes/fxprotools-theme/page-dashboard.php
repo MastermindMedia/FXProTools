@@ -14,8 +14,10 @@ $checklist = get_user_checklist();
 				</div>
 			</div>
 			<div class="col-md-8">
-				<div class="fx-video-container" style="background:#000;height: 480px;">
-					
+				<div class="fx-video-container">
+					<?php
+						echo get_mb_pto1( 'pto1_video', 'video_embed' );
+					?>
 				</div>
 			</div>
 			<div class="col-md-4">
