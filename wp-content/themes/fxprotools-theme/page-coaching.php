@@ -1,149 +1,34 @@
 <?php
-	$product_id = 50; 
-	$product = wc_get_product( $product_id );
+get_header();
+
+$product_id = 50; 
+$product = wc_get_product( $product_id );
+//url action, we get the state of the url query string, to perform
+$action = isset($_GET['action']) ? $_GET['action']:'';
+//holds data to pass to template
+$data = array();
+
+$view = new Apyc_View;
+$theme_js = $view->get_assets_js_theme();
+$template = $view->get_view_templates();
+$data['view_theme_js'] = $theme_js;
+$data['view_template'] = $template;
+$data['obj_view'] = $view;
+
+if ( user_has_coaching() || current_user_can('administrator')  ) : 
+	get_template_part('inc/templates/nav-products'); 
+	
+	switch($action){
+		default:
+			$data['title'] = _('Coaching / Webinars');
+			$data['sub_heading'] = _('Check Below For Your Coaching Webinars');
+
+			$view->view_theme($template . 'coaching/main.php', $data);
+		break;
+	}
+else: 
+	get_template_part('inc/templates/no-access'); 
+endif; 
+
+get_footer(); 
 ?>
-
-<?php get_header(); ?>
-
-	<?php if ( user_has_coaching() || current_user_can('administrator')  ) : ?>
-		<?php get_template_part('inc/templates/nav-products'); ?>
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="fx-header-title">
-						<h1>Coaching / Webinars</h1>
-						<p>Check Below For Your Coaching Webinars</p>
-					</div>
-				</div>
-				<div class="col-md-12">
-				<div class="fx-coaching-tab">
-					<a href="<?php bloginfo('url');?>/coaching" class="btn btn-danger no-border-radius pull-right">Schedule Coaching</a>
-					<div role="tabpanel">
-						<ul class="nav nav-tabs" role="tablist">
-							<li role="presentation" class="active">
-								<a href="#one" aria-controls="one" role="tab" data-toggle="tab">Upcoming Sessions</a>
-							</li>
-							<li role="presentation">
-								<a href="#two" aria-controls="two" role="tab" data-toggle="tab">Past Sessions</a>
-							</li>
-						</ul>
-						<div class="tab-content">
-							<div role="tabpanel" class="tab-pane padding-md active" id="one">
-								<div class="webinar-list">
-								<?php
-								$args = array(
-									'post_type'  => 'fx_webinar',
-									'meta_query' => array(
-						                'relation' => 'OR',
-						                array(
-						                    'key'       => 'webinar_start_date',
-						                    'value'     => date('Y-m-d',strtotime("today")),
-						                    'compare'   => '>=',
-						                    'type'      => 'DATE'
-						                ),
-						                array(
-						                    'key'       => 'webinar_start_date',
-						                    'value'     => 'true',
-						                    'compare'   => '='
-						                )
-						            )
-								);
-								 
-								$the_query = new WP_Query( $args );
-								 
-								if ( $the_query->have_posts() ) {
-								while ( $the_query->have_posts() ) {
-								$the_query->the_post();
-								?>
-
-								<div class="row">
-									<div class="col-md-2 col-xs-6 webinar-sched webinar-date">
-										<?php echo rwmb_meta('webinar_start_date'); ?>
-									</div>
-									<div class="col-md-2 col-xs-6 webinar-sched webinar-time">
-										<?php echo date('h:i A', strtotime(rwmb_meta('webinar_start_time'))); ?>
-									</div>
-									<div class="col-md-6">
-										<?php echo rwmb_meta('webinar_topic'); ?>
-									</div>
-									<div class="col-md-2 text-right webinar-link">
-										<a class="btn btn-success" href="<?php echo rwmb_meta('webinar_meeting_link'); ?>">Meeting Link</a>
-									</div>
-								</div>
-								 
-								<?php
-								}
-								} else {
-									echo '<h4>No Sessions Scheduled</h4>';
-								}
-								/* Restore original Post Data */
-								wp_reset_postdata();
-
-								?>
-								</div>
-							</div>
-							<div role="tabpanel" class="tab-pane padding-md" id="two">
-								<div class="webinar-list">
-								<?php
-								$args = array(
-									'post_type'  => 'fx_webinar',
-									'meta_query' => array(
-						                'relation' => 'OR',
-						                array(
-						                    'key'       => 'webinar_start_date',
-						                    'value'     => date('Y-m-d',strtotime("today")),
-						                    'compare'   => '<',
-						                    'type'      => 'DATE'
-						                ),
-						                array(
-						                    'key'       => 'webinar_start_date',
-						                    'value'     => 'true',
-						                    'compare'   => '='
-						                )
-						            )
-								);
-								 
-								$the_query = new WP_Query( $args );
-								 
-								if ( $the_query->have_posts() ) {
-								while ( $the_query->have_posts() ) {
-								$the_query->the_post();
-								?>
-
-								<div class="row">
-									<div class="col-md-2 col-xs-6 webinar-sched webinar-date">
-										<?php echo rwmb_meta('webinar_start_date'); ?>
-									</div>
-									<div class="col-md-2 col-xs-6 webinar-sched webinar-time">
-										<?php echo date('h:i A', strtotime(rwmb_meta('webinar_start_time'))); ?>
-									</div>
-									<div class="col-md-6">
-										<?php echo rwmb_meta('webinar_topic'); ?>
-									</div>
-									<div class="col-md-2 text-right webinar-link">
-										<a class="btn btn-success" href="<?php echo rwmb_meta('webinar_meeting_link'); ?>">Meeting Link</a>
-									</div>
-								</div>
-								 
-								<?php
-								}
-								} else {
-									echo '<h4>No Sessions Scheduled</h4>';
-								}
-								/* Restore original Post Data */
-								wp_reset_postdata();
-
-								?>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			</div>
-		</div>
-	<?php else: ?>
-		<?php get_template_part('inc/templates/no-access'); ?>
-	<?php endif; ?>
-
-<?php get_footer(); ?>

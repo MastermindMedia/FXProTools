@@ -71,7 +71,6 @@ if(!class_exists('AuthAjax')){
 					if( is_numeric($result) ) {
 						add_user_meta( $user_id, '_pause_subscription_id', $result);
 						do_action( 'user_subscription_paused', $subscription_id );
-
 						$response['status'] = 'success';
 						$response['message'] = 'created new pause account subscription';
 						$response['args'] = array('subscription_id' => $result);

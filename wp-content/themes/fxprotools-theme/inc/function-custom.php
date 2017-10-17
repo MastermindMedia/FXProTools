@@ -145,9 +145,15 @@ function enforce_page_access()
 	if( !isset($post) ) return;
 	$slug = $post->post_name;
 	$guest_allowed_post_type = array( 'product' );
-	$guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'autologin' );
+	$guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'autologin', 'log-out-notice' );
 
-	if( is_user_logged_in() ) return 0;
+	if( is_user_logged_in() ) {
+		if (is_page('log-out-notice')){
+			wp_redirect('/dashboard');
+			exit;
+        }
+	    return 0;
+	}
 	if( !is_product() && !is_cart() && !is_checkout() && !is_shop() && !is_404() && !is_front_page() ) {
 		if( !in_array($slug, $guest_allowed_pages) ){
 			wp_redirect( home_url() . '/login');
@@ -328,7 +334,7 @@ function get_mb_pto1( $mb_group_id, $page_element ) {
 	$group = rwmb_meta( $mb_group_id );
 	// Validate if metabox group id already declared
 	if( $group == '' ) {
-		$html = '<div class="alert alert-warning" role="alert">';
+		$html = '<div class="alert alert-warning m-b-none no-border-radius" role="alert">';
 		$html .= 'Not a valid metabox field / Empty metabox option';
 		$html .= '</div>';
 		echo $html;
@@ -533,10 +539,10 @@ function check_if_logged_in() {
 }
 
 // redirect to homepage after logging out
-add_action('wp_logout','redirect_to_home_after_logout');
-function redirect_to_home_after_logout(){
-	wp_redirect( home_url() );
-	exit();
+add_action('wp_logout','confirm_logout');
+function confirm_logout(){
+    wp_safe_redirect( '/log-out-notice' );
+    exit();
 }
 
 // redirect to /login when accessing wp-login.php
@@ -555,25 +561,11 @@ function custom_logout_notice() {
 	if ( ! is_user_logged_in() ) {
 		wp_redirect( '/login' );
 		exit();
-	} elseif ( 'logout' == $_GET['action'] && ! isset( $_GET['_wpnonce'] ) ) {
-		wp_safe_redirect( '/log-out-notice' );
-		exit();
 	}
-	// avoid CSRF security exploits
-	check_admin_referer( 'log-out' );
 	wp_logout();
+	exit();
 }
 
-// checks if _wpnonce is not tampered
-add_action( 'check_admin_referer', 'custom_check_admin_referer', 10, 2 );
-function custom_check_admin_referer( $action, $result ) {
-	if ( ! $result ) {
-		wp_safe_redirect( '/log-out-notice' );
-		exit();
-	}
-
-	return $result;
-}
 /**
 * Check if user has active subscription
 * @see class Apyc_User
