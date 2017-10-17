@@ -1,6 +1,8 @@
 <?php
 $checklist = get_user_checklist();
-$referral_count = count(get_user_referrals());
+$referral_count = count( get_user_referrals() );
+$username = wp_get_current_user()->user_login;
+dd(get_user_active_referrals());
 ?>
 <?php get_header(); ?>
 
@@ -57,7 +59,7 @@ $referral_count = count(get_user_referrals());
 								<div class="box">
 									Share your unique referral link
 									<div class="link">
-										<?php bloginfo('url');?>?ref=<?php echo get_current_user_id();?>
+										<?php bloginfo('url');?>?ref=<?php echo $username;?>
 									</div>
 								</div>
 							</div>
