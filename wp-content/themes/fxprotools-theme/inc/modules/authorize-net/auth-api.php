@@ -78,7 +78,7 @@ if(!class_exists('AuthAPI')){
 			}
 
 			else{
-				$profile_ids = $this->get_profile_ids();
+				$profile_ids = array_reverse( $this->get_profile_ids() );
 				foreach($profile_ids as $id){
 					$response = $this->get_customer_profile_request($id);
 					
