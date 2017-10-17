@@ -508,7 +508,7 @@ add_action('wp_login_failed', 'custom_redirect_login_failed');
 function custom_redirect_login_failed($username) {
     $args = [
         'login' => 'failed',
-        'username' => urlencode(sanitize_text_field($username))
+        'username' => $username
     ];
 
 	wp_redirect(get_bloginfo('url') . '/login?' . http_build_query($args));
