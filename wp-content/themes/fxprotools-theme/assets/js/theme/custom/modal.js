@@ -73,6 +73,10 @@ var Modal = function(){
 						}else{
 							console.log(data);
 							$('.ajax-webinars-msg').html('<p>'+data.msg+'</p>');
+							$.each( data.webinar_ret, function( key, value ) {
+								$('.' + key + '-info').html('');
+								$('.' + key + '-info').html('<p>'+value.msg+'</p>');
+							});
 						}
 					}
 					$('.ajax-webinar-lists').show();
