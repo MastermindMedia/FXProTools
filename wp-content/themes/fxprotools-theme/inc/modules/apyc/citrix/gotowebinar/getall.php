@@ -195,7 +195,7 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 					'key' => $v->webinarKey,
 					'startTime' => date("l, M.jS, h:i A e", strtotime($v->times[0]->startTime)),
 					'title' => $v->subject,
-					'description' => $v->description,
+					'description' => $v->description
 				);
 				
 				if( trim($query_args['filter_by_subject']) != '' ){

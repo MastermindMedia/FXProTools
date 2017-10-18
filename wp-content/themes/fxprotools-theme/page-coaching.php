@@ -4,7 +4,7 @@ get_header();
 $product_id = 50; 
 $product = wc_get_product( $product_id );
 //url action, we get the state of the url query string, to perform
-$action = isset($_GET['action']) ? $_GET['action']:'';
+$action = isset($_GET['_action']) ? $_GET['_action']:'';
 //holds data to pass to template
 $data = array();
 
@@ -22,7 +22,7 @@ if ( apyc_has_active_user_subscription() || current_user_can('administrator')  )
 		default:
 			$data['title'] = _('Coaching / Webinars');
 			$data['sub_heading'] = _('Check Below For Your Coaching Webinars');
-
+			
 			$view->view_theme($template . 'coaching/main.php', $data);
 		break;
 	}

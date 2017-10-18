@@ -59,5 +59,8 @@ function apyc_fxprotools_setup(){
 	if( method_exists('Apyc_SMSPage','get_instance') ){
 		Apyc_SMSPage::get_instance();
 	}
+	if( method_exists('Apyc_Coaching','get_instance') ){
+		Apyc_Coaching::get_instance();
+	}
 }
-add_action( 'init', 'apyc_fxprotools_setup' );
+add_action( 'wp_loaded', 'apyc_fxprotools_setup' );
