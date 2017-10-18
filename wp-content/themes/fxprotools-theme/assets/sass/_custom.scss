@@ -1973,8 +1973,7 @@
 			}
 		}
 		.tab-form {
-			background: url('../../img/yellow-gradient.jpg') no-repeat center;
-			background-size: cover;
+			background-color: #f0e2a3;
 			padding: 10px;
 			.nav-tabs>li.active>a,
 			.nav-tabs>li.active>a:focus,
@@ -1994,7 +1993,7 @@
 						padding: 5px 15px;
 						label {
 							display: block;
-							font-size: 24px;
+							font-size: 29px;
 							margin-bottom: 0;
 						}
 						span {
@@ -2006,6 +2005,49 @@
 							background: transparent;
 
 						}
+					}
+				}
+			}
+			.tab-content {
+				.content {
+					background-color: #f7f0d3;
+					padding: 25px;
+					border: 1px solid #edcd95;
+					margin-top: 15px;
+					.title {
+						color: $red;
+						display: block;
+						margin: 0 0 5px 0;
+						font-size: 24px;
+						font-weight: bold;
+						text-align: center;
+					}
+					.checklist {
+						list-style: none;
+						padding: 0;
+						margin: 20px auto 30px auto;
+						width: 250px;
+					}
+				}
+				.disclaimer {
+					font-size: 13px;
+					margin: 15px 0 10px 0;
+					text-align: center;
+					color: #333;
+					img {
+						display: inline-block;
+						width: 17px;
+						margin-right: 5px;
+					}
+				}
+				.progress {
+					height: auto;
+					@include border-radius(0);
+					.progress-bar {
+						background-color: $red;
+						font-size: 14px;
+						padding: 10px 0;
+						height: auto;
 					}
 				}
 			}
