@@ -5,7 +5,7 @@ function queue_admin_email_scripts($hook) {
     // Prevent re-publishing of emails.
     if ($hook == 'post-new.php' || $hook == 'post.php') {
         if ('fx_email' === $post->post_type) {
-            wp_enqueue_script('email-script', get_stylesheet_directory_uri().'/assets/js/admin-email.js');
+            wp_enqueue_script('email-script', get_stylesheet_directory_uri().'/assets/js/admin/admin-email.js');
         }
     }
 }
