@@ -47,7 +47,7 @@ class Apyc_Coaching{
 	}
 	
 	//get the upcoming webinars
-	public function coach_get_webinars(){
+	public function get_webinars(){
 		$data = array();
 
 		$webinars = apyc_get_upcoming_webinars();
@@ -56,7 +56,7 @@ class Apyc_Coaching{
 		if( is_array($webinars)
 			&& !empty($webinars)
 		){
-			Apyc_View::get_instance()->view_theme(TEMPLATE_PATH . 'modal-ajax-data.php', $data);
+			Apyc_View::get_instance()->view_theme(TEMPLATE_PATH . 'coaching/ajax-upcoming-webinars.php', $data);
 		}else{
 			$ret = array(
 				'status' => 'no-webinar',
@@ -68,7 +68,7 @@ class Apyc_Coaching{
 	}
 	
 	//get the history webinars
-	public function coach_get_history_webinars(){
+	public function get_history_webinars(){
 		$data = array();
 
 		$webinars = apyc_get_upcoming_webinars();
@@ -77,7 +77,7 @@ class Apyc_Coaching{
 		if( is_array($webinars)
 			&& !empty($webinars)
 		){
-			Apyc_View::get_instance()->view_theme(TEMPLATE_PATH . 'modal-ajax-data.php', $data);
+			Apyc_View::get_instance()->view_theme(TEMPLATE_PATH . 'coaching/ajax-history-webinars.php', $data);
 		}else{
 			$ret = array(
 				'status' => 'no-webinar',
@@ -89,9 +89,9 @@ class Apyc_Coaching{
 	}
 	
 	public function __construct() {
-		add_action( 'wp_ajax_coach_get_webinars', array($this, 'coach_get_webinars') );
-		add_action( 'wp_ajax_nopriv_coach_get_webinars', array($this, 'coach_get_webinars') );
-		add_action( 'wp_ajax_coach_get_history_webinars', array($this, 'coach_get_history_webinars') );
-		add_action( 'wp_ajax_nopriv_coach_get_history_webinars', array($this, 'coach_get_history_webinars') );
+		add_action( 'wp_ajax_coach_get_webinars', array($this, 'get_webinars') );
+		add_action( 'wp_ajax_nopriv_coach_get_webinars', array($this, 'get_webinars') );
+		add_action( 'wp_ajax_coach_get_history_webinars', array($this, 'get_history_webinars') );
+		add_action( 'wp_ajax_nopriv_coach_get_history_webinars', array($this, 'get_history_webinars') );
 	}
 }
