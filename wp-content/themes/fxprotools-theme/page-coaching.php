@@ -15,7 +15,7 @@ $data['view_theme_js'] = $theme_js;
 $data['view_template'] = $template;
 $data['obj_view'] = $view;
 
-if ( user_has_coaching() || current_user_can('administrator')  ) : 
+if ( apyc_has_active_user_subscription() || current_user_can('administrator')  ) : 
 	get_template_part('inc/templates/nav-products'); 
 	
 	switch($action){

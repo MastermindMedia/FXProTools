@@ -68,6 +68,18 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 	}
 	
 	/**
+		Get History Webinars
+		https://goto-developer.logmeininc.com/content/gotowebinar-api-reference#!/Webinars/getHistoricalWebinars
+	**/
+	public function getHistory(){
+		if( $this->token() ){
+			$url = $this->url . $this->token()->organizer_key . '/historicalWebinars';
+			return $this->response($url);
+		}
+		return false;
+	}
+	
+	/**
 		Get All Webinars
 		/organizers/{organizerKey}/webinars  
 	**/
@@ -152,11 +164,24 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 		$data = array();
 		$defaults = array(
 			'number_post' => 5,
-			'filter_by_subject' => ''
+			'filter_by_subject' => '',
+			'get_webinar' => 'upcoming'
 		);
 		
 		$query_args = wp_parse_args( $args, $defaults );
-		$get_data = $this->getUpcomingWebinars();
+		switch($defaults['get_webinar']){
+			case 'all':
+				$get_data = $this->getAll();
+			break;
+			case 'history':
+				$get_data = $this->getHistory();
+			break;
+			default:
+			case 'upcoming':
+				$get_data = $this->getUpcomingWebinars();
+			break;
+		}
+		
 		//$get_data = $this->cache();
 		//dd($get_data);
 		if( $get_data['data'] && $get_data['status'] == 200 ){
@@ -169,6 +194,8 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 				$parse_data = array(
 					'key' => $v->webinarKey,
 					'startTime' => date("l, M.jS, h:i A e", strtotime($v->times[0]->startTime)),
+					'title' => $v->subject,
+					'description' => $v->description,
 				);
 				
 				if( trim($query_args['filter_by_subject']) != '' ){

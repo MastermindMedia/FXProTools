@@ -2,16 +2,17 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
-/*define('GOTOWEBINAR_USERID', 'fxprotools@gmail.com');
-define('GOTOWEBINAR_PASSWORD', 'Admin4web');
-define('GOTOWEBINAR_CONSUMERKEY', 'aInr3HOEuTfGxGW7PF9yD90AGzIehCj5');*/
+//http://php.net/manual/en/timezones.others.php
+//date_default_timezone_set('America/New_York');
+date_default_timezone_set('Asia/Manila');
 /*define('GOTOWEBINAR_USERID', 'volishon@gmail.com');
 define('GOTOWEBINAR_PASSWORD', 'Password123');
 define('GOTOWEBINAR_CONSUMERKEY', '1HcxAF4IGb4wQmTphYYldWHIcwNBhEF6');*/
 define('GOTOWEBINAR_USERID', 'allan.paul.casilum@gmail.com');
 define('GOTOWEBINAR_PASSWORD', 'a4p1y2c5');
 define('GOTOWEBINAR_CONSUMERKEY', '22tCPrVm7hhgAihDRFsFZarudvnUv858');
-//define('GOTOWEBINAR_FREE_GROUP', 'FREE Weekly Q&A');
+/*define('GOTOWEBINAR_FREE_GROUP', 'FREE Weekly Q&A');
+define('GOTOWEBINAR_PAID_GROUP', 'Weekly Live Trading');*/
 define('GOTOWEBINAR_FREE_GROUP', 'test 1');
 define('GOTOWEBINAR_PAID_GROUP', 'test 2');
 define('TWILIO_ACCOUNT_SID', 'ACeed6641354498872901ff6aa63342ac1');
