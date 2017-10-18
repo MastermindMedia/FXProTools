@@ -1,4 +1,8 @@
 jQuery(function ($) {
+    if (typeof(EMAIL_TYPE) == 'undefined') {
+        return;
+    }
+    
    var ajaxUrl = fx.ajax_url;
    var mailContainer = $("#mailContainer");
    
