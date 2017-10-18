@@ -19,7 +19,7 @@ var theme_location = './wp-content/themes/fxprotools-theme',
 // ------------
 // THEME - SASS
 // ------------
-gulp.task('fx-sass', function(){
+gulp.task('sass', function(){
 	gulp.src(config.theme_sass)
 		.pipe(plumber())
 		.pipe(sass({
@@ -35,7 +35,7 @@ gulp.task('fx-sass', function(){
 // ----------
 // THEME - JS
 // ----------
-gulp.task('fx-js', function(){
+gulp.task('js', function(){
 	gulp.src(config.theme_js)
 		.pipe(plumber())
 		.pipe(sourcemaps.init())

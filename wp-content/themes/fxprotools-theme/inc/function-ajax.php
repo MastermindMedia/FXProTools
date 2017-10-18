@@ -58,7 +58,7 @@ function email_inbox()
 function email_inbox_count()
 {
 	header("Content-Type: application/json");
-	echo count(get_emails_for_user($status));
+	echo count(get_emails_for_user(array('unread')));
 	wp_die();
 }
 
