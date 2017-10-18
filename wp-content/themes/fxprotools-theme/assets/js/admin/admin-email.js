@@ -9,15 +9,10 @@ jQuery(function($) {
     
     if ($("#post-status-display").text() == "Published") {
         $("#wpbody-content input, #wpbody-content select, #wpbody-content button").prop("disabled", true);
+        var elem = $("<div />").css("background-color", "rgba(0, 0, 0, 0.25)").css("z-index", "1000").appendTo("body");
         
-        var wait = function () {
-            if (!$("#email_content_ifr").contents().find("body").css("background-color", "rgb(230, 230, 230)").find("[contenteditable]").removeAttr("contenteditable").length) {
-                setTimeout(wait, 100);
-            } else {
-                $("#email_content_ifr").contents().find("button, select").prop("disabled", true);
-            }
-        }
-        
-        setTimeout(wait, 100);
+        setInterval(function() {
+            elem.offset($("#wp-email_content-wrap").offset()).width($("#wp-email_content-wrap").width()).height($("#wp-email_content-wrap").height());
+        }, 100);
     }
 });
