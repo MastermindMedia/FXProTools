@@ -69,7 +69,7 @@ function post_email_published($id) {
                     case 'user':
                         // WP user selected.
                         $userId = get_post_meta($post->ID, 'recipient_individual_user')[0];
-                        $user = get_user_data($userId);
+                        $user = get_userdata($userId);
                         
                         $personalizations[] = array(
                             'to' => array(array(
