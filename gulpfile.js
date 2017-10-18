@@ -47,18 +47,18 @@ gulp.task('js', function(){
 });
 
 // Default Task for watching sass
-gulp.task('watch-sass', ['fx-sass'], function(){
-	gulp.watch(config.theme_sass, ['fx-sass']);
+gulp.task('watch-sass', ['sass'], function(){
+	gulp.watch(config.theme_sass, ['sass']);
 });
 
 // Default Task for watching js
-gulp.task('watch-js', ['fx-js'], function(){
-	gulp.watch(config.theme_js, ['fx-js']);
+gulp.task('watch-js', ['js'], function(){
+	gulp.watch(config.theme_js, ['js']);
 });
 
 // Default Task for watching both sass/js
-gulp.task('default', ['fx-sass', 'fx-js'], function(){
-	gulp.watch(config.theme_sass, ['fx-sass']);
-	gulp.watch(config.theme_js, ['fx-js']);
+gulp.task('default', ['sass', 'js'], function(){
+	gulp.watch(config.theme_sass, ['sass']);
+	gulp.watch(config.theme_js, ['js']);
 });
 
