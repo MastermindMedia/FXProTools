@@ -577,3 +577,18 @@ if ( ! function_exists('apyc_has_active_user_subscription')) {
 		return Apyc_User::get_instance()->hasActiveSubscription($user_id);
 	}
 }
+
+/*
+	Allow multiple variables to be used as reference for affiliate.
+ */
+
+add_action( 'init', 'multiple_affiliate_vars_redirect' );
+function multiple_affiliate_vars_redirect() {
+    if( isset( $_GET['aff'] ) || isset( $_GET['s1'] ) ){
+
+    	$ref = $_GET['aff'] ? $_GET['aff'] : $_GET['s1'];
+    	$url = site_url() . strtok( $_SERVER["REQUEST_URI"], '?') . '/?ref=' . $ref;
+    	
+    	wp_redirect( $url, 301 );
+    }
+}
