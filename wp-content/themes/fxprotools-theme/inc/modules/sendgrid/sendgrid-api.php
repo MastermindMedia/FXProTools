@@ -50,7 +50,8 @@ if(!class_exists('FX_Sendgrid_Api')){
 				'personalizations' => $personalizations,
 				'subject' => $subject,
 				'from' => array(
-					'email' => 'support@copyprofitshareglobal.com'
+					'email' => get_option("email_settings")['email_from_address'],
+					'name' => get_option("email_settings")['email_from_name']
 				),
 				'content' => array(array(
 					'type' => 'text/html',

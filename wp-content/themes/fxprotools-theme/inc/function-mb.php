@@ -30,6 +30,8 @@ if(!class_exists('SettingsMB')){
 					add_filter('rwmb_meta_boxes', array($this, $mb));
 				}
 			}
+			
+			add_filter('mb_settings_pages', array($this, 'mb_settings_pages'));
 		}
 
 		// MB - Courses(LearnDash LMS)
@@ -439,8 +441,50 @@ if(!class_exists('SettingsMB')){
 					)
 				)
 			);
+			
+			$meta_boxes[] = array(
+				'id'			=> 'email_settings_fields',
+				'title' 		=> 'Email Settings',
+				'settings_pages'	=> array('email-settings'),
+				'context'		=> 'advanced',
+				'priority'		=> 'high',
+				'autosave'		=> false,
+				'fields'		=> array(
+					array(
+						'id'	=> $prefix . 'email_from_name',
+						'type'	=> 'text',
+						'name'	=> 'From Name'
+					),
+					array(
+						'id'	=> $prefix . 'email_from_address',
+						'type'	=> 'text',
+						'name'	=> 'From Email'
+					),
+				),
+				'validation' => array(
+					'rules' => array(
+						$prefix.'email_from_name' => array(
+							'required' => true
+						),
+						$prefix.'email_from_address' => array(
+							'required' => true,
+							'email' => true
+						),
+					)
+				)
+			);
 
 			return $meta_boxes;
+		}
+		
+		public function mb_settings_pages($settings_pages)
+		{
+			$settings_pages[] = array(
+				'id'          => 'email-settings',
+				'option_name' => 'email_settings',
+				'menu_title'  => 'Email Settings',
+			);
+			return $settings_pages;
 		}
 	}
 
