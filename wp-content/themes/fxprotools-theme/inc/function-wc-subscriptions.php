@@ -146,18 +146,39 @@ if(!class_exists('WC_Subscriptions_Settings')){
 			$user_id =  $renewal_order->get_customer_id();
 			$referrals = get_user_active_referrals($user_id);
 			$has_paid_signup_fee = get_user_meta( $user_id , '_has_paid_signup_fee', true ); 
+			$subscriptions = wcs_get_users_subscriptions( $user_id );
 
 			//if user has 3 active referrals, modify renewal to be free
 			if( count($referrals) >= 3){
+
 				$renewal_order->remove_order_items();
 				$renewal_order->add_order_note('Free Renewal via Referral Program');
-				$renewal_order->calculate_totals();
-				return $renewal_order;
-			}
-			//add signup fee to renewal
-			elseif(!$has_paid_signup_fee){
 
-				$subscriptions = wcs_get_users_subscriptions( $user_id );
+				foreach($subscriptions as $s){
+
+					if( $s->has_status('on-hold') ){
+						$items = $s->get_items();
+
+						foreach($items as $key => $item){
+							$subscription_type = wc_get_order_item_meta($key, 'subscription-type', true);
+
+						    if( isset($subscription_type) ) {
+								$product = wc_get_product( $item->get_product_id() );
+
+								if($product->get_id() == 48){ //if business product add ibo kit instead
+									$ibo_kit =  wc_get_product(2871);
+									$renewal_order->add_product($ibo_kit, 1);
+									$renewal_order->add_order_note('Add IBO Kit for Distributor Package');
+								}
+							}
+						}
+					}
+				}
+			}
+
+			//add signup fee to renewal
+			if( !$has_paid_signup_fee ){
+
 				foreach($subscriptions as $s){
 
 					if( $s->has_status('on-hold') ){
@@ -188,21 +209,18 @@ if(!class_exists('WC_Subscriptions_Settings')){
 							    ) );
 								$item->save();
 								$renewal_order->add_item($item);
-								$renewal_order->calculate_totals();
 								$renewal_order->add_order_note('Added Sign Up Fee');
 								add_user_meta( $user_id , '_has_paid_signup_fee', 1); 
-								return $renewal_order;
+
+								
 					    	}
 					    }
 					}
 				}
 			}
-			else{
-				error_log( 'Renewal not filtered.'  );
-				error_log( 'Referals: '. print_r( $referrals, true) . '. Paid Signup Fee:' . $has_paid_signup_fee);
-				error_log( print_r($renewal_order,true) );
-				return $renewal_order;
-			}
+
+			$renewal_order->calculate_totals();
+			return $renewal_order;
 
 		}
 
