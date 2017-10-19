@@ -111,6 +111,7 @@ function ajax_send_email() {
 	$postid = wp_insert_post(array(
 		'post_type' => 'fx_email',
 		'post_title' => $_POST["subject"],
+		'post_status' => 'publish'
 	));
 	
 	update_post_meta($postid, "email_recipient_type", $_POST["email_recipient_type"]);
