@@ -1,87 +1,87 @@
 <?php get_header(); ?>
 <?php  
 function create_order_subscription($user_id){
-    //setup the billing details
-    $address = array(
-        'first_name' => get_the_author_meta('first_name',$user_id),
-        'last_name'  => get_the_author_meta('last_name',$user_id),
-        'company'    => get_the_author_meta('billing_company',$user_id),
-        'email'      => get_the_author_meta('email',$user_id),
-        'phone'      => get_the_author_meta('billing_phone',$user_id),
-        'address_1'  => get_the_author_meta('billing_address_1',$user_id),
-        'address_2'  => get_the_author_meta('billing_address_2',$user_id),
-        'city'       => get_the_author_meta('billing_city',$user_id),
-        'state'      => get_the_author_meta('billing_state',$user_id),
-        'postcode'   => get_the_author_meta('billing_postcode',$user_id),
-        'country'    => get_the_author_meta('billing_country',$user_id)
-    );
+	//setup the billing details
+	$address = array(
+	    'first_name' => get_the_author_meta('first_name',$user_id),
+	    'last_name'  => get_the_author_meta('last_name',$user_id),
+	    'company'    => get_the_author_meta('billing_company',$user_id),
+	    'email'      => get_the_author_meta('email',$user_id),
+	    'phone'      => get_the_author_meta('billing_phone',$user_id),
+	    'address_1'  => get_the_author_meta('billing_address_1',$user_id),
+	    'address_2'  => get_the_author_meta('billing_address_2',$user_id),
+	    'city'       => get_the_author_meta('billing_city',$user_id),
+	    'state'      => get_the_author_meta('billing_state',$user_id),
+	    'postcode'   => get_the_author_meta('billing_postcode',$user_id),
+	    'country'    => get_the_author_meta('billing_country',$user_id)
+	);
 
-    $start_date = date("Y-m-d h:i:sa");
-    $start_to_time = strtotime(date("Y-m-d h:i:sa"));
-    $next_payment = date("Y-m-d h:i:sa", strtotime("+1 month", $start_to_time));
-    $parent_product = wc_get_product(48);
+	$start_date = date("Y-m-d h:i:sa");
+	$start_to_time = strtotime(date("Y-m-d h:i:sa"));
+	$next_payment = date("Y-m-d h:i:sa", strtotime("+1 month", $start_to_time));
+	$parent_product = wc_get_product(48);
 
-    $args = array(
-        'attribute_subscription-type' => 'normal'
-    );
+	$args = array(
+	    'attribute_subscription-type' => 'normal'
+	);
 
-    $product_variation = $parent_product->get_matching_variation($args);
-    $product = wc_get_product($product_variation);  
+	$product_variation = $parent_product->get_matching_variation($args);
+	$product = wc_get_product($product_variation);  
 
-    // Each variation also has its own shipping class
+	// Each variation also has its own shipping class
 
-    $shipping_class = get_term_by('slug', $product->get_shipping_class(), 'product_shipping_class');
+	$shipping_class = get_term_by('slug', $product->get_shipping_class(), 'product_shipping_class');
 
-    WC()->shipping->load_shipping_methods();
-    $shipping_methods = WC()->shipping->get_shipping_methods();
+	WC()->shipping->load_shipping_methods();
+	$shipping_methods = WC()->shipping->get_shipping_methods();
 
-    $selected_shipping_method = $shipping_methods['free_shipping'];
-    $class_cost = $selected_shipping_method->get_option('class_cost_' . $shipping_class->term_id);
-    $quantity = 1;
+	$selected_shipping_method = $shipping_methods['free_shipping'];
+	$class_cost = $selected_shipping_method->get_option('class_cost_' . $shipping_class->term_id);
+	$quantity = 1;
 
 
-    $order = wc_create_order(array('customer_id' => $user_id));
+	$order = wc_create_order(array('customer_id' => $user_id));
 
-    $order->add_product( $product, $quantity, $args);
-    $order->set_address( $address, 'billing' );
+	$order->add_product( $product, $quantity, $args);
+	$order->set_address( $address, 'billing' );
 
-    //comment out shipping settings for now
-    //$order->set_address( $address, 'shipping' );
+	//comment out shipping settings for now
+	//$order->set_address( $address, 'shipping' );
 
-    // $order->add_shipping((object)array (
-    //     'id' => $selected_shipping_method->id,
-    //     'label'    => $selected_shipping_method->title,
-    //     'cost'     => (float)$class_cost,
-    //     'taxes'    => array(),
-    //     'calc_tax'  => 'per_order'
-    // ));
+	// $order->add_shipping((object)array (
+	//     'id' => $selected_shipping_method->id,
+	//     'label'    => $selected_shipping_method->title,
+	//     'cost'     => (float)$class_cost,
+	//     'taxes'    => array(),
+	//     'calc_tax'  => 'per_order'
+	// ));
 
-    $order->calculate_totals();
+	$order->calculate_totals();
 
-    $order->update_status("completed", 'Imported order', TRUE);
+	$order->update_status("completed", 'Imported order', TRUE);
 
-    // CREATE SUBSCRIPTION
-    $period = WC_Subscriptions_Product::get_period( $product );
-    $interval = WC_Subscriptions_Product::get_interval( $product );
+	// CREATE SUBSCRIPTION
+	$period = WC_Subscriptions_Product::get_period( $product );
+	$interval = WC_Subscriptions_Product::get_interval( $product );
 
-    $sub = wcs_create_subscription(array('order_id' => $order->id, 'billing_period' => $period, 'billing_interval' => $interval, 'start_date' => $start_date));
-    $sub->update_dates(array('schedule_next_payment' => $next_payment));
-    $sub->add_product( $product, $quantity, $args);
-    $sub->set_address( $address, 'billing' );
+	$sub = wcs_create_subscription(array('order_id' => $order->id, 'billing_period' => $period, 'billing_interval' => $interval, 'start_date' => $start_date));
+	$sub->update_dates(array('schedule_next_payment' => $next_payment));
+	$sub->add_product( $product, $quantity, $args);
+	$sub->set_address( $address, 'billing' );
 
-    //comment out shipping settings for now
-    // $sub->set_address( $address, 'shipping' );
+	//comment out shipping settings for now
+	// $sub->set_address( $address, 'shipping' );
 
-    // $sub->add_shipping((object)array (
-    //     'id' => $selected_shipping_method->id,
-    //     'label'    => $selected_shipping_method->title,
-    //     'cost'     => (float)$class_cost,
-    //     'taxes'    => array(),
-    //     'calc_tax'  => 'per_order'
-    // ));
+	// $sub->add_shipping((object)array (
+	//     'id' => $selected_shipping_method->id,
+	//     'label'    => $selected_shipping_method->title,
+	//     'cost'     => (float)$class_cost,
+	//     'taxes'    => array(),
+	//     'calc_tax'  => 'per_order'
+	// ));
 
-    $sub->calculate_totals();
-    WC_Subscriptions_Manager::activate_subscriptions_for_order($order);
+	$sub->calculate_totals();
+	WC_Subscriptions_Manager::activate_subscriptions_for_order($order);
 }
 
 /* LOOP THROUGH USERS */
@@ -115,45 +115,12 @@ function has_bought_items($user_id) {
 
 //execute order and subscription for users
 $affiliates = $wpdb->get_results( "SELECT affiliate_id,user_id FROM wp_affiliate_wp_affiliates" );
-$json = file_get_contents('https://app.copyprofitshare.com/public/api/users/volishon/get');
-$data = json_decode($json);
-$counter = 1;
-$counter2 = 1;
-// foreach($data as $obj){
-//     $counter2++;
-// }
-// echo $counter2;
-
-// foreach($affiliates as $affiliate){
-//     $counter2++;
-// }
-// echo $counter2;
-
-// echo '<pre>';
-// print_r($affiliates);
-// echo '</pre>';
 
 foreach($affiliates as $affiliate){
-    //if(has_bought_items($affiliate->user_id) != true && get_the_author_meta('email',$affiliate->user_id) != ""){
-    if(get_the_author_meta('email',$affiliate->user_id) != ""){
-    //if($counter == 1){
-        //create_order_subscription($affiliate->user_id);
-        // echo $affiliate->user_id . "****" ;
-        // echo '<br>';
-        // //echo $counter;
-        // $counter++;
-
-        foreach($data as $obj){
-            if(strtolower(get_the_author_meta('email',$affiliate->user_id)) == strtolower($obj->email)){
-                echo $counter . " - " . $obj->name . "(" . get_the_author_meta('email',$affiliate->user_id) . ")" . " sponsor is " . $obj->sponsor_email;
-                echo '<br>';
-                $counter++;
-                break;
-            }
-        }
-    }
+	if(has_bought_items($affiliate->user_id) == true){
+		create_order_subscription($affiliate->user_id);
+	}
 }
-
 
 ?>
 

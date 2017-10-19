@@ -4,7 +4,7 @@ get_header();
 $product_id = 50; 
 $product = wc_get_product( $product_id );
 //url action, we get the state of the url query string, to perform
-$action = isset($_GET['action']) ? $_GET['action']:'';
+$action = isset($_GET['_action']) ? $_GET['_action']:'';
 //holds data to pass to template
 $data = array();
 
@@ -15,13 +15,19 @@ $data['view_theme_js'] = $theme_js;
 $data['view_template'] = $template;
 $data['obj_view'] = $view;
 
-if ( user_has_coaching() || current_user_can('administrator')  ) : 
+$data['title'] = _('Coaching / Webinars');
+$data['sub_heading'] = _('Check Below For Your Coaching Webinars');
+$data['schedule_private_coaching'] = _('Schedule Private Coaching');
+$data['schedule_private_coaching_url'] = 'product/1-on-1-coaching/';
+$data['tab_upcoming_session'] = _('Upcoming Sessions');
+$data['tab_history_session'] = _('Past Sessions');
+
+if ( apyc_has_active_user_subscription() || current_user_can('administrator')  ) : 
 	get_template_part('inc/templates/nav-products'); 
 	
 	switch($action){
 		default:
-			$data['title'] = _('Coaching / Webinars');
-			$data['sub_heading'] = _('Check Below For Your Coaching Webinars');
+			
 
 			$view->view_theme($template . 'coaching/main.php', $data);
 		break;

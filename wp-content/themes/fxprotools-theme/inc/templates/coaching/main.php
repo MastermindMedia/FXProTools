@@ -8,124 +8,22 @@
 			</div>
 			<div class="col-md-12">
 			<div class="fx-coaching-tab">
-				<a href="<?php bloginfo('url');?>/coaching" class="btn btn-danger no-border-radius pull-right">Schedule Coaching</a>
+				<a href="<?php echo esc_url(home_url($schedule_private_coaching_url));?>" class="btn btn-danger no-border-radius pull-right"><?php echo $schedule_private_coaching;?></a>
 				<div role="tabpanel">
-					<ul class="nav nav-tabs" role="tablist">
+					<ul class="nav nav-tabs" id="coachingTabs" role="tablist">
 						<li role="presentation" class="active">
-							<a href="#one" aria-controls="one" role="tab" data-toggle="tab">Upcoming Sessions</a>
+							<a href="#upcoming" aria-controls="upcoming" role="tab" data-toggle="tab"><?php echo $tab_upcoming_session;?></a>
 						</li>
 						<li role="presentation">
-							<a href="#two" aria-controls="two" role="tab" data-toggle="tab">Past Sessions</a>
+							<a href="#past" aria-controls="past" role="tab" data-toggle="tab"><?php echo $tab_history_session;?></a>
 						</li>
 					</ul>
 					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane padding-md active" id="one">
-							<div class="webinar-list">
-							<?php
-							$args = array(
-								'post_type'  => 'fx_webinar',
-								'meta_query' => array(
-									'relation' => 'OR',
-									array(
-										'key'       => 'webinar_start_date',
-										'value'     => date('Y-m-d',strtotime("today")),
-										'compare'   => '>=',
-										'type'      => 'DATE'
-									),
-									array(
-										'key'       => 'webinar_start_date',
-										'value'     => 'true',
-										'compare'   => '='
-									)
-								)
-							);
-							 
-							$the_query = new WP_Query( $args );
-							 
-							if ( $the_query->have_posts() ) {
-							while ( $the_query->have_posts() ) {
-							$the_query->the_post();
-							?>
-
-							<div class="row">
-								<div class="col-md-2 col-xs-6 webinar-sched webinar-date">
-									<?php echo rwmb_meta('webinar_start_date'); ?>
-								</div>
-								<div class="col-md-2 col-xs-6 webinar-sched webinar-time">
-									<?php echo date('h:i A', strtotime(rwmb_meta('webinar_start_time'))); ?>
-								</div>
-								<div class="col-md-6">
-									<?php echo rwmb_meta('webinar_topic'); ?>
-								</div>
-								<div class="col-md-2 text-right webinar-link">
-									<a class="btn btn-success" href="<?php echo rwmb_meta('webinar_meeting_link'); ?>">Meeting Link</a>
-								</div>
-							</div>
-							 
-							<?php
-							}
-							} else {
-								echo '<h4>No Sessions Scheduled</h4>';
-							}
-							/* Restore original Post Data */
-							wp_reset_postdata();
-
-							?>
-							</div>
+						<div role="tabpanel" class="tab-pane padding-md active" id="upcoming">
+							<?php $obj_view->view_theme($view_template . 'coaching/upcoming-webinar.php', array()); ?>
 						</div>
-						<div role="tabpanel" class="tab-pane padding-md" id="two">
-							<div class="webinar-list">
-							<?php
-							$args = array(
-								'post_type'  => 'fx_webinar',
-								'meta_query' => array(
-									'relation' => 'OR',
-									array(
-										'key'       => 'webinar_start_date',
-										'value'     => date('Y-m-d',strtotime("today")),
-										'compare'   => '<',
-										'type'      => 'DATE'
-									),
-									array(
-										'key'       => 'webinar_start_date',
-										'value'     => 'true',
-										'compare'   => '='
-									)
-								)
-							);
-							 
-							$the_query = new WP_Query( $args );
-							 
-							if ( $the_query->have_posts() ) {
-							while ( $the_query->have_posts() ) {
-							$the_query->the_post();
-							?>
-
-							<div class="row">
-								<div class="col-md-2 col-xs-6 webinar-sched webinar-date">
-									<?php echo rwmb_meta('webinar_start_date'); ?>
-								</div>
-								<div class="col-md-2 col-xs-6 webinar-sched webinar-time">
-									<?php echo date('h:i A', strtotime(rwmb_meta('webinar_start_time'))); ?>
-								</div>
-								<div class="col-md-6">
-									<?php echo rwmb_meta('webinar_topic'); ?>
-								</div>
-								<div class="col-md-2 text-right webinar-link">
-									<a class="btn btn-success" href="<?php echo rwmb_meta('webinar_meeting_link'); ?>">Meeting Link</a>
-								</div>
-							</div>
-							 
-							<?php
-							}
-							} else {
-								echo '<h4>No Sessions Scheduled</h4>';
-							}
-							/* Restore original Post Data */
-							wp_reset_postdata();
-
-							?>
-							</div>
+						<div role="tabpanel" class="tab-pane padding-md" id="past">
+							<?php $obj_view->view_theme($view_template . 'coaching/past-webinar.php', array()); ?>
 						</div>
 					</div>
 				</div>
