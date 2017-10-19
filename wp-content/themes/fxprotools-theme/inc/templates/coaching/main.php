@@ -8,14 +8,14 @@
 			</div>
 			<div class="col-md-12">
 			<div class="fx-coaching-tab">
-				<a href="<?php bloginfo('url');?>/coaching" class="btn btn-danger no-border-radius pull-right">Schedule Coaching</a>
+				<a href="<?php echo esc_url(home_url($schedule_private_coaching_url));?>" class="btn btn-danger no-border-radius pull-right"><?php echo $schedule_private_coaching;?></a>
 				<div role="tabpanel">
 					<ul class="nav nav-tabs" id="coachingTabs" role="tablist">
 						<li role="presentation" class="active">
-							<a href="#upcoming" aria-controls="upcoming" role="tab" data-toggle="tab">Upcoming Sessions</a>
+							<a href="#upcoming" aria-controls="upcoming" role="tab" data-toggle="tab"><?php echo $tab_upcoming_session;?></a>
 						</li>
 						<li role="presentation">
-							<a href="#past" aria-controls="past" role="tab" data-toggle="tab">Past Sessions</a>
+							<a href="#past" aria-controls="past" role="tab" data-toggle="tab"><?php echo $tab_history_session;?></a>
 						</li>
 					</ul>
 					<div class="tab-content">

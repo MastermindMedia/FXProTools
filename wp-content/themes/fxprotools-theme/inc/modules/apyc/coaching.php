@@ -52,7 +52,13 @@ class Apyc_Coaching{
 
 		$webinars = apyc_get_upcoming_webinars();
 		$data['webinars'] = $webinars;
-
+		$data['table_heading_date'] = _('Date');
+		$data['table_heading_time'] = _('Time');
+		$data['table_heading_title'] = _('Title');
+		$data['table_heading_join'] = _('Join Link');
+		$data['insession_join_meeting'] = _('Join Meeting');
+		$data['register_join_meeting'] = _('Meeting Link');
+		
 		if( is_array($webinars)
 			&& !empty($webinars)
 		){
@@ -71,9 +77,15 @@ class Apyc_Coaching{
 	public function get_history_webinars(){
 		$data = array();
 
-		$webinars = apyc_get_upcoming_webinars();
+		$webinars = apyc_get_history_webinars();
 		$data['webinars'] = $webinars;
-
+		$data['table_heading_date'] = _('Date');
+		$data['table_heading_time'] = _('Time');
+		$data['table_heading_title'] = _('Title');
+		$data['table_heading_join'] = _('Join Link');
+		$data['insession_join_meeting'] = _('Join Meeting');
+		$data['register_join_meeting'] = _('Meeting Link');
+		
 		if( is_array($webinars)
 			&& !empty($webinars)
 		){
@@ -92,6 +104,6 @@ class Apyc_Coaching{
 		add_action( 'wp_ajax_coach_get_webinars', array($this, 'get_webinars') );
 		add_action( 'wp_ajax_nopriv_coach_get_webinars', array($this, 'get_webinars') );
 		add_action( 'wp_ajax_coach_get_history_webinars', array($this, 'get_history_webinars') );
-		add_action( 'wp_ajax_nopriv_coach_get_history_webinars', array($this, 'get_history_webinars') );
+		//add_action( 'wp_ajax_nopriv_coach_get_history_webinars', array($this, 'get_history_webinars') );
 	}
 }

@@ -169,7 +169,8 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 		);
 		
 		$query_args = wp_parse_args( $args, $defaults );
-		switch($defaults['get_webinar']){
+
+		switch($query_args['get_webinar']){
 			case 'all':
 				$get_data = $this->getAll();
 			break;
@@ -193,7 +194,7 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 				
 				$parse_data = array(
 					'key' => $v->webinarKey,
-					'startTime' => date("l, M.jS, h:i A e", strtotime($v->times[0]->startTime)),
+					'startTime' => date("l, M.jS, h:i A T", strtotime($v->times[0]->startTime)),
 					'title' => $v->subject,
 					'description' => $v->description
 				);

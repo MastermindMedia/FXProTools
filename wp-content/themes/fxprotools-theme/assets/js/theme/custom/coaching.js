@@ -1,6 +1,7 @@
 var Coaching = function(){
 	var ajax_url = fx;
-	var current_active_tab = null;
+	var upcoming_tab_show = null;
+	var past_tab_show = null;
 	function isJson(str) {
 		try {
 			JSON.parse(str);
@@ -17,27 +18,48 @@ var Coaching = function(){
 		});
 		return ajaxCall;
 	}
+	function ajaxGetPastWebinar(){
+		var ajaxCall = $.ajax({
+		  method: "GET",
+		  url: ajax_url.ajax_url,
+		  data: { 'action': 'coach_get_history_webinars' }
+		});
+		return ajaxCall;
+	}
 	return {
 		init:function(){
-			if(current_active_tab == null){
+			if(upcoming_tab_show == null){
 				//show the upcoming ajax events
-				console.log('show the upcoming ajax events');
+				//console.log('show the upcoming ajax events');
+				$('#ajax-coach-upcoming-webinars').html('<p>Loading webinars please wait</p>');
 				ajaxGetUpcomingWebinar().done(function(data){
-					console.log(data);
+					//console.log(data);
 					if( !isJson(data) ){
 						$('#ajax-coach-upcoming-webinars').html(data);
 					}
 				});
 			}
 			$('.nav-tabs a').on('show.bs.tab', function (e) {
-				current_active_tab = 1;
-				console.log('show');
+				upcoming_tab_show = 1;
+				//console.log('show');
 				e.target // newly activated tab
 				e.relatedTarget // previous active tab
 				//test
-				console.log(e);
-				console.log(e.target.text);
-				console.log(e.relatedTarget.text);
+				//console.log(e);
+				//console.log(e.target.text);
+				//console.log(e.relatedTarget.text);
+				if( e.target.hash == '#past' 
+					&& past_tab_show  == null
+				){
+					past_tab_show = 1;
+					$('#ajax-coach-history-webinars').html('<p>Loading webinars please wait</p>');
+					ajaxGetPastWebinar().done(function(data){
+						//console.log(data);
+						if( !isJson(data) ){
+							$('#ajax-coach-history-webinars').html(data);
+						}
+					});
+				}
 			});
 		}
 	};
