@@ -124,3 +124,36 @@ function get_user_referrals()
 		return $affiliate_referrals;
 	}
 }
+
+
+function get_user_active_referrals()
+{
+	if(get_current_user_id() > 0){
+		$affiliate_id = affwp_get_affiliate_id( get_current_user_id() );
+		$affiliate_referrals = affiliate_wp()->referrals->get_referrals( array(
+			'number'       => -1,
+			'affiliate_id' => $affiliate_id
+		) );
+		
+		$product_ids = array( 2920, 2927, 2930 );
+
+		foreach($affiliate_referrals as $key => $referral){
+			$order = wc_get_order( $referral->reference );
+			$user_id = $order->get_user_id();
+			$has_sub = false;
+
+			foreach($product_ids as $product_id){
+				if( wcs_user_has_subscription( $user_id, $product_id, 'active' ) ){
+					$has_sub = true;
+					break;
+				}
+			}
+
+			if( !$has_sub ){
+				unset($affiliate_referrals[$key]);
+			}
+		}
+
+		return $affiliate_referrals;
+	}
+}

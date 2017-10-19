@@ -1,6 +1,7 @@
 <?php
 $product_id = 48; //business package
 $product = wc_get_product( $product_id );
+get_user_active_referrals();
 ?>
 <?php get_header(); ?>
 
@@ -51,12 +52,12 @@ $product = wc_get_product( $product_id );
 								$contacts[$ref_count]['fname'] = get_the_author_meta('first_name', $order->get_user_id());
 								$contacts[$ref_count]['lname'] = get_the_author_meta('last_name', $order->get_user_id());
 								$contacts[$ref_count]['email'] = get_the_author_meta('email', $order->get_user_id());
-								$contacts[$ref_count]['date'] = random_checkout_time_elapsed($order->order_date);
+								$contacts[$ref_count]['date'] = random_checkout_time_elapsed($order->get_date_paid());
 								$contacts[$ref_count]['avatar'] = get_avatar($order->get_user_id());
 								$ref_count++;
 							}
 
-							if($_GET['search']){
+							if( isset( $_GET['search'] ) ){
 								foreach ($contacts as $index => $index_item) {
 							       	foreach($index_item as $item){
 							       		if(stripos($item,$_GET['search']) !== false){

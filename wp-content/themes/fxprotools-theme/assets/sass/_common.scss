@@ -33,6 +33,55 @@
     padding: 4px 10px;
 }
 
+// Radio Button
+.fx-radio-group {
+	input[type="radio"] {
+		display: none;
+		+ .fx-radio {
+			border: 1px solid #DDD;
+			height: 25px;
+			width: 25px;
+			display: inline-block;
+			vertical-align: middle;
+			margin-right: 5px;
+			border-radius: 50%;
+			position: relative;
+			overflow: hidden;
+			transition: 0.2s all;
+			background-color: $white;
+			&:before {
+				transition: 0.2s all;
+				content: "";
+				background: $white;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				text-align: center;
+				height: 20px;
+				width: 20px;
+				margin: auto;
+				border-radius: 50%;
+				height: 1px;
+				width: 1px;
+			}
+		}
+		&:checked + .fx-radio {
+			border-color: $green;
+			&:before {
+				background: $green;
+				height: 17px;
+				width: 17px;
+			}
+		}
+	}
+	.fx-text {
+		font-size: 15px;
+		font-weight: bold;
+	}
+}
+
 // Wrapper
 .fx-wrapper {
 	position: relative;
@@ -48,7 +97,7 @@
 .fx-header-title {
 	text-align: center;
 	margin: 15px 0 40px 0;
-	h1 {
+	h1, h2 {
 		font-size: 25px;
 		margin-top: 0;
 		margin-bottom: 5px;
@@ -160,51 +209,7 @@
 					}
 				}
 			}
-			.fx-radio-group {
-				input[type="radio"] {
-					display: none;
-					+ .fx-radio {
-						border: 1px solid #DDD;
-						height: 25px;
-						width: 25px;
-						display: inline-block;
-						vertical-align: middle;
-						margin-right: 5px;
-						border-radius: 50%;
-						position: relative;
-						overflow: hidden;
-						transition: 0.2s all;
-						&:before {
-							transition: 0.2s all;
-							content: "";
-							background: $white;
-							position: absolute;
-							top: 0;
-							bottom: 0;
-							left: 0;
-							right: 0;
-							text-align: center;
-							height: 20px;
-							width: 20px;
-							margin: auto;
-							border-radius: 50%;
-							height: 1px;
-    						width: 1px;
-						}
-					}
-					&:checked + .fx-radio {
-						border-color: $green;
-						&:before {
-							background: $green;
-							height: 17px;
-    						width: 17px;
-						}
-					}
-				}
-				.fx-text {
-					font-size: 15px;
-				}
-			}
+			@extend .fx-radio-group;
 		}
 	}
 	// List Only
@@ -268,19 +273,22 @@
 	position: relative;
 	width: 100%;
 	border-bottom: none;
+	margin-bottom: 30px;
 	li {
 		width: 50%;
 		text-align: center;
 		a {
 			border: 1px solid #DDD;
 			border-radius: 0;
+			color: $grey;
 		}
 		&.active a {
 			border-bottom: 1px solid #DDD;
 			background: #de1515;
-			color: #FFF;
+			color: $white;
 			&:focus, &:hover, &:active {
 				border-bottom: 1px solid #DDD;
+				color: $white;
 			}
 		}
 	}
@@ -415,7 +423,7 @@
 				border: 1px solid #DDD;
 				position: relative;
 				height: 110px;
-        background-color: $white;
+       			background-color: $white;
 				.sash {
 					position: absolute;
 					background: #5cb85c;
@@ -435,7 +443,7 @@
 					left: 0;
 					right: 0;
 					text-align: center;
-					font-size: 24px;
+					font-size: 30px;
 					font-weight: bold;
 					height: 35px;
 					width: 35px;
@@ -449,12 +457,14 @@
 			float: left;
 			border: 1px solid #DDD;
 			padding: 25px 25px 15px 25px;
-      background-color: $white;
+      		background-color: $white;
 			.title {
-				font-weight: bold;
-				display: inline-block;
-				margin-bottom: 10px;
-        font-size: 24px;
+				font-weight: 700;
+				display: block;
+				margin-bottom: 15px;
+				font-size: 20px;
+				border-bottom: 1px solid #f0f0f0;
+				padding-bottom: 15px;
 			}
 			.summary {
 				width: 80%;

@@ -235,16 +235,19 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 $popup_type = '';
 
 foreach( WC()->cart->get_cart() as $cart_item ){
-	if($cart_item['variation']['attribute_subscription-type'] == 'normal'){
-		$popup_type = 'normal';
-		$trial_product_link = get_permalink($cart_item['product_id']) . '?attribute_subscription-type=trial';
+	if( isset( $cart_item ['variation'] ) ){
+		if($cart_item['variation']['attribute_subscription-type'] == 'normal'){
+			$popup_type = 'normal';
+			$trial_product_link = get_permalink($cart_item['product_id']) . '?attribute_subscription-type=trial';
+		}
+		elseif($cart_item['variation']['attribute_subscription-type'] == 'trial'){
+			$popup_type = 'trial';
+		}
+		else{
+			$popup_type = 'default';
+		}
 	}
-	elseif($cart_item['variation']['attribute_subscription-type'] == 'trial'){
-		$popup_type = 'trial';
-	}
-	else{
-		$popup_type = 'default';
-	}
+	
 }
 
 if ( isset($popup_type) ):

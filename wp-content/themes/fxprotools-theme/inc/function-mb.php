@@ -213,7 +213,86 @@ if(!class_exists('SettingsMB')){
 					'parent'	=> '',
 					'slug'		=> '',
 				),
+				// TODO: will update to tab view type later on. -austin
+				// 'tabs'      => array(
+				// 	$prefix . 'page'	=> __( 'Page', 'rwmb' ),
+				// 	$prefix .'interest'	=> __( 'Video', 'rwmb' ),
+				// 	'job'				=> __( 'Menu', 'rwmb' ),
+				// ),
+				// 'tab_style'		=> 'left',
+				// 'tab_wrapper'	=> true,
+				// 'fields'		=> array(
+				//		array(
+				// 			'name' => __( 'Page Options', 'rwmb' ),
+				// 			'id'   => $prefix . 'dummy',
+				// 			'type' => 'text',
+				// 			'tab'  => $prefix . 'page',
+				// 		),
+				// 		array(
+				// 			'name' => __( 'Bio2', 'rwmb' ),
+				// 			'id'   => 'bio',
+				// 			'type' => 'textarea',
+				// 			'tab'  => 'interest',
+				// 		),
+				// 		array(
+				// 			'name' => __( 'Bio3', 'rwmb' ),
+				// 			'id'   => 'bio',
+				// 			'type' => 'textarea',
+				// 			'tab'  => 'job',
+				// 		),
+				// ),
 				'fields' => array(
+					// Group - Video
+					array(
+						'name'		=> 'Video',
+						'id' 		=> $prefix . 'video',
+						'type' 		=> 'group',
+						// List of sub-fields
+						'fields' 	=> array(
+							array(
+								'name' 			=> 'Video URL',
+								'id' 			=> $prefix . 'video_url',
+								'type' 			=> 'text',
+								'placeholder'	=> '',
+							),
+							array(
+								'name' 			=> 'Autostart Video',
+								'id' 			=> $prefix . 'video_autostart',
+								'type' 			=> 'checkbox_list',
+								'placeholder'	=> '',
+								'options'		=> array(
+									'yes'		=> '',
+								),
+							),
+							array(
+								'name' 			=> 'Show Video Controls',
+								'id' 			=> $prefix . 'video_show_controls',
+								'type' 			=> 'checkbox_list',
+								'placeholder'	=> '',
+								'options'		=> array(
+									'yes'		=> '',
+								),
+							),
+							array(
+								'name' 			=> 'Scrolling Video',
+								'id' 			=> $prefix . 'video_scrolling',
+								'type' 			=> 'checkbox_list',
+								'placeholder'	=> '',
+								'options'		=> array(
+									'yes'		=> '',
+								),
+							),
+							array(
+								'name' 			=> 'Floating Video',
+								'id' 			=> $prefix . 'video_floating',
+								'type' 			=> 'checkbox_list',
+								'placeholder'	=> '',
+								'options'		=> array(
+									'yes'		=> '',
+								),
+							),
+						),
+					),
 					// Group - Menus
 					array(
 						'name'		=> 'Menus',
@@ -281,7 +360,7 @@ if(!class_exists('SettingsMB')){
 			);
 			return $meta_boxes;
 		}
-		
+
 		// MB - Email
 		public function mb_emails($meta_boxes)
 		{
@@ -360,7 +439,7 @@ if(!class_exists('SettingsMB')){
 					)
 				)
 			);
-			
+
 			return $meta_boxes;
 		}
 	}

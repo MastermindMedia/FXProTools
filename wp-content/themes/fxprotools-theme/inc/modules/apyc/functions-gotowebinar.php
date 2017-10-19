@@ -14,10 +14,39 @@ if ( ! function_exists('apyc_get_token')) {
 	}
    }
 }
+if ( ! function_exists('apyc_get_upcoming_webinars')) {
+   function apyc_get_upcoming_webinars ( )  {
+		try{
+			$query_args = array(
+				'get_webinar' => 'upcoming'
+			);
+			return Apyc_Citrix_GoToWebinar_GetAll::get_instance()->query($query_args);
+		}catch(Exception $e){
+			write_log('get access token error : ' . $e->getMessage());
+			return false;
+		}
+   }
+}
+if ( ! function_exists('apyc_get_history_webinars')) {
+   function apyc_get_history_webinars ( )  {
+		try{
+			$query_args = array(
+				'get_webinar' => 'history'
+			);
+			return Apyc_Citrix_GoToWebinar_GetAll::get_instance()->query($query_args);
+		}catch(Exception $e){
+			write_log('get access token error : ' . $e->getMessage());
+			return false;
+		}
+   }
+}
 if ( ! function_exists('apyc_get_all_webinars')) {
    function apyc_get_all_webinars ( )  {
 		try{
-			return Apyc_Citrix_GoToWebinar_GetAll::get_instance()->get();
+			$query_args = array(
+				'get_webinar' => 'all'
+			);
+			return Apyc_Citrix_GoToWebinar_GetAll::get_instance()->query($query_args);
 		}catch(Exception $e){
 			write_log('get access token error : ' . $e->getMessage());
 			return false;
@@ -66,6 +95,21 @@ if ( ! function_exists('apyc_get_webinar_free')) {
 			return $get;
 		}catch(Exception $e){
 			write_log('get free webinar error : ' . $e->getMessage());
+			return false;
+		}
+   }
+}
+if ( ! function_exists('apyc_get_webinar_paid')) {
+   function apyc_get_webinar_paid($arg)  {
+		try{
+			$defaults = array(
+				'filter_by_subject' => GOTOWEBINAR_PAID_GROUP
+			);
+			$query_args = wp_parse_args( $arg, $defaults );
+			$get = Apyc_Citrix_GoToWebinar_GetAll::get_instance()->query($query_args);
+			return $get;
+		}catch(Exception $e){
+			write_log('get paid webinar error : ' . $e->getMessage());
 			return false;
 		}
    }

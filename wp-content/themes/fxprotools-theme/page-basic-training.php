@@ -30,7 +30,7 @@ $child_categories = get_course_category_children($category->term_id);
 						<div class="tab-content">
 							<?php foreach($child_categories as $key => $category): ?>
 								<div role="tabpanel" class="tab-pane <?php echo $key == 0 ? 'active' : 'false';?>" id="category-<?php echo $key + 1;?>">
-									<div class="fx-mid-header">
+									<div class="fx-header-title">
 										<h2>Get The Most Out Of FX Pro Tools</h2>
 										<p>Supercharge your learning experience using FX Pro Tools</p>
 									</div>

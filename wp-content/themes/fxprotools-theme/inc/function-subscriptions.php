@@ -85,3 +85,9 @@ function get_recent_subscriptions ($limit = 15)
 }
 
 
+add_action( 'user_subscription_paused', 'process_user_subscription', 10, 1);
+function process_user_subscription( $subscription_id ){
+	$subscription = wcs_get_subscription( $subscription_id );
+	$subscription->set_status( 'on-hold' );
+	$subscription->save();
+}

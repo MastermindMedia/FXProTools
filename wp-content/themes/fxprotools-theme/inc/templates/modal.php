@@ -11,8 +11,12 @@
       <div class="modal-body">
 		<form name="register-webinar" class="register-webinar" method="post">
 			<div class="form-group">
-				<label for="fullname">Full Name</label>
-				<input type="text" class="form-control" name="fullName" id="fullName" placeholder="Full Name">
+				<label for="firstName">First Name</label>
+				<input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name">
+			</div>
+			<div class="form-group">
+				<label for="lastName">Last Name</label>
+				<input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name">
 			</div>
 			<div class="form-group">
 				<label for="emailaddress">Email Address</label>

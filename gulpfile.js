@@ -19,7 +19,7 @@ var theme_location = './wp-content/themes/fxprotools-theme',
 // ------------
 // THEME - SASS
 // ------------
-gulp.task('fx-sass', function(){
+gulp.task('sass', function(){
 	gulp.src(config.theme_sass)
 		.pipe(plumber())
 		.pipe(sass({
@@ -35,7 +35,7 @@ gulp.task('fx-sass', function(){
 // ----------
 // THEME - JS
 // ----------
-gulp.task('fx-js', function(){
+gulp.task('js', function(){
 	gulp.src(config.theme_js)
 		.pipe(plumber())
 		.pipe(sourcemaps.init())
@@ -46,7 +46,19 @@ gulp.task('fx-js', function(){
 		.pipe(notify('JS processed'));
 });
 
-gulp.task('default', ['fx-sass', 'fx-js'], function(){
-	gulp.watch(config.theme_sass, ['fx-sass']);
-	gulp.watch(config.theme_js, ['fx-js']);
+// Default Task for watching sass
+gulp.task('watch-sass', ['sass'], function(){
+	gulp.watch(config.theme_sass, ['sass']);
 });
+
+// Default Task for watching js
+gulp.task('watch-js', ['js'], function(){
+	gulp.watch(config.theme_js, ['js']);
+});
+
+// Default Task for watching both sass/js
+gulp.task('default', ['sass', 'js'], function(){
+	gulp.watch(config.theme_sass, ['sass']);
+	gulp.watch(config.theme_js, ['js']);
+});
+

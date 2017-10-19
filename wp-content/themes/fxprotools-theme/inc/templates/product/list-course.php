@@ -2,6 +2,7 @@
 	global $count; 
 	$course_id = get_the_ID();
 	$progress = get_user_progress();
+	$description = rwmb_meta('short_description');
 
 	if( isset($progress[$course_id]) ){
 		$sash = 'Active';
@@ -26,7 +27,7 @@
 				<span class="title"><?php the_title();?></span>
 			</div>
 			<div class="col-md-10">
-				<p><?php echo rwmb_meta('short_description');?></p>	
+				<p><?php echo wp_trim_words($description, 35); ?></p>	
 			</div>
 			<div class="col-md-2">
 				<a href="<?php the_permalink(); ?>" class="btn btn-default block">Learn More</a>

@@ -1501,7 +1501,7 @@
 		}
 	}
 	.panel-note{
-		background: url(../img/secure-ssl-ico.png) no-repeat left center #DEEFDD;
+		background: url(../../img/secure-ssl-ico.png) no-repeat left center #DEEFDD;
 		margin: -30px -15px 30px;
 		padding: 15px 25px 10px 35%;
 		p{
@@ -1594,7 +1594,7 @@
 				}
 			}
 			.checkout-icon-box{
-				background: url(../img/sidebar-ico-1.png) no-repeat left center;
+				background: url(../../img/sidebar-ico-1.png) no-repeat left center;
 				padding-left: 75px;
 				position: relative;
 				font-size: 13px;
@@ -1610,10 +1610,10 @@
 				    color: $red;
 				}
 				&.checkout-icon-box-2{
-					background-image: url(../img/sidebar-ico-2.png);
+					background-image: url(../../img/sidebar-ico-2.png);
 				}
 				&.checkout-icon-box-3{
-					background-image: url(../img/sidebar-ico-3.png);
+					background-image: url(../../img/sidebar-ico-3.png);
 				}
 			}
 		}
@@ -1768,7 +1768,7 @@
 			display: block;
 			font-size: 30px;
     		padding: 17px 25px 17px 25px;
-    		span{
+    		span {
     			font-size: 17px;
     		}
 		}
@@ -1802,22 +1802,15 @@
 	}
 }
 
-
-
 // Funnel - Marketing Links
 .panel-default>.panel-heading+.panel-collapse>.panel-body {
     border: 1px solid $lightgrey;
-		background: $white;
-
+	background: $white;
 }
 
 .accordion-group.panel-default {
     margin-bottom: 15px;
 }
-
-
-
-
 
 // Capture Page
 .fx-capture-page {
@@ -1980,8 +1973,7 @@
 			}
 		}
 		.tab-form {
-			background: url('../../img/yellow-gradient.jpg') no-repeat center;
-			background-size: cover;
+			background-color: #f0e2a3;
 			padding: 10px;
 			.nav-tabs>li.active>a,
 			.nav-tabs>li.active>a:focus,
@@ -2001,7 +1993,7 @@
 						padding: 5px 15px;
 						label {
 							display: block;
-							font-size: 24px;
+							font-size: 29px;
 							margin-bottom: 0;
 						}
 						span {
@@ -2013,6 +2005,49 @@
 							background: transparent;
 
 						}
+					}
+				}
+			}
+			.tab-content {
+				.content {
+					background-color: #f7f0d3;
+					padding: 25px;
+					border: 1px solid #edcd95;
+					margin-top: 15px;
+					.title {
+						color: $red;
+						display: block;
+						margin: 0 0 5px 0;
+						font-size: 24px;
+						font-weight: bold;
+						text-align: center;
+					}
+					.checklist {
+						list-style: none;
+						padding: 0;
+						margin: 20px auto 30px auto;
+						width: 250px;
+					}
+				}
+				.disclaimer {
+					font-size: 13px;
+					margin: 15px 0 10px 0;
+					text-align: center;
+					color: #333;
+					img {
+						display: inline-block;
+						width: 17px;
+						margin-right: 5px;
+					}
+				}
+				.progress {
+					height: auto;
+					@include border-radius(0);
+					.progress-bar {
+						background-color: $red;
+						font-size: 14px;
+						padding: 10px 0;
+						height: auto;
 					}
 				}
 			}
@@ -2170,12 +2205,12 @@ li.false {
 	color: $grey;
 }
 
-	.nav-tabs>li.active>a,
-	.nav-tabs>li.active>a:focus,
-	.nav-tabs>li.active>a:hover {
-		background: $red;
-		border: none;
-	}
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:focus,
+.nav-tabs>li.active>a:hover {
+	background: $red;
+	border: none;
+}
 
 // WooCommerce Shop
 .woocommerce {
@@ -2202,6 +2237,26 @@ li.false {
 			padding: 6px 15px;
 		}
 	}
+
+	.summary {
+		.product_title  ~ .price{
+			display: none;
+		}
+
+		.quantity{
+			display: none!important;
+		}
+
+		.variations{
+			display: none;
+		}
+
+		.product_type_variable-subscription{
+			display: none;
+		}
+	}
+
+	
 }
 
 // Login page
@@ -2224,4 +2279,33 @@ form {
 	75% {transform: translate3d(-2%, 0, 0);}
 	90% {transform: translate3d(1%, 0, 0);}
 	to {transform: none;}
+}
+
+.log-out-notice {
+	p a {
+		color: #de1515
+	}
+	h1 {
+		margin-bottom: 24px;
+		margin-top: 8px;
+	}
+	span {
+		&.label-red {
+			padding: 10px 55px;
+			font-size: 17px;
+		}
+	}
+	.img-responsive {
+		margin: 0 auto;
+	}
+	.quick-message {
+		h1 {
+			margin-bottom: 40px;
+		}
+		p {
+			margin-left: 40px;
+			margin-right: 40px;
+			margin-bottom: 22px;
+		}
+	}
 }

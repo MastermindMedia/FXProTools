@@ -84,8 +84,8 @@ class Apyc_Modal{
 		$data = json_decode($post['post_data'], true);
 		parse_str($post['post_data'], $ajax);
 		//dd($ajax);
-		$full_name = explode(' ', $ajax['fullName']);
-		//dd($full_name);
+		
+		/*$full_name = explode(' ', $ajax['fullName']);
 		$first_name = '';
 		if( isset($full_name[0]) ){
 			$first_name = $full_name[0];
@@ -97,6 +97,17 @@ class Apyc_Modal{
 			&& trim($ajax['fullName']) == '' 
 		){
 			$error_array[] = _('Please dont leave name blank');
+		}*/
+		
+		if( isset($ajax['firstName']) 
+			&& trim($ajax['firstName']) == '' 
+		){
+			$error_array[] = _('Please dont leave first name blank');
+		}
+		if( isset($ajax['lastName']) 
+			&& trim($ajax['lastName']) == '' 
+		){
+			$error_array[] = _('Please dont leave last name blank');
 		}
 		if( isset($ajax['email']) 
 			&& trim($ajax['email']) == '' 
@@ -118,8 +129,8 @@ class Apyc_Modal{
 			&& count($error_array) == 0 
 		){
 			$body_input = array(
-				'lastName' => $last_name,
-				'firstName' => $first_name,
+				'lastName' => $ajax['lastName'],
+				'firstName' => $ajax['firstName'],
 				'phone' => isset($ajax['phone']) ? $ajax['phone']:'',
 				'email' => isset($ajax['email']) ? $ajax['email']:''
 			);
@@ -132,9 +143,36 @@ class Apyc_Modal{
 				//print_r($body_input);
 				foreach($ajax['webinars'] as $v){
 					$webinar_key[] = $v;
-					$webinar_ret[] = apyc_create_registrant($v, $body_input);
+					$ret = apyc_create_registrant($v, $body_input);
+					$code = $ret['code'];
+					switch($code){
+						case 201:
+						$msg_code = 'Success';
+						break;
+						case 401:
+						$msg_code = 'Bad Request';
+						break;
+						case 403:
+						$msg_code = 'Forbidden';
+						break;
+						case 404:
+						$msg_code = 'Not Found';
+						break;
+						case 409:
+						$msg_code = 'The user is already registered';
+						break;
+						default:
+						$msg_code = '';	
+						break;
+					}
+					$webinar_ret[$v] = array(
+						'data' => $ret,
+						'code' => $code,
+						'msg' => $msg_code
+					);
 				}
 			}
+
 			$ret = array(
 				'status' => 'success',
 				'msg' => _('Webinar Scheduled, please check your email for confirmation'),
@@ -142,6 +180,7 @@ class Apyc_Modal{
 				'webinar_keys' => $webinar_key,
 				'webinar_ret' => $webinar_ret
 			);
+
 		}else{
 			$ret = array(
 				'status' => 'error',

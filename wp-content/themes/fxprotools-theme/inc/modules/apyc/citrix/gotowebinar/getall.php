@@ -63,29 +63,61 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 		return self::$instance;
 	}
 	
+	public function token(){
+		return apyc_get_token();
+	}
+	
+	/**
+		Get History Webinars
+		https://goto-developer.logmeininc.com/content/gotowebinar-api-reference#!/Webinars/getHistoricalWebinars
+	**/
+	public function getHistory(){
+		if( $this->token() ){
+			$url = $this->url . $this->token()->organizer_key . '/historicalWebinars';
+			return $this->response($url);
+		}
+		return false;
+	}
+	
 	/**
 		Get All Webinars
 		/organizers/{organizerKey}/webinars  
 	**/
-	public function get(){
-		global $wp_version;
-		
-		//$token = apyc_get_access_token();
-		$token = apyc_get_token();
-		if( $token ){
+	public function getAll(){
+		if( $this->token() ){
+			$url = $this->url . $this->token()->organizer_key . '/webinars';
+			return $this->response($url);
+		}
+		return false;
+	}
+	
+	/**
+		Get All Upcoming Webinars
+		/organizers/{organizerKey}/upcomingWebinars  
+	**/
+	public function getUpcomingWebinars(){
+		if( $this->token() ){
+			$url = $this->url . $this->token()->organizer_key . '/upcomingWebinars';
+			return $this->response($url);
+		}
+		return false;
+	}
+	
+	public function response($url){
+		if( $this->token() ){
 			$body = array();
 			$args = array(
 				'headers' => array(
 					'Content-Type' => 'application/json',
 					'Accept' => 'application/json',
-					'Authorization' => $token->access_token,
+					'Authorization' => $this->token()->access_token,
 				),
 			); 
-			$url = $this->url . $token->organizer_key . '/webinars';
+			
 			$response = wp_remote_get( $url, $args );
 			if ( is_wp_error( $response ) ) {
 			   $error_message = $response->get_error_message();
-			   write_log('gotowebinar get all webinars error : ' . $error_message);
+			   write_log('gotowebinar get webinars error : ' . $error_message);
 			   throw new Exception( $error_message );
 			} else {
 				$response_code = wp_remote_retrieve_response_code( $response );
@@ -132,11 +164,25 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 		$data = array();
 		$defaults = array(
 			'number_post' => 5,
-			'filter_by_subject' => ''
+			'filter_by_subject' => '',
+			'get_webinar' => 'upcoming'
 		);
 		
 		$query_args = wp_parse_args( $args, $defaults );
-		$get_data = $this->get();
+
+		switch($query_args['get_webinar']){
+			case 'all':
+				$get_data = $this->getAll();
+			break;
+			case 'history':
+				$get_data = $this->getHistory();
+			break;
+			default:
+			case 'upcoming':
+				$get_data = $this->getUpcomingWebinars();
+			break;
+		}
+		
 		//$get_data = $this->cache();
 		//dd($get_data);
 		if( $get_data['data'] && $get_data['status'] == 200 ){
@@ -148,7 +194,9 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 				
 				$parse_data = array(
 					'key' => $v->webinarKey,
-					'startTime' => date("l, M.jS, h:i A e", strtotime($v->times[0]->startTime)),
+					'startTime' => date("l, M.jS, h:i A T", strtotime($v->times[0]->startTime)),
+					'title' => $v->subject,
+					'description' => $v->description
 				);
 				
 				if( trim($query_args['filter_by_subject']) != '' ){

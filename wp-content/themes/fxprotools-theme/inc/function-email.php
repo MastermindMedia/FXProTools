@@ -5,7 +5,7 @@ function queue_admin_email_scripts($hook) {
     // Prevent re-publishing of emails.
     if ($hook == 'post-new.php' || $hook == 'post.php') {
         if ('fx_email' === $post->post_type) {
-            wp_enqueue_script('email-script', get_stylesheet_directory_uri().'/assets/js/admin-email.js');
+            wp_enqueue_script('email-script', get_stylesheet_directory_uri().'/assets/js/admin/admin-email.js');
         }
     }
 }
@@ -69,7 +69,7 @@ function post_email_published($id) {
                     case 'user':
                         // WP user selected.
                         $userId = get_post_meta($post->ID, 'recipient_individual_user')[0];
-                        $user = get_user_data($userId);
+                        $user = get_userdata($userId);
                         
                         $personalizations[] = array(
                             'to' => array(array(
