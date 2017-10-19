@@ -16,9 +16,9 @@ if(!class_exists('WC_Subscriptions_Settings')){
 		
 		public function __construct()
 		{
-
 			add_filter('woocommerce_subscriptions_is_duplicate_site', array($this, 'wc_is_duplicate_site'), 10, 1);
 			//add_action('woocommerce_scheduled_subscription_expiration', array($this, 'wc_scheduled_subscription_expiration'), 10, 1);
+			add_filter('fx_before_gateway_renewal_order', array($this, 'wc_apply_signup_fee_on_renewal'), 10, 1);
 		}
 		
 		/**
@@ -122,7 +122,6 @@ if(!class_exists('WC_Subscriptions_Settings')){
 
    			WC_Subscriptions_Manager::activate_subscriptions_for_order($order);
 			
-
    			$renewal_order = wcs_create_renewal_order($sub);
    			$renewal_order->set_payment_method( wc_get_payment_gateway_by_order( $order ) ); 
    			$renewal_order->set_requires_manual_renewal( false );
@@ -135,6 +134,78 @@ if(!class_exists('WC_Subscriptions_Settings')){
 		public function wc_is_duplicate_site($is_duplicate){
 			return false;
 		}
+
+
+		/**
+		 * [Apply signup fee on first renweal from trial product]
+		 * @param  WC_Subscription
+		 * @return WC_Subscription
+		 */
+		public function wc_apply_signup_fee_on_renewal($renewal_order){
+
+			$user_id =  $renewal_order->get_customer_id();
+			$referrals = get_user_active_referrals($user_id);
+			$has_paid_signup_fee = get_user_meta( $user_id , '_has_paid_signup_fee', true ); 
+
+			//if user has 3 active referrals, modify renewal to be free
+			if( count($referrals) >= 3){
+				$renewal_order->remove_order_items();
+				$renewal_order->add_order_note('Free Renewal via Referral Program');
+				$renewal_order->calculate_totals();
+				return $renewal_order;
+			}
+			//add signup fee to renewal
+			elseif(!$has_paid_signup_fee){
+
+				$subscriptions = wcs_get_users_subscriptions( $user_id );
+				foreach($subscriptions as $s){
+
+					if( $s->has_status('on-hold') ){
+						$items = $s->get_items();
+
+					    foreach($items as $key => $item){
+					    	$subscription_type = wc_get_order_item_meta($key, 'subscription-type', true);
+					    	if($subscription_type == 'trial'){
+								$product = wc_get_product( $item->get_product_id() );
+								$args = array(
+							        'attribute_subscription-type' => 'normal'
+							    );
+							    $product_variation = $product->get_matching_variation($args);
+								$product = wc_get_product($product_variation);
+								$signup_fee = $product->get_sign_up_fee();
+								$payment_total = $signup_fee + $renewal_order->get_total();
+
+								$item = new WC_Order_Item_Fee();
+								$item->set_props( array(
+										'name'      => 'Signup Fee',
+										'tax_class' => 0,
+										'total'     => $signup_fee,
+										'total_tax' => 0,
+										'taxes'     => array(
+										'total' => 0,
+									),
+									'order_id'  => $renewal_order->get_id(),
+							    ) );
+								$item->save();
+								$renewal_order->add_item($item);
+								$renewal_order->calculate_totals();
+								$renewal_order->add_order_note('Added Sign Up Fee');
+								add_user_meta( $user_id , '_has_paid_signup_fee', 1); 
+								return $renewal_order;
+					    	}
+					    }
+					}
+				}
+			}
+			else{
+				error_log( 'Renewal not filtered.'  );
+				error_log( 'Referals: '. print_r( $referrals, true) . '. Paid Signup Fee:' . $has_paid_signup_fee);
+				error_log( print_r($renewal_order,true) );
+				return $renewal_order;
+			}
+
+		}
+
 
 
 	}

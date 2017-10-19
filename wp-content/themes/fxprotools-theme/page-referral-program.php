@@ -1,8 +1,8 @@
 <?php
 $checklist = get_user_checklist();
-$referral_count = count( get_user_referrals() );
+$active_referrals = get_user_active_referrals();
+$referral_count = count( $active_referrals);
 $username = wp_get_current_user()->user_login;
-dd(get_user_active_referrals());
 ?>
 <?php get_header(); ?>
 

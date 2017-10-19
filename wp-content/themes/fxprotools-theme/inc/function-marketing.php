@@ -126,34 +126,26 @@ function get_user_referrals()
 }
 
 
-function get_user_active_referrals()
+function get_user_active_referrals($user_id = 0)
 {
-	if(get_current_user_id() > 0){
-		$affiliate_id = affwp_get_affiliate_id( get_current_user_id() );
-		$affiliate_referrals = affiliate_wp()->referrals->get_referrals( array(
-			'number'       => -1,
-			'affiliate_id' => $affiliate_id
-		) );
-		
-		$product_ids = array( 2920, 2927, 2930 );
+	$user_id = ( $user_id > 0 ) ?  $user_id : get_current_user_id();
 
-		foreach($affiliate_referrals as $key => $referral){
-			$order = wc_get_order( $referral->reference );
-			$user_id = $order->get_user_id();
-			$has_sub = false;
+	$affiliate_id = affwp_get_affiliate_id( $user_id );
+	$affiliate_referrals = affiliate_wp()->referrals->get_referrals( array(
+		'number'       => -1,
+		'affiliate_id' => $affiliate_id
+	) );
+	
 
-			foreach($product_ids as $product_id){
-				if( wcs_user_has_subscription( $user_id, $product_id, 'active' ) ){
-					$has_sub = true;
-					break;
-				}
-			}
+	foreach($affiliate_referrals as $key => $referral){
+		$order = wc_get_order( $referral->reference );
+		$user_id = $order->get_user_id();
 
-			if( !$has_sub ){
-				unset($affiliate_referrals[$key]);
-			}
+		if( !wcs_user_has_subscription( $user_id, '', 'active' ) ){
+			unset($affiliate_referrals[$key]);
+			continue;
 		}
-
-		return $affiliate_referrals;
 	}
+
+	return $affiliate_referrals;
 }
