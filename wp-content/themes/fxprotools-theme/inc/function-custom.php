@@ -577,7 +577,7 @@ function fx_shortcode_buton($atts, $content = null)
 			'href'   => esc_url( $url ),
 			'title'  => esc_attr( $title ),
 			'target' => ('blank' == $target) ? '_blank' : '',
-			'class'  => 'btn btn-danger '. esc_url($class)
+			'class'  => 'btn btn-danger '.$class
 		);
 		$link_attrs_str = '';
 		foreach($link_attr as $key => $val){
