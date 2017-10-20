@@ -557,6 +557,40 @@ function redirect_to_login(){
 	}
 }
 
+// Button Shortcode
+add_shortcode('fx-button', 'fx_shortcode_buton');
+function fx_shortcode_buton($atts, $content = null)
+{
+	// Extract shortcode attributes
+	extract(shortcode_atts(array(
+		'url'    => '',
+		'title'  => '',
+		'target' => '',
+		'text'   => '',
+		'class'  => '',
+	), $atts ));
+
+	$content = $text ? $text : $content;
+
+	if($url) {
+		$link_attr = array(
+			'href'   => esc_url( $url ),
+			'title'  => esc_attr( $title ),
+			'target' => ('blank' == $target) ? '_blank' : '',
+			'class'  => 'btn btn-danger '. esc_url($class)
+		);
+		$link_attrs_str = '';
+		foreach($link_attr as $key => $val){
+			if($val){
+				$link_attrs_str .= ' '. $key .'="'. $val .'"';
+			}
+		}
+		return '<button'.$link_attrs_str.'>'.do_shortcode($content).'</button>';
+	} else {
+		return '<button href="#" class="btn btn-danger">'.do_shortcode($content).'</button>';
+	}
+}
+
 // redirect to custom logout confirmation page
 add_action( 'login_form_logout', 'custom_logout_notice' );
 function custom_logout_notice() {
