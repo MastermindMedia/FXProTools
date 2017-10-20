@@ -347,7 +347,7 @@ function get_mb_pto1( $mb_group_id, $page_element ) {
 	switch ( $page_element ) {
 		case 'secondary_header_menu':
 			$secondary_header_menu = array_key_exists('pto1_secondary_header_menu', $group) ? $group['pto1_secondary_header_menu'] : null;
-			if( $display_header_menu == 'yes' && !$secondary_header_menu == null ) :
+			if( $display_header_menu == 'yes' && !is_null($secondary_header_menu) ) :
 				$params = array(
 					'menu'            => $secondary_header_menu,
 					'theme_location'  => '',
@@ -393,14 +393,16 @@ function get_mb_pto1( $mb_group_id, $page_element ) {
 			break;
 
 		case 'video_embed':
-			$video_url 				= array_key_exists('pto1_video_url', $group) 			? $group['pto1_video_url'] : null;
-			$video_autostart 		= array_key_exists('pto1_video_autostart', $group) 		? $group['pto1_video_autostart'] : null;
-			$video_show_controls 	= array_key_exists('pto1_video_show_controls', $group) 	? $group['pto1_video_show_controls'] : null;
-			$video_scrolling_video	= array_key_exists('pto1_video_scrolling', $group) 		? $group['pto1_video_scrolling'] : null;
-			$video_floating			= array_key_exists('pto1_video_floating', $group) 		? $group['pto1_video_floating'] : null;
-
-			return wp_oembed_get($video_url);
-
+            $video_url              = array_key_exists('pto1_video_url', $group)                ? $group['pto1_video_url'] : null;
+            $video_autostart        = array_key_exists('pto1_video_autostart', $group)          ? $group['pto1_video_autostart'] : null;
+            $video_show_controls    = array_key_exists('pto1_video_show_controls', $group)      ? $group['pto1_video_show_controls'] : null;
+            $video_scrolling        = array_key_exists('pto1_video_scrolling', $group)          ? $group['pto1_video_scrolling'] : null;
+            $video_floating         = array_key_exists('pto1_video_floating', $group)           ? $group['pto1_video_floating'] : null;
+            
+            // TODO: use this for null validation
+            // if(!is_null($video_scrolling)){ //do your thing here }else{ //do other thing }
+            
+            echo wp_oembed_get($video_url);
 			break;
 
 		default:
@@ -410,7 +412,7 @@ function get_mb_pto1( $mb_group_id, $page_element ) {
 }
 
 function mb_pto1_footer($footer_display, $footer_loc) {
-	if( $footer_display == 'yes' && !$footer_loc == null ) :
+	if( $footer_display == 'yes' && !is_null($footer_loc) ) :
 		$params = array(
 			'menu'            => $footer_loc,
 			'theme_location'  => '',
@@ -552,6 +554,40 @@ function redirect_to_login(){
 	if( 'wp-login.php' == $pagenow && !is_user_logged_in() && empty($_POST)) {
 		wp_redirect('/login');
 		exit();
+	}
+}
+
+// Button Shortcode
+add_shortcode('fx-button', 'fx_shortcode_buton');
+function fx_shortcode_buton($atts, $content = null)
+{
+	// Extract shortcode attributes
+	extract(shortcode_atts(array(
+		'url'    => '',
+		'title'  => '',
+		'target' => '',
+		'text'   => '',
+		'class'  => '',
+	), $atts ));
+
+	$content = $text ? $text : $content;
+
+	if($url){
+		$link_attr = array(
+			'href'   => esc_url( $url ),
+			'title'  => esc_attr( $title ),
+			'target' => ('blank' == $target) ? '_blank' : '',
+			'class'  => 'btn btn-danger '.$class
+		);
+		$link_attrs_str = '';
+		foreach($link_attr as $key => $val){
+			if($val){
+				$link_attrs_str .= ' '. $key .'="'. $val .'"';
+			}
+		}
+		return '<a'.$link_attrs_str.'>'.do_shortcode($content).'</a>';
+	} else {
+		return '<a href="#" class="btn btn-danger">'.do_shortcode($content).'</a>';
 	}
 }
 

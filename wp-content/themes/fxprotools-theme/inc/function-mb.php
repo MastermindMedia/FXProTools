@@ -205,16 +205,16 @@ if(!class_exists('SettingsMB')){
 			$meta_boxes[] = array(
 				'id'         => 'page_template_options_1',
 				'title'      => 'Page Template Options',
-				'post_types' => array( 'post', 'page' ),
+				'post_types' => array( 'post', 'page', 'sfwd-courses', 'sfwd-lessons' ),
 				'context'    => 'advanced',
 				'priority'   => 'high',
 				'autosave'   => false,
-				'include' => array(
-					'relation'	=> 'OR',
-					'ID'		=> array( 2560, 2578, 2598, 2550 ),
-					'parent'	=> '',
-					'slug'		=> '',
-				),
+				// 'include' => array(
+				// 	'relation'	=> 'OR',
+				// 	'ID'		=> '', //array( 2560, 2578, 2598, 2550 )
+				// 	'parent'	=> '',
+				// 	'slug'		=> '',
+				// ),
 				// TODO: will update to tab view type later on. -austin
 				// 'tabs'      => array(
 				// 	$prefix . 'page'	=> __( 'Page', 'rwmb' ),

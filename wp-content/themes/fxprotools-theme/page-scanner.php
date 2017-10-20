@@ -27,33 +27,7 @@
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-body">
-							<div role="tabpanel">
-								<ul class="nav nav-tabs fx-tabs courses" role="tablist">
-									<li role="presentation" class="active">
-										<a href="#one" aria-controls="one" role="tab" data-toggle="tab">Demo Account</a>
-									</li>
-									<li role="presentation">
-										<a href="#two" aria-controls="two" role="tab" data-toggle="tab">Live Account</a>
-									</li>
-								</ul>
-								<br/>
-								<div class="tab-content">
-									<div role="tabpanel" class="tab-pane active" id="one">
-										<div class="fx-video-container"></div>
-										<br/>
-										<a href="#" class="btn btn-lg btn-danger block">Download Software</a>
-									</div>
-									<div role="tabpanel" class="tab-pane" id="two">
-										<div class="fx-video-container"></div>
-										<br/>
-										<div class="panel panel-default">
-											<div class="panel-body centered-item" style="height: 400px;">
-												<i class="fa fa-users" style="font-size: 70px;"></i>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+							<?php the_content(); ?>
 						</div>
 					</div>
 				</div>
