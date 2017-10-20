@@ -572,7 +572,7 @@ function fx_shortcode_buton($atts, $content = null)
 
 	$content = $text ? $text : $content;
 
-	if($url) {
+	if($url){
 		$link_attr = array(
 			'href'   => esc_url( $url ),
 			'title'  => esc_attr( $title ),
@@ -585,9 +585,9 @@ function fx_shortcode_buton($atts, $content = null)
 				$link_attrs_str .= ' '. $key .'="'. $val .'"';
 			}
 		}
-		return '<button'.$link_attrs_str.'>'.do_shortcode($content).'</button>';
+		return '<a'.$link_attrs_str.'>'.do_shortcode($content).'</a>';
 	} else {
-		return '<button href="#" class="btn btn-danger">'.do_shortcode($content).'</button>';
+		return '<a href="#" class="btn btn-danger">'.do_shortcode($content).'</a>';
 	}
 }
 
