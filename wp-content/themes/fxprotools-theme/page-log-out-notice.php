@@ -27,7 +27,9 @@
 
                             <div class="quick-message m-t-lg">
 								<?php
-								if ( have_posts() ) {
+								global $post;
+								if ( ! empty( $post->post_content ) ) {
+									// display formatted content instead of post_content
 									while ( have_posts() ) {
 										the_post();
 										the_content();
