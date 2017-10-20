@@ -8,10 +8,20 @@ $checklist = get_user_checklist();
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
+				
 				<div class="fx-header-title">
-					<h1>Welcome! Thanks for Being A Loyal Distributor</h1>
+                <?php if(is_user_fx_customer()) : ?>
+					<h1>Welcome! Thanks for Being A Loyal Customer</h1>
 					<p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of CopyProfitShare!</p>
+                <?php elseif(is_user_fx_distributor()) : ?>
+                    <h1>Welcome! Thanks for Being A Loyal Distributor</h1>
+					<p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of CopyProfitShare!</p>
+                <?php else : ?>
+                    <h1>Welcome! Thanks for Being A Loyal Distributor</h1>
+					<p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of CopyProfitShare!</p>
+                <?php endif;?>
 				</div>
+				
 			</div>
 			<div class="col-md-8">
 				<div class="fx-video-container">
