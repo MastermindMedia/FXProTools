@@ -1,5 +1,7 @@
 <?php get_header(); ?>
-
+<div class="fx-landing main">
+<?php get_template_part('inc/templates/nav-capture-page'); ?>
+</div>
 <div class="fx-red-note">
     <div class="container">
         <div class="row">
