@@ -672,20 +672,20 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="row m-t-md">
-									<div class="col-xs-12 col-sm-4 col-md-4">
+									<div class="col-xs-6 col-sm-4 col-md-4">
 										<div class="item-stats">
 											<span class="count text-bold">80+</span>
 											<span class="count-label">Available <br/> Countries</span>
 										</div>
 									</div>
-									<div class="col-xs-12 col-sm-4 col-md-4">
+									<div class="col-xs-6 col-sm-4 col-md-4">
 										<div class="item-stats">
 											<span class="count text-bold">2,790</span>
 											<span class="count-label">Active <br/> Students</span>
 										</div>
 									</div>
-									<div class="col-xs-12 col-sm-4 col-md-4">
-										<div class="item-stats">
+									<div class="col-xs-6 col-xs-offset-3 col-sm-4 col-md-4">
+										<div class="item-stats xs-item-stats">
 											<span class="count text-bold">1091</span>
 											<span class="count-label">Affiliates Paid <br/> To Date</span>
 										</div>

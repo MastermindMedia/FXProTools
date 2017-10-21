@@ -226,9 +226,6 @@
 					}
 				}
 				span {
-					overflow: hidden;
-					text-overflow: ellipsis;
-					white-space: nowrap;
 					display: block;
 				}
 			}
@@ -251,9 +248,6 @@
 					}
 				}
 				span {
-					overflow: hidden;
-					text-overflow: ellipsis;
-					white-space: nowrap;
 					display: block;
 				}
 			}
@@ -271,6 +265,9 @@
 				}
 				.count-label {
 					font-size: 15px;
+				}
+				&.xs-item-stats {
+					margin-bottom: 0;
 				}
 			}
 		}
