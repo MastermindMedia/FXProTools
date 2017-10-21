@@ -3,6 +3,84 @@
 // ----------
 // XS to SM
 @media (min-width: 768px) and (max-width: 1024px) {
+
+	// ------
+	// Global
+	// ------
+	body {
+		font-size: 13px;
+	}
+	h1 { font-size: 30px; }
+	h2 { font-size: 26px; }
+	h3 { font-size: 22px; }
+
+	// ----------
+	// Navigation
+	// ----------
+	// Landing/Capture Page Navigation
+	.fx-landing .section-nav .fx-top-nav {
+		&.one {
+			.fx-nav {
+				&.w-border li {
+					margin-top: 0;
+					font-size: 12px;
+				}
+				&.w-flag li {
+					font-size: 12px;
+					a.btn-flag {
+						padding: 5px 0 5px 0;
+					}
+				}
+			}
+		}
+	}
+
+	// ------
+	// Common
+	// ------
+	// Package Item
+	.fx-package-item {
+		margin-bottom: 40px;
+	}
+
+	// ------
+	// Custom
+	// ------
+	.fx-landing {
+		.section-two {
+			padding: 30px 0 50px;
+			.video {
+				height: 350px;
+			}
+			.row-item-stats {
+				margin-top: 70px;
+			}
+			.item-info {
+				margin-bottom: 60px;
+				&.xs-item-info {
+					margin-bottom: 0;
+				}
+			}
+		}
+		.section-four {
+			.list-features {
+				margin: 40px 0 0 50px;
+			}
+			.item-stats {
+				margin-bottom: 25px;
+			}
+		}
+		.section-nine {
+			padding: 0 0 30px 0;
+			.faq-item {
+				height: auto;
+				&.no-border {
+					border-bottom: 2px solid #DDD;
+				}
+			}
+		}
+
+	}
 	
 
 }

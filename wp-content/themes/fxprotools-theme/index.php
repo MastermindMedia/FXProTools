@@ -31,19 +31,19 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="row row-item-stats">
-					<div class="col-xs-12 col-sm-4 col-md-4">
+					<div class="col-xs-12 col-sm-6 col-md-4">
 						<div class="item-info">
 							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico1.png" class="img-responsive icon">
 							<p>Gain full Access to <br/> CopyProfitShare's training <br/> videos &amp; courses.</p>
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-4 col-md-4">
+					<div class="col-xs-12 col-sm-6 col-md-4">
 						<div class="item-info">
 							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico2.png" class="img-responsive icon">
 							<p>Full Acess to CPS Forex &amp; <br/> Binary Rooms Live <br/> Signals 24 hours.</p>
 						</div>
 					</div>
-					<div class="col-xs-12 col-sm-4 col-md-4">
+					<div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-0">
 						<div class="item-info xs-item-info">
 							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico3.png" class="img-responsive icon">
 							<p>Get access to trading <br/> webinars where you can <br/> copy trades live.</p>
@@ -179,10 +179,10 @@
 						</div>
 					</div>
 					<div class="clearfix"></div>
-					<div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="col-xs-12 col-sm-12 col-md-6">
 						<img src="<?php bloginfo('template_url'); ?>/assets/img/macbook.png" class="img-responsive centered-block" width="440" height="229">
 					</div>
-					<div class="col-xs-12 col-sm-6 col-md-6">
+					<div class="col-xs-12 col-sm-12 col-md-6">
 						<ul class="list-features fa-ul">
 							<li><i class="fa fa-check fa-li"></i><p> Free Demo Account </p></li>
 							<li><i class="fa fa-check fa-li"></i><p> The platform is suitable for both professionals and beginners </p></li>
@@ -194,25 +194,25 @@
 					</div>
 					<div class="clearfix"></div>
 					<div class="row m-t-lg">
-						<div class="col-xs-6 col-sm-3 col-md-3">
+						<div class="col-xs-6 col-sm-6 col-md-3">
 							<div class="item-stats">
 								<span class="count">95%</span>
 								<span class="count-label">Win Ratio</span>
 							</div>
 						</div>
-						<div class="col-xs-6 col-sm-3 col-md-3">
+						<div class="col-xs-6 col-sm-6 col-md-3">
 							<div class="item-stats">
 								<span class="count">10.5k</span>
 								<span class="count-label">Pips Caught</span>
 							</div>
 						</div>
-						<div class="col-xs-6 col-sm-3 col-md-3">
+						<div class="col-xs-6 col-sm-6 col-md-3">
 							<div class="item-stats">
 								<span class="count">4 to 5</span>
 								<span class="count-label">Signals per day</span>
 							</div>
 						</div>
-						<div class="col-xs-6 col-sm-3 col-md-3">
+						<div class="col-xs-6 col-sm-6 col-md-3">
 							<div class="item-stats">
 								<span class="count">10+</span>
 								<span class="count-label">Hours of video</span>
@@ -609,7 +609,7 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="row m-t-lg m-b-lg">
-					<div class="col-xs-6 col-md-3 col-md-offset-3">
+					<div class="col-xs-6 col-sm-3 col-sm-offset-3 col-md-3 col-md-offset-3">
 						<div class="dl-item text-center">
 							<div class="icon">
 								<img src="<?php bloginfo('template_url'); ?>/assets/img/ico-download.png" class="center-block img-responsive">
@@ -617,7 +617,7 @@
 							<span class="text-white block m-t-md">Compensation Plan</span>
 						</div>
 					</div>
-					<div class="col-xs-6 col-md-3">
+					<div class="col-xs-6 col-sm-3 col-md-3">
 						<div class="dl-item text-center">
 							<div class="icon">
 								<img src="<?php bloginfo('template_url'); ?>/assets/img/ico-download.png" class="center-block img-responsive">
@@ -672,19 +672,19 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="row m-t-md">
-									<div class="col-xs-12 col-md-4">
+									<div class="col-xs-12 col-sm-4 col-md-4">
 										<div class="item-stats">
 											<span class="count text-bold">80+</span>
 											<span class="count-label">Available <br/> Countries</span>
 										</div>
 									</div>
-									<div class="col-xs-12 col-md-4">
+									<div class="col-xs-12 col-sm-4 col-md-4">
 										<div class="item-stats">
 											<span class="count text-bold">2,790</span>
 											<span class="count-label">Active <br/> Students</span>
 										</div>
 									</div>
-									<div class="col-xs-12 col-md-4">
+									<div class="col-xs-12 col-sm-4 col-md-4">
 										<div class="item-stats">
 											<span class="count text-bold">1091</span>
 											<span class="count-label">Affiliates Paid <br/> To Date</span>
@@ -693,7 +693,7 @@
 									<div class="col-xs-12 col-sm-12 col-md-12">
 										<hr/>
 									</div>
-									<div class="col-xs-12 col-md-10 col-md-offset-1">
+									<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 										<div class="header-text m-b-md">
 											<p class="text-center text-heading text-bold"><span class="text-red">VIDEO TESTIMONIALS!</span> Show Proof 
 											That “FX Pro Tools” Has ALREADY Dramatically Changed The Businesses And Lives Of Countless Others... 
@@ -703,42 +703,42 @@
 									</div>
 								</div>
 								<div class="row m-t-md m-b-md">
-									<div class="col-xs-12 col-md-6">
+									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
 											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Eddie L. of Florida, USA</span>
 											<span class="small">"Retired Teacher"</span>
 										</div>
 									</div>
-									<div class="col-xs-12 col-md-6">
+									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
 											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Sol A. of Texas, USA</span>
 											<span class="small">"Rabbi"</span>
 										</div>
 									</div>
-									<div class="col-xs-12 col-md-6">
+									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
 											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Gerard F. of  Rio, Brazil</span>
 											<span class="small">"Electromechanical Engineer"</span>
 										</div>
 									</div>
-									<div class="col-xs-12 col-md-6">
+									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
 											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Tim F. of Ontario, CA</span>
 											<span class="small">"IT Professional"</span>
 										</div>
 									</div>
-									<div class="col-xs-12 col-md-6">
+									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
 											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">John S. of New York, USA</span>
 											<span class="small">"Teacher"</span>
 										</div>
 									</div>
-									<div class="col-xs-12 col-md-6">
+									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
 											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Mark E. of California, USA</span>
