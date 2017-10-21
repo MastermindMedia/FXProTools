@@ -1,0 +1,38 @@
+// ----------
+// SM - Small
+// ----------
+// XS to SM
+@media (min-width: 768px) and (max-width: 1024px) {
+	
+
+}
+
+// ---
+// 769
+// ---
+@media (min-width : 769px) {
+
+}
+@media (max-width: 1200px) {
+
+}
+
+// ----
+// IPAD
+// ----
+// Portrait
+@media only screen 
+	and (min-device-width : 768px)
+	and (max-device-width : 1024px)
+	and (orientation : portrait)
+	and (-webkit-min-device-pixel-ratio: 1) {
+
+}
+// Landscape
+@media only screen 
+	and (min-device-width : 768px) 
+	and (max-device-width : 1024px) 
+	and (orientation : landscape)
+	and (-webkit-min-device-pixel-ratio: 1) {
+
+}

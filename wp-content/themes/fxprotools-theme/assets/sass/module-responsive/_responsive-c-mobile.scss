@@ -1,0 +1,120 @@
+// ----------------
+// XS - EXTRA SMALL
+// ----------------
+// Breakpoints in specific width
+@media screen and (max-width : 767px) {
+	
+}
+@media screen and (max-width: 640px) {
+
+}
+@media screen and (max-width: 568px) {
+
+}
+@media screen and (max-width: 480px) {
+	
+}
+@media screen and (max-width: 420px) {
+
+}
+@media screen and (max-width: 380px) {
+
+}
+@media screen and (max-width: 320px) {
+
+}
+// Breakpoint in Width Range
+@media screen and(min-width: 568px) and (max-width: 639px) {
+
+}
+@media screen and (min-width : 480px) and (max-width: 567px) {
+
+}
+@media screen and (min-width : 360px) and (max-width: 479px) {
+
+}
+@media screen and (min-width : 320px) and (max-width: 359px) {
+
+}
+
+// ---------
+// iPhone 6+
+// ---------
+// Portrait
+@media only screen 
+	and (min-device-width: 414px)
+	and (max-device-width: 736px)
+	and (device-height : 736px)
+	and (-webkit-min-device-pixel-ratio: 3)
+	and (-webkit-device-pixel-ratio : 3)
+	and (orientation: portrait) {
+
+}
+// Landscape
+@media only screen 
+	and (min-device-width: 414px)
+	and (max-device-width: 736px)
+	and (-webkit-min-device-pixel-ratio: 3)
+	and (orientation: landscape) {
+
+}
+
+// --------
+// iPhone 6
+// --------
+// Portrait
+@media only screen 
+	and (min-device-width: 375px) 
+	and (max-device-width: 667px) 
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: portrait) {
+
+}
+// Landscape
+@media only screen 
+	and (min-device-width: 375px) 
+	and (max-device-width: 667px) 
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: landscape) {
+
+}
+
+// -----------
+// iPhone 5/5S
+// -----------
+// Portrait
+@media only screen 
+	and (min-device-width: 320px) 
+	and (max-device-width: 568px)
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: portrait) {
+
+}
+// Landscape
+@media only screen 
+	and (min-device-width: 320px) 
+	and (max-device-width: 568px)
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: landscape) {
+
+}
+
+// -----------
+// iPhone 4/4S
+// -----------
+// Portrait
+@media only screen 
+	and (min-device-width: 320px) 
+	and (max-device-width: 480px)
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: portrait) {
+
+}
+// Landscape
+@media only screen 
+	and (min-device-width: 320px) 
+	and (max-device-width: 480px)
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: landscape) {
+
+}
