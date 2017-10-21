@@ -3,6 +3,172 @@
 // ----------------
 // Breakpoints in specific width
 @media screen and (max-width : 767px) {
+
+	$font-xxs: 12px;
+	$font-xs: 14px;
+	
+	// ------
+	// Global
+	// ------
+	body {
+		font-size: 13px;
+	}
+	h1 { font-size: 28px; }
+	h2 { font-size: 24px; }
+	h3 { font-size: 20px; }
+
+	// ----------
+	// Navigation
+	// ----------
+	// Landing/Capture Page Navigation
+	.fx-landing .section-nav .fx-top-nav {
+		&.one {
+			.fx-nav {
+				text-align: center;
+				&.w-border li {
+					margin-top: 0;
+					font-size: 12px;
+				}
+				&.w-flag {
+					text-align: center;
+					margin-top: 10px;
+					li {
+						font-size: $font-xxs;
+						a.btn-flag {
+							padding: 5px 0 5px 0;
+						}
+					}
+				}
+			}
+		}
+		.logo {
+			display: block;
+			text-align: center;
+		}
+		&.two {
+			padding: 20px 0 25px 0;
+			.fx-nav {
+				text-align: center;
+				margin: 15px 0 0;
+				li a {
+					font-size: $font-xxs;
+				}
+			}
+		}
+	}
+
+	// ------
+	// Common
+	// ------
+	.btn-lg-w-text {
+		font-size: 22px;
+	}
+
+	.fx-red-note p {
+		font-size: 14px;
+	}
+
+	// ------
+	// Custom
+	// ------
+	$font-intro-note: 24px;
+	.fx-landing {
+		.section-w-panel .panel .panel-body {
+			padding: 30px;
+		}
+		.section-two {
+			.intro-note {
+			 	font-size: $font-intro-note;
+			}
+			.video {
+				height: 320px;
+				margin: 35px auto 30px 0;
+			}
+			.item-info {
+				margin: 0 auto 60px;
+				max-width: 350px;
+				p {
+					font-size: 17px;
+				}
+				&.xs-item-info {
+					margin-bottom: 0;
+				}
+			}
+		}
+		.section-three {
+			padding: 50px 0 30px 0;
+			.panel-steps .list-steps li {
+				height: auto;
+				.counter {
+					height: auto;
+					float: none;
+					margin: 0 auto;
+					.bar {
+						display: none;
+					}
+					.number {
+						width: 40px;
+						height: 40px;
+						font-size: 18px;
+						line-height: 2.1;
+					}
+				}
+				h3 {
+					text-align: center;
+					margin-top: 12px;
+				}
+				p {
+					font-size: $font-xs;
+				}
+			}
+		}
+		.section-four {
+			overflow: hidden;
+			.intro-note {
+			 	font-size: $font-intro-note;
+			}
+			.list-features {
+				margin: 25px 0 -30px 50px;
+				li {
+					font-size: 18px;
+				}
+			}
+			.item-stats {
+				margin-bottom: 15px;
+				.count {
+					font-size: 40px;
+				}
+				.count-label {
+					font-size: 18px;
+				}
+				&.xs-item-stats {
+					margin-bottom: 0;
+				}
+			}
+		}
+		.section-five {
+			padding: 50px 0 30px 0;
+			.panel-body {
+				padding: 30px 30px 0 30px;
+			}
+			.header-text p.text-heading {
+				font-size: 20px;
+			}
+			.step-item {
+				padding: 25px 0;
+				h2 {
+					text-align: center;
+					margin-bottom: 0;
+					.label-red {
+						display: inline-block;
+					}
+				}
+				img {
+					margin-bottom: 10px;
+				}
+			}
+		}
+	}
 	
 }
 @media screen and (max-width: 640px) {
@@ -13,8 +179,30 @@
 }
 @media screen and (max-width: 480px) {
 	
+	// ------
+	// Custom
+	// ------
+
 }
 @media screen and (max-width: 420px) {
+
+	// ------
+	// Common
+	// ------
+	.btn-lg-w-text {
+		font-size: 18px;
+	}
+
+	// ------
+	// Custom
+	// ------
+	.fx-landing .section-two .video {
+		height: 220px;
+	}
+	.fx-landing .section-five .step-item h2 .label-red {
+		display: block;
+		margin-bottom: 5px;
+	}
 
 }
 @media screen and (max-width: 380px) {

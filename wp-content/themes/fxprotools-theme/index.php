@@ -5,7 +5,7 @@
 		<div class="fx-red-note">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-xs-12 col-sm-12 col-md-12">
 						<p>CopyProfitShare is the map that teaches you specialized market knowledge!</p>
 					</div>
 				</div>
@@ -14,7 +14,7 @@
 		<div class="section-two">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-10 col-md-offset-1">
+					<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 						<div class="text-center">
 							<p class="intro-note">Shorten Your <strong>Forex Learning Curve</strong></p>
 							<p class="intro-note label-red inline-block">Become An Expert Market Trader!</p>
@@ -31,20 +31,20 @@
 					<div class="clearfix"></div>
 				</div>
 				<div class="row row-item-stats">
-					<div class="col-md-4">
+					<div class="col-xs-12 col-sm-4 col-md-4">
 						<div class="item-info">
 							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico1.png" class="img-responsive icon">
 							<p>Gain full Access to <br/> CopyProfitShare's training <br/> videos &amp; courses.</p>
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-xs-12 col-sm-4 col-md-4">
 						<div class="item-info">
 							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico2.png" class="img-responsive icon">
 							<p>Full Acess to CPS Forex &amp; <br/> Binary Rooms Live <br/> Signals 24 hours.</p>
 						</div>
 					</div>
-					<div class="col-md-4">
-						<div class="item-info">
+					<div class="col-xs-12 col-sm-4 col-md-4">
+						<div class="item-info xs-item-info">
 							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico3.png" class="img-responsive icon">
 							<p>Get access to trading <br/> webinars where you can <br/> copy trades live.</p>
 						</div>
@@ -55,18 +55,18 @@
 		<div class="section-three section-w-panel">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-xs-12 col-sm-12 col-md-12">
 						<div class="panel">
 							<div class="panel-body">
 								<div class="row">
-									<div class="col-md-12">
+									<div class="col-xs-12 col-sm-12 col-md-12">
 										<div class="header-text m-b-lg">
 											<h2>What is Forex &amp; Binary Trading..</h2>
 											<h3 class="label-red">Why Should You Learn It?</h3>
 										</div>
 										<hr/>
 									</div>
-									<div class="col-md-4">
+									<div class="col-xs-12 col-sm-12 col-md-4">
 										<div class="note">
 											<p class="m-b-md"><span class="text-bold">If this is your first time here,</span><br/> then you're probably wondering,</p>
 											<p class="m-b-md">"WHAT IS FOREX or BINARY TRADING?"</p>
@@ -75,27 +75,27 @@
 											<p>Am I right?</p>
 										</div>
 									</div>
-									<div class="col-md-8">
+									<div class="col-xs-12 col-sm-12 col-md-8">
 										<div class="note">
 											<p class="text-center text-bold">What is Forex &amp; Binary Trading?</p>
 											<img src="http://via.placeholder.com/600x300?text=Video" class="img-responsive centered-block m-b-sm">
 											<p class="text-center text-bold">What This Short Video</p>
 										</div>
 									</div>
-									<div class="col-md-12">
+									<div class="col-xs-12 col-sm-12 col-md-12">
 										<hr/>
 										<div class="text-center m-t-lg">
 											<h2>Let Me Show You Why Tens Of Thousands Of Individuals</h2>
 											<h2 class="text-green text-bold text-lg">Just Like You</h2>
 										</div>
 										<div class="row">
-											<div class="col-md-10 col-md-offset-1 text-center">
+											<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 text-center">
 												<h3 class="m-t-sm">Are Currently Learning Forex & Binary Trading From CopyProfitShare</h3>
 												<p>...But first before we do that. Here is a quick history of Forex and Binary Trading to help you understand what it is, and more importantly, why do YOU want to learn it...</p>
 											</div>
 										</div>
 									</div>
-									<div class="col-md-10 col-md-offset-1">
+									<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 										<div class="panel panel-steps m-t-lg">
 											<div class="panel-body">
 												<ul class="list-steps">
@@ -106,6 +106,7 @@
 															<span class="bar two"></span>
 														</div>
 														<h3><span class="bg-red-text">Did You Know That?</span> Forex & Binary Trading Has Been Around Since The 1970s</h3>
+														<div class="visible-xs clearfix"></div>
 														<p>...But You Had To Have  A LOT Of Money. You Also Had To Use A Landline To Place Your “Orders” Over The Phone...</p>
 														<div class="clearfix"></div>
 													</li>
@@ -116,6 +117,7 @@
 															<span class="bar two"></span>
 														</div>
 														<h3>Online Trading Was Introduced In The 1990s</h3>
+														<div class="visible-xs clearfix"></div>
 														<p>...But You Had to Have A LOT of Money. You We’re Only Allowed To Use One or Two Platforms Trading Platforms...</p>
 														<div class="clearfix"></div>
 													</li>
@@ -126,6 +128,7 @@
 															<span class="bar two"></span>
 														</div>
 														<h3>Present Day Technolgy & Software Increases Market Participation & Availability</h3>
+														<div class="visible-xs clearfix"></div>
 														<p>...Multiple Brokers Opened Up, Mobile Trading Is Introduced & More Currency Open Up To Be Traded Globally... </p>
 														<div class="clearfix"></div>
 													</li>
@@ -136,6 +139,7 @@
 															<span class="bar two"></span>
 														</div>
 														<h3>Invidviduals Can Now Getting “A Piece” Of The <span class="bg-red-text">$4 Trillion Dollars</span> In Daily Currency Turnover</h3>
+														<div class="visible-xs clearfix"></div>
 														<p>...Every Day People Can Now “Get A Piece Of The Action”  With The Right “Knowledge” and Trading Platforms...</p>
 														<div class="clearfix"></div>
 													</li>
@@ -144,6 +148,7 @@
 															<img src="<?php bloginfo('template_url'); ?>/assets/img/burglar.png" class="img-responsive">
 														</div>
 														<h3>Invidviduals Can Now Getting “A Piece” Of The <span class="red">$4 Trillion Dollars</span> In Daily Currency Turnover</h3>
+														<div class="visible-xs clearfix"></div>
 														<p>...Every Day People Can Now “Get A Piece Of The Action”  With The Right “Knowledge” and Trading Platforms...</p>
 														<div class="clearfix"></div>
 													</li>
@@ -168,16 +173,16 @@
 		<div class="section-four">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-xs-12 col-sm-12 col-md-12">
 						<div class="text-center m-b-lg">
 							<p class="intro-note">Find out why we are the <br/> <span>#1 choice for traders</span> worldwide!</p>
 						</div>
 					</div>
 					<div class="clearfix"></div>
-					<div class="col-md-6">
+					<div class="col-xs-12 col-sm-6 col-md-6">
 						<img src="<?php bloginfo('template_url'); ?>/assets/img/macbook.png" class="img-responsive centered-block" width="440" height="229">
 					</div>
-					<div class="col-md-6">
+					<div class="col-xs-12 col-sm-6 col-md-6">
 						<ul class="list-features fa-ul">
 							<li><i class="fa fa-check fa-li"></i><p> Free Demo Account </p></li>
 							<li><i class="fa fa-check fa-li"></i><p> The platform is suitable for both professionals and beginners </p></li>
@@ -189,26 +194,26 @@
 					</div>
 					<div class="clearfix"></div>
 					<div class="row m-t-lg">
-						<div class="col-md-3">
+						<div class="col-xs-12 col-sm-3 col-md-3">
 							<div class="item-stats">
 								<span class="count">95%</span>
 								<span class="count-label">Win Ratio</span>
 							</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-xs-12 col-sm-3 col-md-3">
 							<div class="item-stats">
 								<span class="count">10.5k</span>
 								<span class="count-label">Pips Caught</span>
 							</div>
 						</div>
-						<div class="col-md-3">
+						<div class="col-xs-12 col-sm-3 col-md-3">
 							<div class="item-stats">
 								<span class="count">4 to 5</span>
 								<span class="count-label">Signals per day</span>
 							</div>
 						</div>
-						<div class="col-md-3">
-							<div class="item-stats">
+						<div class="col-xs-12 col-sm-3 col-md-3">
+							<div class="item-stats xs-item-stats">
 								<span class="count">10+</span>
 								<span class="count-label">Hours of video</span>
 							</div>
