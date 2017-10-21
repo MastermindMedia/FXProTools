@@ -4,8 +4,9 @@
 // Breakpoints in specific width
 @media screen and (max-width : 767px) {
 
-	$font-xxs: 12px;
+	$font-xs-heading: 24px;
 	$font-xs: 14px;
+	$font-xxs: 12px;
 	
 	// ------
 	// Global
@@ -56,29 +57,52 @@
 			}
 		}
 	}
+	// Footer
+	.fx-footer {
+		padding: 50px 0 30px 0;
+		span {
+			font-size: 12px;
+		}
+		.credit-cards {
+			margin: 15px 0;
+		}
+	}
 
 	// ------
 	// Common
 	// ------
+	// Buttons
 	.btn-lg-w-text {
 		font-size: 22px;
 	}
-
+	// Red Note
 	.fx-red-note p {
 		font-size: 14px;
+	}
+	// Package Item
+	.fx-package-item {
+		margin-bottom: 40px;
+	}
+	// Red Banner
+	.fx-red-banner {
+		padding: 50px 0;
 	}
 
 	// ------
 	// Custom
 	// ------
-	$font-intro-note: 24px;
 	.fx-landing {
-		.section-w-panel .panel .panel-body {
-			padding: 30px;
+		.section-w-panel {
+			.text-lg {
+				font-size: 40px;
+			}
+			.panel .panel-body {
+				padding: 30px;
+			}
 		}
 		.section-two {
 			.intro-note {
-			 	font-size: $font-intro-note;
+			 	font-size: $font-xs-heading;
 			}
 			.video {
 				height: 320px;
@@ -125,12 +149,12 @@
 		.section-four {
 			overflow: hidden;
 			.intro-note {
-			 	font-size: $font-intro-note;
+			 	font-size: $font-xs-heading;
 			}
 			.list-features {
-				margin: 25px 0 -30px 50px;
+				margin: 50px 0 0 50px;
 				li {
-					font-size: 18px;
+					font-size: 15px;
 				}
 			}
 			.item-stats {
@@ -139,10 +163,7 @@
 					font-size: 40px;
 				}
 				.count-label {
-					font-size: 18px;
-				}
-				&.xs-item-stats {
-					margin-bottom: 0;
+					font-size: 15px;
 				}
 			}
 		}
@@ -168,6 +189,91 @@
 				}
 			}
 		}
+		.section-six {
+			.intro-note {
+			 	font-size: $font-xs-heading;
+			}
+		}
+		.section-seven {
+			.list-checklist {
+				margin-left: 2.14285714em;
+				li {
+					font-size: 15px;
+				}
+			}
+		}
+		.section-nine {
+			padding: 0 0 30px 0;
+			.faq-item {
+				height: auto;
+				&.no-border {
+					border-bottom: 2px solid #DDD;
+				}
+			}
+		}
+		.section-ten {
+			.unlock-item {
+				height: 100px;
+				margin-bottom: 30px;
+				.icon {
+					position: relative;
+					height: 65px;
+					display:flex;
+					justify-content:center;
+					align-items:center;
+					img {
+						width: 50px;
+					}
+				}
+				span {
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					display: block;
+				}
+			}
+		}
+		.section-eleven {
+			.intro-note {
+				font-size: $font-xs-heading;
+			}
+			.dl-item {
+				height: 100px;
+				margin-bottom: 30px;
+				.icon {
+					position: relative;
+					height: 65px;
+					display:flex;
+					justify-content:center;
+					align-items:center;
+					img {
+						width: 50px;
+					}
+				}
+				span {
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					display: block;
+				}
+			}
+		}
+		.section-testimonials {
+			padding: 50px 0 30px 0;
+			.header-text p.text-heading,
+			.header-text p.text-heading.sm {
+				font-size: 24px;
+			}
+			.item-stats {
+				margin-bottom: 15px;
+				.count {
+					font-size: 40px;
+				}
+				.count-label {
+					font-size: 15px;
+				}
+			}
+		}
 	}
 	
 }
@@ -180,12 +286,28 @@
 @media screen and (max-width: 480px) {
 	
 	// ------
-	// Custom
+	// Common
 	// ------
+	.btn-lg-w-text {
+		width: 100%;
+		white-space: initial;
+	}
 
 }
 @media screen and (max-width: 420px) {
 
+	// ------
+	// Global
+	// ------
+	body {
+		font-size: 13px;
+	}
+	h1 { font-size: 26px; }
+	h2 { font-size: 22px; }
+	h3 { font-size: 18px; }
+	.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+		line-height: initial;
+	}
 	// ------
 	// Common
 	// ------
@@ -196,6 +318,14 @@
 	// ------
 	// Custom
 	// ------
+	.fx-landing .section-w-panel .text-lg {
+		font-size: 35px;
+	}
+	.fx-landing .section-two .intro-note,
+	.fx-landing .section-four .intro-note,
+	.fx-landing .section-six .intro-note {
+		font-size: 22px;
+	}
 	.fx-landing .section-two .video {
 		height: 220px;
 	}

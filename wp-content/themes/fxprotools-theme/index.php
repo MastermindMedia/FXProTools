@@ -194,26 +194,26 @@
 					</div>
 					<div class="clearfix"></div>
 					<div class="row m-t-lg">
-						<div class="col-xs-12 col-sm-3 col-md-3">
+						<div class="col-xs-6 col-sm-3 col-md-3">
 							<div class="item-stats">
 								<span class="count">95%</span>
 								<span class="count-label">Win Ratio</span>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-3 col-md-3">
+						<div class="col-xs-6 col-sm-3 col-md-3">
 							<div class="item-stats">
 								<span class="count">10.5k</span>
 								<span class="count-label">Pips Caught</span>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-3 col-md-3">
+						<div class="col-xs-6 col-sm-3 col-md-3">
 							<div class="item-stats">
 								<span class="count">4 to 5</span>
 								<span class="count-label">Signals per day</span>
 							</div>
 						</div>
-						<div class="col-xs-12 col-sm-3 col-md-3">
-							<div class="item-stats xs-item-stats">
+						<div class="col-xs-6 col-sm-3 col-md-3">
+							<div class="item-stats">
 								<span class="count">10+</span>
 								<span class="count-label">Hours of video</span>
 							</div>
@@ -334,7 +334,7 @@
 		<div class="section-six">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-10 col-md-offset-1">
+					<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 						<div class="content">
 							<div class="text-center m-b-lg">
 								<p class="intro-note label-red">Cut The Amount Of Time, Stress & Anxiety and</p>
@@ -363,7 +363,7 @@
 						<div class="panel">
 							<div class="panel-body">
 								<div class="row">
-									<div class="col-md-12">
+									<div class="col-xs-12 col-sm-12 col-md-12">
 										<div class="text-center">
 											<h2 class="label-red inline-block m-t-none">Learn From Forex Veterans</h2>
 											<h1 class="m-t-none">Who Have Made Millions Trading the "Banks's Market"</h1>
@@ -378,7 +378,7 @@
 											<h2 class="label-red inline-block m-t-sm">Let Me Show You Everything You Get When You Join Today...</h2>
 										</div>
 										<div class="row">
-											<div class="col-md-6 col-md-offset-3">
+											<div class="col-xs-12 col-md-6 col-md-offset-3">
 												<ul class="list-checklist fa-ul">
 													<li><i class="fa fa-check fa-li"></i><p> Binary &amp; Forex “Basic” Training <span>($297/yr)</span></p></li>
 													<li><i class="fa fa-check fa-li"></i><p> Binary &amp; Forex - “Expert” Training <span>($597/yr)</span></p></li>
@@ -422,7 +422,7 @@
 		<div id="trial-products" class="section-eight">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-xs-12 col-md-6">
 						<div class="panel fx-package-item">
 							<div class="panel-body">
 								<div class="heading">
@@ -458,7 +458,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-xs-12 col-md-6">
 						<div class="panel fx-package-item active">
 							<span class="sash">Best Value</span>
 							<div class="panel-body">
@@ -500,79 +500,79 @@
 			</div>
 		</div>
 		<div class="section-nine section-w-panel">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="panel">
-						<div class="panel-body">
-							<h2 class="m-t-none m-b-none">P.S. - Here Are A Few Other FAQs We Get A Lot</h2>
-							<h3 class="text-normal m-t-sm label-red inline-block">...if you have more questions, ask our live chat support desk!</h3>
-							<hr class="m-b-none"/>
-							<ul class="row faq-items">
-								<li class="col-md-6">
-									<div class="faq-item">
-										<span class="question"><i class="fa fa-question-circle"></i> Do I have to pay for updates?</span>
-										<div class="answer">No! We give constant updates to our software, we provide that to you for FREE. Because Our website is Hosted is on the cloud, when we make an update or add new feature, they automatically show up in your account everytime you log in.</div>
-									</div>
-								</li>
-								<li class="col-md-6">
-									<div class="faq-item">
-										<span class="question"><i class="fa fa-question-circle"></i> If I have a question about your website, can I talk to someone?</span>
-										<div class="answer">Yes! We have a first class support team who can answer your questions 24 hours a day, 7 days a week! Just click on the "support" link on the bottom of any of our pages.</div>
-									</div>
-								</li>
-								<li class="col-md-6">
-									<div class="faq-item">
-										<span class="question"><i class="fa fa-question-circle"></i> How long are your contracts?</span>
-										<div class="answer">There are NO long term contracts or commitments. You can use ClickFunnels month to month, and cancel at any time you'd like!</div>
-									</div>
-								</li>
-								<li class="col-md-6">
-									<div class="faq-item">
-										<span class="question"><i class="fa fa-question-circle"></i> If I’m not happy, how do I cancel my account?</span>
-										<div class="answer">Login to your account, click on your account settings and click "cancel my account". No need to call, email, or talk to anyone! </div>
-									</div>
-								</li>
-								<li class="col-md-6">
-									<div class="faq-item no-border">
-										<span class="question"><i class="fa fa-question-circle"></i> If I have a question about your website, can I talk to someone?</span>
-										<div class="answer">Yes! We have a first class support team who can answer your questions 24 hours a day, 7 days a week! Just click on the "support" link on the bottom of any of our pages or go to http://support.fxprotools.com </div>
-									</div>
-								</li>
-								<li class="col-md-6">
-									<div class="faq-item no-border">
-										<span class="question"><i class="fa fa-question-circle"></i> Do I have to install anything?</span>
-										<div class="answer">No! We created FX Pro Tools so you wouldn't have too. Just login, start clicking, and you can access your training & cloud hosted” softwares. </div>
-									</div>
-								</li>
-							</ul>
-							<hr class="m-t-none"/>
-							<div class="row">
-								<div class="col-md-8 col-md-offset-2">
-									<div class="text-center">
-										<h2 class="text-red m-t-none">This Is A Limited Time Offer</h2>
-										<h3 class="m-t-none m-b-md">Take advantage of our massive price reduction!</h3>
-										<p><span class="label-red">Start your journey in Forex.</span> Learn to master the markets, develop a lifelong skillset, and become your own boss.</p>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="panel">
+							<div class="panel-body">
+								<h2 class="m-t-none m-b-none">P.S. - Here Are A Few Other FAQs We Get A Lot</h2>
+								<h3 class="text-normal m-t-sm label-red inline-block">...if you have more questions, ask our live chat support desk!</h3>
+								<hr class="m-b-none"/>
+								<ul class="row faq-items">
+									<li class="col-xs-12 col-md-6">
+										<div class="faq-item">
+											<span class="question"><i class="fa fa-question-circle"></i> Do I have to pay for updates?</span>
+											<div class="answer">No! We give constant updates to our software, we provide that to you for FREE. Because Our website is Hosted is on the cloud, when we make an update or add new feature, they automatically show up in your account everytime you log in.</div>
+										</div>
+									</li>
+									<li class="col-xs-12 col-md-6">
+										<div class="faq-item">
+											<span class="question"><i class="fa fa-question-circle"></i> If I have a question about your website, can I talk to someone?</span>
+											<div class="answer">Yes! We have a first class support team who can answer your questions 24 hours a day, 7 days a week! Just click on the "support" link on the bottom of any of our pages.</div>
+										</div>
+									</li>
+									<li class="col-xs-12 col-md-6">
+										<div class="faq-item">
+											<span class="question"><i class="fa fa-question-circle"></i> How long are your contracts?</span>
+											<div class="answer">There are NO long term contracts or commitments. You can use ClickFunnels month to month, and cancel at any time you'd like!</div>
+										</div>
+									</li>
+									<li class="col-xs-12 col-md-6">
+										<div class="faq-item">
+											<span class="question"><i class="fa fa-question-circle"></i> If I’m not happy, how do I cancel my account?</span>
+											<div class="answer">Login to your account, click on your account settings and click "cancel my account". No need to call, email, or talk to anyone! </div>
+										</div>
+									</li>
+									<li class="col-xs-12 col-md-6">
+										<div class="faq-item no-border">
+											<span class="question"><i class="fa fa-question-circle"></i> If I have a question about your website, can I talk to someone?</span>
+											<div class="answer">Yes! We have a first class support team who can answer your questions 24 hours a day, 7 days a week! Just click on the "support" link on the bottom of any of our pages or go to http://support.fxprotools.com </div>
+										</div>
+									</li>
+									<li class="col-xs-12 col-md-6">
+										<div class="faq-item no-border">
+											<span class="question"><i class="fa fa-question-circle"></i> Do I have to install anything?</span>
+											<div class="answer">No! We created FX Pro Tools so you wouldn't have too. Just login, start clicking, and you can access your training & cloud hosted” softwares. </div>
+										</div>
+									</li>
+								</ul>
+								<hr class="m-t-none"/>
+								<div class="row">
+									<div class="col-xs-12 col-md-8 col-md-offset-2">
+										<div class="text-center">
+											<h2 class="text-red m-t-none">This Is A Limited Time Offer</h2>
+											<h3 class="m-t-none m-b-md">Take advantage of our massive price reduction!</h3>
+											<p><span class="label-red">Start your journey in Forex.</span> Learn to master the markets, develop a lifelong skillset, and become your own boss.</p>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="text-center m-t-md">
-								<a href="#trial-products" class="btn btn-success btn-lg m-b-md btn-lg-w-text">
-									Get Your Access For $1.00 Trial Now!
-									<span>Sign-up takes less than 60 seconds. Pick a plan to get started!</span>
-								</a>
-								<p class="info">For information on becoming an IBO, please scroll down.</p>
+								<div class="text-center m-t-md">
+									<a href="#trial-products" class="btn btn-success btn-lg m-b-md btn-lg-w-text">
+										Get Your Access For $1.00 Trial Now!
+										<span>Sign-up takes less than 60 seconds. Pick a plan to get started!</span>
+									</a>
+									<p class="info">For information on becoming an IBO, please scroll down.</p>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 		<div class="section-ten">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-12">
+					<div class="col-xs-12 col-md-12">
 						<div class="header-text">
 							<p class="text-white">Optional: Share With Others</p>
 							<h2 class="label-red inline-block m-t-none">Become Your Own Boss</h2>
@@ -585,7 +585,7 @@
 							$count = 1;
 							foreach ($ui_items as $key => $ui):
 							?>
-							<div class="col-md-4">
+							<div class="col-xs-4 col-sm-4 col-md-4">
 								<div class="unlock-item">
 									<div class="icon">
 										<img src="<?php bloginfo('template_url'); ?>/assets/img/ui/ico-ui<?php echo $count.'.png'; ?>" class="img-responsive">
@@ -602,29 +602,33 @@
 		<div class="section-eleven">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-8 col-md-offset-2">
+					<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
 						<p class="intro-note text-white text-center"><strong>Start A Business</strong> Of Your<br/> Own Using Our Platform</p>
 						<p class="text-white m-t-lg">To become an IBO, you must purchase our “Business Package” package and remain active to be eligible for certain commissions. See full compensation plan for details.</p>
 					</div>
 					<div class="clearfix"></div>
 				</div>
 				<div class="row m-t-lg m-b-lg">
-					<div class="col-md-3 col-md-offset-3">
+					<div class="col-xs-6 col-md-3 col-md-offset-3">
 						<div class="dl-item text-center">
-							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico-download.png" class="center-block img-responsive">
+							<div class="icon">
+								<img src="<?php bloginfo('template_url'); ?>/assets/img/ico-download.png" class="center-block img-responsive">
+							</div>
 							<span class="text-white block m-t-md">Compensation Plan</span>
 						</div>
 					</div>
-					<div class="col-md-3">
+					<div class="col-xs-6 col-md-3">
 						<div class="dl-item text-center">
-							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico-download.png" class="center-block img-responsive">
+							<div class="icon">
+								<img src="<?php bloginfo('template_url'); ?>/assets/img/ico-download.png" class="center-block img-responsive">
+							</div>
 							<span class="text-white block m-t-md">Qualifying Bonuses</span>
 						</div>
 					</div>
 					<div class="clearfix"></div>
 				</div>
 				<div class="row row-package">
-					<div class="col-md-6 col-md-offset-3">
+					<div class="col-xs-12 col-md-6 col-md-offset-3">
 						<div class="panel fx-package-item active">
 							<span class="sash">IBO Package</span>
 							<div class="panel-body">
@@ -655,7 +659,7 @@
 						<div class="panel">
 							<div class="panel-body">
 								<div class="row">
-									<div class="col-md-8 col-md-offset-2">
+									<div class="col-xs-12 col-md-8 col-md-offset-2">
 										<div class="header-text">
 											<p class="text-heading"><span class="text-bold text-green">$8,404,681</span> Is How Much We<br/>
 											Paid Our Students In 2017</p>
@@ -668,28 +672,28 @@
 									<div class="clearfix"></div>
 								</div>
 								<div class="row m-t-md">
-									<div class="col-md-4">
+									<div class="col-xs-12 col-md-4">
 										<div class="item-stats">
 											<span class="count text-bold">80+</span>
 											<span class="count-label">Available <br/> Countries</span>
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-xs-12 col-md-4">
 										<div class="item-stats">
 											<span class="count text-bold">2,790</span>
 											<span class="count-label">Active <br/> Students</span>
 										</div>
 									</div>
-									<div class="col-md-4">
+									<div class="col-xs-12 col-md-4">
 										<div class="item-stats">
 											<span class="count text-bold">1091</span>
 											<span class="count-label">Affiliates Paid <br/> To Date</span>
 										</div>
 									</div>
-									<div class="col-md-12">
+									<div class="col-xs-12 col-sm-12 col-md-12">
 										<hr/>
 									</div>
-									<div class="col-md-10 col-md-offset-1">
+									<div class="col-xs-12 col-md-10 col-md-offset-1">
 										<div class="header-text m-b-md">
 											<p class="text-center text-heading text-bold"><span class="text-red">VIDEO TESTIMONIALS!</span> Show Proof 
 											That “FX Pro Tools” Has ALREADY Dramatically Changed The Businesses And Lives Of Countless Others... 
@@ -699,67 +703,67 @@
 									</div>
 								</div>
 								<div class="row m-t-md m-b-md">
-									<div class="col-md-6">
+									<div class="col-xs-12 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive">
+											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Eddie L. of Florida, USA</span>
 											<span class="small">"Retired Teacher"</span>
 										</div>
 									</div>
-									<div class="col-md-6">
+									<div class="col-xs-12 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive">
+											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Sol A. of Texas, USA</span>
 											<span class="small">"Rabbi"</span>
 										</div>
 									</div>
-									<div class="col-md-6">
+									<div class="col-xs-12 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive">
+											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Gerard F. of  Rio, Brazil</span>
 											<span class="small">"Electromechanical Engineer"</span>
 										</div>
 									</div>
-									<div class="col-md-6">
+									<div class="col-xs-12 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive">
+											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Tim F. of Ontario, CA</span>
 											<span class="small">"IT Professional"</span>
 										</div>
 									</div>
-									<div class="col-md-6">
+									<div class="col-xs-12 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive">
+											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">John S. of New York, USA</span>
 											<span class="small">"Teacher"</span>
 										</div>
 									</div>
-									<div class="col-md-6">
+									<div class="col-xs-12 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive">
+											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Mark E. of California, USA</span>
 											<span class="small">"Ex Pizza Delivery Boy</span>
 										</div>
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-md-8 col-md-offset-2">
+									<div class="col-xs-12 col-md-8 col-md-offset-2">
 										<a href="#trial-products" class="btn btn-success block btn-lg btn-lg-w-text">
 											Get Your Access For $1.00 Trial Now!
 											<span>Sign-up takes less than 60 seconds. Pick a plan to get started!</span>
 										</a>
 									</div>
 									<div class="clearfix"></div>
-									<div class="col-md-12">
+									<div class="col-xs-12 col-sm-12 col-md-12">
 										<hr class="m-t-lg m-b-sm"/>
 									</div>
-									<div class="col-md-8 col-md-offset-2">
+									<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
 										<div class="text-center">
 											<h3 class="text-normal">Our Binary & Forex Platform Has Already Helped Countless People Around The World...</h3>
 											<h1 class="text-red m-b-lg">The Only Question Left <br/>Asking Is, “Are YOU Next?"</h1>
 										</div>
 									</div>
-									<div class="col-md-10 col-md-offset-1">
+									<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 										<p><strong>P.S. In case you're one of those people</strong> (like me) who just skip to the end of the letter, here's the deal:</p>
 										<p>We're going to let you test drive FX Pro Tools AND Our Signals today... because we know that after you start using them, you'll wonder how your ever going to survive without them again! </p>
 										<p>There's not catch... no gimmicks... </p>
@@ -768,7 +772,7 @@
 										<p>You won't regret it.</p>
 									</div>
 									<div class="clearfix"></div>
-									<div class="col-md-8 col-md-offset-2">
+									<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
 										<a href="#trial-products" class="btn btn-success block btn-lg btn-lg-w-text m-t-md">
 											Get Your Access For $1.00 Trial Now!
 											<span>Sign-up takes less than 60 seconds. Pick a plan to get started!</span>
@@ -784,7 +788,7 @@
 		<div class="fx-red-banner">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-8 col-md-offset-2">
+					<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
 						<h2 class="m-t-none"2>Want To Learn More?</h2>
 						<p>You can join our experts live on our next online webinar for an in-depth look at our platform and recieve free forex tips.</p>
 						<a href="#" class="btn btn-lg btn-outline m-t-xs reserve-your-seat" id="">Reserve Your Seat</a>
