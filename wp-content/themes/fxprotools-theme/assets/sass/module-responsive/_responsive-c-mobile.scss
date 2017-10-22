@@ -91,6 +91,7 @@
 	// ------
 	// Custom
 	// ------
+	// Landing Page
 	.fx-landing {
 		.section-w-panel {
 			.text-lg {
@@ -272,6 +273,19 @@
 			}
 		}
 	}
+	// Login
+	.fx-login {
+		.left, .right {
+			width: 100%;
+			height: auto;
+			position: static;
+			min-height: 350px;
+			.content-wrapper .content {
+				padding: 30px;
+				width: 100%;
+			}
+		}
+	}
 	
 }
 @media screen and (max-width: 640px) {
@@ -280,8 +294,8 @@
 @media screen and (max-width: 568px) {
 
 }
-@media screen and (max-width: 480px) {
-	
+@media screen and (max-width: 520px) {
+
 	// ------
 	// Common
 	// ------
@@ -290,6 +304,9 @@
 		white-space: initial;
 	}
 
+}
+@media screen and (max-width: 480px) {
+	
 }
 @media screen and (max-width: 420px) {
 
@@ -315,6 +332,7 @@
 	// ------
 	// Custom
 	// ------
+	// Landing Page
 	.fx-landing .section-w-panel .text-lg {
 		font-size: 35px;
 	}
