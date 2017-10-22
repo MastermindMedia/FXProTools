@@ -1693,6 +1693,9 @@
 // Capture Page
 .fx-capture-page {
 	position: relative;
+	&.f1, &.f2, {
+		margin-bottom: -30px;
+	}
 	// Funnel 1
 	&.f1 {
 		height: auto;
