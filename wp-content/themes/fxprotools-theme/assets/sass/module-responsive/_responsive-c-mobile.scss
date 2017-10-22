@@ -286,6 +286,45 @@
 			}
 		}
 	}
+	// Capture Page
+	.fx-capture-page {
+		// Funnel 1
+		&.f1 {
+			.section-one {
+				overflow: hidden;
+				.container {
+					height: auto;
+					padding: 15px 0 0;
+					&:before {
+						display: none;
+					}
+				}
+				.content-wrapper .content {
+					padding: 25px;
+				}
+			}
+			.section-two {
+				padding: 50px 0 30px 0;
+				.item-info {
+					height: auto;
+					margin-bottom: 20px;
+					.image {
+						position: relative;
+						height: auto;
+						display:flex;
+						justify-content:center;
+						align-items:center;
+						img {
+							width: 50px;
+						}
+					}
+					span {
+						display: block;
+					}
+				}
+			}
+		}
+	}
 	
 }
 @media screen and (max-width: 640px) {

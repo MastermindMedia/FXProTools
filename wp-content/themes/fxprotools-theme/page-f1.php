@@ -7,7 +7,7 @@ $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : '';
 	<div class="fx-red-note">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-xs-12 col-sm-12 col-md-12">
 					<p>The Map That Teaches You Specialized Market Knowledge! </p>
 				</div>
 			</div>
@@ -16,7 +16,10 @@ $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : '';
 	<div class="section-one">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-5">
+				<div class="col-xs-12 visible-xs">
+					<img src="<?php bloginfo('template_url'); ?>/assets/img/funnel-bg/f1-bg.png" class="img-responsive">
+				</div>		
+				<div class="col-xs-12 col-md-5">
 					<div class="content-wrapper">
 						<div class="content">
 							<div class="text-center">
@@ -43,7 +46,7 @@ $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : '';
 	<div class="section-two">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-xs-12 col-sm-12 col-md-12">
 					<div class="header-text">
 						<span>Sneak Peek Of What You Get With Us</span>
 						<h2>Everything You Need To Become A Better Market Trader</h2>
@@ -52,7 +55,7 @@ $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : '';
 				</div>
 			</div>
 			<div class="row row-item-info">
-				<div class="col-md-3">
+				<div class="col-xs-6 col-sm-3 col-md-3">
 					<div class="item-info">
 						<div class="image">
 							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico-dark1.png" class="centered-block img-responsive">
@@ -60,7 +63,7 @@ $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : '';
 						<span>Interactive <br/>Education Lessons</span>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-xs-6 col-sm-3 col-md-3">
 					<div class="item-info">
 						<div class="image">
 							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico-dark2.png" class="centered-block img-responsive">
@@ -68,7 +71,7 @@ $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : '';
 						<span>Live 24 Hour <br/>Signals</span>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-xs-6 col-sm-3 col-md-3">
 					<div class="item-info">
 						<div class="image">
 							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico-dark3.png" class="centered-block img-responsive">
@@ -76,7 +79,7 @@ $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : '';
 						<span>Live Trading <br/>Webinars</span>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-xs-6 col-sm-3 col-md-3">
 					<div class="item-info">
 						<div class="image">
 							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico-dark4.png" class="centered-block img-responsive">
@@ -90,7 +93,7 @@ $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : '';
 	<div class="fx-red-banner">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-8 col-md-offset-2">
+				<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
 					<h2 class="m-t-none"2>Confidently Trade the Market with Our Expert Help</h2>
 					<a href="#" class="btn btn-lg btn-outline m-t-xs">Click To Get Access</a>
 				</div>
