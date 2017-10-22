@@ -16,10 +16,10 @@ $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : '';
 	<div class="section-one">
 		<div class="container">
 			<div class="row">
-				<div class="col-xs-12 visible-xs">
+				<div class="col-xs-12 visible-sm visible-xs">
 					<img src="<?php bloginfo('template_url'); ?>/assets/img/funnel-bg/f1-bg.png" class="img-responsive">
 				</div>		
-				<div class="col-xs-12 col-md-5">
+				<div class="col-xs-12 col-sm-12 col-md-5">
 					<div class="content-wrapper">
 						<div class="content">
 							<div class="text-center">
