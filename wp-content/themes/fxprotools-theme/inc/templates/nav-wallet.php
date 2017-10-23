@@ -5,7 +5,7 @@
 			<div class="col-md-12">
 				<?php
 					// Metabox Page Template Option
-					get_mb_pto1( 'pto1_menus', 'secondary_header_menu' );
+					echo get_mb_pto1( 'secondary_header_menu' );
 				?>
 			</div>
 		</div>
