@@ -9,55 +9,55 @@
 
 function get_user_checklist()
 {
-	$checklist = get_user_meta(get_current_user_id(), '_onboard_checklist', true);
-	return is_array($checklist) ? $checklist : ThemeSettings::register_user_checklist(get_current_user_id());
+    $checklist = get_user_meta(get_current_user_id(), '_onboard_checklist', true);
+    return is_array($checklist) ? $checklist : ThemeSettings::register_user_checklist(get_current_user_id());
 }
 
 function get_checklist_next_step_url()
 {
-	$checklist = get_user_checklist();
-	foreach($checklist as $key => $value){
-		if( empty($value) ){
-			switch($key){
-				case 'verified_email': return home_url() . '/verify-email/';
-				case 'verified_profile': return home_url() . '/my-account/';
-				case 'scheduled_webinar': return home_url() . '/coaching/';
-				case 'accessed_products': return home_url() . '/access-products/';
-				case 'got_shirt': return home_url() . '/free-shirt/';
-				case 'shared_video': return home_url() . '/share-video/';
-				case 'referred_friend': return home_url() . '/refer-a-friend/';
-			}
-		}
-	}
-	return $url;
+    $checklist = get_user_checklist();
+    foreach($checklist as $key => $value){
+        if( empty($value) ){
+            switch($key){
+                case 'verified_email': return home_url() . '/verify-email/';
+                case 'verified_profile': return home_url() . '/my-account/';
+                case 'scheduled_webinar': return home_url() . '/coaching/';
+                case 'accessed_products': return home_url() . '/access-products/';
+                case 'got_shirt': return home_url() . '/free-shirt/';
+                case 'shared_video': return home_url() . '/share-video/';
+                case 'referred_friend': return home_url() . '/refer-a-friend/';
+            }
+        }
+    }
+    return $url;
 }
 
 function resend_email_verification()
 {
-	if( get_current_user_id() > 0){
-		send_email_verification(get_current_user_id());
-	}
+    if( get_current_user_id() > 0){
+        send_email_verification(get_current_user_id());
+    }
 }
 
 function verify_email_address($verification_code)
 {
-	if( get_current_user_id() > 0)
-	{
-		$user = get_user_by('id', get_current_user_id() );
-		$secret = "fxprotools-";
-		$hash = MD5( $secret . $user->data->user_email);
-		if($hash == $verification_code)
-		{
-			$checklist = get_user_checklist();
-			$checklist['verified_email'] = true;
-			update_user_meta( get_current_user_id(), '_onboard_checklist', $checklist );
-			return true;
-		} else{
-			return false;
-		}
-	} else {
-		return false;
-	}
+    if( get_current_user_id() > 0)
+    {
+        $user = get_user_by('id', get_current_user_id() );
+        $secret = "fxprotools-";
+        $hash = MD5( $secret . $user->data->user_email);
+        if($hash == $verification_code)
+        {
+            $checklist = get_user_checklist();
+            $checklist['verified_email'] = true;
+            update_user_meta( get_current_user_id(), '_onboard_checklist', $checklist );
+            return true;
+        } else{
+            return false;
+        }
+    } else {
+        return false;
+    }
 }
 
 
@@ -94,72 +94,72 @@ function random_checkout_time_elapsed(  $full = false)
 
 function get_customer_orders($user_id)
 {
-	$order_statuses = array('wc-on-hold', 'wc-processing', 'wc-completed', 'wc-pending', 'wc-cancelled', 'wc-refunded', 'wc-failed');
-	$customer_user_id = $user_id;
+    $order_statuses = array('wc-on-hold', 'wc-processing', 'wc-completed', 'wc-pending', 'wc-cancelled', 'wc-refunded', 'wc-failed');
+    $customer_user_id = $user_id;
 
-	$customer_orders=get_posts( array(
-	        'meta_key' => '_customer_user',
-	        'meta_value' => $customer_user_id,
-	        'post_type' => 'shop_order',
-	        'post_status' => $order_statuses,
-	        'numberposts' => -1
-	) );
-	return $customer_orders;
+    $customer_orders=get_posts( array(
+            'meta_key' => '_customer_user',
+            'meta_value' => $customer_user_id,
+            'post_type' => 'shop_order',
+            'post_status' => $order_statuses,
+            'numberposts' => -1
+    ) );
+    return $customer_orders;
 }
 
 function get_order_columns()
 {
-	$my_orders_columns = apply_filters( 'woocommerce_my_account_my_orders_columns', array(
-		'order-number'  => __( 'Order', 'woocommerce' ),
-		'order-date'    => __( 'Date', 'woocommerce' ),
-		'order-status'  => __( 'Status', 'woocommerce' ),
-		'order-total'   => __( 'Total', 'woocommerce' ),
-		'order-actions' => '&nbsp;',
-	) );
-	return $my_orders_columns;
+    $my_orders_columns = apply_filters( 'woocommerce_my_account_my_orders_columns', array(
+        'order-number'  => __( 'Order', 'woocommerce' ),
+        'order-date'    => __( 'Date', 'woocommerce' ),
+        'order-status'  => __( 'Status', 'woocommerce' ),
+        'order-total'   => __( 'Total', 'woocommerce' ),
+        'order-actions' => '&nbsp;',
+    ) );
+    return $my_orders_columns;
 }
 
 function get_purchased_items($user_id)
 {
-	$customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
-		'numberposts' => -1,
-		'meta_key'    => '_customer_user',
-		'meta_value'  => $user_id,
-		'post_type'   => wc_get_order_types( 'view-orders' ),
-		'post_status' => array_keys( wc_get_order_statuses() ),
-	) ) );
-	return $customer_orders;
+    $customer_orders = get_posts( apply_filters( 'woocommerce_my_account_my_orders_query', array(
+        'numberposts' => -1,
+        'meta_key'    => '_customer_user',
+        'meta_value'  => $user_id,
+        'post_type'   => wc_get_order_types( 'view-orders' ),
+        'post_status' => array_keys( wc_get_order_statuses() ),
+    ) ) );
+    return $customer_orders;
 }
 
 
 
 
 /* -------------------------
-	Actions and Filters
+    Actions and Filters
  --------------------------*/
 
 add_action('wp', 'enforce_page_access');
 function enforce_page_access()
 {
-	global $post;
-	if( !isset($post) ) return;
-	$slug = $post->post_name;
-	$guest_allowed_post_type = array( 'product' );
-	$guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'autologin', 'log-out-notice' );
+    global $post;
+    if( !isset($post) ) return;
+    $slug = $post->post_name;
+    $guest_allowed_post_type = array( 'product' );
+    $guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'autologin', 'log-out-notice' );
 
-	if( is_user_logged_in() ) {
-		if (is_page('log-out-notice')){
-			wp_redirect('/dashboard');
-			exit;
+    if( is_user_logged_in() ) {
+        if (is_page('log-out-notice')){
+            wp_redirect('/dashboard');
+            exit;
         }
-	    return 0;
-	}
-	if( !is_product() && !is_cart() && !is_checkout() && !is_shop() && !is_404() && !is_front_page() ) {
-		if( !in_array($slug, $guest_allowed_pages) ){
-			wp_redirect( home_url() . '/login');
-			exit;
-		}
-	}
+        return 0;
+    }
+    if( !is_product() && !is_cart() && !is_checkout() && !is_shop() && !is_404() && !is_front_page() ) {
+        if( !in_array($slug, $guest_allowed_pages) ){
+            wp_redirect( home_url() . '/login');
+            exit;
+        }
+    }
 }
 
 add_filter('login_redirect', 'customer_login_redirect');
@@ -170,7 +170,7 @@ function customer_login_redirect( $redirect_to, $request = '', $user = '' ){
 add_action('init', 'course_category_rewrite');
 function course_category_rewrite()
 {
-	add_rewrite_rule('course-category/([^/]*)/?','index.php?category_slug=$matches[1]&course_category=1','top');
+    add_rewrite_rule('course-category/([^/]*)/?','index.php?category_slug=$matches[1]&course_category=1','top');
 }
 
 add_action('template_redirect', 'course_category_template');
@@ -194,130 +194,130 @@ function course_category_vars( $vars )
 add_action('user_register', 'register_user_checklist');
 function register_user_checklist($user_id)
 {
-	$checklist = array(
-		'verified_email' 	=> false,
-		'verified_profile'	=> false,
-		'scheduled_webinar'	=> false,
-		'accessed_products' => false,
-		'got_shirt'			=> false,
-		'shared_video'		=> false,
-		'referred_friend'	=> false,
-	);
-	add_user_meta( $user_id, '_onboard_checklist', $checklist);
+    $checklist = array(
+        'verified_email' 	=> false,
+        'verified_profile'	=> false,
+        'scheduled_webinar'	=> false,
+        'accessed_products' => false,
+        'got_shirt'			=> false,
+        'shared_video'		=> false,
+        'referred_friend'	=> false,
+    );
+    add_user_meta( $user_id, '_onboard_checklist', $checklist);
 }
 
 add_action('user_register', 'send_email_verification');
 function send_email_verification($user_id)
 {
-	$user = get_user_by('id', $user_id);
-	$secret = "fxprotools-";
-	$hash = MD5( $secret . $user->data->user_email);
-	$to =  $user->data->user_email;
-	$subject = 'Please verify your Email Address';
-	$message = "Click <a href='" . home_url() . '/verify-email/?code=' . $hash . "' target='_blank'>here</a> to verify your email address.";
-	$headers = array('Content-Type: text/html; charset=UTF-8');
-	wp_mail( $to, $subject, $message, $headers );
+    $user = get_user_by('id', $user_id);
+    $secret = "fxprotools-";
+    $hash = MD5( $secret . $user->data->user_email);
+    $to =  $user->data->user_email;
+    $subject = 'Please verify your Email Address';
+    $message = "Click <a href='" . home_url() . '/verify-email/?code=' . $hash . "' target='_blank'>here</a> to verify your email address.";
+    $headers = array('Content-Type: text/html; charset=UTF-8');
+    wp_mail( $to, $subject, $message, $headers );
 }
 
 add_action('user_register', 'register_affiliate');
 function register_affiliate($user_id)
 {
-	$data = array('user_id' => $user_id, 'notes' => 'affiliate added via fxprotools');
-	$affiliate_id = affwp_add_affiliate($data);
+    $data = array('user_id' => $user_id, 'notes' => 'affiliate added via fxprotools');
+    $affiliate_id = affwp_add_affiliate($data);
 }
 
 add_action('affwp_notify_on_approval', 'disable_affiliate_welcome_email');
 function disable_affiliate_welcome_email()
 {
-	return false;
+    return false;
 }
 
 add_action('wp', 'track_user_history');
 function track_user_history()
 {
-	if( is_user_logged_in() ){
-		//delete_user_meta(get_current_user_id(), "track_user_history");
-		$track_user_history = get_user_meta( get_current_user_id(), "track_user_history", true );
-		$track_user_history = $track_user_history  ? $track_user_history : array();
-	    $link = '<a href="'. get_the_permalink() .'">' . get_the_permalink() . '</a>';
-	    if( isset($_POST['user_login']) ){
-	    	$link = $link . " " . get_the_author_meta('first_name', get_current_user_id()) . " " . get_the_author_meta('last_name', get_current_user_id()) . " changed his username to " . $_POST['user_login'];
-	    }
-	    $data = array(
-	    	'time' => date("Y-m-d h:i:sa"),
-	    	'link' => $link,
-	    	'title' => get_the_title()
-	    );
-	    array_push($track_user_history, $data);
-		update_user_meta(get_current_user_id(), 'track_user_history', $track_user_history);
-	}
+    if( is_user_logged_in() ){
+        //delete_user_meta(get_current_user_id(), "track_user_history");
+        $track_user_history = get_user_meta( get_current_user_id(), "track_user_history", true );
+        $track_user_history = $track_user_history  ? $track_user_history : array();
+        $link = '<a href="'. get_the_permalink() .'">' . get_the_permalink() . '</a>';
+        if( isset($_POST['user_login']) ){
+            $link = $link . " " . get_the_author_meta('first_name', get_current_user_id()) . " " . get_the_author_meta('last_name', get_current_user_id()) . " changed his username to " . $_POST['user_login'];
+        }
+        $data = array(
+            'time' => date("Y-m-d h:i:sa"),
+            'link' => $link,
+            'title' => get_the_title()
+        );
+        array_push($track_user_history, $data);
+        update_user_meta(get_current_user_id(), 'track_user_history', $track_user_history);
+    }
 
 }
 
 add_action( 'show_user_profile', 'add_extra_profile_fields' );
 add_action( 'edit_user_profile', 'add_extra_profile_fields' );
 function add_extra_profile_fields( $user ) { ?>
-	<h3>Extra profile information</h3>
-	<table class="form-table">
-		<tr>
-			<th><label for="user_sms_subs">SMS/Text Messaging</label></th>
-			<td>
-				<select id="user_sms_subs" name="user_sms_subs">
-					<option value="no" <?php if(get_the_author_meta( 'user_sms_subs', $user->ID ) == "no"){echo 'selected';} ?>>no</option>
-					<option value="yes" <?php if(get_the_author_meta( 'user_sms_subs', $user->ID ) == "yes"){echo 'selected';} ?>>yes</option>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<th><label for="user_email_subs">Email Updates</label></th>
-			<td>
-				<select id="user_email_subs" name="user_email_subs">
-					<option value="no" <?php if(get_the_author_meta( 'user_email_subs', $user->ID ) == "no"){echo 'selected';} ?>>no</option>
-					<option value="yes" <?php if(get_the_author_meta( 'user_email_subs', $user->ID ) == "yes"){echo 'selected';} ?>>yes</option>
-				</select>
-			</td>
-		</tr>
-	</table>
+    <h3>Extra profile information</h3>
+    <table class="form-table">
+        <tr>
+            <th><label for="user_sms_subs">SMS/Text Messaging</label></th>
+            <td>
+                <select id="user_sms_subs" name="user_sms_subs">
+                    <option value="no" <?php if(get_the_author_meta( 'user_sms_subs', $user->ID ) == "no"){echo 'selected';} ?>>no</option>
+                    <option value="yes" <?php if(get_the_author_meta( 'user_sms_subs', $user->ID ) == "yes"){echo 'selected';} ?>>yes</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="user_email_subs">Email Updates</label></th>
+            <td>
+                <select id="user_email_subs" name="user_email_subs">
+                    <option value="no" <?php if(get_the_author_meta( 'user_email_subs', $user->ID ) == "no"){echo 'selected';} ?>>no</option>
+                    <option value="yes" <?php if(get_the_author_meta( 'user_email_subs', $user->ID ) == "yes"){echo 'selected';} ?>>yes</option>
+                </select>
+            </td>
+        </tr>
+    </table>
 <?php }
 
 add_action( 'personal_options_update', 'save_extra_profile_fields' );
 add_action( 'edit_user_profile_update', 'save_extra_profile_fields' );
 function save_extra_profile_fields( $user_id ) {
-	if ( !current_user_can( 'edit_user', $user_id ) )
-		return false;
+    if ( !current_user_can( 'edit_user', $user_id ) )
+        return false;
 
-	update_usermeta( $user_id, 'user_sms_subs', $_POST['user_sms_subs'] );
-	update_usermeta( $user_id, 'user_email_subs', $_POST['user_email_subs'] );
+    update_usermeta( $user_id, 'user_sms_subs', $_POST['user_sms_subs'] );
+    update_usermeta( $user_id, 'user_email_subs', $_POST['user_email_subs'] );
 }
 
 add_action("wp_ajax_check_valid_username", "check_valid_username");
 add_action("wp_ajax_nopriv_check_valid_username", "check_valid_username");
 function check_valid_username()
 {
-	$new_username = $_REQUEST['new_username'];
-	if (validate_username($new_username) && !username_exists($new_username))
-	{
-		if(strlen($new_username) <= 30 && strlen($new_username) >= 3 && preg_match("/^([[:alnum:]])*$/", $new_username))
-		{
-			echo "1";
-		}
-		else
-		{
-			echo "2";
-		}
-	}
-	else{
-		if(!strlen($new_username) <= 30 || !strlen($new_username) >= 3 || !preg_match("/^([[:alnum:]])*$/", $new_username))
-		{
-			echo "2";
-		}
-		else
-		{
-			echo "0";
-		}
-	}
+    $new_username = $_REQUEST['new_username'];
+    if (validate_username($new_username) && !username_exists($new_username))
+    {
+        if(strlen($new_username) <= 30 && strlen($new_username) >= 3 && preg_match("/^([[:alnum:]])*$/", $new_username))
+        {
+            echo "1";
+        }
+        else
+        {
+            echo "2";
+        }
+    }
+    else{
+        if(!strlen($new_username) <= 30 || !strlen($new_username) >= 3 || !preg_match("/^([[:alnum:]])*$/", $new_username))
+        {
+            echo "2";
+        }
+        else
+        {
+            echo "0";
+        }
+    }
 
-	wp_die();
+    wp_die();
 }
 function sess_start() {
     if (!session_id())
@@ -329,143 +329,96 @@ add_action('init','sess_start');
  * Use to render metabox page template option #1
  * @param  string $mb_group_id metabox group id
  */
-function get_mb_pto1( $mb_group_id, $page_element ) {
-
-	$group = rwmb_meta( $mb_group_id );
-	// Validate if metabox group id already declared
-	if( $group == '' ) {
-		$html = '<div class="alert alert-warning m-b-none no-border-radius" role="alert">';
-		$html .= 'Not a valid metabox field / Empty metabox option';
-		$html .= '</div>';
-		echo $html;
-		return;
-	} else {
-		$display_header_menu = array_key_exists('pto1_display_header_menu', $group) ? $group['pto1_display_header_menu'] : null;
-		$display_footer_menu = array_key_exists('pto1_display_footer_menu', $group) ? $group['pto1_display_footer_menu'] : null;
-	}
-
-	switch ( $page_element ) {
-		case 'secondary_header_menu':
-			$secondary_header_menu = array_key_exists('pto1_secondary_header_menu', $group) ? $group['pto1_secondary_header_menu'] : null;
-			if( $display_header_menu == 'yes' && !is_null($secondary_header_menu) ) :
-				$params = array(
-					'menu'            => $secondary_header_menu,
-					'theme_location'  => '',
-					'container'       => false,
-					'container_class' => '',
-					'container_id'    => '',
-					'menu_id'         => $secondary_header_menu,
-					'menu_class'      => 'fx-nav-options',
-					'echo'            => true,
-					'fallback_cb'     => 'wp_page_menu',
-					'before'          => '',
-					'after'           => '',
-					'link_before'     => '',
-					'link_after'      => '',
-					'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-					'depth'           => 0,
-					'walker'          => new Nav_Secondary_Header_Menu_Walker(),
-				);
-				wp_nav_menu( $params );
-			elseif ( $display_header_menu == 'no' ) :
-				return;
-			else :
-				$html = '<div class="alert alert-warning" role="alert">';
-				$html .= 'Menu is not yet selected.';
-				$html .= '</div>';
-				echo $html;
-			endif;
-			break;
-
-		case 'footer_left_menu':
-			$footer_left_menu = array_key_exists('pto1_footer_menu_fl', $group) ? $group['pto1_footer_menu_fl'] : null;
-			mb_pto1_footer($display_footer_menu, $footer_left_menu);
-			break;
-
-		case 'footer_middle_menu':
-			$footer_mid_menu = array_key_exists('pto1_footer_menu_mid', $group) ? $group['pto1_footer_menu_mid'] : null;
-			mb_pto1_footer($display_footer_menu, $footer_mid_menu);
-			break;
-
-		case 'footer_right_menu':
-			$footer_right_menu = array_key_exists('pto1_footer_menu_fr', $group) ? $group['pto1_footer_menu_fr'] : null;
-			mb_pto1_footer($display_footer_menu, $footer_right_menu);
-			break;
-
-		case 'video_embed':
-            $video_url              = array_key_exists('pto1_video_url', $group)                ? $group['pto1_video_url'] : null;
-            $video_autostart        = array_key_exists('pto1_video_autostart', $group)          ? $group['pto1_video_autostart'] : null;
-            $video_show_controls    = array_key_exists('pto1_video_show_controls', $group)      ? $group['pto1_video_show_controls'] : null;
-            $video_scrolling        = array_key_exists('pto1_video_scrolling', $group)          ? $group['pto1_video_scrolling'] : null;
-            $video_floating         = array_key_exists('pto1_video_floating', $group)           ? $group['pto1_video_floating'] : null;
+function get_mb_pto1( $page_element ) {
+    switch ( $page_element ) {
+        case 'secondary_header_menu':
+            return mb_menu_display( rwmb_meta('pto1_display_header_menu'), rwmb_meta('pto1_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu' );
+            break;
+        case 'footer_left_menu':
+            return mb_menu_display( rwmb_meta('pto1_display_footer_menu'), rwmb_meta('pto1_footer_menu_fl'), 'footer-nav', '', 'Footer Menu 1' );
+            break;
+        case 'footer_middle_menu':
+            return mb_menu_display( rwmb_meta('pto1_display_footer_menu'), rwmb_meta('pto1_footer_menu_mid'), 'footer-nav', '', 'Footer Menu 2' );
+            break;
+        case 'footer_right_menu':
+            return mb_menu_display( rwmb_meta('pto1_display_footer_menu'), rwmb_meta('pto1_footer_menu_fr'), 'footer-nav', '', 'Footer Menu 3' );
+            break;
+        case 'video_embed':
+            $video_url              = rwmb_meta('pto1_video_url');
+            $video_autostart        = rwmb_meta('pto1_video_autostart');
+            $video_show_controls    = rwmb_meta('pto1_video_show_controls');
+            $video_scrolling        = rwmb_meta('pto1_video_scrolling');
+            $video_floating         = rwmb_meta('pto1_video_floating');
             
             // TODO: use this for null validation
             // if(!is_null($video_scrolling)){ //do your thing here }else{ //do other thing }
             
             echo wp_oembed_get($video_url);
-			break;
-
-		default:
-			# code...
-			break;
-	}
+            break;
+        default:
+            # code...
+            break;
+    }
 }
 
-function mb_pto1_footer($footer_display, $footer_loc) {
-	if( $footer_display == 'yes' && !is_null($footer_loc) ) :
-		$params = array(
-			'menu'            => $footer_loc,
-			'theme_location'  => '',
-			'container'       => false,
-			'container_class' => '',
-			'container_id'    => '',
-			'menu_id'         => $footer_loc,
-			'menu_class'      => '',
-			'echo'            => true,
-			'fallback_cb'     => 'wp_page_menu',
-			'before'          => '',
-			'after'           => '',
-			'link_before'     => '',
-			'link_after'      => '',
-			'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
-			'depth'           => 0,
-			'walker'          => '',
-		);
-		echo '<ul class="footer-nav">';
-		wp_nav_menu( $params );
-		echo '</ul>';
-	elseif ( $footer_display == 'no' ) :
-		return;
-	else :
-		$html = '<div class="alert alert-warning" role="alert">';
-		$html .= 'Menu is not yet selected.';
-		$html .= '</div>';
-		echo $html;
-	endif;
+function mb_menu_display( $display, $menu, $menu_class = '', $walker = '', $fallback  ) {
+    // menu fallback
+    $menu_fb = $fallback;
+    // check for menu display value
+    if( !empty( rtrim( $display ) ) ){
+        if( rtrim( $display ) == 'yes' ){
+            if( $menu ){
+                $term_id = $menu->term_id;
+                $params = array(
+                    'menu'            => $term_id,
+                    'theme_location'  => '',
+                    'container'       => false,
+                    'container_class' => '',
+                    'container_id'    => '',
+                    'menu_id'         => $term_id,
+                    'menu_class'      => $menu_class,
+                    'echo'            => true,
+                    'fallback_cb'     => 'wp_page_menu',
+                    'before'          => '',
+                    'after'           => '',
+                    'link_before'     => '',
+                    'link_after'      => '',
+                    'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                    'depth'           => 0,
+                    'walker'          => $walker,
+                );
+                return wp_nav_menu( $params );
+            }else return wp_nav_menu( array('menu' => $menu_fb,'menu_class' => $menu_class ) );
+        }else return;
+    }
+    // if menu display is default
+    else{
+        return wp_nav_menu( array('menu' => $menu_fb,'menu_class' => $menu_class ) );
+    }
 }
 
 function get_emails_for_user($statuses, $user_id = null)
 {
-	if (!$user_id) {
-		$user_id = get_current_user_id();
-	}
+    if (!$user_id) {
+        $user_id = get_current_user_id();
+    }
 
-	$response = get_posts(array(
-		'posts_per_page'	=> -1,
-		'orderby'			=> 'modified',
-		'order'				=> 'DESC',
-		'post_type'			=> 'fx_email',
+    $response = get_posts(array(
+        'posts_per_page'	=> -1,
+        'orderby'			=> 'modified',
+        'order'				=> 'DESC',
+        'post_type'			=> 'fx_email',
         'meta_key'			=> '_user_' . $user_id . '_state',
-		'meta_query'		=> array(
-			array(
-				'key'       => '_user_' . $user_id . '_state',
-				'value'     => $statuses,
-				'compare'   => 'IN',
-			)
-		)
-	));
+        'meta_query'		=> array(
+            array(
+                'key'       => '_user_' . $user_id . '_state',
+                'value'     => $statuses,
+                'compare'   => 'IN',
+            )
+        )
+    ));
 
-	return $response;
+    return $response;
 }
 
 function get_users_who_ordered($product_ids, $user_fields = array('user_email'))
@@ -474,7 +427,7 @@ function get_users_who_ordered($product_ids, $user_fields = array('user_email'))
     $select = [];
 
     foreach ($user_fields as $field) {
-    	$select[] = 'users.' . $field . ' as ' . $field;
+        $select[] = 'users.' . $field . ' as ' . $field;
     }
 
     $select = implode(', ', $select);
@@ -500,7 +453,7 @@ function get_users_with_active_subscriptions($subscription_ids, $user_fields = a
     $select = [];
 
     foreach ($user_fields as $field) {
-    	$select[] = 'users.' . $field . ' as ' . $field;
+        $select[] = 'users.' . $field . ' as ' . $field;
     }
 
     $select = implode(', ', $select);
@@ -528,16 +481,16 @@ function custom_redirect_login_failed($username) {
         'username' => $username
     ];
 
-	wp_redirect(get_bloginfo('url') . '/login?' . http_build_query($args));
+    wp_redirect(get_bloginfo('url') . '/login?' . http_build_query($args));
 }
 
 // redirects the user to dashboard if already logged in and went to /login
 add_action( 'wp', 'check_if_logged_in' );
 function check_if_logged_in() {
-	if ( is_user_logged_in() && is_page('login' )) {
-		wp_redirect( '/dashboard' );
-		exit;
-	}
+    if ( is_user_logged_in() && is_page('login' )) {
+        wp_redirect( '/dashboard' );
+        exit;
+    }
 }
 
 // redirect to homepage after logging out
@@ -550,56 +503,56 @@ function confirm_logout(){
 // redirect to /login when accessing wp-login.php
 add_action('init','redirect_to_login');
 function redirect_to_login(){
-	global $pagenow;
-	if( 'wp-login.php' == $pagenow && !is_user_logged_in() && empty($_POST)) {
-		wp_redirect('/login');
-		exit();
-	}
+    global $pagenow;
+    if( 'wp-login.php' == $pagenow && !is_user_logged_in() && empty($_POST)) {
+        wp_redirect('/login');
+        exit();
+    }
 }
 
 // Button Shortcode
 add_shortcode('fx-button', 'fx_shortcode_buton');
 function fx_shortcode_buton($atts, $content = null)
 {
-	// Extract shortcode attributes
-	extract(shortcode_atts(array(
-		'url'    => '',
-		'title'  => '',
-		'target' => '',
-		'text'   => '',
-		'class'  => '',
-	), $atts ));
+    // Extract shortcode attributes
+    extract(shortcode_atts(array(
+        'url'    => '',
+        'title'  => '',
+        'target' => '',
+        'text'   => '',
+        'class'  => '',
+    ), $atts ));
 
-	$content = $text ? $text : $content;
+    $content = $text ? $text : $content;
 
-	if($url){
-		$link_attr = array(
-			'href'   => esc_url( $url ),
-			'title'  => esc_attr( $title ),
-			'target' => ('blank' == $target) ? '_blank' : '',
-			'class'  => 'btn btn-danger '.$class
-		);
-		$link_attrs_str = '';
-		foreach($link_attr as $key => $val){
-			if($val){
-				$link_attrs_str .= ' '. $key .'="'. $val .'"';
-			}
-		}
-		return '<a'.$link_attrs_str.'>'.do_shortcode($content).'</a>';
-	} else {
-		return '<a href="#" class="btn btn-danger">'.do_shortcode($content).'</a>';
-	}
+    if($url){
+        $link_attr = array(
+            'href'   => esc_url( $url ),
+            'title'  => esc_attr( $title ),
+            'target' => ('blank' == $target) ? '_blank' : '',
+            'class'  => 'btn btn-danger '.$class
+        );
+        $link_attrs_str = '';
+        foreach($link_attr as $key => $val){
+            if($val){
+                $link_attrs_str .= ' '. $key .'="'. $val .'"';
+            }
+        }
+        return '<a'.$link_attrs_str.'>'.do_shortcode($content).'</a>';
+    } else {
+        return '<a href="#" class="btn btn-danger">'.do_shortcode($content).'</a>';
+    }
 }
 
 // redirect to custom logout confirmation page
 add_action( 'login_form_logout', 'custom_logout_notice' );
 function custom_logout_notice() {
-	if ( ! is_user_logged_in() ) {
-		wp_redirect( '/login' );
-		exit();
-	}
-	wp_logout();
-	exit();
+    if ( ! is_user_logged_in() ) {
+        wp_redirect( '/login' );
+        exit();
+    }
+    wp_logout();
+    exit();
 }
 
 /**
@@ -609,22 +562,22 @@ function custom_logout_notice() {
 * @return boolean	| 	Apyc_User method hasActiveSubscription()
 **/
 if ( ! function_exists('apyc_has_active_user_subscription')) {
-	function apyc_has_active_user_subscription ($user_id = null)  {
-		return Apyc_User::get_instance()->hasActiveSubscription($user_id);
-	}
+    function apyc_has_active_user_subscription ($user_id = null)  {
+        return Apyc_User::get_instance()->hasActiveSubscription($user_id);
+    }
 }
 
 /*
-	Allow multiple variables to be used as reference for affiliate.
+    Allow multiple variables to be used as reference for affiliate.
  */
 
 add_action( 'init', 'multiple_affiliate_vars_redirect' );
 function multiple_affiliate_vars_redirect() {
     if( isset( $_GET['aff'] ) || isset( $_GET['s1'] ) ){
 
-    	$ref = $_GET['aff'] ? $_GET['aff'] : $_GET['s1'];
-    	$url = site_url() . strtok( $_SERVER["REQUEST_URI"], '?') . '/?ref=' . $ref;
-    	
-    	wp_redirect( $url, 301 );
+        $ref = $_GET['aff'] ? $_GET['aff'] : $_GET['s1'];
+        $url = site_url() . strtok( $_SERVER["REQUEST_URI"], '?') . '/?ref=' . $ref;
+        
+        wp_redirect( $url, 301 );
     }
 }
