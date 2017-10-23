@@ -34,7 +34,7 @@ $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : '';
 								<div class="text-center m-t-md">
 									<input type="hidden" name="funnel_id" value="f1">
 									<input type="hidden" name="redirect_to" value="<?php echo site_url ('lp1/?ref='.$ref );?>">
-									<button type="submit" class="btn btn-danger btn-lg">Click To Get Access</button>
+									<button type="submit" class="btn btn-danger btn-lg reserve-your-seat">Click To Get Access</button>
 								</div>
 							</form>
 						</div>
@@ -95,7 +95,7 @@ $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : '';
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
 					<h2 class="m-t-none"2>Confidently Trade the Market with Our Expert Help</h2>
-					<a href="#" class="btn btn-lg btn-outline m-t-xs">Click To Get Access</a>
+					<a href="#" class="btn btn-lg btn-outline m-t-xs reserve-your-seat">Click To Get Access</a>
 				</div>
 			</div>
 		</div>
