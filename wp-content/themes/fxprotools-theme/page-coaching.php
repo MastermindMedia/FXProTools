@@ -27,8 +27,6 @@ if ( apyc_has_active_user_subscription() || current_user_can('administrator')  )
 	
 	switch($action){
 		default:
-			
-
 			$view->view_theme($template . 'coaching/main.php', $data);
 		break;
 	}

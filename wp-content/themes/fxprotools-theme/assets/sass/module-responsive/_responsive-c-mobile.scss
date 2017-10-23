@@ -1,0 +1,492 @@
+// ----------------
+// XS - EXTRA SMALL
+// ----------------
+// Breakpoints in specific width
+@media screen and (max-width : 767px) {
+
+	$font-xs-heading: 24px;
+	$font-xs: 14px;
+	$font-xxs: 12px;
+	
+	// ------
+	// Global
+	// ------
+	body {
+		font-size: 13px;
+	}
+	h1 { font-size: 28px; }
+	h2 { font-size: 24px; }
+	h3 { font-size: 20px; }
+
+	// ----------
+	// Navigation
+	// ----------
+	// Landing/Capture Page Navigation
+	.fx-landing .section-nav .fx-top-nav {
+		&.one {
+			.fx-nav {
+				text-align: center;
+				&.w-border li {
+					margin-top: 0;
+					font-size: 12px;
+				}
+				&.w-flag {
+					text-align: center;
+					margin-top: 10px;
+					li {
+						font-size: $font-xxs;
+						a.btn-flag {
+							padding: 5px 0 5px 0;
+						}
+					}
+				}
+			}
+		}
+		.logo {
+			display: block;
+			text-align: center;
+		}
+		&.two {
+			padding: 20px 0 25px 0;
+			.fx-nav {
+				text-align: center;
+				margin: 15px 0 0;
+				li a {
+					font-size: $font-xxs;
+				}
+			}
+		}
+	}
+	// Footer
+	.fx-footer {
+		padding: 50px 0 30px 0;
+		span {
+			font-size: 12px;
+		}
+		.credit-cards {
+			margin: 15px 0;
+		}
+	}
+
+	// ------
+	// Common
+	// ------
+	// Buttons
+	.btn-lg-w-text {
+		font-size: 22px;
+	}
+	// Red Note
+	.fx-red-note p {
+		font-size: 14px;
+	}
+	// Package Item
+	.fx-package-item {
+		margin-bottom: 40px;
+	}
+	// Red Banner
+	.fx-red-banner {
+		padding: 50px 0;
+	}
+
+	// ------
+	// Custom
+	// ------
+	// Landing Page
+	.fx-landing {
+		.section-w-panel {
+			.text-lg {
+				font-size: 40px;
+			}
+			.panel .panel-body {
+				padding: 30px;
+			}
+		}
+		.section-two {
+			.intro-note {
+			 	font-size: $font-xs-heading;
+			}
+			.video {
+				height: 320px;
+				margin: 35px auto 30px 0;
+			}
+			.item-info {
+				margin: 0 auto 60px;
+				max-width: 350px;
+				p {
+					font-size: 17px;
+				}
+				&.xs-item-info {
+					margin-bottom: 0;
+				}
+			}
+		}
+		.section-three {
+			padding: 50px 0 30px 0;
+			.panel-steps .list-steps li {
+				height: auto;
+				.counter {
+					height: auto;
+					float: none;
+					margin: 0 auto;
+					.bar {
+						display: none;
+					}
+					.number {
+						width: 40px;
+						height: 40px;
+						font-size: 18px;
+						line-height: 2.1;
+					}
+				}
+				h3 {
+					text-align: center;
+					margin-top: 12px;
+				}
+				p {
+					font-size: $font-xs;
+				}
+			}
+		}
+		.section-four {
+			overflow: hidden;
+			.intro-note {
+			 	font-size: $font-xs-heading;
+			}
+			.list-features {
+				margin: 50px 0 0 50px;
+				li {
+					font-size: 15px;
+				}
+			}
+			.item-stats {
+				margin-bottom: 15px;
+				.count {
+					font-size: 40px;
+				}
+				.count-label {
+					font-size: 15px;
+				}
+			}
+		}
+		.section-five {
+			padding: 50px 0 30px 0;
+			.panel-body {
+				padding: 30px 30px 0 30px;
+			}
+			.header-text p.text-heading {
+				font-size: 20px;
+			}
+			.step-item {
+				padding: 25px 0;
+				h2 {
+					text-align: center;
+					margin-bottom: 0;
+					.label-red {
+						display: inline-block;
+					}
+				}
+				img {
+					margin-bottom: 10px;
+				}
+			}
+		}
+		.section-six {
+			.intro-note {
+			 	font-size: $font-xs-heading;
+			}
+		}
+		.section-seven {
+			.list-checklist {
+				margin-left: 2.14285714em;
+				li {
+					font-size: 15px;
+				}
+			}
+		}
+		.section-nine {
+			padding: 0 0 30px 0;
+			.faq-item {
+				height: auto;
+				&.no-border {
+					border-bottom: 2px solid #DDD;
+				}
+			}
+		}
+		.section-ten {
+			.unlock-item {
+				height: 100px;
+				margin-bottom: 30px;
+				.icon {
+					position: relative;
+					height: 65px;
+					display:flex;
+					justify-content:center;
+					align-items:center;
+					img {
+						width: 50px;
+					}
+				}
+				span {
+					display: block;
+				}
+			}
+		}
+		.section-eleven {
+			.intro-note {
+				font-size: $font-xs-heading;
+			}
+			.dl-item {
+				height: 100px;
+				margin-bottom: 30px;
+				.icon {
+					position: relative;
+					height: 65px;
+					display:flex;
+					justify-content:center;
+					align-items:center;
+					img {
+						width: 50px;
+					}
+				}
+				span {
+					display: block;
+				}
+			}
+		}
+		.section-testimonials {
+			padding: 50px 0 30px 0;
+			.header-text p.text-heading,
+			.header-text p.text-heading.sm {
+				font-size: 24px;
+			}
+			.item-stats {
+				margin-bottom: 15px;
+				.count {
+					font-size: 40px;
+				}
+				.count-label {
+					font-size: 15px;
+				}
+				&.xs-item-stats {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+	// Login
+	.fx-login {
+		.left, .right {
+			width: 100%;
+			height: auto;
+			position: static;
+			min-height: 350px;
+			.content-wrapper .content {
+				padding: 30px;
+				width: 100%;
+			}
+		}
+	}
+	// Capture Page
+	.fx-capture-page {
+		// Funnel 1
+		&.f1 {
+			.section-one {
+				overflow: hidden;
+				.container {
+					height: auto;
+					padding: 15px 0 0;
+					&:before {
+						display: none;
+					}
+				}
+				.content-wrapper .content {
+					padding: 25px;
+				}
+			}
+			.section-two {
+				padding: 50px 0 30px 0;
+				.item-info {
+					height: auto;
+					margin-bottom: 20px;
+					.image {
+						position: relative;
+						height: auto;
+						display:flex;
+						justify-content:center;
+						align-items:center;
+						img {
+							width: 50px;
+						}
+					}
+					span {
+						display: block;
+					}
+				}
+			}
+		}
+	}
+	
+}
+@media screen and (max-width: 640px) {
+
+}
+@media screen and (max-width: 568px) {
+
+}
+@media screen and (max-width: 520px) {
+
+	// ------
+	// Common
+	// ------
+	.btn-lg-w-text {
+		width: 100%;
+		white-space: initial;
+	}
+
+}
+@media screen and (max-width: 480px) {
+	
+}
+@media screen and (max-width: 420px) {
+
+	// ------
+	// Global
+	// ------
+	body {
+		font-size: 13px;
+	}
+	h1 { font-size: 26px; }
+	h2 { font-size: 22px; }
+	h3 { font-size: 18px; }
+	.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+		line-height: initial;
+	}
+	// ------
+	// Common
+	// ------
+	.btn-lg-w-text {
+		font-size: 18px;
+	}
+
+	// ------
+	// Custom
+	// ------
+	// Landing Page
+	.fx-landing .section-w-panel .text-lg {
+		font-size: 35px;
+	}
+	.fx-landing .section-two .intro-note,
+	.fx-landing .section-four .intro-note,
+	.fx-landing .section-six .intro-note {
+		font-size: 22px;
+	}
+	.fx-landing .section-two .video {
+		height: 220px;
+	}
+	.fx-landing .section-five .step-item h2 .label-red {
+		display: block;
+		margin-bottom: 5px;
+	}
+
+}
+@media screen and (max-width: 380px) {
+
+}
+@media screen and (max-width: 320px) {
+
+}
+// Breakpoint in Width Range
+@media screen and(min-width: 568px) and (max-width: 639px) {
+
+}
+@media screen and (min-width : 480px) and (max-width: 567px) {
+
+}
+@media screen and (min-width : 360px) and (max-width: 479px) {
+
+}
+@media screen and (min-width : 320px) and (max-width: 359px) {
+
+}
+
+// ---------
+// iPhone 6+
+// ---------
+// Portrait
+@media only screen 
+	and (min-device-width: 414px)
+	and (max-device-width: 736px)
+	and (device-height : 736px)
+	and (-webkit-min-device-pixel-ratio: 3)
+	and (-webkit-device-pixel-ratio : 3)
+	and (orientation: portrait) {
+
+}
+// Landscape
+@media only screen 
+	and (min-device-width: 414px)
+	and (max-device-width: 736px)
+	and (-webkit-min-device-pixel-ratio: 3)
+	and (orientation: landscape) {
+
+}
+
+// --------
+// iPhone 6
+// --------
+// Portrait
+@media only screen 
+	and (min-device-width: 375px) 
+	and (max-device-width: 667px) 
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: portrait) {
+
+}
+// Landscape
+@media only screen 
+	and (min-device-width: 375px) 
+	and (max-device-width: 667px) 
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: landscape) {
+
+}
+
+// -----------
+// iPhone 5/5S
+// -----------
+// Portrait
+@media only screen 
+	and (min-device-width: 320px) 
+	and (max-device-width: 568px)
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: portrait) {
+
+}
+// Landscape
+@media only screen 
+	and (min-device-width: 320px) 
+	and (max-device-width: 568px)
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: landscape) {
+
+}
+
+// -----------
+// iPhone 4/4S
+// -----------
+// Portrait
+@media only screen 
+	and (min-device-width: 320px) 
+	and (max-device-width: 480px)
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: portrait) {
+
+}
+// Landscape
+@media only screen 
+	and (min-device-width: 320px) 
+	and (max-device-width: 480px)
+	and (-webkit-min-device-pixel-ratio: 2)
+	and (orientation: landscape) {
+
+}

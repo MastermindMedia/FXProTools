@@ -47,6 +47,12 @@ class Apyc_Modal{
 
 	public function init(){
 		$data = array();
+		$current_user = wp_get_current_user();
+		$data['current_user'] = false;
+		if ( 0 != $current_user->ID ) {
+			$data['current_user'] = $current_user;
+		}
+
 		$data['webinars'] = Apyc_Citrix_GoToWebinar_GetAll::get_instance()->query();
 		Apyc_View::get_instance()->view_theme(TEMPLATE_PATH . 'modal.php', $data);
 	}

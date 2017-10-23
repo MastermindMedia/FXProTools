@@ -17,6 +17,6 @@ phplog
 
 .htaccess
 
-wp-content/themes/fxprotools-theme/assets/js/theme/theme.js
-wp-content/themes/fxprotools-theme/assets/js/theme/theme.js.map
-wp-content/themes/fxprotools-theme/assets/css/theme/theme.css
+/wp-content/themes/fxprotools-theme/assets/js/theme/theme.js
+/wp-content/themes/fxprotools-theme/assets/js/theme/theme.js.map
+/wp-content/themes/fxprotools-theme/assets/css/theme/theme.css

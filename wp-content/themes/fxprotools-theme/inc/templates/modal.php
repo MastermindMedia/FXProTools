@@ -12,19 +12,19 @@
 		<form name="register-webinar" class="register-webinar" method="post">
 			<div class="form-group">
 				<label for="firstName">First Name</label>
-				<input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name">
+				<input type="text" class="form-control" name="firstName" id="firstName" placeholder="First Name" value="<?php echo isset($current_user->first_name) ? $current_user->first_name:'';?>">
 			</div>
 			<div class="form-group">
 				<label for="lastName">Last Name</label>
-				<input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name">
+				<input type="text" class="form-control" name="lastName" id="lastName" placeholder="Last Name" value="<?php echo isset($current_user->last_name) ? $current_user->last_name:'';?>">
 			</div>
 			<div class="form-group">
 				<label for="emailaddress">Email Address</label>
-				<input type="email" name="email" class="form-control" id="email" placeholder="Email Address">
+				<input type="email" name="email" class="form-control" id="email" placeholder="Email Address" value="<?php echo isset($current_user->user_email) ? $current_user->user_email:'';?>">
 			</div>
 			<div class="form-group">
 				<label for="phone">Phone</label>
-				<input type="text" name="phone" class="form-control" id="phone" placeholder="Phone">
+				<input type="text" name="phone" class="form-control" id="phone" placeholder="Phone" value="<?php echo isset($current_user->mobile) ? $current_user->mobile:'';?>">
 			</div>
 			<div class="form-check">
 				<label class="form-check-label">

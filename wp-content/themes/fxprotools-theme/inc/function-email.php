@@ -140,16 +140,16 @@ function post_email_published($id) {
                 break;
         }
         
-        $sendGrid = new FX_Sendgrid_Api();
+        $sendGrid = new \FX_Sendgrid_Api();
         $result = $sendGrid->send_to_many($personalizations, $post->post_title, get_post_meta($post->ID, 'email_content')[0]);
         
         if ($result['status_code'] != 202) {
-            wp_die('Failed to send email: ' . $result['body']);
-            
             wp_update_post(array(
                 'ID' => $id,
                 'post_status' => 'draft'
             ));
+            
+            wp_die('Failed to send email: (' . $result['status_code'] . ') ' . $result['body']);
         }
         
         foreach ($user_ids as $userid) {

@@ -94,7 +94,7 @@
 							<p class="disclaimer"><img src="<?php bloginfo('template_url'); ?>/assets/img/lock.png" class="img-responsive"> This is free information and credit card is NOT required.</p>
 						</div>
 						<div role="tabpanel" class="tab-pane fade" id="step3">
-							Step 3
+							<!-- After clicking next on step2, user will be redirected to f4 landing page -->
 						</div>
 					</div>
 				</div>

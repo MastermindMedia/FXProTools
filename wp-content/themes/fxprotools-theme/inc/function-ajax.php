@@ -104,3 +104,27 @@ function email_sent()
 	
 	wp_die();
 }
+
+add_action("wp_ajax_send_email", "ajax_send_email");
+
+function ajax_send_email() {
+	$postid = wp_insert_post(array(
+		'post_type' => 'fx_email',
+		'post_title' => $_POST["subject"],
+		'post_status' => 'publish'
+	));
+	
+	update_post_meta($postid, "email_recipient_type", $_POST["email_recipient_type"]);
+	update_post_meta($postid, "recipient_group", $_POST["recipient_group"]);
+	update_post_meta($postid, "recipient_product", $_POST["recipient_product"]);
+	update_post_meta($postid, "recipient_individual_type", $_POST["recipient_individual_type"]);
+	update_post_meta($postid, "recipient_individual_name", $_POST["recipient_individual_name"]);
+	update_post_meta($postid, "recipient_individual_email", $_POST["recipient_individual_email"]);
+	update_post_meta($postid, "recipient_individual_user", $_POST["recipient_individual_user"]);
+	update_post_meta($postid, "email_content", $_POST["body"]);
+	
+	post_email_published($postid);
+	
+	echo "OK";
+	wp_die();
+}

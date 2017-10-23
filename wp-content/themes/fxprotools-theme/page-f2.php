@@ -102,7 +102,7 @@
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<h2 class="m-t-none"2>Confidently Trade the Market with Our Expert Help</h2>
-					<a href="#" class="btn btn-lg btn-outline m-t-xs">Click To Get Access</a>
+					<a href="#" class="btn btn-lg btn-outline m-t-xs reserve-your-seat">Click To Get Access</a>
 				</div>
 			</div>
 		</div>
