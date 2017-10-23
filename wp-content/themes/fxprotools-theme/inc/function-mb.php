@@ -215,7 +215,6 @@ if(!class_exists('SettingsMB')){
                 // 	'parent'	=> '',
                 // 	'slug'		=> '',
                 // ),
-                // TODO: will update to tab view type later on. -austin
                 'tabs'      => array(
                     $prefix . 'page'    => __( 'Page', 'rwmb' ),
                     $prefix . 'video'   => __( 'Video', 'rwmb' ),
@@ -225,54 +224,28 @@ if(!class_exists('SettingsMB')){
                 'tab_wrapper'	=> true,
                 'fields' 	=> array(
                     array(
-                        'name'          => 'Video URL',
-                        'id'            => $prefix . 'video_url',
-                        'type'          => 'text',
-                        'placeholder'   => '',
-                        'tab'           => $prefix . 'video',
-                    ),
-                    array(
-                        'name' 			=> 'Autostart Video',
-                        'id' 			=> $prefix . 'video_autostart',
-                        'type' 			=> 'checkbox_list',
-                        'placeholder'	=> '',
-                        'options'		=> array(
-                            'yes'		=> '',
+                        'name' 		=> 'Display Main Header Menu',
+                        'id' 		=> $prefix . 'display_main_header_menu',
+                        'type' 		=> 'select',
+                        'desc'		=> 'Choose to show or hide the header',
+                        'placeholder'	=> 'Default',
+                        'options'	=> array(
+                            'yes'		=> 'Yes',
+                            'no'		=> 'No',
                         ),
-                        'tab'           => $prefix . 'video',
+                        'tab'           => $prefix . 'menu',
                     ),
                     array(
-                        'name' 			=> 'Show Video Controls',
-                        'id' 			=> $prefix . 'video_show_controls',
-                        'type' 			=> 'checkbox_list',
-                        'placeholder'	=> '',
-                        'options'		=> array(
-                            'yes'		=> '',
-                        ),
-                        'tab'           => $prefix . 'video',
+                        'name' 			=> 'Main Header Menu',
+                        'id' 			=> $prefix . 'main_header_menu',
+                        'type' 			=> 'taxonomy_advanced',
+                        'taxonomy'		=> array('nav_menu'),
+                        'field_type'	=> 'select',
+                        'placeholder'	=> 'Default',
+                        'tab'           => $prefix . 'menu',
                     ),
                     array(
-                        'name' 			=> 'Scrolling Video',
-                        'id' 			=> $prefix . 'video_scrolling',
-                        'type' 			=> 'checkbox_list',
-                        'placeholder'	=> '',
-                        'options'		=> array(
-                            'yes'		=> '',
-                        ),
-                        'tab'           => $prefix . 'video',
-                    ),
-                    array(
-                        'name' 			=> 'Floating Video',
-                        'id' 			=> $prefix . 'video_floating',
-                        'type' 			=> 'checkbox_list',
-                        'placeholder'	=> '',
-                        'options'		=> array(
-                            'yes'		=> '',
-                        ),
-                        'tab'           => $prefix . 'video',
-                    ),
-                    array(
-                        'name' 		=> 'Display Header Menu',
+                        'name' 		=> 'Display Secondary Header Menu',
                         'id' 		=> $prefix . 'display_header_menu',
                         'type' 		=> 'select',
                         'desc'		=> 'Choose to show or hide the header',
@@ -330,6 +303,53 @@ if(!class_exists('SettingsMB')){
                         'field_type'	=> 'select',
                         'placeholder'	=> 'Default',
                         'tab'           => $prefix . 'menu',
+                    ),
+                    array(
+                        'name'          => 'Video URL',
+                        'id'            => $prefix . 'video_url',
+                        'type'          => 'text',
+                        'placeholder'   => '',
+                        'tab'           => $prefix . 'video',
+                    ),
+                    array(
+                        'name' 			=> 'Autostart Video',
+                        'id' 			=> $prefix . 'video_autostart',
+                        'type' 			=> 'checkbox_list',
+                        'placeholder'	=> '',
+                        'options'		=> array(
+                            'yes'		=> '',
+                        ),
+                        'tab'           => $prefix . 'video',
+                    ),
+                    array(
+                        'name' 			=> 'Show Video Controls',
+                        'id' 			=> $prefix . 'video_show_controls',
+                        'type' 			=> 'checkbox_list',
+                        'placeholder'	=> '',
+                        'options'		=> array(
+                            'yes'		=> '',
+                        ),
+                        'tab'           => $prefix . 'video',
+                    ),
+                    array(
+                        'name' 			=> 'Scrolling Video',
+                        'id' 			=> $prefix . 'video_scrolling',
+                        'type' 			=> 'checkbox_list',
+                        'placeholder'	=> '',
+                        'options'		=> array(
+                            'yes'		=> '',
+                        ),
+                        'tab'           => $prefix . 'video',
+                    ),
+                    array(
+                        'name' 			=> 'Floating Video',
+                        'id' 			=> $prefix . 'video_floating',
+                        'type' 			=> 'checkbox_list',
+                        'placeholder'	=> '',
+                        'options'		=> array(
+                            'yes'		=> '',
+                        ),
+                        'tab'           => $prefix . 'video',
                     ),
                 ),
             );

@@ -21,40 +21,10 @@
 						</div>
 					</div>
 					<div class="col-md-7">
-						<ul class="fx-nav-options">
-							<li>
-								<a href="<?php bloginfo('url'); ?>/dashboard">
-									<img src="<?php bloginfo('template_url'); ?>/assets/img/ico-quickstart.png" class="img-responsive" width="65" height="44">
-									<span>Quickstart</span>
-								</a>
-							</li>
-							<li>
-								<a href="<?php bloginfo('url'); ?>/basic-training">
-									<img src="<?php bloginfo('template_url'); ?>/assets/img/ico-products.png" class="img-responsive" width="48" height="44">
-									<span>Products</span>
-								</a>
-							</li>
-							<?php  if ( is_user_fx_distributor() || current_user_can('administrator') ): ?>
-							<li>
-								<a href="<?php bloginfo('url'); ?>/marketing/funnels">
-									<img src="<?php bloginfo('template_url'); ?>/assets/img/ico-share.png" class="img-responsive" width="44" height="44">
-									<span>Share</span>
-								</a>
-							</li>
-							<li>
-								<a href="<?php bloginfo('url'); ?>/referred-members">
-									<img src="<?php bloginfo('template_url'); ?>/assets/img/ico-team.png" class="img-responsive" width="50" height="44">
-									<span>Team</span>
-								</a>
-							</li>
-							<?php endif;?>
-							<li>
-								<a href="<?php bloginfo('url'); ?>/wallet">
-									<img src="<?php bloginfo('template_url'); ?>/assets/img/ico-wallet.png" class="img-responsive" width="61" height="44">
-									<span>eWallet</span>
-								</a>
-							</li>
-						</ul>
+						<?php
+							// Metabox Page Template Option
+							echo get_mb_pto1( 'main_header_menu' );
+						?>
 					</div>
 					<div class="col-md-3">
 						<ul class="fx-nav-options">

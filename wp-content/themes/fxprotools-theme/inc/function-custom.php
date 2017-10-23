@@ -331,6 +331,9 @@ add_action('init','sess_start');
  */
 function get_mb_pto1( $page_element ) {
     switch ( $page_element ) {
+        case 'main_header_menu':
+            return mb_menu_display( rwmb_meta('pto1_display_main_header_menu'), rwmb_meta('pto1_main_header_menu'), 'fx-nav-options', new Nav_Main_Header_Menu_Walker(), 'Main Header Menu' );
+            break;
         case 'secondary_header_menu':
             return mb_menu_display( rwmb_meta('pto1_display_header_menu'), rwmb_meta('pto1_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu' );
             break;
