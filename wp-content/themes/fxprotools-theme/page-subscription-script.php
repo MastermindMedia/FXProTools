@@ -1,5 +1,6 @@
-<?php get_header(); ?>
+<?php //get_header(); ?>
 <?php  
+set_query_var('customer_order_id',0);
 function create_order_subscription($user_id){
 	//setup the billing details
 	$address = array(
@@ -30,17 +31,10 @@ function create_order_subscription($user_id){
 
 	// Each variation also has its own shipping class
 
-	$shipping_class = get_term_by('slug', $product->get_shipping_class(), 'product_shipping_class');
-
-	WC()->shipping->load_shipping_methods();
-	$shipping_methods = WC()->shipping->get_shipping_methods();
-
-	$selected_shipping_method = $shipping_methods['free_shipping'];
-	$class_cost = $selected_shipping_method->get_option('class_cost_' . $shipping_class->term_id);
 	$quantity = 1;
 
 
-	$order = wc_create_order(array('customer_id' => $user_id));
+	$order = wc_create_order( array('customer_id' => $user_id) );
 
 	$order->add_product( $product, $quantity, $args);
 	$order->set_address( $address, 'billing' );
@@ -58,13 +52,13 @@ function create_order_subscription($user_id){
 
 	$order->calculate_totals();
 
-	$order->update_status("completed", 'Imported order', TRUE);
+	$order->update_status("processing", 'Order Created via Import', TRUE);
 
 	// CREATE SUBSCRIPTION
 	$period = WC_Subscriptions_Product::get_period( $product );
 	$interval = WC_Subscriptions_Product::get_interval( $product );
 
-	$sub = wcs_create_subscription(array('order_id' => $order->id, 'billing_period' => $period, 'billing_interval' => $interval, 'start_date' => $start_date));
+	$sub = wcs_create_subscription(array('order_id' => $order->get_id(), 'billing_period' => $period, 'billing_interval' => $interval, 'start_date' => $start_date));
 	$sub->update_dates(array('schedule_next_payment' => $next_payment));
 	$sub->add_product( $product, $quantity, $args);
 	$sub->set_address( $address, 'billing' );
@@ -82,6 +76,7 @@ function create_order_subscription($user_id){
 
 	$sub->calculate_totals();
 	WC_Subscriptions_Manager::activate_subscriptions_for_order($order);
+	return $order->get_id();
 }
 
 /* LOOP THROUGH USERS */
@@ -94,7 +89,7 @@ function has_bought_items($user_id) {
         'meta_key'    => '_customer_user',
         'meta_value'  => $user_id,
         'post_type'   => 'shop_order', 
-        'post_status' => 'wc-completed'
+        'post_status' => array('wc-processing', 'wc-completed', 'wc-pending')
     ) );
     foreach ( $customer_orders as $customer_order ) {
         $order_id = method_exists( $order, 'get_id' ) ? $order->get_id() : $order->id;
@@ -115,13 +110,142 @@ function has_bought_items($user_id) {
 
 //execute order and subscription for users
 $affiliates = $wpdb->get_results( "SELECT affiliate_id,user_id FROM wp_affiliate_wp_affiliates" );
+$json = file_get_contents('https://app.copyprofitshare.com/public/api/users/volishon/get');
+$data = json_decode($json, true);
+$counter = 1;
 
-foreach($affiliates as $affiliate){
-	if(has_bought_items($affiliate->user_id) == true){
-		create_order_subscription($affiliate->user_id);
+$chunk_num = isset( $_GET['chunk_num'] ) ? $_GET['chunk_num'] : 0; //index of chunks to be imported
+$chunks = array_chunk($data, 500, true);
+
+dd("No. of chunks:" . sizeof($chunks) );
+
+ob_implicit_flush(true);
+ob_start();
+
+foreach ($chunks as $index => $data){
+
+	if( $index != $chunk_num) continue;
+	$loop = 1;
+	foreach($data as $key => $import_user){
+		dd( "#" . $loop . ". Importing: " . $import_user['email'] );
+		$loop += 1;
+	    flush();
+	    ob_flush();
+
+		$user = get_user_by( 'email', strtolower($import_user['email']) );
+		
+		//if no account yet, create one
+		if( !$user ){
+
+			$user_id = create_simple_account($import_user);
+			if($user_id){
+				$user = get_user_by( 'id', $user_id );
+			} else {
+				dd($import_user);
+				die("Can't create account or find this user.");
+			}
+		}
+
+		//make sure the user hasn't created any orders yet (clean user)
+		if( !has_bought_items($user->ID) ){
+
+			$aff_sponsor_id = affwp_get_affiliate_id( 2936 ); //default sponsor
+			$aff_sponsor = get_user_by( 'email', strtolower($import_user['sponsor_email']) );
+			
+			//if sponsor account exists, use him instead
+			if($aff_sponsor){
+				$aff_sponsor_id = affwp_get_affiliate_id( $aff_sponsor->ID );
+			}
+
+			//echo 'sponsor: ' . $aff_sponsor_id;
+
+	    	//create order and subscription
+	    	$order_id = create_order_subscription($user->ID);
+
+	    	//echo 'order_id: ' . $order_id;
+			
+
+	    	//add referral entry on the database
+			$referral_args = array(
+				'affiliate_id' => $aff_sponsor_id,
+				'amount'       => 0.00,
+				'description'  => 'Business - Normal',
+				'reference'    => $order_id,
+				'context'      => 'woocommerce',
+				'status'       => 'completed',
+			);
+			affwp_add_referral($referral_args);
+
+			//dd($referral_args);
+		}
+		else{
+			dd( "Already bought item: " . $import_user['email'] );
+		}
+
+	}
+
+	dd( "Imported Chunk #: " . $index );
+	exit;
+}
+
+
+function create_simple_account( $data ){
+	$user_data = array(
+		'user_login'    => $data['email'],
+		'user_pass'     => 'password123',
+		'user_nicename' => $data['email'],
+		'user_email'    => $data['email'],
+		'role'          => 'afl_member'
+	);
+
+	$user_id = wp_insert_user($user_data);
+	
+	if($user_id > 0){
+		add_user_meta( $user_id, '_imported_user', '1' ); 
+		add_user_meta( $user_id, '_sponsor_email', $data['sponsor_email'] ); 
+		return $user_id;
+	} else {
+		return false;
 	}
 }
+/*
+foreach($affiliates as $affiliate){
+	//check if user has bought business
+	if(get_the_author_meta('email',$affiliate->user_id) != "" && has_bought_items($affiliate->user_id) == false){
+		foreach($data as $obj){
+			//check matching data on our users from remote API
+		    if(strtolower(get_the_author_meta('email',$affiliate->user_id)) == strtolower($obj['email'])){
+		    	//get sponsor ID by email from our database
+		  		$aff_sponsor    = get_user_by( 'email', strtolower($obj['sponsor_email']) );
+		  		$aff_sponsor_id = 2936;
+		  		if(isset($aff_sponsor)){
+		  			$aff_sponsor_id = $aff_sponsor->ID;
+		  		}
+		  		if(!isset($aff_sponsor_id)){
+		  			$aff_sponsor_id = 2936;
+		  		}
+
+		    	//create order and subscription
+		    	create_order_subscription($affiliate->user_id);
+		    	//add referral entry on the database
+				$referral_args = array(
+					'affiliate_id' => $aff_sponsor_id,
+					'amount'       => 0.00,
+					'description'  => 'Business - Normal',
+					'reference'    => get_query_var('customer_order_id'),
+					'context'      => 'woocommerce',
+					'status'       => 'completed',
+				);
+				affwp_add_referral($referral_args);
+		    	$counter++;
+		    	break;
+		    }
+		}
+	}
+}
+*/
+
 
 ?>
 
-<?php get_footer(); ?>
+<?php //get_footer(); ?>
