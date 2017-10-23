@@ -388,12 +388,12 @@ function mb_menu_display( $display, $menu, $menu_class = '', $walker = '', $fall
                     'walker'          => $walker,
                 );
                 return wp_nav_menu( $params );
-            }else return wp_nav_menu( array('menu' => $menu_fb,'menu_class' => $menu_class ) );
+            }else return wp_nav_menu( array('menu' => $menu_fb,'menu_class' => $menu_class, 'walker' => $walker ) );
         }else return;
     }
     // if menu display is default
     else{
-        return wp_nav_menu( array('menu' => $menu_fb,'menu_class' => $menu_class ) );
+        return wp_nav_menu( array('menu' => $menu_fb,'menu_class' => $menu_class, 'walker' => $walker ) );
     }
 }
 
