@@ -794,6 +794,23 @@
 		}
 	}
 }
+.contact-pagination{
+	text-align: center;
+	.pagination{
+		& > li{
+			display: inline-block;
+		}
+	}
+	input{
+		display: inline-block;
+		width: 92px;
+		vertical-align: top;
+		border: 1px solid #ddd;
+		border-radius: 0;
+		color: #337ab7;
+	}
+}
+
 #view-purchase-details, .purchase-detail-item{
 	display: none;
 	.purchase-detail-item{
