@@ -7,19 +7,19 @@
 				<div class="col-xs-12 col-sm-4 col-md-4">
 					<?php
 						// Metabox Page Template Option
-						get_mb_pto1( 'pto1_menus', 'footer_left_menu' );
+						echo get_mb_pto1( 'footer_left_menu' );
 					?>
 				</div>
 				<div class="col-xs-12 col-sm-4 col-md-4">
 					<?php
 						// Metabox Page Template Option
-						get_mb_pto1( 'pto1_menus', 'footer_middle_menu' );
+						echo get_mb_pto1( 'footer_middle_menu' );
 					?>
 				</div>
 				<div class="col-xs-12 col-sm-4 col-md-4">
 					<?php
 						// Metabox Page Template Option
-						get_mb_pto1( 'pto1_menus', 'footer_right_menu' );
+						echo get_mb_pto1( 'footer_right_menu' );
 					?>
 				</div>
 				<div class="clearfix"></div>

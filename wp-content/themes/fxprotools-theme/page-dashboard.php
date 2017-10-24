@@ -25,9 +25,9 @@ $checklist = get_user_checklist();
 			</div>
 			<div class="col-md-8">
 				<div class="fx-video-container">
-					<?php
-						echo get_mb_pto1( 'pto1_video', 'video_embed' );
-					?>
+				<?php
+					
+				?>
 				</div>
 			</div>
 			<div class="col-md-4">
