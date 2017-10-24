@@ -684,7 +684,7 @@
 											<span class="count-label">Active <br/> Students</span>
 										</div>
 									</div>
-									<div class="col-xs-6 col-xs-offset-3 col-sm-4 col-md-4">
+									<div class="col-xs-6 col-xs-offset-3 col-sm-4 col-md-4 col-md-offset-0">
 										<div class="item-stats xs-item-stats">
 											<span class="count text-bold">1091</span>
 											<span class="count-label">Affiliates Paid <br/> To Date</span>
