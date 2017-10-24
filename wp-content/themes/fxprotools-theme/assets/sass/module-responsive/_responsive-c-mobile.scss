@@ -7,6 +7,8 @@
 	$font-xs-heading: 24px;
 	$font-xs: 14px;
 	$font-xxs: 12px;
+
+	$xs-video-height: 320px;
 	
 	// ------
 	// Global
@@ -106,7 +108,7 @@
 			 	font-size: $font-xs-heading;
 			}
 			.video {
-				height: 320px;
+				height: $xs-video-height;
 				margin: 35px auto 30px 0;
 			}
 			.item-info {
@@ -324,6 +326,20 @@
 				}
 			}
 		}
+		// Funnel 2
+		&.f2 {
+			.section-one {
+				.intro-note {
+					font-size: $font-xs-heading;
+				}
+				.video {
+					height: $xs-video-height;
+				}
+				.video-disclaimer {
+					margin-bottom: 15px;
+				}
+			}
+		}
 	}
 	
 }
@@ -349,6 +365,7 @@
 }
 @media screen and (max-width: 420px) {
 
+	$xs-video-height: 220px;
 	// ------
 	// Global
 	// ------
@@ -381,11 +398,18 @@
 		font-size: 22px;
 	}
 	.fx-landing .section-two .video {
-		height: 220px;
+		height: $xs-video-height;
 	}
 	.fx-landing .section-five .step-item h2 .label-red {
 		display: block;
 		margin-bottom: 5px;
+	}
+	// Capture Page
+	.fx-capture-page {
+		// Funnel 2
+		&.f2 .section-one .video {
+			height: $xs-video-height;
+		}
 	}
 
 }
