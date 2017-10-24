@@ -629,7 +629,7 @@
 				</div>
 				<div class="row row-package">
 					<div class="col-xs-12 col-md-6 col-md-offset-3">
-						<div class="panel fx-package-item active">
+						<div id="trial-distributor" class="panel fx-package-item active">
 							<span class="sash">IBO Package</span>
 							<div class="panel-body">
 								<div class="heading">
