@@ -79,6 +79,11 @@ $(document).on('click', '.scroll-to', function(e) {
 	}, 600);
 });
 
+$(document).on('click', 'input[name="f2-survey"]', function(){
+	$('.f2-group-options').fadeOut('normal', function(){
+		$('.f2-group-form').fadeIn();
+	});
+});
 
 // Functions
 function popup_alert($title, $message){
