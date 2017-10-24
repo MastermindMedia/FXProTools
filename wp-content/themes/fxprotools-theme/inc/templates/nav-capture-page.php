@@ -26,8 +26,8 @@
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<ul class="fx-nav">
-						<li><a href="<?php bloginfo('url'); ?>/#trial-products">Become a Customer</a></li>
-						<li><a href="<?php bloginfo('url'); ?>/#trial-products">Become a Distributor</a></li>
+						<li><a href="<?php bloginfo('url'); ?>/#trial-products" class="scroll-to">Become a Customer</a></li>
+						<li><a href="<?php bloginfo('url'); ?>/#trial-distributor" class="scroll-to">Become a Distributor</a></li>
 					</ul>
 				</div>		
 			</div>
