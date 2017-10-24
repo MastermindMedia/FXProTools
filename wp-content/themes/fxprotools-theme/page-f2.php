@@ -31,11 +31,11 @@
 						<div class="fx-board-header w-text text-center">
 							<h3 class="inline-block">Tell Us Your <br/> <span class="label-red inline-block m-t-xs">Biggest Frustration</span></h3>
 						</div>
-						<ul class="fx-board-list">
+						<ul class="fx-board-list f2-group-options">
 							<li>
 								<div class="radio fx-radio-group">
 									<label>
-										<input type="radio" name="survey">
+										<input type="radio" name="f2-survey">
 										<span class="fx-radio"></span>
 										<span class="fx-text">I currently don't make enough money</span>
 									</label>
@@ -44,7 +44,7 @@
 							<li>
 								<div class="radio fx-radio-group">
 									<label>
-										<input type="radio" name="survey">
+										<input type="radio" name="f2-survey">
 										<span class="fx-radio"></span>
 										<span class="fx-text">I wish i had more time to have fun</span>
 									</label>
@@ -53,7 +53,7 @@
 							<li>
 								<div class="radio fx-radio-group">
 									<label>
-										<input type="radio" name="survey">
+										<input type="radio" name="f2-survey">
 										<span class="fx-radio"></span>
 										<span class="fx-text">I have not been happy in long awhile.</span>
 									</label>
@@ -62,7 +62,7 @@
 							<li>
 								<div class="radio fx-radio-group">
 									<label>
-										<input type="radio" name="survey">
+										<input type="radio" name="f2-survey">
 										<span class="fx-radio"></span> 
 										<span class="fx-text">All or several of the answers above.</span>
 									</label>
@@ -71,13 +71,25 @@
 							<li>
 								<div class="radio fx-radio-group">
 									<label>
-										<input type="radio" name="survey">
+										<input type="radio" name="f2-survey">
 										<span class="fx-radio"></span> 
 										<span class="fx-text">Other</span>
 									</label>
 								</div>
 							</li>
 						</ul>
+						<div class="f2-group-form">
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Your Name">
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Your Email">
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control" placeholder="Phone #(Optional)">
+							</div>
+							<a href="#" class="btn btn-danger btn-lg block">Submit</a>
+						</div>
 					</div>
 				</div>
 			</div>
