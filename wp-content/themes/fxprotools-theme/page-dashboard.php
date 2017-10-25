@@ -24,9 +24,10 @@ $checklist = get_user_checklist();
 				
 			</div>
 			<div class="col-md-8">
-				<div class="fx-video-container">
-				<?php
-					
+				<div class="fx-video-container" <?php echo is_mb_video_floating(); ?>>
+				<?php 
+					// Metabox Page Template Option - Video Embed 
+					echo get_mb_pto1('video_embed'); 
 				?>
 				</div>
 			</div>
