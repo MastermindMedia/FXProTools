@@ -82,20 +82,24 @@ function apyc_fxprotools_setup(){
 }
 add_action( 'wp_loaded', 'apyc_fxprotools_setup' );
 function apyc_fxprotools_init(){
-	if( method_exists('Apyc_Woo_Webinar','get_instance') 
-		&& class_exists( 'WooCommerce' )
-	){
-		class WC_Product_Apyc_Woo_Gotowebinar_Appointment extends WC_Product {
+	if( class_exists( 'WooCommerce' ) ){
+		if( method_exists('Apyc_Woo_Webinar','get_instance') ){
+			class WC_Product_Apyc_Woo_Gotowebinar_Appointment extends WC_Product_Simple {
 
-			public $product_type = 'apyc_woo_gotowebinar_appointment';
-			public function __construct( $product ) {
-				parent::__construct( $product );
+				public $product_type = 'apyc_woo_gotowebinar_appointment';
+				
+				public function __construct( $product ) {
+					parent::__construct( $product );
+				}
+				public function get_type() {
+					return $this->product_type;
+				}
 			}
-			public function get_type() {
-				return 'apyc_woo_gotowebinar_appointment';
-			}
+			Apyc_Woo_Webinar::get_instance();
 		}
-		Apyc_Woo_Webinar::get_instance();
+		if( method_exists('Apyc_Woo_CoachingTemplate','get_instance') ){
+			Apyc_Woo_CoachingTemplate::get_instance();
+		}
 	}
 }
 add_action('init','apyc_fxprotools_init');
