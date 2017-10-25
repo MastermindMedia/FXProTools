@@ -23,7 +23,12 @@
 			</div>
 			<div class="row row-video">
 				<div class="col-xs-12 col-sm-8 col-md-8">
-					<div class="video"></div>
+					<div class="fx-video-container" <?php echo is_mb_video_floating(); ?>>
+						<?php 
+							// Metabox Page Template Option - Video Embed 
+							echo get_mb_pto1('video_embed'); 
+						?>
+					</div>
 					<p class="video-disclaimer">* Submitting This Survey Will NOT Interrupt The Video *</p>
 				</div>
 				<div class="col-xs-12 col-sm-4 col-md-4">
