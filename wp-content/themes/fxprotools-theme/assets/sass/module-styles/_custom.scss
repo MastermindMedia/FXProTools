@@ -47,7 +47,15 @@
 		}
 	}
 }
-
+.resp{
+	margin-top: 1rem;
+    position: relative;
+    padding-top: 1.5625rem;
+    padding-bottom: 67.5%;
+    height: 0;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
 // PTO Floating/Sticky Video Embed
 .fx-video-container{
     &#pto--floating-video{

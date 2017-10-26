@@ -10,7 +10,7 @@ $checklist = get_user_checklist();
 			<div class="col-md-12">
 				
 				<div class="fx-header-title">
-                <?php if(is_user_fx_customer()) : ?>
+                <?php if( is_user_fx_customer() ) : ?>
 					<h1>Welcome! Thanks for Being A Loyal Customer</h1>
 					<p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of CopyProfitShare!</p>
                 <?php elseif(is_user_fx_distributor()) : ?>
@@ -24,12 +24,19 @@ $checklist = get_user_checklist();
 				
 			</div>
 			<div class="col-md-8">
-				<div class="fx-video-container" <?php echo is_mb_video_floating(); ?>>
+				
+				<?php if( !empty( is_mb_video_scroll() ) ) : ?>
+				<div class="fx-video-container" <?php echo is_mb_video_scroll(); ?>></div>
+				<?php elseif( !empty( is_mb_video_float() ) ) : ?>
+				<div class="fx-video-container" <?php echo is_mb_video_float(); ?>>
 					<?php 
 						// Metabox Page Template Option - Video Embed 
-						echo get_mb_pto1('video_embed'); 
+						// TODO: scroll and float should work at the same time. - austin n.
+						if( empty( is_mb_video_scroll() ) ) echo get_mb_pto1('video_embed'); 				
 					?>
 				</div>
+				<?php endif; ?>
+
 			</div>
 			<div class="col-md-4">
 				<div class="fx-board checklist">
