@@ -104,7 +104,7 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 	}
 	
 	public function response($url){
-		if( $this->token() ){
+		if( $this->token() && isset($this->token()->access_token) ){
 			$body = array();
 			$args = array(
 				'headers' => array(
@@ -135,7 +135,7 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 					if( $response_code == 403 ){
 						return array(
 							'status' => 403,
-							'msg' => $body->errorCode . ' ' . $body->description
+							'msg' => isset($body->errorCode) ? $body->errorCode:'' . ' ' . isset($body->description) ? $body->description : ''
 						);
 					}
 					return false;
@@ -185,7 +185,7 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 		
 		//$get_data = $this->cache();
 		//dd($get_data);
-		if( $get_data['data'] && $get_data['status'] == 200 ){
+		if( isset($get_data['data']) && $get_data['status'] == 200 ){
 			$number_post = $query_args['number_post'] - 1;
 			$i = 0;
 			foreach($get_data['data'] as $k => $v){

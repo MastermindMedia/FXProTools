@@ -36,6 +36,11 @@ var Coaching = function(){
 					//console.log(data);
 					if( !isJson(data) ){
 						$('#ajax-coach-upcoming-webinars').html(data);
+					}else{
+						data = jQuery.parseJSON(data);
+						if( data.status == 'no-webinar' ){
+							$('#ajax-coach-upcoming-webinars').html('<p>' + data.msg + '</p>');
+						}
 					}
 				});
 			}
@@ -57,6 +62,11 @@ var Coaching = function(){
 						//console.log(data);
 						if( !isJson(data) ){
 							$('#ajax-coach-history-webinars').html(data);
+						}else{
+							data = jQuery.parseJSON(data);
+							if( data.status == 'no-webinar' ){
+								$('#ajax-coach-history-webinars').html('<p>' + data.msg + '</p>');
+							}
 						}
 					});
 				}

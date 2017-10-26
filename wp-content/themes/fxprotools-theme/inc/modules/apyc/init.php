@@ -18,6 +18,7 @@ define('GOTOWEBINAR_PAID_GROUP', 'test 2');*/
 define('TWILIO_ACCOUNT_SID', 'ACeed6641354498872901ff6aa63342ac1');
 define('TWILIO_TOKEN', '6924aec30f4903169f928a1d8c65886b');
 define('ASSETS_JS_PATH', get_bloginfo('template_url') . '/assets/js/theme/custom/');
+define('ASSETS_ADMIN_JS_PATH', get_bloginfo('template_url') . '/assets/js/admin/');
 define('TEMPLATE_PATH', 'inc/templates/');
 /**
  * For autoloading classes
@@ -51,6 +52,19 @@ if ( ! function_exists('write_log')) {
 require_once plugin_dir_path( __FILE__ ) . 'functions-gotowebinar.php';
 //sms/twilio related functions
 require_once plugin_dir_path( __FILE__ ) . 'functions-sms.php';
+function selectTimesofDay($start=false, $end=false, $interval='5 minutes'){
+    $start = new DateTimeImmutable("4:00 AM");
+	$end = new DateTimeImmutable("2:00 PM");
+	$interval = new DateInterval('PT1H'); //15 minute interval
+	$range = new DatePeriod($start, $interval, $end);
+
+	foreach ($range as $time) {
+		if( $time->format('A') == 'AM' ){
+			echo $time->format('g:i A'), "-", $time->add($interval)->format('g:i A'), "<br>";
+		}
+	}
+	dd($range);
+}
 
 function apyc_fxprotools_setup(){
 	if( method_exists('Apyc_Modal','get_instance') ){
@@ -62,5 +76,30 @@ function apyc_fxprotools_setup(){
 	if( method_exists('Apyc_Coaching','get_instance') ){
 		Apyc_Coaching::get_instance();
 	}
+	
+	///selectTimesofDay();
+	//exit();
 }
 add_action( 'wp_loaded', 'apyc_fxprotools_setup' );
+function apyc_fxprotools_init(){
+	if( class_exists( 'WooCommerce' ) ){
+		if( method_exists('Apyc_Woo_Webinar','get_instance') ){
+			class WC_Product_Apyc_Woo_Gotowebinar_Appointment extends WC_Product_Simple {
+
+				public $product_type = 'apyc_woo_gotowebinar_appointment';
+				
+				public function __construct( $product ) {
+					parent::__construct( $product );
+				}
+				public function get_type() {
+					return $this->product_type;
+				}
+			}
+			Apyc_Woo_Webinar::get_instance();
+		}
+		if( method_exists('Apyc_Woo_CoachingTemplate','get_instance') ){
+			Apyc_Woo_CoachingTemplate::get_instance();
+		}
+	}
+}
+add_action('init','apyc_fxprotools_init');
