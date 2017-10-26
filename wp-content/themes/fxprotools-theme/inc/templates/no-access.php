@@ -1,8 +1,12 @@
 <?php
 global $product;
-$product_name = $product->get_title();
-$product_price = WC_Subscriptions_Product::get_sign_up_fee($product);
-$product_price = $product_price == 0 ? $product->get_regular_price() : $product_price;
+
+if( isset($product) ){
+	$product_name = $product->get_title();
+	$product_price = WC_Subscriptions_Product::get_sign_up_fee($product);
+	$product_price = $product_price == 0 ? $product->get_regular_price() : $product_price;
+}
+
 
 ?>
 <div class="fx-access-denied-container">

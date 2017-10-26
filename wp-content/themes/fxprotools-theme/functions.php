@@ -62,6 +62,7 @@ $custom_functions = array(
     'function-cpt', // Custom post/taxonomy settings
     'function-mb',  // Metabox Settings
     'function-woocommerce', // Woocommerce Settings
+    'function-affiliates', //affiliates functions
     'function-wc-subscriptions', // WC Subscription settings,
     'function-subscriptions', //  Subscription functions,
     'function-email', // Email,
