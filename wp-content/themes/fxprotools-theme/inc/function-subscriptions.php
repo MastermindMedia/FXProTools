@@ -96,7 +96,7 @@ function process_user_subscription( $subscription_id ){
 add_action( 'template_redirect', 'paused_account_enforce_access' );
 function paused_account_enforce_access()
 {
-	if( is_user_logged_in() && !is_user_fx_distributor() && !is_page('no-access') ){
+	if( is_user_logged_in() && !is_user_fx_distributor() && !is_page('no-access') && !current_user_can('administrator') ){
 		global $post;
 	    if( !isset( $post ) ) return;
 	    $slug = $post->post_name;
