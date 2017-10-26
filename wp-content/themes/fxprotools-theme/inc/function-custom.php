@@ -348,19 +348,21 @@ function get_mb_pto1( $page_element ) {
             break;
         case 'video_embed':
             $video_url              = rwmb_meta('pto1_video_url');
-            $video_autostart        = rwmb_meta('pto1_video_autostart');
-            $video_show_controls    = rwmb_meta('pto1_video_show_controls');
-            $video_scrolling        = rwmb_meta('pto1_video_scrolling');
-            $video_floating         = rwmb_meta('pto1_video_floating');
-            
-            // TODO: use this for null validation
-            // if(!is_null($video_scrolling)){ //do your thing here }else{ //do other thing }
-            
-            echo wp_oembed_get($video_url);
+            // $video_autostart        = rwmb_meta('pto1_video_autostart');
+            // $video_show_controls    = rwmb_meta('pto1_video_show_controls');
+            // $video_scrolling        = rwmb_meta('pto1_video_scrolling');
+            return wp_oembed_get($video_url);
             break;
         default:
             # code...
             break;
+    }
+}
+
+function is_mb_video_floating(){
+    $video_floating = implode( ' ', rwmb_meta('pto1_video_floating') );
+    if( !empty( rtrim($video_floating) ) && $video_floating == 'yes' ){
+        return 'id="pto--floating-video"';
     }
 }
 

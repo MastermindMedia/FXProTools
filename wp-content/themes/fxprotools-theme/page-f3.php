@@ -3,7 +3,7 @@
 <div class="fx-capture-page f3">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
+			<div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3">
 				<div class="text-heading m-b-md">
 					<h2><span class="text-red">FREE!</span> “How To Get Up To 37 Deposits Per Month, Earn Upwards Of $4,954.35 While You Sleep At Night, And NEVER EVER Have To Recruit A Single Person!” </h2>
 				</div>

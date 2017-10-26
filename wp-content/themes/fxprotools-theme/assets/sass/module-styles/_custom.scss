@@ -48,6 +48,59 @@
 	}
 }
 
+// PTO Floating/Sticky Video Embed
+.fx-video-container{
+    &#pto--floating-video{
+        background-color: #ddd;
+        display: block;
+        position: relative;
+        padding: 0 0 56.25% 0;
+        z-index: 99;
+        iframe{
+            transition: width .2s ease-in-out, height .2s ease-in-out, transform .38s ease-in-out;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+#pto--floating-video{
+    // override wordpress embed div
+    .tailor-responsive-embed{
+        position: initial;
+        display: block;
+        padding: 0;
+        padding-bottom: 0;
+        height: 0;
+        overflow: hidden; 
+    }
+    iframe{
+        transition: width .2s ease-in-out, height .2s ease-in-out, transform .38s ease-in-out;
+        &.is-sticky {
+            position: fixed;
+            // bottom: 10%;
+            left: 5%;
+            top: 15%;
+            max-width: 280px;
+            max-height: 158px;
+            width: 280px;
+            height: 158px;
+        }
+    }
+  }
+@media screen and (min-width: 1120px) {
+    #pto--floating-video.is-sticky {
+        transform: translateX(-80%);
+    }
+}
+@media screen and (min-width: 1300px) {
+    #pto--floating-video.is-sticky {
+        transform: translateX(-115%);
+    }
+}
+
 // Landing Page
 .fx-landing {
 	position: relative;
@@ -1850,6 +1903,11 @@
 				background: $black;
 				height: 430px;
 				width: 100%;
+			}
+			.f2-group-form {
+				border-top: 1px solid #DDD;
+				padding: 20px;
+				display: none;
 			}
 		}
 		.section-two {

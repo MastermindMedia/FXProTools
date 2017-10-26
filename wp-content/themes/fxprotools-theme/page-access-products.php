@@ -21,7 +21,12 @@ $coaching = wc_customer_bought_product( '', get_current_user_id(), 50);
 				</div>
 			</div>
 			<div class="col-md-8">
-				<div class="fx-video-container" style="background: #000; height: 320px;"></div>
+				<div class="fx-video-container" <?php echo is_mb_video_floating(); ?>>
+					<?php 
+						// Metabox Page Template Option - Video Embed 
+						echo get_mb_pto1('video_embed'); 
+					?>
+				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="fx-board access-products">
