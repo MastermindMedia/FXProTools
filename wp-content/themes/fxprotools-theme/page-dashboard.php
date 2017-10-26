@@ -24,7 +24,6 @@ $checklist = get_user_checklist();
 				
 			</div>
 			<div class="col-md-8">
-				
 				<?php if( !empty( is_mb_video_scroll() ) ) : ?>
 				<div class="fx-video-container" <?php echo is_mb_video_scroll(); ?>></div>
 				<?php elseif( !empty( is_mb_video_float() ) ) : ?>
@@ -36,7 +35,6 @@ $checklist = get_user_checklist();
 					?>
 				</div>
 				<?php endif; ?>
-
 			</div>
 			<div class="col-md-4">
 				<div class="fx-board checklist">
