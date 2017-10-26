@@ -7,6 +7,8 @@
 	$font-xs-heading: 24px;
 	$font-xs: 14px;
 	$font-xxs: 12px;
+
+	$xs-video-height: 320px;
 	
 	// ------
 	// Global
@@ -106,7 +108,7 @@
 			 	font-size: $font-xs-heading;
 			}
 			.video {
-				height: 320px;
+				height: $xs-video-height;
 				margin: 35px auto 30px 0;
 			}
 			.item-info {
@@ -324,6 +326,32 @@
 				}
 			}
 		}
+		// Funnel 2
+		&.f2 {
+			.section-one {
+				.intro-note {
+					font-size: $font-xs-heading;
+				}
+				.video {
+					height: $xs-video-height;
+				}
+				.video-disclaimer {
+					margin-bottom: 15px;
+				}
+			}
+		}
+		// Funnel 3
+		&.f3 {
+			padding: 20px 0;
+			.tab-form .nav-tabs li a {
+				label {
+					font-size: 22px;
+				}
+				span {
+					font-size: 12px;
+				}
+			}
+		}
 	}
 	
 }
@@ -349,6 +377,7 @@
 }
 @media screen and (max-width: 420px) {
 
+	$xs-video-height: 220px;
 	// ------
 	// Global
 	// ------
@@ -381,11 +410,46 @@
 		font-size: 22px;
 	}
 	.fx-landing .section-two .video {
-		height: 220px;
+		height: $xs-video-height;
 	}
 	.fx-landing .section-five .step-item h2 .label-red {
 		display: block;
 		margin-bottom: 5px;
+	}
+	// Capture Page
+	.fx-capture-page {
+		// Funnel 2
+		&.f2 .section-one .video {
+			height: $xs-video-height;
+		}
+		// Funnel 3/4
+		&.f3, &.f4 {
+			.tab-form .nav-tabs li {
+				width: 100%;
+				text-align: left;
+				border-bottom: 1px solid #edcd95;
+				padding-bottom: 10px;
+				&:last-child {
+					border-bottom: none;
+				}
+				a label {
+					font-size: 20px;
+					float: left;
+					vertical-align: middle;
+					margin-right: 15px;
+				}
+				a span {
+					line-height: initial;
+					margin-top: 6px;
+				}
+				a br {
+					display: none;
+				}
+			}
+			.tab-form .tab-content .title {
+				font-size: 22px;
+			}
+		}
 	}
 
 }
