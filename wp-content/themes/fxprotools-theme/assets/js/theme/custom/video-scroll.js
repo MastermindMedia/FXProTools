@@ -143,9 +143,7 @@
 
     $(document).ready(function(){    
         var URLS = [];
-        URLS = $('#pto--scrolling-video').data('url');
-        console.log(URLS);
-        
+        URLS = $('#pto--scrolling-video').data('url');    
         // Embed the URLS.
         $.embedly.oembed(URLS)
         .progress(function(obj){
