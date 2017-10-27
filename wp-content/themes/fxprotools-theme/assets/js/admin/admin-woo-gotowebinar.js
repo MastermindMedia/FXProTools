@@ -35,5 +35,4 @@ jQuery(document).ready( function($) {
 			$('#' + _val).hide();
 		}
 	});
-	
 });

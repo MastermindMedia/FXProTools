@@ -52,19 +52,6 @@ if ( ! function_exists('write_log')) {
 require_once plugin_dir_path( __FILE__ ) . 'functions-gotowebinar.php';
 //sms/twilio related functions
 require_once plugin_dir_path( __FILE__ ) . 'functions-sms.php';
-function selectTimesofDay($start=false, $end=false, $interval='5 minutes'){
-    $start = new DateTimeImmutable("4:00 AM");
-	$end = new DateTimeImmutable("2:00 PM");
-	$interval = new DateInterval('PT1H'); //15 minute interval
-	$range = new DatePeriod($start, $interval, $end);
-
-	foreach ($range as $time) {
-		if( $time->format('A') == 'AM' ){
-			echo $time->format('g:i A'), "-", $time->add($interval)->format('g:i A'), "<br>";
-		}
-	}
-	dd($range);
-}
 
 function apyc_fxprotools_setup(){
 	if( method_exists('Apyc_Modal','get_instance') ){
