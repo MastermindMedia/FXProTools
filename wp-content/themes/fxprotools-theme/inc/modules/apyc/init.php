@@ -82,6 +82,8 @@ function apyc_fxprotools_setup(){
 }
 add_action( 'wp_loaded', 'apyc_fxprotools_setup' );
 function apyc_fxprotools_init(){
+	global $theme_version, $woocommerce, $post, $product;
+	
 	if( class_exists( 'WooCommerce' ) ){
 		if( method_exists('Apyc_Woo_Webinar','get_instance') ){
 			class WC_Product_Apyc_Woo_Gotowebinar_Appointment extends WC_Product_Simple {

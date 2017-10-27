@@ -92,7 +92,7 @@ class Apyc_Woo_Webinar{
 
 		$_woogotowebinar_range_time_to_meridiem = $_POST['_woogotowebinar_range_time_to_meridiem'];
 		if( !empty( $_woogotowebinar_range_time_to_meridiem ) )
-		update_post_meta( $post_id, '_woogotowebinar_range_time_to_meridiem', esc_attr( $_woogotowebinar_range_time_to_meridiem) );
+		update_post_meta( $post_id, '_woogotowebinar_range_time_to_meridiem', esc_attr($_woogotowebinar_range_time_to_meridiem) );
 
 	}
 		
