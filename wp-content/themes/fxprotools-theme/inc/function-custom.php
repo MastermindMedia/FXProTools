@@ -350,7 +350,27 @@ function get_mb_pto1( $page_element ) {
             $video_url              = rwmb_meta('pto1_video_url');
             // $video_autostart        = rwmb_meta('pto1_video_autostart');
             // $video_show_controls    = rwmb_meta('pto1_video_show_controls');
-            return wp_oembed_get($video_url);
+            $scroll_class   = "";
+            $scroll_url     = "";
+            $float_class    = "";
+
+            if( count( is_mb_video_scroll() ) > 0 ){
+                $arr_scroll = is_mb_video_scroll();
+                $scroll_class   = ( !empty( rtrim($arr_scroll[0]) ) ) ? $arr_scroll[0] : '';
+                $scroll_url     = ( !empty( rtrim($arr_scroll[1]) ) ) ? $arr_scroll[1] : '';
+            }
+
+            if( count( is_mb_video_float() ) > 0 ){
+                $arr_float = is_mb_video_float();
+                $float_class    = $arr_float[0];
+            }
+
+            $html = '<div class="fx-video-container" id="' . $float_class . '" data-ptoaction="' . $scroll_class . '" data-ptourl="' . $scroll_url . '">';
+            $html .= ( !empty($scroll_class) ) ? '' : wp_oembed_get($video_url) ;
+            $html .= '</div>';
+            
+            return $html;
+            
             break;
         default:
             # code...
@@ -361,13 +381,15 @@ function get_mb_pto1( $page_element ) {
 function is_mb_video_scroll(){
     $video_scrolling = implode( ' ', rwmb_meta('pto1_video_scrolling') );
     if( !empty( rtrim($video_scrolling) ) && $video_scrolling == 'yes' ) 
-        return 'id="pto--scrolling-video" data-url="' . rwmb_meta('pto1_video_url') . '"';
+        // return 'id="pto--scrolling-video" data-url="' . rwmb_meta('pto1_video_url') . '"';
+        return array('pto--scrolling-video', rwmb_meta('pto1_video_url'));
 }
 
 function is_mb_video_float(){
     $video_floating = implode( ' ', rwmb_meta('pto1_video_floating') );
     if( !empty( rtrim($video_floating) ) && $video_floating == 'yes' )
-        return 'id="pto--floating-video"';
+        // return 'id="pto--floating-video"';
+        return array('pto--floating-video');
 }
 
 function mb_menu_display( $display, $menu, $menu_class = '', $walker = '', $fallback  ) {

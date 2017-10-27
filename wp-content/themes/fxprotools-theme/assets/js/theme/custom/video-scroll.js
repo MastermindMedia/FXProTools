@@ -143,25 +143,30 @@
 
     $(document).ready(function(){    
         var URLS = [];
-        URLS = $('#pto--scrolling-video').data('url');    
-        // Embed the URLS.
-        $.embedly.oembed(URLS)
-        .progress(function(obj){
+        URLS = $('*[data-ptoaction*="pto--scrolling-video"]').data('ptourl');
+        
+        if( $('*[data-ptoaction*="pto--scrolling-video"]').length > 0 ){
+            // Embed the URLS.
+            $.embedly.oembed(URLS)
+            .progress(function(obj){
 
-            if (!obj.html){
-            return false;
-            }
+                if (!obj.html){
+                return false;
+                }
 
-            // responsive embed wordpress built-in
-            var $box = $('<div class="tailor-responsive-embed"></div>');
-            $box.append(obj.html);
+                // responsive embed wordpress built-in
+                var $box = $('<div class="tailor-responsive-embed"></div>');
+                $box.append(obj.html);
 
-            $('.fx-video-container').append($box);
-        })
-        .done(function(){
-        // Set up all the new scrollers.
-        var scroller = new Scroller($('iframe'));
-        });
+                $('.fx-video-container').append($box);
+            })
+            .done(function(){
+            // Set up all the new scrollers.
+            var scroller = new Scroller($('iframe'));
+            });
+        }
+
+        
     });    
 
     $.embedly.defaults.key = '3ee528c9eb4b4908b268ce1ace120c92';
