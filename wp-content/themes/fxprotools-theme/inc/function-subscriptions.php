@@ -101,11 +101,11 @@ function paused_account_enforce_access()
 	    if( !isset( $post ) ) return;
 	    $slug = $post->post_name;
 
-		$allowed_pages = array( 'my-account', 'inbox', 'funnels', 'referred-members', 'wallet', 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'autologin', 'log-out-notice','no-access' );
+		$allowed_pages = array( 'my-account', 'inbox', 'funnels', 'referred-members', 'wallet', 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'autologin', 'log-out-notice','no-access', 'renewal' );
 
 		if( !is_product() && !is_cart() && !is_checkout() && !is_shop() && !is_404() && !is_front_page() ) {
 	       if( !in_array($slug, $allowed_pages) ){
-	            wp_redirect( site_url('no-access') );
+	            wp_redirect( site_url('renewal') );
 	            exit;
 	        }
 	    }
