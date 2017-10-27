@@ -53,7 +53,7 @@ class Apyc_Modal{
 			$data['current_user'] = $current_user;
 		}
 
-		$data['webinars'] = Apyc_Citrix_GoToWebinar_GetAll::get_instance()->query();
+		//$data['webinars'] = Apyc_Citrix_GoToWebinar_GetAll::get_instance()->query();
 		Apyc_View::get_instance()->view_theme(TEMPLATE_PATH . 'modal.php', $data);
 	}
 	

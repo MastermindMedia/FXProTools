@@ -114,3 +114,28 @@ if ( ! function_exists('apyc_get_webinar_paid')) {
 		}
    }
 }
+if ( ! function_exists('apyc_time_interval')) {
+	function apyc_time_interval($start=false, $end=false){
+		$data_array = array();
+		$start = new DateTimeImmutable("4:00 AM");
+		$end = new DateTimeImmutable("2:00 PM");
+		$interval = new DateInterval('PT1H'); //1 hour interval
+		$range = new DatePeriod($start, $interval, $end);
+		
+		$am = array();
+		$pm = array();
+		foreach ($range as $time) {
+			if( $time->format('A') == 'AM' ){
+				$am[] = $time->format('g:i A');
+			}
+			if( $time->add($interval)->format('A') == 'PM' ){
+				$pm[] = $time->add($interval)->format('g:i A');
+			}
+			$data_array = array(
+				'am' => $am,
+				'pm' => $pm
+			);
+		}
+		return $data_array;
+	}
+}
