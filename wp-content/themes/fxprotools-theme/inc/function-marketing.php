@@ -91,18 +91,19 @@ function get_funnel_stats($funnel_id, $date_filter = array())
 	$cp_stats['page_views']['unique'] = get_unique_property_count($visits, 'ip', $funnel['cp_url']);
 	$lp_stats['page_views']['unique'] = get_unique_property_count($visits, 'ip', $funnel['lp_url']);
 
+
 	//opt ins
 	$funnel_id = trim( parse_url( rwmb_meta('capture_page_url', '', $funnel_id), PHP_URL_PATH ), '/');
 	$search = FX_Sendgrid_Api::search_contacts('campaign', $funnel_id);
-	$cp_stats['opt_ins']['all'] = $search->recipient_count;
-	$cp_stats['opt_ins']['rate'] = $cp_stats['opt_ins']['all'] < 1 ? 0 :  round( $cp_stats['opt_ins']['all'] / $cp_stats['page_views']['all'] * 100, 2);
+	$cp_stats['opt_ins']['all'] = $search->recipient_count; 
+	$cp_stats['opt_ins']['rate'] = ( $cp_stats['page_views']['all'] >= 1 && $cp_stats['opt_ins']['all'] >= 1) ? round( $cp_stats['opt_ins']['all'] / $cp_stats['page_views']['all'] * 100, 2) : 0;
 
 	//sales
 	$cp_stats['sales']['count'] = get_property_count($visits, 'referral_id', $funnel['cp_url']);
-	$cp_stats['sales']['rate'] = $cp_stats['sales']['count'] < 1 ? 0 :  round( $cp_stats['sales']['count'] / $cp_stats['page_views']['all'] * 100, 2);
+	$cp_stats['sales']['rate'] = ( $cp_stats['page_views']['all'] >= 1 && $cp_stats['sales']['count'] >= 1) ? round( $cp_stats['sales']['count'] / $cp_stats['page_views']['all'] * 100, 2) : 0;
 
 	$lp_stats['sales']['count'] = get_property_count($visits, 'referral_id', $funnel['lp_url']);
-	$lp_stats['sales']['rate'] = $lp_stats['sales']['count'] < 1 ? 0 :  round( $lp_stats['sales']['count'] / $lp_stats['page_views']['all'] * 100, 2);
+	$lp_stats['sales']['rate'] = ( $lp_stats['page_views']['all'] >= 1 && $lp_stats['sales']['count'] >= 1) ? round( $lp_stats['sales']['count'] / $lp_stats['page_views']['all'] * 100, 2) : 0;
 
 	$stats = array( 'capture' => $cp_stats,
 					'landing' => $lp_stats,
