@@ -1,4 +1,4 @@
-<?php
+    <?php
 /**
  * ----------------------------
  * Fxprotools - Cusom Functions
@@ -29,7 +29,7 @@ function get_checklist_next_step_url()
             }
         }
     }
-    return $url;
+    return '#';
 }
 
 function resend_email_verification()

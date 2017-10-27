@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 <div class="fx-landing main">
-<?php get_template_part('inc/templates/nav-capture-page'); ?>
+    <?php get_template_part('inc/templates/nav-capture-page'); ?>
 </div>
 <div class="fx-red-note">
     <div class="container">
@@ -19,10 +19,10 @@
                     <div class="panel fx-package-item">
                         <div class="panel-body ">
                             <div class="text-center heading">
-                                <img class="img-responsive" src="/wp-content/uploads/2017/10/log-out-image.png"/>
+                                <img class="img-responsive" src="<?php echo site_url('/wp-content/uploads/2017/10/log-out-image.png');?>"/>
                                 <h1>You Have Logged Out<br/>Of Your Account</h1>
                                 <span class="label-red">Thank you for using our <?= get_bloginfo( 'name' ); ?></span>
-                                <p class="m-t-md">Please <a href="<?= wp_login_url(); ?>">click here</a> to login back to our site</p>
+                                <p class="m-t-md">Please <a href="<?php echo site_url('login'); ?>">click here</a> to login back to our site</p>
                             </div>
 
                             <div class="quick-message m-t-lg">

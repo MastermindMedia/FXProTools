@@ -89,7 +89,7 @@ get_header();
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane fade in active" id="a">
-									<form action="<?php echo get_the_permalink(); ?>" method="POST" class="<?php echo ($_GET['action'] == 'edit' ? 'form-edit' : ''); ?>">
+									<form action="<?php echo get_the_permalink(); ?>" method="POST" class="<?php echo ( isset($_GET['action']) && $_GET['action'] == 'edit') ? 'form-edit' : ''; ?>">
 									<div class="row">
 										<div class="col-md-6 m-b-lg">
 											<p class="text-bold text-center">General Information</p>
