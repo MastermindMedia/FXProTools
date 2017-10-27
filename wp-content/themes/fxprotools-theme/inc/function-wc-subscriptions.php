@@ -16,25 +16,58 @@ if(!class_exists('WC_Subscriptions_Settings')){
 		
 		public function __construct()
 		{
-			add_filter('woocommerce_subscriptions_is_duplicate_site', array($this, 'wc_is_duplicate_site'), 10, 1);
-			//add_action('woocommerce_scheduled_subscription_expiration', array($this, 'wc_scheduled_subscription_expiration'), 10, 1);
-			add_filter('fx_before_gateway_renewal_order', array($this, 'wc_apply_signup_fee_on_renewal'), 10, 1);
-		}
-		
-		/**
-		 * [Subscription expiration handler]
-		 * @param  int
-		 */
-		public function wc_scheduled_subscription_expiration( $subscription_id )
-		{
-			$subscription = wcs_get_subscription( $subscription_id );
-		    if  ( self::wc_is_subcription_trial( $subscription) ){
-		    	$new_subscription = self:: wc_create_new_subscription( $subscription );
-		    } else{	
-		    	
-		    }
+
+			add_filter( 'woocommerce_settings_tabs_array', array($this, 'add_settings_tab'));
+	        add_action( 'woocommerce_settings_tabs_fx_settings_tab', array($this, 'settings_tab') );
+	        add_action( 'woocommerce_update_options_fx_settings_tab',  array($this, 'update_settings') );
+			add_filter( 'woocommerce_subscriptions_is_duplicate_site', array($this, 'wc_is_duplicate_site'), 10, 1);
+			add_filter( 'fx_before_gateway_renewal_order', array($this, 'wc_apply_signup_fee_on_renewal'), 10, 1);
 		}
 
+		public function add_settings_tab( $settings_tabs ) {
+	        $settings_tabs['fx_settings_tab'] = 'FX Subscription Settings';
+	        return $settings_tabs;
+	    }
+
+	    public  function settings_tab() {
+	        woocommerce_admin_fields( self::get_settings() );
+	    }
+
+	    public function update_settings() {
+	        woocommerce_update_options( self::get_settings() );
+	    }
+
+	    public function get_settings() {
+	        $settings = array(
+	            'section_title' => array(
+	                'name'     => 'FX Subscription Settings',
+	                'type'     => 'title',
+	                'desc'     => '',
+	                'id'       => 'wc_fx_settings_tab_section_title'
+	            ),
+	            'title' => array(
+	                'name' => 'Charge User Signup Fee',
+	                'type' => 'select',
+	                'options' => array('yes' => 'Yes', 'no' => 'No'),
+	                'default' => 'yes',
+	                'id'   => 'wc_fx_settings_tab_charge_user_signup_fee'
+	            ),
+	            'description' => array(
+	                'name' => 'When to Charge User',
+	                'type' => 'select',
+	                'options' => array('start' => 'Start', 'end' => 'Trial End'),
+	                'default' => 'end',
+	                'id'   => 'wc_fx_settings_tab_when_to_charge_user'
+	            ),
+	            'section_end' => array(
+	                 'type' => 'sectionend',
+	                 'id' => 'wc_fx_settings_tab_section_end'
+	            )
+	        );
+	        return apply_filters( 'wc_fx_settings_tab_settings', $settings );
+	    }
+
+		
 		/**
 		 * [If the expired subscription is a trial product]
 		 * @param  WC_Subscription
@@ -70,67 +103,7 @@ if(!class_exists('WC_Subscriptions_Settings')){
 			}
 		}
 
-		/**
-		 * [Create new regular subscription]
-		 * @param  WC_Subscription
-		 * @return integer
-		 */
-		public static function wc_create_new_subscription( $old_subscription ){
 		
-			$address = $old_subscription->get_address('billing');
-			$product = wc_get_product( self::wc_get_subscription_product_id( $old_subscription ) );
-			$args = array(
-		        'attribute_subscription-type' => 'normal'
-		    );
-		    $product_variation = $product->get_matching_variation($args);
-			$product = wc_get_product($product_variation); 
-
-			//create parent order
-		    $order = $old_subscription->get_parent();
-
-		    echo 'created parent order';
-		    dd($order);
-		   
-		    //create the subscription
-		    $period = WC_Subscriptions_Product::get_period( $product );
-		    $interval = WC_Subscriptions_Product::get_interval( $product );
-
-			$sub = wcs_create_subscription( array(
-				'order_id'         => wcs_get_objects_property( $order, 'id' ),
-				'customer_id'      => $order->get_user_id(),
-				'billing_period'   => $period,
-				'billing_interval' => $interval,
-				'customer_note'    => wcs_get_objects_property( $order, 'customer_note' ),
-			) );
-
-
-			$order_args = array(
-				'totals'    => array(
-					'subtotal'     => $product->get_sign_up_fee() + $product->get_price(),
-					'subtotal_tax' => 0,
-					'total'        => $product->get_sign_up_fee() + $product->get_price(),
-					'tax'          => 0,
-					'tax_data'     => array( 'subtotal' => array(), 'total' => array() ),
-				),
-			);
-
-			$item_id = $sub->add_product( $product, 1, $order_args);
-   			$sub->set_address( $address, 'billing' );
-   			$sub->calculate_totals();
-   			$sub->set_payment_method( wc_get_payment_gateway_by_order( $order ) );
-			$sub->save();
-
-   			WC_Subscriptions_Manager::activate_subscriptions_for_order($order);
-			
-   			$renewal_order = wcs_create_renewal_order($sub);
-   			$renewal_order->set_payment_method( wc_get_payment_gateway_by_order( $order ) ); 
-   			$renewal_order->set_requires_manual_renewal( false );
-   			$renewal_order->save();
-   			WC_Subscriptions_Payment_Gateways::gateway_scheduled_subscription_payment($sub->get_id());
-
-    		return $sub;
-		}
-
 		public function wc_is_duplicate_site($is_duplicate){
 			return false;
 		}
@@ -223,8 +196,6 @@ if(!class_exists('WC_Subscriptions_Settings')){
 			return $renewal_order;
 
 		}
-
-		
 
 
 
