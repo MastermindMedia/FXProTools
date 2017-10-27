@@ -41,7 +41,7 @@ if(!class_exists('FX_Sendgrid_Api')){
 			return $response->statusCode();
 		}
 		
-		public function send_to_many($personalizations, $subject, $content)
+		public function send_to_many($personalizations, $subject, $content, $categories)
 		{
 			if (!is_array($personalizations) || !$content || !$subject) return;
 			
@@ -56,7 +56,8 @@ if(!class_exists('FX_Sendgrid_Api')){
 				'content' => array(array(
 					'type' => 'text/html',
 					'value' => $content
-				))
+				)),
+				'categories' => $categories
 			);
 			
 			$response = $sg->client->mail()->send()->post($request_body);
@@ -65,6 +66,18 @@ if(!class_exists('FX_Sendgrid_Api')){
 				'status_code' => $response->statusCode(),
 				'body' => $response->body()
 			);
+		}
+		
+		public function get_stats_for_category($category, $startDate)
+		{
+			$sg = new \SendGrid( self::SENDGRID_API_KEY );
+			
+			$response = $sg->client->categories()->stats()->get(null, array(
+				'start_date' => $startDate,
+				'categories' => $category
+			));
+			
+			return $response->body();
 		}
 	}
 }
