@@ -27,6 +27,7 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 			add_filter( 'woocommerce_product_data_tabs', array( $this, 'wc_add_buy_button_tab' ) );
 			add_filter( 'woocommerce_breadcrumb_defaults', array( $this, 'wc_custom_breadcrumbs' ) );
 			add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'wc_archive_custom_cart_button_text' ) );
+			add_filter( 'woocommerce_product_single_add_to_cart_text', array( $this, 'wc_archive_custom_cart_button_text' ) );
 			add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'wc_archive_custom_cart_button_url' ) );
 
 			// Actions
