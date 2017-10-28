@@ -150,6 +150,7 @@ if(!class_exists('CptSettings')){
 					'can_export'          => true,
 					'menu_position'       => 7,
 					'menu_icon'           => 'dashicons-email',
+					'rewrite'             => array('slug' => 'emails'),
 					'supports'            => array('title'),
 					'labels' => array(
 						'name'                  => 'Emails',

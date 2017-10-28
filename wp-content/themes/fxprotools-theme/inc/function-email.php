@@ -141,7 +141,7 @@ function post_email_published($id) {
         }
         
         $sendGrid = new \FX_Sendgrid_Api();
-        $result = $sendGrid->send_to_many($personalizations, $post->post_title, get_post_meta($post->ID, 'email_content')[0]);
+        $result = $sendGrid->send_to_many($personalizations, $post->post_title, get_post_meta($post->ID, 'email_content')[0], array('wpemail-id-' . $id));
         
         if ($result['status_code'] != 202) {
             wp_update_post(array(
