@@ -16,6 +16,8 @@
 				$membership_product_id = Woocommerce_Settings::MEMBERSHIP_PRODUCTS_ID;
 				$membership_product = wc_get_product( $membership_product_id );
 				$product_ids = $membership_product->get_children();
+				$product_count = count( $product_ids );
+				$col_denom = ( $product_count >= 1 && $product_count <= 4 ) ? 12 / $product_count : 4;
 
 				foreach ( $product_ids as $product_name => $product_id ) :
 					$product = wc_get_product( $product_id );
@@ -31,7 +33,7 @@
 						}
 					}
 					?>
-                    <div class="col-md-4">
+                    <div class="col-md-<?= $col_denom; ?>">
                         <div class="panel fx-package-item active">
                             <span class="sash">UPGRADE</span>
                             <div class="panel-body">
