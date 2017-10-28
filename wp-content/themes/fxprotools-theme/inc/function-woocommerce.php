@@ -11,6 +11,11 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 		const META_ENABLE_BUY_BUTTON = '_enable_buy_button';
 		const META_BUY_BUTTON_URL = '_buy_button_url';
 		const META_BUY_BUTTON_TEXT = '_buy_button_text';
+        
+		/**
+		 * @var integer ID of the membership products
+		 */
+		const MEMBERSHIP_PRODUCTS_ID = 3327;
 
 		public function __construct() {
 			update_option( 'woocommerce_cart_redirect_after_add', 'no' );
