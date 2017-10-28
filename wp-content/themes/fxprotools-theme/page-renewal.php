@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="m-t-lg col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                                        <form>
+                                        <form method="post">
                                             <div class="form-group ">
                                                 <input type="password" class="form-control no-border-radius col-6 text-2x p-xs p-w-md" id="pwd" name="pwd" required placeholder="Enter Your Password...">
                                             </div>
