@@ -5,7 +5,7 @@
 	<div class="fx-red-note">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-xs-12 col-sm-12 col-md-12">
 					<p>CopyProfitShare is the map that teaches you specialized market knowledge!</p>
 				</div>
 			</div>
@@ -14,7 +14,7 @@
 	<div class="section-two">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
+				<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 					<div class="text-center">
 						<p class="intro-note m-b-xs">Improve Your Trades With</p>
 						<p class="intro-note lg"><strong>UNLIMITED Professional</strong></p>
@@ -35,7 +35,7 @@
 	<div class="section-three section-w-panel">
 		<div class="container n-t-xl">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-xs-12 col-sm-12 col-md-12">
 					<div class="header-text text-center">
 						<img src="<?php bloginfo('template_url'); ?>/assets/img/arrow-left.png" class="img-responsive arrow-left">
 						<h2 class="m-t-none m-b-none inline-block">Our Previous Results!</h2>
@@ -51,27 +51,33 @@
 								<h2 class="m-t-none">With Up To 90% Prediction Rate</h2>
 							</div>
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-xs-12 col-sm-6 col-md-6">
 									<img src="http://via.placeholder.com/502x251" class="center-block img-responsive">
 								</div>
-								<div class="col-md-6">
-									Our advanced trade prediction Signals can predicts top winning binary & Forex trades. Stay on top of the market with our Binary Room & Forex Contract Scanner by winning over 90% of your trades!
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="content">
+										Our advanced trade prediction Signals can predicts top winning binary & Forex trades. Stay on top of the market with our Binary Room & Forex Contract Scanner by winning over 90% of your trades!
+									</div>
 								</div>
 							</div>
 							<div class="row m-t-lg m-b-lg">
-								<div class="col-md-6">
-									Our advanced trade prediction Signals can predicts top winning binary & Forex trades. Stay on top of the market with our Binary Room & Forex Contract Scanner by winning over 90% of your trades!
-								</div>
-								<div class="col-md-6">
+								<div class="col-xs-12 col-sm-6 col-sm-push-6 col-md-6 col-md-push-6">
 									<img src="http://via.placeholder.com/502x251" class="center-block img-responsive">
+								</div>
+								<div class="col-xs-12 col-sm-6 col-sm-pull-6 col-md-6 col-md-pull-6">
+									<div class="content">
+										Our advanced trade prediction Signals can predicts top winning binary & Forex trades. Stay on top of the market with our Binary Room & Forex Contract Scanner by winning over 90% of your trades!
+									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-xs-12 col-sm-6 col-md-6">
 									<img src="http://via.placeholder.com/502x251" class="center-block img-responsive">
 								</div>
-								<div class="col-md-6">
-									Our advanced trade prediction Signals can predicts top winning binary & Forex trades. Stay on top of the market with our Binary Room & Forex Contract Scanner by winning over 90% of your trades!
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="content">
+										Our advanced trade prediction Signals can predicts top winning binary & Forex trades. Stay on top of the market with our Binary Room & Forex Contract Scanner by winning over 90% of your trades!
+									</div>
 								</div>
 							</div>
 						</div>
@@ -83,27 +89,33 @@
 	<div class="fx-red-banner-icons">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-xs-12 col-sm-4 col-md-4">
 					<div class="item">
-						<img src="<?php bloginfo('template_url'); ?>/assets/img/ico4.png" class="img-responsive">
+						<div class="image">
+							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico4.png" class="img-responsive">
+						</div>
 						<div class="info">
 							<span>New Signal Alert</span>
 							<p class="small">It is as easy as waiting for new signals to be released.</p>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-xs-12 col-sm-4 col-md-4">
 					<div class="item">
-						<img src="<?php bloginfo('template_url'); ?>/assets/img/ico5.png" class="img-responsive">
+						<div class="image">
+							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico5.png" class="img-responsive">
+						</div>
 						<div class="info">
 							<span>Open &amp; Set Trade</span>
 							<p class="small">We give you your Entry, Take Profit &amp; Stop Loss lines.</p>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-xs-12 col-sm-4 col-md-4">
 					<div class="item">
-						<img src="<?php bloginfo('template_url'); ?>/assets/img/ico6.png" class="img-responsive">
+						<div class="image">
+							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico6.png" class="img-responsive">
+						</div>
 						<div class="info">
 							<span>Wait For Results</span>
 							<p class="small">This includes win / loss / tie results for all the signals released. </p>
@@ -116,7 +128,7 @@
 	<div class="section-testimonials section-w-panel">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-10 col-md-offset-1">
+				<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 					<div class="text-center">
 						<p class="intro-note">Our Members Love Our Signals</p>
 						<p class="intro-note label-red inline-block">Start Winning More.</p>
@@ -125,11 +137,11 @@
 				</div>
 			</div>
 			<div class="row m-t-lg">
-				<div class="col-md-12">
+				<div class="col-xs-12 col-sm-12 col-md-12">
 					<div class="panel">
 						<div class="panel-body">
 							<div class="row">
-								<div class="col-md-10 col-md-offset-1">
+								<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 									<div class="header-text m-b-md">
 										<p class="text-center text-heading text-bold"><span class="text-red">VIDEO TESTIMONIALS!</span> Show Proof 
 										That “FX Pro Tools” Has ALREADY Dramatically Changed The Businesses And Lives Of Countless Others... 
@@ -139,67 +151,67 @@
 								</div>
 							</div>
 							<div class="row m-t-md m-b-md">
-								<div class="col-md-6">
+								<div class="col-xs-12 col-sm-6 col-md-6">
 									<div class="testimonial-item">
-										<img src="http://via.placeholder.com/500x250" class="img-responsive">
+										<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 										<span class="title">Eddie L. of Florida, USA</span>
 										<span class="small">"Retired Teacher"</span>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-xs-12 col-sm-6 col-md-6">
 									<div class="testimonial-item">
-										<img src="http://via.placeholder.com/500x250" class="img-responsive">
+										<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 										<span class="title">Sol A. of Texas, USA</span>
 										<span class="small">"Rabbi"</span>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-xs-12 col-sm-6 col-md-6">
 									<div class="testimonial-item">
-										<img src="http://via.placeholder.com/500x250" class="img-responsive">
+										<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 										<span class="title">Gerard F. of  Rio, Brazil</span>
 										<span class="small">"Electromechanical Engineer"</span>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-xs-12 col-sm-6 col-md-6">
 									<div class="testimonial-item">
-										<img src="http://via.placeholder.com/500x250" class="img-responsive">
+										<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 										<span class="title">Tim F. of Ontario, CA</span>
 										<span class="small">"IT Professional"</span>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-xs-12 col-sm-6 col-md-6">
 									<div class="testimonial-item">
-										<img src="http://via.placeholder.com/500x250" class="img-responsive">
+										<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 										<span class="title">John S. of New York, USA</span>
 										<span class="small">"Teacher"</span>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-xs-12 col-sm-6 col-md-6">
 									<div class="testimonial-item">
-										<img src="http://via.placeholder.com/500x250" class="img-responsive">
+										<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
 										<span class="title">Mark E. of California, USA</span>
 										<span class="small">"Ex Pizza Delivery Boy</span>
 									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-8 col-md-offset-2">
+								<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
 									<a href="#" class="btn btn-success block btn-lg btn-lg-w-text">
 										Get Your Access For $1.00 Trial Now!
 										<span>Sign-up takes less than 60 seconds. Pick a plan to get started!</span>
 									</a>
 								</div>
 								<div class="clearfix"></div>
-								<div class="col-md-12">
+								<div class="col-xs-12 col-sm-12 col-md-12">
 									<hr class="m-t-lg m-b-sm">
 								</div>
-								<div class="col-md-8 col-md-offset-2">
+								<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
 									<div class="text-center">
 										<h3 class="text-normal">Our Binary &amp; Forex Platform Has Already Helped Countless People Around The World...</h3>
 										<h1 class="text-red m-b-lg">The Only Question Left <br>Asking Is, “Are YOU Next?"</h1>
 									</div>
 								</div>
-								<div class="col-md-10 col-md-offset-1">
+								<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 									<p><strong>P.S. In case you're one of those people</strong> (like me) who just skip to the end of the letter, here's the deal:</p>
 									<p>We're going to let you test drive FX Pro Tools AND Our Signals today... because we know that after you start using them, you'll wonder how your ever going to survive without them again! </p>
 									<p>There's not catch... no gimmicks... </p>
@@ -208,7 +220,7 @@
 									<p>You won't regret it.</p>
 								</div>
 								<div class="clearfix"></div>
-								<div class="col-md-8 col-md-offset-2">
+								<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
 									<a href="#" class="btn btn-success block btn-lg btn-lg-w-text m-t-md">
 										Get Your Access For $1.00 Trial Now!
 										<span>Sign-up takes less than 60 seconds. Pick a plan to get started!</span>
@@ -224,30 +236,36 @@
 	<div class="fx-red-banner-icons">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4">
+				<div class="col-xs-12 col-sm-4 col-md-4">
 					<div class="item">
-						<img src="<?php bloginfo('template_url'); ?>/assets/img/ico7.png" class="img-responsive">
+						<div class="image">
+							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico4.png" class="img-responsive">
+						</div>
 						<div class="info">
-							<span>Forex Education</span>
-							<p class="small">Get Instant Access to our videos &amp; start learning at your pace.</p>
+							<span>New Signal Alert</span>
+							<p class="small">It is as easy as waiting for new signals to be released.</p>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-xs-12 col-sm-4 col-md-4">
 					<div class="item">
-						<img src="<?php bloginfo('template_url'); ?>/assets/img/ico8.png" class="img-responsive">
+						<div class="image">
+							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico5.png" class="img-responsive">
+						</div>
 						<div class="info">
-							<span>Forex Signals</span>
-							<p class="small">We provide "Signals" for Entry &amp; Exit of Trades. Instant Profit!</p>
+							<span>Open &amp; Set Trade</span>
+							<p class="small">We give you your Entry, Take Profit &amp; Stop Loss lines.</p>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-4">
+				<div class="col-xs-12 col-sm-4 col-md-4">
 					<div class="item">
-						<img src="<?php bloginfo('template_url'); ?>/assets/img/ico9.png" class="img-responsive">
+						<div class="image">
+							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico6.png" class="img-responsive">
+						</div>
 						<div class="info">
-							<span>Live Webinars</span>
-							<p class="small">We provide "Signals" for Entry &amp; Exit of Trades. Instant Profit! </p>
+							<span>Wait For Results</span>
+							<p class="small">This includes win / loss / tie results for all the signals released. </p>
 						</div>
 					</div>
 				</div>
@@ -261,27 +279,33 @@
 					<div class="panel">
 						<div class="panel-body">
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-xs-12 col-sm-6 col-md-6">
 									<img src="http://via.placeholder.com/502x251" class="center-block img-responsive">
 								</div>
-								<div class="col-md-6">
-									Our advanced trade prediction Signals can predicts top winning binary & Forex trades. Stay on top of the market with our Binary Room & Forex Contract Scanner by winning over 90% of your trades!
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="content">
+										Our advanced trade prediction Signals can predicts top winning binary & Forex trades. Stay on top of the market with our Binary Room & Forex Contract Scanner by winning over 90% of your trades!
+									</div>
 								</div>
 							</div>
 							<div class="row m-t-lg m-b-lg">
-								<div class="col-md-6">
-									Our advanced trade prediction Signals can predicts top winning binary & Forex trades. Stay on top of the market with our Binary Room & Forex Contract Scanner by winning over 90% of your trades!
-								</div>
-								<div class="col-md-6">
+								<div class="col-xs-12 col-sm-6 col-sm-push-6 col-md-6 col-md-push-6">
 									<img src="http://via.placeholder.com/502x251" class="center-block img-responsive">
+								</div>
+								<div class="col-xs-12 col-sm-6 col-sm-pull-6 col-md-6 col-md-pull-6">
+									<div class="content">
+										Our advanced trade prediction Signals can predicts top winning binary & Forex trades. Stay on top of the market with our Binary Room & Forex Contract Scanner by winning over 90% of your trades!
+									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-xs-12 col-sm-6 col-md-6">
 									<img src="http://via.placeholder.com/502x251" class="center-block img-responsive">
 								</div>
-								<div class="col-md-6">
-									Our advanced trade prediction Signals can predicts top winning binary & Forex trades. Stay on top of the market with our Binary Room & Forex Contract Scanner by winning over 90% of your trades!
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="content">
+										Our advanced trade prediction Signals can predicts top winning binary & Forex trades. Stay on top of the market with our Binary Room & Forex Contract Scanner by winning over 90% of your trades!
+									</div>
 								</div>
 							</div>
 							<div class="row m-t-md m-b-lg p-h-md">
@@ -293,19 +317,23 @@
 								</div>
 							</div>
 							<div class="row m-t-lg m-b-lg">
-								<div class="col-md-6">
-									Our advanced trade prediction Signals can predicts top winning binary & Forex trades. Stay on top of the market with our Binary Room & Forex Contract Scanner by winning over 90% of your trades!
-								</div>
-								<div class="col-md-6">
+								<div class="col-xs-12 col-sm-6 col-sm-push-6 col-md-6 col-md-push-6">
 									<img src="http://via.placeholder.com/502x251" class="center-block img-responsive">
+								</div>
+								<div class="col-xs-12 col-sm-6 col-sm-pull-6 col-md-6 col-md-pull-6">
+									<div class="content">
+										Our advanced trade prediction Signals can predicts top winning binary & Forex trades. Stay on top of the market with our Binary Room & Forex Contract Scanner by winning over 90% of your trades!
+									</div>
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-xs-12 col-sm-6 col-md-6">
 									<img src="http://via.placeholder.com/502x251" class="center-block img-responsive">
 								</div>
-								<div class="col-md-6">
-									Our advanced trade prediction Signals can predicts top winning binary & Forex trades. Stay on top of the market with our Binary Room & Forex Contract Scanner by winning over 90% of your trades!
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="content">
+										Our advanced trade prediction Signals can predicts top winning binary & Forex trades. Stay on top of the market with our Binary Room & Forex Contract Scanner by winning over 90% of your trades!
+									</div>
 								</div>
 							</div>
 						</div>
@@ -313,7 +341,7 @@
 				</div>
 			</div>
 			<div class="row m-t-lg">
-				<div class="col-md-6">
+				<div class="col-xs-12 col-sm-12 col-md-6">
 					<div class="panel fx-package-item">
 						<div class="panel-body">
 							<div class="heading">
@@ -349,7 +377,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6">
+				<div class="col-xs-12 col-sm-12 col-md-6">
 					<div class="panel fx-package-item active">
 						<span class="sash">Best Value</span>
 						<div class="panel-body">
