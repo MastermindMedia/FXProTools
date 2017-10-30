@@ -1,5 +1,5 @@
 <?php
-$product_id = 48; //business package
+$product_id = 2920; //business package
 $product = wc_get_product( $product_id );
 
 $category_slug = 'funnels';
@@ -76,7 +76,7 @@ $referral = "/?ref=" .  wp_get_current_user()->user_login;
 															<div class="col-md-9">
 																<div class="row">
 																	<div class="col-md-3">
-																		<img src="<?php echo $thumbnail['url'];?>" class="img-responsive">
+																		<img src="<?php echo !empty( $thumbnail['url'] ) ? $thumbnail['url'] : '';?>" class="img-responsive">
 																	</div>
 																	<div class="col-md-9">
 																		<div class="heading">
@@ -138,7 +138,7 @@ $referral = "/?ref=" .  wp_get_current_user()->user_login;
 															<div class="col-md-9">
 																<div class="row">
 																	<div class="col-md-3">
-																		<img src="<?php echo $thumbnail['url'];?>" class="img-responsive">
+																		<img src="<?php echo !empty( $thumbnail['url'] ) ? $thumbnail['url'] : '';?>" class="img-responsive">
 																	</div>
 																	<div class="col-md-9">
 																		<div class="heading">
