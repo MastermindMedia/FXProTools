@@ -11,6 +11,11 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 		const META_ENABLE_BUY_BUTTON = '_enable_buy_button';
 		const META_BUY_BUTTON_URL = '_buy_button_url';
 		const META_BUY_BUTTON_TEXT = '_buy_button_text';
+        
+		/**
+		 * @var integer ID of the membership products
+		 */
+		const MEMBERSHIP_PRODUCTS_ID = 3327;
 
 		public function __construct() {
 			update_option( 'woocommerce_cart_redirect_after_add', 'no' );
@@ -27,6 +32,7 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 			add_filter( 'woocommerce_product_data_tabs', array( $this, 'wc_add_buy_button_tab' ) );
 			add_filter( 'woocommerce_breadcrumb_defaults', array( $this, 'wc_custom_breadcrumbs' ) );
 			add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'wc_archive_custom_cart_button_text' ) );
+			add_filter( 'woocommerce_product_single_add_to_cart_text', array( $this, 'wc_archive_custom_cart_button_text' ) );
 			add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'wc_archive_custom_cart_button_url' ) );
 
 			// Actions

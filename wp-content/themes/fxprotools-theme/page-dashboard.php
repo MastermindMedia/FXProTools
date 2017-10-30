@@ -24,17 +24,10 @@ $checklist = get_user_checklist();
 				
 			</div>
 			<div class="col-md-8">
-				<?php if( !empty( is_mb_video_scroll() ) ) : ?>
-				<div class="fx-video-container" <?php echo is_mb_video_scroll(); ?>></div>
-				<?php elseif( !empty( is_mb_video_float() ) ) : ?>
-				<div class="fx-video-container" <?php echo is_mb_video_float(); ?>>
-					<?php 
-						// Metabox Page Template Option - Video Embed 
-						// TODO: scroll and float should work at the same time. - austin n.
-						if( empty( is_mb_video_scroll() ) ) echo get_mb_pto1('video_embed'); 				
-					?>
-				</div>
-				<?php endif; ?>
+				<?php 
+					// Metabox Page Template Option - Video Embed 
+					echo get_mb_pto1('video_embed');
+				?>
 			</div>
 			<div class="col-md-4">
 				<div class="fx-board checklist">

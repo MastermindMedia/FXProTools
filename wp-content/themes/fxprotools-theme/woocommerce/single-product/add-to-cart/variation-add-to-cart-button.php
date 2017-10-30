@@ -30,9 +30,21 @@ global $product;
 		 * @since 3.0.0.
 		 */
 		do_action( 'woocommerce_after_add_to_cart_quantity' );
+
+	    $enable_custom_button = get_post_meta( get_the_ID(), Woocommerce_Settings::META_ENABLE_BUY_BUTTON );
+	    $label = esc_html( $product->single_add_to_cart_text() );
+
+        if ($enable_custom_button[0] == 'yes') {
+            $buy_button_url = get_post_meta( get_the_ID(), Woocommerce_Settings::META_BUY_BUTTON_URL );
 	?>
-	<button type="submit" class="single_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
-	<input type="hidden" name="add-to-cart" value="<?php echo absint( $product->get_id() ); ?>" />
+            <a href="<?= $buy_button_url[0]; ?>" class="single_add_to_cart_button button alt"><?php echo $label; ?></a>
+
+        <?php } else { ?>
+
+            <button type="submit" class="single_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+
+        <?php } ?>`
+    <input type="hidden" name="add-to-cart" value="<?php echo absint( $product->get_id() ); ?>" />
 	<input type="hidden" name="product_id" value="<?php echo absint( $product->get_id() ); ?>" />
 	<input type="hidden" name="variation_id" class="variation_id" value="0" />
 </div>

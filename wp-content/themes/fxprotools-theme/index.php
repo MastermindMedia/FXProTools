@@ -422,7 +422,7 @@
 		<div id="trial-products" class="section-eight">
 			<div class="container">
 				<div class="row">
-					<div class="col-xs-12 col-md-6">
+					<div class="col-xs-12 col-sm-12 col-md-6">
 						<div class="panel fx-package-item">
 							<div class="panel-body">
 								<div class="heading">
@@ -458,7 +458,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-xs-12 col-md-6">
+					<div class="col-xs-12 col-sm-12 col-md-6">
 						<div class="panel fx-package-item active">
 							<span class="sash">Best Value</span>
 							<div class="panel-body">

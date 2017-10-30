@@ -42,6 +42,24 @@
 	.fx-package-item {
 		margin-bottom: 40px;
 	}
+	// Red Banner Icons
+	.fx-red-banner-icons {
+		padding: 30px 0 25px 0;
+		.item {
+			text-align: center;
+			.image {
+				position: relative;
+				height: 65px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			img {
+				float: none;
+				margin: 0 auto 10px auto;
+			}
+		}
+	}
 
 	// ------
 	// Custom
@@ -78,6 +96,12 @@
 				&.no-border {
 					border-bottom: 2px solid #DDD;
 				}
+			}
+		}
+		// Signals
+		&.signals {
+			.section-four {
+				padding: 50px 0 0 0;
 			}
 		}
 	}
