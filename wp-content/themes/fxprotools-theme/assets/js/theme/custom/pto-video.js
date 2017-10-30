@@ -26,8 +26,8 @@
             });
         }
 
-        if( $auto_start.length > 0 ){
-            $auto_start.each(function(){
+        if( $show_controls.length > 0 ){
+            $show_controls.each(function(){
                 $iframe = $(this).find('iframe');
                 $src = $iframe.attr('src');
 
