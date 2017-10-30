@@ -1,3 +1,6 @@
+<?php
+$ref = isset( $_GET['ref'] ) ? $_GET['ref'] : '';
+?>
 <?php get_header(); ?>
 
 <div class="fx-capture-page f2">
@@ -89,16 +92,20 @@
 							</li>
 						</ul>
 						<div class="f2-group-form">
-							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Your Name">
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Your Email">
-							</div>
-							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Phone #(Optional)">
-							</div>
-							<a href="#" class="btn btn-danger btn-lg block">Submit</a>
+							<form class="fx-sendgrid" method="post">
+								<div class="form-group">
+									<input type="text" class="form-control" name="name" placeholder="Your Name">
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" name="email" placeholder="Your Email">
+								</div>
+								<div class="form-group">
+									<input type="text" class="form-control" name="contact" placeholder="Phone #(Optional)">
+								</div>
+								<input type="hidden" name="funnel_id" value="f2">
+								<input type="hidden" name="redirect_to" value="<?php echo site_url ('lp2/?ref='.$ref );?>">
+								<button type="submit" class="btn btn-danger btn-lg block">Submit</button>
+							</form>
 						</div>
 					</div>
 				</div>

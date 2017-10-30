@@ -22,7 +22,7 @@ function allow_multiple_affiliate_vars() {
 add_action( 'init', 'before_set_affiliate_var', 11 );
 function before_set_affiliate_var() {
 	$ref = isset( $_GET['ref'] ) ? $_GET['ref'] : 'business.admin';
-	if( $ref != 'business.admin' ) {
+	if( $ref != 'business.admin' && !current_user_can('administrator') ) {
 		$user = get_user_by('slug', $ref);
 	    if( $user ) {
 	    	if( !wcs_user_has_subscription($user->ID, 48, 'active') ){
