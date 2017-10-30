@@ -1,3 +1,6 @@
+<?php
+$ref = isset( $_GET['ref'] ) ? $_GET['ref'] : 'business.admin';
+?>
 <?php get_header(); ?>
 	
 <div class="fx-capture-page f3">
@@ -70,7 +73,8 @@
 										</div>
 									</li>
 								</ul>
-								<a href="#" class="btn btn-danger btn-lg fx-btn block">Next</a>
+
+								<a href="#step2" data-toggle="tab" class="btn btn-danger btn-lg fx-btn block">Next</a>
 							</div>
 							<p class="disclaimer"><img src="<?php bloginfo('template_url'); ?>/assets/img/lock.png" class="img-responsive"> This is free information and credit card is NOT required.</p>
 						</div>
@@ -82,14 +86,18 @@
 							</div>
 
 							<div class="content">
-								<span class="title">Enter Your Access Information</span>
-								<div class="form-group m-t-md">
-									<input type="text" class="form-control" placeholder="Your Name">
-								</div>
-								<div class="form-group m-b-md">
-									<input type="email" class="form-control" placeholder="Your Email Address">
-								</div>
-								<a href="#" class="btn btn-danger btn-lg fx-btn block">Next</a>
+								<form class="fx-sendgrid" method="post">
+									<span class="title">Enter Your Access Information</span>
+									<div class="form-group m-t-md">
+										<input type="text" class="form-control" name="name"  placeholder="Your Name">
+									</div>
+									<div class="form-group m-b-md">
+										<input type="email" class="form-control" name="email" placeholder="Your Email Address">
+									</div>
+									<input type="hidden" name="funnel_id" value="f3">
+									<input type="hidden" name="redirect_to" value="<?php echo site_url ('lp3/?ref='.$ref );?>">
+									<button type="submit" class="btn btn-danger btn-lg block">Next</button>
+								</form>
 							</div>
 							<p class="disclaimer"><img src="<?php bloginfo('template_url'); ?>/assets/img/lock.png" class="img-responsive"> This is free information and credit card is NOT required.</p>
 						</div>
