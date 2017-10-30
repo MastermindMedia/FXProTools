@@ -145,19 +145,23 @@ function enforce_page_access()
     if( !isset($post) ) return;
     $slug = $post->post_name;
     $guest_allowed_post_type = array( 'product' );
-    $guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'signals', 'autologin', 'log-out-notice', 'password-checkpoint' );
+    $guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'signals', 'autologin', 'log-out-notice' );
 
     if( is_user_logged_in() ) {
-        // if the page being visited is not for public, and the user hasn't changed their password yet
+	    // only allow 'password-checkpoint' to be accessed by imported users that hasn't updated their password yet
+	    if ( is_page( 'password-checkpoint' ) && ! has_imported_user_update_password() ) {
+		    return 0;
+	    }
+	    // if the page being visited is not for public, and the user hasn't changed their password yet
 	    if ( ! in_array( $slug, $guest_allowed_pages ) && ! has_imported_user_update_password() ) {
 		    wp_redirect( '/password-checkpoint' );
 		    exit;
 	    }
 	    // if the page being accessed are for logged out user or for users that has not updated their password yet, go to dashboard
 	    if ( is_page( 'log-out-notice' ) || ( is_page( 'password-checkpoint' ) && has_imported_user_update_password() ) ) {
-            wp_redirect('/dashboard');
-            exit;
-        }
+		    wp_redirect('/dashboard');
+		    exit;
+	    }
         return 0;
     }
     if( !is_product() && !is_cart() && !is_checkout() && !is_shop() && !is_404() && !is_front_page() ) {
