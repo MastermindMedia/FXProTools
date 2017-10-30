@@ -348,8 +348,8 @@ function get_mb_pto1( $page_element ) {
             break;
         case 'video_embed':
             $video_url              = rwmb_meta('pto1_video_url');
-            // $video_autostart        = rwmb_meta('pto1_video_autostart');
-            // $video_show_controls    = rwmb_meta('pto1_video_show_controls');
+            $video_autostart        = rwmb_meta('pto1_video_autostart');
+            $video_show_controls    = rwmb_meta('pto1_video_show_controls');
             $scroll_class   = "";
             $scroll_url     = "";
             $float_class    = "";
@@ -365,7 +365,7 @@ function get_mb_pto1( $page_element ) {
                 $float_class    = $arr_float[0];
             }
 
-            $html = '<div class="fx-video-container" id="' . $float_class . '" data-ptoaction="' . $scroll_class . '" data-ptourl="' . $scroll_url . '">';
+            $html = '<div class="fx-video-container" id="' . $float_class . '" data-ptoaction="' . $scroll_class . '" data-ptoautostart="' . implode(' ', $video_autostart) . '" data-ptoshowcontrols="' . implode(' ', $video_show_controls) . '" data-ptourl="' . $scroll_url . '">';
             $html .= ( !empty($scroll_class) ) ? '' : wp_oembed_get($video_url) ;
             $html .= '</div>';
             
@@ -377,6 +377,9 @@ function get_mb_pto1( $page_element ) {
             break;
     }
 }
+
+// TODO: Embed provider - wistia
+wp_oembed_add_provider( '/https?:\/\/(.+)?(wistia.com|wi.st)\/(medias|embed)\/.*/', 'http://fast.wistia.com/oembed', true);
 
 function is_mb_video_scroll(){
     $video_scrolling = implode( ' ', rwmb_meta('pto1_video_scrolling') );

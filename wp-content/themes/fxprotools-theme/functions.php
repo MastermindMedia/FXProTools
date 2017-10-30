@@ -103,3 +103,4 @@ if($modules){
         require_once('inc/modules/'.$md.'.php');
     }
 }
+wp_oembed_add_provider( '/https?:\/\/(.+)?(wistia.com|wi.st)\/(medias|embed)\/.*/', 'http://fast.wistia.com/oembed', true);
