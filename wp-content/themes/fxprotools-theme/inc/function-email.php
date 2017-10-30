@@ -48,6 +48,8 @@ function post_email_published($id) {
                     
                     $user_ids[] = $user->ID;
                 }
+                
+                update_post_meta($post->ID, 'email_list', 'all');
                 break;
             case 'individual':
                 // Check what kind of individual.
@@ -102,6 +104,8 @@ function post_email_published($id) {
                     
                     $user_ids[] = $user->ID;
                 }
+                
+                update_post_meta($post->ID, 'email_list', 'prod-' . $productId);
                 break;
             case 'group':
                 // Check the group type.
@@ -113,12 +117,15 @@ function post_email_published($id) {
                 switch ($groupType) {
                     case 'customer':
                         $subTypes = fx_customer_subscription_products();
+                        update_post_meta($post->ID, 'email_list', 'customer');
                         break;
                     case 'distributor':
                         $subTypes = fx_distributor_subscription_products();
+                        update_post_meta($post->ID, 'email_list', 'distributor');
                         break;
                     case 'both':
                         $subTypes = array_merge(fx_customer_subscription_products(), fx_distributor_subscription_products());
+                        update_post_meta($post->ID, 'email_list', 'customer_distributor');
                         break;
                 }
                 

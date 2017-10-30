@@ -45,9 +45,8 @@ function email_from_status($status)
 		);
 	}
 	
-	echo json_encode($mails);
 	
-	wp_die();
+	wp_send_json($mails);
 }
 
 function email_inbox()
@@ -58,23 +57,32 @@ function email_inbox()
 function email_inbox_count()
 {
 	header("Content-Type: application/json");
-	echo count(get_emails_for_user(array('unread')));
-	wp_die();
+	wp_send_json(count(get_emails_for_user(array('unread'))));
 }
 
 function email_trash()
 {
-	email_from_status(array('trashed'));
+	email_from_status(array('trash'));
 }
 
 function email_read()
 {
-	update_post_meta($_POST['id'], '_user_' . get_current_user_id() . '_state', 'read');
+	foreach (explode(',', $_POST['ids']) as $id) {
+		update_post_meta($id, '_user_' . get_current_user_id() . '_state', 'read');
+	}
+	
+	echo 'OK';
+	wp_die();
 }
 
 function email_delete()
 {
-	update_post_meta($_POST['id'], '_user_' . get_current_user_id() . '_state', 'trashed');
+	foreach (explode(',', $_POST['ids']) as $id) {
+		update_post_meta($id, '_user_' . get_current_user_id() . '_state', 'trash');
+	}
+	
+	echo 'OK';
+	wp_die();
 }
 
 function email_sent()
