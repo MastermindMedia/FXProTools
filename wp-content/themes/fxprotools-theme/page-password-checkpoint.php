@@ -44,7 +44,7 @@
                                 <div class="row">
                                     <div class="m-t-lg col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                                         <form method="post">
-                                            <div class="form-group ">
+                                            <div class="form-group m-t-sm">
                                                 <input type="password" class="form-control no-border-radius col-6 text-2x p-xs p-w-md" id="pwd" name="pwd" required placeholder="Enter Your Password...">
                                             </div>
                                             <div class="row">
@@ -53,6 +53,17 @@
                                                 </div>
                                             </div>
                                         </form>
+
+                                        <div class="overlay">
+                                            <div class="spinner">
+                                                <div class="rect1"></div>
+                                                <div class="rect2"></div>
+                                                <div class="rect3"></div>
+                                                <div class="rect4"></div>
+                                                <div class="rect5"></div>
+                                            </div>
+                                        </div>
+                                        <div class="ajax-response"></div>
                                     </div>
                                 </div>
                             </div>
@@ -69,5 +80,4 @@
         </div>
     </div>
 </div>
-
 <?php get_footer(); ?>
