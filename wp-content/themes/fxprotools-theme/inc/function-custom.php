@@ -145,10 +145,16 @@ function enforce_page_access()
     if( !isset($post) ) return;
     $slug = $post->post_name;
     $guest_allowed_post_type = array( 'product' );
-    $guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'signals', 'autologin', 'log-out-notice' );
+    $guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'signals', 'autologin', 'log-out-notice', 'password-checkpoint' );
 
     if( is_user_logged_in() ) {
-        if (is_page('log-out-notice')){
+        // if the page being visited is not for public, and the user hasn't changed their password yet
+	    if ( ! in_array( $slug, $guest_allowed_pages ) && ! has_imported_user_update_password() ) {
+		    wp_redirect( '/password-checkpoint' );
+		    exit;
+	    }
+	    // if the page being accessed are for logged out user or for users that has not updated their password yet, go to dashboard
+	    if ( is_page( 'log-out-notice' ) || ( is_page( 'password-checkpoint' ) && has_imported_user_update_password() ) ) {
             wp_redirect('/dashboard');
             exit;
         }
@@ -166,6 +172,21 @@ add_filter('login_redirect', 'customer_login_redirect');
 function customer_login_redirect( $redirect_to, $request = '', $user = '' ){
     return home_url('dashboard');
 }
+
+function has_imported_user_update_password( $user = null ) {
+	if ( ! isset( $user ) ) {
+		$user = wp_get_current_user();
+	}
+	$checkpoint_roles = [ 'holding_member', 'afl_member' ];
+	foreach ( $checkpoint_roles as $checkpoint_role ) {
+		if ( in_array( $checkpoint_role, (array) $user->roles ) ) {
+			return get_user_meta( $user->ID, '_imported_user_password_changed', false );
+		}
+	}
+
+	return true;
+}
+
 
 add_action('init', 'course_category_rewrite');
 function course_category_rewrite()
