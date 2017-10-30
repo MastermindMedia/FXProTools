@@ -145,7 +145,7 @@ function enforce_page_access()
     if( !isset($post) ) return;
     $slug = $post->post_name;
     $guest_allowed_post_type = array( 'product' );
-    $guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'autologin', 'log-out-notice' );
+    $guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'signals', 'autologin', 'log-out-notice' );
 
     if( is_user_logged_in() ) {
         if (is_page('log-out-notice')){

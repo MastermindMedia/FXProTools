@@ -21,7 +21,7 @@
 					</div>
 					<img src="<?php bloginfo('template_url'); ?>/assets/img/signals.png" class="img-responsive center-block m-t-md m-b-lg">
 					<div class="text-center">
-						<a href="#" class="btn btn-success btn-lg btn-lg-w-text">
+						<a href="#trial-products" class="btn btn-success btn-lg btn-lg-w-text">
 							Get Your Access For $1.00 Trial Now!
 							<span>Sign up takes less than 60 seconds. Pick a plan to get started</span>
 						</a>
@@ -196,7 +196,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
-									<a href="#" class="btn btn-success block btn-lg btn-lg-w-text">
+									<a href="#trial-products" class="btn btn-success block btn-lg btn-lg-w-text">
 										Get Your Access For $1.00 Trial Now!
 										<span>Sign-up takes less than 60 seconds. Pick a plan to get started!</span>
 									</a>
@@ -221,7 +221,7 @@
 								</div>
 								<div class="clearfix"></div>
 								<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
-									<a href="#" class="btn btn-success block btn-lg btn-lg-w-text m-t-md">
+									<a href="#trial-products" class="btn btn-success block btn-lg btn-lg-w-text m-t-md">
 										Get Your Access For $1.00 Trial Now!
 										<span>Sign-up takes less than 60 seconds. Pick a plan to get started!</span>
 									</a>
@@ -310,7 +310,7 @@
 							</div>
 							<div class="row m-t-md m-b-lg p-h-md">
 								<div class="col-md-12 text-center">
-									<a href="#" class="btn btn-success block btn-lg btn-lg-w-text inline-block">
+									<a  href="#trial-products" class="btn btn-success block btn-lg btn-lg-w-text inline-block">
 										Get Your Access For $1.00 Trial Now!
 										<span>Sign-up takes less than 60 seconds. Pick a plan to get started!</span>
 									</a>
@@ -340,7 +340,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="row m-t-lg">
+			<div id="trial-products" class="row m-t-lg">
 				<div class="col-xs-12 col-sm-12 col-md-6">
 					<div class="panel fx-package-item">
 						<div class="panel-body">
@@ -350,7 +350,7 @@
 							</div>
 							<div class="text-center">
 								<h2 class="m-b-md">14 Day FREE Trial!</h2>
-								<a href="#" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
+								<a href="<?php echo site_url('checkout/?add-to-cart=2699&variation_id=2928&attribute_subscription-type=trial');?>" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
 									Start Your Trial Now!
 									<span>Training + Forex &amp; Binary Market Signals</span>
 								</a>
@@ -368,7 +368,7 @@
 							<p>Our Forex &amp; Binary AI will track &amp; backtest all the contracts that we go through and predict the market direction with up to a 90% accuracy rate - so you can let our software do the thinking for you.</p>
 							<hr>
 							<div class="text-center">
-								<a href="#" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
+								<a href="<?php echo site_url('checkout/?add-to-cart=2699&variation_id=2928&attribute_subscription-type=trial');?>" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
 									Start Your Trial Now!
 									<span>Training + Forex &amp; Binary Market Signals</span>
 								</a>
@@ -377,7 +377,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-12 col-md-6">
+				<div   class="col-xs-12 col-sm-12 col-md-6">
 					<div class="panel fx-package-item active">
 						<span class="sash">Best Value</span>
 						<div class="panel-body">
@@ -387,7 +387,7 @@
 							</div>
 							<div class="text-center">
 								<h2 class="m-b-md">14 Day FREE Trial!</h2>
-								<a href="#" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
+								<a href="<?php echo site_url('checkout/?add-to-cart=47&variation_id=2931&attribute_subscription-type=trial');?>" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
 									Start Your Trial Now!
 									<span>Training + Forex &amp; Binary Market Signals</span>
 								</a>
@@ -406,7 +406,7 @@
 							<p>Start trading the markets today by taking advantage of our massive price reduction. </p>
 							<hr>
 							<div class="text-center">
-								<a href="#" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
+								<a href="<?php echo site_url('checkout/?add-to-cart=47&variation_id=2931&attribute_subscription-type=trial');?>" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
 									Start Your Trial Now!
 									<span>Training + Forex &amp; Binary Market Signals</span>
 								</a>
@@ -476,7 +476,7 @@
 								</div>
 							</div>
 							<div class="text-center m-t-md">
-								<a href="#" class="btn btn-success btn-lg m-b-md btn-lg-w-text">
+								<a  href="#trial-products" class="btn btn-success btn-lg m-b-md btn-lg-w-text">
 									Get Your Access For $1.00 Trial Now!
 									<span>Sign-up takes less than 60 seconds. Pick a plan to get started!</span>
 								</a>
@@ -500,5 +500,18 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	jQuery(document).ready(function($){
+		$("a[href='#trial-products'").on('click', function(event) {
+			if (this.hash !== "") {
+				event.preventDefault();
+				var hash = this.hash;
+				$('html, body').animate({
+					scrollTop: $(hash).offset().top - 30
+				}, 600);
+			} // End if
+		});
+	});
+</script>
 
 <?php get_footer(); ?>

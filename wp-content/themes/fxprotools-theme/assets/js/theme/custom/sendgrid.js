@@ -8,6 +8,8 @@ jQuery(document).ready(function($){
 				action : 'fx_sendgrid_capture_email',
 				email : $('.fx-sendgrid').find('input[name="email"]').val(),
 				funnel_id : $('.fx-sendgrid').find('input[name="funnel_id"]').val(), 
+				name : $('.fx-sendgrid').find('input[name="name"]').val(), 
+				contact : $('.fx-sendgrid').find('input[name="contact"]').val(), 
 			},
 			success : function( response ) {
 				response = JSON.parse( response );
