@@ -72,8 +72,12 @@ function email_content() {
 			<div id="emailContentArea">
 				<?php echo get_post_meta( $email->ID, 'email_content' )[0]; ?>
 			</div>
-			<div class="unsub">You received this email as part of the list <b><?php
+			<?php
 			$list = get_post_meta($email->ID, 'email_list')[0];
+			
+			if ($list) {
+			?>
+			<div class="unsub">You received this email as part of the list <b><?php
 			$listDisplay = '';
 			
 			switch ($list) {
@@ -103,6 +107,9 @@ function email_content() {
 			echo $listDisplay;
 			
 			?></b>. <a class="unsubscribe-link" href="?id=<?php echo $_GET['id']; ?>&unsub=1">Click here</a> to unsubscribe.</div>
+			<?php
+			}
+			?>
 		<?php
 		}
 		
