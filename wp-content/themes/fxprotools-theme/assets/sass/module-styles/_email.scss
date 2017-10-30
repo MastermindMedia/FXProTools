@@ -24,3 +24,33 @@
         }
     }
 }
+
+.per-user-stats {
+    tr {
+        > td, > th {
+            width: 20%;
+            text-align: center;
+        
+            &:first-child {
+                width: 40%;
+                text-align: left;
+            }
+        }
+        
+        > td {
+            vertical-align: middle;
+        }
+        
+        > td .fa.fa-check {
+            color: green;
+        }
+        
+        > td .fa.fa-times {
+            color: red;
+        }
+    }
+}
+
+.unsub {
+    text-align: right;
+}

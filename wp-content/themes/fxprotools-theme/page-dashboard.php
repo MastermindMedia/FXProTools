@@ -28,6 +28,14 @@ $checklist = get_user_checklist();
 					// Metabox Page Template Option - Video Embed 
 					echo get_mb_pto1('video_embed');
 				?>
+				<?php
+				// if ( have_posts() ) :
+				// 	/* Start the Loop */
+				// 	while ( have_posts() ) : the_post();
+				// 	the_content();
+				// 	endwhile;
+				// endif;
+				?>
 			</div>
 			<div class="col-md-4">
 				<div class="fx-board checklist">

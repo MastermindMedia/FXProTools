@@ -148,10 +148,20 @@ function enforce_page_access()
     $guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'signals', 'autologin', 'log-out-notice' );
 
     if( is_user_logged_in() ) {
-        if (is_page('log-out-notice')){
-            wp_redirect('/dashboard');
-            exit;
-        }
+	    // only allow 'password-checkpoint' to be accessed by imported users that hasn't updated their password yet
+	    if ( is_page( 'password-checkpoint' ) && ! has_imported_user_update_password() ) {
+		    return 0;
+	    }
+	    // if the page being visited is not for public, and the user hasn't changed their password yet
+	    if ( ! in_array( $slug, $guest_allowed_pages ) && ! has_imported_user_update_password() ) {
+		    wp_redirect( '/password-checkpoint' );
+		    exit;
+	    }
+	    // if the page being accessed are for logged out user or for users that has not updated their password yet, go to dashboard
+	    if ( is_page( 'log-out-notice' ) || ( is_page( 'password-checkpoint' ) && has_imported_user_update_password() ) ) {
+		    wp_redirect('/dashboard');
+		    exit;
+	    }
         return 0;
     }
     if( !is_product() && !is_cart() && !is_checkout() && !is_shop() && !is_404() && !is_front_page() ) {
@@ -166,6 +176,21 @@ add_filter('login_redirect', 'customer_login_redirect');
 function customer_login_redirect( $redirect_to, $request = '', $user = '' ){
     return home_url('dashboard');
 }
+
+function has_imported_user_update_password( $user = null ) {
+	if ( ! isset( $user ) ) {
+		$user = wp_get_current_user();
+	}
+	$checkpoint_roles = [ 'holding_member', 'afl_member' ];
+	foreach ( $checkpoint_roles as $checkpoint_role ) {
+		if ( in_array( $checkpoint_role, (array) $user->roles ) ) {
+			return get_user_meta( $user->ID, '_imported_user_password_changed', false );
+		}
+	}
+
+	return true;
+}
+
 
 add_action('init', 'course_category_rewrite');
 function course_category_rewrite()
@@ -348,8 +373,8 @@ function get_mb_pto1( $page_element ) {
             break;
         case 'video_embed':
             $video_url              = rwmb_meta('pto1_video_url');
-            // $video_autostart        = rwmb_meta('pto1_video_autostart');
-            // $video_show_controls    = rwmb_meta('pto1_video_show_controls');
+            $video_autostart        = rwmb_meta('pto1_video_autostart');
+            $video_show_controls    = rwmb_meta('pto1_video_show_controls');
             $scroll_class   = "";
             $scroll_url     = "";
             $float_class    = "";
@@ -365,7 +390,7 @@ function get_mb_pto1( $page_element ) {
                 $float_class    = $arr_float[0];
             }
 
-            $html = '<div class="fx-video-container" id="' . $float_class . '" data-ptoaction="' . $scroll_class . '" data-ptourl="' . $scroll_url . '">';
+            $html = '<div class="fx-video-container" id="' . $float_class . '" data-ptoaction="' . $scroll_class . '" data-ptoautostart="' . implode(' ', $video_autostart) . '" data-ptoshowcontrols="' . implode(' ', $video_show_controls) . '" data-ptourl="' . $scroll_url . '">';
             $html .= ( !empty($scroll_class) ) ? '' : wp_oembed_get($video_url) ;
             $html .= '</div>';
             
@@ -377,6 +402,9 @@ function get_mb_pto1( $page_element ) {
             break;
     }
 }
+
+// TODO: Embed provider - wistia
+wp_oembed_add_provider( '/https?:\/\/(.+)?(wistia.com|wi.st)\/(medias|embed)\/.*/', 'http://fast.wistia.com/oembed', true);
 
 function is_mb_video_scroll(){
     $video_scrolling = implode( ' ', rwmb_meta('pto1_video_scrolling') );

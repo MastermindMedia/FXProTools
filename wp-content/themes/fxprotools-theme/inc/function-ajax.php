@@ -28,6 +28,8 @@ add_action("wp_ajax_email_trash", "email_trash");
 add_action("wp_ajax_email_read", "email_read");
 add_action("wp_ajax_email_delete", "email_delete");
 add_action("wp_ajax_email_sent", "email_sent");
+add_action( 'wp_ajax_fx_renew_password', 'fx_renew_password' );
+add_action( 'wp_ajax_nopriv_fx_renew_password', 'fx_renew_password' );
 
 function email_from_status($status)
 {
@@ -45,9 +47,8 @@ function email_from_status($status)
 		);
 	}
 	
-	echo json_encode($mails);
 	
-	wp_die();
+	wp_send_json($mails);
 }
 
 function email_inbox()
@@ -58,23 +59,32 @@ function email_inbox()
 function email_inbox_count()
 {
 	header("Content-Type: application/json");
-	echo count(get_emails_for_user(array('unread')));
-	wp_die();
+	wp_send_json(count(get_emails_for_user(array('unread'))));
 }
 
 function email_trash()
 {
-	email_from_status(array('trashed'));
+	email_from_status(array('trash'));
 }
 
 function email_read()
 {
-	update_post_meta($_POST['id'], '_user_' . get_current_user_id() . '_state', 'read');
+	foreach (explode(',', $_POST['ids']) as $id) {
+		update_post_meta($id, '_user_' . get_current_user_id() . '_state', 'read');
+	}
+	
+	echo 'OK';
+	wp_die();
 }
 
 function email_delete()
 {
-	update_post_meta($_POST['id'], '_user_' . get_current_user_id() . '_state', 'trashed');
+	foreach (explode(',', $_POST['ids']) as $id) {
+		update_post_meta($id, '_user_' . get_current_user_id() . '_state', 'trash');
+	}
+	
+	echo 'OK';
+	wp_die();
 }
 
 function email_sent()
@@ -127,4 +137,24 @@ function ajax_send_email() {
 	
 	echo "OK";
 	wp_die();
+}
+
+function fx_renew_password() {
+	if ( isset( $_POST['fx_action'] ) && $_POST['fx_action'] == 'renew_password' ) {
+		$current_user = wp_get_current_user();
+		//Sanitize received password
+		$password = sanitize_text_field( $_POST['new_password'] );
+
+		$userdata = array(
+			'ID'        => $current_user->ID,
+			'user_pass' => $password // Wordpress automatically applies the wp_hash_password() function to the user_pass field.
+		);
+		$user_id = wp_update_user( $userdata );
+
+		if ( $user_id == $current_user->ID ) {
+			update_user_meta( $current_user->ID, '_imported_user_password_changed', 1 );
+			wp_send_json_success();
+		}
+	}
+	wp_send_json_error();
 }

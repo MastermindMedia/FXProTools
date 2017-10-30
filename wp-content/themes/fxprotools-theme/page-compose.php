@@ -7,25 +7,6 @@ function page_content() {
     
     ?>
     <script>
-    	var ALL_USERS = <?php
-    		$users = array();
-    		
-    		foreach (get_users() as $user) {
-    			$users[$user->ID] = $user->display_name;
-    		}
-    		
-    		echo json_encode($users);
-    		?>;
-    	
-    	var ALL_PRODUCTS = <?php
-    		$products = array();
-    		
-    		foreach (get_posts(array('posts_per_page' => -1, 'post_type' => 'product')) as $product) {
-    			$products[$product->ID] = $product->post_title;
-    		}
-    		
-    		echo json_encode($products);
-    	?>;
     </script>
     <div id="compose">
         <h2>Compose New Email</h2>
@@ -51,6 +32,13 @@ function page_content() {
         	   <label for="recipient_product">Product</label>
         	   <div style="width: 100%;">
         		   <select id="recipient_product" name="recipient_product" style="width: 100%;">
+		                <?php
+                        foreach (get_posts(array('posts_per_page' => -1, 'post_type' => 'product')) as $product) {
+                        ?>
+                            <option value="<?php echo $product->ID; ?>"><?php echo esc_html($product->post_title); ?></option>
+                        <?php
+                        }
+                		?>
         		   </select>
         	   </div>
         	</div>
@@ -73,6 +61,13 @@ function page_content() {
         	   <label for="recipient_individual_user">Individual User</label>
         	   <div style="width: 100%;">
         		   <select id="recipient_individual_user" name="recipient_individual_user" style="width: 100%;">
+        		        <?php
+                        foreach (get_users() as $user) {
+	           		    ?>
+    		                <option value="<?php echo $user->ID; ?>"><?php echo esc_html($user->display_name); ?></option>
+	           		    <?php
+	           		    }
+    		            ?>
         		   </select>
         	   </div>
         	</div>

@@ -14,18 +14,61 @@ jQuery(function ($) {
         }
     });
     
-    if ($("#compose").length) {
-        for (var id in ALL_PRODUCTS) {
-            $("#recipient_product").append($("<option />").attr("value", id).text(ALL_PRODUCTS[id]));
+    function getSelected() {
+        var ids = [];
+        
+        $(".email-select:checked").each(function() {
+            ids.push($(this).data("id"));
+        });
+        
+        return ids;
+    }
+    
+    $("[data-email-action=mark-read]").click(function() {
+        var ids = getSelected();
+        
+        if (ids.length == 0) {
+            return;
         }
         
+        $.post(ajaxUrl, {
+            action: "email_read",
+            ids: ids.join(",")
+        }, function() {
+            $(".email-select:checked").prop("checked", false);
+            
+            ids.forEach(function(id) {
+                $("[data-id=" + id + "]").parent().parent().removeClass("unread");
+            });
+        });
+    });
+    
+    $("[data-email-action=delete]").click(function() {
+        var ids = getSelected();
+        
+        if (ids.length == 0) {
+            return;
+        }
+        
+        $.post(ajaxUrl, {
+            action: "email_delete",
+            ids: ids.join(",")
+        }, function() {
+            
+            ids.forEach(function(id) {
+                $("[data-id=" + id + "]").parent().parent().remove();
+            });
+        });
+    });
+    
+    $("#emailContentArea a").click(function(e) {
+        $(this).attr("href", window.location.href + "&redirect=" + encodeURIComponent($(this).attr("href")));
+    });
+    
+    if ($("#compose").length) {
         $("#recipient_product").select2({
 			dropdownParent: $("#compose")
 		});
-        
-        for (var id in ALL_USERS) {
-            $("#recipient_individual_user").append($("<option />").attr("value", id).text(ALL_USERS[id]));
-        }
         
         $("#recipient_individual_user").select2({
 			dropdownParent: $("#compose")
