@@ -206,7 +206,8 @@
 		 			),
 		 			array(
 		 				'uid' 		=> $args['uid'],
-		 				'status'	=>0
+		 				'actived_on'	=> 'default'
+		 				// 'status'	=> 0
 		 			)
 		 		);
 
@@ -217,7 +218,8 @@
 		 			),
 		 			array(
 		 				'uid' 		=> $args['uid'],
-		 				'status'	=> 0
+		 				'actived_on'	=> 'default'
+		 				// 'status'	=> 0
 		 			)
 		 		);
 
@@ -747,7 +749,8 @@
 	 				'actived_on' => afl_date()
 	 			),
 	 			array(
-	 				'uid' => $uid
+	 				'uid' => $uid,
+	 				'status' => 0,
 	 			)
 	 		);
 
@@ -758,7 +761,8 @@
 	 				'actived_on' => afl_date()
 	 			),
 	 			array(
-	 				'uid' => $uid
+	 				'uid' => $uid,
+	 				'status' => 0,
 	 			)
 	 		);
 
@@ -1117,6 +1121,16 @@
 	function afl_my_distributors_count_callback ($uid = '') {
 		return _get_user_distributor_count($uid);
 	}
+
+/*
+ * ----------------------------------------------------
+ * my distributors total count
+ * ----------------------------------------------------
+*/
+	function afl_my_downline_distributors_count_callback ($uid = '', $plan = 'matrix') {
+		// pr($plan);
+		return _get_user_downline_distributor_count($uid, TRUE, $plan);
+	}
 /*
  * ----------------------------------------------------
  * customers count template
@@ -1134,6 +1148,15 @@
 		return afl_get_template( 'plan/eps-affiliate-distributor-count-template.php');
 	}
 
+/**
+ * ----------------------------------------------------
+ * distributor count template
+ * @param $plan matrix or unilevel 
+ * ----------------------------------------------------
+*/
+	function afl_my_downline_distributors_count_template_callback ($plan) {
+		return afl_get_template( 'plan/eps-affiliate-downline-distributor-count-template.php', array('plan'=> $plan));
+	}
 
 
 /**

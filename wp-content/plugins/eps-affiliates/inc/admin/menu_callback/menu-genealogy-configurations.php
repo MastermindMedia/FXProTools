@@ -157,6 +157,8 @@ function afl_genealogy_configuration_form_submit ($form_state){
 		
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_log_messages')."`");
 		
+		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_user_holding_transactions')."`");
+		
 	}
 /*
  * ------------------------------------------------------------------------

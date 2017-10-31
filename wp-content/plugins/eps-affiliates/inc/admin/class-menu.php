@@ -184,6 +184,18 @@
 					'#menu_slug' 			=> 'affiliate-eps-advanced-queue-configurations', 
 					'#page_callback' 	=> 'afl_admin_advanced_queue_conf', 
 				);
+
+
+				$menu['hyper_wallet_conf'] = array(
+					// '#parent'					=> 'affiliate-eps-system-configurations',
+					'#parent'					=> 'no-parent',
+					'#page_title'			=> __( 'Hyper Wallet Admin Configuration', 'Hyper Wallet Admin Configuration' ), 
+					'#menu_title' 		=> __( 'Hyper Wallet Admin Configuration', 'Hyper Wallet Admin Configuration' ), 
+					'#access_callback'=> 'system_settings', 
+					'#menu_slug' 			=> 'affiliate-eps-hyperwallet-configurations', 
+					'#page_callback' 	=> 'afl_hyper_wallet_config_settings', 
+				);
+				
 				afl_system_admin_menu($menu);
 
 			}
@@ -565,6 +577,14 @@
 					'#menu_slug' 			=> 'affiliate-eps-business-profit', 
 					'#page_callback' 	=> 'afl_system_business_profit_report', 
 				);
+				$menu['business_holding_payouts'] = array(
+					'#parent'					=> 'affiliate-eps-business',
+					'#page_title'			=> __( 'Business Holding Payouts', 'Business Holding Payouts' ),
+					'#menu_title' 		=> __( 'Business Holding Payouts', 'Business Holding Payouts' ),
+					'#access_callback'=> 'business_holding_payouts', 
+					'#menu_slug' 			=> 'affiliate-eps-business-holding-payouts', 
+					'#page_callback' 	=> 'afl_system_business_holding_payouts', 
+				);
 				afl_system_admin_menu($menu);
 			}
 		/* 
@@ -592,8 +612,8 @@
 			);
 			$menu['members_blocked'] = array(
 				'#parent'					=> 'affiliate-eps-manage-members',
-				'#page_title'			=> __( 'Blocked Members', 'Blocked Members' ),
-				'#menu_title' 		=> __( 'Blocked Members ', 'Blocked Members' ),
+				'#page_title'			=> __( 'Inactive Members', 'Inactive Members' ),
+				'#menu_title' 		=> __( 'Inactive Members ', 'Inactive Members' ),
 				'#access_callback'=> 'manage_members', 
 				'#menu_slug' 			=> 'affiliate-eps-blocked-members', 
 				'#page_callback' 	=> 'afl_members_blocked', 

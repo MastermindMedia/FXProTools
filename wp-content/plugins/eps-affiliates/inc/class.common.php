@@ -2686,7 +2686,7 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
  * Get direct legs group volume details
  * --------------------------------------------------------------------
 */
-	function _get_user_direct_legs_gv( $uid = '', $return_sum = FALSE, $tree = 'matrix') {
+	function _get_user_direct_legs_gv( $uid = '', $return_sum = FALSE, $tree = 'matrix', $include_customers = TRUE) {
 		$gv_array = [];
 		$sum = 0;
 	 	$legs = _get_user_direct_legs($uid, TRUE, FALSE, $tree);
@@ -2697,7 +2697,9 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 	 		$pv = _get_user_pv($value->uid);
 	 		//customer sales
 	 		$leg_customer_sale = 0;
-	 		$leg_customer_sale 	= get_user_downline_customers_sales($value->uid,TRUE);
+	 		if($include_customers) {
+	 			$leg_customer_sale 	= get_user_downline_customers_sales($value->uid,TRUE);
+	 		}
 			
 	 		$gv_array[$value->uid] = $gv + $pv + $leg_customer_sale; 
 	 		$sum = $sum + $gv;
@@ -2863,5 +2865,12 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 			return FALSE;
 		}
 	}
-
-	
+/**
+ * -----------------------------------------------------------------------
+ * get the payout modes
+ * -----------------------------------------------------------------------
+*/
+	function afl_get_payout_modes () {
+		$payout_modes = list_extract_allowed_values(afl_variable_get('afl_system_payout_modes'), 'list_text');
+		return $payout_modes;
+	}

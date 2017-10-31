@@ -45,11 +45,10 @@ function afl_rank_performance_overview () {
 		);
 
 		$rows = array();
-		$leg_sales 		= _get_user_direct_legs_gv($uid);
+		$leg_sales 		= _get_user_direct_legs_gv($uid, FALSE, 'matrix', FALSE);
 		$direct_legs 	= _get_user_direct_legs($uid);
 
 		$_legnumber_sale = array();
-		
 		foreach ($direct_legs as $key => $value) {
 			$leg_customer_sale 	= 0;
 			$leg_customer_sale 	= get_user_downline_customers_sales($value->uid,TRUE);
@@ -57,6 +56,7 @@ function afl_rank_performance_overview () {
 			$_legnumber_sale[$value->relative_position]['distrib_sale'] = !empty($leg_sales[$value->uid]) ? $leg_sales[$value->uid] : 0;
 			$_legnumber_sale[$value->relative_position]['customer_sale']= $leg_customer_sale;
 		}	
+
 
 		foreach ($_legnumber_sale as $key => $value) {
 			$rows[1]['leg_'.$key] = array(

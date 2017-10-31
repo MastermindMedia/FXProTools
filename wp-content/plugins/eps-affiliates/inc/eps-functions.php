@@ -376,6 +376,72 @@ function _get_user_gv_v1($uid = '', $rank ='', $add_with_user_pv = FALSE) {
  		return 0;
  }
 
+
+ /*
+ * -------------------------------------------------
+ * No.of Downline distributors
+ * -------------------------------------------------
+*/
+ function _get_user_downline_distributor_count ($uid, $count = FALSE, $plan = 'matrix') {
+ 	global $wpdb;
+
+	$query = array();
+
+	if($plan == 'matrix') {
+		$afl_user_downlines = _table_name('afl_user_downlines');
+		$query['#select'] = $afl_user_downlines;
+
+		$query['#fields'] = array(
+			$afl_user_downlines => array('uid')
+		);
+		$query['#where'] = array(
+			'`'.$afl_user_downlines.'`.`uid`='.$uid.''
+		);
+
+		$query['#order_by'] = array(
+			'`level`' => 'ASC'
+		);
+		$result = db_select($query, 'get_results');
+
+		if ($count)
+			return count($result);
+
+	}elseif($plan == 'unilevel') {
+
+		$afl_user_downlines = _table_name('afl_unilevel_user_downlines');
+		$afl_customer = _table_name('afl_customer');
+
+
+		global $wpdb;
+		$sql = 'SELECT COUNT(`'.$afl_user_downlines.'`.`uid`) AS count FROM `'.$afl_user_downlines.'`  WHERE `'.$afl_user_downlines.'`.`uid`='.$uid.'  ORDER BY '.$afl_user_downlines.'.`level` ASC ';
+		// pr($sql);
+
+		$total_down_count = $wpdb->get_row($sql);
+		$total_count = isset($total_down_count->count) ? $total_down_count->count : 0;
+
+		$sql = 'SELECT `'.$afl_user_downlines.'`.`uid`,COUNT(`'.$afl_user_downlines.'`.`uid`='.$uid.' ) AS count FROM `'.$afl_user_downlines.'`  JOIN `'.$afl_customer.'` ON `'.$afl_customer.'`.`uid`=`'.$afl_user_downlines.'`.`downline_user_id`  WHERE `'.$afl_user_downlines.'`.`uid`='.$uid.'   ORDER BY '.$afl_user_downlines.'.`level` ASC ';
+
+		$customer_result = $wpdb->get_row($sql);
+		// pr($customer_result);
+		$customer_count = isset($customer_result->count) ? $customer_result->count : 0;
+
+
+		return array(
+			'distributors' => $total_count-$customer_count,
+			'customers' => $customer_count
+			);
+
+		
+
+		
+	}
+
+
+	// pr($result);
+	// pr($result = db_select($query, 'get_results'),1);
+	return $result;
+ }
+
 /**
 	* @param $id = payout id from tale wp_afl_payout_requests	 
  	* -----------------------------------------------------------

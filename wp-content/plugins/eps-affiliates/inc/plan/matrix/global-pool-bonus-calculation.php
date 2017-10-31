@@ -151,11 +151,11 @@ function _calculate_global_pool_bonus () {
 						   $transaction['category'] 					= $rank_name.' POOL BONUS';
 						   $transaction['notes'] 							= $rank_name.' pool bonus ratio '.$ratio.' and average '.$avg_pool_amount.' of the bonus amount '.$commission;
 							  //to mbr transaction
-		    				afl_member_transaction($transaction, TRUE);
+		    				afl_member_holding_transaction($transaction, TRUE);
 							  
 							  //to global pool bonus transactions
-		            $transaction['category'] 					= $rank_name.' POOL BONUS';
-		    				afl_global_pool_transaction($transaction);
+		        //     $transaction['category'] 					= $rank_name.' POOL BONUS';
+		    				// afl_global_pool_transaction($transaction);
 							}
 		 			 	}
 		 			}
