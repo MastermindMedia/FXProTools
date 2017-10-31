@@ -13,8 +13,8 @@ if (!function_exists('page_content')) {
 						<?php if ($post->post_name == 'read') { ?>
 						<li><a href="?delete=<?php echo $_GET['email']; ?>">Delete</a></li>
 						<?php } else { ?>
-						<li><a href="#">Mark as Read</a></li>
-						<li><a href="#">Delete</a></li>
+						<li><a href="#" data-email-action="mark-read">Mark as Read</a></li>
+						<li><a href="#" data-email-action="delete">Delete</a></li>
 						<?php } ?>
 					</ul>
 				</div>

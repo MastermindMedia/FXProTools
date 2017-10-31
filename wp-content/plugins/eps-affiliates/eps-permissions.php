@@ -80,6 +80,10 @@
 			'#title' 				=> __('Manage Business transactions '),
 			'#description' 	=> 'Manage Business transactions'
 		);
+		$permissions['business_holding_payouts'] = array(
+			'#title' 				=> __('Business Holding Payouts'),
+			'#description' 	=> 'Business Holding Payouts'
+		);
 		//manage members
 		$permissions['manage_members'] = array(
 			'#title' 				=> __('Manage System members'),

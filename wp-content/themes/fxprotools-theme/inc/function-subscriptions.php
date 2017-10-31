@@ -96,12 +96,12 @@ function process_user_subscription( $subscription_id ){
 add_action( 'template_redirect', 'paused_account_enforce_access' );
 function paused_account_enforce_access()
 {
-	if( is_user_logged_in() && !is_user_fx_distributor() && !is_page('no-access') && !current_user_can('administrator') ){
+	if ( is_user_logged_in() && ! is_user_fx_distributor() && ! is_page( 'no-access' ) && ! current_user_can( 'administrator' ) && has_imported_user_update_password() ) {
 		global $post;
 	    if( !isset( $post ) ) return;
 	    $slug = $post->post_name;
 
-		$allowed_pages = array( 'my-account', 'inbox', 'funnels', 'referred-members', 'wallet', 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'autologin', 'log-out-notice','no-access', 'renewal' );
+		$allowed_pages = array( 'my-account', 'inbox', 'funnels', 'referred-members', 'wallet', 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'signals', 'autologin', 'log-out-notice','no-access', 'renewal' );
 
 		if( !is_product() && !is_cart() && !is_checkout() && !is_shop() && !is_404() && !is_front_page() ) {
 	       if( !in_array($slug, $allowed_pages) ){

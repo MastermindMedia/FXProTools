@@ -1,5 +1,5 @@
 <?php
-$ref = isset( $_GET['ref'] ) ? $_GET['ref'] : '';
+$ref = isset( $_GET['ref'] ) ? $_GET['ref'] : 'business.admin';
 ?>
 <?php get_header(); ?>
 
@@ -34,7 +34,7 @@ $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : '';
 								<div class="text-center m-t-md">
 									<input type="hidden" name="funnel_id" value="f1">
 									<input type="hidden" name="redirect_to" value="<?php echo site_url ('lp1/?ref='.$ref );?>">
-									<button type="submit" class="btn btn-danger btn-lg reserve-your-seat">Click To Get Access</button>
+									<button type="submit" class="btn btn-danger btn-lg">Click To Get Access</button>
 								</div>
 							</form>
 						</div>

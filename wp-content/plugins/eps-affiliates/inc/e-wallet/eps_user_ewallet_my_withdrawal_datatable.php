@@ -164,7 +164,8 @@
 	*/
 		public function affiliate_data() {
 
-			
+			$uid = get_current_user_id();
+			// pr($uid);
 			$page    	= isset( $_GET['paged'] )    ? absint( $_GET['paged'] ) : 1;
 			$status  	= isset( $_GET['status'] )   ? $_GET['status']          : '';
 			$search 	 = isset( $_GET['s'] )        ? $_GET['s']               : '';
@@ -189,42 +190,39 @@
       	)
     	);
    		$query['#where'] = array( 
-      '`wp_afl_payout_requests` . `category` = "WITHDRAWAL"'
+      '`wp_afl_payout_requests` . `category` = "WITHDRAWAL"',
+      '`wp_afl_payout_requests` . `uid` = '.$uid
     );
+   		// pr($tab);
    	switch ($tab) {
    		case 'active_requestes':
    			$request_status = 1;
-   			$query['#where'] = array(
-   					'`wp_afl_payout_requests`.`request_status`='.$request_status
-   			);
+   		
+   			$query['#where'][] = '`wp_afl_payout_requests`.`request_status`='.$request_status;
+   			// pr($condition);
+   			// pr($query['#where']);
    			break;
    		case 'approved_requests':
    			$request_status = 2;
    			$paid_status 		= 1;
-   			$query['#where'] = array(
-   				'`wp_afl_payout_requests`.`request_status`='.$request_status,
-   				'`wp_afl_payout_requests`.`paid_status`='.$paid_status
-   			);
+   			$query['#where'][] = '`wp_afl_payout_requests`.`request_status`='.$request_status;
+   			$query['#where'][] = '`wp_afl_payout_requests`.`paid_status`='.$paid_status;
    			break;
    		case 'rejected_requests':
    			$paid_status 		= -99;
-   			$query['#where'] = array(
-   				'`wp_afl_payout_requests`.`paid_status`='.$paid_status
-   			);
+   			$query['#where'][] = '`wp_afl_payout_requests`.`paid_status`='.$paid_status;
    			break;
    		case 'completed_requests':
    			$request_status = 3;
    			$paid_status 		= 2;
-   			$query['#where'] = array(
-   					'`wp_afl_payout_requests`.`request_status`='.$request_status,
-   					'`wp_afl_payout_requests`.`paid_status`='.$paid_status
-   		);
+   			$query['#where'][] = '`wp_afl_payout_requests`.`request_status`='.$request_status;
+   			$query['#where'][] = '`wp_afl_payout_requests`.`paid_status`='.$paid_status;
    			break;
    		default:
    			$request_status = 2;
    			break;
    	}
-   
+   // pr($query);
     $affiliates = db_select($query, 'get_results');
     // pr($affiliates);exit();
 			// Retrieve the "current" total count for pagination purposes.

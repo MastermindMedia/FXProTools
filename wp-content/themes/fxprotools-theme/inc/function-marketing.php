@@ -33,7 +33,7 @@ function get_unique_property_count($array, $property, $url)
 {
 	$count = 0;
 	foreach($array as $object){
-		if( preg_replace('{/$}', '', $object->url) == preg_replace('{/$}', '', $url) ){
+		if( rtrim($object->url, '/') == rtrim($url, '/') ){
 			$value = $object->{$property};
 			$occurrence = property_occurence_count($array, $property, $value);
 			if($occurrence == 1) $count += 1;
@@ -46,7 +46,7 @@ function get_property_count($array, $property, $url)
 {
 	$count = 0;
 	foreach($array as $object){
-		if( preg_replace('{/$}', '', $object->url) == preg_replace('{/$}', '', $url) ){
+		if( rtrim($object->url, '/') == rtrim($url, '/') ){
 			if( (int) $object->{$property} > 0) $count++;
 		}
 	}
@@ -62,9 +62,11 @@ function date_is_in_range($date_from, $date_to, $date)
  	return (($ts >= $start_ts) && ($ts <= $end_ts));
 }
 
-function get_funnel_stats($funnel_id, $date_filter = array())
+function get_funnel_stats($funnel_id, $date_filter = array(), $user_id = 0)
 {
-	$visits = affiliate_wp()->visits->get_visits( array( 'affiliate_id' => affwp_get_affiliate_id( get_current_user_id()), 'order_by' => 'visit_id' ) );
+	$affiliate_id = $user_id > 0 ? affwp_get_affiliate_id( $user_id ) : current_user_can('administrator') ? 0 : affwp_get_affiliate_id( get_current_user_id() );
+	
+	$visits = get_funnel_visits( $affiliate_id );
 	if( $date_filter ){
 		foreach($visits as $key => $visit){
 			 if( !date_is_in_range($date_filter['date_from'], $date_filter['date_to'], date("m/d/Y", strtotime($visit->date))) ) unset($visits[$key]);
@@ -81,7 +83,8 @@ function get_funnel_stats($funnel_id, $date_filter = array())
 					   'opt_ins' 	=> array('all' 	 => 0, 'rate' 	 => 0),
 					   'sales' 		=> array('count' => 0, 'rate' 	 => 0),
 				);
-	$sales_stats = array( 'customer_sales' => 0, 'distributor_sales' => 0);
+
+	$sales_stats = array( 'customer_sales' => get_total_distributor_sales( $funnel, current_user_can('administrator') ? 0 : get_current_user_id() ), 'distributor_sales' => get_total_customer_sales( $funnel, current_user_can('administrator') ? 0 : get_current_user_id() ) );
 
 	//all
 	$cp_stats['page_views']['all'] = property_occurence_count($visits, 'url',  $funnel['cp_url'] );
@@ -113,6 +116,123 @@ function get_funnel_stats($funnel_id, $date_filter = array())
 	return $stats;
 }
 
+function get_funnel_visits( $user_id ){
+	global $wpdb;
+
+	$affiliate_cond = '';
+	if( $user_id > 0){
+		$affiliate_id = affwp_get_affiliate_id( $user_id );
+		$affiliate_cond = "WHERE affiliate_id = {$affiliate_id}";
+	}
+
+	$results = $wpdb->get_results($sql = "SELECT *
+        FROM {$wpdb->prefix}affiliate_wp_visits as visits 
+        {$affiliate_cond} 
+    ");
+    return $results;
+
+}
+
+
+
+function get_total_distributor_sales( $funnel, $user_id = 0 ){
+	global $wpdb;
+	
+	$affiliate_cond = '';
+
+	if( $user_id > 0){
+		$affiliate_id = affwp_get_affiliate_id( $user_id );
+		$affiliate_cond = "AND referrals.affiliate_id = {$affiliate_id}";
+	}
+
+	$visit_cond = '';
+
+	if( is_array($funnel) ){
+		$visit_cond = "AND (visits.url LIKE '%{$funnel['cp_url']}%' OR visits.url LIKE '%{$funnel['lp_url']}%')";
+	}
+
+    $results = $wpdb->get_results($sql = "SELECT COUNT(description) as sales_count
+        FROM {$wpdb->prefix}affiliate_wp_referrals as referrals
+        LEFT  JOIN {$wpdb->prefix}affiliate_wp_visits as visits on referrals.referral_id = visits.referral_id
+        WHERE `description` LIKE \"%Business%\" {$visit_cond} {$affiliate_cond}
+    ");
+
+    return $results[0]->sales_count;
+}
+
+function get_total_customer_sales( $funnel, $user_id = 0 ){
+	global $wpdb;
+	$affiliate_cond = '';
+
+	if( $user_id > 0){
+		$affiliate_id = affwp_get_affiliate_id( $user_id );
+		$affiliate_cond = "AND referrals.affiliate_id = {$affiliate_id}";
+	}
+
+	$visit_cond = '';
+
+	if( is_array($funnel) ){
+		$visit_cond = "AND (visits.url LIKE '%{$funnel['cp_url']}%' OR visits.url LIKE '%{$funnel['lp_url']}%')";
+	}
+
+    $results = $wpdb->get_results($sql = "SELECT COUNT(description) as sales_count
+        FROM {$wpdb->prefix}affiliate_wp_referrals as referrals
+        LEFT  JOIN {$wpdb->prefix}affiliate_wp_visits as visits on referrals.referral_id = visits.referral_id
+        WHERE  (`description` LIKE \"%Signals%\" OR `description` LIKE \"%Professional%\") {$visit_cond} {$affiliate_cond}
+    ");
+
+    return $results[0]->sales_count;
+}
+
+function get_total_funnel_sales( $link_url, $user_id = 0 ){
+	global $wpdb;
+	$affiliate_cond = '';
+
+	if( $user_id > 0){
+		$affiliate_id = affwp_get_affiliate_id( $user_id );
+		$affiliate_cond = "AND referrals.affiliate_id = {$affiliate_id}";
+	}
+
+	$visit_cond = "(visits.url LIKE '%{$link_url}%')";
+
+    $results = $wpdb->get_results($sql = "SELECT COUNT(description) as sales_count
+        FROM {$wpdb->prefix}affiliate_wp_referrals as referrals
+        LEFT  JOIN {$wpdb->prefix}affiliate_wp_visits as visits on referrals.referral_id = visits.referral_id
+        WHERE {$visit_cond} {$affiliate_cond} 
+    ");
+
+
+    return $results[0]->sales_count;
+}
+
+function get_highest_converting_funnel_link( $user_id = 0){
+	$funnels = get_funnels();
+	$link = '';
+	$highest = 0;
+
+	foreach ($funnels as $key => $post){
+
+		$funnel = array( 
+			'cp_url' => rwmb_meta('capture_page_url', '', $post->ID),
+			'lp_url' => rwmb_meta('landing_page_url', '', $post->ID)
+		);
+
+		$cp_sales = get_total_funnel_sales( $funnel['cp_url'], $user_id);
+		$lp_sales = get_total_funnel_sales( $funnel['lp_url'], $user_id);
+
+		if( $cp_sales >= $highest){
+			$highest = $cp_sales;
+			$link = $funnel['cp_url'];
+		} 
+
+		if( $lp_sales >= $highest){
+			$highest = $lp_sales;
+			$link = $funnel['lp_url'];
+		}
+	} 
+
+	return $link;
+}
 
 function get_user_referrals()
 {

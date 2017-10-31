@@ -14,7 +14,7 @@ if(!class_exists('FX_Sendgrid_Ajax')){
 		public function capture_email()
 		{
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
-				$recipient = array('email' => $_POST['email'], 'campaign' => $_POST['funnel_id'] );
+				$recipient = array('email' => $_POST['email'], 'campaign' => $_POST['funnel_id'], 'first_name' => $_POST['name'], 'contact' => $_POST['contact'] );
 				$recipient_id = FX_Sendgrid_Api::add_recipient($recipient);
 				if($recipient_id){
 					FX_Sendgrid_Api::add_recipient_to_list($recipient_id);

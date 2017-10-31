@@ -53,6 +53,11 @@ function afl_user_payment_method_conf_form(){
 			case  'autherization' :
 				afl_user_payment_autherization_form();
 			break;
+
+			case 'method_hyperwallet' :
+  			afl_user_payment_conf_method_hyperwallet_form();
+  		break;
+
   		default :
   			afl_user_payment_conf_error_form();
   		break;
@@ -594,4 +599,265 @@ function afl_user_payment_autherization_form_submit($form_state){
 */
 function afl_user_payment_conf_error_form(){
 	pr("Please choose another payout method and withdraw your amount... :),,:)");
+}
+
+
+
+
+/*
+* ------------------------------------------------------------
+* User Hyper Wallet payment method configuration
+* ------------------------------------------------------------
+*/
+function afl_user_payment_conf_method_hyperwallet_form(){
+	 if ( isset($_POST['submit']) ) {
+	 	$validation = afl_user_payment_conf_method_hyperwallet_form_validation($_POST);
+	 	if ($validation) {
+	 		afl_user_payment_conf_method_hyperwallet_form_submit($_POST);
+	 	}
+	 }
+	global $wpdb;
+	$uid 					 = get_current_user_id();
+	$table = $wpdb->prefix .'afl_user_payment_methods';
+  $check = $wpdb->get_row("SELECT  * FROM `$table` WHERE `uid` = $uid AND `method` = 'method_hyperwallet' AND `status` = 1 ");
+  if(! $check){
+   	wp_redirect('?page=affiliate-eps-payment_method');
+  }
+// pr($check,1);
+	$data = json_decode($check->data);
+	// pr($_SERVER['REQUEST_URI']);
+	$user = wp_get_current_user();
+	$user_name = $user->user_login;
+	$user_email = $user->user_email;
+	// pr($user->user_email);
+	// pr($user);
+	if($data) {
+		// pr($check);
+					// $response = apply_filters('afl_hyper_wallet_payout', array('uid'=>$uid,'amount'=>2));
+					// pr($response);
+		print do_shortcode("[hyper_wallet_acc_detail data='".$check->data."']");
+	}else {
+		print 'Your Wallet is not yet created. Create One.';
+   	$form = array();
+ 		$form['#method'] = 'post';
+		$form['#action'] = $_SERVER['REQUEST_URI'];
+		$form['#prefix'] ='<div class="form-group row">';
+	 	$form['#suffix'] ='</div>';
+
+	 	$form['clientUserId'] = array(
+	 		'#type' 					=> 'text',
+	 		'#title' 					=> 'Client User Id',
+	 		'#required'				=> TRUE,
+	 		'#default_value' 	=> isset($data->clientUserId) ? $data->clientUserId : $user_name,
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>'
+
+	 	);
+
+
+	 	$form['email'] = array(
+	 		'#type' 					=> 'text',
+	 		'#title' 					=> 'Email',
+	 		'#required'				=> TRUE,
+	 		'#default_value' 	=> isset($data->email) ? $data->email : $user_email,
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>'
+	 	);
+
+
+
+	 	$form['firstName'] = array(
+	 		'#type' 					=> 'text',
+	 		'#title' 					=> 'First Name',
+	 		'#required'				=> TRUE,
+	 		'#default_value' 	=> isset($data->firstName) ? $data->firstName : '',
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>'
+	 	);
+
+	 	$form['lastName'] = array(
+	 		'#type' 					=> 'text',
+	 		'#title' 					=> 'Last Name',
+	 		'#required'				=> TRUE,
+	 		'#default_value' 	=> isset($data->lastName) ? $data->lastName : '',
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>'
+	 	);
+
+
+	 	$form['addressLine1'] = array(
+	 		'#type' 					=> 'text',
+	 		'#title' 					=> 'Address Line 1',
+	 		'#required'				=> TRUE,
+	 		'#default_value' 	=> isset($data->addressLine1) ? $data->addressLine1 : '',
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>'
+	 	);
+	 	$form['city'] = array(
+	 		'#type' 					=> 'text',
+	 		'#title' 					=> 'city',
+	 		'#required'				=> TRUE,
+	 		'#default_value' 	=> isset($data->city) ? $data->city : '',
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>'
+	 	);
+
+	 	$form['country'] = array(
+	 		'#type' 					=> 'select',
+	 		'#title' 					=> 'Country',
+	 		'#default_value' 	=> isset($data->country) ? $data->country : '',
+	 		'#options' => afl_hyper_wallet_counries(),
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#required'				=> TRUE,
+	 		'#suffix' 				=> '</div>'
+	 	);
+	 	$form['stateProvince'] = array(
+	 		'#type' 					=> 'text',
+	 		'#title' 					=> 'State Province',
+	 		'#default_value' 	=> isset($data->stateProvince) ? $data->stateProvince : '',
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#required'				=> TRUE,
+	 		'#suffix' 				=> '</div>'
+	 	);
+
+	 	$form['postalCode'] = array(
+	 		'#type' 					=> 'text',
+	 		'#title' 					=> 'Postal Code',
+	 		'#default_value' 	=> isset($data->postalCode) ? $data->postalCode : '',
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#required'				=> TRUE,
+	 		'#suffix' 				=> '</div>'
+	 	);
+	 	$form['submit'] = array(
+	 		'#type' => 'submit',
+	 		'#value' =>'Save configuration'
+	 	);
+	 	echo afl_render_form($form);
+	}
+}
+
+
+/*
+* ------------------------------------------------------------
+* User Hyper Wallet method configuration form submit
+* ------------------------------------------------------------
+*/
+function afl_user_payment_conf_method_hyperwallet_form_submit($form_state){
+	unset($form_state['submit']);
+	global $wpdb;
+	$uid 	 = get_current_user_id();
+	$table = $wpdb->prefix .'afl_user_payment_methods';
+
+	/**
+	 * Hyper Wallet Account Creation
+	 */
+	$hyper_wallet_detail = afl_hyper_wallet_new_user($form_state);
+	// pr($hyper_wallet_detail,1);
+
+	if(isset($hyper_wallet_detail['token']) && !empty($hyper_wallet_detail['token'])) {
+		$form_state += $hyper_wallet_detail;
+		$data = json_encode($form_state);
+		$q = $wpdb->update($table, array('completed' => 1, 'data' => $data), array('uid'=>$uid,'method' => 'method_hyperwallet' ));
+	  if ($q) {
+	  	  echo wp_set_message(__('Your Hyper Wallet account created and saved successfully'), 'success');
+	  }
+	}
+
+}
+
+
+/*
+* ------------------------------------------------------------
+* User Hyper Wallet payment method configuration form validation
+* ------------------------------------------------------------
+*/
+function afl_user_payment_conf_method_hyperwallet_form_validation($form_state){
+		$rules = array();
+		//create rules
+		$rules[] = array(
+	 		'value'=> $form_state['clientUserId'],
+	 		'name' =>'Client User ID',
+	 		'field' =>'clientUserId',
+	 		'rules' => array(
+	 			'rule_required',
+	 		)
+	 	);
+
+	 	$rules[] = array(
+	 		'value'=> $form_state['email'],
+	 		'name' =>'Client Email',
+	 		'field' =>'email',
+	 		'rules' => array(
+	 			'rule_required',
+	 		)
+	 	);
+
+
+	 	$rules[] = array(
+	 		'value'=> $form_state['firstName'],
+	 		'name' =>'First Name',
+	 		'field' =>'firstName',
+	 		'rules' => array(
+	 			'rule_required',
+	 		)
+	 	);
+	 	$rules[] = array(
+	 		'value'=> $form_state['lastName'],
+	 		'name' =>'Last Name',
+	 		'field' =>'lastName',
+	 		'rules' => array(
+	 			'rule_required',
+	 		)
+	 	);
+	 	$rules[] = array(
+	 		'value'=> $form_state['addressLine1'],
+	 		'name' =>'Address Line 1',
+	 		'field' =>'addressLine1',
+	 		'rules' => array(
+	 			'rule_required',
+	 		)
+	 	);
+	 	$rules[] = array(
+	 		'value'=> $form_state['city'],
+	 		'name' =>'City',
+	 		'field' =>'city',
+	 		'rules' => array(
+	 			'rule_required',
+	 		)
+	 	);
+
+	 	$rules[] = array(
+	 		'value'=> $form_state['stateProvince'],
+	 		'name' =>'State Province',
+	 		'field' =>'stateProvince',
+	 		'rules' => array(
+	 			'rule_required',
+	 		)
+	 	);
+
+	 	$rules[] = array(
+	 		'value'=> $form_state['country'],
+	 		'name' =>'Country',
+	 		'field' =>'country',
+	 		'rules' => array(
+	 			'rule_required',
+	 		)
+	 	);
+
+	 	$rules[] = array(
+	 		'value'=> $form_state['postalCode'],
+	 		'name' =>'Postal Code',
+	 		'field' =>'postalCode',
+	 		'rules' => array(
+	 			'rule_required',
+	 		)
+	 	);
+
+		$resp  = set_form_validation_rule($rules);
+		if (!$resp) {
+			return  $resp;
+			
+		}
+		else
+			return true;
 }

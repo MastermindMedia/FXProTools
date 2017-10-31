@@ -135,6 +135,44 @@
  }
 
 
+ /*
+ * ------------------------------------------------------------
+ * commision payout from holding payouts on every 15th
+ *
+ * ------------------------------------------------------------
+*/
+ function eps_affiliates_monthly_release_holding_bonus_payouts_cron_callback () {
+	 	require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/plan/matrix/matrix-compensation-holding-bonus-payout.php';
+		if (function_exists('_release_holding_bonus_payouts')) {
+			_release_holding_bonus_payouts();
+		}
+ }
+
+
+/*
+ * -------------------------------------------------------------
+ * create a scheduled event (if it does not exist already)
+ * -------------------------------------------------------------
+*/
+	function eps_affiliates_monthly_release_holding_bonus_payouts_activation() {
+		if( !wp_next_scheduled( 'eps_affiliates_monthly_release_holding_bonus_payouts' ) ) {  
+		   wp_schedule_event( time(), 'everyhour', 'eps_affiliates_monthly_release_holding_bonus_payouts' );  
+		}
+	}
+
+
+	/*
+	 * -------------------------------------------------------------
+	 * unschedule event upon plugin deactivation
+	 * -------------------------------------------------------------
+	*/
+	function eps_affiliates_monthly_release_holding_bonus_payouts_deactivation() {	
+		// find out when the last event was scheduled
+		$timestamp = wp_next_scheduled ('eps_affiliates_monthly_release_holding_bonus_payouts');
+		// unschedule previous event if any
+		wp_unschedule_event ($timestamp, 'eps_affiliates_monthly_release_holding_bonus_payouts');
+	} 
+
 
 /*
  * -------------------------------------------------------------
@@ -348,6 +386,8 @@
 	add_action('wp', 'eps_affiliates_deactived_spot_openup_cron_activation');
 	
 	add_action('wp', 'eps_affiliates_bonus_incentive_cron_activation');
+
+	add_action('wp', 'eps_affiliates_monthly_release_holding_bonus_payouts_activation');
 /*
  * -------------------------------------------------------------
  * All the scheduler deactivation hooks comes here
@@ -361,6 +401,8 @@
 	register_deactivation_hook (__FILE__, 'eps_affiliates_remote_users_embedd_cron_deactivation');
 	register_deactivation_hook (__FILE__, 'eps_affiliates_deactived_spot_openup_cron_deactivation');
 	register_deactivation_hook (__FILE__, 'eps_affiliates_bonus_incentive_cron_deactivation');
+	
+	register_deactivation_hook (__FILE__, 'eps_affiliates_monthly_release_holding_bonus_payouts_deactivation');
 
 
 /*
@@ -420,3 +462,13 @@
  * -------------------------------------------------------------
 */
 	add_action ('eps_affiliates_bonus_incentive_cron', 'eps_affiliates_bonus_incentive_cron_callback');
+
+
+
+
+	/*
+ * -------------------------------------------------------------
+ * Holding payout release
+ * -------------------------------------------------------------
+*/
+	add_action ('eps_affiliates_monthly_release_holding_bonus_payouts', 'eps_affiliates_monthly_release_holding_bonus_payouts_cron_callback');

@@ -193,6 +193,27 @@ function afl_system_features_and_configurations () {
 										</a>',
 		);
 
+
+	/*
+	 * --------------------------------------------------------------------------
+	 * HyperWallet Conf
+	 * --------------------------------------------------------------------------
+	*/
+		$i++;
+		$rows[$i]['label_1'] = array(
+			'#type' => 'label',
+			'#title'=> 'Hyper Wallet Configuration',
+		);
+		$rows[$i]['link_1'] = array(
+			'#type' => 'markup',
+			'#markup' => '<a href="?page=affiliate-eps-hyperwallet-configurations">
+											<span class="btn btn-rounded btn-sm btn-icon btn-default">
+												<i class="fa fa-cog"></i>
+											</span>
+										</a>',
+		);
+
+
 	$table['#rows'] = apply_filters('eps_affiliates_features_configuration',$rows);
 
 	echo afl_content_wrapper_end();

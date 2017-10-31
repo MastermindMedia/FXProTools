@@ -17,7 +17,7 @@ function check_rank_achied() {
 }
 
 function afl_test_codes_callback () {
-   $uid = get_uid();
+   /*$uid = get_uid();
   
   if (isset($_POST['search_key'])) {
     $search_key = $_POST['search_key'];
@@ -54,7 +54,9 @@ function afl_test_codes_callback () {
   foreach ($result as $key => $value) {
     $response[] = array('name'=> ($value->user_login.' ('.$value->ID.')'));
   }
-  pr($response);
+  pr($response);*/
+
+ 
 }
 
 

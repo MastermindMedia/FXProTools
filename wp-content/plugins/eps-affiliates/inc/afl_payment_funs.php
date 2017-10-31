@@ -114,6 +114,57 @@ function afl_member_transaction($transaction = array(), $business = FALSE){
   return TRUE;
 }
 
+
+/*
+ * -----------------------------------------------------------------------
+ * Insert business transaction table 
+ * credit status  1 => Cedit
+ *                2 => Debit
+ * -----------------------------------------------------------------------
+*/
+function afl_member_holding_transaction($transaction = array(), $business = FALSE){
+  if(empty($transaction)){
+    return FALSE;
+  }
+  global $wpdb;
+  $afl_merchant_id  = 'default';
+  $afl_project_name = 'default';
+  
+  $afl_date = afl_date();
+  $afl_date_splits = afl_date_splits($afl_date);
+  $transaction_table = $wpdb->prefix . 'afl_user_holding_transactions';
+  try{
+
+    $transaction['balance'] = 0;
+    if($transaction['credit_status'] == 1){
+      $transaction['balance'] = $transaction['amount_paid'];
+      $transaction['notes'] = $transaction['notes'];
+    }
+    else{
+      $transaction['balance'] = $transaction['amount_paid'] * -1;
+      $transaction['notes'] = $transaction['notes'];
+    }
+
+    $transaction['rejoined_phase'] = 0;
+    $transaction['created'] = $afl_date;
+    $transaction['transaction_day'] = $afl_date_splits['d'];
+    $transaction['transaction_month'] = $afl_date_splits['m'];
+    $transaction['transaction_year'] = $afl_date_splits['y'];
+    $transaction['transaction_week'] = $afl_date_splits['w'];
+    $transaction['transaction_date'] = afl_date_combined($afl_date_splits);
+    $transaction['merchant_id'] = $afl_merchant_id;
+    $transaction['project_name'] = $afl_project_name;
+    $transaction['payout_id'] = 'Null';
+    $business_trans_id = $wpdb->insert($transaction_table, $transaction);
+
+    }
+  catch (Exception $e) {
+   // __commerce_checkout_complete_error($order, 299, $e);
+    // watchdog_exception('User Transaction', $e);
+  }
+  return TRUE;
+}
+
 function afl_currency(){
   return 'USD';
 }

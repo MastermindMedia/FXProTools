@@ -72,7 +72,7 @@ function afl_my_purchase_callback () {
 			);
 			$rows[$key]['markup_2'] = array(
 				'#type' =>'markup',
-				'#markup'=> $value->afl_points
+				'#markup'=> afl_format_payment_amount($value->afl_points, FALSE),
 			);
 			$rows[$key]['markup_3'] = array(
 				'#type' =>'markup',

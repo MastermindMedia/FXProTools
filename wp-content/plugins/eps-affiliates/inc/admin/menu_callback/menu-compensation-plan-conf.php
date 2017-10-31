@@ -85,6 +85,7 @@ function afl_admin_compensation_plan_configuration() {
  * -------------------------------------------------------------------
 */
 function afl_admin_compensation_plan_config_(){
+		new Afl_enque_scripts('common');
 		
 	 if ( isset($_POST['submit']) ) {
 	 	$validation = afl_admin_compensation_plan_form_validation($_POST);
@@ -106,10 +107,41 @@ function afl_admin_compensation_plan_config_(){
 						)
 					);
 
-	$table['#header'] 		= array('Plan Configuration');
+	$table['#header'] 		= array('Plan Configuration','');
 
 	/*--------------------- Rows ---------------------*/
 	$i = 0;
+
+	$rows[$i]['label_payout_mode'] = array(
+		'#type' => 'label',
+		'#title'=> 'Compensation Release Payout',
+ 	);
+	$rows[$i]['matrix_plan_payout_mode'] = array(
+		'#type' 					=> 'select',
+		'#attributes'			=>array('form-select','select'),
+		'#options' 				=> afl_get_payout_modes(),
+		'#default_value' 	=> afl_variable_get('matrix_plan_payout_mode',''),
+ 	);
+	$i++;
+
+	$rows[$i]['label_payout_date'] = array(
+		'#type' => 'label',
+		'#title'=> 'Compensation Release Payout Date',
+ 	);
+	$rows[$i]['matrix_plan_payout_date'] = array(
+		'#type' 					=> 'text',
+		'#preffix' 			=> '<div class="form-item clearfix form-type-textfield form-group" data-toggle="tooltip">',
+		'#suffix' 			=> '</div>',
+		'#attributes'		=> array(
+						'class' => array(
+								'form-text',
+								'form-control',
+						)
+		),
+		'#default_value' 	=> afl_variable_get('matrix_plan_payout_date',''),
+ 	);
+	$i++;
+
 	$rows[$i]['label_2'] = array(
 		'#type' => 'label',
 		'#title'=> 'Width of matrix',
@@ -272,17 +304,41 @@ function afl_admin_compensation_plan_form_submit($POST){
  		'#options' => $options
  	);
 
+
+ 	$matrix_compensation_max_level = afl_variable_get('matrix_compensation_max_level','');
  	$form['fieldset_1']['matrix_compensation_max_level'] = array(
  		'#title' 	=> 'Compensation Maximum Level',
  		'#type'  	=> 'select',
  		'#name'		=> 'matrix-compensation-max-level',
  		'#required' => TRUE,
  		'#options' => array(1=>1,2=>2,3=>3,4=>4,5=>5,6=>6,7=>7,8=>8,9=>9),
- 		'#default_value'=> afl_variable_get('matrix_compensation_max_level',''),
+ 		'#default_value'=> $matrix_compensation_max_level,
 
  	);
 
  	$form['fieldset_1']['markup'] = array(
+   '#type' => 'markup',
+   '#markup' => '<hr style="border:2px solid '.$color_hr.'; color:'.$color_hr.'; margin:60px 0px 60px 0px">',
+ 	);
+
+ 	$form['fieldset_3'] = array(
+ 		'#type' => 'fieldset',
+ 		'#title' =>'Matrix Compensation Criteria',
+ 	);
+
+
+ 	for ($i=1; $i <= $matrix_compensation_max_level ; $i++) { 
+ 		$form['fieldset_3']['matrix_compensation_lvl_'.$i.'_min_spons'] = array(
+	 		'#title' 	=> 'Minimum Count of Sponsors (Level'.$i.')',
+	 		'#type'  	=> 'text',
+	 		'#default_value'=> afl_variable_get('matrix_compensation_lvl_'.$i.'_min_spons',0),
+	 		'#required' => TRUE,
+
+	  );
+ 	}
+
+
+ 	$form['fieldset_3']['markup'] = array(
    '#type' => 'markup',
    '#markup' => '<hr style="border:2px solid '.$color_hr.'; color:'.$color_hr.'; margin:60px 0px 60px 0px">',
  	);
@@ -318,6 +374,7 @@ function afl_admin_compensation_plan_form_submit($POST){
    '#type' => 'markup',
    '#markup' => '<hr style="border:2px solid '.$color_hr.'; color:'.$color_hr.'; margin:60px 0px 60px 0px">',
  	);
+
 
  	$form['submit'] = array(
  		'#type' => 'submit',
@@ -581,7 +638,7 @@ function afl_admin_compensation_plan_form_submit($POST){
 	 	$form['#prefix'] ='<div class="form-group row">';
 	 	$form['#suffix'] ='</div>';
 
-	 	$form['fieldset'] = array(
+	 	/*$form['fieldset'] = array(
 	 		'#type'=>'fieldset',
 	 		'#title'=>'Cancelled spot openup'
 	 	);
@@ -604,7 +661,7 @@ function afl_admin_compensation_plan_form_submit($POST){
 	 		'#required'=>TRUE
 	  );
 
-
+*/
 
 	  //Deactivate member if no distributor package 
 	  	$form['fieldset_1'] = array(
