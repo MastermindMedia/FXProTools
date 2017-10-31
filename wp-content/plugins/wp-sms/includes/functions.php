@@ -58,10 +58,21 @@ if ( ! function_exists( 'initial_gateway' ) ) {
 			$sms->unit = __( 'SMS', 'wp-sms' );
 		}
 
-		// Set from sender id
+		// Set sender id
 		if ( ! $sms->from ) {
 			$sms->from = $wpsms_option['gateway_sender_id'];
 		}
+
+		// Unset gateway key field if not available in the current gateway class.
+		add_filter( 'wp_sms_gateway_settings', function ( $filter ) {
+			global $sms;
+
+			if ( ! $sms->has_key ) {
+				unset( $filter['gateway_key'] );
+			}
+
+			return $filter;
+		} );
 
 		// Return gateway object
 		return $sms;
@@ -70,7 +81,7 @@ if ( ! function_exists( 'initial_gateway' ) ) {
 
 if ( ! function_exists( 'wp_subscribes' ) ) {
 	function wp_subscribes() {
-		echo 'This function is deprecated and will add in future.';
+		_e( 'This function is deprecated and will be added in future.', 'wp-sms' );
 	}
 }
 
