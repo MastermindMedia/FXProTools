@@ -92,32 +92,10 @@ get_user_active_referrals();
 								}
 							}
 
-							$referral_loop_count = 0;
-
 							if ( in_array( 'administrator', (array) $user->roles ) ){
-								foreach($affiliate_ids as $affiliate_id){
-									$contacts[$referral_loop_count]['id'] = $affiliate_id;
-									$contacts[$referral_loop_count]['username'] = get_the_author_meta('user_login', $affiliate_id);
-									$contacts[$referral_loop_count]['fname'] = get_the_author_meta('first_name', $affiliate_id);
-									$contacts[$referral_loop_count]['lname'] = get_the_author_meta('last_name', $affiliate_id);
-									$contacts[$referral_loop_count]['email'] = get_the_author_meta('email', $affiliate_id);
-									$contacts[$referral_loop_count]['date'] = random_checkout_time_elapsed(get_the_author_meta('user_registered',$affiliate_id,false));
-									$contacts[$referral_loop_count]['avatar'] = get_avatar($affiliate_id);
-									$referral_loop_count++;
-								}
-								//dd($contacts);
+								$contacts = get_admin_contacts($affiliate_ids);
 							}else{
-								foreach($referrals as $referral){
-									$order = wc_get_order( $referral->reference );
-									$contacts[$referral_loop_count]['id'] = $order->get_user_id();
-									$contacts[$referral_loop_count]['username'] = get_the_author_meta('user_login', $order->get_user_id());
-									$contacts[$referral_loop_count]['fname'] = get_the_author_meta('first_name', $order->get_user_id());
-									$contacts[$referral_loop_count]['lname'] = get_the_author_meta('last_name', $order->get_user_id());
-									$contacts[$referral_loop_count]['email'] = get_the_author_meta('email', $order->get_user_id());
-									$contacts[$referral_loop_count]['date'] = random_checkout_time_elapsed($order->get_date_paid());
-									$contacts[$referral_loop_count]['avatar'] = get_avatar($order->get_user_id());
-									$referral_loop_count++;
-								}
+								$contacts = get_user_contacts($referrals);
 							}
 
 							if( isset( $_GET['search'] ) && !in_array( 'administrator', (array) $user->roles ) ){		
@@ -139,41 +117,47 @@ get_user_active_referrals();
 							if( !isset( $_GET['search'] ) ){
 								//dd($contacts);
 								$total_pages = ceil($ref_count / $query_offset_multi);
-								foreach($contacts as $contact){
+								if(!empty($contacts)){
+									foreach($contacts as $contact){
+								
 						?>
-									<li>
-										<div class="media">
-											<div class="media-left">
-												<?php echo $contact['avatar']; ?>
-											</div>
-											<div class="media-body">
-												<div class="info">
-													<h5 class="media-heading text-bold">
-														<?php  
-															if($contact['fname']){
-																echo $contact['fname'] . ' ' . $contact['lname'];
-															}else{
-																echo $contact['username'];
-															}
-														?>
-													</h5>
-													<p><?php echo $contact['email']; ?></p>
+										<li>
+											<div class="media">
+												<div class="media-left">
+													<?php echo $contact['avatar']; ?>
 												</div>
-												<div class="actions">
-													<span class="small"><?php echo $contact['date']; ?></span>
-													<a href="<?php bloginfo('url');?>/marketing/contacts/user?id=<?php echo $contact['id'] ?>" class="btn btn-default btn-sm m-l-sm">View</a>
+												<div class="media-body">
+													<div class="info">
+														<h5 class="media-heading text-bold">
+															<?php  
+																if($contact['fname']){
+																	echo $contact['fname'] . ' ' . $contact['lname'];
+																}else{
+																	echo $contact['username'];
+																}
+															?>
+														</h5>
+														<p><?php echo $contact['email']; ?></p>
+													</div>
+													<div class="actions">
+														<span class="small"><?php echo $contact['date']; ?></span>
+														<a href="<?php bloginfo('url');?>/marketing/contacts/user?id=<?php echo $contact['id'] ?>" class="btn btn-default btn-sm m-l-sm">View</a>
+													</div>
 												</div>
 											</div>
-										</div>
-									</li>
+										</li>
 						<?php 
-								} //contacts loop
+									}//contacts loop
+								}else{
+									echo '<strong>no contacts found.</strong>';
+								}
 							}//if search not set
 							else{
 								$total_pages = ceil($ref_count_search / $query_offset_multi);
 								$search_counter = 0;
-								foreach($contacts as $contact){
-									if(isset($query_offset) && $search_counter <= (($query_offset - 9) + 9) && $search_counter >= ($query_offset - 9) || in_array( 'administrator', (array) $user->roles )){
+								if(!empty($contacts)){
+									foreach($contacts as $contact){
+										if(isset($query_offset) && $search_counter <= (($query_offset - 9) + 9) && $search_counter >= ($query_offset - 9) || in_array( 'administrator', (array) $user->roles )){
 						?>
 								
 										<li>
@@ -202,9 +186,12 @@ get_user_active_referrals();
 											</div>
 										</li>
 						<?php			
-									}
-									$search_counter++;
-								}
+										}
+										$search_counter++;
+									}// foreach
+								}else{
+									echo '<strong>no contacts found.</strong>';
+								}//if empty
 							}
 						?>
 					</ul>
