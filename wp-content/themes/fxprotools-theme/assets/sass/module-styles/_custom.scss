@@ -2,52 +2,78 @@
 // Custom
 // ------
 
-// Dashboard - Checklist
-.fx-board.checklist {
-	.group-title {
-		float: left;
-		width: 80%;
-		padding-left: 5px;
-	}
-	.group-counter {
-		width: 20%;
-		float: left;
-		text-align: center;
-		img {
-			margin: -5px auto 0 auto;
-			width: 50px;
+// Dashboard
+.page-dashboard {
+	.btn-ico-lg {
+		width: 100%;
+		display: block;
+		padding: 20px 30px;
+		height: 95px;
+		overflow: hidden;
+		span {
+			font-weight: normal;
 		}
-		.number {
-			font-weight: bold;
+		.left, .right {
+			display: inline-block;
+		}
+		.left {
+			float: left;
+			padding-left: 20px;
+			margin-right: -5px;
+		}
+		&.btn-two {
+			background-color: #403d3d;
+			border-color: #343434;
+
 		}
 	}
-	.fx-board-list.w-toggle {
-		list-style: none;
-		li {
-			cursor: pointer;
-			position: relative;
-			.content {
-				font-size: 13px;
-				padding-left: 35px;
-				display: none;
+	// Checklist
+	.fx-board.checklist {
+		.group-title {
+			float: left;
+			width: 80%;
+			padding-left: 5px;
+		}
+		.group-counter {
+			width: 20%;
+			float: left;
+			text-align: center;
+			img {
+				margin: -5px auto 0 auto;
+				width: 50px;
 			}
-			.fx-text {
+			.number {
 				font-weight: bold;
 			}
-			.icon {
-				display: block;
-			    position: absolute;
-			    right: 10px;
-			    top: 0;
-			    font-size: 25px;
-			    bottom: 0;
-			    margin: auto;
-			    margin-top: 7px;
+		}
+		.fx-board-list.w-toggle {
+			list-style: none;
+			li {
+				cursor: pointer;
+				position: relative;
+				.content {
+					font-size: 13px;
+					padding-left: 35px;
+					display: none;
+				}
+				.fx-text {
+					font-weight: bold;
+				}
+				.icon {
+					display: block;
+				    position: absolute;
+				    right: 10px;
+				    top: 0;
+				    font-size: 25px;
+				    bottom: 0;
+				    margin: auto;
+				    margin-top: 7px;
+				}
 			}
 		}
 	}
 }
-.resp{
+.resp {
 	margin-top: 1rem;
     position: relative;
     padding-top: 1.5625rem;
@@ -57,7 +83,7 @@
     overflow: hidden;
 }
 // PTO Floating/Sticky Video Embed
-.fx-video-container{
+.fx-video-container {
     &#pto--floating-video{
         background-color: #ddd;
         display: block;
@@ -74,7 +100,7 @@
         }
     }
 }
-#pto--floating-video{
+#pto--floating-video {
     // override wordpress embed div
     .tailor-responsive-embed{
         position: initial;
@@ -97,7 +123,7 @@
             height: 158px;
         }
     }
-  }
+ }
 @media screen and (min-width: 1120px) {
     #pto--floating-video.is-sticky {
         transform: translateX(-80%);
