@@ -154,7 +154,7 @@ function enforce_page_access()
 		    return 0;
 	    }
 	    // if the page being visited is not for public, and the user hasn't changed their password yet
-	    if ( ! in_array( $slug, $guest_allowed_pages ) && ! has_imported_user_update_password() ) {
+	    if ( ! in_array( $slug, array_merge($guest_allowed_pages, [ 'my-account', 'inbox' ]) ) && ! has_imported_user_update_password() ) {
 		    wp_redirect( '/password-checkpoint' );
 		    exit;
 	    }
