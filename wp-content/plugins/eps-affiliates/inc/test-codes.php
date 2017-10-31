@@ -55,7 +55,50 @@ function afl_test_codes_callback () {
     $response[] = array('name'=> ($value->user_login.' ('.$value->ID.')'));
   }
   pr($response);*/
-  
+  pr('create Table');
+  $table_name = _table_name( 'afl_user_holding_transactions');
+      $sql = "CREATE TABLE IF NOT EXISTS `$table_name` (
+            `afl_user_transactions_id` int(11) NOT NULL,
+            `uid` int(10) unsigned NOT NULL COMMENT 'Member',
+            `rejoined_phase` int(10) unsigned DEFAULT '0' COMMENT 'Rejoined Phase',
+            `associated_user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Associated user id',
+            `level` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Level',
+            `credit_status` tinyint(4) NOT NULL COMMENT 'Credit Status',
+            `amount_paid` decimal(50,25) NOT NULL DEFAULT '0.0000000000000000000000000',
+            `currency_code` varchar(100) DEFAULT NULL COMMENT 'Currency Code',
+            `balance` decimal(50,25) NOT NULL DEFAULT '0.0000000000000000000000000',
+            `category` varchar(100) DEFAULT NULL COMMENT 'Payment Source',
+            `notes` varchar(350) DEFAULT NULL COMMENT 'Notes',
+            `created` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Created',
+            `additional_notes` varchar(350) DEFAULT NULL COMMENT 'Additional Notes',
+            `order_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Order ID',
+            `transaction_day` int(10) unsigned DEFAULT '0' COMMENT 'Transaction day 1-31',
+            `transaction_month` int(10) unsigned DEFAULT '0' COMMENT 'Transaction Month 1-12',
+            `transaction_year` int(10) unsigned DEFAULT '0' COMMENT 'Transaction Year',
+            `transaction_week` int(10) unsigned DEFAULT '0' COMMENT 'Transaction Week',
+            `transaction_date` varchar(100) DEFAULT NULL COMMENT 'Transaction Date',
+            `deleted` int(10) unsigned DEFAULT '0' COMMENT 'Deleted Status',
+            `int_return` int(11) unsigned DEFAULT '0' COMMENT 'Return Status',
+            `int_payout` int(11) DEFAULT '0' COMMENT 'Payment Initiated',
+            `hidden_transaction` int(11) DEFAULT '0' COMMENT 'Hidden Transactions',
+            `merchant_id` varchar(250) DEFAULT 'default' COMMENT 'Merchant Id',
+            `extra_params` varchar(250) DEFAULT '' COMMENT 'Extra Params',
+            `project_name` varchar(250) DEFAULT 'default' COMMENT 'Project name',
+            `payout_id` int(10) unsigned DEFAULT '0' COMMENT 'Order ID',
+            `withdrawal_date` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Withdrawal Date',
+            `paid_status` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Paid Status'
+          ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COMMENT='Stores the user transactions';";
+      require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+      dbDelta( $sql );
+
+      global $wpdb;
+      //indexes
+      $wpdb->query('ALTER TABLE `'.$table_name.'`
+                ADD PRIMARY KEY (`afl_user_transactions_id`);');
+
+      //AUTO_INCREMENT
+      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+                MODIFY `afl_user_transactions_id` int(11) NOT NULL AUTO_INCREMENT;' );
  
 }
 
