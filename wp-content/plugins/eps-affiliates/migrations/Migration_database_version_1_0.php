@@ -281,7 +281,7 @@
 					  `extra_params` varchar(250) DEFAULT '' COMMENT 'Extra Params',
 					  `project_name` varchar(250) DEFAULT 'default' COMMENT 'Project name',
 					  `payout_id` int(10) unsigned DEFAULT '0' COMMENT 'Order ID',
-					  `withdrawal_date` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Withdrawal Date'
+					  `withdrawal_date` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Withdrawal Date',
 					  `paid_status` int(10) unsigned NOT NULL DEFAULT '0' COMMENT 'Paid Status'
 					) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COMMENT='Stores the user transactions';";
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
