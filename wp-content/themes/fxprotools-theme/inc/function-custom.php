@@ -6,7 +6,7 @@
  * All custom functions
  */
 
-define('SKIP_PASSWORD_CHECKPOINT', false);
+define('SKIP_PASSWORD_CHECKPOINT', true);
 
 function get_user_checklist()
 {
