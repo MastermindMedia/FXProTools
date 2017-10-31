@@ -6,6 +6,7 @@
  * All custom functions
  */
 
+define('SKIP_PASSWORD_CHECKPOINT', false);
 
 function get_user_checklist()
 {
@@ -178,6 +179,10 @@ function customer_login_redirect( $redirect_to, $request = '', $user = '' ){
 }
 
 function has_imported_user_update_password( $user = null ) {
+	if ( SKIP_PASSWORD_CHECKPOINT ) {
+		return true;
+	}
+
 	if ( ! isset( $user ) ) {
 		$user = wp_get_current_user();
 	}
