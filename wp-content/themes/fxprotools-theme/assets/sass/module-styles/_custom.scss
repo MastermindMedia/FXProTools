@@ -10,6 +10,8 @@
 		padding: 20px 30px;
 		height: 95px;
 		overflow: hidden;
+		max-width: 380px;
+		margin: 0 auto;
 		span {
 			font-weight: normal;
 		}
@@ -20,6 +22,9 @@
 			float: left;
 			padding-left: 20px;
 			margin-right: -5px;
+			img {
+				width: 48px;
+			}
 		}
 		&.btn-two {
 			background-color: #403d3d;
