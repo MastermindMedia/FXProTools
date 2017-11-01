@@ -167,14 +167,18 @@ function enforce_page_access()
     }
     if( !is_product() && !is_cart() && !is_checkout() && !is_shop() && !is_404() && !is_front_page() ) {
         if( !in_array($slug, $guest_allowed_pages) ){
-            wp_redirect( home_url() . '/login');
-            exit;
+	        $args = [ 'redirect_to' => $slug ];
+	        wp_redirect( home_url() . '/login/?' . http_build_query( $args ) );
+	        exit;
         }
     }
 }
 
 add_filter('login_redirect', 'customer_login_redirect');
 function customer_login_redirect( $redirect_to, $request = '', $user = '' ){
+	if ( ! empty( $_POST['redirect_to'] ) ) {
+		return home_url( $_POST['redirect_to'] );
+	}
     return home_url('dashboard');
 }
 
@@ -544,7 +548,9 @@ function custom_redirect_login_failed($username) {
         'login' => 'failed',
         'username' => $username
     ];
-
+	if ( isset( $_REQUEST['redirect_to'] ) ) {
+		$args['redirect_to'] = urlencode( $_REQUEST['redirect_to'] );
+	}
     wp_redirect(get_bloginfo('url') . '/login?' . http_build_query($args));
 }
 
