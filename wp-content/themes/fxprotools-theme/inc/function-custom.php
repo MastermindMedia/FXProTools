@@ -597,7 +597,7 @@ function confirm_logout(){
 add_action('init','redirect_to_login');
 function redirect_to_login(){
     global $pagenow;
-	if ( 'wp-login.php' == $pagenow ) {
+	if ( 'wp-login.php' == $pagenow && $_GET['action'] != 'logout' ) {
 		if ( is_user_logged_in() ) {
 			wp_redirect( '/dashboard' );
 			exit();
