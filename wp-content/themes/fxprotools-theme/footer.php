@@ -1,6 +1,7 @@
 	</div><!-- /fx-wrapper -->
 
-	<?php if(!is_page(array('login', 'forgot-password')) ): ?>
+	<?php $exclude_pages = array('login', 'forgot-password', 'f3', 'f4'); ?>
+	<?php if(!is_page($exclude_pages)): ?>
 	<div class="fx-footer">
 		<div class="container">
 			<div class="row">

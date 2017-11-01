@@ -68,7 +68,7 @@
                 <div class="">
                   <div class="person">
                       <?php 
-                        if ( $parent->status == 0 ){ ?>
+                        if ( $tree[$level[$i]]->status == 0  ){ ?>
                           <img src="<?= EPSAFFILIATE_PLUGIN_ASSETS.'images/block.png'; ?>" alt="">
                       <?php  } else { ?>
                           <img src="<?= EPSAFFILIATE_PLUGIN_ASSETS.'images/avathar.png'; ?>" alt="">

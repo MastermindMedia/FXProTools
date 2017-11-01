@@ -187,24 +187,31 @@
         '#condition' => '`wp_users`.`ID`=`wp_afl_payout_requests`.`uid`'
       )
     );
+   	$query['#where'] = array(
+      // '`wp_afl_payout_requests`.`request_status`='.$request_status,
+      '`wp_afl_payout_requests` . `category` = "WITHDRAWAL"'
+    );
    	switch ($tab) {
    		case 'active_requestes':
    			$request_status = 1;
+   			$query['#where'][] = '`wp_afl_payout_requests`.`request_status`='.$request_status;
    			break;
    		case 'approved_requests':
    			$request_status = 2;
+   			$paid_status 		= 1;
+   			$query['#where'][] = '`wp_afl_payout_requests`.`request_status`='.$request_status;
+   			$query['#where'][] = '`wp_afl_payout_requests`.`paid_status`='.$paid_status;
    			break;
    		case 'rejected_requests':
    			$request_status = 3;
+   			$paid_status 		= -99;
+   			$query['#where'][] = '`wp_afl_payout_requests`.`paid_status`='.$paid_status;
    			break;
    		default:
    			$request_status = 1;
    			break;
    	}
-   	$query['#where'] = array(
-      '`wp_afl_payout_requests`.`request_status`='.$request_status,
-      '`wp_afl_payout_requests` . `category` = "WITHDRAWAL"'
-    );
+    // pr($query['#where']);
     $affiliates = db_select($query, 'get_results');
     // pr($affiliates);exit();
 			// Retrieve the "current" total count for pagination purposes.

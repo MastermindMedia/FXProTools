@@ -25,10 +25,10 @@ class WP_SMS_Settings_Pro {
 	}
 
 	/**
-	 * Add WP SMS Professional Package admin page settings
+	 * Add Professional Package options
 	 * */
 	public function add_settings_menu() {
-		add_submenu_page( 'wp-sms', __( 'Pro Package', 'wp-sms' ), '<span style="color:#FF7600">' . __( 'Pro Package', 'wp-sms' ) . '</span>', 'wpsms_setting', 'wp-sms-pro', array(
+		add_submenu_page( 'wp-sms', __( 'Professional Pack', 'wp-sms' ), '<span style="color:#FF7600">' . __( 'Professional Pack', 'wp-sms' ) . '</span>', 'wpsms_setting', 'wp-sms-pro', array(
 			&$this,
 			'render_settings'
 		) );
@@ -362,9 +362,9 @@ class WP_SMS_Settings_Pro {
 			);
 		}
 
-		$settings = apply_filters( 'wps_pp_registered_settings', array(
+		$settings = apply_filters( 'wp_sms_pp_registered_settings', array(
 			// Options for wordpress tab
-			'wp'  => apply_filters( 'wps_pp_wp_settings', array(
+			'wp'  => apply_filters( 'wp_sms_pp_wp_settings', array(
 				'login_title'         => array(
 					'id'   => 'login_title',
 					'name' => __( 'Login', 'wp-sms' ),
@@ -387,11 +387,11 @@ class WP_SMS_Settings_Pro {
 					'name'    => __( 'Verify registration', 'wp-sms' ),
 					'type'    => 'checkbox',
 					'options' => $options,
-					'desc'    => __( 'Verify user registration in WordPress with SMS. The feature stabled with WordPress default form.<br>The <code>manage_options</code> caps don\'t need to registration in login form.', 'wp-sms' ),
+					'desc'    => __( 'Verify user registration in WordPress with SMS. The feature stabled with WordPress default form.<br>The <code>manage_options</code> caps don\'t need to verify in the registration form.', 'wp-sms' ),
 				),
 			) ),
 			// Options for BuddyPress tab
-			'bp'  => apply_filters( 'wps_pp_bp_settings', array(
+			'bp'  => apply_filters( 'wp_sms_pp_bp_settings', array(
 				'bp_fields'                 => array(
 					'id'   => 'bp_fields',
 					'name' => __( 'Fields', 'wp-sms' ),
@@ -456,7 +456,7 @@ class WP_SMS_Settings_Pro {
 				),
 			) ),
 			// Options for Woocommerce tab
-			'wc'  => apply_filters( 'wps_pp_wc_settings', array(
+			'wc'  => apply_filters( 'wp_sms_pp_wc_settings', array(
 				'wc_fields'                  => array(
 					'id'   => 'wc_fields',
 					'name' => __( 'Fields', 'wp-sms' ),
@@ -623,11 +623,11 @@ class WP_SMS_Settings_Pro {
 				),
 			) ),
 			// Options for Gravityforms tab
-			'gf'  => apply_filters( 'wps_pp_gf_settings', $gf_forms ),
+			'gf'  => apply_filters( 'wp_sms_pp_gf_settings', $gf_forms ),
 			// Options for Quform tab
-			'qf'  => apply_filters( 'wps_pp_qf_settings', $qf_forms ),
+			'qf'  => apply_filters( 'wp_sms_pp_qf_settings', $qf_forms ),
 			// Options for Easy Digital Downloads tab
-			'edd' => apply_filters( 'wps_pp_edd_settings', array(
+			'edd' => apply_filters( 'wp_sms_pp_edd_settings', array(
 				'edd_fields'                  => array(
 					'id'   => 'edd_fields',
 					'name' => __( 'Fields', 'wp-sms' ),
@@ -696,51 +696,51 @@ class WP_SMS_Settings_Pro {
 				),
 			) ),
 			// Options for WP Job Manager tab
-			'job' => apply_filters( 'wps_job_settings', array(
-				'job_fields'                => array(
+			'job' => apply_filters( 'wp_sms_job_settings', array(
+				'job_fields'                  => array(
 					'id'   => 'job_fields',
 					'name' => __( 'Mobile field', 'wp-sms' ),
 					'type' => 'header'
 				),
-				'job_mobile_field'          => array(
+				'job_mobile_field'            => array(
 					'id'      => 'job_mobile_field',
 					'name'    => __( 'Mobile field', 'wp-sms' ),
 					'type'    => 'checkbox',
 					'options' => $options,
 					'desc'    => __( 'Add Mobile field to Post a job form', 'wp-sms' )
 				),
-				'job_display_mobile_number' => array(
+				'job_display_mobile_number'   => array(
 					'id'      => 'job_display_mobile_number',
 					'name'    => __( 'Display Mobile', 'wp-sms' ),
 					'type'    => 'checkbox',
 					'options' => $options,
 					'desc'    => __( 'Display Mobile number on the single job page', 'wp-sms' )
 				),
-				'job_notify_cv'             => array(
-					'id'   => 'job_notify_cv',
-					'name' => __( 'Notify for new CV', 'wp-sms' ),
+				'job_notify'                  => array(
+					'id'   => 'job_notify',
+					'name' => __( 'Notify for new job', 'wp-sms' ),
 					'type' => 'header'
 				),
-				'job_notify_cv_status'      => array(
-					'id'      => 'job_notify_cv_status',
+				'job_notify_status'           => array(
+					'id'      => 'job_notify_status',
 					'name'    => __( 'Send SMS', 'wp-sms' ),
 					'type'    => 'checkbox',
 					'options' => $options,
-					'desc'    => __( 'Send sms when submit new CV', 'wp-sms' )
+					'desc'    => __( 'Send sms when submit new job', 'wp-sms' )
 				),
-				'job_notify_cv_receiver'    => array(
-					'id'   => 'job_notify_cv_receiver',
+				'job_notify_receiver'         => array(
+					'id'   => 'job_notify_receiver',
 					'name' => __( 'SMS receiver', 'wp-sms' ),
 					'type' => 'text',
 					'desc' => __( 'Please enter mobile number for get sms', 'wp-sms' )
 				),
-				'job_notify_cv_message'     => array(
-					'id'   => 'job_notify_cv_message',
+				'job_notify_message'          => array(
+					'id'   => 'job_notify_message',
 					'name' => __( 'Message body', 'wp-sms' ),
 					'type' => 'textarea',
 					'desc' => __( 'Enter the contents of the sms message.', 'wp-sms' ) . '<br>' .
 					          sprintf(
-						          __( 'Job ID: %s, Job Title: %s, Job Description: %s, Job Location: %s, Job Type: %s, Job Mobile: %s, Company Name: %s, Company Website: %s', 'wp-sms' ),
+						          __( 'Job ID: %s, Job Title: %s, Job Description: %s, Job Location: %s, Job Type: %s, Company Mobile: %s, Company Name: %s, Company Website: %s', 'wp-sms' ),
 						          '<code>%job_id%</code>',
 						          '<code>%job_title%</code>',
 						          '<code>%job_description%</code>',
@@ -751,20 +751,20 @@ class WP_SMS_Settings_Pro {
 						          '<code>%website%</code>'
 					          )
 				),
-				'job_notify_employer_cv'             => array(
-					'id'   => 'job_notify_employer_cv',
+				'job_notify_employer'         => array(
+					'id'   => 'job_notify_employer',
 					'name' => __( 'Notify to Employer', 'wp-sms' ),
 					'type' => 'header'
 				),
-				'job_notify_employer_cv_status'      => array(
-					'id'      => 'job_notify_employer_cv_status',
+				'job_notify_employer_status'  => array(
+					'id'      => 'job_notify_employer_status',
 					'name'    => __( 'Send SMS', 'wp-sms' ),
 					'type'    => 'checkbox',
 					'options' => $options,
-					'desc'    => __( 'Send sms to employer when the CV approved', 'wp-sms' )
+					'desc'    => __( 'Send sms to employer when the job approved', 'wp-sms' )
 				),
-				'job_notify_employer_cv_message'     => array(
-					'id'   => 'job_notify_employer_cv_message',
+				'job_notify_employer_message' => array(
+					'id'   => 'job_notify_employer_message',
 					'name' => __( 'Message body', 'wp-sms' ),
 					'type' => 'textarea',
 					'desc' => __( 'Enter the contents of the sms message.', 'wp-sms' ) . '<br>' .
@@ -841,7 +841,7 @@ class WP_SMS_Settings_Pro {
 
 	public function text_callback( $args ) {
 
-		if ( isset( $this->options[ $args['id'] ] ) ) {
+		if ( isset( $this->options[ $args['id'] ] ) and $this->options[ $args['id'] ] ) {
 			$value = $this->options[ $args['id'] ];
 		} else {
 			$value = isset( $args['std'] ) ? $args['std'] : '';
@@ -1046,36 +1046,42 @@ class WP_SMS_Settings_Pro {
         <div class="wrap wpsms-pro-settings-wrap">
 			<?php do_action( 'wp_sms_pro_settings_page' ); ?>
             <h2><?php _e( 'Settings', 'wp-sms' ) ?></h2>
-            <h2 class="nav-tab-wrapper">
-				<?php
-				foreach ( $this->get_tabs() as $tab_id => $tab_name ) {
+            <div class="wpsms-tab-group">
+                <ul class="wpsms-tab">
+                    <li id="wpsms-logo">
+                        <img src="<?php echo WP_SMS_DIR_PLUGIN; ?>assets/images/logo-250.png"/>
+						<?php do_action( 'wp_sms_pro_after_setting_logo' ); ?>
+                    </li>
+					<?php
+					foreach ( $this->get_tabs() as $tab_id => $tab_name ) {
 
-					$tab_url = add_query_arg( array(
-						'settings-updated' => false,
-						'tab'              => $tab_id
-					) );
+						$tab_url = add_query_arg( array(
+							'settings-updated' => false,
+							'tab'              => $tab_id
+						) );
 
-					$active = $active_tab == $tab_id ? ' nav-tab-active' : '';
+						$active = $active_tab == $tab_id ? 'active' : '';
 
-					echo '<a href="' . esc_url( $tab_url ) . '" title="' . esc_attr( $tab_name ) . '" class="nav-tab' . $active . '">';
-					echo $tab_name;
-					echo '</a>';
-				}
-				?>
-            </h2>
-			<?php echo settings_errors( 'wpsms-notices' ); ?>
-            <div id="tab_container">
-                <form method="post" action="options.php">
-                    <table class="form-table">
-						<?php
-						settings_fields( $this->setting_name );
-						do_settings_fields( 'wps_pp_settings_' . $active_tab, 'wps_pp_settings_' . $active_tab );
-						?>
-                    </table>
-					<?php submit_button(); ?>
-                </form>
-            </div><!-- #tab_container-->
-        </div><!-- .wrap -->
+						echo '<li><a href="' . esc_url( $tab_url ) . '" title="' . esc_attr( $tab_name ) . '" class="' . $active . '">';
+						echo $tab_name;
+						echo '</a></li>';
+					}
+					?>
+                </ul>
+				<?php echo settings_errors( 'wpsms-notices' ); ?>
+                <div class="wpsms-tab-content">
+                    <form method="post" action="options.php">
+                        <table class="form-table">
+							<?php
+							settings_fields( $this->setting_name );
+							do_settings_fields( 'wps_pp_settings_' . $active_tab, 'wps_pp_settings_' . $active_tab );
+							?>
+                        </table>
+						<?php submit_button(); ?>
+                    </form>
+                </div>
+            </div>
+        </div>
 		<?php
 		echo ob_get_clean();
 	}

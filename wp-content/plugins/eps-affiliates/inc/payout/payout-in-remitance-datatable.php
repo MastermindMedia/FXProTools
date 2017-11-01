@@ -312,11 +312,34 @@
 			foreach ( $ids as $id ) {
 
 				if ( 'mark_as_paid' === $this->current_action() ) {
-					$response = apply_filters('eps_affiliates_payout_paid', $id);
-					if ( $response ) {
-						echo wp_set_message('Payout successfully Completed', 'success');
-					} else {
-						echo wp_set_message('Some error occured', 'error');
+
+					// pr($ids);
+
+					$table 				= _table_name('afl_payout_requests');
+	
+					$query 						=   array();
+				 	$query['#select'] = $table;
+				 	$query['#fields'] = array(
+				 		$table => array('payout_method')
+				 		);
+				 	$query['#where'] 	= array(
+				 		'afl_payout_id ='.$id
+				 	);
+				 	$row = db_select($query, 'get_row');
+
+				 	$hyper_wallet_status = TRUE;
+				 	if(isset($row->payout_method) && $row->payout_method == 'method_hyperwallet') {
+						$hyper_wallet_status = apply_filters('afl_hyper_wallet_payout', $id);
+				 	}
+					// var_dump($hyper_wallet_status);
+					// pr('here',1);
+					if($hyper_wallet_status)	{
+						$response = apply_filters('eps_affiliates_payout_paid', $id);
+						if ( $response ) {
+							echo wp_set_message('Payout successfully Completed', 'success');
+						} else {
+							echo wp_set_message('Some error occured', 'error');
+						}
 					}
 				}
 			}

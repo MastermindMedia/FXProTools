@@ -1,3 +1,4 @@
+<?php if(!is_page(array('lp1', 'lp2', 'lp3'))): ?>
 <div class="section-nav">
 	<div class="fx-top-nav one">
 		<div class="container">
@@ -34,3 +35,4 @@
 		</div>
 	</div>
 </div>
+<?php endif; ?>

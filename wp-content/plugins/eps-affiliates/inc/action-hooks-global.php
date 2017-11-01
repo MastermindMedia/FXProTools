@@ -236,6 +236,17 @@
  add_filter('afl_my_distributors_count',
  						'afl_my_distributors_count_callback',
  						10,1);
+
+
+ /*
+ * ----------------------------------------------------------
+ * my Downline distributors count
+ * ----------------------------------------------------------
+*/
+ add_filter('afl_my_downline_distributors_count',
+ 						'afl_my_downline_distributors_count_callback',
+ 						10,2);
+
 /*
  * ----------------------------------------------------------
  * my customers count
@@ -251,6 +262,15 @@
 */
  add_action('afl_my_distributors_count_template',
  						'afl_my_distributors_count_template_callback',
+ 						10,1);
+
+/*
+ * ----------------------------------------------------------
+ * my downline distributer count
+ * ----------------------------------------------------------
+*/
+ add_action('afl_my_downline_distributors_count_template',
+ 						'afl_my_downline_distributors_count_template_callback',
  						10,1);
 
 
@@ -380,3 +400,13 @@ add_filter('afl_member_personal_volume',
  						 'afl_member_account_cancelation_callback',10,1);
 
 // pr(apply_filters('afl_ewallet_last_week_earnings',get_uid()),1);
+
+
+	
+/*
+ * -----------------------------------------------------------------
+ * Hyper Wallet Payout
+ * -----------------------------------------------------------------
+*/
+	add_filter('afl_hyper_wallet_payout',
+ 						 'afl_hyper_wallet_payout',10,1);

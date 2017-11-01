@@ -30,7 +30,7 @@
 					   $transaction['category'] 					= 'FAST START BONUS';
 					   $transaction['notes'] 							= 'fast start bonus amount received';
 
-    				afl_member_transaction($transaction, TRUE);
+    				afl_member_holding_transaction($transaction, TRUE);
 					}
 				}
 			}
@@ -43,7 +43,7 @@
 */
  function _check_fsb_already_paid($uid = '', $assc_uid = ''){
 	$query = array();
-	$query['#select']  =_table_name('afl_user_transactions');
+	$query['#select']  =_table_name('afl_user_holding_transactions');
 	$query['#where']   = array(
 		'hidden_transaction = 0',
 		'deleted = 0',
@@ -67,4 +67,26 @@
 	function _fast_start_bonus_condition_meets ($uid = '') {
 		$condition_meets  =_has_distributor_kit_renewal($uid);
 		return $condition_meets;
+	}
+
+
+
+	/**
+	 * 
+	 * Holding Fast Start Bonus PV
+	 * 
+	 */
+
+	function _afl_fast_start_bonus_pv($uid) {
+
+		$pv = afl_variable_get('fast_start_bonus_pv', 0);
+		if(!empty($pv)) {
+			$purchase['category'] = 'Fast Start Bonus';
+			$purchase['uid'] = $uid;
+			$purchase['amount_paid'] = 0;
+			$purchase['order_id'] = 0;
+			$purchase['afl_point'] = $pv;
+			afl_purchase($purchase);
+		}
+
 	}

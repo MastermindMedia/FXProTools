@@ -176,7 +176,7 @@
 	 */
 		function get_columns(){
 		  $columns = array(
-		  	'cb'        		=> '<input type="checkbox" />',
+		  	// 'cb'        		=> '<input type="checkbox" />',
 		  	'member'				=> __( 'Member', 'affiliate-eps' ),
 		  	'parent'				=> __( 'Parent', 'affiliate-eps' ),
 		  	'sponsor'				=> __( 'Sponsor', 'affiliate-eps' ),
@@ -347,7 +347,7 @@
 	 * -----------------------------------------------------------------------------
 	*/
 	  public function column_registered_on($item) {
-			  $value = date('Y-md-d', $item->created);
+			  $value = date('Y-m-d', $item->created);
 				return apply_filters( 'eps_affiliate_member_table_member_registered_on', $value, $item );
 		}
 
@@ -365,7 +365,7 @@
 			$actions = array(
 				'block'   => __( 'Block user', 'eps-affiliates' )
 			);
-			return apply_filters( 'eps_affiliats_bulk_action', $actions );
+			//return apply_filters( 'eps_affiliats_bulk_action', $actions );
 		}
 
 		function column_cb($item) {
@@ -466,7 +466,7 @@
 
 		  $this->_column_headers = array($columns, $hidden, $sortable);
 		  $this->get_column_info();
-			$this->process_bulk_action();
+			// $this->process_bulk_action();
 
 
 			$this->items  = $this->affiliate_data(); 

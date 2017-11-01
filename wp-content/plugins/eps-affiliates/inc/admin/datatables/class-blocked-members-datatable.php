@@ -177,7 +177,7 @@
 	 */
 		function get_columns(){
 		  $columns = array(
-		  	'cb'        		=> '<input type="checkbox" />',
+		  	// 'cb'        		=> '<input type="checkbox" />',
 		  	'member'				=> __( 'Member', 'affiliate-eps' ),
 		  	'parent'				=> __( 'Parent', 'affiliate-eps' ),
 		  	'sponsor'				=> __( 'Sponsor', 'affiliate-eps' ),
@@ -371,7 +371,7 @@
 			$actions = array(
 				'unblock'   => __( 'Unblock user', 'eps-affiliates' )
 			);
-			return apply_filters( 'eps_affiliats_bulk_action', $actions );
+			// return apply_filters( 'eps_affiliats_bulk_action', $actions );
 		}
 
 		function column_cb($item) {

@@ -6,10 +6,11 @@
 */
  function afl_add_new_customer () {
  	do_action('eps_affiliate_page_header');
- 		afl_add_new_customer_form();
  	do_action('afl_content_wrapper_begin');
+ 		afl_add_new_customer_form();
  	do_action('afl_content_wrapper_end');
  }
+ 
  function afl_add_new_customer_form () {
 	$obje = new Afl_enque_scripts('eps-add-new-member');
 		new Afl_enque_scripts('common');

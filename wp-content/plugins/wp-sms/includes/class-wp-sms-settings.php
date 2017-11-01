@@ -191,9 +191,9 @@ class WP_SMS_Settings {
 			'disable' => __( 'Disable', 'wp-sms' )
 		);
 
-		$settings = apply_filters( 'wpsms_registered_settings', array(
+		$settings = apply_filters( 'wp_sms_registered_settings', array(
 			// General tab
-			'general'       => apply_filters( 'wpsms_general_settings', array(
+			'general'       => apply_filters( 'wp_sms_general_settings', array(
 				'admin_title'         => array(
 					'id'   => 'admin_title',
 					'name' => __( 'Mobile', 'wp-sms' ),
@@ -214,7 +214,7 @@ class WP_SMS_Settings {
 			) ),
 
 			// Gateway tab
-			'gateway'       => apply_filters( 'wpsms_gateway_settings', array(
+			'gateway'       => apply_filters( 'wp_sms_gateway_settings', array(
 				// Gateway
 				'gayeway_title'             => array(
 					'id'   => 'gayeway_title',
@@ -305,7 +305,7 @@ class WP_SMS_Settings {
 				),
 			) ),
 			// Feature tab
-			'feature'       => apply_filters( 'wpsms_feature_settings', array(
+			'feature'       => apply_filters( 'wp_sms_feature_settings', array(
 				'mobile_field'     => array(
 					'id'   => 'mobile_field',
 					'name' => __( 'Mobile field', 'wp-sms' ),
@@ -332,7 +332,7 @@ class WP_SMS_Settings {
 				),
 			) ),
 			// Notifications tab
-			'notifications' => apply_filters( 'wpsms_notifications_settings', array(
+			'notifications' => apply_filters( 'wp_sms_notifications_settings', array(
 				// Publish new post
 				'notif_publish_new_post_title'           => array(
 					'id'   => 'notif_publish_new_post_title',
@@ -463,7 +463,7 @@ class WP_SMS_Settings {
 				),
 			) ),
 			// Integration  tab
-			'integration'   => apply_filters( 'wpsms_integration_settings', array(
+			'integration'   => apply_filters( 'wp_sms_integration_settings', array(
 				// Contact form 7
 				'cf7_title'                    => array(
 					'id'   => 'cf7_title',
@@ -545,7 +545,6 @@ class WP_SMS_Settings {
 	}
 
 	public function checkbox_callback( $args ) {
-
 		$checked = isset( $this->options[ $args['id'] ] ) ? checked( 1, $this->options[ $args['id'] ], false ) : '';
 		$html    = '<input type="checkbox" id="wpsms_settings[' . $args['id'] . ']" name="wpsms_settings[' . $args['id'] . ']" value="1" ' . $checked . '/>';
 		$html    .= '<label for="wpsms_settings[' . $args['id'] . ']"> ' . __( 'Active', 'wp-sms' ) . '</label>';
@@ -555,8 +554,6 @@ class WP_SMS_Settings {
 	}
 
 	public function multicheck_callback( $args ) {
-
-
 		$html = '';
 		foreach ( $args['options'] as $key => $value ) {
 			$option_name = $args['id'] . '-' . $key;
@@ -571,7 +568,6 @@ class WP_SMS_Settings {
 	}
 
 	public function radio_callback( $args ) {
-
 		foreach ( $args['options'] as $key => $option ) :
 			$checked = false;
 
@@ -589,8 +585,7 @@ class WP_SMS_Settings {
 	}
 
 	public function text_callback( $args ) {
-
-		if ( $this->options[ $args['id'] ] ) {
+		if ( isset( $this->options[ $args['id'] ] ) and $this->options[ $args['id'] ] ) {
 			$value = $this->options[ $args['id'] ];
 		} else {
 			$value = isset( $args['std'] ) ? $args['std'] : '';
@@ -604,7 +599,6 @@ class WP_SMS_Settings {
 	}
 
 	public function number_callback( $args ) {
-
 		if ( isset( $this->options[ $args['id'] ] ) ) {
 			$value = $this->options[ $args['id'] ];
 		} else {
@@ -623,7 +617,6 @@ class WP_SMS_Settings {
 	}
 
 	public function textarea_callback( $args ) {
-
 		if ( isset( $this->options[ $args['id'] ] ) ) {
 			$value = $this->options[ $args['id'] ];
 		} else {
@@ -638,7 +631,6 @@ class WP_SMS_Settings {
 	}
 
 	public function password_callback( $args ) {
-
 		if ( isset( $this->options[ $args['id'] ] ) ) {
 			$value = $this->options[ $args['id'] ];
 		} else {
@@ -660,7 +652,6 @@ class WP_SMS_Settings {
 
 
 	public function select_callback( $args ) {
-
 		if ( isset( $this->options[ $args['id'] ] ) ) {
 			$value = $this->options[ $args['id'] ];
 		} else {
@@ -681,7 +672,6 @@ class WP_SMS_Settings {
 	}
 
 	public function advancedselect_callback( $args ) {
-
 		if ( isset( $this->options[ $args['id'] ] ) ) {
 			$value = $this->options[ $args['id'] ];
 		} else {
@@ -697,11 +687,12 @@ class WP_SMS_Settings {
 		$html = '<select class="' . $class_name . '" id="wpsms_settings[' . $args['id'] . ']" name="wpsms_settings[' . $args['id'] . ']"/>';
 
 		foreach ( $args['options'] as $key => $v ) {
-			$html .= '<optgroup label="' . ucfirst( $key ) . '">';
+			$html .= '<optgroup label="' . ucfirst( str_replace( '_', ' ', $key ) ) . '">';
 
 			foreach ( $v as $option => $name ) :
+				$disabled = ( $key == 'pro_pack_gateways' ) ? $disabled = ' disabled' : '';
 				$selected = selected( $option, $value, false );
-				$html     .= '<option value="' . $option . '" ' . $selected . '>' . ucfirst( $name ) . '</option>';
+				$html     .= '<option value="' . $option . '" ' . $selected . ' ' . $disabled . '>' . ucfirst( $name ) . '</option>';
 			endforeach;
 
 			$html .= '</optgroup>';
@@ -714,7 +705,6 @@ class WP_SMS_Settings {
 	}
 
 	public function color_select_callback( $args ) {
-
 		if ( isset( $this->options[ $args['id'] ] ) ) {
 			$value = $this->options[ $args['id'] ];
 		} else {
@@ -755,7 +745,6 @@ class WP_SMS_Settings {
 	}
 
 	public function upload_callback( $args ) {
-
 		if ( isset( $this->options[ $args['id'] ] ) ) {
 			$value = $this->options[ $args['id'] ];
 		} else {
@@ -771,7 +760,6 @@ class WP_SMS_Settings {
 	}
 
 	public function color_callback( $args ) {
-
 		if ( isset( $this->options[ $args['id'] ] ) ) {
 			$value = $this->options[ $args['id'] ];
 		} else {
@@ -795,36 +783,43 @@ class WP_SMS_Settings {
         <div class="wrap wpsms-settings-wrap">
 			<?php do_action( 'wp_sms_settings_page' ); ?>
             <h2><?php _e( 'Settings', 'wp-sms' ) ?></h2>
-            <h2 class="nav-tab-wrapper">
-				<?php
-				foreach ( $this->get_tabs() as $tab_id => $tab_name ) {
+            <div class="wpsms-tab-group">
+                <ul class="wpsms-tab">
+                    <li id="wpsms-logo">
+                        <img src="<?php echo WP_SMS_DIR_PLUGIN; ?>assets/images/logo-250.png"/>
+                        <p><?php echo sprintf( __( 'WP-SMS v%s', 'wp-sms' ), WP_SMS_VERSION ); ?></p>
+	                    <?php do_action( 'wp_sms_after_setting_logo' ); ?>
+                    </li>
+					<?php
+					foreach ( $this->get_tabs() as $tab_id => $tab_name ) {
 
-					$tab_url = add_query_arg( array(
-						'settings-updated' => false,
-						'tab'              => $tab_id
-					) );
+						$tab_url = add_query_arg( array(
+							'settings-updated' => false,
+							'tab'              => $tab_id
+						) );
 
-					$active = $active_tab == $tab_id ? ' nav-tab-active' : '';
+						$active = $active_tab == $tab_id ? 'active' : '';
 
-					echo '<a href="' . esc_url( $tab_url ) . '" title="' . esc_attr( $tab_name ) . '" class="nav-tab' . $active . '">';
-					echo $tab_name;
-					echo '</a>';
-				}
-				?>
-            </h2>
-			<?php echo settings_errors( 'wpsms-notices' ); ?>
-            <div id="tab_container">
-                <form method="post" action="options.php">
-                    <table class="form-table">
-						<?php
-						settings_fields( $this->setting_name );
-						do_settings_fields( 'wpsms_settings_' . $active_tab, 'wpsms_settings_' . $active_tab );
-						?>
-                    </table>
-					<?php submit_button(); ?>
-                </form>
-            </div><!-- #tab_container-->
-        </div><!-- .wrap -->
+						echo '<li><a href="' . esc_url( $tab_url ) . '" title="' . esc_attr( $tab_name ) . '" class="' . $active . '">';
+						echo $tab_name;
+						echo '</a></li>';
+					}
+					?>
+                </ul>
+				<?php echo settings_errors( 'wpsms-notices' ); ?>
+                <div class="wpsms-tab-content">
+                    <form method="post" action="options.php">
+                        <table class="form-table">
+							<?php
+							settings_fields( $this->setting_name );
+							do_settings_fields( 'wpsms_settings_' . $active_tab, 'wpsms_settings_' . $active_tab );
+							?>
+                        </table>
+						<?php submit_button(); ?>
+                    </form>
+                </div>
+            </div>
+        </div>
 		<?php
 		echo ob_get_clean();
 	}

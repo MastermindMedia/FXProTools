@@ -75,6 +75,16 @@ function afl_admin_variable_configurations (){
 		$form['#prefix'] ='<div class="form-group row">';
 	 	$form['#suffix'] ='</div>';
 
+	 	//payout modes
+	 	$form['afl_system_payout_modes'] = array(
+	 		'#type' 					=> 'text-area',
+	 		'#title' 					=> 'Payment Modes',
+	 		'#default_value' 	=> afl_variable_get('afl_system_payout_modes', ''),
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>',
+
+	 	);
+
 	 	//payment source
 	 	$form['afl_payment_sources'] = array(
 	 		'#type' 					=> 'text-area',
@@ -84,6 +94,7 @@ function afl_admin_variable_configurations (){
 	 		'#suffix' 				=> '</div>',
 
 	 	);
+
 	 	//Member status
 	 	$form['member_status'] = array(
 	 		'#type' 					=> 'text-area',
