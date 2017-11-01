@@ -580,7 +580,7 @@ function custom_redirect_login_failed($username) {
 // redirects the user to dashboard if already logged in and went to /login
 add_action( 'wp', 'check_if_logged_in' );
 function check_if_logged_in() {
-    if ( is_user_logged_in() && is_page('login' )) {
+    if ( is_user_logged_in() && is_page('login' ) ) {
         wp_redirect( '/dashboard' );
         exit;
     }
@@ -597,10 +597,18 @@ function confirm_logout(){
 add_action('init','redirect_to_login');
 function redirect_to_login(){
     global $pagenow;
-    if( 'wp-login.php' == $pagenow && !is_user_logged_in() && empty($_POST)) {
-        wp_redirect('/login');
-        exit();
-    }
+	if ( 'wp-login.php' == $pagenow ) {
+		if ( is_user_logged_in() ) {
+			wp_redirect( '/dashboard' );
+			exit();
+		} else {
+			// if not submitting login credentials
+			if ( empty( $_POST ) ) {
+				wp_redirect( '/login' );
+				exit();
+			}
+		}
+	}
 }
 
 // Button Shortcode
