@@ -84,7 +84,7 @@ class Apyc_Woo_CoachingTemplate{
 	}
 	
 	public function enqueue_scripts(){
-		global $theme_version, $woocommerce, $post, $product;
+		global $theme_version, $woocommerce, $post;
 
 		wp_enqueue_style( 'jquery-ui-theme', 'http://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css' );
 		wp_enqueue_script( 'jquery-ui-datepicker' );
@@ -141,11 +141,30 @@ class Apyc_Woo_CoachingTemplate{
 		wc_get_template( 'single-product/add-to-cart/simple.php' );
 	}
 	
+	public function add_to_cart_input() {
+		//wc_get_template( 'single-product/add-to-cart/simple.php' );
+		$data = array();
+		Apyc_View::get_instance()->view_theme(TEMPLATE_PATH . 'coaching/woo/after-add-to-cart-button.php', $data);
+	}
+	
+	public function add_cart_item_data($cart_item_data, $product_id, $variation_id){
+		
+		$wc_get_prod = wc_get_product($product_id);
+		if( $wc_get_prod->get_type() == 'apyc_woo_gotowebinar_appointment' ){
+			dd($_POST);
+			exit();
+		}
+		
+		return $cart_item_data;
+	}
+	
 	public function __construct() {
 		add_action('woocommerce_before_add_to_cart_form', array($this,'action_woocommerce_before_add_to_cart_button'), 10, 0 ); 
 		add_action('woocommerce_apyc_woo_gotowebinar_appointment_add_to_cart', array($this, 'webinar_add_to_cart'));
 		add_action('wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 		add_action( 'wp_ajax_get_timerange_woowebinar', array($this, 'get_timerange_woowebinar') );
 		add_action( 'wp_ajax_nopriv_get_timerange_woowebinar', array($this, 'get_timerange_woowebinar') );
+		add_filter( 'woocommerce_add_cart_item_data', array($this, 'add_cart_item_data'), 10, 3 );
+		add_filter( 'woocommerce_after_add_to_cart_button', array($this, 'add_to_cart_input'));
 	}
 }

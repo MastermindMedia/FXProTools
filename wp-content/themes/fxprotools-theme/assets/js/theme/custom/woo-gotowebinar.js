@@ -10,11 +10,15 @@ var PublicGotoWebinar = function(){
 	}
 	function _datePickerOnSelect(dateText, inst){
        // var date = $(this).val();
-        console.log(dateText);
-        console.log(inst);
-        console.log(inst.selectedDay);
+       // console.log(dateText);
+        //console.log(inst);
+        //console.log(inst.selectedDay);
+		$('.selected_date').val(inst.selectedDay);
+		$('.selected_month').val(inst.selectedMonth);
+		$('.selected_year').val(inst.selectedYear);
+		$('.ajax-woowebinar-time-rage').html('<p> Getting time, please wait...</p>');
 		_ajaxGetTime(inst).done(function(data){
-			console.log(data);
+			//console.log(data);
 			$('.ajax-woowebinar-time-rage').html(data);
 		});
 	}
@@ -42,8 +46,8 @@ var PublicGotoWebinar = function(){
 			time_to_meridiem = woo_webinar._woogotowebinar_range_time_to_meridiem;
 		}
 		range_time_to = time_to + ":00" + " " + time_to_meridiem.toUpperCase();
-		console.log(range_time_from);
-		console.log(range_time_to);
+		//console.log(range_time_from);
+		//console.log(range_time_to);
 		var ajaxCall = $.ajax({
 		  method: "GET",
 		  url: ajax_url.ajax_url,
@@ -62,6 +66,14 @@ var PublicGotoWebinar = function(){
 	return {
 		init:function(){
 			
+		},
+		time_click:function(){
+			$( document ).on('click', '.webinar_time', function(e){
+				e.preventDefault();
+				var select_time = $(this).data('time');
+				$('.selected_time').val(select_time);
+				console.log(select_time);
+			});
 		},
 		date_picker:function(){
 			var maxDateNum = '';
@@ -88,7 +100,7 @@ var PublicGotoWebinar = function(){
 					_datePickerOnSelect(dateText, inst);
 				}
 			}
-			console.log(_arg);
+			//console.log(_arg);
 			$('#product-datepicker').datepicker(_arg);
 		},
 	};
@@ -96,4 +108,5 @@ var PublicGotoWebinar = function(){
 
 jQuery(document).ready( function($) {
 	PublicGotoWebinar.date_picker();
+	PublicGotoWebinar.time_click();
 });
