@@ -11,7 +11,7 @@ define('SKIP_PASSWORD_CHECKPOINT', false);
 function get_user_checklist()
 {
     $checklist = get_user_meta(get_current_user_id(), '_onboard_checklist', true);
-    return is_array($checklist) ? $checklist : ThemeSettings::register_user_checklist(get_current_user_id());
+    return is_array($checklist) ? $checklist : register_user_checklist(get_current_user_id());
 }
 
 function get_checklist_next_step_url()
@@ -145,8 +145,7 @@ function enforce_page_access()
     global $post;
     if( !isset($post) ) return;
     $slug = $post->post_name;
-    $guest_allowed_post_type = array( 'product' );
-    $guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'signals', 'autologin', 'log-out-notice' );
+    $guest_allowed_pages = ThemeSettings::GUEST_ALLOWED_PAGES;
 
     if( is_user_logged_in() ) {
 	    // only allow 'password-checkpoint' to be accessed by imported users that hasn't updated their password yet
