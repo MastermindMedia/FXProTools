@@ -381,12 +381,14 @@ function get_mb_pto1( $page_element ) {
             return mb_menu_display( rwmb_meta('pto1_display_footer_menu'), rwmb_meta('pto1_footer_menu_fr'), 'footer-nav', '', 'Footer Menu 3', 'with-log-inout' );
             break;
         case 'video_embed':
-            $video_url              = rwmb_meta('pto1_video_url');
+            // add condition here whether the user is customer or distributor.
+
+            $video_url              = is_user_fx_customer() ? rwmb_meta('pto1_video_url_customer') : rwmb_meta('pto1_video_url_distributor') ;
             $video_autostart        = rwmb_meta('pto1_video_autostart');
             $video_show_controls    = rwmb_meta('pto1_video_show_controls');
-            $scroll_class   = "";
-            $scroll_url     = "";
-            $float_class    = "";
+            $scroll_class           = "";
+            $scroll_url             = "";
+            $float_class            = "";
 
             if( count( is_mb_video_scroll() ) > 0 ){
                 $arr_scroll = is_mb_video_scroll();
