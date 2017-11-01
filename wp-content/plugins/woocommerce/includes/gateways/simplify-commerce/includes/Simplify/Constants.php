@@ -52,7 +52,7 @@ class Simplify_Constants
 	const API_BASE_SANDBOX_URL = 'https://sandbox.simplify.com/v1/api';
 
 	/**
-	 * @var string OAUTH_BASE_URL URL for the oauth endpoint
+	 * @var string OAUTH_BASE_URL URL for the oauth enpoint
 	 */
 	const OAUTH_BASE_URL = 'https://www.simplify.com/commerce/oauth';
 }

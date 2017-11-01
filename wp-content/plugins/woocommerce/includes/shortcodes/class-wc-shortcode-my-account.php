@@ -216,6 +216,8 @@ class WC_Shortcode_My_Account {
 						'key'   => $rp_key,
 						'login' => $rp_login,
 					) );
+				} else {
+					self::set_reset_password_cookie();
 				}
 			}
 		}
@@ -314,7 +316,7 @@ class WC_Shortcode_My_Account {
 		$user = check_password_reset_key( $key, $login );
 
 		if ( is_wp_error( $user ) ) {
-			wc_add_notice( __( 'This key is invalid or has already been used. Please reset your password again if needed.', 'woocommerce' ), 'error' );
+			wc_add_notice( $user->get_error_message(), 'error' );
 			return false;
 		}
 

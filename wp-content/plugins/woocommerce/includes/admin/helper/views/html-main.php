@@ -9,36 +9,8 @@
 	<div class="subscriptions-header">
 		<h2><?php _e( 'Subscriptions', 'woocommerce' ); ?></h2>
 		<?php include( WC_Helper::get_view_filename( 'html-section-account.php' ) ); ?>
-		<p><?php printf( __( 'Below is a list of extensions available on your WooCommerce.com account. To receive extension updates please make sure the extension is installed, and its subscription activated and connected to your WooCommerce.com account. Extensions can be activated from the <a href="%s">Plugins</a> screen.', 'woocommerce' ), admin_url( 'plugins.php' ) ); ?></p>
+		<p><?php _e( 'Below is a list of products available on your WooCommerce.com account. To receive plugin updates please make sure the product is installed, activated and connected to your WooCommerce.com account.', 'woocommerce' ); ?></p>
 	</div>
-
-	<ul class="subscription-filter">
-		<label><?php _e( 'Sort by:', 'woocommerce' ); ?> <span class="chevron dashicons dashicons-arrow-up-alt2"></span></label>
-		<?php
-			$filters = array_keys( WC_Helper::get_filters() );
-			$last_filter = array_pop( $filters );
-			$current_filter = WC_Helper::get_current_filter();
-			$counts = WC_Helper::get_filters_counts();
-		?>
-
-		<?php foreach ( WC_Helper::get_filters() as $key => $label ) : ?>
-			<?php
-				// Don't show empty filters.
-				if ( empty( $counts[ $key ] ) ) {
-					continue;
-				}
-
-				$url = admin_url( 'admin.php?page=wc-addons&section=helper&filter=' . $key );
-				$class_html = $current_filter === $key ? 'class="current"' : '';
-			?>
-			<li>
-				<a <?php echo $class_html; ?> href="<?php echo esc_url( $url ); ?>">
-					<?php echo esc_html( $label ); ?>
-					<span class="count">(<?php echo absint( $counts[ $key ] ); ?>)</span>
-				</a>
-			</li>
-		<?php endforeach; ?>
-	</ul>
 
 	<table class="wp-list-table widefat fixed striped">
 		<?php if ( ! empty( $subscriptions ) ) : ?>
@@ -52,11 +24,7 @@
 						</div>
 
 						<div class="wp-list-table__ext-description">
-							<?php if ( $subscription['lifetime'] ) : ?>
-								<span class="renews">
-									<?php _e( 'Lifetime Subscription', 'woocommerce' ); ?>
-								</span>
-							<?php elseif ( $subscription['expired'] ) : ?>
+							<?php if ( $subscription['expired'] ) : ?>
 								<span class="renews">
 									<strong><?php _e( 'Expired :(', 'woocommerce' ); ?></strong>
 									<?php echo date_i18n( 'F jS, Y', $subscription['expires'] ); ?>
@@ -90,11 +58,7 @@
 								} else {
 									_e( 'Subscription: Unlimited', 'woocommerce' );
 								}
-
-								// Check shared.
-								if ( ! empty( $subscription['is_shared'] ) && ! empty( $subscription['owner_email'] ) ) {
-									printf( '</br>' . __( 'Shared by %s', 'woocommerce' ), esc_html( $subscription['owner_email'] ) );
-								} elseif ( isset( $subscription['master_user_email'] ) ) {
+								if ( isset( $subscription['master_user_email'] ) ) {
 									printf( '</br>' . __( 'Shared by %s', 'woocommerce' ), esc_html( $subscription['master_user_email'] ) );
 								}
 							?>

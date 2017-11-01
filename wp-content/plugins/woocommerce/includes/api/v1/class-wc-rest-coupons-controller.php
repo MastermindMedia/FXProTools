@@ -219,7 +219,7 @@ class WC_REST_Coupons_V1_Controller extends WC_REST_Posts_Controller {
 	}
 
 	/**
-	 * Only return writable props from schema.
+	 * Only reutrn writeable props from schema.
 	 * @param  array $schema
 	 * @return bool
 	 */

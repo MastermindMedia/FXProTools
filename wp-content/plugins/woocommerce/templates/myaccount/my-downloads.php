@@ -1,6 +1,6 @@
 <?php
 /**
- * My Downloads - Deprecated
+ * My Downloads
  *
  * Shows downloads on the account page.
  *
@@ -16,7 +16,7 @@
  * @author      WooThemes
  * @package     WooCommerce/Templates
  * @version     2.0.0
- * @deprecated  2.6.0
+ * @depreacated 2.6.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

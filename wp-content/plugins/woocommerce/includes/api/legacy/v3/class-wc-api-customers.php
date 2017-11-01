@@ -30,6 +30,7 @@ class WC_API_Customers extends WC_API_Resource {
 	 *
 	 * @since 2.1
 	 * @param WC_API_Server $server
+	 * @return WC_API_Customers
 	 */
 	public function __construct( WC_API_Server $server ) {
 
@@ -597,7 +598,7 @@ class WC_API_Customers extends WC_API_Resource {
 			$query_args['order'] = $args['order'];
 		}
 
-		// Order by
+		// Orderby
 		if ( ! empty( $args['orderby'] ) ) {
 			$query_args['orderby'] = $args['orderby'];
 

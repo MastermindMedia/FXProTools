@@ -216,7 +216,7 @@ class WC_Checkout {
 			if ( 'no' === get_option( 'woocommerce_registration_generate_password' ) ) {
 				$this->fields['account']['account_password'] = array(
 					'type'         => 'password',
-					'label'        => __( 'Create account password', 'woocommerce' ),
+					'label'        => __( 'Account password', 'woocommerce' ),
 					'required'     => true,
 					'placeholder'  => esc_attr__( 'Password', 'woocommerce' ),
 				);
@@ -299,9 +299,7 @@ class WC_Checkout {
 					$order->{"set_{$key}"}( $value );
 
 				// Store custom fields prefixed with wither shipping_ or billing_. This is for backwards compatibility with 2.6.x.
-				// TODO: Fix conditional to only include shipping/billing address fields in a smarter way without str(i)pos.
-				} elseif ( ( 0 === stripos( $key, 'billing_' ) || 0 === stripos( $key, 'shipping_' ) )
-					&& ! in_array( $key, array( 'shipping_method', 'shipping_total', 'shipping_tax' ) ) ) {
+				} elseif ( 0 === stripos( $key, 'billing_' ) || 0 === stripos( $key, 'shipping_' ) ) {
 					$order->update_meta_data( '_' . $key, $value );
 				}
 			}
@@ -315,12 +313,12 @@ class WC_Checkout {
 			$order->set_customer_user_agent( wc_get_user_agent() );
 			$order->set_customer_note( isset( $data['order_comments'] ) ? $data['order_comments'] : '' );
 			$order->set_payment_method( isset( $available_gateways[ $data['payment_method'] ] ) ? $available_gateways[ $data['payment_method'] ]  : $data['payment_method'] );
-			$order->set_shipping_total( WC()->cart->get_shipping_total() );
-			$order->set_discount_total( WC()->cart->get_discount_total() );
-			$order->set_discount_tax( WC()->cart->get_discount_tax() );
-			$order->set_cart_tax( WC()->cart->get_cart_contents_tax() + WC()->cart->get_fee_tax() );
-			$order->set_shipping_tax( WC()->cart->get_shipping_tax() );
-			$order->set_total( WC()->cart->get_total( 'edit' ) );
+			$order->set_shipping_total( WC()->cart->shipping_total );
+			$order->set_discount_total( WC()->cart->get_cart_discount_total() );
+			$order->set_discount_tax( WC()->cart->get_cart_discount_tax_total() );
+			$order->set_cart_tax( WC()->cart->tax_total );
+			$order->set_shipping_tax( WC()->cart->shipping_tax_total );
+			$order->set_total( WC()->cart->total );
 			$this->create_order_line_items( $order, WC()->cart );
 			$this->create_order_fee_lines( $order, WC()->cart );
 			$this->create_order_shipping_lines( $order, WC()->session->get( 'chosen_shipping_methods' ), WC()->shipping->get_packages() );
@@ -353,7 +351,7 @@ class WC_Checkout {
 	public function create_order_line_items( &$order, $cart ) {
 		foreach ( $cart->get_cart() as $cart_item_key => $values ) {
 			/**
-			 * Filter hook to get initial item object.
+			 * Filter hook to get inital item object.
 			 * @since 3.1.0
 			 */
 			$item                       = apply_filters( 'woocommerce_checkout_create_order_line_item_object', new WC_Order_Item_Product(), $cart_item_key, $values, $order );
@@ -403,9 +401,8 @@ class WC_Checkout {
 			$item->legacy_fee_key = $fee_key; // @deprecated For legacy actions.
 			$item->set_props( array(
 				'name'      => $fee->name,
-				'tax_class' => $fee->taxable ? $fee->tax_class: 0,
-				'amount'    => $fee->amount,
-				'total'     => $fee->total,
+				'tax_class' => $fee->taxable ? $fee->tax_class : 0,
+				'total'     => $fee->amount,
 				'total_tax' => $fee->tax,
 				'taxes'     => array(
 					'total' => $fee->tax_data,
@@ -469,7 +466,7 @@ class WC_Checkout {
 	 * @param WC_Cart $cart
 	 */
 	public function create_order_tax_lines( &$order, $cart ) {
-		foreach ( array_keys( $cart->get_cart_contents_taxes() + $cart->get_shipping_taxes() ) as $tax_rate_id ) {
+		foreach ( array_keys( $cart->taxes + $cart->shipping_taxes ) as $tax_rate_id ) {
 			if ( $tax_rate_id && apply_filters( 'woocommerce_cart_remove_taxes_zero_rate_id', 'zero-rated' ) !== $tax_rate_id ) {
 				$item = new WC_Order_Item_Tax();
 				$item->set_props( array(
@@ -496,8 +493,8 @@ class WC_Checkout {
 	/**
 	 * Add coupon lines to the order.
 	 *
-	 * @param WC_Order $order
-	 * @param WC_Cart  $cart
+	 * @param  WC_Order $order
+	 * @param WC_Cart $cart
 	 */
 	public function create_order_coupon_lines( &$order, $cart ) {
 		foreach ( $cart->get_coupons() as $code => $coupon ) {
@@ -507,7 +504,6 @@ class WC_Checkout {
 				'discount'     => $cart->get_coupon_discount_amount( $code ),
 				'discount_tax' => $cart->get_coupon_discount_tax_amount( $code ),
 			) );
-			$item->add_meta_data( 'coupon_data', $coupon->get_data() );
 
 			/**
 			 * Action hook to adjust item before save.
@@ -592,7 +588,7 @@ class WC_Checkout {
 		// BW compatibility.
 		$this->legacy_posted_data = $data;
 
-		return apply_filters( 'woocommerce_checkout_posted_data', $data );
+		return $data;
 	}
 
 	/**
@@ -649,7 +645,7 @@ class WC_Checkout {
 
 					if ( ! is_email( $data[ $key ] ) ) {
 						/* translators: %s: email address */
-						$errors->add( 'validation', sprintf( __( '%s is not a valid email address.', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>' ) );
+						$errors->add( 'validation', sprintf( __( '%s is not a valid email address.', 'woocommerce' ), '<strong>' . $field_label . '</strong>' ) );
 						continue;
 					}
 				}
@@ -669,14 +665,14 @@ class WC_Checkout {
 
 						if ( ! in_array( $data[ $key ], $valid_state_values ) ) {
 							/* translators: 1: state field 2: valid states */
-							$errors->add( 'validation', sprintf( __( '%1$s is not valid. Please enter one of the following: %2$s', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>', implode( ', ', $valid_states ) ) );
+							$errors->add( 'validation', sprintf( __( '%1$s is not valid. Please enter one of the following: %2$s', 'woocommerce' ), '<strong>' . $field_label . '</strong>', implode( ', ', $valid_states ) ) );
 						}
 					}
 				}
 
 				if ( $required && '' === $data[ $key ] ) {
 					/* translators: %s: field name */
-					$errors->add( 'required-field', apply_filters( 'woocommerce_checkout_required_field_notice', sprintf( __( '%s is a required field.', 'woocommerce' ), '<strong>' . esc_html( $field_label ) . '</strong>' ), $field_label ) );
+					$errors->add( 'required-field', apply_filters( 'woocommerce_checkout_required_field_notice', sprintf( __( '%s is a required field.', 'woocommerce' ), '<strong>' . $field_label . '</strong>' ), $field_label ) );
 				}
 			}
 		}

@@ -291,9 +291,8 @@ jQuery( function ( $ ) {
 
 	// Load videos when help button is clicked.
 	$( '#contextual-help-link' ).on( 'click', function() {
-		$( '.wc-guided-tour-embed' ).each( function() {
-			var video_id = $( this ).data( 'video_id' );
-			$( this ).replaceWith( '<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/' + video_id + '" frameborder="0" allowfullscreen></iframe>' );
-		} );
+		var frame = $( '#tab-panel-woocommerce_guided_tour_tab iframe' );
+
+		frame.attr( 'src', frame.data( 'src' ) );
 	});
 });

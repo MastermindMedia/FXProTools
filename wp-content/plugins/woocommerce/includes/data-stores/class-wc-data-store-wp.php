@@ -86,6 +86,7 @@ class WC_Data_Store_WP {
 	 * @since  3.0.0
 	 * @param  WC_Data
 	 * @param  stdClass (containing at least ->id)
+	 * @return array
 	 */
 	public function delete_meta( &$object, $meta ) {
 		delete_metadata_by_mid( $this->meta_type, $meta->id );
@@ -250,14 +251,12 @@ class WC_Data_Store_WP {
 	 * Map a valid date query var to WP_Query arguments.
 	 * Valid date formats: YYYY-MM-DD or timestamp, possibly combined with an operator from $valid_operators.
 	 * Also accepts a WC_DateTime object.
-	 *
-	 * @since 3.2.0
 	 * @param mixed $query_var A valid date format
 	 * @param string $key meta or db column key
 	 * @param array $wp_query_args WP_Query args
 	 * @return array Modified $wp_query_args
 	 */
-	public function parse_date_for_wp_query( $query_var, $key, $wp_query_args = array() ) {
+	protected function parse_date_for_wp_query( $query_var, $key, $wp_query_args = array() ) {
 		$query_parse_regex = '/([^.<>]*)(>=|<=|>|<|\.\.\.)([^.<>]+)/';
 		$valid_operators   = array( '>', '>=', '=', '<=', '<', '...' );
 
@@ -362,7 +361,7 @@ class WC_Data_Store_WP {
 		}
 
 		// Meta dates are stored as timestamps in the db.
-		// Check against beginning/end-of-day timestamps when using 'day' precision.
+		// Check against begining/end-of-day timestamps when using 'day' precision.
 		if ( 'day' === $precision ) {
 			$start_timestamp = strtotime( gmdate( 'm/d/Y 00:00:00', $dates[0]->getTimestamp() ) );
 			$end_timestamp = '...' !== $operator ? ( $start_timestamp + DAY_IN_SECONDS ) : strtotime( gmdate( 'm/d/Y 00:00:00', $dates[1]->getTimestamp() ) );
@@ -419,15 +418,5 @@ class WC_Data_Store_WP {
 		}
 
 		return $wp_query_args;
-	}
-
-	/**
-	 * Return list of internal meta keys.
-	 *
-	 * @since 3.2.0
-	 * @return array
-	 */
-	public function get_internal_meta_keys() {
-		return $this->internal_meta_keys;
 	}
 }

@@ -100,7 +100,9 @@ class WC_Background_Updater extends WP_Background_Process {
 	 * @return mixed
 	 */
 	protected function task( $callback ) {
-		wc_maybe_define_constant( 'WC_UPDATING', true );
+		if ( ! defined( 'WC_UPDATING' ) ) {
+			define( 'WC_UPDATING', true );
+		}
 
 		$logger = wc_get_logger();
 

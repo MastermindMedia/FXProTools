@@ -139,7 +139,7 @@ if ( ! function_exists( 'register_rest_field' ) ) {
 
 if ( ! function_exists( 'register_api_field' ) ) {
 	/**
-	 * Backwards compatibility shim
+	 * Backwards compat shim
 	 *
 	 * @param array|string $object_type
 	 * @param string $attributes

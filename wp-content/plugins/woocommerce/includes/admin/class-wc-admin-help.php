@@ -9,12 +9,10 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // Exit if accessed directly
 }
 
-if ( class_exists( 'WC_Admin_Help', false ) ) {
-	return new WC_Admin_Help();
-}
+if ( ! class_exists( 'WC_Admin_Help', false ) ) :
 
 /**
  * WC_Admin_Help Class.
@@ -41,123 +39,123 @@ class WC_Admin_Help {
 		$video_map = array(
 			'wc-settings' => array(
 				'title' => __( 'General Settings', 'woocommerce' ),
-				'id'    => 'ZD5Cc2xqvCM',
+				'id'    => 'mz2l10u5f6',
 			),
 			'wc-settings-general' => array(
 				'title' => __( 'General Settings', 'woocommerce' ),
-				'id'    => 'ZD5Cc2xqvCM',
+				'id'    => 'mz2l10u5f6',
 			),
 			'wc-settings-products' => array(
 				'title' => __( 'Product Settings', 'woocommerce' ),
-				'id'    => 'FEmwJsE8xDY',
+				'id'    => 'lolkan4fxf',
 			),
 			'wc-settings-tax' => array(
 				'title' => __( 'Tax Settings', 'woocommerce' ),
-				'id'    => '0aPtye5ba4A',
+				'id'    => 'qp1v19dwrh',
 			),
 			'wc-settings-tax-standard' => array(
 				'title' => __( 'Tax Rate Example', 'woocommerce' ),
-				'id'    => 'HC2IUnJSJro',
+				'id'    => '2p903vptwa',
 			),
 			'wc-settings-tax-reduced-rate' => array(
 				'title' => __( 'Tax Rate Example', 'woocommerce' ),
-				'id'    => 'HC2IUnJSJro',
+				'id'    => '2p903vptwa',
 			),
 			'wc-settings-tax-zero-rate' => array(
 				'title' => __( 'Tax Rate Example', 'woocommerce' ),
-				'id'    => 'HC2IUnJSJro',
+				'id'    => '2p903vptwa',
 			),
 			'wc-settings-shipping' => array(
 				'title' => __( 'Shipping Zones', 'woocommerce' ),
-				'id'    => '1HhBEbIMqAQ',
+				'id'    => '95yiocro6p',
 			),
 			'wc-settings-shipping-options' => array(
 				'title' => __( 'Shipping Options', 'woocommerce' ),
-				'id'    => '468Z4s01e3M',
+				'id'    => '9c9008dxnr',
 			),
 			'wc-settings-shipping-classes' => array(
 				'title' => __( 'Shipping Classes', 'woocommerce' ),
-				'id'    => 'Vyt5xIewlOs',
+				'id'    => 'tpqg17aq99',
 			),
 			'wc-settings-checkout' => array(
 				'title' => __( 'Checkout Settings', 'woocommerce' ),
-				'id'    => 'zoejwJfXops',
+				'id'    => '65yjv96z51',
 			),
 			'wc-settings-checkout-bacs' => array(
 				'title' => __( 'Bank Transfer (BACS) Payment Method', 'woocommerce' ),
-				'id'    => 'K4Lpaq9aS2Q',
+				'id'    => 'dh4piy3sek',
 			),
 			'wc-settings-checkout-cheque' => array(
 				'title' => __( 'Check Payment Method', 'woocommerce' ),
-				'id'    => 'LwxRxCkfofg',
+				'id'    => 'u2m2kcakea',
 			),
 			'wc-settings-checkout-cod' => array(
 				'title' => __( 'Cash on Delivery (COD) Payment Method', 'woocommerce' ),
-				'id'    => 'aioOdPELH4M',
+				'id'    => '8hyli8wu5f',
 			),
 			'wc-settings-checkout-paypal' => array(
 				'title' => __( 'PayPal Standard Method', 'woocommerce' ),
-				'id'    => 'FwHT5UDdkdY',
+				'id'    => 'rbl7e7l4k2',
 			),
 			'wc-settings-checkout-paypalbraintree_cards' => array(
 				'title' => __( 'PayPal by Braintree Payment Method', 'woocommerce' ),
-				'id'    => 'hubcUWq2NAc',
+				'id'    => 'oyksirgn40',
 			),
 			'wc-settings-checkout-stripe' => array(
 				'title' => __( 'Stripe Payment Method', 'woocommerce' ),
-				'id'    => '5rMDGdkmSGU',
+				'id'    => 'mf975hx5de',
 			),
 			'wc-settings-account' => array(
 				'title' => __( 'Account Settings', 'woocommerce' ),
-				'id'    => 'AGZSeX5I-wo',
+				'id'    => '35mazq7il2',
 			),
 			'wc-settings-email' => array(
 				'title' => __( 'Email Settings', 'woocommerce' ),
-				'id'    => '2vtzGc92tFU',
+				'id'    => 'svcaftq4xv',
 			),
 			'wc-settings-api' => array(
 				'title' => __( 'API Settings', 'woocommerce' ),
-				'id'    => 'SjJUmgfLS4A',
+				'id'    => '1q0ny74vvq',
 			),
 			'product' => array(
 				'title' => __( 'Creating Products', 'woocommerce' ),
-				'id'    => 'sFtXa00Jf_o',
+				'id'    => 'fw0477t6wr',
 			),
 			'edit-product_cat' => array(
 				'title' => __( 'Product Categories', 'woocommerce' ),
-				'id'    => 'PeFsOTrN1u8',
+				'id'    => 'f0j5gzqigg',
 			),
 			'edit-product_tag' => array(
 				'title' => __( 'Product Tags', 'woocommerce' ),
-				'id'    => 'PeFsOTrN1u8',
+				'id'    => 'f0j5gzqigg',
 			),
 			'product_attributes' => array(
 				'title' => __( 'Product Attributes', 'woocommerce' ),
-				'id'    => 'PeFsOTrN1u8',
+				'id'    => 'f0j5gzqigg',
 			),
 			'wc-status' => array(
 				'title' => __( 'System Status', 'woocommerce' ),
-				'id'    => 'C8F6_sAr4CE',
+				'id'    => 'xdn733nnhi',
 			),
 			'wc-reports' => array(
 				'title' => __( 'Reports', 'woocommerce' ),
-				'id'    => '69adRkRqOk0',
+				'id'    => '6aasex0w99',
 			),
 			'edit-shop_coupon' => array(
 				'title' => __( 'Coupons', 'woocommerce' ),
-				'id'    => 'k-GKjRs59UM',
+				'id'    => 'gupd4h8sit',
 			),
 			'shop_coupon' => array(
 				'title' => __( 'Coupons', 'woocommerce' ),
-				'id'    => 'k-GKjRs59UM',
+				'id'    => 'gupd4h8sit',
 			),
 			'edit-shop_order' => array(
 				'title' => __( 'Managing Orders', 'woocommerce' ),
-				'id'    => 'rjS3mbiLN_c',
+				'id'    => 'n8n0sa8hee',
 			),
 			'shop_order' => array(
 				'title' => __( 'Managing Orders', 'woocommerce' ),
-				'id'    => 'rjS3mbiLN_c',
+				'id'    => 'n8n0sa8hee',
 			),
 		);
 
@@ -166,26 +164,25 @@ class WC_Admin_Help {
 		$section   = empty( $_REQUEST['section'] ) ? '' : sanitize_title( $_REQUEST['section'] );
 		$video_key = $page ? implode( '-', array_filter( array( $page, $tab, $section ) ) ) : $screen->id;
 
-		// Fallback for sections.
+		// Fallback for sections
 		if ( ! isset( $video_map[ $video_key ] ) ) {
 			$video_key = $page ? implode( '-', array_filter( array( $page, $tab ) ) ) : $screen->id;
 		}
 
-		// Fallback for tabs.
+		// Fallback for tabs
 		if ( ! isset( $video_map[ $video_key ] ) ) {
 			$video_key = $page ? $page : $screen->id;
 		}
 
 		if ( isset( $video_map[ $video_key ] ) ) {
-			$embed_code = '
-				<a href="https://www.youtube.com/watch?v=' . esc_attr( $video_map[ $video_key ]['id'] ) . '" target="_blank" class="wc-guided-tour-embed" data-video_id="' . esc_attr( $video_map[ $video_key ]['id'] ) . '">
-					<img src="https://img.youtube.com/vi/' . esc_attr( $video_map[ $video_key ]['id'] ) . '/maxresdefault.jpg" width="560" height="315" />
-				</a>';
-
 			$screen->add_help_tab( array(
-				'id'      => 'woocommerce_guided_tour_tab',
-				'title'   => __( 'Guided Tour', 'woocommerce' ),
-				'content' => '<h2><a href="https://docs.woocommerce.com/document/woocommerce-guided-tour-videos/?utm_source=helptab&utm_medium=product&utm_content=videos&utm_campaign=woocommerceplugin">' . __( 'Guided Tour', 'woocommerce' ) . '</a> &ndash; ' . esc_html( $video_map[ $video_key ]['title'] ) . '</h2>' . $embed_code,
+				'id'        => 'woocommerce_guided_tour_tab',
+				'title'     => __( 'Guided Tour', 'woocommerce' ),
+				'content'   =>
+					'<h2><a href="https://docs.woocommerce.com/document/woocommerce-guided-tour-videos/?utm_source=helptab&utm_medium=product&utm_content=videos&utm_campaign=woocommerceplugin">' . __( 'Guided Tour', 'woocommerce' ) . '</a> &ndash; ' . esc_html( $video_map[ $video_key ]['title'] ) . '</h2>' .
+					'<script src="//fast.wistia.net/assets/external/E-v1.js" async></script>
+					<div class="wistia_embed wistia_async_' . esc_attr( $video_map[ $video_key ]['id'] ) . ' videoFoam=true seo=false" style="width:640px;height:360px;">&nbsp;</div>
+				',
 			) );
 		}
 
@@ -246,5 +243,7 @@ class WC_Admin_Help {
 		);
 	}
 }
+
+endif;
 
 return new WC_Admin_Help();

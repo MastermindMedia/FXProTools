@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Free Shipping Method.
  *
- * This class is here for backwards compatibility for methods existing before zones existed.
+ * This class is here for backwards commpatility for methods existing before zones existed.
  *
  * @deprecated  2.6.0
  * @version 2.4.0
@@ -173,13 +173,11 @@ class WC_Shipping_Legacy_Free_Shipping extends WC_Shipping_Method {
 			}
 		}
 
-		if ( in_array( $this->requires, array( 'min_amount', 'either', 'both' ) ) ) {
-			$total = WC()->cart->get_displayed_subtotal();
-
-			if ( 'incl' === WC()->cart->tax_display_cart ) {
-				$total = round( $total - ( WC()->cart->get_discount_total() + WC()->cart->get_discount_tax() ), wc_get_price_decimals() );
+		if ( in_array( $this->requires, array( 'min_amount', 'either', 'both' ) ) && isset( WC()->cart->cart_contents_total ) ) {
+			if ( WC()->cart->prices_include_tax ) {
+				$total = WC()->cart->cart_contents_total + array_sum( WC()->cart->taxes );
 			} else {
-				$total = round( $total - WC()->cart->get_discount_total(), wc_get_price_decimals() );
+				$total = WC()->cart->cart_contents_total;
 			}
 
 			if ( $total >= $this->min_amount ) {
@@ -213,11 +211,12 @@ class WC_Shipping_Legacy_Free_Shipping extends WC_Shipping_Method {
 			break;
 		}
 
-		return apply_filters( 'woocommerce_shipping_' . $this->id . '_is_available', $is_available, $package, $this );
+		return apply_filters( 'woocommerce_shipping_' . $this->id . '_is_available', $is_available, $package );
 	}
 
 	/**
 	 * calculate_shipping function.
+	 * @return array
 	 */
 	public function calculate_shipping( $package = array() ) {
 		$args = array(

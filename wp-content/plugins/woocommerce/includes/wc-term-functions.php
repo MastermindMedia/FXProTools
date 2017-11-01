@@ -51,9 +51,8 @@ function wc_get_object_terms( $object_id, $taxonomy, $field = null, $index_key =
  * @return array
  */
 function _wc_get_cached_product_terms( $product_id, $taxonomy, $args = array() ) {
-	$cache_key   = 'wc_' . $taxonomy . md5( json_encode( $args ) );
-	$cache_group = WC_Cache_Helper::get_cache_prefix( 'product_' . $product_id ) . $product_id;
-	$terms       = wp_cache_get( $cache_key, $cache_group );
+	$cache_key = 'wc_' . $taxonomy . md5( json_encode( $args ) );
+	$terms     = wp_cache_get( $product_id, $cache_key );
 
 	if ( false !== $terms ) {
 		return $terms;
@@ -63,7 +62,7 @@ function _wc_get_cached_product_terms( $product_id, $taxonomy, $args = array() )
 	$terms = wp_get_post_terms( $product_id, $taxonomy, $args );
 	// @codingStandardsIgnoreEnd
 
-	wp_cache_add( $cache_key, $terms, $cache_group );
+	wp_cache_add( $product_id, $terms, $cache_key );
 
 	return $terms;
 }
@@ -178,41 +177,67 @@ function _wc_get_product_terms_parent_usort_callback( $a, $b ) {
 /**
  * WooCommerce Dropdown categories.
  *
- * @param array $args Args to control display of dropdown.
+ * Stuck with this until a fix for https://core.trac.wordpress.org/ticket/13258.
+ * We use a custom walker, just like WordPress does.
+ *
+ * @param array $args
+ * @param int $deprecated_hierarchical
+ * @param int $deprecated_show_uncategorized (default: 1)
+ * @param string $deprecated_orderby
+ *
  * @return string
  */
-function wc_product_dropdown_categories( $args = array() ) {
+function wc_product_dropdown_categories( $args = array(), $deprecated_hierarchical = 1, $deprecated_show_uncategorized = 1, $deprecated_orderby = '' ) {
 	global $wp_query;
 
-	$args = wp_parse_args( $args, array(
+	if ( ! is_array( $args ) ) {
+		wc_deprecated_argument( 'wc_product_dropdown_categories()', '2.1', 'show_counts, hierarchical, show_uncategorized and orderby arguments are invalid - pass a single array of values instead.' );
+
+		$args['show_count']         = $args;
+		$args['hierarchical']       = $deprecated_hierarchical;
+		$args['show_uncategorized'] = $deprecated_show_uncategorized;
+		$args['orderby']            = $deprecated_orderby;
+	}
+
+	$current_product_cat = isset( $wp_query->query_vars['product_cat'] ) ? $wp_query->query_vars['product_cat'] : '';
+	$defaults            = array(
 		'pad_counts'         => 1,
 		'show_count'         => 1,
 		'hierarchical'       => 1,
 		'hide_empty'         => 1,
 		'show_uncategorized' => 1,
 		'orderby'            => 'name',
-		'selected'           => isset( $wp_query->query_vars['product_cat'] ) ? $wp_query->query_vars['product_cat']: '',
+		'selected'           => $current_product_cat,
 		'menu_order'         => false,
-		'show_option_none'   => __( 'Select a category', 'woocommerce' ),
-		'option_none_value'  => '',
-		'value_field'        => 'slug',
-		'taxonomy'           => 'product_cat',
-		'name'               => 'product_cat',
-		'class'              => 'dropdown_product_cat',
-	) );
+		'option_select_text' => __( 'Select a category', 'woocommerce' ),
+	);
+
+	$args = wp_parse_args( $args, $defaults );
 
 	if ( 'order' === $args['orderby'] ) {
 		$args['menu_order'] = 'asc';
 		$args['orderby']    = 'name';
 	}
 
-	wp_dropdown_categories( $args );
+	$terms = get_terms( 'product_cat', apply_filters( 'wc_product_dropdown_categories_get_terms_args', $args ) );
+
+	if ( empty( $terms ) ) {
+		return;
+	}
+
+	$output  = "<select name='product_cat' class='dropdown_product_cat'>";
+	$output .= '<option value="" ' . selected( $current_product_cat, '', false ) . '>' . esc_html( $args['option_select_text'] ) . '</option>';
+	$output .= wc_walk_category_dropdown_tree( $terms, 0, $args );
+	if ( $args['show_uncategorized'] ) {
+		$output .= '<option value="0" ' . selected( $current_product_cat, '0', false ) . '>' . esc_html__( 'Uncategorized', 'woocommerce' ) . '</option>';
+	}
+	$output .= "</select>";
+
+	echo $output;
 }
 
 /**
- * Custom walker for Product Categories.
- *
- * Previously used by wc_product_dropdown_categories, but wp_dropdown_categories has been fixed in core.
+ * Walk the Product Categories.
  *
  * @return mixed
  */

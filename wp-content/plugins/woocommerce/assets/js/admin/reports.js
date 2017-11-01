@@ -111,13 +111,14 @@ jQuery(function( $ ) {
 		dateFormat: 'yy-mm-dd',
 		numberOfMonths: 1,
 		minDate: '-20Y',
-		maxDate: '+1D',
+		maxDate: '+0D',
 		showButtonPanel: true,
 		showOn: 'focus',
 		buttonImageOnly: true,
-		onSelect: function() {
+		onSelect: function( selectedDate ) {
 			var option = $( this ).is( '.from' ) ? 'minDate' : 'maxDate',
-				date   = $( this ).datepicker( 'getDate' );
+				instance = $( this ).data( 'datepicker' ),
+				date = $.datepicker.parseDate( instance.settings.dateFormat || $.datepicker._defaults.dateFormat, selectedDate, instance.settings );
 
 			dates.not( this ).datepicker( 'option', option, date );
 		}

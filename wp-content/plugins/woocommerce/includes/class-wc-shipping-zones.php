@@ -82,7 +82,7 @@ class WC_Shipping_Zones {
 	 *
 	 * @param $instance_id
 	 *
-	 * @return bool|WC_Shipping_Method
+	 * @return bool|WC_Shipping_Meethod
 	 */
 	public static function get_shipping_method( $instance_id ) {
 		$data_store          = WC_Data_Store::load( 'shipping-zone' );

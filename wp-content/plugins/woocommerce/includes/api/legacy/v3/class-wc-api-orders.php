@@ -506,7 +506,6 @@ class WC_API_Orders extends WC_API_Resource {
 			wc_delete_shop_order_transients( $order );
 
 			do_action( 'woocommerce_api_create_order', $order->get_id(), $data, $this );
-			do_action( 'woocommerce_new_order', $order->get_id() );
 
 			wc_transaction_query( 'commit' );
 
@@ -672,7 +671,6 @@ class WC_API_Orders extends WC_API_Resource {
 			wc_delete_shop_order_transients( $order );
 
 			do_action( 'woocommerce_api_edit_order', $order->get_id(), $data, $this );
-			do_action( 'woocommerce_update_order', $order->get_id() );
 
 			return $this->get_order( $id );
 		} catch ( WC_Data_Exception $e ) {
@@ -1493,7 +1491,7 @@ class WC_API_Orders extends WC_API_Resource {
 			}
 
 			// Force delete since trashed order notes could not be managed through comments list table
-			$result = wc_delete_order_note( $note->comment_ID );
+			$result = wp_delete_comment( $note->comment_ID, true );
 
 			if ( ! $result ) {
 				throw new WC_API_Exception( 'woocommerce_api_cannot_delete_order_note', __( 'This order note cannot be deleted', 'woocommerce' ), 500 );

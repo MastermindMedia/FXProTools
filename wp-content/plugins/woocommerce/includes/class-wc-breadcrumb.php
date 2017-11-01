@@ -155,7 +155,7 @@ class WC_Breadcrumb {
 		} else {
 			$cat = current( get_the_category( $post ) );
 			if ( $cat ) {
-				$this->term_ancestors( $cat->term_id, 'category' );
+				$this->term_ancestors( $cat->term_id, 'post_category' );
 				$this->add_crumb( $cat->name, get_term_link( $cat ) );
 			}
 		}
@@ -247,7 +247,8 @@ class WC_Breadcrumb {
 		$this_category = get_category( $GLOBALS['wp_query']->get_queried_object() );
 
 		if ( 0 != $this_category->parent ) {
-			$this->term_ancestors( $this_category->term_id, 'category' );
+			$this->term_ancestors( $this_category->parent, 'post_category' );
+			$this->add_crumb( $this_category->name, get_category_link( $this_category->term_id ) );
 		}
 
 		$this->add_crumb( single_cat_title( '', false ), get_category_link( $this_category->term_id ) );

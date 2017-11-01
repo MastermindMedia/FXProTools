@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class WC_CLI_Runner {
 	/**
-	 * Endpoints to disable (meaning they will not be available as CLI commands).
+	 * Endpoints to disable (meaning they will not be avaiable as CLI commands).
 	 * Some of these can either be done via WP already, or are offered with
 	 * some other changes (like tools).
 	 */
@@ -86,7 +86,7 @@ class WC_CLI_Runner {
 
 	/**
 	 * Generates command information and tells WP CLI about all
-	 * commands available from a route.
+	 * commands avaiable from a route.
 	 *
 	 * @param string $rest_command
 	 * @param string $route
@@ -233,7 +233,9 @@ class WC_CLI_Runner {
 			$before_invoke = null;
 			if ( empty( $command_args['when'] ) && \WP_CLI::get_config( 'debug' ) ) {
 				$before_invoke = function() {
-					wc_maybe_define_constant( 'SAVEQUERIES', true );
+					if ( ! defined( 'SAVEQUERIES' ) ) {
+						define( 'SAVEQUERIES', true );
+					}
 				};
 			}
 

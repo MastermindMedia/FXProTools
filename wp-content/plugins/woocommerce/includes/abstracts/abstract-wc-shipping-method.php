@@ -263,13 +263,7 @@ abstract class WC_Shipping_Method extends WC_Settings_API {
 		$total_cost = wc_format_decimal( $total_cost, wc_get_price_decimals() );
 
 		// Create rate object
-		$rate = new WC_Shipping_Rate();
-		$rate->set_id( $args['id'] );
-		$rate->set_method_id( $this->id );
-		$rate->set_instance_id( $this->instance_id );
-		$rate->set_label( $args['label'] );
-		$rate->set_cost( $total_cost );
-		$rate->set_taxes( $taxes );
+		$rate = new WC_Shipping_Rate( $args['id'], $args['label'], $total_cost, $taxes, $this->id );
 
 		if ( ! empty( $args['meta_data'] ) ) {
 			foreach ( $args['meta_data'] as $key => $value ) {
@@ -358,7 +352,7 @@ abstract class WC_Shipping_Method extends WC_Settings_API {
 			}
 		}
 
-		return apply_filters( 'woocommerce_shipping_' . $this->id . '_is_available', $available, $package, $this );
+		return apply_filters( 'woocommerce_shipping_' . $this->id . '_is_available', $available, $package );
 	}
 
 	/**

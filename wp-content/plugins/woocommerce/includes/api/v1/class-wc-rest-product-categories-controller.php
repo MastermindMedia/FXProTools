@@ -46,9 +46,9 @@ class WC_REST_Product_Categories_V1_Controller extends WC_REST_Terms_Controller 
 	/**
 	 * Prepare a single product category output for response.
 	 *
-	 * @param WP_Term         $item    Term object.
-	 * @param WP_REST_Request $request Request instance.
-	 * @return WP_REST_Response
+	 * @param WP_Term $item Term object.
+	 * @param WP_REST_Request $request
+	 * @return WP_REST_Response $response
 	 */
 	public function prepare_item_for_response( $item, $request ) {
 		// Get category display type.
@@ -64,14 +64,13 @@ class WC_REST_Product_Categories_V1_Controller extends WC_REST_Terms_Controller 
 			'parent'      => (int) $item->parent,
 			'description' => $item->description,
 			'display'     => $display_type ? $display_type : 'default',
-			'image'       => null,
+			'image'       => array(),
 			'menu_order'  => (int) $menu_order,
 			'count'       => (int) $item->count,
 		);
 
 		// Get category image.
-		$image_id = get_woocommerce_term_meta( $item->term_id, 'thumbnail_id' );
-		if ( $image_id ) {
+		if ( $image_id = get_woocommerce_term_meta( $item->term_id, 'thumbnail_id' ) ) {
 			$attachment = get_post( $image_id );
 
 			$data['image'] = array(
@@ -107,8 +106,8 @@ class WC_REST_Product_Categories_V1_Controller extends WC_REST_Terms_Controller 
 	/**
 	 * Update term meta fields.
 	 *
-	 * @param WP_Term         $term    Term object.
-	 * @param WP_REST_Request $request Request instance.
+	 * @param WP_Term $term
+	 * @param WP_REST_Request $request
 	 * @return bool|WP_Error
 	 */
 	protected function update_term_meta_fields( $term, $request ) {
@@ -146,10 +145,7 @@ class WC_REST_Product_Categories_V1_Controller extends WC_REST_Terms_Controller 
 
 				// Set the image title.
 				if ( ! empty( $request['image']['title'] ) ) {
-					wp_update_post( array(
-						'ID'         => $image_id,
-						'post_title' => wc_clean( $request['image']['title'] ),
-					) );
+					wp_update_post( array( 'ID' => $image_id, 'post_title' => wc_clean( $request['image']['title'] ) ) );
 				}
 			} else {
 				delete_woocommerce_term_meta( $id, 'thumbnail_id' );

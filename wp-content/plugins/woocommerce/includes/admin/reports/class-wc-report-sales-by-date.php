@@ -607,6 +607,8 @@ class WC_Report_Sales_By_Date extends WC_Admin_Report {
 
 	/**
 	 * Get the main chart.
+	 *
+	 * @return string
 	 */
 	public function get_main_chart() {
 		global $wp_locale;

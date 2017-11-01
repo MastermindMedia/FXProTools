@@ -86,7 +86,7 @@ $text_lighter_20 = wc_hex_lighter( $text, 20 );
 }
 
 #body_content table td {
-	padding: 48px 48px 0;
+	padding: 48px;
 }
 
 #body_content table td td {
@@ -130,12 +130,6 @@ $text_lighter_20 = wc_hex_lighter( $text, 20 );
 	border: 1px solid <?php echo esc_attr( $body_darker_10 ); ?>;
 }
 
-.address {
-	padding:12px 12px 0;
-	color: <?php echo esc_attr( $text_lighter_20 ); ?>;
-	border: 1px solid <?php echo esc_attr( $body_darker_10 ); ?>;
-}
-
 .text {
 	color: <?php echo esc_attr( $text ); ?>;
 	font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
@@ -169,7 +163,7 @@ h2 {
 	font-size: 18px;
 	font-weight: bold;
 	line-height: 130%;
-	margin: 0 0 18px;
+	margin: 16px 0 8px;
 	text-align: <?php echo is_rtl() ? 'right' : 'left'; ?>;
 }
 

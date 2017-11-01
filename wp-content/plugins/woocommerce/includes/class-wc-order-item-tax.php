@@ -215,7 +215,7 @@ class WC_Order_Item_Tax extends WC_Order_Item {
 	| Array Access Methods
 	|--------------------------------------------------------------------------
 	|
-	| For backwards compatibility with legacy arrays.
+	| For backwards compat with legacy arrays.
 	|
 	*/
 

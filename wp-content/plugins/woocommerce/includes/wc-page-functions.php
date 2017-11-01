@@ -111,7 +111,7 @@ function wc_get_endpoint_url( $endpoint, $value = '', $permalink = '' ) {
 /**
  * Hide menu items conditionally.
  *
- * @param array $items Navigation items.
+ * @param array $items
  * @return array
  */
 function wc_nav_menu_items( $items ) {
@@ -120,12 +120,8 @@ function wc_nav_menu_items( $items ) {
 
 		if ( ! empty( $customer_logout ) ) {
 			foreach ( $items as $key => $item ) {
-				if ( empty( $item->url ) ) {
-					continue;
-				}
-				$path  = parse_url( $item->url, PHP_URL_PATH );
+				$path = parse_url( $item->url, PHP_URL_PATH );
 				$query = parse_url( $item->url, PHP_URL_QUERY );
-
 				if ( strstr( $path, $customer_logout ) || strstr( $query, $customer_logout ) ) {
 					unset( $items[ $key ] );
 				}

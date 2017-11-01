@@ -118,8 +118,10 @@ abstract class WC_Widget extends WP_Widget {
 	/**
 	 * Output the html at the start of a widget.
 	 *
-	 * @param array $args
+	 * @param  array $args
 	 * @param array $instance
+	 *
+	 * @return string
 	 */
 	public function widget_start( $args, $instance ) {
 		echo $args['before_widget'];
@@ -133,6 +135,7 @@ abstract class WC_Widget extends WP_Widget {
 	 * Output the html at the end of a widget.
 	 *
 	 * @param  array $args
+	 * @return string
 	 */
 	public function widget_end( $args ) {
 		echo $args['after_widget'];

@@ -1,4 +1,4 @@
-/* global jQuery, woocommerce_admin_system_status, wcSetClipboard, wcClearClipboard */
+/* global jQuery, woocommerce_admin_system_status */
 jQuery( function ( $ ) {
 
 	/**
@@ -9,9 +9,8 @@ jQuery( function ( $ ) {
 			$( document.body )
 				.on( 'click', 'a.help_tip, a.woocommerce-help-tip', this.preventTipTipClick )
 				.on( 'click', 'a.debug-report', this.generateReport )
-				.on( 'click', '#copy-for-support', this.copyReport )
-				.on( 'aftercopy', '#copy-for-support', this.copySuccess )
-				.on( 'aftercopyfailure', '#copy-for-support', this.copyFail );
+				.on( 'copy', '#copy-for-support', this.copyReport )
+				.on( 'aftercopy', '#copy-for-support', this.afterCopyReport );
 		},
 
 		/**
@@ -85,30 +84,31 @@ jQuery( function ( $ ) {
 		 * @param {Object} evt Copy event.
 		 */
 		copyReport: function( evt ) {
-			wcClearClipboard();
-			wcSetClipboard( $( '#debug-report' ).find( 'textarea' ).val(), $( this ) );
+			evt.clipboardData.clearData();
+			evt.clipboardData.setData( 'text/plain', $( '#debug-report' ).find( 'textarea' ).val() );
 			evt.preventDefault();
 		},
 
 		/**
-		 * Display a "Copied!" tip when success copying
+		 * Actions after copying the report.
+		 * Display a "Copied!" tip when success copied
+		 * or display an error message.
+		 *
+		 * @param {Object} evt Copy event.
 		 */
-		copySuccess: function() {
-			$( '#copy-for-support' ).tipTip({
-				'attribute':  'data-tip',
-				'activation': 'focus',
-				'fadeIn':     50,
-				'fadeOut':    50,
-				'delay':      0
-			}).focus();
-		},
-
-		/**
-		 * Displays the copy error message when failure copying.
-		 */
-		copyFail: function() {
-			$( '.copy-error' ).removeClass( 'hidden' );
-			$( '#debug-report' ).find( 'textarea' ).focus().select();
+		afterCopyReport: function( evt ) {
+			if ( true === evt.success['text/plain'] ) {
+				$( '#copy-for-support' ).tipTip({
+					'attribute':  'data-tip',
+					'activation': 'focus',
+					'fadeIn':     50,
+					'fadeOut':    50,
+					'delay':      0
+				}).focus();
+			} else {
+				$( '.copy-error' ).removeClass( 'hidden' );
+				$( '#debug-report' ).find( 'textarea' ).focus().select();
+			}
 		}
 	};
 
