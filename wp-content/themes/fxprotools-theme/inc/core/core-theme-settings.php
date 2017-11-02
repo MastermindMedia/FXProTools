@@ -23,7 +23,7 @@ if(!class_exists('ThemeSettings')){
 
 		public function enqueue_theme_assets()
 		{
-			global $theme_version;
+			global $theme_version, $post;
 			// Disable loading of jquery on wordpress core
 			if(!is_admin()){
 				wp_deregister_script('jquery');
@@ -58,6 +58,17 @@ if(!class_exists('ThemeSettings')){
 				'login_url' => site_url( 'login' ),
 				'logout_url' => wp_logout_url()
 			));
+
+			// Page-specific Assets
+			if (!empty($post->post_name)) {
+				$post_name = $post->post_name;
+
+				switch ($post_name) {
+					case 'password-checkpoint':
+						wp_enqueue_script('script-pwstrength', get_stylesheet_directory_uri().'/vendors/jquery.pwstrength.bootstrap-2.1.3/pwstrength-bootstrap.min.js', array(), $theme_version, true);
+						break;
+				}
+			}
 		}
 	}
 }
