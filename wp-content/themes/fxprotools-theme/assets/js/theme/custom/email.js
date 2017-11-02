@@ -113,6 +113,7 @@ jQuery(function ($) {
 		}).change();
 		
 		tinymce.init({ selector:'#body', menubar: false, statusbar: false,
+		    plugins: "link",
             setup: function (editor) {
                 editor.on('change', function () {
                     editor.save();

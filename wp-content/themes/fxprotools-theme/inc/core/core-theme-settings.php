@@ -14,7 +14,8 @@ if(!class_exists('ThemeSettings')){
 
 	class ThemeSettings {
 
-		const GUEST_ALLOWED_PAGES =  array( 'my-account', 'inbox', 'funnels', 'referred-members', 'wallet', 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'signals', 'autologin', 'log-out-notice','no-access', 'renewal', 'register' );
+		const GUEST_ALLOWED_PAGES =  array( 'funnels', 'referred-members', 'wallet', 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'signals', 'autologin', 'log-out-notice','no-access', 'renewal', 'register' );
+		const USER_ALLOWED_PAGES = array ( 'my-account', 'inbox', 'compose', 'read', 'sent', 'trash' );
 
 		public function __construct()
 		{

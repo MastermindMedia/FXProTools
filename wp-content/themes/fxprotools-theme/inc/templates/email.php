@@ -11,7 +11,7 @@ if (!function_exists('page_content')) {
 					<button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Actions <i class="fa fa-caret-down"></i></button>
 					<ul class="dropdown-menu">
 						<?php if ($post->post_name == 'read') { ?>
-						<li><a href="?delete=<?php echo $_GET['email']; ?>">Delete</a></li>
+						<li><a href="<?php bloginfo('url'); ?>/my-account/inbox?delete=<?php echo $_GET['id']; ?>">Delete</a></li>
 						<?php } else { ?>
 						<li><a href="#" data-email-action="mark-read">Mark as Read</a></li>
 						<li><a href="#" data-email-action="delete">Delete</a></li>
