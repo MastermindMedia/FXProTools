@@ -9,7 +9,7 @@
 </head>
 <body <?php body_class(); ?>>
 	
-	<?php $exclude_pages = array('login', 'forgot-password', 'f1', 'f2', 'f3', 'f4', 'signals', 'log-out-notice'); ?>
+	<?php $exclude_pages = array('login', 'forgot-password', 'f1', 'f2', 'f3', 'f4', 'signals', 'log-out-notice', 'lp1', 'lp2', 'lp3'); ?>
 	<div class="<?php echo !is_home() ? 'fx-wrapper' : ''; ?> <?php echo is_page(array('login', 'forgot-password')) ? 'fx-login' : ''; ?>">
 		<?php if( is_user_logged_in() && !is_page($exclude_pages) && !is_home() && !is_404() ): ?>
 		<nav class="navbar fx-navbar-main" role="navigation">

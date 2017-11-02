@@ -1,5 +1,7 @@
 jQuery(document).ready( function($) {
 	
+	var clipboard = new Clipboard('.btn-copy');
+
 	$('#order_review_heading').appendTo('.col-1');
 	$('#order_review').appendTo('.col-1');
 	$('.checkout-sidebar').appendTo('.col-2');
@@ -82,6 +84,12 @@ $(document).on('click', '.scroll-to', function(e) {
 $(document).on('click', 'input[name="f2-survey"]', function(){
 	$('.f2-group-options').fadeOut('normal', function(){
 		$('.f2-group-form').fadeIn();
+	});
+});
+
+$(document).on('click', '.funnel-accordion .funnel-title', function(){
+	$(this).find('.help-caption').text(function(i, text){		
+		return text ==  '(Click To Close)' ? '(Click To Expand)' : '(Click To Close)';
 	});
 });
 

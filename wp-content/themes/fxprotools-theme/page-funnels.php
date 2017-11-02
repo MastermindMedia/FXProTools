@@ -39,8 +39,9 @@ $referral = "/?ref=" .  wp_get_current_user()->user_login;
 						<div class="accordion-group panel-default funnel-accordion">
 							<div class="panel-heading" role="tab" id="heading-<?php echo $count;?>">
 								<h4 class="panel-title">
-									<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-<?php echo $count;?>" aria-expanded="true" aria-controls="collapse-<?php echo $count;?>">
-										<?php the_title();?>
+									<a class="funnel-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-<?php echo $count;?>" aria-expanded="true" aria-controls="collapse-<?php echo $count;?>">
+										<?php the_title(); ?>
+										<span class="help-caption"><?php echo $count == 1 ? '(Click To Close)' : '(Click To Expand)'; ?></span>
 									</a>
 								</h4>
 							</div>
@@ -218,9 +219,6 @@ $referral = "/?ref=" .  wp_get_current_user()->user_login;
 				</div>
 			</div>
 		</div>
-		<script>
-		    var clipboard = new Clipboard('.btn-copy');
-		</script>
 	<?php else: ?>
 		<?php get_template_part('inc/templates/no-access'); ?>
 	<?php endif; ?>
