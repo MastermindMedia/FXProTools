@@ -143,7 +143,7 @@ $(document).ready(function () {
             wordMaxLength: false,
             wordInvalidChar: false,
             wordSimilarToUsername: true,
-            wordSequences: false,
+            wordSequences: true,
             wordTwoCharacterClasses: false,
             wordRepetitions: false,
             wordLowercase: true,
