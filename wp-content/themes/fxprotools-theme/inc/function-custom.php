@@ -362,41 +362,46 @@ add_action('init','sess_start');
  * Use to render metabox page template option #1
  * @param  string $page_element
  */
-function get_mb_pto1( $page_element ) {
+
+ // TODO: change the function name to get_mb_pto later on
+function get_mb_pto1( $page_element, $pto = 'pto1' ) {
     switch ( $page_element ) {
         case 'main_header_menu':
-            return mb_menu_display( rwmb_meta('pto1_display_main_header_menu'), rwmb_meta('pto1_main_header_menu'), 'fx-nav-options', new Nav_Main_Header_Menu_Walker(), 'Main Header Menu', '' );
+            return mb_menu_display( rwmb_meta( $pto . '_display_main_header_menu'), rwmb_meta( $pto . '_main_header_menu'), 'fx-nav-options', new Nav_Main_Header_Menu_Walker(), 'Main Header Menu', '' );
             break;
         case 'secondary_header_menu':
-            return mb_menu_display( rwmb_meta('pto1_display_header_menu'), rwmb_meta('pto1_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
+            return mb_menu_display( rwmb_meta( $pto . '_display_header_menu'), rwmb_meta( $pto . '_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
             break;
         case 'footer_left_menu':
-            return mb_menu_display( rwmb_meta('pto1_display_footer_menu'), rwmb_meta('pto1_footer_menu_fl'), 'footer-nav', '', 'Footer Menu 1', '' );
+            return mb_menu_display( rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_fl'), 'footer-nav', '', 'Footer Menu 1', '' );
             break;
         case 'footer_middle_menu':
-            return mb_menu_display( rwmb_meta('pto1_display_footer_menu'), rwmb_meta('pto1_footer_menu_mid'), 'footer-nav', '', 'Footer Menu 2', '' );
+            return mb_menu_display( rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_mid'), 'footer-nav', '', 'Footer Menu 2', '' );
             break;
         case 'footer_right_menu':
-            return mb_menu_display( rwmb_meta('pto1_display_footer_menu'), rwmb_meta('pto1_footer_menu_fr'), 'footer-nav', '', 'Footer Menu 3', 'with-log-inout' );
+            return mb_menu_display( rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_fr'), 'footer-nav', '', 'Footer Menu 3', 'with-log-inout' );
             break;
         case 'video_embed':
-            // add condition here whether the user is customer or distributor.
-
-            $video_url              = is_user_fx_customer() ? rwmb_meta('pto1_video_url_customer') : rwmb_meta('pto1_video_url_distributor') ;
-            $video_autostart        = rwmb_meta('pto1_video_autostart');
-            $video_show_controls    = rwmb_meta('pto1_video_show_controls');
+            // pto1 and pto2 only has support for video tab
+            if ( $pto == 'pto1' ) :
+                $video_url              = is_user_fx_customer() ? rwmb_meta( $pto . '_video_url_customer') : rwmb_meta( $pto . '_video_url_distributor') ;
+            elseif ( $pto == 'pto2' ) :
+                $video_url = rwmb_meta( $pto . '_video_url');
+            endif;
+            $video_autostart        = rwmb_meta( $pto . '_video_autostart');
+            $video_show_controls    = rwmb_meta( $pto . '_video_show_controls');
             $scroll_class           = "";
             $scroll_url             = "";
             $float_class            = "";
 
-            if( count( is_mb_video_scroll() ) > 0 ){
-                $arr_scroll = is_mb_video_scroll();
+            if( count( is_mb_video_scroll( $pto ) ) > 0 ){
+                $arr_scroll = is_mb_video_scroll( $pto );
                 $scroll_class   = ( !empty( rtrim($arr_scroll[0]) ) ) ? $arr_scroll[0] : '';
                 $scroll_url     = ( !empty( rtrim($arr_scroll[1]) ) ) ? $arr_scroll[1] : '';
             }
 
-            if( count( is_mb_video_float() ) > 0 ){
-                $arr_float = is_mb_video_float();
+            if( count( is_mb_video_float( $pto ) ) > 0 ){
+                $arr_float = is_mb_video_float( $pto );
                 $float_class    = $arr_float[0];
             }
 
@@ -414,17 +419,15 @@ function get_mb_pto1( $page_element ) {
 }
 
 
-function is_mb_video_scroll(){
-    $video_scrolling = implode( ' ', rwmb_meta('pto1_video_scrolling') );
+function is_mb_video_scroll( $pto = 'pto1' ){
+    $video_scrolling = implode( ' ', rwmb_meta( $pto . '_video_scrolling') );
     if( !empty( rtrim($video_scrolling) ) && $video_scrolling == 'yes' ) 
-        // return 'id="pto--scrolling-video" data-url="' . rwmb_meta('pto1_video_url') . '"';
-        return array('pto--scrolling-video', rwmb_meta('pto1_video_url'));
+        return array('pto--scrolling-video', rwmb_meta( $pto . '_video_url'));
 }
 
-function is_mb_video_float(){
-    $video_floating = implode( ' ', rwmb_meta('pto1_video_floating') );
+function is_mb_video_float( $pto = 'pto1' ){
+    $video_floating = implode( ' ', rwmb_meta( $pto . '_video_floating') );
     if( !empty( rtrim($video_floating) ) && $video_floating == 'yes' )
-        // return 'id="pto--floating-video"';
         return array('pto--floating-video');
 }
 

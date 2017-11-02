@@ -25,7 +25,8 @@
 					<div class="col-md-7">
 						<?php
 							// Metabox Page Template Option
-							echo get_mb_pto1( 'main_header_menu' );
+							// TODO: to support pto2 and pto3
+							echo get_mb_pto1( 'main_header_menu', 'pto1' );
 						?>
 					</div>
 					<div class="col-md-3">
