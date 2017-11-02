@@ -138,7 +138,7 @@ class Apyc_Woo_CoachingTemplate{
 	}
 	
 	public function webinar_add_to_cart() {
-		wc_get_template( 'single-product/add-to-cart/simple.php' );
+		wc_get_template( 'single-product/add-to-cart/webinar-simple.php' );
 	}
 	
 	public function add_to_cart_input() {
@@ -226,6 +226,36 @@ class Apyc_Woo_CoachingTemplate{
 			$item->add_meta_data( __( 'Time', 'woocommerce' ), $selected_time );
 		}
 	}
+	public function is_purchasable($is_purchasable, $product) {
+        //return ($product->id == whatever_mambo_jambo_id_you_want ? false : $is_purchasable);
+		//dd($product->get_type());
+		if( !is_product() && $product->get_type() == 'apyc_woo_gotowebinar_appointment' ){
+			return false;
+		}
+		return $is_purchasable;
+	}
+
+	public function conditionally_replacing_add_to_cart_button( $button, $product  ) {
+
+		$product_type = $product->get_type();
+		// For 'liners' product category
+		if( $product_type == 'apyc_woo_gotowebinar_appointment' ){
+			$button_text = __("Book Now", "woocommerce");
+			$button = '<a class="button" href="' . $product->get_permalink() . '">' . $button_text . '</a>';
+		}
+		return $button;
+	}
+	public function custom_woocommerce_email_order_meta_fields( $fields, $sent_to_admin, $order ) {
+		$fields['meta_key'] = array(
+			'label' => __( 'Webinar Appointment Date' ),
+			'value' => get_post_meta( $order->id, 'Date', true ),
+		);
+		$fields['meta_key'] = array(
+			'label' => __( 'Webinar Appointment Time' ),
+			'value' => get_post_meta( $order->id, 'Time', true ),
+		);
+		return $fields;
+	}
 	public function __construct() {
 		add_action('woocommerce_before_add_to_cart_form', array($this,'action_woocommerce_before_add_to_cart_button'), 10, 0 ); 
 		add_action('woocommerce_apyc_woo_gotowebinar_appointment_add_to_cart', array($this, 'webinar_add_to_cart'));
@@ -236,5 +266,8 @@ class Apyc_Woo_CoachingTemplate{
 		add_filter('woocommerce_after_add_to_cart_button', array($this, 'add_to_cart_input'));
 		add_filter('woocommerce_get_item_data', array($this, 'get_item_data_meta'), 10, 2 );
 		add_action('woocommerce_checkout_create_order_line_item', array($this, 'add_webinar_date_order_line_item'), 10, 4 );
+		//add_filter('woocommerce_is_purchasable', array($this,'is_purchasable'), 10, 2);
+		add_filter('woocommerce_loop_add_to_cart_link', array($this,'conditionally_replacing_add_to_cart_button'), 10, 2 );
+		add_filter('woocommerce_email_order_meta_fields', array($this, 'custom_woocommerce_email_order_meta_fields'), 10, 3 );
 	}
 }
