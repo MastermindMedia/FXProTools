@@ -40,8 +40,8 @@ $referral = "/?ref=" .  wp_get_current_user()->user_login;
 							<div class="panel-heading" role="tab" id="heading-<?php echo $count;?>">
 								<h4 class="panel-title">
 									<a class="funnel-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-<?php echo $count;?>" aria-expanded="true" aria-controls="collapse-<?php echo $count;?>">
-										<?php the_title();?>
-										<span class="help-caption"></span>
+										<?php the_title(); ?>
+										<span class="help-caption"><?php echo $count == 1 ? '(Click To Close)' : '(Click To Expand)'; ?></span>
 									</a>
 								</h4>
 							</div>

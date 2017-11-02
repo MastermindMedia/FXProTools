@@ -828,8 +828,8 @@
 			}
 		}
 	}
-	.panel-collapse {
-		margin-top: 10px;
+	.panel-collapse > .panel-body {
+		border-top: none!important;
 	}
 }
 

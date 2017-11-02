@@ -87,10 +87,11 @@ $(document).on('click', 'input[name="f2-survey"]', function(){
 	});
 });
 
-// $(document).on('click', '.funnel-accordion > .funnel-title', function(){
-// 	var isOpen = $(this).attr('aria-expanded').val();
-// 	console.log(isOpen);
-// });
+$(document).on('click', '.funnel-accordion .funnel-title', function(){
+	$(this).find('.help-caption').text(function(i, text){		
+		return text ==  '(Click To Close)' ? '(Click To Expand)' : '(Click To Close)';
+	});
+});
 
 // Functions
 function popup_alert($title, $message){
