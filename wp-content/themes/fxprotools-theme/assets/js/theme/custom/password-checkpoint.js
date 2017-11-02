@@ -12,7 +12,7 @@ $(document).ready(function () {
         var data = {
             'action': 'fx_renew_password',
             'fx_action': 'renew_password',
-            'new_password': $('#pwd').val(),
+            'new_password': $('.fx-renewal #pwd').val(),
             'confirm_password': $('#pwd-verify').val()
         };
 
@@ -54,7 +54,7 @@ $(document).ready(function () {
 
     function matchPasswords () {
         var $verify_password = $('#pwd-verify');
-        var $main_password = $('#pwd');
+        var $main_password = $('.fx-renewal #pwd');
         var $verify_password_icon = $('#pwd-icon-verify');
 
         if ($verify_password.val() == '') {
@@ -101,7 +101,7 @@ $(document).ready(function () {
                 class_name = 'has-feedback has-success';
                 password_strong = true;
             }
-            $('#pwd').parent('.has-feedback').removeClass(function (index, className) {
+            $('.fx-renewal #pwd').parent('.has-feedback').removeClass(function (index, className) {
                 return (className.match (/(^|\s)has-\S+/g) || []).join(' ');
             }).addClass(class_name);
             $('#pwd-icon').removeClass(function (index, className) {
@@ -143,7 +143,7 @@ $(document).ready(function () {
             wordMaxLength: false,
             wordInvalidChar: false,
             wordSimilarToUsername: true,
-            wordSequences: true,
+            wordSequences: true ,
             wordTwoCharacterClasses: false,
             wordRepetitions: false,
             wordLowercase: true,
@@ -158,5 +158,8 @@ $(document).ready(function () {
         }
     };
 
-    $('#pwd').pwstrength(options);
+    if (jQuery.fn.pwstrength != undefined) {
+        $('.fx-renewal #pwd').pwstrength(options);
+    }
+
 });
