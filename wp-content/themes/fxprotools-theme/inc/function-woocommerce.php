@@ -26,7 +26,7 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 			add_filter( 'woocommerce_product_tabs', array( $this, 'wc_remove_product_tabs' ) );
 			add_filter( 'woocommerce_product_additional_information_heading', array( $this, 'wc_remove_additional_info_heading' ) );
 			add_filter( 'wc_authorize_net_cim_credit_card_payment_form_save_payment_method_checkbox_html', array( $this, 'wc_auth_net_cim_save_payment_method_default_checked' ), 10, 2 );
-			add_filter( 'add_to_cart_redirect', array( $this, 'wc_add_to_cart_redirect' ));
+			add_filter( 'woocommerce_add_to_cart_redirect ', array( $this, 'wc_add_to_cart_redirect' ));
 			add_filter( 'woocommerce_add_cart_item_data', array( $this, 'wc_clear_cart' ) );
 			add_filter( 'wc_add_to_cart_message_html', array( $this, 'wc_clear_add_to_cart_message' ) );
 			add_filter( 'woocommerce_product_data_tabs', array( $this, 'wc_add_buy_button_tab' ) );

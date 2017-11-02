@@ -420,7 +420,12 @@
 		<div id="trial-products" class="section-eight">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-xs-12 col-sm-12 col-md-6">
+						<?php
+							$product = wc_get_product( 2699 );
+							$url = $product->get_attribute( 'trial-checkout-link' );
+							if( isset($_GET['ref']) ) $url = $url . '&ref=' . $_GET['ref'];
+						?>
 						<div class="panel fx-package-item">
 							<div class="panel-body">
 								<div class="heading">
@@ -429,7 +434,7 @@
 								</div>
 								<div class="text-center">
 									<h2 class="m-b-md">14 Day FREE Trial!</h2>
-									<a href="<?php echo site_url('checkout/?add-to-cart=2699&variation_id=2928&attribute_subscription-type=trial');?>" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
+									<a href="<?php echo $url;?>" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
 										Start Your Trial Now!
 										<span>Training + Forex & Binary Market Signals</span>
 									</a>
@@ -447,7 +452,7 @@
 								<p>Our Forex & Binary AI will track & backtest all the contracts that we go through and predict the market direction with up to a 90% accuracy rate - so you can let our software do the thinking for you.</p>
 								<hr/>
 								<div class="text-center">
-									<a  href="<?php echo site_url('checkout/?add-to-cart=2699&variation_id=2928&attribute_subscription-type=trial');?>" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
+									<a  href="<?php echo $url;?>" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
 										Start Your Trial Now!
 										<span>Training + Forex & Binary Market Signals</span>
 									</a>
@@ -456,7 +461,12 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-xs-12 col-sm-12 col-md-6">
+						<?php
+							$product = wc_get_product( 47 );
+							$url = $product->get_attribute( 'trial-checkout-link' );
+							if( isset($_GET['ref']) ) $url = $url . '&ref=' . $_GET['ref'];
+						?>
 						<div class="panel fx-package-item active">
 							<span class="sash">Best Value</span>
 							<div class="panel-body">
@@ -466,7 +476,7 @@
 								</div>
 								<div class="text-center">
 									<h2 class="m-b-md">14 Day FREE Trial!</h2>
-									<a href="<?php echo site_url('checkout/?add-to-cart=47&variation_id=2931&attribute_subscription-type=trial');?>" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
+									<a href="<?php echo $url;?>" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
 										Start Your Trial Now!
 										<span>Training + Forex & Binary Market Signals</span>
 									</a>
@@ -485,7 +495,7 @@
 								<p>Start trading the markets today by taking advantage of our massive price reduction. </p>
 								<hr/>
 								<div class="text-center">
-									<a href="<?php echo site_url('checkout/?add-to-cart=47&variation_id=2931&attribute_subscription-type=trial');?>" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
+									<a href="<?php echo $url;?>" class="btn btn-danger btn-lg m-b-md btn-lg-w-text">
 										Start Your Trial Now!
 										<span>Training + Forex & Binary Market Signals</span>
 									</a>
@@ -623,7 +633,12 @@
 				</div>
 				<div class="row row-package">
 					<div class="col-md-6 col-md-offset-3">
-						<div class="panel fx-package-item active">
+						<div id="trial-distributor" class="panel fx-package-item active">
+							<?php
+								$product = wc_get_product( 48 );
+								$url = $product->get_attribute( 'trial-checkout-link' );
+								if( isset($_GET['ref']) ) $url = $url . '&ref=' . $_GET['ref'];
+							?>
 							<span class="sash">IBO Package</span>
 							<div class="panel-body">
 								<div class="heading">
@@ -632,7 +647,7 @@
 								</div>
 								<div class="text-center">
 									<h2 class="m-b-md">$160</h2>
-									<a href="<?php echo site_url('checkout/?add-to-cart=48&variation_id=2921&attribute_subscription-type=trial');?>" class="btn btn-danger block btn-lg m-b-md btn-lg-w-text">
+									<a href="<?php echo $url;?>" class="btn btn-danger block btn-lg m-b-md btn-lg-w-text">
 										Start Your Business
 										<span>Training + Forex & Binary Market Signals</span>
 									</a>
