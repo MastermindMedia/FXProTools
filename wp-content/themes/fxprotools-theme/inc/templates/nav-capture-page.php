@@ -1,4 +1,5 @@
-<?php if(!is_page(array('lp1', 'lp2', 'lp3'))): ?>
+<?php $exclude_pages = array('dashboard', 'lp1', 'lp2', 'lp3'); ?>
+<?php if(!is_page($exclude_pages)): ?>
 <div class="section-nav">
 	<div class="fx-top-nav one">
 		<div class="container">
