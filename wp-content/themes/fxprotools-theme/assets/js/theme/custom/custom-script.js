@@ -1,5 +1,7 @@
 jQuery(document).ready( function($) {
 	
+	var clipboard = new Clipboard('.btn-copy');
+
 	$('#order_review_heading').appendTo('.col-1');
 	$('#order_review').appendTo('.col-1');
 	$('.checkout-sidebar').appendTo('.col-2');
@@ -84,6 +86,11 @@ $(document).on('click', 'input[name="f2-survey"]', function(){
 		$('.f2-group-form').fadeIn();
 	});
 });
+
+// $(document).on('click', '.funnel-accordion > .funnel-title', function(){
+// 	var isOpen = $(this).attr('aria-expanded').val();
+// 	console.log(isOpen);
+// });
 
 // Functions
 function popup_alert($title, $message){
