@@ -8,12 +8,12 @@
 
 function fx_customer_subscription_products()
 {
-	return array( 2699, 47 );
+	return array( 2699, 47, 2927, 2928, 2930, 2931 );
 }
 
 function fx_distributor_subscription_products()
 {
-	return array( 48 );
+	return array( 48, 2921, 2920 );
 }
 
 function is_user_fx_customer()
@@ -50,24 +50,37 @@ function user_has_coaching()
 	return wcs_user_has_subscription( '', 50, 'active');
 }
 
-function get_trial_end_date()
+function get_user_subscription_details()
 {
 	$subscriptions = wcs_get_users_subscriptions();
-	foreach($subscriptions as $s){
-		if( $s->has_status('active') ){
-			$items = $s->get_items();
-		    foreach($items as $key => $item){
-		    	$subscription_type = wc_get_order_item_meta($key, 'subscription-type', true);
-		    	if($subscription_type == 'trial'){
-					$subscription = wcs_get_subscription( $s->get_id() );
-					return $subscription->get_date( 'end' );
-		    	}
-		    }
-		}
-	}
-	return 0;
-}
+	$subscription_details = array();
 
+	foreach($subscriptions as $s){
+		$items = $s->get_items();
+
+	    foreach($items as $key => $item){
+	    	$subscription = wcs_get_subscription( $s->get_id() );
+	    	$subscription_type = wc_get_order_item_meta($key, 'subscription-type', true);
+	    	$product = wc_get_product( $item->get_product_id() );
+	    	$package_type = in_array( $product->get_id(), fx_customer_subscription_products() ) ? 'Professional' : 'Subscriber';
+	    	$package_type = in_array( $product->get_id(), fx_distributor_subscription_products() ) ? 'Business' : $package_type;
+	    	$subscription_details[] = array( 	
+	    		'id' => $s->get_id(), 
+	    		'product_id' => $product->get_id(),
+	    		'package_type' => $package_type,
+				'type' => $subscription_type, 
+				'start_date' => $subscription->get_date('date_created'), 
+				'end_date' =>  $subscription->has_status( wcs_get_subscription_ended_statuses() ) ? $subscription->get_date( 'end' ) : 0,
+				'trial_expiry_date'  => $subscription->get_date( 'trial_end' ),
+				'monthly_fee' => WC_Subscriptions_Product::get_price( $product ),
+				'next_payment_date' => $subscription->get_date('next_payment'),
+				'status' => $subscription->get_status()
+	    	);
+	    }
+	}
+
+	return $subscription_details;
+}
 
 function get_recent_subscriptions ($limit = 15)
 {
@@ -109,7 +122,7 @@ function paused_account_enforce_access()
 		}
 	}
 	
-	if ( is_user_logged_in() && ! is_user_fx_distributor() && ! is_page( 'no-access' ) && ! current_user_can( 'administrator' ) && has_imported_user_update_password() ) {
+	if ( is_user_logged_in() && is_user_fx_distributor() && !is_page( 'no-access' ) && !current_user_can( 'administrator' ) && has_imported_user_update_password() ) {
 		global $post;
 	    if( !isset( $post ) ) return;
 	    $slug = $post->post_name;
