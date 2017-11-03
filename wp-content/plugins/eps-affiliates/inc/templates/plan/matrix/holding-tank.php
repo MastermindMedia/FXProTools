@@ -34,6 +34,7 @@
     
     $tank_users = db_select($query, 'get_results');
     $count = count($tank_users);
+    $default_img = EPSAFFILIATE_PLUGIN_ASSETS.'/images/avathar.png';
     
 if ( !function_exists('_check_remote_mlmid_exist')) {
   require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/API/api-remote-user-embedd-cron-callback.php';
@@ -52,7 +53,7 @@ if ( $tank_users ) : ?>
 					<?php foreach ($tank_users as $key => $value) : ?>
 							<li class="col-md-2 col-sm-3" data-user-id = "<?=$value->uid;?>">
 					      <div class="person">
-	                <img src="http://woocommerce-plugin/wp-content/plugins/eps-affiliates/assets/images/avathar.png" alt="">
+	                <img src="<?php print $default_img ?>" alt="">
 		              <p class="name"><?= $value->display_name; ?></p>
                   <span class=""><?= $value->day_remains;?> Day remains</span>
 		              
