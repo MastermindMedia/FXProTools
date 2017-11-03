@@ -29,7 +29,10 @@
 		&.btn-two {
 			background-color: #403d3d;
 			border-color: #343434;
-
+			background-image: url('../../img/tshirt-dashboard-button.png');
+			background-repeat: no-repeat;
+			background-position: center;
+			background-size: contain;
 		}
 	}
 	// Checklist
@@ -749,6 +752,7 @@
 		position: relative;
 		.heading {
 			position: relative;
+			margin-left: -15px;
 			h3 {
 				margin-top: 0;
 			}
@@ -756,39 +760,37 @@
 		.social-media {
 			list-style: none;
 			margin: 0;
+			margin-left: -15px;
 			padding: 0;
 			li {
 				float: left;
 				width: 25%;
 				padding-right: 10px;
 				&:last-child { padding-right: 0; }
+				a {
+					&.facebook { background-color: #3b5998;	}
+					&.twitter { background-color: #00aced;	}
+					&.linkedin { background-color: #0976b4;	}
+					&.google-plus { background-color: #c32f10;	}
+					&:hover, &:focus, &:active {
+						color: $white;
+					}
+				}
 			}
 		}
 		.url-group {
 			position: relative;
-			&.one {
-				input[type="text"],
-				textarea{
-					width: 77%;
+			&.one, &.two {
+				input[type="text"], textarea {
+					width: 70%;
 					float: left;
 					margin-right: 5px;
 				}
 				.btn {
-					width: 10%;
-					float: left;
-				}
-			}
-			&.two {
-				input[type="text"],
-				textarea {
-					width: 77%;
+					width: 13%;
 					float: left;
 					margin-right: 5px;
-				}
-				.btn {
-					width: 10%;
-					float: left;
-					margin-right: 5px;
+					padding: 8px;
 				}
 			}
 		}
@@ -801,6 +803,35 @@
 		}
 	}
 }
+.funnel-accordion {
+	.panel-heading {
+		padding: 0;
+		border: 1px solid #DDD;
+		position: relative;
+		@include border-radius(0);
+		&:before {
+			content: ' ';
+			height: 100%;
+			width: 5px;
+			background-color: $red;
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+		}
+		.panel-title > a {
+			display: block;
+			padding: 20px;
+			&:hover, &:focus, &:active {
+				text-decoration: none;
+				color: $red;
+			}
+		}
+	}
+	.panel-collapse > .panel-body {
+		border-top: none!important;
+	}
+}
 
 .total-count.funnel-stats {
 	border: 1px solid $lightgrey;
@@ -810,18 +841,16 @@
 	background-color: $smokey;
 }
 
-
-
 .stats-container {
     background-color: $white;
     padding: 15px;
     margin-bottom: 15px;
-			thead {
-    		background-color: $red;
-    		color: $white;
-    		font-size: 18px;
-			}
-		}
+	thead {
+		background-color: $red;
+		color: $white;
+		font-size: 18px;
+	}
+}
 
 
 
@@ -2315,6 +2344,7 @@ form {
   input.form-control {
     height: 55px;
     background-color: #efefef;
+    transition: border-color 1s ease;
   }
   p {
     font-size: 20px;
@@ -2330,6 +2360,10 @@ form {
     z-index:9999;
     color:white;
     display: none;
+  }
+  span.glyphicon {
+	top: 10px;
+	right: 10px;
   }
 }
 

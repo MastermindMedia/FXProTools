@@ -11,7 +11,7 @@
 		$counter = 1;
 		$recent_activity = get_user_meta( get_query_var('acc_id'), "track_user_history", true );
 
-		if( $recent_activity ){
+		if( isset( $recent_activity ) ){
 			$reverse = array_reverse($recent_activity, true);
 			$prev_url = "";
 			foreach($reverse as $act_data){

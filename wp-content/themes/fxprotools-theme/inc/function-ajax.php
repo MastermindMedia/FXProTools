@@ -144,16 +144,19 @@ function fx_renew_password() {
 		$current_user = wp_get_current_user();
 		//Sanitize received password
 		$password = sanitize_text_field( $_POST['new_password'] );
+		$confirm_password = sanitize_text_field( $_POST['confirm_password'] );
 
-		$userdata = array(
-			'ID'        => $current_user->ID,
-			'user_pass' => $password // Wordpress automatically applies the wp_hash_password() function to the user_pass field.
-		);
-		$user_id = wp_update_user( $userdata );
+		if($password == $confirm_password) {
+			$userdata = array(
+				'ID'        => $current_user->ID,
+				'user_pass' => $password // Wordpress automatically applies the wp_hash_password() function to the user_pass field.
+			);
+			$user_id = wp_update_user( $userdata );
 
-		if ( $user_id == $current_user->ID ) {
-			update_user_meta( $current_user->ID, '_imported_user_password_changed', 1 );
-			wp_send_json_success();
+			if ( $user_id == $current_user->ID ) {
+				update_user_meta( $current_user->ID, '_imported_user_password_changed', 1 );
+				wp_send_json_success();
+			}
 		}
 	}
 	wp_send_json_error();

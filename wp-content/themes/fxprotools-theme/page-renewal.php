@@ -20,12 +20,15 @@
 				$col_denom = ( $product_count >= 1 && $product_count <= 4 ) ? 12 / $product_count : 4;
 
 				foreach ( $product_ids as $product_name => $product_id ) :
+                    //get regular price variation
 					$product = wc_get_product( $product_id );
+                    $variation = wc_get_product( $product->get_children()[1] );
 
 					if ( isset( $product ) ) {
 						$product_name = $product->get_name();
 						$product_price = WC_Subscriptions_Product::get_sign_up_fee( $product );
-						$product_price = $product_price == 0 ? $product->get_regular_price() : $product_price;
+						$product_price = $product_price == 0 ? $variation->get_regular_price() : $product_price;
+                        $subscription_price = WC_Subscriptions_Product::get_price( $variation );
 						$attributes = $product->get_attribute( 'inclusions' );
 						$attribute_list = [];
 						if ( ! empty( $attributes ) ) {
@@ -42,7 +45,7 @@
                                     <h1 class="m-t-none"><?php echo $product_name; ?> Package</h1>
                                 </div>
                                 <div class="text-center">
-                                    <h2 class="m-b-md"><?php echo wc_price( $product_price ); ?> / month</h2>
+                                    <h2 class="m-b-md"><?php echo wc_price( $subscription_price ); ?> / month</h2>
 
 									<?php if ( ! empty( $attribute_list ) ) : ?>
                                         <ul class="list-checklist fa-ul m-t-md m-b-md text-left">

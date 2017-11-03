@@ -1,12 +1,20 @@
 <?php 
-$trial_end_date = get_trial_end_date();
-if( $trial_end_date ){
-	$trial_remaining_days = floor( (strtotime( $trial_end_date ) - time()) / (60 * 60 * 24));
+$subscription_details = get_user_subscription_details();
+$subscription = $subscription_details[0];
+foreach( $subscription_details as $detail){
+	if( strtolower( $detail['package_type'] ) == 'business' ){
+		$subscription = $detail;
+		break;
+	}
 }
+if( isset( $subscription_details['trial_expiry_date'] ) ){
+	$trial_remaining_days = floor( (strtotime( $subscription_details['trial_expiry_date'] ) - time()) / (60 * 60 * 24));
+}
+
 $market_scanner =  wcs_user_has_subscription( '', 47, 'active');
 $distributor_package =  wcs_user_has_subscription( '', 48, 'active');
 $auto_trader = wcs_user_has_subscription( '', 49, 'active');
-$coaching = wc_customer_bought_product( '', get_current_user_id(), 50);
+$coaching = wcs_user_has_subscription( '', 50, 'active');
 ?>
 <?php get_header(); ?>
 
@@ -32,12 +40,12 @@ $coaching = wc_customer_bought_product( '', get_current_user_id(), 50);
 						Your Membership Package
 					</div>
 					<div class="fx-board-content">
-						<p class="text-center">You are currently subscribed to the <strong>Customer Package</strong> at <strong>$140/Month</strong></p>
+						<p class="text-center">You are currently subscribed to the <strong><?php echo $subscription['package_type'];?> Package</strong> at <strong>$<?php echo $subscription['monthly_fee'];?>/Month</strong></p>
 						<ul class="list-status">
-							<li><label>Status</label> <span>Active</span></li>
-							<li><label>Start Date</label> <span>2 mins ago</span></li>
-							<li><label>Next Payment</label> <span>November 10, 2017</span></li>
-							<li><label>End Date</label> <span>December 10, 2018</span></li>
+							<li><label>Status</label> <span><?php echo ucfirst($subscription['status']);?></span></li>
+							<li><label>Start Date</label> <span><?php echo date('F d, Y', strtotime($subscription['start_date']) );?></span></li>
+							<li><label>Next Payment</label> <span><?php echo date('F d, Y', strtotime($subscription['next_payment_date']) );?></span></li>
+							<?php if( $subscription['trial_expiry_date'] ):?><li><label>Trial End</label> <span><?php echo date('F d, Y', strtotime($subscription['trial_expiry_date']) );?></span></li><?php endif;?>
 						</ul>
 					</div>
 					<p class="text-center small">Auto Renew is Enabled. To change this, go to Account Settings</p>

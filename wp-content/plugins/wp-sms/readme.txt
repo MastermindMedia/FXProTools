@@ -1,18 +1,18 @@
 === Wordpress SMS ===
 Contributors: mostafa.s1990
-Donate link: http://mostafa-soufi.ir/donate/
-Tags: sms, wordpress, send, subscribe, sms subscribe, message, register, notification, webservice, sms panel, woocommerce, subscribes sms, Easy Digital Downloads, twilio, bulksms, clockworksms, nexmo
+Donate link: http://wordpresssmsplugin.com/donate
+Tags: sms, wordpress, send, subscribe, message, register, notification, webservice, sms panel, woocommerce, subscribes-sms, EDD, twilio, bulksms, clockworksms, nexmo
 Requires at least: 3.0
 Tested up to: 4.8
-Stable tag: 4.0.12
+Stable tag: 4.0.14
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-A simple and powerful texting plugin for wordpress
+A powerful texting plugin for WordPress
 
 == Description ==
-You can add to wordpress, the ability of sending sms, member of sms newsletter and send to them sms.
-To every changement of position in wordpress, you can send a sms through this plugin.
+You can add to WordPress, the ability to send SMS, member of SMS newsletter and send the SMS.
+To every happening in WordPress, you can send an SMS through this plugin.
 
 The usage of this plugin is completely free. You have to just have an account from a service in the gateway list's that we support them.
 Don't worry, we have tried to add the best and the most gateways to plugin.
@@ -42,7 +42,7 @@ https://www.youtube.com/watch?v=50Sv5t6wTrQ
 = Professional Package =
 In the Professional pack added many features, most popular gateway and is integrated with another plugins.
 
-[Buy Professional Package](http://wordpresssmsplugin.com/purchases)
+[Buy Professional Package](http://wordpresssmsplugin.com/purchase/)
 
 
 = Translations =
@@ -119,7 +119,7 @@ when one stock product is load, the plugin can send SMS to admin for notify and 
 * Premium Support.
 
 = How to buy? =
-You can buy pro pack version [through this link](http://wordpresssmsplugin.com/purchases)
+You can buy pro pack version [through this link](http://wordpresssmsplugin.com/purchase/)
 
 = PHP 7 Support? =
 Yes! WP SMS is compatible with PHP 7 and 7.1
@@ -197,18 +197,17 @@ Add new subscribe to sms newsletter
 	POST /wpsms/v1/subscriber/add
 
 == Screenshots ==
-1. Settings Page.
-2. Gateway configuration.
-3. Features page.
-4. Notifications page.
-5. Integrations page.
-6. Send SMS Page.
-7. Outbox SMS Page.
-8. Subscribers Page.
-9. At a Glance.
-10. SMS Newsletter widget.
-11. Send post to subscribers.
-12. Contact Form 7 notifications.
+1. Gateway configuration.
+2. Features page.
+3. Notifications page.
+4. Integrations page.
+5. Send SMS Page.
+6. Outbox SMS Page.
+7. Subscribers Page.
+8. At a Glance.
+9. SMS Newsletter widget.
+10. Send post to subscribers.
+11. Contact Form 7 notifications.
 
 == Upgrade Notice ==
 = 4.0.0 =
@@ -225,6 +224,11 @@ In this version, we have made a lot of changes. We tried using the free version 
 * BACKUP YOUR DATABASE BEFORE INSTALLING!
 
 == Changelog ==
+= 4.0.14 =
+* Updated setting page styles.
+* Disabled gateway key field if not available in the current gateway.
+* Fixed issue in `text_callback` method on the options library. Used `isset` to skip undefined error.
+
 = 4.0.13 =
 * Added default variable for `sender_id` in the Gateway class.
 * Added textanywhere.net, abrestan.com and eshare.com Gateway.

@@ -14,6 +14,9 @@ if(!class_exists('ThemeSettings')){
 
 	class ThemeSettings {
 
+		const GUEST_ALLOWED_PAGES =  array( 'funnels', 'referred-members', 'wallet', 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'signals', 'autologin', 'log-out-notice','no-access', 'renewal', 'register' );
+		const USER_ALLOWED_PAGES = array ( 'my-account', 'inbox', 'compose', 'read', 'sent', 'trash' );
+
 		public function __construct()
 		{
 			add_action('wp_enqueue_scripts', array($this, 'enqueue_theme_assets'));
@@ -21,7 +24,7 @@ if(!class_exists('ThemeSettings')){
 
 		public function enqueue_theme_assets()
 		{
-			global $theme_version;
+			global $theme_version, $post;
 			// Disable loading of jquery on wordpress core
 			if(!is_admin()){
 				wp_deregister_script('jquery');
@@ -56,6 +59,17 @@ if(!class_exists('ThemeSettings')){
 				'login_url' => site_url( 'login' ),
 				'logout_url' => wp_logout_url()
 			));
+
+			// Page-specific Assets
+			if (!empty($post->post_name)) {
+				$post_name = $post->post_name;
+
+				switch ($post_name) {
+					case 'password-checkpoint':
+						wp_enqueue_script('script-pwstrength', get_stylesheet_directory_uri().'/vendors/jquery.pwstrength.bootstrap-2.1.3/pwstrength-bootstrap.min.js', array(), $theme_version, true);
+						break;
+				}
+			}
 		}
 	}
 }

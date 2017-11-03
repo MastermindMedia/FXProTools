@@ -235,7 +235,8 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 $popup_type = '';
 
 foreach( WC()->cart->get_cart() as $cart_item ){
-	if( isset( $cart_item ['variation'] ) ){
+	$popup_type = 'default';
+	if( isset( $cart_item ['variation']['attribute_subscription-type'] ) ){
 		if($cart_item['variation']['attribute_subscription-type'] == 'normal'){
 			$popup_type = 'normal';
 			$trial_product_link = get_permalink($cart_item['product_id']) . '?attribute_subscription-type=trial';
