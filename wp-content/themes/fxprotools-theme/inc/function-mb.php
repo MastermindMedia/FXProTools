@@ -22,7 +22,9 @@ if(!class_exists('SettingsMB')){
                 'mb_products',
                 'mb_capture_page',
                 'mb_webinar',
-                'mb_page_template_options',
+                'mb_page_template_options_1',
+                // 'mb_page_template_options_2',
+                // 'mb_page_template_options_3',
                 'mb_emails'
             );
             if($metaboxes) {
@@ -198,8 +200,8 @@ if(!class_exists('SettingsMB')){
             return $meta_boxes;
         }
 
-        // MB - Page Template Options
-        public function mb_page_template_options($meta_boxes)
+        // MB - Page Template Options #1 with 2 video url
+        public function mb_page_template_options_1($meta_boxes)
         {
             $prefix = 'pto1_';
             $meta_boxes[] = array(
@@ -304,9 +306,23 @@ if(!class_exists('SettingsMB')){
                         'placeholder'	=> 'Default',
                         'tab'           => $prefix . 'menu',
                     ),
+                    // array(
+                    //     'name'          => 'Video URL',
+                    //     'id'            => $prefix . 'video_url',
+                    //     'type'          => 'text',
+                    //     'placeholder'   => '',
+                    //     'tab'           => $prefix . 'video',
+                    // ),
                     array(
-                        'name'          => 'Video URL',
-                        'id'            => $prefix . 'video_url',
+                        'name'          => 'Video URL <sup style="color:#0073AA;">customer</sup>',
+                        'id'            => $prefix . 'video_url_customer',
+                        'type'          => 'text',
+                        'placeholder'   => '',
+                        'tab'           => $prefix . 'video',
+                    ),
+                    array(
+                        'name'          => 'Video URL <sup style="color:#0073AA;">distributor</sup>',
+                        'id'            => $prefix . 'video_url_distributor',
                         'type'          => 'text',
                         'placeholder'   => '',
                         'tab'           => $prefix . 'video',
@@ -355,6 +371,322 @@ if(!class_exists('SettingsMB')){
             );
             return $meta_boxes;
         }
+
+        // // MB - Page Template Options #2 with 1 video url
+        // public function mb_page_template_options_2($meta_boxes)
+        // {
+        //     $prefix = 'pto2_';
+        //     $meta_boxes[] = array(
+        //         'id'         => 'page_template_options_2',
+        //         'title'      => 'Page Template Options',
+        //         'post_types' => array( 'post', 'page', 'sfwd-courses', 'sfwd-lessons' ),
+        //         'context'    => 'advanced',
+        //         'priority'   => 'high',
+        //         'autosave'   => false,
+        //         // 'include' => array(
+        //         // 	'relation'	=> 'OR',
+        //         // 	'ID'		=> '', //array( 2560, 2578, 2598, 2550 )
+        //         // 	'parent'	=> '',
+        //         // 	'slug'		=> '',
+        //         // ),
+        //         'tabs'      => array(
+        //             $prefix . 'page'    => __( 'Page', 'rwmb' ),
+        //             $prefix . 'video'   => __( 'Video', 'rwmb' ),
+        //             $prefix . 'menu'    => __( 'Menu', 'rwmb' ),
+        //         ),
+        //         'tab_style'		=> 'left',
+        //         'tab_wrapper'	=> true,
+        //         'fields' 	=> array(
+        //             array(
+        //                 'name' 		=> 'Display Main Header Menu',
+        //                 'id' 		=> $prefix . 'display_main_header_menu',
+        //                 'type' 		=> 'select',
+        //                 'desc'		=> 'Choose to show or hide the header',
+        //                 'placeholder'	=> 'Default',
+        //                 'options'	=> array(
+        //                     'yes'		=> 'Yes',
+        //                     'no'		=> 'No',
+        //                 ),
+        //                 'tab'           => $prefix . 'menu',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Main Header Menu',
+        //                 'id' 			=> $prefix . 'main_header_menu',
+        //                 'type' 			=> 'taxonomy_advanced',
+        //                 'taxonomy'		=> array('nav_menu'),
+        //                 'field_type'	=> 'select',
+        //                 'placeholder'	=> 'Default',
+        //                 'tab'           => $prefix . 'menu',
+        //             ),
+        //             array(
+        //                 'name' 		=> 'Display Secondary Header Menu',
+        //                 'id' 		=> $prefix . 'display_header_menu',
+        //                 'type' 		=> 'select',
+        //                 'desc'		=> 'Choose to show or hide the header',
+        //                 'placeholder'	=> 'Default',
+        //                 'options'	=> array(
+        //                     'yes'		=> 'Yes',
+        //                     'no'		=> 'No',
+        //                 ),
+        //                 'tab'           => $prefix . 'menu',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Secondary Header Menu',
+        //                 'id' 			=> $prefix . 'secondary_header_menu',
+        //                 'type' 			=> 'taxonomy_advanced',
+        //                 'taxonomy'		=> array('nav_menu'),
+        //                 'field_type'	=> 'select',
+        //                 'placeholder'	=> 'Default',
+        //                 'tab'           => $prefix . 'menu',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Display Footer Menu',
+        //                 'id' 			=> $prefix . 'display_footer_menu',
+        //                 'type' 			=> 'select',
+        //                 'desc'			=> 'Choose to show or hide the header',
+        //                 'placeholder'	=> 'Default',
+        //                 'options'		=> array(
+        //                     'yes'		=> 'Yes',
+        //                     'no'		=> 'No',
+        //                 ),
+        //                 'tab'           => $prefix . 'menu',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Footer Menu ( Far Left )',
+        //                 'id' 			=> $prefix . 'footer_menu_fl',
+        //                 'type' 			=> 'taxonomy_advanced',
+        //                 'taxonomy'		=> array('nav_menu'),
+        //                 'field_type'	=> 'select',
+        //                 'placeholder'	=> 'Default',
+        //                 'tab'           => $prefix . 'menu',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Footer Menu ( Middle )',
+        //                 'id' 			=> $prefix . 'footer_menu_mid',
+        //                 'type' 			=> 'taxonomy_advanced',
+        //                 'taxonomy'		=> array('nav_menu'),
+        //                 'field_type'	=> 'select',
+        //                 'placeholder'	=> 'Default',
+        //                 'tab'           => $prefix . 'menu',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Footer Menu ( Far Right )',
+        //                 'id' 			=> $prefix . 'footer_menu_fr',
+        //                 'type' 			=> 'taxonomy_advanced',
+        //                 'taxonomy'		=> array('nav_menu'),
+        //                 'field_type'	=> 'select',
+        //                 'placeholder'	=> 'Default',
+        //                 'tab'           => $prefix . 'menu',
+        //             ),
+        //             array(
+        //                 'name'          => 'Video URL',
+        //                 'id'            => $prefix . 'video_url',
+        //                 'type'          => 'text',
+        //                 'placeholder'   => '',
+        //                 'tab'           => $prefix . 'video',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Autostart Video',
+        //                 'id' 			=> $prefix . 'video_autostart',
+        //                 'type' 			=> 'checkbox_list',
+        //                 'placeholder'	=> '',
+        //                 'options'		=> array(
+        //                     'yes'		=> '',
+        //                 ),
+        //                 'tab'           => $prefix . 'video',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Show Video Controls',
+        //                 'id' 			=> $prefix . 'video_show_controls',
+        //                 'type' 			=> 'checkbox_list',
+        //                 'placeholder'	=> '',
+        //                 'options'		=> array(
+        //                     'yes'		=> '',
+        //                 ),
+        //                 'tab'           => $prefix . 'video',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Scrolling Video',
+        //                 'id' 			=> $prefix . 'video_scrolling',
+        //                 'type' 			=> 'checkbox_list',
+        //                 'placeholder'	=> '',
+        //                 'options'		=> array(
+        //                     'yes'		=> '',
+        //                 ),
+        //                 'tab'           => $prefix . 'video',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Floating Video',
+        //                 'id' 			=> $prefix . 'video_floating',
+        //                 'type' 			=> 'checkbox_list',
+        //                 'placeholder'	=> '',
+        //                 'options'		=> array(
+        //                     'yes'		=> '',
+        //                 ),
+        //                 'tab'           => $prefix . 'video',
+        //             ),
+        //         ),
+        //     );
+        //     return $meta_boxes;
+        // }
+
+        // // MB - Page Template Options #3 without video tab
+        // public function mb_page_template_options_3($meta_boxes)
+        // {
+        //     $prefix = 'pto3_';
+        //     $meta_boxes[] = array(
+        //         'id'         => 'page_template_options_3',
+        //         'title'      => 'Page Template Options',
+        //         'post_types' => array( 'post', 'page', 'sfwd-courses', 'sfwd-lessons' ),
+        //         'context'    => 'advanced',
+        //         'priority'   => 'high',
+        //         'autosave'   => false,
+        //         // 'include' => array(
+        //         // 	'relation'	=> 'OR',
+        //         // 	'ID'		=> '', //array( 2560, 2578, 2598, 2550 )
+        //         // 	'parent'	=> '',
+        //         // 	'slug'		=> '',
+        //         // ),
+        //         'tabs'      => array(
+        //             $prefix . 'page'    => __( 'Page', 'rwmb' ),
+        //             $prefix . 'video'   => __( 'Video', 'rwmb' ),
+        //             $prefix . 'menu'    => __( 'Menu', 'rwmb' ),
+        //         ),
+        //         'tab_style'		=> 'left',
+        //         'tab_wrapper'	=> true,
+        //         'fields' 	=> array(
+        //             array(
+        //                 'name' 		=> 'Display Main Header Menu',
+        //                 'id' 		=> $prefix . 'display_main_header_menu',
+        //                 'type' 		=> 'select',
+        //                 'desc'		=> 'Choose to show or hide the header',
+        //                 'placeholder'	=> 'Default',
+        //                 'options'	=> array(
+        //                     'yes'		=> 'Yes',
+        //                     'no'		=> 'No',
+        //                 ),
+        //                 'tab'           => $prefix . 'menu',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Main Header Menu',
+        //                 'id' 			=> $prefix . 'main_header_menu',
+        //                 'type' 			=> 'taxonomy_advanced',
+        //                 'taxonomy'		=> array('nav_menu'),
+        //                 'field_type'	=> 'select',
+        //                 'placeholder'	=> 'Default',
+        //                 'tab'           => $prefix . 'menu',
+        //             ),
+        //             array(
+        //                 'name' 		=> 'Display Secondary Header Menu',
+        //                 'id' 		=> $prefix . 'display_header_menu',
+        //                 'type' 		=> 'select',
+        //                 'desc'		=> 'Choose to show or hide the header',
+        //                 'placeholder'	=> 'Default',
+        //                 'options'	=> array(
+        //                     'yes'		=> 'Yes',
+        //                     'no'		=> 'No',
+        //                 ),
+        //                 'tab'           => $prefix . 'menu',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Secondary Header Menu',
+        //                 'id' 			=> $prefix . 'secondary_header_menu',
+        //                 'type' 			=> 'taxonomy_advanced',
+        //                 'taxonomy'		=> array('nav_menu'),
+        //                 'field_type'	=> 'select',
+        //                 'placeholder'	=> 'Default',
+        //                 'tab'           => $prefix . 'menu',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Display Footer Menu',
+        //                 'id' 			=> $prefix . 'display_footer_menu',
+        //                 'type' 			=> 'select',
+        //                 'desc'			=> 'Choose to show or hide the header',
+        //                 'placeholder'	=> 'Default',
+        //                 'options'		=> array(
+        //                     'yes'		=> 'Yes',
+        //                     'no'		=> 'No',
+        //                 ),
+        //                 'tab'           => $prefix . 'menu',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Footer Menu ( Far Left )',
+        //                 'id' 			=> $prefix . 'footer_menu_fl',
+        //                 'type' 			=> 'taxonomy_advanced',
+        //                 'taxonomy'		=> array('nav_menu'),
+        //                 'field_type'	=> 'select',
+        //                 'placeholder'	=> 'Default',
+        //                 'tab'           => $prefix . 'menu',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Footer Menu ( Middle )',
+        //                 'id' 			=> $prefix . 'footer_menu_mid',
+        //                 'type' 			=> 'taxonomy_advanced',
+        //                 'taxonomy'		=> array('nav_menu'),
+        //                 'field_type'	=> 'select',
+        //                 'placeholder'	=> 'Default',
+        //                 'tab'           => $prefix . 'menu',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Footer Menu ( Far Right )',
+        //                 'id' 			=> $prefix . 'footer_menu_fr',
+        //                 'type' 			=> 'taxonomy_advanced',
+        //                 'taxonomy'		=> array('nav_menu'),
+        //                 'field_type'	=> 'select',
+        //                 'placeholder'	=> 'Default',
+        //                 'tab'           => $prefix . 'menu',
+        //             ),
+        //             array(
+        //                 'name'          => 'Video URL',
+        //                 'id'            => $prefix . 'video_url',
+        //                 'type'          => 'text',
+        //                 'placeholder'   => '',
+        //                 'tab'           => $prefix . 'video',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Autostart Video',
+        //                 'id' 			=> $prefix . 'video_autostart',
+        //                 'type' 			=> 'checkbox_list',
+        //                 'placeholder'	=> '',
+        //                 'options'		=> array(
+        //                     'yes'		=> '',
+        //                 ),
+        //                 'tab'           => $prefix . 'video',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Show Video Controls',
+        //                 'id' 			=> $prefix . 'video_show_controls',
+        //                 'type' 			=> 'checkbox_list',
+        //                 'placeholder'	=> '',
+        //                 'options'		=> array(
+        //                     'yes'		=> '',
+        //                 ),
+        //                 'tab'           => $prefix . 'video',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Scrolling Video',
+        //                 'id' 			=> $prefix . 'video_scrolling',
+        //                 'type' 			=> 'checkbox_list',
+        //                 'placeholder'	=> '',
+        //                 'options'		=> array(
+        //                     'yes'		=> '',
+        //                 ),
+        //                 'tab'           => $prefix . 'video',
+        //             ),
+        //             array(
+        //                 'name' 			=> 'Floating Video',
+        //                 'id' 			=> $prefix . 'video_floating',
+        //                 'type' 			=> 'checkbox_list',
+        //                 'placeholder'	=> '',
+        //                 'options'		=> array(
+        //                     'yes'		=> '',
+        //                 ),
+        //                 'tab'           => $prefix . 'video',
+        //             ),
+        //         ),
+        //     );
+        //     return $meta_boxes;
+        // }
 
         // MB - Email
         public function mb_emails($meta_boxes)

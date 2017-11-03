@@ -46,27 +46,27 @@ class Apyc_Woo_CoachingTemplate{
 		return self::$instance;
 	}
 	
-	public function get_woogotowebinar_scheduling_window_num($post_id){
+	public function getWoogotowebinarSchedulingWindowNum($post_id){
 		return get_post_meta($post_id, '_woogotowebinar_scheduling_window_num', true);
 	}
 	
-	public function get_woogotowebinar_scheduling_window_date($post_id){
+	public function getWoogotowebinarSchedulingWindowDate($post_id){
 		return get_post_meta($post_id, '_woogotowebinar_scheduling_window_date', true);
 	}
 	
-	public function get_woogotowebinar_range_time_from($post_id){
+	public function getWoogotowebinarRangeTimeFrom($post_id){
 		return get_post_meta($post_id, '_woogotowebinar_range_time_from', true);
 	}
-	
-	public function get_woogotowebinar_range_time_from_meridiem($post_id){
+
+	public function getWoogotowebinarRangeTimeFromMeridiem($post_id){
 		return get_post_meta($post_id, '_woogotowebinar_range_time_from_meridiem', true);
 	}
-	
-	public function get_woogotowebinar_range_time_to($post_id){
+
+	public function getWoogotowebinarRangeTimeTo($post_id){
 		return get_post_meta($post_id, '_woogotowebinar_range_time_to', true);
 	}
-	
-	public function get_woogotowebinar_range_time_to_meridiem($post_id){
+
+	public function getWoogotowebinarRangeTimeToMeridiem($post_id){
 		return get_post_meta($post_id, '_woogotowebinar_range_time_to_meridiem', true);
 	}
 	
@@ -77,14 +77,14 @@ class Apyc_Woo_CoachingTemplate{
 			$product_id = $product->get_id();
 			$data['product'] = $product;
 			$data['post'] = $post;
-			$data['get_woogotowebinar_scheduling_window_num'] = $this->get_woogotowebinar_scheduling_window_num($product_id);
-			$data['get_woogotowebinar_scheduling_window_date'] = $this->get_woogotowebinar_scheduling_window_date($product_id);
+			$data['get_woogotowebinar_scheduling_window_num'] = $this->getWoogotowebinarSchedulingWindowNum($product_id);
+			$data['get_woogotowebinar_scheduling_window_date'] = $this->getWoogotowebinarSchedulingWindowDate($product_id);
 			Apyc_View::get_instance()->view_theme(TEMPLATE_PATH . 'coaching/woo/datepicker.php', $data);
 		}
 	}
 	
 	public function enqueue_scripts(){
-		global $theme_version, $woocommerce, $post, $product;
+		global $theme_version, $woocommerce, $post;
 
 		wp_enqueue_style( 'jquery-ui-theme', 'http://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css' );
 		wp_enqueue_script( 'jquery-ui-datepicker' );
@@ -94,12 +94,12 @@ class Apyc_Woo_CoachingTemplate{
 			$product_id = get_the_ID();
 			$wc_get_prod = wc_get_product($product_id);
 			if( $wc_get_prod->get_type() == 'apyc_woo_gotowebinar_appointment' ){
-				$get_woogotowebinar_scheduling_window_num = $this->get_woogotowebinar_scheduling_window_num($product_id);
-				$get_woogotowebinar_scheduling_window_date = $this->get_woogotowebinar_scheduling_window_date($product_id);
-				$get_woogotowebinar_range_time_from = $this->get_woogotowebinar_range_time_from($product_id);
-				$get_woogotowebinar_range_time_from_meridiem = $this->get_woogotowebinar_range_time_from_meridiem($product_id);
-				$get_woogotowebinar_range_time_to = $this->get_woogotowebinar_range_time_to($product_id);
-				$get_woogotowebinar_range_time_to_meridiem = $this->get_woogotowebinar_range_time_to_meridiem($product_id);
+				$get_woogotowebinar_scheduling_window_num = $this->getWoogotowebinarSchedulingWindowNum($product_id);
+				$get_woogotowebinar_scheduling_window_date = $this->getWoogotowebinarSchedulingWindowDate($product_id);
+				$get_woogotowebinar_range_time_from = $this->getWoogotowebinarRangeTimeFrom($product_id);
+				$get_woogotowebinar_range_time_from_meridiem = $this->getWoogotowebinarRangeTimeFromMeridiem($product_id);
+				$get_woogotowebinar_range_time_to = $this->getWoogotowebinarRangeTimeTo($product_id);
+				$get_woogotowebinar_range_time_to_meridiem = $this->getWoogotowebinarRangeTimeToMeridiem($product_id);
 				
 				$product_meta_array = array(
 					'product_id' => $product_id,
@@ -138,14 +138,136 @@ class Apyc_Woo_CoachingTemplate{
 	}
 	
 	public function webinar_add_to_cart() {
-		wc_get_template( 'single-product/add-to-cart/simple.php' );
+		wc_get_template( 'single-product/add-to-cart/webinar-simple.php' );
 	}
 	
+	public function add_to_cart_input() {
+		//wc_get_template( 'single-product/add-to-cart/simple.php' );
+		$data = array();
+		Apyc_View::get_instance()->view_theme(TEMPLATE_PATH . 'coaching/woo/after-add-to-cart-button.php', $data);
+	}
+	 /*
+	 * Add custom data to the cart item
+	 * @param array $cart_item
+	 * @param int $product_id
+	 * @return array
+	 */
+	public function add_cart_item_data($cart_item_data, $product_id, $variation_id){
+		
+		$wc_get_prod = wc_get_product($product_id);
+		if( $wc_get_prod->get_type() == 'apyc_woo_gotowebinar_appointment' ){
+			$cart_item_data['selected_date'] = '';
+			if( isset( $_POST['selected_date'] ) ) {
+				$cart_item_data['selected_date'] = sanitize_text_field( $_POST['selected_date'] );
+			}
+			$cart_item_data['selected_month'] = '';
+			if( isset( $_POST['selected_month'] ) ) {
+				$cart_item_data['selected_month'] = sanitize_text_field( $_POST['selected_month'] );
+			}
+			$cart_item_data['selected_year'] = '';
+			if( isset( $_POST['selected_year'] ) ) {
+				$cart_item_data['selected_year'] = sanitize_text_field( $_POST['selected_year'] );
+			}
+			$cart_item_data['selected_time'] = '';
+			if( isset( $_POST['selected_time'] ) ) {
+				$cart_item_data['selected_time'] = sanitize_text_field( $_POST['selected_time'] );
+			}
+			/*$date = date("F d, Y", strtotime($cart_item_data['selected_year'].'-'.$cart_item_data['selected_month'] .'-'.$cart_item_data['selected_date']));
+			echo $date;
+			exit();*/
+		}
+		
+		return $cart_item_data;
+	}
+	/*
+	 * Get item data to display in cart
+	 * @param array $other_data
+	 * @param array $cart_item
+	 * @return array
+	 */
+	public function get_item_data_meta( $other_data, $cart_item ){
+		if ( isset( $cart_item['selected_date'] ) ){
+			$selected_date = sanitize_text_field( $cart_item['selected_date'] );
+			$selected_month = sanitize_text_field( $cart_item['selected_month'] );
+			$selected_year = sanitize_text_field( $cart_item['selected_year'] );
+			$selected_time = sanitize_text_field( $cart_item['selected_time'] );
+			$date = date("F d, Y", strtotime($selected_year.'-'.$selected_month.'-'.$selected_date));
+			$other_data[] = array(
+				'name' => __( 'Date', 'woocommerce' ),
+				'value' => $date
+			);
+			$other_data[] = array(
+				'name' => __( 'Time', 'woocommerce' ),
+				'value' => $selected_time
+			);
+
+		}
+
+		return $other_data;
+	}
+	/**
+	 * Add meta to order.
+	 *
+	 * @param WC_Order_Item_Product $item
+	 * @param string                $cart_item_key
+	 * @param array                 $values
+	 * @param WC_Order              $order
+	 */
+	public function add_webinar_date_order_line_item( $item, $cart_item_key, $values, $order ) {
+		if ( !empty( $values['selected_date'] ) ) {
+			$selected_date = sanitize_text_field( $values['selected_date'] );
+			$selected_month = sanitize_text_field( $values['selected_month'] );
+			$selected_year = sanitize_text_field( $values['selected_year'] );
+			$date = date("F d, Y", strtotime($selected_year.'-'.$selected_month.'-'.$selected_date));
+			$item->add_meta_data( __( 'Date', 'woocommerce' ), $date );
+		}
+		if ( !empty( $values['selected_time'] ) ) {
+			$selected_time = sanitize_text_field( $values['selected_time'] );
+			$item->add_meta_data( __( 'Time', 'woocommerce' ), $selected_time );
+		}
+	}
+	public function is_purchasable($is_purchasable, $product) {
+        //return ($product->id == whatever_mambo_jambo_id_you_want ? false : $is_purchasable);
+		//dd($product->get_type());
+		if( !is_product() && $product->get_type() == 'apyc_woo_gotowebinar_appointment' ){
+			return false;
+		}
+		return $is_purchasable;
+	}
+
+	public function conditionally_replacing_add_to_cart_button( $button, $product  ) {
+
+		$product_type = $product->get_type();
+		// For 'liners' product category
+		if( $product_type == 'apyc_woo_gotowebinar_appointment' ){
+			$button_text = __("Book Now", "woocommerce");
+			$button = '<a class="button" href="' . $product->get_permalink() . '">' . $button_text . '</a>';
+		}
+		return $button;
+	}
+	public function custom_woocommerce_email_order_meta_fields( $fields, $sent_to_admin, $order ) {
+		$fields['meta_key'] = array(
+			'label' => __( 'Webinar Appointment Date' ),
+			'value' => get_post_meta( $order->id, 'Date', true ),
+		);
+		$fields['meta_key'] = array(
+			'label' => __( 'Webinar Appointment Time' ),
+			'value' => get_post_meta( $order->id, 'Time', true ),
+		);
+		return $fields;
+	}
 	public function __construct() {
 		add_action('woocommerce_before_add_to_cart_form', array($this,'action_woocommerce_before_add_to_cart_button'), 10, 0 ); 
 		add_action('woocommerce_apyc_woo_gotowebinar_appointment_add_to_cart', array($this, 'webinar_add_to_cart'));
 		add_action('wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-		add_action( 'wp_ajax_get_timerange_woowebinar', array($this, 'get_timerange_woowebinar') );
-		add_action( 'wp_ajax_nopriv_get_timerange_woowebinar', array($this, 'get_timerange_woowebinar') );
+		add_action('wp_ajax_get_timerange_woowebinar', array($this, 'get_timerange_woowebinar') );
+		add_action('wp_ajax_nopriv_get_timerange_woowebinar', array($this, 'get_timerange_woowebinar') );
+		add_filter('woocommerce_add_cart_item_data', array($this, 'add_cart_item_data'), 10, 3 );
+		add_filter('woocommerce_after_add_to_cart_button', array($this, 'add_to_cart_input'));
+		add_filter('woocommerce_get_item_data', array($this, 'get_item_data_meta'), 10, 2 );
+		add_action('woocommerce_checkout_create_order_line_item', array($this, 'add_webinar_date_order_line_item'), 10, 4 );
+		//add_filter('woocommerce_is_purchasable', array($this,'is_purchasable'), 10, 2);
+		add_filter('woocommerce_loop_add_to_cart_link', array($this,'conditionally_replacing_add_to_cart_button'), 10, 2 );
+		add_filter('woocommerce_email_order_meta_fields', array($this, 'custom_woocommerce_email_order_meta_fields'), 10, 3 );
 	}
 }

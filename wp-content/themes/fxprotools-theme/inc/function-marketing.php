@@ -270,3 +270,40 @@ function get_user_active_referrals($user_id = 0)
 
 	return $affiliate_referrals;
 }
+
+function get_admin_contacts($affiliate_ids)
+{
+	$referral_loop_count = 0;
+	$contacts = array();
+	foreach($affiliate_ids as $affiliate_id){
+		$contacts[$referral_loop_count]['id'] = $affiliate_id;
+		$contacts[$referral_loop_count]['username'] = get_the_author_meta('user_login', $affiliate_id);
+		$contacts[$referral_loop_count]['fname'] = get_the_author_meta('first_name', $affiliate_id);
+		$contacts[$referral_loop_count]['lname'] = get_the_author_meta('last_name', $affiliate_id);
+		$contacts[$referral_loop_count]['email'] = get_the_author_meta('email', $affiliate_id);
+		$contacts[$referral_loop_count]['date'] = random_checkout_time_elapsed(get_the_author_meta('user_registered',$affiliate_id,false));
+		$contacts[$referral_loop_count]['avatar'] = get_avatar($affiliate_id);
+		$referral_loop_count++;
+	}
+
+	return $contacts;
+}
+
+function get_user_contacts($referrals)
+{
+	$referral_loop_count = 0;
+	$contacts = array();
+	foreach($referrals as $referral){
+		$order = wc_get_order( $referral->reference );
+		$contacts[$referral_loop_count]['id'] = $order->get_user_id();
+		$contacts[$referral_loop_count]['username'] = get_the_author_meta('user_login', $order->get_user_id());
+		$contacts[$referral_loop_count]['fname'] = get_the_author_meta('first_name', $order->get_user_id());
+		$contacts[$referral_loop_count]['lname'] = get_the_author_meta('last_name', $order->get_user_id());
+		$contacts[$referral_loop_count]['email'] = get_the_author_meta('email', $order->get_user_id());
+		$contacts[$referral_loop_count]['date'] = random_checkout_time_elapsed($order->get_date_paid());
+		$contacts[$referral_loop_count]['avatar'] = get_avatar($order->get_user_id());
+		$referral_loop_count++;
+	}
+
+	return $contacts;
+}

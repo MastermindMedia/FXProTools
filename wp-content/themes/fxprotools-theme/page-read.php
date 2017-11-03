@@ -29,12 +29,11 @@ function email_content() {
 	$sendgrid = new FX_Sendgrid_Api();
 	$stats = array();
 	
-	
-	if (get_post_meta($email->ID, '_user_' . get_current_user_id() . '_state')[0] == 'unread') {
-		update_post_meta($email->ID, '_user_' . get_current_user_id() . '_state', 'read');
-	}
-	
 	if (get_post_meta($email->ID, '_user_' . get_current_user_id() . '_state')) {
+		if (get_post_meta($email->ID, '_user_' . get_current_user_id() . '_state')[0] == 'unread') {
+			update_post_meta($email->ID, '_user_' . get_current_user_id() . '_state', 'read');
+		}
+		
 		update_post_meta($email->ID, '_user_' . get_current_user_id() . '_opened', true);
 	}
 	
@@ -73,7 +72,7 @@ function email_content() {
 				<?php echo get_post_meta( $email->ID, 'email_content' )[0]; ?>
 			</div>
 			<?php
-			$list = get_post_meta($email->ID, 'email_list')[0];
+			$list = get_post_meta($email->ID, 'email_list') ? get_post_meta($email->ID, 'email_list')[0] : null;
 			
 			if ($list) {
 			?>

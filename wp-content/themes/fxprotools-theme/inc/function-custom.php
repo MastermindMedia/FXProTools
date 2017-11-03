@@ -11,7 +11,7 @@ define('SKIP_PASSWORD_CHECKPOINT', false);
 function get_user_checklist()
 {
     $checklist = get_user_meta(get_current_user_id(), '_onboard_checklist', true);
-    return is_array($checklist) ? $checklist : ThemeSettings::register_user_checklist(get_current_user_id());
+    return is_array($checklist) ? $checklist : register_user_checklist(get_current_user_id());
 }
 
 function get_checklist_next_step_url()
@@ -145,8 +145,7 @@ function enforce_page_access()
     global $post;
     if( !isset($post) ) return;
     $slug = $post->post_name;
-    $guest_allowed_post_type = array( 'product' );
-    $guest_allowed_pages = array( 'login', 'forgot-password', 'verify-email', 'f1', 'f2', 'f3', 'f4', 'lp1', 'lp2', 'lp3', 'lp4', 'signals', 'autologin', 'log-out-notice' );
+    $guest_allowed_pages = ThemeSettings::GUEST_ALLOWED_PAGES;
 
     if( is_user_logged_in() ) {
 	    // only allow 'password-checkpoint' to be accessed by imported users that hasn't updated their password yet
@@ -167,14 +166,18 @@ function enforce_page_access()
     }
     if( !is_product() && !is_cart() && !is_checkout() && !is_shop() && !is_404() && !is_front_page() ) {
         if( !in_array($slug, $guest_allowed_pages) ){
-            wp_redirect( home_url() . '/login');
-            exit;
+	        $args = [ 'redirect_to' => $slug ];
+	        wp_redirect( home_url() . '/login/?' . http_build_query( $args ) );
+	        exit;
         }
     }
 }
 
 add_filter('login_redirect', 'customer_login_redirect');
 function customer_login_redirect( $redirect_to, $request = '', $user = '' ){
+	if ( ! empty( $_POST['redirect_to'] ) ) {
+		return home_url( $_POST['redirect_to'] );
+	}
     return home_url('dashboard');
 }
 
@@ -357,41 +360,48 @@ add_action('init','sess_start');
 
 /**
  * Use to render metabox page template option #1
- * @param  string $mb_group_id metabox group id
+ * @param  string $page_element
  */
-function get_mb_pto1( $page_element ) {
+
+ // TODO: change the function name to get_mb_pto later on
+function get_mb_pto1( $page_element, $pto = 'pto1' ) {
     switch ( $page_element ) {
         case 'main_header_menu':
-            return mb_menu_display( rwmb_meta('pto1_display_main_header_menu'), rwmb_meta('pto1_main_header_menu'), 'fx-nav-options', new Nav_Main_Header_Menu_Walker(), 'Main Header Menu' );
+            return mb_menu_display( rwmb_meta( $pto . '_display_main_header_menu'), rwmb_meta( $pto . '_main_header_menu'), 'fx-nav-options', new Nav_Main_Header_Menu_Walker(), 'Main Header Menu', '' );
             break;
         case 'secondary_header_menu':
-            return mb_menu_display( rwmb_meta('pto1_display_header_menu'), rwmb_meta('pto1_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu' );
+            return mb_menu_display( rwmb_meta( $pto . '_display_header_menu'), rwmb_meta( $pto . '_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
             break;
         case 'footer_left_menu':
-            return mb_menu_display( rwmb_meta('pto1_display_footer_menu'), rwmb_meta('pto1_footer_menu_fl'), 'footer-nav', '', 'Footer Menu 1' );
+            return mb_menu_display( rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_fl'), 'footer-nav', '', 'Footer Menu 1', '' );
             break;
         case 'footer_middle_menu':
-            return mb_menu_display( rwmb_meta('pto1_display_footer_menu'), rwmb_meta('pto1_footer_menu_mid'), 'footer-nav', '', 'Footer Menu 2' );
+            return mb_menu_display( rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_mid'), 'footer-nav', '', 'Footer Menu 2', '' );
             break;
         case 'footer_right_menu':
-            return mb_menu_display( rwmb_meta('pto1_display_footer_menu'), rwmb_meta('pto1_footer_menu_fr'), 'footer-nav', '', 'Footer Menu 3' );
+            return mb_menu_display( rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_fr'), 'footer-nav', '', 'Footer Menu 3', 'with-log-inout' );
             break;
         case 'video_embed':
-            $video_url              = rwmb_meta('pto1_video_url');
-            $video_autostart        = rwmb_meta('pto1_video_autostart');
-            $video_show_controls    = rwmb_meta('pto1_video_show_controls');
-            $scroll_class   = "";
-            $scroll_url     = "";
-            $float_class    = "";
+            // pto1 and pto2 only has support for video tab
+            if ( $pto == 'pto1' ) :
+                $video_url              = is_user_fx_customer() ? rwmb_meta( $pto . '_video_url_customer') : rwmb_meta( $pto . '_video_url_distributor') ;
+            elseif ( $pto == 'pto2' ) :
+                $video_url = rwmb_meta( $pto . '_video_url');
+            endif;
+            $video_autostart        = rwmb_meta( $pto . '_video_autostart');
+            $video_show_controls    = rwmb_meta( $pto . '_video_show_controls');
+            $scroll_class           = "";
+            $scroll_url             = "";
+            $float_class            = "";
 
-            if( count( is_mb_video_scroll() ) > 0 ){
-                $arr_scroll = is_mb_video_scroll();
+            if( count( is_mb_video_scroll( $pto ) ) > 0 ){
+                $arr_scroll = is_mb_video_scroll( $pto );
                 $scroll_class   = ( !empty( rtrim($arr_scroll[0]) ) ) ? $arr_scroll[0] : '';
                 $scroll_url     = ( !empty( rtrim($arr_scroll[1]) ) ) ? $arr_scroll[1] : '';
             }
 
-            if( count( is_mb_video_float() ) > 0 ){
-                $arr_float = is_mb_video_float();
+            if( count( is_mb_video_float( $pto ) ) > 0 ){
+                $arr_float = is_mb_video_float( $pto );
                 $float_class    = $arr_float[0];
             }
 
@@ -408,24 +418,20 @@ function get_mb_pto1( $page_element ) {
     }
 }
 
-// TODO: Embed provider - wistia
-wp_oembed_add_provider( '/https?:\/\/(.+)?(wistia.com|wi.st)\/(medias|embed)\/.*/', 'http://fast.wistia.com/oembed', true);
 
-function is_mb_video_scroll(){
-    $video_scrolling = implode( ' ', rwmb_meta('pto1_video_scrolling') );
+function is_mb_video_scroll( $pto = 'pto1' ){
+    $video_scrolling = implode( ' ', rwmb_meta( $pto . '_video_scrolling') );
     if( !empty( rtrim($video_scrolling) ) && $video_scrolling == 'yes' ) 
-        // return 'id="pto--scrolling-video" data-url="' . rwmb_meta('pto1_video_url') . '"';
-        return array('pto--scrolling-video', rwmb_meta('pto1_video_url'));
+        return array('pto--scrolling-video', rwmb_meta( $pto . '_video_url'));
 }
 
-function is_mb_video_float(){
-    $video_floating = implode( ' ', rwmb_meta('pto1_video_floating') );
+function is_mb_video_float( $pto = 'pto1' ){
+    $video_floating = implode( ' ', rwmb_meta( $pto . '_video_floating') );
     if( !empty( rtrim($video_floating) ) && $video_floating == 'yes' )
-        // return 'id="pto--floating-video"';
         return array('pto--floating-video');
 }
 
-function mb_menu_display( $display, $menu, $menu_class = '', $walker = '', $fallback  ) {
+function mb_menu_display( $display, $menu, $menu_class = '', $walker = '', $fallback, $location = '' ) {
     // menu fallback
     $menu_fb = $fallback;
     // check for menu display value
@@ -450,6 +456,7 @@ function mb_menu_display( $display, $menu, $menu_class = '', $walker = '', $fall
                     'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
                     'depth'           => 0,
                     'walker'          => $walker,
+                    'theme_location'  => $location,
                 );
                 return wp_nav_menu( $params );
             }else return wp_nav_menu( array('menu' => $menu_fb,'menu_class' => $menu_class, 'walker' => $walker ) );
@@ -459,6 +466,30 @@ function mb_menu_display( $display, $menu, $menu_class = '', $walker = '', $fall
     else{
         return wp_nav_menu( array('menu' => $menu_fb,'menu_class' => $menu_class, 'walker' => $walker ) );
     }
+}
+
+// Menu locations
+add_action( 'init', 'register_my_menus' );
+function register_my_menus() {
+    register_nav_menus(
+        array(
+            'with-log-inout' => __( 'with Login-Logout' ),
+        )
+    );
+}
+
+// Login / Logout menu
+add_filter( 'wp_nav_menu_items', 'add_login_logout_link', 10, 2 );
+function add_login_logout_link( $items, $args ) {
+    if( $args->theme_location == 'with-log-inout' ){
+        ob_start();
+        wp_loginout('index.php');
+        $loginoutlink = ob_get_contents();
+        ob_end_clean();
+        $items .= '<li>'. $loginoutlink .'</li>';
+        return $items;
+    }
+    return $items;
 }
 
 function get_emails_for_user($statuses, $user_id = null)
@@ -544,14 +575,16 @@ function custom_redirect_login_failed($username) {
         'login' => 'failed',
         'username' => $username
     ];
-
+	if ( isset( $_REQUEST['redirect_to'] ) ) {
+		$args['redirect_to'] = urlencode( $_REQUEST['redirect_to'] );
+	}
     wp_redirect(get_bloginfo('url') . '/login?' . http_build_query($args));
 }
 
 // redirects the user to dashboard if already logged in and went to /login
 add_action( 'wp', 'check_if_logged_in' );
 function check_if_logged_in() {
-    if ( is_user_logged_in() && is_page('login' )) {
+    if ( is_user_logged_in() && is_page('login' ) ) {
         wp_redirect( '/dashboard' );
         exit;
     }
@@ -568,10 +601,18 @@ function confirm_logout(){
 add_action('init','redirect_to_login');
 function redirect_to_login(){
     global $pagenow;
-    if( 'wp-login.php' == $pagenow && !is_user_logged_in() && empty($_POST)) {
-        wp_redirect('/login');
-        exit();
-    }
+	if ( 'wp-login.php' == $pagenow && isset($_GET['action']) && $_GET['action'] != 'logout' ) {
+		if ( is_user_logged_in() ) {
+			wp_redirect( '/dashboard' );
+			exit();
+		} else {
+			// if not submitting login credentials
+			if ( empty( $_POST ) ) {
+				wp_redirect( '/login' );
+				exit();
+			}
+		}
+	}
 }
 
 // Button Shortcode

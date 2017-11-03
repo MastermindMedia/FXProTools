@@ -20,8 +20,8 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 				update_user_meta( get_query_var('acc_id'), $key,  "no" );
 			}
 		}
-		elseif($key == "user_login"){
-			$wpdb->update($wpdb->users, array('user_login' => $value), array('ID' => get_query_var('acc_id')));
+		elseif($key == "user_login" || $key == 'user_email'){
+			$wpdb->update($wpdb->users, array($key => $value), array('ID' => get_query_var('acc_id')));
 		}
 		else{
 			update_user_meta( get_query_var('acc_id'), $key,  $value );
@@ -97,7 +97,7 @@ $checklist = get_user_checklist();
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="a">
-								<form action="<?php echo get_the_permalink(); ?>" method="POST" class="<?php echo ($_GET['action'] == 'edit' ? 'form-edit' : ''); ?>">
+								<form action="<?php echo get_the_permalink(); ?>" method="POST" class="<?php echo ( isset($_GET['action']) && $_GET['action'] == 'edit') ? 'form-edit' : ''; ?>">
 									<div class="row">
 										<div class="col-md-6 m-b-lg">
 											<p class="text-bold text-center">General Information</p>
@@ -115,8 +115,25 @@ $checklist = get_user_checklist();
 											<ul class="list-info list-info-fields">
 												<li><span>Affiliate ID:</span> <?php echo affwp_get_affiliate_id( get_current_user_id() ) ?></li>
 												<li><span>Username:</span> <?php echo get_the_author_meta('user_login', get_current_user_id()) ?></li>
-												<li><span>SMS/Text Messaging:</span> <?php echo get_the_author_meta('user_sms_subs', get_current_user_id()) ?></li>
-												<li><span>Email Updates:</span> <?php echo get_the_author_meta('user_email_subs', get_current_user_id()) ?></li>
+												<li><span>Email:</span> <?php echo get_the_author_meta('user_email', get_current_user_id()) ?></li>
+												<li><span>SMS/Text Messaging:</span> <?php
+													$sub = get_the_author_meta('user_sms_subs', get_current_user_id());
+													
+													if (strlen($sub) == 0) {
+														echo 'no';
+													} else {
+														echo $sub;
+													}
+												?></li>
+												<li><span>Email Updates:</span> <?php
+													$sub = get_the_author_meta('user_email_subs', get_current_user_id());
+													
+													if (strlen($sub) == 0) {
+														echo 'no';
+													} else {
+														echo $sub;
+													}
+												?></li>
 											</ul>
 										</div>
 										<div class="clearfix"></div>

@@ -2,10 +2,10 @@
 /*
 Plugin Name: WP SMS
 Plugin URI: http://wordpresssmsplugin.com/
-Description: A simple and powerful texting plugin for wordpress
-Version: 4.0.13
-Author: Mostafa Soufi
-Author URI: http://mostafa-soufi.ir/
+Description: A powerful texting plugin for WordPress
+Version: 4.0.14
+Author: Verona Labs
+Author URI: http://veronalabs.com/
 Text Domain: wp-sms
 */
 if ( ! defined( 'ABSPATH' ) ) {
@@ -227,7 +227,7 @@ class WP_SMS_Plugin {
 	 * @param  Not param
 	 */
 	public function admin_assets() {
-		wp_register_style( 'wpsms-admin-css', plugin_dir_url( __FILE__ ) . 'assets/css/admin.css', true, '1.1' );
+		wp_register_style( 'wpsms-admin-css', plugin_dir_url( __FILE__ ) . 'assets/css/admin.css', true, '1.2' );
 		wp_enqueue_style( 'wpsms-admin-css' );
 
 		wp_enqueue_style( 'wpsms-chosen-css', plugin_dir_url( __FILE__ ) . 'assets/css/chosen.min.css', true, '1.2.0' );
@@ -290,23 +290,23 @@ class WP_SMS_Plugin {
 	 */
 	public function admin_menu() {
 		add_menu_page( __( 'SMS', 'wp-sms' ), __( 'SMS', 'wp-sms' ), 'wpsms_sendsms', 'wp-sms', array(
-			&$this,
+			$this,
 			'send_page'
 		), 'dashicons-email-alt' );
 		add_submenu_page( 'wp-sms', __( 'Send SMS', 'wp-sms' ), __( 'Send SMS', 'wp-sms' ), 'wpsms_sendsms', 'wp-sms', array(
-			&$this,
+			$this,
 			'send_page'
 		) );
 		add_submenu_page( 'wp-sms', __( 'Outbox', 'wp-sms' ), __( 'Outbox', 'wp-sms' ), 'wpsms_outbox', 'wp-sms-outbox', array(
-			&$this,
+			$this,
 			'outbox_page'
 		) );
 		add_submenu_page( 'wp-sms', __( 'Subscribers', 'wp-sms' ), __( 'Subscribers', 'wp-sms' ), 'wpsms_subscribers', 'wp-sms-subscribers', array(
-			&$this,
+			$this,
 			'subscribe_page'
 		) );
-		add_submenu_page( 'wp-sms', __( 'Subscribers Group', 'wp-sms' ), __( 'Subscribers Group', 'wp-sms' ), 'wpsms_subscribe_groups', 'wp-sms-subscribers-group', array(
-			&$this,
+		add_submenu_page( 'wp-sms', __( 'Subscriber Groups', 'wp-sms' ), __( 'Subscriber Groups', 'wp-sms' ), 'wpsms_subscribe_groups', 'wp-sms-subscribers-group', array(
+			$this,
 			'groups_page'
 		) );
 	}
@@ -566,7 +566,10 @@ class WP_SMS_Plugin {
 	/**
 	 * Shortcodes plugin
 	 *
-	 * @param  Not param
+	 * @param $atts
+	 * @param null $content
+	 *
+	 * @internal param param $Not
 	 */
 	public function shortcode( $atts, $content = null ) {
 

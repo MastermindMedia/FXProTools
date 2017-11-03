@@ -32,18 +32,20 @@ $referral = "/?ref=" .  wp_get_current_user()->user_login;
 					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 						<?php
 							$count = 0;
+							$no_thumbnail = 'http://via.placeholder.com/150x150?text=No Image';
 							foreach($funnels as $post): setup_postdata($post); $count++;
 							$stats = get_funnel_stats( get_the_ID() );
 						?>
 						<div class="accordion-group panel-default funnel-accordion">
 							<div class="panel-heading" role="tab" id="heading-<?php echo $count;?>">
 								<h4 class="panel-title">
-									<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-<?php echo $count;?>" aria-expanded="true" aria-controls="collapse-<?php echo $count;?>">
-										<?php the_title();?>
+									<a class="funnel-title" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-<?php echo $count;?>" aria-expanded="true" aria-controls="collapse-<?php echo $count;?>">
+										<?php the_title(); ?>
+										<span class="help-caption"><?php echo $count == 1 ? '(Click To Close)' : '(Click To Expand)'; ?></span>
 									</a>
 								</h4>
 							</div>
-							<div id="collapse-<?php echo $count;?>" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading-<?php echo $count;?>">
+							<div id="collapse-<?php echo $count;?>" class="<?php echo $count == 1 ? 'panel-collapse collapse in' : 'panel-collapse collapse'; ?>" role="tabpanel" aria-labelledby="heading-<?php echo $count;?>">
 								<div class="panel-body">
 									<div class="row">
 										<div class="col-md-12">
@@ -67,16 +69,22 @@ $referral = "/?ref=" .  wp_get_current_user()->user_login;
 												<div class="tab-content">
 													<div class="tab-pane tab-profile active" id="a-<?php echo $count;?>">
 														<?php
-														$title = rwmb_meta('capture_page_title');
-														$subtitle = rwmb_meta('capture_sub_title');
-														$page_url = rwmb_meta('capture_page_url') . $referral;
-														$thumbnail = rwmb_meta('capture_page_thumbnail');
+															$title = rwmb_meta('capture_page_title');
+															$subtitle = rwmb_meta('capture_sub_title');
+															$page_url = rwmb_meta('capture_page_url') . $referral;
+															$c_thumbnails = rwmb_meta('capture_page_thumbnail');
+															if( !empty( $c_thumbnails ) ){
+																$c_thumbnail = reset($c_thumbnails); // Get first index
+																$c_thumbnail_url = $c_thumbnail['url'];
+															}
 														?>
 														<div class="row">
 															<div class="col-md-9">
 																<div class="row">
 																	<div class="col-md-3">
-																		<img src="<?php echo !empty( $thumbnail['url'] ) ? $thumbnail['url'] : '';?>" class="img-responsive">
+																		<div class="image">
+																			<img src="<?php echo !empty($c_thumbnails) ? $c_thumbnail_url : $no_thumbnail; ?>" class="img-responsive centered-block">
+																		</div>
 																	</div>
 																	<div class="col-md-9">
 																		<div class="heading">
@@ -84,10 +92,10 @@ $referral = "/?ref=" .  wp_get_current_user()->user_login;
 																			<p><?php echo $subtitle;?></p>
 																		</div>
 																		<ul class="social-media">
-																			<li><a href="https://www.facebook.com/sharer.php?u=<?php echo urlencode($page_url);?>" class="btn btn-default block text-center" target="_blank">Facebook</a></li>
-																			<li><a href="https://twitter.com/intent/tweet?url=<?php echo urlencode($page_url);?>" class="btn btn-default block text-center" target="_blank">Twitter</a></li>
-																			<li><a href="https://www.linkedin.com/shareArticle?url=<?php echo urlencode($page_url);?>" class="btn btn-default block text-center" target="_blank">Linkedin</a></li>
-																			<li><a href="https://plus.google.com/share?url=<?php echo urlencode($page_url);?>" class="btn btn-default block text-center" target="_blank">Google+</a></li>
+																			<li><a href="https://www.facebook.com/sharer.php?u=<?php echo urlencode($page_url);?>" class="btn btn-default block text-center facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+																			<li><a href="https://twitter.com/intent/tweet?url=<?php echo urlencode($page_url);?>" class="btn btn-default block text-center twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
+																			<li><a href="https://www.linkedin.com/shareArticle?url=<?php echo urlencode($page_url);?>" class="btn btn-default block text-center linkedin" target="_blank"><i class="fa fa-linkedin"></i> </a></li>
+																			<li><a href="https://plus.google.com/share?url=<?php echo urlencode($page_url);?>" class="btn btn-default block text-center google-plus" target="_blank"><i class="fa fa-google-plus"></i></a></li>
 																		</ul>
 																		<div class="clearfix"></div>
 																	</div>
@@ -129,16 +137,22 @@ $referral = "/?ref=" .  wp_get_current_user()->user_login;
 													</div>
 													<div class="tab-pane tab-profile" id="b-<?php echo $count;?>">
 														<?php
-														$title = rwmb_meta('landing_page_title');
-														$subtitle = rwmb_meta('landing_sub_title');
-														$page_url = rwmb_meta('landing_page_url') . $referral;
-														$thumbnail = rwmb_meta('landing_page_thumbnail');
+															$title = rwmb_meta('landing_page_title');
+															$subtitle = rwmb_meta('landing_sub_title');
+															$page_url = rwmb_meta('landing_page_url') . $referral;
+															$l_thumbnails = rwmb_meta('landing_page_thumbnail');
+															if( !empty( $c_thumbnails ) ){
+																$l_thumbnail = reset($l_thumbnails); // Get first index
+																$l_thumbnail_url = $l_thumbnail['url'];
+															}
 														?>
 														<div class="row">
 															<div class="col-md-9">
 																<div class="row">
 																	<div class="col-md-3">
-																		<img src="<?php echo !empty( $thumbnail['url'] ) ? $thumbnail['url'] : '';?>" class="img-responsive">
+																		<div class="image">
+																			<img src="<?php echo !empty($l_thumbnails) ? $l_thumbnail_url : $no_thumbnail; ?>" class="img-responsive centered-block">
+																		</div>
 																	</div>
 																	<div class="col-md-9">
 																		<div class="heading">
@@ -146,10 +160,10 @@ $referral = "/?ref=" .  wp_get_current_user()->user_login;
 																			<p><?php echo $subtitle;?></p>
 																		</div>
 																		<ul class="social-media">
-																			<li><a href="https://www.facebook.com/sharer.php?u=<?php echo urlencode($page_url);?>" class="btn btn-default block text-center" target="_blank">Facebook</a></li>
-																			<li><a href="https://twitter.com/intent/tweet?url=<?php echo urlencode($page_url);?>" class="btn btn-default block text-center" target="_blank">Twitter</a></li>
-																			<li><a href="https://www.linkedin.com/shareArticle?url=<?php echo urlencode($page_url);?>" class="btn btn-default block text-center" target="_blank">Linkedin</a></li>
-																			<li><a href="https://plus.google.com/share?url=<?php echo urlencode($page_url);?>" class="btn btn-default block text-center" target="_blank">Google+</a></li>
+																			<li><a href="https://www.facebook.com/sharer.php?u=<?php echo urlencode($page_url);?>" class="btn btn-default block text-center facebook" target="_blank"><i class="fa fa-facebook"></i></a></li>
+																			<li><a href="https://twitter.com/intent/tweet?url=<?php echo urlencode($page_url);?>" class="btn btn-default block text-center twitter" target="_blank"><i class="fa fa-twitter"></i></a></li>
+																			<li><a href="https://www.linkedin.com/shareArticle?url=<?php echo urlencode($page_url);?>" class="btn btn-default block text-center linkedin" target="_blank"><i class="fa fa-linkedin"></i> </a></li>
+																			<li><a href="https://plus.google.com/share?url=<?php echo urlencode($page_url);?>" class="btn btn-default block text-center google-plus" target="_blank"><i class="fa fa-google-plus"></i></a></li>
 																		</ul>
 																		<div class="clearfix"></div>
 																	</div>
@@ -205,9 +219,6 @@ $referral = "/?ref=" .  wp_get_current_user()->user_login;
 				</div>
 			</div>
 		</div>
-		<script>
-		    var clipboard = new Clipboard('.btn-copy');
-		</script>
 	<?php else: ?>
 		<?php get_template_part('inc/templates/no-access'); ?>
 	<?php endif; ?>
