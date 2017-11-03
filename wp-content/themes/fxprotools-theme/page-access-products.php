@@ -11,8 +11,7 @@ if( isset( $subscription_details['trial_expiry_date'] ) ){
 	$trial_remaining_days = floor( (strtotime( $subscription_details['trial_expiry_date'] ) - time()) / (60 * 60 * 24));
 }
 
-$market_scanner =  wcs_user_has_subscription( '', 47, 'active');
-$distributor_package =  wcs_user_has_subscription( '', 48, 'active');
+$market_scanner =  wcs_user_has_subscription( '', 47, 'active') || is_user_fx_distributor();
 $auto_trader = wcs_user_has_subscription( '', 49, 'active');
 $coaching = wcs_user_has_subscription( '', 50, 'active');
 ?>

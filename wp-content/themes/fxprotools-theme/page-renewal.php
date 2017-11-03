@@ -1,3 +1,14 @@
+<?php 
+$subscription_details = get_user_subscription_details();
+$subscription = $subscription_details[0];
+foreach( $subscription_details as $detail){
+    if( strtolower( $detail['package_type'] ) == 'business' ){
+        $subscription = $detail;
+        break;
+    }
+}
+$renewal_order_link = get_renewal_order_checkout_link( $subscription['subscription'] );
+?>
 <?php get_header(); ?>
 <div class="fx-access-denied">
     <div class="fx-access-denied-container">
@@ -34,6 +45,7 @@
 						if ( ! empty( $attributes ) ) {
 							$attribute_list = array_map( 'trim', explode( "|", $attributes ) );
 						}
+                        $checkout_url = $product_id == $subscription['product_id'] ? $renewal_order_link : $product->get_attribute('regular-checkout-link');
 					}
 					?>
                     <div class="col-md-<?= $col_denom; ?>">
@@ -56,7 +68,7 @@
                                         </ul>
 									<?php endif; ?>
 
-                                    <a href="<?php echo get_the_permalink( $product->get_id() ); ?>" class="btn btn-danger block btn-lg m-b-md btn-lg-w-text">
+                                    <a href="<?php echo $checkout_url; ?>" class="btn btn-danger block btn-lg m-b-md btn-lg-w-text">
                                         Get Instant Access Now!
                                         <span>Training + Forex &amp; Binary Auto Trader</span>
                                     </a>

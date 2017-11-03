@@ -66,6 +66,7 @@ function get_user_subscription_details()
 	    	$package_type = in_array( $product->get_id(), fx_distributor_subscription_products() ) ? 'Business' : $package_type;
 	    	$subscription_details[] = array( 	
 	    		'id' => $s->get_id(), 
+	    		'subscription' => $subscription,
 	    		'product_id' => $product->get_id(),
 	    		'package_type' => $package_type,
 				'type' => $subscription_type, 
@@ -82,6 +83,10 @@ function get_user_subscription_details()
 	return $subscription_details;
 }
 
+function get_renewal_order_checkout_link( $subscription ){
+	$renewal = $subscription->get_last_order( 'renewal' );
+	return $renewal ? $renewal->get_checkout_payment_url() : false;
+}
 function get_recent_subscriptions ($limit = 15)
 {
 	$subscriptions = get_posts( array(
@@ -122,7 +127,7 @@ function paused_account_enforce_access()
 		}
 	}
 	
-	if ( is_user_logged_in() && is_user_fx_distributor() && !is_page( 'no-access' ) && !current_user_can( 'administrator' ) && has_imported_user_update_password() ) {
+	if ( is_user_logged_in() && ( !is_user_fx_distributor() && !is_user_fx_customer() ) && !is_page( 'no-access' ) && !current_user_can( 'administrator' ) && has_imported_user_update_password() ) {
 		global $post;
 	    if( !isset( $post ) ) return;
 	    $slug = $post->post_name;
