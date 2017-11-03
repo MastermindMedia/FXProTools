@@ -29,9 +29,7 @@
 					break;
 				}
 			}
-
-			?>
 		}
-		
+		?>
 	</tbody>
 </table>

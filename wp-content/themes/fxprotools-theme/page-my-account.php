@@ -114,7 +114,15 @@ $checklist = get_user_checklist();
 											<p class="text-bold text-center">Account Information</p>
 											<ul class="list-info list-info-fields">
 												<li><span>Affiliate ID:</span> <?php echo affwp_get_affiliate_id( get_current_user_id() ) ?></li>
-												<li><span>Username:</span> <?php echo get_the_author_meta('user_login', get_current_user_id()) ?></li>
+												<li><span>Username:</span> 
+												<?php  
+													if(strpos(get_the_author_meta('user_login', get_current_user_id()), ' ') > 0){
+														echo '{please add your username}';
+													}else{
+														echo get_the_author_meta('user_login', get_current_user_id());
+													}
+												?>
+												</li>
 												<li><span>SMS/Text Messaging:</span> <?php echo get_the_author_meta('user_sms_subs', get_current_user_id()) ?></li>
 												<li><span>Email Updates:</span> <?php echo get_the_author_meta('user_email_subs', get_current_user_id()) ?></li>
 											</ul>

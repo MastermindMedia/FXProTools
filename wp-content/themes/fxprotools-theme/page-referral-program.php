@@ -63,7 +63,13 @@ $referral_link = get_highest_converting_funnel_link();
 								<div class="box">
 									Share your unique referral link
 									<div class="link">
-										<?php echo $referral_link; ?>?ref=<?php echo urlencode($username);?>
+										<?php  
+											if(strpos(get_the_author_meta('user_login', get_current_user_id()), ' ') > 0){
+												echo $referral_link; ?>?ref=<?php echo affwp_get_affiliate_id(wp_get_current_user()->ID);
+											}else{
+												echo $referral_link; ?>?ref=<?php echo urlencode($username);
+											}
+										?>
 									</div>
 								</div>
 							</div>
