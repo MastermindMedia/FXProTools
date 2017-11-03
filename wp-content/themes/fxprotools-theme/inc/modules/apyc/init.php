@@ -101,5 +101,4 @@ function mailtrap($phpmailer) {
   $phpmailer->Username = '1a88083410020f';
   $phpmailer->Password = '0ee1541864371b';
 }
-
-add_action('phpmailer_init', 'mailtrap');
+//add_action('phpmailer_init', 'mailtrap');
