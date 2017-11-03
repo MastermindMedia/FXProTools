@@ -153,7 +153,7 @@ class Apyc_Woo_CoachingTemplate{
 	 * @return array
 	 */
 	public function add_cart_item_data($cart_item_data, $product_id, $variation_id){
-		
+		//dd($_POST);exit();
 		$wc_get_prod = wc_get_product($product_id);
 		if( $wc_get_prod->get_type() == 'apyc_woo_gotowebinar_appointment' ){
 			$cart_item_data['selected_date'] = '';
@@ -256,6 +256,38 @@ class Apyc_Woo_CoachingTemplate{
 		);
 		return $fields;
 	}
+	public function webinar_completed($order_id){
+		//echo $order_id;
+		$meta =  get_post_meta( $order_id );
+		$owner_order_id =  get_post_meta( $order_id, '_customer_user', true );
+		$date =  get_post_meta( $order_id, 'Date', true );
+		$order = wc_get_order( $order_id );
+		$items = $order->get_items(); 
+		//dd($order);
+		//dd($items);
+		//dd($meta);
+		$webinar_date = '';
+		$webinar_time = '';
+		foreach ( $items as $key => $item ) {
+			$webinar_date = wc_get_order_item_meta( $key, 'Date' );
+			$webinar_time = wc_get_order_item_meta( $key, 'Time' );
+		}
+		$datetime = $webinar_date .' '.$webinar_time;
+		$tz_from = 'America/New_York';
+		$tz_to = 'UTC';
+		$format = 'Y-m-d\TH:i:s\Z';
+
+		$dt = new DateTime($datetime, new DateTimeZone($tz_from));
+		$dt->setTimeZone(new DateTimeZone($tz_to));
+		$start = $dt->format($format) . "<br>";
+
+		$minutes = 60;
+		$dt->add(new DateInterval('PT' . $minutes . 'M'));
+		$end = $dt->format($format) . "<br>";
+		//create webinar
+		//create registrant
+		exit();
+	}
 	public function __construct() {
 		add_action('woocommerce_before_add_to_cart_form', array($this,'action_woocommerce_before_add_to_cart_button'), 10, 0 ); 
 		add_action('woocommerce_apyc_woo_gotowebinar_appointment_add_to_cart', array($this, 'webinar_add_to_cart'));
@@ -269,5 +301,6 @@ class Apyc_Woo_CoachingTemplate{
 		//add_filter('woocommerce_is_purchasable', array($this,'is_purchasable'), 10, 2);
 		add_filter('woocommerce_loop_add_to_cart_link', array($this,'conditionally_replacing_add_to_cart_button'), 10, 2 );
 		add_filter('woocommerce_email_order_meta_fields', array($this, 'custom_woocommerce_email_order_meta_fields'), 10, 3 );
+		add_action( 'woocommerce_order_status_completed', array($this, 'webinar_completed'), 10, 1);
 	}
 }

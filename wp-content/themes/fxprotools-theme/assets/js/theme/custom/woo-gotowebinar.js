@@ -14,7 +14,8 @@ var PublicGotoWebinar = function(){
         //console.log(inst);
         //console.log(inst.selectedDay);
 		$('.selected_date').val(inst.selectedDay);
-		$('.selected_month').val(inst.selectedMonth);
+		var selected_month = (inst.selectedMonth + 1);
+		$('.selected_month').val(selected_month);
 		$('.selected_year').val(inst.selectedYear);
 		$('.ajax-woowebinar-time-rage').html('<p> Getting time, please wait...</p>');
 		_ajaxGetTime(inst).done(function(data){
