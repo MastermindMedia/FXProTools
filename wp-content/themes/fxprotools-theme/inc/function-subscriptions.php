@@ -68,6 +68,7 @@ function get_user_subscription_details()
 	    		'id' => $s->get_id(), 
 	    		'subscription' => $subscription,
 	    		'product_id' => $product->get_id(),
+	    		'order_item_id' => $item->get_id(),
 	    		'package_type' => $package_type,
 				'type' => $subscription_type, 
 				'start_date' => $subscription->get_date('date_created'), 
@@ -83,10 +84,35 @@ function get_user_subscription_details()
 	return $subscription_details;
 }
 
+function get_user_main_subscription(){
+	$subscription_details = get_user_subscription_details();
+	$subscription = $subscription_details[0];
+	foreach( $subscription_details as $detail){
+	    if( strtolower( $detail['package_type'] ) == 'business' ){
+	        $subscription = $detail;
+	        break;
+	    }
+	}
+	return $subscription;
+}
+
 function get_renewal_order_checkout_link( $subscription ){
 	$renewal = $subscription->get_last_order( 'renewal' );
 	return $renewal ? $renewal->get_checkout_payment_url() : false;
 }
+
+function get_switch_subscription_url( $product_id ){
+	$url = get_permalink($product_id);
+	$subscription = get_user_main_subscription();
+
+	//if product isn't a variable product
+	if( wp_get_post_parent_id($product_id) ){
+ 		$url = get_permalink( $product_id ) . '&switch-subscription=' . $subscription['id'] . '&_wcsnonce=' . wp_create_nonce( 'wcs_switch_request' ) . '&item=' . $subscription['order_item_id'];
+	} 
+
+	return $url;
+}
+
 function get_recent_subscriptions ($limit = 15)
 {
 	$subscriptions = get_posts( array(

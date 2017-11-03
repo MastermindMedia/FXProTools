@@ -109,7 +109,7 @@ var PublicGotoWebinar = function(){
 }();
 
 jQuery(document).ready( function($) {
-	$('.single_add_to_cart_button').attr('disabled', 'disabled');
+	//$('.single_add_to_cart_button').attr('disabled', 'disabled');
 	PublicGotoWebinar.date_picker();
 	PublicGotoWebinar.time_click();
 });

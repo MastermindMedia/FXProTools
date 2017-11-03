@@ -1,12 +1,5 @@
 <?php 
-$subscription_details = get_user_subscription_details();
-$subscription = $subscription_details[0];
-foreach( $subscription_details as $detail){
-    if( strtolower( $detail['package_type'] ) == 'business' ){
-        $subscription = $detail;
-        break;
-    }
-}
+$subscription = get_user_main_subscription();
 $renewal_order_link = get_renewal_order_checkout_link( $subscription['subscription'] );
 ?>
 <?php get_header(); ?>

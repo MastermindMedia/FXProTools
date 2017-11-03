@@ -235,11 +235,11 @@ HTML;
 		 * @return string|void
 		 */
 		public function wc_archive_custom_cart_button_text( $default ) {
-			$enable_custom_button = get_post_meta( get_the_ID(), self::META_ENABLE_BUY_BUTTON );
-			if ( ! empty( $enable_custom_button ) && $enable_custom_button[0] == 'yes' ) {
-				$buy_button_text = get_post_meta( get_the_ID(), self::META_BUY_BUTTON_TEXT );
+			$enable_custom_button = get_post_meta( get_the_ID(), self::META_ENABLE_BUY_BUTTON, true );
+			if ( ! empty( $enable_custom_button ) && $enable_custom_button == 'yes' && !isset( $_GET['switch-subscription'])) {
+				$buy_button_text = get_post_meta( get_the_ID(), self::META_BUY_BUTTON_TEXT, true );
 				if ( ! empty( $buy_button_text ) ) {
-					return __( $buy_button_text[0], 'woocommerce' );
+					return __( $buy_button_text, 'woocommerce' );
 				}
 			}
 
@@ -253,12 +253,12 @@ HTML;
 		 * @return mixed
 		 */
 		public function wc_archive_custom_cart_button_url( $url ) {
-			$enable_custom_button = get_post_meta( get_the_ID(), self::META_ENABLE_BUY_BUTTON );
-			if ( ! empty( $enable_custom_button ) && $enable_custom_button[0] == 'yes' ) {
-				$buy_button_url = get_post_meta( get_the_ID(), self::META_BUY_BUTTON_URL );
+			$enable_custom_button = get_post_meta( get_the_ID(), self::META_ENABLE_BUY_BUTTON, true );
+			if ( ! empty( $enable_custom_button ) && $enable_custom_button == 'yes'  && !isset( $_GET['switch-subscription'] )) {
+				$buy_button_url = get_post_meta( get_the_ID(), self::META_BUY_BUTTON_URL, true );
 
 				if ( ! empty( $buy_button_url ) ) {
-					return $buy_button_url[0];
+					return $buy_button_url;
 				}
 			}
 

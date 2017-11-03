@@ -5,7 +5,7 @@
  * Description: Sell products and services with recurring payments in your WooCommerce Store.
  * Author: Prospress Inc.
  * Author URI: http://prospress.com/
- * Version: 2.2.12
+ * Version: 2.2.14
  *
  * Woo: 27147:6115e6d7e297b623a169fdcf5728b224
  *
@@ -128,12 +128,13 @@ class WC_Subscriptions {
 
 	public static $plugin_file = __FILE__;
 
-	public static $version = '2.2.12';
+	public static $version = '2.2.14';
 
 	private static $total_subscription_count = null;
 
 	private static $scheduler;
 
+	/** @var WCS_Cache_Manager */
 	public static $cache;
 
 	/**
@@ -272,7 +273,7 @@ class WC_Subscriptions {
 	 * will appear. If that's empty, the long, explanatory one will appear in the table.
 	 *
 	 * Filters:
-	 * - woocommerce_subscriptions_not_empty: gets passed the option value. false or 'yes'. 'yes' means the subscriptions
+	 * - woocommerce_subscriptions_not_empty: gets passed the boolean option value. 'true' means the subscriptions
 	 * list is not empty, the user is familiar with how it works, and standard message appears.
 	 * - woocommerce_subscriptions_not_found_label: gets the original message for other plugins to modify, in case
 	 * they want to add more links, or modify any of the messages.
@@ -281,7 +282,8 @@ class WC_Subscriptions {
 	 * @return string what appears in the list table of the subscriptions
 	 */
 	private static function get_not_found_text() {
-		if ( true === apply_filters( 'woocommerce_subscriptions_not_empty', wcs_do_subscriptions_exist() ) ) {
+		$subscriptions_exist = self::$cache->cache_and_get( 'wcs_do_subscriptions_exist', 'wcs_do_subscriptions_exist' );
+		if ( true === apply_filters( 'woocommerce_subscriptions_not_empty', $subscriptions_exist ) ) {
 			$not_found_text = __( 'No Subscriptions found', 'woocommerce-subscriptions' );
 		} else {
 			$not_found_text = '<p>' . __( 'Subscriptions will appear here for you to view and manage once purchased by a customer.', 'woocommerce-subscriptions' ) . '</p>';

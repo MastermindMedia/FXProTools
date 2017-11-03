@@ -31,13 +31,13 @@ global $product;
 		 */
 		do_action( 'woocommerce_after_add_to_cart_quantity' );
 
-	    $enable_custom_button = get_post_meta( get_the_ID(), Woocommerce_Settings::META_ENABLE_BUY_BUTTON );
+	    $enable_custom_button = get_post_meta( get_the_ID(), Woocommerce_Settings::META_ENABLE_BUY_BUTTON, true );
 	    $label = esc_html( $product->single_add_to_cart_text() );
 
-        if ($enable_custom_button[0] == 'yes') {
-            $buy_button_url = get_post_meta( get_the_ID(), Woocommerce_Settings::META_BUY_BUTTON_URL );
+        if ( $enable_custom_button == 'yes' && !isset( $_GET['switch-subscription']) ) {
+            $buy_button_url = get_post_meta( get_the_ID(), Woocommerce_Settings::META_BUY_BUTTON_URL, true );
 	?>
-            <a href="<?= $buy_button_url[0]; ?>" class="single_add_to_cart_button button alt"><?php echo $label; ?></a>
+            <a href="<?= $buy_button_url; ?>" class="single_add_to_cart_button button alt"><?php echo $label; ?></a>
 
         <?php } else { ?>
 
