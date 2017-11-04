@@ -1,14 +1,19 @@
 <?php 
 $subscription_details = get_user_subscription_details();
-$subscription = $subscription_details[0];
-foreach( $subscription_details as $detail){
-	if( strtolower( $detail['package_type'] ) == 'business' ){
-		$subscription = $detail;
-		break;
+
+$subscription = [];
+$trial_remaining_days = 0;
+if ( ! empty ( $subscription_details ) ) {
+	$subscription = $subscription_details[0];
+	foreach ( $subscription_details as $detail ) {
+		if ( strtolower( $detail['package_type'] ) == 'business' ) {
+			$subscription = $detail;
+			break;
+		}
 	}
-}
-if( isset( $subscription_details['trial_expiry_date'] ) ){
-	$trial_remaining_days = floor( (strtotime( $subscription_details['trial_expiry_date'] ) - time()) / (60 * 60 * 24));
+	if ( isset( $subscription_details['trial_expiry_date'] ) ) {
+		$trial_remaining_days = floor( ( strtotime( $subscription_details['trial_expiry_date'] ) - time() ) / ( 60 * 60 * 24 ) );
+	}
 }
 
 $market_scanner =  wcs_user_has_subscription( '', 47, 'active') || is_user_fx_distributor();
@@ -39,6 +44,7 @@ $coaching = wcs_user_has_subscription( '', 50, 'active');
 						Your Membership Package
 					</div>
 					<div class="fx-board-content">
+                        <?php if (!empty($subscription)) : ?>
 						<p class="text-center">You are currently subscribed to the <strong><?php echo $subscription['package_type'];?> Package</strong> at <strong>$<?php echo $subscription['monthly_fee'];?>/Month</strong></p>
 						<ul class="list-status">
 							<li><label>Status</label> <span><?php echo ucfirst($subscription['status']);?></span></li>
@@ -46,8 +52,13 @@ $coaching = wcs_user_has_subscription( '', 50, 'active');
 							<li><label>Next Payment</label> <span><?php echo date('F d, Y', strtotime($subscription['next_payment_date']) );?></span></li>
 							<?php if( $subscription['trial_expiry_date'] ):?><li><label>Trial End</label> <span><?php echo date('F d, Y', strtotime($subscription['trial_expiry_date']) );?></span></li><?php endif;?>
 						</ul>
+                        <?php else: ?>
+                            <p class="text-center">You don't have any package subscription</p>
+                        <?php endif; ?>
 					</div>
-					<p class="text-center small">Auto Renew is Enabled. To change this, go to Account Settings</p>
+					<?php if (!empty($subscription)) : ?>
+					    <p class="text-center small">Auto Renew is Enabled. To change this, go to Account Settings</p>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>
@@ -86,5 +97,22 @@ $coaching = wcs_user_has_subscription( '', 50, 'active');
 			</div>
 		</div>
 	</div>
-
+<?php
+$step = 'accessed_products';
+$checklist = get_user_checklist();
+if ( isset( $checklist[ $step ] ) && $checklist[ $step ] && ! empty( $subscription ) ) : ?>
+    ?>
+    <script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                var ajaxUrl = fx.ajax_url;
+                var data = {
+                    'action': 'checklist_pass',
+                    'step': <?= $step; ?>
+                };
+                $.post(ajaxUrl, data);
+            }, 5000);
+        });
+    </script>
+<?php endif; ?>
 <?php get_footer(); ?>

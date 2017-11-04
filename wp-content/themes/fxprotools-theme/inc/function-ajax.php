@@ -30,6 +30,7 @@ add_action("wp_ajax_email_delete", "email_delete");
 add_action("wp_ajax_email_sent", "email_sent");
 add_action( 'wp_ajax_fx_renew_password', 'fx_renew_password' );
 add_action( 'wp_ajax_nopriv_fx_renew_password', 'fx_renew_password' );
+add_action( 'wp_ajax_checklist_pass', 'checklist_pass' );
 
 function email_from_status($status)
 {
@@ -160,4 +161,11 @@ function fx_renew_password() {
 		}
 	}
 	wp_send_json_error();
+}
+
+function checklist_pass() {
+	if ( isset( $_POST['step'] ) ) {
+		pass_onboarding_checklist( sanitize_text_field( $_POST['step'] ) );
+		wp_send_json_success();
+	}
 }
