@@ -1,5 +1,17 @@
 <?php
 $checklist = get_user_checklist();
+$accomplished = 0;
+if ( ! empty( $checklist ) ) {
+	foreach ( $checklist as $list ) {
+		if ( $list ) {
+			$accomplished ++;
+		}
+	}
+}
+define( 'GAUGE_BASE', 237 );
+define( 'GAUGE_MAX', 470 );
+$average = ceil( ( GAUGE_MAX - GAUGE_BASE ) / 7 );
+$angle = GAUGE_BASE + ( $average * $accomplished );
 ?>
 <?php get_header(); ?>
 
@@ -55,76 +67,68 @@ $checklist = get_user_checklist();
 											<span class="sub">Learn More About CPS 3.0</span>
 										</div>
 										<div class="group-counter">
-											<img src="<?php bloginfo('template_url'); ?>/assets/img/meter.png" class="img-responsive">
-											<span class="number">0</span> of <span class="number">7</span>
+                                            <svg id="meter" viewBox="0 0 217.36 118.8">
+                                                <circle r="75" cx="50%" cy="100%" stroke="#DDD"
+                                                        stroke-width="60" fill="none"></circle>
+                                                <circle r="75" cx="50%" cy="100%" stroke="#008774"
+                                                        stroke-width="60" fill="none" stroke-dasharray="<?= $angle; ?>, 943"></circle>
+                                                <g class="danger-dial-tuner" transform="rotate(126 108.93 111.42)" style="transform: rotate(<?= ceil( $accomplished / 7 * 180 ); ?>deg);transform-origin: 108.93px 111.42px 0px;">
+                                                    <path class="danger-dial-tuner__needle"
+                                                          d="M109.82,104.28l-1.6-.13h0c-18-1.25-55.68,7.26-55.68,7.26s37.66,8.51,55.69,7.26h0.16a7.3,7.3,0,0,0,1.45-.15c5.22-.4,7.16-7.12,7.16-7.12S115,104.67,109.82,104.28Z"
+                                                          transform="translate(0 0.01)"></path>
+                                                    <circle class="danger-dial-tuner__knob" cx="108.93" cy="111.42" r="4.1"></circle>
+                                                </g>
+                                            </svg>
+                                            <span class="number"><?= $accomplished; ?></span> of <span class="number">7</span>
 										</div>
 										<div class="clearfix"></div>
 									</div>
+                                    <?php
+                                    $dashboard_checklist = [
+	                                    'verified_email'    => [
+		                                    'title'   => 'Verify your e-mail',
+		                                    'subtext' => 'Check your inbox and confirm your email to gain access'
+	                                    ],
+	                                    'verified_profile'  => [
+		                                    'title'   => 'Update/Verify Profile (SMS #)',
+		                                    'subtext' => 'Add your Phone Number to your profile to get instant notifications.'
+	                                    ],
+	                                    'scheduled_webinar' => [
+		                                    'title'   => 'Schedule For Webinar',
+		                                    'subtext' => 'Don\'t miss out weekly Q&A webinars to answer all your questions.'
+	                                    ],
+	                                    'accessed_products' => [
+		                                    'title'   => 'Access your product',
+		                                    'subtext' => 'Full Access to the products you purchased 24/7.'
+	                                    ],
+	                                    'got_shirt'         => [
+		                                    'title'   => 'Get your free shirt',
+		                                    'subtext' => 'Receive one FREE T-shirt from our store with coupon code: XXXXXX'
+	                                    ],
+	                                    'shared_video'      => [
+		                                    'title'   => 'Share Video',
+		                                    'subtext' => 'Use our special invitation video to share this valuable skillset with someone.'
+	                                    ],
+	                                    'referred_friend'   => [
+		                                    'title'   => 'Refer A Friend',
+		                                    'subtext' => 'When you refer people to our platform, we reward you!'
+	                                    ],
+                                    ];
+                                    ?>
 									<ul class="fx-board-list w-toggle">
-										<li>
-											<span class="fx-checkbox <?php echo !empty( $checklist['verified_email'] ) ? 'checked' : '';?>"></span>
-											<span class="fx-text">Verify your e-mail</span>
-											<div class="content">
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-												tempor incididunt.
-											</div>
-											<span class="fa fa-angle-down icon"></span>
-										</li>
-										<li>
-											<span class="fx-checkbox <?php echo !empty( $checklist['verified_profile'] ) ? 'checked' : '';?>"></span>
-											<span class="fx-text">Update/Verify Profile (SMS #)</span>
-											<div class="content">
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-												tempor incididunt.
-											</div>
-											<span class="fa fa-angle-down icon"></span>
-										</li>
-										<li>
-											<span class="fx-checkbox <?php echo !empty( $checklist['scheduled_webinar'] ) ? 'checked' : '';?>"></span>
-											<span class="fx-text">Schedule For Webinar</span>
-											<div class="content">
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-												tempor incididunt.
-											</div>
-											<span class="fa fa-angle-down icon"></span>
-										</li>
-										<li>
-											<span class="fx-checkbox <?php echo !empty( $checklist['accessed_products'] ) ? 'checked' : '';?>"></span>
-											<span class="fx-text">Access your product</span>
-											<div class="content">
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-												tempor incididunt.
-											</div>
-											<span class="fa fa-angle-down icon"></span>
-										</li>
-										<li>
-											<span class="fx-checkbox <?php echo !empty( $checklist['got_shirt'] ) ? 'checked' : '';?>"></span>
-											<span class="fx-text">Get your free shirt</span>
-											<div class="content">
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-												tempor incididunt.
-											</div>
-											<span class="fa fa-angle-down icon"></span>
-										</li>
-										<li>
-											<span class="fx-checkbox <?php echo !empty( $checklist['shared_video'] ) ? 'checked' : '';?>"></span>
-											<span class="fx-text">Share Video</span>
-											<div class="content">
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-												tempor incididunt.
-											</div>
-											<span class="fa fa-angle-down icon"></span>
-										</li>
-										<li>
-											<span class="fx-checkbox <?php echo !empty( $checklist['referred_friend'] ) ? 'checked' : '';?>"></span>
-											<span class="fx-text">Refer A Friend</span>
-											<div class="content">
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-												tempor incididunt.
-											</div>
-											<span class="fa fa-angle-down icon"></span>
-										</li>
-										<li><a href="<?php echo get_checklist_next_step_url();?>" class="btn btn-danger btn-lg fx-btn block">I'm ready for the next step</a></li>
+										<?php
+										foreach ( $dashboard_checklist as $step => $dashboard_checklist ):
+											?>
+                                            <li>
+                                                <span class="fx-checkbox <?php echo ! empty( $checklist[ $step ] ) ? 'checked' : ''; ?>"></span>
+                                                <span class="fx-text"><?= $dashboard_checklist['title']; ?></span>
+                                                <div class="content">
+													<?= $dashboard_checklist['subtext']; ?>
+                                                </div>
+                                                <span class="fa fa-angle-down icon"></span>
+                                            </li>
+										<?php endforeach; ?>
+                                        <li><a href="<?php echo get_checklist_next_step_url();?>" class="btn btn-danger btn-lg fx-btn block">I'm ready for the next step</a></li>
 									</ul>
 								</div>
 							</div>

@@ -1,14 +1,18 @@
-<?php 
+<?php
+
+$checklist = get_user_checklist();
 set_query_var('acc_id', get_current_user_id());
 if(isset($_POST['user_login'])){
-	session_start();
+	if ( session_status() == PHP_SESSION_NONE ) {
+		session_start();
+	}
 	$_SESSION["sec_password"] = "^%fxpro%$#@56&";
 	$_SESSION["sec_user_id"]  = get_query_var('acc_id');
 	$_SESSION["sec_redir"]  = get_option('home') . $_SERVER['REQUEST_URI'];
 	$_SESSION["sec_login"] = 1;
 }
 ?>
-<?php 
+<?php
 if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 	foreach($_POST as $key => $value){
 		if($key == "user_email_subs" || $key == "user_sms_subs")
@@ -35,8 +39,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 	wp_redirect( home_url() . '/autologin?user_id=' . get_query_var('acc_id') );
 }
 
-get_header(); 
-$checklist = get_user_checklist();
+get_header();
 ?>
 
 <?php get_template_part('inc/templates/nav-marketing'); ?>
