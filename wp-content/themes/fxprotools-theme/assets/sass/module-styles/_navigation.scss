@@ -147,7 +147,7 @@
 
 				}
 			}
-			&.active a .text {
+			&.current-menu-item a .text {
 				border-bottom: 3px solid $red;
 			}
 			&.locked a {
