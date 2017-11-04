@@ -168,7 +168,7 @@ if( !function_exists('webinar_date_time_conversion') ){
 			'time_start' => '',
 			'time_end' => '',
 			'time_interval' => 60,
-			'timezone_from' => WEBINAR_TIME_ZONE.
+			'timezone_from' => WEBINAR_TIME_ZONE,
 			'timezone_to' => 'UTC',
 			'format_output_date' => 'Y-m-d\TH:i:s\Z'
 		);
