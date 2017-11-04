@@ -73,7 +73,7 @@ var PublicGotoWebinar = function(){
 				e.preventDefault();
 				var select_time = $(this).data('time');
 				$('.selected_time').val(select_time);
-				$('.single_add_to_cart_button').removeAttr('disabled');
+				$('.webinar_single_add_to_cart_button').removeAttr('disabled');
 				console.log(select_time);
 			});
 		},
@@ -109,7 +109,7 @@ var PublicGotoWebinar = function(){
 }();
 
 jQuery(document).ready( function($) {
-	//$('.single_add_to_cart_button').attr('disabled', 'disabled');
+	$('.webinar_single_add_to_cart_button').attr('disabled', 'disabled');
 	PublicGotoWebinar.date_picker();
 	PublicGotoWebinar.time_click();
 });

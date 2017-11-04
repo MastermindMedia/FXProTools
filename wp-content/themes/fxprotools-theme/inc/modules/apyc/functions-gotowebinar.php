@@ -139,3 +139,65 @@ if ( ! function_exists('apyc_time_interval')) {
 		return $data_array;
 	}
 }
+/*
+* this is a utz time conversion
+* use for creating webinar in the api
+* with time interval
+* @param $args	array
+*	default values
+*		'start_date' => date | default	date(Y-m-d)
+*		'end_date'	=> date | default empty
+*			- if empty get the start date date('Y-m-d')
+*		'time_start' => time with am and pm meridian | default empty
+*		'time_end' => time with am and pm meridian	| default empty
+*			- if empty get the time_start interval
+*		'time_interval' =>	numeric	| default 60 minutes (1 hour)
+*		'timezone_from' => string	| default WEBINAR_TIME_ZONE
+*		'timezone_to' => string	| default UTC
+*		'format_output_date' => string	| default Y-m-d\TH:i:s\Z
+* @return array
+*/
+if( !function_exists('webinar_date_time_conversion') ){
+	function webinar_date_time_conversion($args){
+		/**
+		 * Define the array of defaults
+		 */ 
+		$defaults = array(
+			'start_date' => date('Y-m-d'),
+			'end_date' => date('Y-m-d'),
+			'time_start' => '',
+			'time_end' => '',
+			'time_interval' => 60,
+			'timezone_from' => WEBINAR_TIME_ZONE.
+			'timezone_to' => 'UTC',
+			'format_output_date' => 'Y-m-d\TH:i:s\Z'
+		);
+		
+		//if time_end is empty
+		if( $args['time_start'] != ''
+			&& $args['time_end'] == '' 
+		){
+			$minutes = $args['time_interval'];
+			$dt->add(new DateInterval('PT' . $minutes . 'M'));
+			$args['time_end'] = $dt->format($args['format_output_date'])
+		}
+		
+		/**
+		 * Parse incoming $args into an array and merge it with $defaults
+		 */ 
+		$args = wp_parse_args( $args, $defaults );
+		
+		/*$datetime = $webinar_date .' '.$webinar_time;
+		$tz_from = 'America/New_York';
+		$tz_to = 'UTC';
+		$format = 'Y-m-d\TH:i:s\Z';
+
+		$dt = new DateTime($datetime, new DateTimeZone($tz_from));
+		$dt->setTimeZone(new DateTimeZone($tz_to));
+		$start = $dt->format($format) . "<br>";
+
+		$minutes = 60;
+		$dt->add(new DateInterval('PT' . $minutes . 'M'));
+		$end = $dt->format($format) . "<br>";*/
+	}
+}
