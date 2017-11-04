@@ -61,6 +61,13 @@ function verify_email_address($verification_code)
     }
 }
 
+function pass_onboarding_checklist( $step ) {
+	if ( ! empty ( $step ) ) {
+		$checklist = get_user_checklist();
+		$checklist[ $step ] = true;
+		update_user_meta( get_current_user_id(), '_onboard_checklist', $checklist );
+	}
+}
 
 function random_checkout_time_elapsed(  $full = false)
 {

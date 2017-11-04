@@ -33,8 +33,7 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 	}
 	//for onboard checklist
 	if( !$checklist['verified_profile'] ){
-		$checklist['verified_profile'] = true;
-		update_user_meta( get_query_var('acc_id'), '_onboard_checklist', $checklist );
+		pass_onboarding_checklist('verified_profile');
 	}
 	wp_redirect( home_url() . '/autologin?user_id=' . get_query_var('acc_id') );
 }
