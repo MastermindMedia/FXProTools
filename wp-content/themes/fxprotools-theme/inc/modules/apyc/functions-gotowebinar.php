@@ -174,12 +174,10 @@ if( !function_exists('webinar_date_time_conversion') ){
 		);
 		
 		//if time_end is empty
-		if( $args['time_start'] != ''
-			&& $args['time_end'] == '' 
-		){
+		if( $args['time_start'] != '' && $args['time_end'] == '' ){
 			$minutes = $args['time_interval'];
 			$dt->add(new DateInterval('PT' . $minutes . 'M'));
-			$args['time_end'] = $dt->format($args['format_output_date'])
+			$args['time_end'] = $dt->format($args['format_output_date']);
 		}
 		
 		/**
