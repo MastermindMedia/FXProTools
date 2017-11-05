@@ -66,7 +66,6 @@
 	}
 	// Main Navigation
 	.fx-navbar-main {
-		padding-bottom: 15px;
 		position: fixed;
 		z-index: 100;
 		top: 0;
@@ -79,17 +78,18 @@
 				img {
 					width: 135px;
 					height: auto;
-					margin-top: 20px;
+					margin-top: 15px;
 				}
 			}
 		}
 		// Mobile Navigation
 		.xs-toggle-nav {
 			display: block;
-			width: 40px;
-			height: 40px;
+			width: 55px;
+			height: 60px;
 			position: relative;
-			margin: 13px 0 0 0;
+			margin-right: -15px;
+			background-color: #922121;
 			cursor: pointer;
 			float: right;
 			@include transform(rotate(0deg));
@@ -98,20 +98,22 @@
 				display: block;
 				position: absolute;
 				height: 5px;
-				width: 100%;
+				width: 35px;
 				opacity: 1;
 				left: 0;
+				right: 0;
+				margin: auto;
 				background-color: $white;
 				@include transform(rotate(0deg));
 				@include transition(.25s ease-in-out);
 				&:nth-child(1) {
-				 	top: 7px;
+				 	top: 18px;
 				}
 				&:nth-child(2), &:nth-child(3) {
-					top: 18px;
+					top: 28px;
 				}
 				&:nth-child(4) {
-					top: 30px;
+					top: 38px;
 				}
 			}
 			&.open span {
@@ -136,11 +138,13 @@
 		.xs-nav-side {
 			position: fixed;
 			z-index: 100;
-			top: 69px;
+			top: 62px;
 			left: -245px;
 			height: 100%;
 			background-color: #403D3D;
 			width: 245px;
+			overflow-y: auto;
+			overflow-x: hidden;
 			@include transition(0.2s ease-in-out);
 			.fx-nav-options {
 				float: none;
@@ -173,13 +177,15 @@
 					}
 				}
 				&.right {
-					margin-top: -40px;
 					li {
 						// width: 50%;
-						&.account a {
-							background-color: transparent;
-							&:hover, &:focus, &:active {
-								background-color: #bb1414;
+						&.account {
+							padding-top: 0;
+							a {
+								background-color: transparent;
+								&:hover, &:focus, &:active {
+									background-color: #bb1414;
+								}
 							}
 						}
 						a .icon-inbox {
@@ -219,9 +225,13 @@
 	// ------
 	// Common
 	// ------
+	// If body has admin-bar class - added by wp
+	.admin-bar .fx-wrapper {
+   		padding-top: 16px;
+   }
 	// Wrapper
 	.fx-wrapper {
-		padding-top: 70px;
+		padding-top: 62px;
 		&.fx-login {
 			padding-top: 0;
 		}
@@ -260,7 +270,6 @@
 	// ------
 	// Landing Page
 	.fx-landing {
-		margin-top: -70px;
 		.section-w-panel {
 			.text-lg {
 				font-size: 40px;
@@ -481,7 +490,6 @@
 	}
 	// Capture Page
 	.fx-capture-page {
-		margin-top: -70px;
 		// Funnel 1
 		&.f1 {
 			.section-one {

@@ -49,7 +49,7 @@
 											My Account
 										</a>
 									</li>
-									<li>
+									<li class="inbox">
 										<a href="<?php bloginfo('url'); ?>/my-account/inbox" title="Support Icon">
 											<i class="fa fa-inbox block icon-inbox"></i>
 											<span>Inbox</span>
