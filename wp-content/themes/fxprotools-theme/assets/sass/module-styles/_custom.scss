@@ -2225,7 +2225,6 @@
 	}
 }
 
-
 // Tab Panel Styling
 li.false {
 	background-color: $white;
@@ -2308,22 +2307,19 @@ form {
 	to {transform: none;}
 }
 
+// Logout Notice
 .log-out-notice {
+	margin-bottom: -30px;
 	p a {
 		color: #de1515
 	}
 	h1 {
 		margin-bottom: 24px;
-		margin-top: 8px;
+		margin-top: 0;
 	}
-	span {
-		&.label-red {
-			padding: 10px 55px;
-			font-size: 17px;
-		}
-	}
-	.img-responsive {
-		margin: 0 auto;
+	span.label-red {
+		padding: 10px 55px;
+		font-size: 17px;
 	}
 	.quick-message {
 		h1 {
