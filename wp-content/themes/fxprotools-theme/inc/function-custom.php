@@ -44,14 +44,17 @@ function verify_email_address($verification_code)
 {
     if( get_current_user_id() > 0)
     {
+        // just get passed this step if debug is enabled
+        if (WP_DEBUG) {
+	        pass_onboarding_checklist( 'verified_email' );
+	        return true;
+        }
         $user = get_user_by('id', get_current_user_id() );
         $secret = "fxprotools-";
         $hash = MD5( $secret . $user->data->user_email);
         if($hash == $verification_code)
         {
-            $checklist = get_user_checklist();
-            $checklist['verified_email'] = true;
-            update_user_meta( get_current_user_id(), '_onboard_checklist', $checklist );
+	        pass_onboarding_checklist('verified_email');
             return true;
         } else{
             return false;
