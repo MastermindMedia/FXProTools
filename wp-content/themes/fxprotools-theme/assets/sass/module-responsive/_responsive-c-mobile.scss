@@ -71,6 +71,7 @@
 		top: 0;
 		left: 0;
 		right: 0;
+		border-bottom: none;
 		.fx-navbar-header {
 			float: left;
 			.navbar-brand {
@@ -204,8 +205,20 @@
 	}
 	// When navigation is open
 	body.xs-nav-open {
+		overflow: hidden;
 		.xs-nav-side {
 			left: 0;
+		}
+		.fx-wrapper-content::before {
+			content: ' ';
+			position: absolute;
+			height: 100%;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			background-color: rgba(0, 0, 0, 0.31);
+			z-index: 1;
 		}
 	}
 	// Footer
