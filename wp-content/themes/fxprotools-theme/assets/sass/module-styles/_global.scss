@@ -35,6 +35,34 @@ p {
     line-height: 1.6;
 }
 
+// Wordpress image alignment for content
+img.alignright {
+    float: right;
+    margin: 0 0 1em 1em;
+}
+img.alignleft {
+    float: left;
+    margin: 0 1em 1em 0;
+}
+img.aligncenter {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+a img.alignright {
+    float: right;
+    margin: 0 0 1em 1em;
+}
+a img.alignleft {
+    float: left;
+    margin: 0 1em 1em 0;
+}
+a img.aligncenter {
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+}
+
 // Bootstrap Overriding Styles
 .form-control {
     @include border-radius(0);
