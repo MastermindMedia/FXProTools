@@ -1,5 +1,6 @@
-	</div><!-- /fx-wrapper -->
-
+	
+	</div><!-- /fx-content-wrapper -->
+	
 	<?php $exclude_pages = array('login', 'forgot-password', 'f3', 'f4'); ?>
 	<?php if(!is_page($exclude_pages)): ?>
 	<div class="fx-footer">
@@ -47,6 +48,8 @@
 		</div>
 	</div>
 	<?php endif; ?>
+
+</div><!-- /fx-wrapper -->
 
 <?php get_sidebar('alert');?>
 <?php wp_footer(); ?>
