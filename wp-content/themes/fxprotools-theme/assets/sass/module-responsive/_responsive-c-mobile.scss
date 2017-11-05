@@ -217,6 +217,9 @@
 	// Wrapper
 	.fx-wrapper {
 		padding-top: 70px;
+		&.fx-login {
+			padding-top: 0;
+		}
 	}
 	// Buttons
 	.btn-lg-w-text {
@@ -252,6 +255,7 @@
 	// ------
 	// Landing Page
 	.fx-landing {
+		margin-top: -70px;
 		.section-w-panel {
 			.text-lg {
 				font-size: 40px;
@@ -472,6 +476,7 @@
 	}
 	// Capture Page
 	.fx-capture-page {
+		margin-top: -70px;
 		// Funnel 1
 		&.f1 {
 			.section-one {
