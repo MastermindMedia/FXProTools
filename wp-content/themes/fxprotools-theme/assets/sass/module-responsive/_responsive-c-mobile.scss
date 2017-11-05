@@ -59,6 +59,144 @@
 			}
 		}
 	}
+	// Main Navigation
+	.fx-navbar-main {
+		padding-bottom: 15px;
+		position: fixed;
+		z-index: 100;
+		top: 0;
+		left: 0;
+		right: 0;
+		.fx-navbar-header {
+			float: left;
+			.navbar-brand {
+				padding: 0;
+				img {
+					width: 135px;
+					height: auto;
+					margin-top: 20px;
+				}
+			}
+		}
+		// Mobile Navigation
+		.xs-toggle-nav {
+			display: block;
+			width: 40px;
+			height: 40px;
+			position: relative;
+			margin: 13px 0 0 0;
+			cursor: pointer;
+			float: right;
+			@include transform(rotate(0deg));
+			@include transition(.5s ease-in-out);
+			span {
+				display: block;
+				position: absolute;
+				height: 5px;
+				width: 100%;
+				opacity: 1;
+				left: 0;
+				background-color: $white;
+				@include transform(rotate(0deg));
+				@include transition(.25s ease-in-out);
+				&:nth-child(1) {
+				 	top: 7px;
+				}
+				&:nth-child(2), &:nth-child(3) {
+					top: 18px;
+				}
+				&:nth-child(4) {
+					top: 30px;
+				}
+			}
+			&.open span {
+				&:nth-child(1) {
+					top: 18px;
+					width: 0%;
+					left: 50%;
+				}
+				&:nth-child(2) {
+					@include transform(rotate(45deg));
+				}
+				&:nth-child(3) {
+					@include transform(rotate(-45deg));
+				}
+				&:nth-child(4) {
+					top: 18px;
+					width: 0%;
+					left: 50%;
+				}
+			}
+		}
+		.xs-nav-side {
+			position: fixed;
+			z-index: 100;
+			top: 69px;
+			left: -245px;
+			height: 100%;
+			background-color: #403D3D;
+			width: 245px;
+			@include transition(0.2s ease-in-out);
+			.fx-nav-options {
+				float: none;
+				margin: 0 -15px;
+				li {
+					float: none;
+					margin-right: 0;
+					border-bottom: 1px solid #EEE;
+					a {
+						text-align: left;
+						padding: 20px 15px;
+						line-height: initial;
+						@include transition(0.3s);
+						&:hover, &:focus, &:active {
+							background-color: #bb1414;
+						}
+						img {
+							width: 32px;
+							height: auto;
+							margin-right: 15px;
+							float: left;
+							vertical-align: top;
+							margin-top: -5px;
+						}
+					}
+					// Share/Team Icon
+					&:nth-child(3) a img,
+					&:nth-child(4) a img {
+						margin-top: -10px;
+					}
+				}
+				&.right {
+					margin-top: -40px;
+					li {
+						// width: 50%;
+						&.account a {
+							background-color: transparent;
+							&:hover, &:focus, &:active {
+								background-color: #bb1414;
+							}
+						}
+						a .icon-inbox {
+							font-size: 30px;
+							float: left;
+							display: block;
+							width: 32px;
+							margin-right: 10px;
+							margin-top: -7px;
+							margin-left: 5px;
+						}
+					}
+				}
+			}
+		}
+	}
+	// When navigation is open
+	body.xs-nav-open {
+		.xs-nav-side {
+			left: 0;
+		}
+	}
 	// Footer
 	.fx-footer {
 		padding: 50px 0 30px 0;
@@ -76,6 +214,10 @@
 	// ------
 	// Common
 	// ------
+	// Wrapper
+	.fx-wrapper {
+		padding-top: 70px;
+	}
 	// Buttons
 	.btn-lg-w-text {
 		font-size: 22px;

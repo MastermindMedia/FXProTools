@@ -89,10 +89,12 @@
 .fx-wrapper {
 	position: relative;
 	height: auto;
-	padding-bottom: 30px;
 	&.fx-login {
 		padding-bottom: 0;
 		height: 100%;
+	}
+	.fx-content-wrapper {
+		padding-bottom: 30px;
 	}
 }
 
