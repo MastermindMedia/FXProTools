@@ -63,5 +63,3 @@
 			</div>
 		</nav>
 		<?php endif; ?>
-
-		<div class="fx-content-wrapper">
