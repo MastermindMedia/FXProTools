@@ -65,6 +65,12 @@ jQuery(document).ready( function($) {
 });
 
 // Events
+$(document).on('click', '.xs-toggle-nav', function(e){
+	$(this).toggleClass('open');
+	$('body').toggleClass('xs-nav-open');
+	e.preventDefault();
+});
+
 $(document).on('click', '.fx-board-list.w-toggle li', function(){
 	$('.fx-board-list.w-toggle li').removeClass('open');
 	$(this).addClass('open');
