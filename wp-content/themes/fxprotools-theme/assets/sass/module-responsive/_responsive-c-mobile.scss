@@ -23,6 +23,11 @@
 	// ----------
 	// Navigation
 	// ----------
+	// Wordpress Admin Bar
+	#wpadminbar {
+	   display: none!important;
+	}
+
 	// Landing/Capture Page Navigation
 	.fx-landing .section-nav .fx-top-nav {
 		&.one {
