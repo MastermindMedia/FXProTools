@@ -11,7 +11,7 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 		const META_ENABLE_BUY_BUTTON = '_enable_buy_button';
 		const META_BUY_BUTTON_URL = '_buy_button_url';
 		const META_BUY_BUTTON_TEXT = '_buy_button_text';
-        
+        const POST_NAME_FREE_SHIRT = 'free-shirt';
 		/**
 		 * @var integer ID of the membership products
 		 */
@@ -270,8 +270,7 @@ HTML;
 		 * Displays message if the shirt has already been claimed
 		 */
 		public function action_woocommerce_before_single_product() {
-			global $post;
-			if ( $post->post_name == "free-shirt" ) {
+			if ( self::claim_freeshirt() ) {
 				$html = <<<HTML
 <div class="col-md-12">
     <div class="fx-header-title">
@@ -280,12 +279,28 @@ HTML;
     </div>
 </div>
 HTML;
-				if ( wc_customer_bought_product( '', get_current_user_id(), $post->ID ) ) {
-					echo sprintf( $html, "You already got your Free T-shirt", 'Lorem ipsum blah blah blah' );
-				}
+
+                echo sprintf( $html, "You already got your Free T-shirt", 'Lorem ipsum blah blah blah' );
 			}
 		}
 
+		/**
+         * Answers the question if the user has already claimed his free shirt
+         * Checks the `Get your free shirt` checklist
+		 * @return bool
+		 */
+		public static function claim_freeshirt() {
+			global $post;
+
+			$claimed = $post->post_name == self::POST_NAME_FREE_SHIRT
+				&& wc_customer_bought_product( '', get_current_user_id(), $post->ID );
+
+			if ($claimed) {
+			    pass_onboarding_checklist('got_shirt');
+            }
+
+            return $claimed;
+		}
 	}
 }
 
