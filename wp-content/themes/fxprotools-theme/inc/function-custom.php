@@ -595,6 +595,18 @@ function get_users_with_active_subscriptions($subscription_ids, $user_fields = a
     return $results;
 }
 
+function user_unsubbed_from_list($user_id, $list_name) {
+    global $wpdb;
+    
+    return $wpdb->get_var("SELECT unsub.meta_id as 'unsub_id'
+        FROM {$wpdb->postmeta} unsub
+        INNER JOIN {$wpdb->postmeta} list ON
+            unsub.post_id = list.post_id AND
+            list.meta_key = 'email_list'
+        WHERE unsub.meta_key = '_user_{$user_id}_unsubscribe' AND
+        list.meta_value = '{$list_name}'");
+}
+
 // redirect to custom login page instead of wordpress page
 add_action('wp_login_failed', 'custom_redirect_login_failed');
 function custom_redirect_login_failed($username) {
