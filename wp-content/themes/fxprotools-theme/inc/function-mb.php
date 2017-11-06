@@ -211,12 +211,12 @@ if(!class_exists('SettingsMB')){
                 'context'    => 'advanced',
                 'priority'   => 'high',
                 'autosave'   => false,
-                // 'include' => array(
-                // 	'relation'	=> 'OR',
-                // 	'ID'		=> '',
-                // 	'parent'	=> '',
-                // 	'slug'		=> array( 'dashboard','access-products', 'referral-program' ),
-                // ),
+                'include' => array(
+                	'relation'	=> 'OR',
+                	'ID'		=> '',
+                	'parent'	=> '',
+                	'slug'		=> array( 'dashboard','access-products', 'referral-program' ),
+                ),
                 'tabs'      => array(
                     $prefix . 'page'    => __( 'Page', 'rwmb' ),
                     $prefix . 'video'   => __( 'Video', 'rwmb' ),
@@ -383,12 +383,12 @@ if(!class_exists('SettingsMB')){
                 'context'    => 'advanced',
                 'priority'   => 'high',
                 'autosave'   => false,
-                // 'include' => array(
-                // 	'relation'	=> 'OR',
-                // 	'ID'		=> '',
-                // 	'parent'	=> '',
-                // 	'slug'		=> array( 'f2', 'lp1', 'lp2', 'lp3' ),
-                // ),
+                'include' => array(
+                	'relation'	=> 'OR',
+                	'ID'		=> '',
+                	'parent'	=> '',
+                	'slug'		=> array( 'f2', 'lp1', 'lp2', 'lp3' ),
+                ),
                 'tabs'      => array(
                     $prefix . 'page'    => __( 'Page', 'rwmb' ),
                     $prefix . 'video'   => __( 'Video', 'rwmb' ),
@@ -541,12 +541,12 @@ if(!class_exists('SettingsMB')){
                 'context'    => 'advanced',
                 'priority'   => 'high',
                 'autosave'   => false,
-                // 'exclude' => array(
-                // 	'relation'	=> 'OR',
-                // 	'ID'		=> '',
-                // 	'parent'	=> '',
-                // 	'slug'		=> array( 'dashboard','access-products', 'referral-program', 'f2', 'lp1', 'lp2', 'lp3' ),
-                // ),
+                'exclude' => array(
+                	'relation'	=> 'OR',
+                	'ID'		=> '',
+                	'parent'	=> '',
+                	'slug'		=> array( 'dashboard','access-products', 'referral-program', 'f2', 'lp1', 'lp2', 'lp3' ),
+                ),
                 'tabs'      => array(
                     $prefix . 'page'    => __( 'Page', 'rwmb' ),
                     // $prefix . 'video'   => __( 'Video', 'rwmb' ),
