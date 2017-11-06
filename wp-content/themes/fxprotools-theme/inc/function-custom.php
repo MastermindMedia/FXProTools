@@ -476,6 +476,25 @@ function mb_menu_display( &$pto, $display, $menu, $menu_class = '', $walker = ''
     }
 }
 
+function get_mb_multi_pto( $page_element ) {
+    ob_start();
+    echo get_mb_pto1( $page_element, 'pto1' );
+    $x_pto1 = ob_get_contents();
+    ob_end_clean();
+
+    ob_start();
+    echo get_mb_pto1( $page_element, 'pto2' );
+    $x_pto2 = ob_get_contents();
+    ob_end_clean();
+
+    ob_start();
+    echo get_mb_pto1( $page_element, 'pto3' );
+    $x_pto3 = ob_get_contents();
+    ob_end_clean();
+
+    return $menu = strpos( $x_pto1, 'xpto1' ) ? $x_pto1 : ( strpos( $x_pto2, 'xpto2' ) ? $x_pto2 : ( strpos( $x_pto3, 'xpto3' ) ? $x_pto3 : $x_pto1 ) ) ;
+}
+
 // Menu locations
 add_action( 'init', 'register_my_menus' );
 function register_my_menus() {
