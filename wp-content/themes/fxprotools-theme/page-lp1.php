@@ -20,7 +20,10 @@
 							<p class="intro-note label-red inline-block">Become An Expert Market Trader!</p>
 							<p class="intro-note sm"> Discover More Profitabe Trades With Our Proven Strategies &amp; Technolgy</p>
 						</div>
-						<div class="video"></div>
+						<?php 
+							// Metabox Page Template Option - Video Embed 
+							echo get_mb_pto1( 'video_embed', 'pto2' );
+						?>
 						<div class="text-center">
 							<a href="#trial-products" class="btn btn-danger btn-lg btn-lg-w-text scroll-to">
 								Create your Account Now!

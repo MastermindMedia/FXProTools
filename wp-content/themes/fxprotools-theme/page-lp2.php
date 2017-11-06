@@ -22,7 +22,7 @@
 						</div>
 						<?php 
 							// Metabox Page Template Option - Video Embed 
-							echo get_mb_pto1('video_embed');
+							echo get_mb_pto1( 'video_embed', 'pto2' );
 						?>
 						<div class="text-center">
 							<a href="#trial-products" class="btn btn-danger btn-lg btn-lg-w-text">

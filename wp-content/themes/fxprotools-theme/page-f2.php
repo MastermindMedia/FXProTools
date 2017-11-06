@@ -28,7 +28,7 @@ $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : 'business.admin';
 				<div class="col-xs-12 col-sm-8 col-md-8">
 					<?php 
 						// Metabox Page Template Option - Video Embed 
-						echo get_mb_pto1('video_embed');
+						echo get_mb_pto1( 'video_embed', 'pto2' );
 					?>
 					<p class="video-disclaimer">* Submitting This Survey Will NOT Interrupt The Video *</p>
 				</div>
