@@ -27,17 +27,20 @@ function post_email_published($id) {
         $recipientType = get_post_meta($id, 'email_recipient_type')[0];
         $personalizations = [];
         $user_ids = [];
+        $listType = null;
         
         switch ($recipientType)
         {
             case 'all':
+                $listType = 'all';
+                
                 // Retrieve all users.
                 $query = new WP_User_Query(array('fields' => array('ID', 'user_email', 'display_name'), 'orderby' => 'display_name', 'order' => 'ASC'));
                 $users = $query->get_results();
                 
                 // Add each user to the emails list.
                 foreach ($users as $user) {
-                    if (isset($user->user_email) && $user->user_email) {
+                    if (isset($user->user_email) && $user->user_email && !user_unsubbed_from_list($user->ID, $listType)) {
                         $personalizations[] = array(
                             'to' => array(array(
                                 'email' => $user->user_email,
@@ -46,10 +49,10 @@ function post_email_published($id) {
                         );
                     }
                     
-                    $user_ids[] = $user->ID;
+                    if (!user_unsubbed_from_list($user->ID, $listType)) {
+                        $user_ids[] = $user->ID;
+                    }
                 }
-                
-                update_post_meta($post->ID, 'email_list', 'all');
                 break;
             case 'individual':
                 // Check what kind of individual.
@@ -61,24 +64,28 @@ function post_email_published($id) {
                         $individualName = get_post_meta($post->ID, 'recipient_individual_name')[0];
                         $individualEmail = get_post_meta($post->ID, 'recipient_individual_email')[0];
                         
-                        $personalizations[] = array(
-                            'to' => array(array(
-                                'email' => $individualEmail,
-                                'name' => $individualName ? $individualName : $individualEmail
-                            ))
-                        );
+                        if ($individualEmail) {
+                            $personalizations[] = array(
+                                'to' => array(array(
+                                    'email' => $individualEmail,
+                                    'name' => $individualName ? $individualName : $individualEmail
+                                ))
+                            );
+                        }
                         break;
                     case 'user':
                         // WP user selected.
                         $userId = get_post_meta($post->ID, 'recipient_individual_user')[0];
                         $user = get_userdata($userId);
                         
-                        $personalizations[] = array(
-                            'to' => array(array(
-                                'email' => $user->user_email,
-                                'name' => $user->display_name
-                            ))
-                        );
+                        if ($user->user_email) {
+                            $personalizations[] = array(
+                                'to' => array(array(
+                                    'email' => $user->user_email,
+                                    'name' => $user->display_name
+                                ))
+                            );
+                        }
                     
                         $user_ids[] = $userId;
                         break;
@@ -87,13 +94,14 @@ function post_email_published($id) {
             case 'product':
                 // Check what product.
                 $productId = get_post_meta($post->ID, 'recipient_product')[0];
+                $listType = 'prod-' . $productId;
                 
                 // Get orderers of this product.
                 $users = get_users_who_ordered(array($productId), array('ID', 'user_email', 'display_name'));
                 
                 // Add each user to the emails list.
                 foreach ($users as $user) {
-                    if (isset($user->user_email) && $user->user_email) {
+                    if (isset($user->user_email) && $user->user_email && !user_unsubbed_from_list($user->ID, $listType)) {
                         $personalizations[] = array(
                             'to' => array(array(
                                 'email' => $user->user_email,
@@ -102,10 +110,10 @@ function post_email_published($id) {
                         );
                     }
                     
-                    $user_ids[] = $user->ID;
+                    if (!user_unsubbed_from_list($user->ID, $listType)) {
+                        $user_ids[] = $user->ID;
+                    }
                 }
-                
-                update_post_meta($post->ID, 'email_list', 'prod-' . $productId);
                 break;
             case 'group':
                 // Check the group type.
@@ -118,14 +126,15 @@ function post_email_published($id) {
                     case 'customer':
                         $subTypes = fx_customer_subscription_products();
                         update_post_meta($post->ID, 'email_list', 'customer');
+                        $listType = 'customer';
                         break;
                     case 'distributor':
                         $subTypes = fx_distributor_subscription_products();
-                        update_post_meta($post->ID, 'email_list', 'distributor');
+                        $listType = 'distributor';
                         break;
                     case 'both':
                         $subTypes = array_merge(fx_customer_subscription_products(), fx_distributor_subscription_products());
-                        update_post_meta($post->ID, 'email_list', 'customer_distributor');
+                        $listType = 'customer_distributor';
                         break;
                 }
                 
@@ -133,7 +142,7 @@ function post_email_published($id) {
                 
                 // Add each user to the emails list.
                 foreach ($users as $user) {
-                    if (isset($user->user_email) && $user->user_email) {
+                    if (isset($user->user_email) && $user->user_email && !user_unsubbed_from_list($user->ID, $listType)) {
                         $personalizations[] = array(
                             'to' => array(array(
                                 'email' => $user->user_email,
@@ -142,21 +151,25 @@ function post_email_published($id) {
                         );
                     }
                     
-                    $user_ids[] = $user->ID;
+                    if (!user_unsubbed_from_list($user->ID, $listType)) {
+                        $user_ids[] = $user->ID;
+                    }
                 }
                 break;
         }
         
-        $sendGrid = new \FX_Sendgrid_Api();
-        $result = $sendGrid->send_to_many($personalizations, $post->post_title, get_post_meta($post->ID, 'email_content')[0], array('wpemail-id-' . $id));
-        
-        if ($result['status_code'] != 202) {
-            wp_update_post(array(
-                'ID' => $id,
-                'post_status' => 'draft'
-            ));
+        if (count($personalizations) > 0) {
+            $sendGrid = new \FX_Sendgrid_Api();
+            $result = $sendGrid->send_to_many($personalizations, $post->post_title, get_post_meta($post->ID, 'email_content')[0], array('wpemail-id-' . $id));
             
-            wp_die('Failed to send email: (' . $result['status_code'] . ') ' . $result['body']);
+            if ($result['status_code'] != 202) {
+                wp_update_post(array(
+                    'ID' => $id,
+                    'post_status' => 'draft'
+                ));
+                
+                wp_die('Failed to send email: (' . $result['status_code'] . ') ' . $result['body']);
+            }
         }
         
         foreach ($user_ids as $userid) {

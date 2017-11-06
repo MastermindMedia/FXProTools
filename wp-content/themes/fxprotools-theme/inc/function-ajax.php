@@ -140,6 +140,45 @@ function ajax_send_email() {
 	wp_die();
 }
 
+add_action("wp_ajax_nopriv_sendgrid_callback", "sendgrid_callback");
+
+function sendgrid_callback() {
+	$data = json_decode(file_get_contents('php://input'), true);
+	
+	foreach ($data as $message) {
+		$categories = $message['category'];
+		
+		if (!is_array($categories)) {
+			$categories = [$categories];
+		}
+		
+		foreach ($categories as $category) {
+			preg_match("/wpemail-id-(\d+)/", $category, $matches);
+			
+			if (count($matches) > 0) {
+				$emailID = $matches[1];
+				
+				// Find user by email.
+				$user = get_user_by('email', $message['email']);
+				
+				if ($user) {
+					$userID = $user->ID;
+					
+					// Register the event.
+					update_post_meta($emailID, '_user_' . $userID . '_' . $message['event'], true);
+					wp_send_json(['success' => true, 'email' => $emailID, 'user' => $userID]);
+				} else {
+					// Register the event.
+					update_post_meta($emailID, '_user_' . rand() . '_' . $message['event'], true);
+					wp_send_json(['success' => true, 'email' => $emailID, 'user' => null]);
+				}
+			}
+		}
+	}
+	
+	wp_send_json(['success' => false]);
+}
+
 function fx_renew_password() {
 	if ( isset( $_POST['fx_action'] ) && $_POST['fx_action'] == 'renew_password' ) {
 		$current_user = wp_get_current_user();
