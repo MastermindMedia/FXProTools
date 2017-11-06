@@ -9,10 +9,13 @@ jQuery(function($) {
     
     if ($("#post-status-display").text() == "Published") {
         $("#wpbody-content input, #wpbody-content select, #wpbody-content button").prop("disabled", true);
-        var elem = $("<div />").css("background-color", "rgba(0, 0, 0, 0.25)").css("z-index", "1000").appendTo("body");
         
-        setInterval(function() {
-            elem.offset($("#wp-email_content-wrap").offset()).width($("#wp-email_content-wrap").width()).height($("#wp-email_content-wrap").height());
+        var interval = setInterval(function() {
+            if (tinymce && tinymce.activeEditor && tinymce.activeEditor.getContent().length > -1) {
+                var content = tinymce.activeEditor.getContent();
+                $("#wp-email_content-wrap").empty().append($("<textarea />").prop("disabled", true).val(content).css("width", "100%").css("height", "250px"));
+                clearInterval(interval);
+            }
         }, 100);
     }
 });
