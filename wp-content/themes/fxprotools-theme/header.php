@@ -37,7 +37,9 @@
 								<?php
 									// Metabox Page Template Option
 									// TODO: to support pto2 and pto3
-									echo get_mb_pto1( 'main_header_menu', 'pto1' );
+									// echo get_mb_pto1( 'main_header_menu', 'pto1' );
+
+									echo get_mb_multi_pto( 'main_header_menu' );
 								?>
 							</div>
 							<div class="col-xs-12 col-sm-4 col-md-4">

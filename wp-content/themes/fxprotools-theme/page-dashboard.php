@@ -40,7 +40,7 @@ $angle = GAUGE_BASE + ( $average * $accomplished );
 							<div class="col-xs-12 col-sm-12 col-md-8">
 								<?php 
 									// Metabox Page Template Option - Video Embed 
-									echo get_mb_pto1('video_embed');
+									echo get_mb_pto1( 'video_embed', 'pto1' );
 								?>
 								<div class="row">
 									<div class="col-xs-12 col-sm-6 col-md-6">

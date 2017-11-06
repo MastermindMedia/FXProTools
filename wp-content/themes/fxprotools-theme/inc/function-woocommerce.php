@@ -40,6 +40,7 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 			add_action( 'template_redirect', array( $this, 'wc_redirect_to_checkout_if_cart' ) );
 			add_action( 'woocommerce_product_data_panels', array( $this, 'wc_buy_button_tab_fields' ) );
 			add_action( 'woocommerce_admin_process_product_object', array( $this, 'wc_save_buy_button_tab_fields' ) );
+			add_action( 'woocommerce_before_single_product', array( $this, 'action_woocommerce_before_single_product') );
 		}
 
 		public function wc_setup_checkout_fields( $fields ) {
@@ -264,6 +265,27 @@ HTML;
 
 			return $url;
 		}
+
+		/**
+		 * Displays message if the shirt has already been claimed
+		 */
+		public function action_woocommerce_before_single_product() {
+			global $post;
+			if ( $post->post_name == "free-shirt" ) {
+				$html = <<<HTML
+<div class="col-md-12">
+    <div class="fx-header-title">
+        <h1>%s</h1>
+        <p>%s</p>
+    </div>
+</div>
+HTML;
+				if ( wc_customer_bought_product( '', get_current_user_id(), $post->ID ) ) {
+					echo sprintf( $html, "You already got your Free T-shirt", 'Lorem ipsum blah blah blah' );
+				}
+			}
+		}
+
 	}
 }
 

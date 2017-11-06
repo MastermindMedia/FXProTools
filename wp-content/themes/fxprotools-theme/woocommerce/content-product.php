@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 global $product;
 
 // Ensure visibility
-if ( empty( $product ) || ! $product->is_visible() ) {
+if ( empty( $product ) || ! $product->is_visible() || $product->get_slug() == 'free-shirt') {
 	return;
 }
 ?>
