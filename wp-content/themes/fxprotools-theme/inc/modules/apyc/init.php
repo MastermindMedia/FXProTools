@@ -6,9 +6,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 date_default_timezone_set('America/New_York');
 define('WEBINAR_TIME_ZONE', 'America/New_York');
 //date_default_timezone_set('Asia/Manila');
-define('GOTOWEBINAR_USERID', 'volishon@gmail.com');
-define('GOTOWEBINAR_PASSWORD', 'Password123');
-define('GOTOWEBINAR_CONSUMERKEY', '1HcxAF4IGb4wQmTphYYldWHIcwNBhEF6');
+define('GOTOWEBINAR_USERID', 'a@volishon.com');
+define('GOTOWEBINAR_PASSWORD', 'oc845646');
+define('GOTOWEBINAR_CONSUMERKEY', 'cWsqaPAgv7G7aphXbn5yvAZ2u3AotaG1');
 /*define('GOTOWEBINAR_USERID', 'allan.paul.casilum@gmail.com');
 define('GOTOWEBINAR_PASSWORD', 'a4p1y2c5');
 define('GOTOWEBINAR_CONSUMERKEY', '22tCPrVm7hhgAihDRFsFZarudvnUv858');*/

@@ -3,14 +3,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 /**
- * GotoWebinar - Create Registrants
- https://goto-developer.logmeininc.com/content/gotowebinar-api-reference#!/Registrants/createRegistrant
+ * GotoWebinar - Create Webinar
+ * https://goto-developer.logmeininc.com/content/gotowebinar-api-reference#!/Webinars/createWebinar
  *
  *
  * @since 3.12
  * @access (protected, public)
  * */
-class Apyc_Citrix_GoToWebinar_CreateRegistrant{
+class Apyc_Citrix_GoToWebinar_CreateWebinar{
 	/**
 	 * instance of this class
 	 *
@@ -64,10 +64,9 @@ class Apyc_Citrix_GoToWebinar_CreateRegistrant{
 	}
 	
 	/**
-		Create Registrants
-		/organizers/{organizerKey}/webinars/{webinarKey}/registrants  
+		/organizers/{organizerKey}/webinars   
 	**/
-	public function create($webinarKey, $body = array()){
+	public function create($body = array()){
 		global $wp_version;
 		
 		$token = apyc_get_token();
@@ -81,25 +80,26 @@ class Apyc_Citrix_GoToWebinar_CreateRegistrant{
 					'Authorization' => $token->access_token,
 				),
 				'body' => json_encode($body),
-			); 
-			$url = $this->url . $token->organizer_key . '/webinars/' . $webinarKey . '/registrants';
+			);
+			//dd($args);			
+			$url = $this->url . $token->organizer_key . '/webinars';
 			$response = wp_remote_post( $url, $args );
 			//dd($response);
 			if ( is_wp_error( $response ) ) {
 			   $error_message = $response->get_error_message();
-			   write_log('gotowebinar create registrar error : ' . $error_message);
+			   write_log('gotowebinar create webinar error : ' . $error_message);
 			   throw new Exception( $error_message );
 			} else {
 				$response_code = wp_remote_retrieve_response_code( $response );
 				if( $response_code == 200 || $response_code == 201 ){
 					$body = json_decode( wp_remote_retrieve_body( $response ) );
-					write_log('gotowebinar create registrar : ' . serialize($body));				
+					write_log('gotowebinar create webinar : ' . serialize($body));				
 					return array(
 						'code' => $response_code,
 						'body' => $body
 					);
 				}else{
-					write_log('gotowebinar create registrar error : ' . $body);
+					write_log('gotowebinar create webinar error : ' . serialize($body));
 					return array(
 						'code' => $response_code,
 						'body' => $body
