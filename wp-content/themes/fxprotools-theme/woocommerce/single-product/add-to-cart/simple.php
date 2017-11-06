@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $product;
-if ( ! $product->is_purchasable() || Woocommerce_Settings::claim_freeshirt()) {
+if ( ! $product->is_purchasable() || Woocommerce_Settings::can_claim_freeshirt()) {
     return;
 }
 

@@ -710,3 +710,12 @@ if ( ! function_exists('apyc_has_active_user_subscription')) {
         return Apyc_User::get_instance()->hasActiveSubscription($user_id);
     }
 }
+
+function user_membership_duration() {
+	$today_obj = new DateTime( date( 'Y-m-d', strtotime( 'today' ) ) );
+	$register_date = get_the_author_meta( 'user_registered', get_current_user_id() );
+	$registered_obj = new DateTime( date( 'Y-m-d', strtotime( $register_date ) ) );
+	$interval_obj = $today_obj->diff( $registered_obj );
+
+	return $interval_obj->days;
+}
