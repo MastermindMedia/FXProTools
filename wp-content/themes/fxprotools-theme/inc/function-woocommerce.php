@@ -11,7 +11,8 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 		const META_ENABLE_BUY_BUTTON = '_enable_buy_button';
 		const META_BUY_BUTTON_URL = '_buy_button_url';
 		const META_BUY_BUTTON_TEXT = '_buy_button_text';
-        
+        const POST_NAME_FREE_SHIRT = 'free-shirt';
+        const MIN_MEMBERSHIP_DURATION = 15;
 		/**
 		 * @var integer ID of the membership products
 		 */
@@ -40,6 +41,7 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 			add_action( 'template_redirect', array( $this, 'wc_redirect_to_checkout_if_cart' ) );
 			add_action( 'woocommerce_product_data_panels', array( $this, 'wc_buy_button_tab_fields' ) );
 			add_action( 'woocommerce_admin_process_product_object', array( $this, 'wc_save_buy_button_tab_fields' ) );
+			add_action( 'woocommerce_before_single_product', array( $this, 'action_woocommerce_before_single_product') );
 		}
 
 		public function wc_setup_checkout_fields( $fields ) {
@@ -263,6 +265,48 @@ HTML;
 			}
 
 			return $url;
+		}
+
+		/**
+		 * Displays message if the shirt has already been claimed
+		 */
+		public function action_woocommerce_before_single_product() {
+			$html = <<<HTML
+<div class="col-md-12">
+    <div class="fx-header-title">
+        <h1>%s</h1>
+        <p>%s</p>
+    </div>
+</div>
+HTML;
+
+			if ( user_membership_duration() < self::MIN_MEMBERSHIP_DURATION ) {
+				echo sprintf( $html, "You have to finish your 14-day trial to claim this", 'You have been a member for ' . user_membership_duration() . ' days so far.' );
+				exit;
+			}
+			if ( self::can_claim_freeshirt() ) {
+                echo sprintf( $html, "You already got your Free T-shirt", 'Lorem ipsum blah blah blah' );
+			}
+		}
+
+		/**
+         * Answers the question if the user has already claimed his free shirt
+         * Checks the `Get your free shirt` checklist
+		 * @return bool
+		 */
+		public static function can_claim_freeshirt() {
+			global $post;
+
+			$claimed = $post->post_name == self::POST_NAME_FREE_SHIRT
+				&& wc_customer_bought_product( '', get_current_user_id(), $post->ID )
+                && user_membership_duration() >= self::MIN_MEMBERSHIP_DURATION;
+
+			// TODO: move this to checkout page
+			if ($claimed) {
+			    pass_onboarding_checklist('got_shirt');
+            }
+
+            return $claimed;
 		}
 	}
 }

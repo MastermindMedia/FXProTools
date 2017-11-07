@@ -20,7 +20,7 @@ $referral_link = get_highest_converting_funnel_link();
 			<div class="col-md-8">
 				<?php 
 					// Metabox Page Template Option - Video Embed 
-					echo get_mb_pto1('video_embed');
+					echo get_mb_pto1( 'video_embed', 'pto1' );
 				?>
 			</div>
 			<div class="col-md-4">
