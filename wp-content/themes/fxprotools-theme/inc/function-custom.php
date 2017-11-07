@@ -472,7 +472,7 @@ function mb_menu_display( &$pto, $display, $menu, $menu_class = '', $walker = ''
     }
     // if menu display is default
     else{
-        return wp_nav_menu( array('menu' => $menu_fb,'menu_class' => $menu_class , 'walker' => $walker ) );
+        return wp_nav_menu( array('menu' => $menu_fb,'menu_class' => $menu_class . ' xpto_default', 'walker' => $walker ) );
     }
 }
 
@@ -492,7 +492,8 @@ function get_mb_multi_pto( $page_element ) {
     $x_pto3 = ob_get_contents();
     ob_end_clean();
 
-    return $menu = strpos( $x_pto1, 'xpto1' ) ? $x_pto1 : ( strpos( $x_pto2, 'xpto2' ) ? $x_pto2 : ( strpos( $x_pto3, 'xpto3' ) ? $x_pto3 : $x_pto1 ) ) ;
+    // return $menu = strpos( $x_pto1, 'xpto1' ) ? $x_pto1 : ( strpos( $x_pto2, 'xpto2' ) ? $x_pto2 : ( strpos( $x_pto3, 'xpto3' ) ? $x_pto3 : $x_pto1 ) ) ;
+    return $menu = ( strpos( $x_pto1, 'xpto1' ) || empty( $x_pto1 ) ) ? $x_pto1 : ( ( strpos( $x_pto2, 'xpto2' ) || empty( $x_pto2 ) )  ? $x_pto2 : ( ( strpos( $x_pto3, 'xpto3' ) || empty( $x_pto3 ) ) ? $x_pto3 : $x_pto1 ) ) ;
 }
 
 // Menu locations
