@@ -2,6 +2,7 @@ var Coaching = function(){
 	var ajax_url = fx;
 	var upcoming_tab_show = null;
 	var past_tab_show = null;
+	var private_coaching_show = null;
 	function isJson(str) {
 		try {
 			JSON.parse(str);
@@ -26,20 +27,30 @@ var Coaching = function(){
 		});
 		return ajaxCall;
 	}
+	function ajaxGetPrivateCoaching(){
+		var ajaxCall = $.ajax({
+		  method: "GET",
+		  url: ajax_url.ajax_url,
+		  data: { 'action': 'coach_get_private_coaching' }
+		});
+		return ajaxCall;
+	}
 	return {
 		init:function(){
 			if(upcoming_tab_show == null){
 				//show the upcoming ajax events
 				//console.log('show the upcoming ajax events');
-				$('#ajax-coach-upcoming-webinars').html('<p>Loading webinars please wait</p>');
+				var content = $('#ajax-coach-upcoming-webinars');
+				
+				content.html('<p>Loading webinars please wait</p>');
 				ajaxGetUpcomingWebinar().done(function(data){
 					//console.log(data);
 					if( !isJson(data) ){
-						$('#ajax-coach-upcoming-webinars').html(data);
+						content.html(data);
 					}else{
 						data = jQuery.parseJSON(data);
 						if( data.status == 'no-webinar' ){
-							$('#ajax-coach-upcoming-webinars').html('<p>' + data.msg + '</p>');
+							content.html('<p>' + data.msg + '</p>');
 						}
 					}
 				});
@@ -57,15 +68,37 @@ var Coaching = function(){
 					&& past_tab_show  == null
 				){
 					past_tab_show = 1;
-					$('#ajax-coach-history-webinars').html('<p>Loading webinars please wait</p>');
+					var content = $('#ajax-coach-history-webinars');
+					
+					content.html('<p>Loading webinars please wait</p>');
 					ajaxGetPastWebinar().done(function(data){
 						//console.log(data);
 						if( !isJson(data) ){
-							$('#ajax-coach-history-webinars').html(data);
+							content.html(data);
 						}else{
 							data = jQuery.parseJSON(data);
 							if( data.status == 'no-webinar' ){
-								$('#ajax-coach-history-webinars').html('<p>' + data.msg + '</p>');
+								content.html('<p>' + data.msg + '</p>');
+							}
+						}
+					});
+				}
+				if( e.target.hash == '#private-coaching' 
+					&& private_coaching_show  == null
+				){
+					private_coaching_show = 1;
+					
+					var content = $('#ajax-coach-private-coaching-webinar');
+					
+					content.html('<p>Loading private coaching webinars please wait</p>');
+					ajaxGetPrivateCoaching().done(function(data){
+						//console.log(data);
+						if( !isJson(data) ){
+							content.html(data);
+						}else{
+							data = jQuery.parseJSON(data);
+							if( data.status == 'no-webinar' ){
+								content.html('<p>' + data.msg + '</p>');
 							}
 						}
 					});

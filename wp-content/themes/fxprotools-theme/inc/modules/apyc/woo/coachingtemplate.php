@@ -312,6 +312,7 @@ class Apyc_Woo_CoachingTemplate{
 				//dd($body_registrant);
 				$registrant = apyc_create_registrant($webinar_key, $body_registrant);
 				if( $registrant['code'] == 201 ){
+					add_user_meta($owner_order_id, $webinar_key . '_order_id', $order_id);
 					return true;
 				}
 				//dd($registrant);
