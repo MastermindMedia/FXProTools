@@ -377,26 +377,26 @@ add_action('init','sess_start');
 function get_mb_pto1( $page_element, $pto = 'pto1' ) {
     switch ( $page_element ) {
         case 'main_header_menu':
-            return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), rwmb_meta( $pto . '_main_header_menu'), 'fx-nav-options', new Nav_Main_Header_Menu_Walker(), 'Main Header Menu', '' );
+            return mb_menu_display( rwmb_meta( $pto . '_display_main_header_menu'), rwmb_meta( $pto . '_main_header_menu'), 'fx-nav-options', new Nav_Main_Header_Menu_Walker(), 'Main Header Menu', '' );
             break;
         case 'secondary_header_menu':
-            return mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), rwmb_meta( $pto . '_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
+            return mb_menu_display( rwmb_meta( $pto . '_display_header_menu'), rwmb_meta( $pto . '_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
             break;
         case 'footer_left_menu':
-            return mb_menu_display( $pto, rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_fl'), 'footer-nav', '', 'Footer Menu 1', '' );
+            return mb_menu_display( rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_fl'), 'footer-nav', '', 'Footer Menu 1', '' );
             break;
         case 'footer_middle_menu':
-            return mb_menu_display( $pto, rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_mid'), 'footer-nav', '', 'Footer Menu 2', '' );
+            return mb_menu_display( rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_mid'), 'footer-nav', '', 'Footer Menu 2', '' );
             break;
         case 'footer_right_menu':
-            return mb_menu_display( $pto, rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_fr'), 'footer-nav', '', 'Footer Menu 3', 'with-log-inout' );
+            return mb_menu_display( rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_fr'), 'footer-nav', '', 'Footer Menu 3', 'with-log-inout' );
             break;
         case 'video_embed':
             // pto1 and pto2 only has support for video tab
             if ( $pto == 'pto1' ) :
-                $video_url          = is_user_fx_customer() ? rwmb_meta( $pto . '_video_url_customer') : rwmb_meta( $pto . '_video_url_distributor') ;
+                $video_url              = is_user_fx_customer() ? rwmb_meta( $pto . '_video_url_customer') : rwmb_meta( $pto . '_video_url_distributor') ;
             elseif ( $pto == 'pto2' ) :
-                $video_url          = rwmb_meta( $pto . '_video_url');
+                $video_url = rwmb_meta( $pto . '_video_url');
             endif;
             $video_autostart        = rwmb_meta( $pto . '_video_autostart');
             $video_show_controls    = rwmb_meta( $pto . '_video_show_controls');
@@ -405,7 +405,7 @@ function get_mb_pto1( $page_element, $pto = 'pto1' ) {
             $float_class            = "";
 
             if( count( is_mb_video_scroll( $pto ) ) > 0 ){
-                $arr_scroll     = is_mb_video_scroll( $pto );
+                $arr_scroll = is_mb_video_scroll( $pto );
                 $scroll_class   = ( !empty( rtrim($arr_scroll[0]) ) ) ? $arr_scroll[0] : '';
                 $scroll_url     = ( !empty( rtrim($arr_scroll[1]) ) ) ? $arr_scroll[1] : '';
             }
@@ -431,15 +431,17 @@ function get_mb_pto1( $page_element, $pto = 'pto1' ) {
 
 function is_mb_video_scroll( $pto = 'pto1' ){
     $video_scrolling = implode( ' ', rwmb_meta( $pto . '_video_scrolling') );
-    if( !empty( rtrim($video_scrolling) ) && $video_scrolling == 'yes' ) return array('pto--scrolling-video', rwmb_meta( $pto . '_video_url'));
+    if( !empty( rtrim($video_scrolling) ) && $video_scrolling == 'yes' ) 
+        return array('pto--scrolling-video', rwmb_meta( $pto . '_video_url'));
 }
 
 function is_mb_video_float( $pto = 'pto1' ){
     $video_floating = implode( ' ', rwmb_meta( $pto . '_video_floating') );
-    if( !empty( rtrim($video_floating) ) && $video_floating == 'yes' ) return array('pto--floating-video');
+    if( !empty( rtrim($video_floating) ) && $video_floating == 'yes' )
+        return array('pto--floating-video');
 }
 
-function mb_menu_display( &$pto, $display, $menu, $menu_class = '', $walker = '', $fallback, $location = '' ) {
+function mb_menu_display( $display, $menu, $menu_class = '', $walker = '', $fallback, $location = '' ) {
     // menu fallback
     $menu_fb = $fallback;
     // check for menu display value
@@ -454,7 +456,7 @@ function mb_menu_display( &$pto, $display, $menu, $menu_class = '', $walker = ''
                     'container_class' => '',
                     'container_id'    => '',
                     'menu_id'         => $term_id,
-                    'menu_class'      => $menu_class . ' x' . $pto,
+                    'menu_class'      => $menu_class,
                     'echo'            => true,
                     'fallback_cb'     => 'wp_page_menu',
                     'before'          => '',
@@ -472,27 +474,8 @@ function mb_menu_display( &$pto, $display, $menu, $menu_class = '', $walker = ''
     }
     // if menu display is default
     else{
-        return wp_nav_menu( array('menu' => $menu_fb,'menu_class' => $menu_class , 'walker' => $walker ) );
+        return wp_nav_menu( array('menu' => $menu_fb,'menu_class' => $menu_class, 'walker' => $walker ) );
     }
-}
-
-function get_mb_multi_pto( $page_element ) {
-    ob_start();
-    echo get_mb_pto1( $page_element, 'pto1' );
-    $x_pto1 = ob_get_contents();
-    ob_end_clean();
-
-    ob_start();
-    echo get_mb_pto1( $page_element, 'pto2' );
-    $x_pto2 = ob_get_contents();
-    ob_end_clean();
-
-    ob_start();
-    echo get_mb_pto1( $page_element, 'pto3' );
-    $x_pto3 = ob_get_contents();
-    ob_end_clean();
-
-    return $menu = strpos( $x_pto1, 'xpto1' ) ? $x_pto1 : ( strpos( $x_pto2, 'xpto2' ) ? $x_pto2 : ( strpos( $x_pto3, 'xpto3' ) ? $x_pto3 : $x_pto1 ) ) ;
 }
 
 // Menu locations
