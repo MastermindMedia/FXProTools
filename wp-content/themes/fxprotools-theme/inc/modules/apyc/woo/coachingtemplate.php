@@ -259,15 +259,21 @@ class Apyc_Woo_CoachingTemplate{
 	public function webinar_completed($order_id){
 		$order = wc_get_order( $order_id );
 		$items = $order->get_items(); 
-
+		
 		$webinar_date = false;
 		$webinar_time = false;
 		foreach ( $items as $key => $item ) {
 			$webinar_date = wc_get_order_item_meta( $key, 'Date' );
 			$webinar_time = wc_get_order_item_meta( $key, 'Time' );
 			$product_id = $item['product_id'];
+			$item_id = $item->get_id();
+			//echo wc_update_order_item_meta($item_id, 'Date', 'October 03, 2017');
+			//echo $item_id;
 		}
-		if( $webinar_date && $webinar_time ){
+		//dd($order);
+		//dd($items);
+		//exit();
+		/*if( $webinar_date && $webinar_time ){
 			$owner_order_id =  get_post_meta( $order_id, '_customer_user', true );
 			$user_data = get_userdata($owner_order_id);
 			$product = wc_get_product($product_id);
@@ -318,7 +324,7 @@ class Apyc_Woo_CoachingTemplate{
 				//dd($registrant);
 			}
 			
-		}
+		}*/
 	}
 	
 	public function __construct() {

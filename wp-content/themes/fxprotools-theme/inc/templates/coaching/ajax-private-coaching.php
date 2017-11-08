@@ -18,7 +18,9 @@
 								<?php if($v['data']->inSession){ ?>
 										<a href="<?php echo $v['data']->registrationUrl;?>"><?php echo $insession_join_meeting;?> </a>
 								<?php }else{ ?>
-										<a href="<?php echo $v['data']->registrationUrl;?>"><?php echo $register_join_meeting;?> </a>
+										<?php if( date('Y-m-d') < date('Y-m-d', strtotime($v['data']->times[0]->startTime)) ){ ?>
+											<a href="#" data-orderid="<?php echo $v['order_id'];?>" data-webinarkey="<?php echo $k;?>">Re-Sched </a>
+										<?php } ?>
 								<?php } ?>
 							</td>
 						</tr>
