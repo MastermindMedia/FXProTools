@@ -76,7 +76,7 @@
     min-height: inherit!important;
     border-bottom: 1px solid #DDD!important;
 	background-color: $white!important;
-	@include border-radius(0)!important;
+	@include border-radius(0);
     .fx-nav-options {
 		margin: 0;
 	    padding: 5px 0;
