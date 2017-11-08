@@ -72,10 +72,10 @@
 
 // Sub Navigation
 .fx-navbar-sub {
-	position: relative;
-    min-height: inherit;
-    border-bottom: 1px solid #DDD;
-	background-color: $white;
+	position: relative!important;
+    min-height: inherit!important;
+    border-bottom: 1px solid #DDD!important;
+	background-color: $white!important;
 	@include border-radius(0);
     .fx-nav-options {
 		margin: 0;
