@@ -153,22 +153,23 @@ class Apyc_Modal{
 					$code = $ret['code'];
 					switch($code){
 						case 201:
-						$msg_code = 'Success';
+							$msg_code = 'Success';
+							pass_onboarding_checklist('scheduled_webinar');
 						break;
 						case 401:
-						$msg_code = 'Bad Request';
+							$msg_code = 'Bad Request';
 						break;
 						case 403:
-						$msg_code = 'Forbidden';
+							$msg_code = 'Forbidden';
 						break;
 						case 404:
-						$msg_code = 'Not Found';
+							$msg_code = 'Not Found';
 						break;
 						case 409:
-						$msg_code = 'The user is already registered';
+							$msg_code = 'The user is already registered';
 						break;
 						default:
-						$msg_code = '';	
+							$msg_code = '';	
 						break;
 					}
 					$webinar_ret[$v] = array(

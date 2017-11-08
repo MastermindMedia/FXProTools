@@ -21,6 +21,7 @@ $data['schedule_private_coaching'] = _('Schedule Private Coaching');
 $data['schedule_private_coaching_url'] = 'product/1-on-1-coaching/';
 $data['tab_upcoming_session'] = _('Upcoming Sessions');
 $data['tab_history_session'] = _('Past Sessions');
+$data['tab_private_coaching'] = _('Private Coaching');
 
 if ( apyc_has_active_user_subscription() || current_user_can('administrator')  ) : 
 	get_template_part('inc/templates/nav-products'); 

@@ -11,7 +11,8 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 		const META_ENABLE_BUY_BUTTON = '_enable_buy_button';
 		const META_BUY_BUTTON_URL = '_buy_button_url';
 		const META_BUY_BUTTON_TEXT = '_buy_button_text';
-        
+        const POST_NAME_FREE_SHIRT = 'free-shirt';
+        const MIN_MEMBERSHIP_DURATION = 15;
 		/**
 		 * @var integer ID of the membership products
 		 */
@@ -270,9 +271,7 @@ HTML;
 		 * Displays message if the shirt has already been claimed
 		 */
 		public function action_woocommerce_before_single_product() {
-			global $post;
-			if ( $post->post_name == "free-shirt" ) {
-				$html = <<<HTML
+			$html = <<<HTML
 <div class="col-md-12">
     <div class="fx-header-title">
         <h1>%s</h1>
@@ -280,12 +279,35 @@ HTML;
     </div>
 </div>
 HTML;
-				if ( wc_customer_bought_product( '', get_current_user_id(), $post->ID ) ) {
-					echo sprintf( $html, "You already got your Free T-shirt", 'Lorem ipsum blah blah blah' );
-				}
+
+			if ( user_membership_duration() < self::MIN_MEMBERSHIP_DURATION ) {
+				echo sprintf( $html, "You have to finish your 14-day trial to claim this", 'You have been a member for ' . user_membership_duration() . ' days so far.' );
+				exit;
+			}
+			if ( self::can_claim_freeshirt() ) {
+                echo sprintf( $html, "You already got your Free T-shirt", 'Lorem ipsum blah blah blah' );
 			}
 		}
 
+		/**
+         * Answers the question if the user has already claimed his free shirt
+         * Checks the `Get your free shirt` checklist
+		 * @return bool
+		 */
+		public static function can_claim_freeshirt() {
+			global $post;
+
+			$claimed = $post->post_name == self::POST_NAME_FREE_SHIRT
+				&& wc_customer_bought_product( '', get_current_user_id(), $post->ID )
+                && user_membership_duration() >= self::MIN_MEMBERSHIP_DURATION;
+
+			// TODO: move this to checkout page
+			if ($claimed) {
+			    pass_onboarding_checklist('got_shirt');
+            }
+
+            return $claimed;
+		}
 	}
 }
 

@@ -100,10 +100,58 @@ class Apyc_Coaching{
 		wp_die();
 	}
 	
+	//get private coaching
+	public function get_private_coaching(){
+		$data = array();
+		$current_user = wp_get_current_user();
+		$current_user_id = $current_user->ID;
+		$webinar_key = get_user_meta($current_user_id, 'webinar_key');
+		//dd($webinar_key);
+		if( $webinar_key ){
+			$webinar_details = array();
+			$webinar_order_ids = array();
+			foreach($webinar_key as $k => $v){
+				$webinar_detail = $v . '_webinar_details';
+				$get_webinar_detail = get_user_meta($current_user_id, $webinar_detail, 1);
+				if( $get_webinar_detail ){
+					$webinar_details[$v] = $get_webinar_detail;
+				}
+				$webinar_order_id = $v .'_order_id';
+				$get_order_id = get_user_meta($current_user_id, $webinar_order_id, 1);
+				if( $get_order_id ){
+					$webinar_details[$v]['order_id'] = $get_order_id;
+				}
+			}
+		}
+		//dd($webinar_details);
+		//$webinars = apyc_get_history_webinars();
+		$data['webinars'] = $webinar_details;
+		$data['table_heading_date'] = _('Date');
+		$data['table_heading_time'] = _('Time');
+		$data['table_heading_title'] = _('Title');
+		$data['table_heading_join'] = _('Join Link');
+		$data['insession_join_meeting'] = _('Join Meeting');
+		$data['register_join_meeting'] = _('Meeting Link');
+		
+		if( is_array($data['webinars'])
+			&& !empty($data['webinars'])
+		){
+			Apyc_View::get_instance()->view_theme(TEMPLATE_PATH . 'coaching/ajax-private-coaching.php', $data);
+		}else{
+			$ret = array(
+				'status' => 'no-webinar',
+				'msg' => _('No Private Webinar')
+			);
+			echo json_encode($ret);
+		}
+		wp_die();
+	}
+	
 	public function __construct() {
 		add_action( 'wp_ajax_coach_get_webinars', array($this, 'get_webinars') );
 		add_action( 'wp_ajax_nopriv_coach_get_webinars', array($this, 'get_webinars') );
 		add_action( 'wp_ajax_coach_get_history_webinars', array($this, 'get_history_webinars') );
+		add_action( 'wp_ajax_coach_get_private_coaching', array($this, 'get_private_coaching') );
 		//add_action( 'wp_ajax_nopriv_coach_get_history_webinars', array($this, 'get_history_webinars') );
 	}
 }
