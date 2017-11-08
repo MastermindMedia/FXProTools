@@ -498,7 +498,6 @@ function get_mb_multi_pto( $page_element ) {
     return $menu = ( strpos( $x_pto1, 'xpto1' ) || empty( $x_pto1 ) ) ? $x_pto1 : ( ( strpos( $x_pto2, 'xpto2' ) || empty( $x_pto2 ) )  ? $x_pto2 : ( ( strpos( $x_pto3, 'xpto3' ) || empty( $x_pto3 ) ) ? $x_pto3 : $x_pto1 ) ) ;
 }
 
->>>>>>> 6f683adc5c37aaae08b09f68e0694c8fa0a64688
 // Menu locations
 add_action( 'init', 'register_my_menus' );
 function register_my_menus() {
