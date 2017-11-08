@@ -1,4 +1,16 @@
 <?php get_header(); ?>
+<div class="container top-marketing-buttons">
+	<div class="col-md-6">
+		<a href="<?php bloginfo('url'); ?>/my-account/inbox" class="active">
+			Email Marketing
+		</a>
+	</div>
+	<div class="col-md-6">
+		<a href="<?php bloginfo('url'); ?>/mail/sms">
+			SMS Marketing
+		</a>
+	</div>
+</div>
 <?php
 if (!function_exists('page_content')) {
     function page_content() {

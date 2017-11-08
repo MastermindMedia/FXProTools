@@ -54,3 +54,35 @@
 .unsub {
     text-align: right;
 }
+
+.top-marketing-buttons {
+    margin-top: 16px;
+    
+    > div > a {
+        display: block;
+        box-sizing: border-box;
+        text-align: center;
+        padding: 16px;
+        background-color: rgb(220, 220, 220);
+        color: black;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    
+    > div > a:hover {
+        text-decoration: none;
+    }
+    
+    > div > a.active {
+        color: white;
+        background-color: rgb(220, 26, 34);
+    }
+    
+    > div:first-child {
+        padding-right: 4px;
+    }
+    
+    > div:last-child {
+        padding-left: 4px;
+    }
+}
