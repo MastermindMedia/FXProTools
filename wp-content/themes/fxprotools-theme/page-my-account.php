@@ -126,6 +126,7 @@ get_header();
 												?>
 												</li>
 												<li><span>Email:</span> <?php echo get_the_author_meta('user_email', get_current_user_id()) ?></li>
+												<li><span>Phone Number:</span> <?php echo get_the_author_meta('phone_number', get_current_user_id()) ?></li>
 												<li><span>SMS/Text Messaging:</span> <?php
 													$sub = get_the_author_meta('user_sms_subs', get_current_user_id());
 													

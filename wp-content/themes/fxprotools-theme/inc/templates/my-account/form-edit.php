@@ -17,6 +17,7 @@
 				<li><span>Affiliate ID:</span> <input type="text" readonly value="<?php echo affwp_get_affiliate_id( get_query_var('acc_id') ) ?>" /></li>
 				<li><span>Username:</span> <input type="text" name="user_login" id="user_login" value="<?php  if(strpos(get_the_author_meta('user_login', get_query_var('acc_id')), ' ') > 0){}else{echo get_the_author_meta('user_login', get_query_var('acc_id'));}?>" placeholder="<?php if(strpos(get_the_author_meta('user_login', get_query_var('acc_id')), ' ') > 0){echo '{please add your username}';}?>" /></li>
 				<li><span>Email:</span> <input type="text" name="user_email" id="user_email" value="<?php echo get_the_author_meta('user_email', get_query_var('acc_id')) ?>" /></li>
+				<li><span>Phone Number:</span> <input type="text" name="phone_number" id="phone_number" value="<?php echo get_the_author_meta('phone_number', get_query_var('acc_id')) ?>" /></li>
 				<li><span>SMS/Text Messaging:</span>
 					<span class="form-checkbox-holder">
 						<input type="hidden" value="no" name="user_sms_subs">
