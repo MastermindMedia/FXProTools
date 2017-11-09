@@ -9,8 +9,8 @@ var PublicGotoWebinar = function(){
 		return true;
 	}
 	function _datePickerOnSelect(dateText, inst){
-       // var date = $(this).val();
-       // console.log(dateText);
+		// var date = $(this).val();
+		// console.log(dateText);
         //console.log(inst);
         //console.log(inst.selectedDay);
 		$('.selected_date').val(inst.selectedDay);

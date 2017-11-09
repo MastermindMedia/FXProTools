@@ -273,7 +273,7 @@ class Apyc_Woo_CoachingTemplate{
 		//dd($order);
 		//dd($items);
 		//exit();
-		/*if( $webinar_date && $webinar_time ){
+		if( $webinar_date && $webinar_time ){
 			$owner_order_id =  get_post_meta( $order_id, '_customer_user', true );
 			$user_data = get_userdata($owner_order_id);
 			$product = wc_get_product($product_id);
@@ -319,12 +319,13 @@ class Apyc_Woo_CoachingTemplate{
 				$registrant = apyc_create_registrant($webinar_key, $body_registrant);
 				if( $registrant['code'] == 201 ){
 					add_user_meta($owner_order_id, $webinar_key . '_order_id', $order_id);
+					add_user_meta($owner_order_id, $webinar_key . '_product_id', $product_id);
 					return true;
 				}
 				//dd($registrant);
 			}
 			
-		}*/
+		}
 	}
 	
 	public function __construct() {
