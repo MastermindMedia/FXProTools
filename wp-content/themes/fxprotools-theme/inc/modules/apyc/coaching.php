@@ -103,13 +103,15 @@ class Apyc_Coaching{
 	//get private coaching
 	public function get_private_coaching(){
 		$data = array();
+		$webinar_details = false;
+		
 		$current_user = wp_get_current_user();
 		$current_user_id = $current_user->ID;
 		$webinar_key = get_user_meta($current_user_id, 'webinar_key');
 		//dd($webinar_key);
 		if( $webinar_key ){
-			$webinar_details = array();
 			$webinar_order_ids = array();
+			$product_ids = array();
 			foreach($webinar_key as $k => $v){
 				$webinar_detail = $v . '_webinar_details';
 				$get_webinar_detail = get_user_meta($current_user_id, $webinar_detail, 1);
@@ -121,11 +123,18 @@ class Apyc_Coaching{
 				if( $get_order_id ){
 					$webinar_details[$v]['order_id'] = $get_order_id;
 				}
+				
+				$webinar_product_id = $v .'_product_id';
+				$get_product_id = get_user_meta($current_user_id, $webinar_product_id, 1);
+				if( $get_product_id ){
+					$webinar_details[$v]['product_id'] = $get_product_id;
+				}
 			}
 		}
 		//dd($webinar_details);
 		//$webinars = apyc_get_history_webinars();
 		$data['webinars'] = $webinar_details;
+		$data['Apyc_Woo_CoachingTemplate'] = new Apyc_Woo_CoachingTemplate;
 		$data['table_heading_date'] = _('Date');
 		$data['table_heading_time'] = _('Time');
 		$data['table_heading_title'] = _('Title');
@@ -147,11 +156,17 @@ class Apyc_Coaching{
 		wp_die();
 	}
 	
+	public function resched_modal(){
+		$data = array();
+		Apyc_View::get_instance()->view_theme(TEMPLATE_PATH . 'coaching/resched-modal.php', $data);
+	}
+	
 	public function __construct() {
 		add_action( 'wp_ajax_coach_get_webinars', array($this, 'get_webinars') );
 		add_action( 'wp_ajax_nopriv_coach_get_webinars', array($this, 'get_webinars') );
 		add_action( 'wp_ajax_coach_get_history_webinars', array($this, 'get_history_webinars') );
 		add_action( 'wp_ajax_coach_get_private_coaching', array($this, 'get_private_coaching') );
+		add_action( 'wp_footer', array($this,'resched_modal') );
 		//add_action( 'wp_ajax_nopriv_coach_get_history_webinars', array($this, 'get_history_webinars') );
 	}
 }

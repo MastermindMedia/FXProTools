@@ -19,7 +19,30 @@
 										<a href="<?php echo $v['data']->registrationUrl;?>"><?php echo $insession_join_meeting;?> </a>
 								<?php }else{ ?>
 										<?php if( date('Y-m-d') < date('Y-m-d', strtotime($v['data']->times[0]->startTime)) ){ ?>
-											<a href="#" data-orderid="<?php echo $v['order_id'];?>" data-webinarkey="<?php echo $k;?>">Re-Sched </a>
+											<?php
+											$product_id = $v['product_id'];
+											$get_woogotowebinar_scheduling_window_num = $Apyc_Woo_CoachingTemplate->getWoogotowebinarSchedulingWindowNum($product_id);
+											$get_woogotowebinar_scheduling_window_date = $Apyc_Woo_CoachingTemplate->getWoogotowebinarSchedulingWindowDate($product_id);
+											$get_woogotowebinar_range_time_from = $Apyc_Woo_CoachingTemplate->getWoogotowebinarRangeTimeFrom($product_id);
+											$get_woogotowebinar_range_time_from_meridiem = $Apyc_Woo_CoachingTemplate->getWoogotowebinarRangeTimeFromMeridiem($product_id);
+											$get_woogotowebinar_range_time_to = $Apyc_Woo_CoachingTemplate->getWoogotowebinarRangeTimeTo($product_id);
+											$get_woogotowebinar_range_time_to_meridiem = $Apyc_Woo_CoachingTemplate->getWoogotowebinarRangeTimeToMeridiem($product_id);
+											?>
+											<a 
+												href="#" 
+												class="resched-webinar" 
+												data-orderid="<?php echo $v['order_id'];?>" 
+												data-webinarkey="<?php echo $k;?>"
+												data-schednum="<?php echo $get_woogotowebinar_scheduling_window_num;?>"
+												data-scheddate="<?php echo $get_woogotowebinar_scheduling_window_date;?>"
+												data-timefrom="<?php echo $get_woogotowebinar_range_time_from;?>"
+												data-timefrommeridiem="<?php echo $get_woogotowebinar_range_time_from_meridiem;?>"
+												data-timeto="<?php echo $get_woogotowebinar_range_time_to;?>"
+												data-timetomeridiem="<?php echo $get_woogotowebinar_range_time_to_meridiem;?>"
+												data-currentdate="<?php echo date("D, M j, Y", strtotime($v['data']->times[0]->startTime));?>"
+												data-currenttime="<?php echo date("g:i A", strtotime($v['data']->times[0]->startTime));?>"
+											>
+											Re-Sched </a>
 										<?php } ?>
 								<?php } ?>
 							</td>

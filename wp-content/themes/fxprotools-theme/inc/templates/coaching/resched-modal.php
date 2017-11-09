@@ -9,7 +9,15 @@
         </button>
       </div>
       <div class="modal-body">
-		
+			<div class="jquery-ui-datepicker">
+				<div id="resched-product-datepicker"></div>
+				<p></p>
+				
+				<div id="woowebinar-time-range">
+					<div class="ajax-reched-woowebinar-time-rage"></div>
+				</div>
+				<p></p>
+			</div>
       </div>
       <div class="modal-footer">
         
