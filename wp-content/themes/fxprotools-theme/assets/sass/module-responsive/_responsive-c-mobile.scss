@@ -221,6 +221,42 @@
 			z-index: 1;
 		}
 	}
+	// Sub Navigation
+	.fx-navbar-sub {
+		.fx-nav-options {
+			margin: -1px -15px;
+			padding: 0;
+			li.dashboard {
+				display: none;
+			}
+			li {
+				width: 50%;
+				float: left;
+				outline: 1px solid #DDD;
+				padding: 0;
+				a {
+					padding: 10px 10px;
+					font-size: 12px;
+					display: block;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					// .number {
+					// 	display: none;
+					// }
+				}
+				&.current-menu-item a {
+					.number {
+						background-color: #922121;
+					}
+					.text {
+						border-bottom: none;
+						color: #922121;	
+					}
+				}
+			}
+		}
+	}
 	// Footer
 	.fx-footer {
 		padding: 50px 0 30px 0;
