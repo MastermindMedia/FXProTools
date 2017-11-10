@@ -279,6 +279,7 @@
 	li {
 		width: 50%;
 		text-align: center;
+		background-color: $white;
 		a {
 			border: 1px solid #DDD;
 			border-radius: 0;
@@ -301,17 +302,20 @@
 	position: relative;
 	li {
 		text-align: center;
+		background-color: $white;
 		a {
 			border: 1px solid #DDD;
 			border-radius: 0;
 			display: block;
+			color: $black;
 		}
 		&.active a {
 			border-bottom: 1px solid #DDD;
 			background: #de1515;
-			color: #FFF;
+			color: $white;
 			&:focus, &:hover, &:active {
 				border-bottom: 1px solid #DDD;
+				color: $white;
 			}
 		}
 	}
@@ -320,6 +324,7 @@
 		border-bottom: 1px solid #DDD;
 		border-right: 1px solid #DDD;
 		padding: 20px;
+		background-color: $white;
 	}
 }
 
@@ -332,6 +337,7 @@
 		li {
 			float: none;
 			margin: 0;
+			background-color: $white;
 			&:first-child a { border-top: 1px solid #DDD!important; }
 			a {
 				margin-right: 0;
