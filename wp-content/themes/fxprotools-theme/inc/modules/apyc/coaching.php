@@ -161,12 +161,24 @@ class Apyc_Coaching{
 		Apyc_View::get_instance()->view_theme(TEMPLATE_PATH . 'coaching/resched-modal.php', $data);
 	}
 	
+	public function resched_webinar(){
+		$data = array();
+		$post = $_POST;
+		$error = false;
+		$error_array = array();
+		
+		$data = json_decode($post['post_data'], true);
+		parse_str($post['post_data'], $ajax);
+		dd($ajax);
+		wp_die();
+	}
+	
 	public function __construct() {
 		add_action( 'wp_ajax_coach_get_webinars', array($this, 'get_webinars') );
 		add_action( 'wp_ajax_nopriv_coach_get_webinars', array($this, 'get_webinars') );
 		add_action( 'wp_ajax_coach_get_history_webinars', array($this, 'get_history_webinars') );
 		add_action( 'wp_ajax_coach_get_private_coaching', array($this, 'get_private_coaching') );
 		add_action( 'wp_footer', array($this,'resched_modal') );
-		//add_action( 'wp_ajax_nopriv_coach_get_history_webinars', array($this, 'get_history_webinars') );
+		add_action( 'wp_ajax_resched_webinar', array($this, 'resched_webinar') );
 	}
 }

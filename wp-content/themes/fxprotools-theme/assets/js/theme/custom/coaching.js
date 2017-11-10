@@ -9,6 +9,9 @@ var Coaching = function(){
 	var $timefrommeridiem = '';
 	var $timeto = '';
 	var $timetomeridiem = '';
+	var $current_date = '';
+	var $current_time = '';
+	var $resched_button = $('.resched-button');
 	function isJson(str) {
 		try {
 			JSON.parse(str);
@@ -41,15 +44,23 @@ var Coaching = function(){
 		});
 		return ajaxCall;
 	}
+	function ajaxReSchedWebinar(body){
+		var ajaxCall = $.ajax({
+		  method: "POST",
+		  url: ajax_url.ajax_url,
+		  data: { 'action': 'resched_webinar', 'post_data' : body }
+		});
+		return ajaxCall;
+	}
 	function _datePickerOnSelect(dateText, inst){
 		// var date = $(this).val();
 		// console.log(dateText);
         //console.log(inst);
         //console.log(inst.selectedDay);
-		//$('.selected_date').val(inst.selectedDay);
-		//var selected_month = (inst.selectedMonth + 1);
-		//$('.selected_month').val(selected_month);
-		//$('.selected_year').val(inst.selectedYear);
+		$('.selected_date').val(inst.selectedDay);
+		var selected_month = (inst.selectedMonth + 1);
+		$('.selected_month').val(selected_month);
+		$('.selected_year').val(inst.selectedYear);
 		var $content = $('.ajax-reched-woowebinar-time-rage');
 		$content.html('<p> Getting time, please wait...</p>');
 		_ajaxGetTime(inst).done(function(data){
@@ -161,9 +172,13 @@ var Coaching = function(){
 		modal:function(){
 			var $resched_modal = $('.resched-webinar-modal-lg');
 			var $resched_datepicker = $('#resched-product-datepicker');
-						
+
+			$resched_button.hide();
+			
 			$resched_modal.on('shown.bs.modal', function (e) {
 				//console.log($date_num);
+				$('.current-date').html($current_date);
+				$('.current-time').html($current_time);
 				var maxDateNum = "+" + $date_num;
 				var _arg = {
 					minDate: 0,
@@ -175,8 +190,8 @@ var Coaching = function(){
 				$resched_datepicker.datepicker(_arg);
 			});
 			$resched_modal.on('hidden.bs.modal', function (e) {
-			  // do something...
-			  $resched_datepicker.datepicker('destroy');
+				$resched_datepicker.datepicker('destroy');
+				$('.ajax-reched-woowebinar-time-rage').html('');
 			});
 			$(document).on('click', '.resched-webinar', function(e){
 				e.preventDefault();
@@ -187,6 +202,8 @@ var Coaching = function(){
 				$timefrommeridiem = $this.data('timefrommeridiem');
 				$timeto = $this.data('timeto');
 				$timetomeridiem = $this.data('timetomeridiem');
+				$current_date = $this.data('currentdate');
+				$current_time = $this.data('currenttime');
 				if( $date_format == 'month' ){
 					$date_format = 'M';
 				}
@@ -197,6 +214,20 @@ var Coaching = function(){
 					$date_format = 'Y';
 				}
 				$('.resched-webinar-modal-lg').modal('show');	
+			});
+			$(document).on('click', $resched_button, function(e){
+				e.preventDefault();
+				var post_data = $(".resched-form").serialize();
+				console.log(post_data);
+				ajaxReSchedWebinar(post_data).done(function(data){
+					console.log(data);
+				});
+			});
+			$( document ).on('click', '.webinar_time', function(e){
+				e.preventDefault();
+				var select_time = $(this).data('time');
+				$('.selected_time').val(select_time);
+				$resched_button.show();
 			});
 		}
 	};
