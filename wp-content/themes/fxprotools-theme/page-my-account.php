@@ -14,6 +14,7 @@ if(isset($_POST['user_login'])){
 ?>
 <?php
 if( $_SERVER['REQUEST_METHOD'] === 'POST'){
+	$has_phone_number = false;
 	foreach($_POST as $key => $value){
 		if($key == "user_email_subs" || $key == "user_sms_subs")
 		{
@@ -30,9 +31,13 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 		else{
 			update_user_meta( get_query_var('acc_id'), $key,  $value );
 		}
+
+		if ( $key == 'phone_number' && ! empty( $value ) ) {
+			$has_phone_number = true;
+		}
 	}
 	//for onboard checklist
-	if( !$checklist['verified_profile'] ){
+	if( !$checklist['verified_profile'] && $has_phone_number){
 		pass_onboarding_checklist('verified_profile');
 	}
 	wp_redirect( home_url() . '/autologin?user_id=' . get_query_var('acc_id') );
