@@ -100,15 +100,14 @@ $coaching = wcs_user_has_subscription( '', 50, 'active');
 <?php
 $step = 'accessed_products';
 $checklist = get_user_checklist();
-if ( isset( $checklist[ $step ] ) && $checklist[ $step ] && ! empty( $subscription ) ) : ?>
-    ?>
+if ( isset( $checklist[ $step ] ) && ! $checklist[ $step ] && ! empty( $subscription ) ) : ?>
     <script>
         $(document).ready(function () {
             setTimeout(function () {
                 var ajaxUrl = fx.ajax_url;
                 var data = {
                     'action': 'checklist_pass',
-                    'step': <?= $step; ?>
+                    'step': '<?= $step; ?>'
                 };
                 $.post(ajaxUrl, data);
             }, 5000);
