@@ -24,10 +24,6 @@ if ( ! ( $product->is_purchasable() ) ) {
 	return;
 }
 
-if ( Woocommerce_Settings::POST_NAME_FREE_SHIRT == $product->get_slug() && ! Woocommerce_Settings::can_claim_freeshirt() ) {
-	return;
-}
-
 echo wc_get_stock_html( $product );
 
 if ( $product->is_in_stock() ) : ?>
@@ -35,7 +31,7 @@ if ( $product->is_in_stock() ) : ?>
 	<?php do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
 	<form class="cart" method="post" enctype='multipart/form-data'>
-		<?php
+        <?php
 			/**
 			 * @since 2.1.0.
 			 */
@@ -57,9 +53,9 @@ if ( $product->is_in_stock() ) : ?>
 			 */
 			do_action( 'woocommerce_after_add_to_cart_quantity' );
 		?>
-
-		<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
-
+		<?php if ( Woocommerce_Settings::POST_NAME_FREE_SHIRT == $product->get_slug() && Woocommerce_Settings::can_claim_freeshirt() ) :?>
+		    <button type="submit" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>" class="single_add_to_cart_button button alt"><?php echo esc_html( $product->single_add_to_cart_text() ); ?></button>
+        <?php endif; ?>
 		<?php
 			/**
 			 * @since 2.1.0.

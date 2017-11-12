@@ -41,7 +41,8 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 			add_action( 'template_redirect', array( $this, 'wc_redirect_to_checkout_if_cart' ) );
 			add_action( 'woocommerce_product_data_panels', array( $this, 'wc_buy_button_tab_fields' ) );
 			add_action( 'woocommerce_admin_process_product_object', array( $this, 'wc_save_buy_button_tab_fields' ) );
-			add_action( 'woocommerce_before_single_product', array( $this, 'action_woocommerce_before_single_product') );
+			add_action( 'woocommerce_before_single_product', array( $this, 'wc_notif_before_single_product') );
+			add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'wc_add_gotodashboard_link') );
 		}
 
 		public function wc_setup_checkout_fields( $fields ) {
@@ -270,7 +271,7 @@ HTML;
 		/**
 		 * Displays message if the shirt has already been claimed
 		 */
-		public function action_woocommerce_before_single_product() {
+		public function wc_notif_before_single_product() {
 			$html = <<<HTML
 <div class="col-md-12">
     <div class="fx-header-title">
@@ -306,6 +307,13 @@ HTML;
 			$post = get_page_by_path( self::POST_NAME_FREE_SHIRT, OBJECT, 'product' );
 			return wc_customer_bought_product( '', get_current_user_id(), $post->ID );
 		}
+
+		public function wc_add_gotodashboard_link() {
+            global $post;
+            if ($post->post_name ==  self::POST_NAME_FREE_SHIRT) {
+                echo '<a href="/dashboard" class="btn btn-link p-xxs m-l-sm">Go To Dashboard</a>';
+            }
+        }
 	}
 }
 
