@@ -2,10 +2,9 @@
 $checklist = get_user_checklist();
 
 // Share Video && Refer a friend
-if ( ! ( $checklist['shared_video'] && $checklist['referred_friend'] ) ) {
+if ( ! ( $checklist['shared_video'] ) ) {
 	$funnels = get_funnels();
 	$shared_video = $checklist['shared_video'];
-	$referred_friend = $checklist['referred_friend'];
 	foreach ( $funnels as $funnel ) {
 		$stats = get_funnel_stats( $funnel->ID );
 
@@ -14,25 +13,28 @@ if ( ! ( $checklist['shared_video'] && $checklist['referred_friend'] ) ) {
 				pass_onboarding_checklist( 'shared_video' );
 				$shared_video = true;
 			}
-			if ( isset($stat['opt_ins']) && $stat['opt_ins']['all'] >= 1 && ! $referred_friend ) {
-				pass_onboarding_checklist( 'referred_friend' );
-				$referred_friend = true;
-			}
 
 			// exit the second loop as soon as both are satisfied
-			if ( $shared_video && $referred_friend ) {
+			if ( $shared_video ) {
 				break;
 			}
 		}
 		// exit the first loop
-		if ( $shared_video && $referred_friend ) {
+		if ( $shared_video ) {
 			break;
 		}
 	}
-
-	// Refresh the checklist
-	$checklist = get_user_checklist();
 }
+
+if ( ! $checklist['referred_friend'] ) {
+	$active_referrals = get_user_active_referrals();
+	if ( count( $active_referrals ) > 0 ) {
+		pass_onboarding_checklist( 'referred_friend' );
+	}
+}
+
+// Refresh the checklist
+$checklist = get_user_checklist();
 
 $accomplished = 0;
 if ( ! empty( $checklist ) ) {

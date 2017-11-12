@@ -187,9 +187,6 @@ class Apyc_Modal{
 				'webinar_keys' => $webinar_key,
 				'webinar_ret' => $webinar_ret
 			);
-
-			pass_onboarding_checklist( 'scheduled_webinar' );
-
 		}else{
 			$ret = array(
 				'status' => 'error',
