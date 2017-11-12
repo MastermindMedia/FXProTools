@@ -90,24 +90,24 @@ get_header();
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-xs-12 col-sm-12 col-md-12">
 					<div class="fx-tabs-vertical marketing-contacts">
 						<ul class="nav nav-tabs">
-							<li class="active"><a href="#a" data-toggle="tab">Your Information</a></li>
-							<li><a href="#b" data-toggle="tab">Edit Contact</a></li>
-							<li><a href="#c" data-toggle="tab">Purchases</a></li>
-							<li><a href="#d" data-toggle="tab">Memberships</a></li>
-							<li><a href="#e" data-toggle="tab">Genealogy</a></li>
-							<li><a href="#f" data-toggle="tab">Recent Activity</a></li>
-							<li><a href="#g" data-toggle="tab">Your Sponsor</a></li>
-							<li><a href="<?php echo wp_logout_url('/login/'); ?>">Logout</a></li>
+							<li class="active"><a href="#a" data-toggle="tab"> <i class="fa fa-user visible-xs"></i> <span>Your Information</span></a></li>
+							<li><a href="#b" data-toggle="tab"> <i class="fa fa-address-card-o visible-xs"></i> <span>Edit Contact</span></a></li>
+							<li><a href="#c" data-toggle="tab"> <i class="fa fa-credit-card visible-xs"></i> <span>Purchases</span></a></li>
+							<li><a href="#d" data-toggle="tab"> <i class="fa fa-star-o visible-xs"></i> <span>Memberships</span></a></li>
+							<li><a href="#e" data-toggle="tab"> <i class="fa fa-users visible-xs"></i> <span>Genealogy</span></a></li>
+							<li><a href="#f" data-toggle="tab"> <i class="fa fa-list visible-xs"></i> <span>Recent Activity</span></a></li>
+							<li><a href="#g" data-toggle="tab"> <i class="fa fa-gift visible-xs"></i> <span>Your Sponsor</span></a></li>
+							<li><a href="<?php echo wp_logout_url('/login/'); ?>"><i class="fa fa-sign-out visible-xs"></i> <span>Logout</span></a></li>
 						</ul>
 						<div class="tab-content">
 							<div class="tab-pane fade in active" id="a">
 								<form action="<?php echo get_the_permalink(); ?>" method="POST" class="<?php echo ( isset($_GET['action']) && $_GET['action'] == 'edit') ? 'form-edit' : ''; ?>">
 									<div class="row">
-										<div class="col-md-6 m-b-lg">
-											<p class="text-bold text-center">General Information</p>
+										<div class="col-xs-12 col-sm-6 col-md-6 m-b-lg">
+											<p class="text-label">General Information</p>
 											<ul class="list-info list-info-fields">
 												<li><span>First Name:</span> <?php echo get_the_author_meta('first_name', get_current_user_id()) ?></li>
 												<li><span>Last Name:</span> <?php echo get_the_author_meta('last_name', get_current_user_id()); ?></li>
@@ -117,8 +117,8 @@ get_header();
 												<li><span>Google Plus:</span> <?php echo get_the_author_meta('googleplus', get_current_user_id()); ?></li>
 											</ul>
 										</div>
-										<div class="col-md-6 m-b-lg">
-											<p class="text-bold text-center">Account Information</p>
+										<div class="col-xs-12 col-sm-6 col-md-6 m-b-lg">
+											<p class="text-label">Account Information</p>
 											<ul class="list-info list-info-fields">
 												<li><span>Affiliate ID:</span> <?php echo affwp_get_affiliate_id( get_current_user_id() ) ?></li>
 												<li><span>Username:</span> 
@@ -153,8 +153,8 @@ get_header();
 											</ul>
 										</div>
 										<div class="clearfix"></div>
-										<div class="col-md-6">
-											<p class="text-bold text-center">Billing Information</p>
+										<div class="col-xs-12 col-sm-6 col-md-6">
+											<p class="text-label">Billing Information</p>
 											<ul class="list-info list-info-fields">
 												<li><span>Business Name:</span> <?php echo get_the_author_meta('billing_company', get_current_user_id()) ?></li>
 												<li><span>House # & Street Name:</span> <?php echo get_the_author_meta('billing_address_1', get_current_user_id()) ?></li>
@@ -164,8 +164,8 @@ get_header();
 												<li><span>Zip Code:</span> <?php echo get_the_author_meta('billing_postcode', get_current_user_id()) ?></li>
 											</ul>
 										</div>
-										<div class="col-md-6">
-											<p class="text-bold text-center">Shipping Information</p>
+										<div class="col-xs-12 col-sm-6 col-md-6">
+											<p class="text-label">Shipping Information</p>
 											<ul class="list-info list-info-fields">
 												<li><span>Business Name:</span> <?php echo get_the_author_meta('shipping_company', get_current_user_id()) ?></li>
 												<li><span>House # & Street Name:</span> <?php echo get_the_author_meta('shipping_address_1', get_current_user_id()) ?></li>
