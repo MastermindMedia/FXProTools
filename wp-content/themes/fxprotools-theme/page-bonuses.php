@@ -2,7 +2,7 @@
 
 	<?php get_template_part('inc/templates/nav-wallet'); ?>
 
-	<div class="container">
+	<div class="container epx bonuses">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="fx-header-title">
