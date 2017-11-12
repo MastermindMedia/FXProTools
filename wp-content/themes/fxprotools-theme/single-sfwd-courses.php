@@ -36,10 +36,9 @@ $course_prerequisites = learndash_get_course_prerequisites( $course_id );
 				</div>
 				<div class="clearfix"></div>
 				<div class="col-md-10 col-md-offset-1">
-					<div class="panel panel-default fx-course-outline">
+					<div class="panel panel-default fx-course-outline xs-fx-course">
 						<div class="panel-body">
 							<h3>Course Description</h3>
-							
 							<div class="content">
 								<?php echo wpautop($course->post_content); ?>
 							</div>
@@ -120,7 +119,7 @@ $course_prerequisites = learndash_get_course_prerequisites( $course_id );
 						</div>
 						<div class="clearfix"></div>
 						<div class="col-md-12">
-							<div class="panel panel-default fx-course-outline">
+							<div class="panel panel-default fx-course-outline xs-fx-course">
 								<div class="panel-body">
 									<h3>Course Description</h3>
 									<div class="content">
@@ -138,7 +137,7 @@ $course_prerequisites = learndash_get_course_prerequisites( $course_id );
 									<table class="table table-bordered fx-table-lessons">
 										<thead>
 											<tr>
-												<th style="width: 100px;">Lessons</th>
+												<th>Lessons</th>
 												<th>Status</th>
 											</tr>
 										</thead>

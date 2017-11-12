@@ -60,7 +60,7 @@ $progression_enabled = is_lesson_progression_enabled($course_id);
 						</div>
 						<div class="clearfix"></div>
 						<div class="col-md-12">
-							<div class="panel panel-default fx-course-outline">
+							<div class="panel panel-default fx-course-outline xs-fx-course">
 								<div class="panel-body">
 									<div class="content">
 										<?php echo wpautop($lesson->post_content); ?>
