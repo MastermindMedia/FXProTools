@@ -2389,7 +2389,7 @@ form {
 			color: $white;
 		}
 	}
-	// Bonuses Page
+	// Bonuses Page - To avoid conflict with other global styling
 	&.bonuses {
 		.panel-default > .panel-heading.b-light {
 			background-color: $red;
