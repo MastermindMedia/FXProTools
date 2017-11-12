@@ -1,8 +1,15 @@
 <?php
 $checklist = get_user_checklist();
 
+// Get Your Free Shirt
+if ( ! $checklist['got_shirt'] ) {
+	if ( Woocommerce_Settings::has_claimed_shirt() ) {
+		pass_onboarding_checklist( 'got_shirt' );
+	}
+}
+
 // Share Video && Refer a friend
-if ( ! ( $checklist['shared_video'] ) ) {
+if ( ! $checklist['shared_video'] ) {
 	$funnels = get_funnels();
 	$shared_video = $checklist['shared_video'];
 	foreach ( $funnels as $funnel ) {
@@ -26,6 +33,7 @@ if ( ! ( $checklist['shared_video'] ) ) {
 	}
 }
 
+// Refer a friend
 if ( ! $checklist['referred_friend'] ) {
 	$active_referrals = get_user_active_referrals();
 	if ( count( $active_referrals ) > 0 ) {
