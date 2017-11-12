@@ -114,7 +114,7 @@ $angle = GAUGE_BASE + ( $average * $accomplished );
                                         <svg id="meter" viewBox="0 0 217.36 118.8">
                                             <circle r="75" cx="50%" cy="95%" stroke="#DDD"
                                                     stroke-width="60" fill="none"></circle>
-                                            <circle r="75" cx="50%" cy="95%" stroke="#008774"
+                                            <circle r="75" cx="50%" cy="95%" stroke="#03ae78"
                                                     stroke-width="60" fill="none" stroke-dasharray="<?= $angle; ?>, 943"></circle>
 											<?php if ( $accomplished < 7 ): ?>
                                                 <circle r="75" cx="50%" cy="94%" stroke="#DDD"
