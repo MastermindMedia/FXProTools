@@ -10,7 +10,7 @@ $courses = get_courses_by_category_id($category->term_id);
 
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-xs-12 col-sm-12 col-md-12">
 				<div class="fx-header-title">
 					<h1><?php the_title();?></h1>
 					<p><?php echo rwmb_meta('subtitle');?></p>

@@ -12,7 +12,7 @@ $child_categories = get_course_category_children($category->term_id);
 	<?php if( is_array( $child_categories) ): ?>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-xs-12 col-sm-12 col-md-12">
 					<div role="tabpanel">
 						<ul class="nav nav-tabs fx-tabs" role="tablist">
 							<?php foreach($child_categories as $key => $category): ?>

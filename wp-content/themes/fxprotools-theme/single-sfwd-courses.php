@@ -16,13 +16,13 @@ $course_prerequisites = learndash_get_course_prerequisites( $course_id );
 	<?php elseif( !sfwd_lms_has_access_fn($course_id) ): ?>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-xs-12 col-sm-12 col-md-12">
 					<div class="fx-header-title">
 						<h1><?php the_title();?></h1>
 						<p><?php echo rwmb_meta('subtitle');?></p>
 					</div>
 				</div>
-				<div class="col-md-8 col-md-offset-2">
+				<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
 					<div class="fx-video-container"></div>
 					<br/>
 					<div class="learndash_join_button">
@@ -35,7 +35,7 @@ $course_prerequisites = learndash_get_course_prerequisites( $course_id );
 					<br/>
 				</div>
 				<div class="clearfix"></div>
-				<div class="col-md-10 col-md-offset-1">
+				<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 					<div class="panel panel-default fx-course-outline xs-fx-course">
 						<div class="panel-body">
 							<h3>Course Description</h3>
@@ -83,7 +83,7 @@ $course_prerequisites = learndash_get_course_prerequisites( $course_id );
 	<?php else: ?>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-3">
+				<div class="col-xs-12 col-sm-3 col-md-3">
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<h5 class="text-bold">Course Progress</h5>
@@ -106,20 +106,20 @@ $course_prerequisites = learndash_get_course_prerequisites( $course_id );
 						</div>
 					</div>
 				</div>
-				<div class="col-md-9">
+				<div class="col-xs-12 col-sm-9 col-md-9">
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-xs-12 col-sm-12 col-md-12">
 							<div class="fx-header-title">
 								<h1><?php the_title();?></h1>
 								<p><?php echo rwmb_meta('subtitle');?></p>
 							</div>
 						</div>
-						<div class="col-md-12">
+						<div class="col-xs-12 col-sm-12 col-md-12">
 							<div class="fx-video-container"></div>
 							<br/>
 						</div>
 						<div class="clearfix"></div>
-						<div class="col-md-12">
+						<div class="col-xs-12 col-sm-12 col-md-12">
 							<div class="panel panel-default fx-course-outline xs-fx-course">
 								<div class="panel-body">
 									<h3>Course Description</h3>
