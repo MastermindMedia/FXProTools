@@ -2379,13 +2379,24 @@ form {
 
 // Epixel Plugin - Overwrite
 .epx {
-	.panel-default>.panel-heading {
+	// Global
+	.panel-default > .panel-heading {
 		border-left-color: $red;
 	}
 	.table thead {
 		background: $red;
 		th {
 			color: $white;
+		}
+	}
+	// Bonuses Page
+	&.bonuses {
+		.panel-default > .panel-heading.b-light {
+			background-color: $red;
+			h4 {
+				color: $white;
+				font-weight: bold;
+			}
 		}
 	}
 }
