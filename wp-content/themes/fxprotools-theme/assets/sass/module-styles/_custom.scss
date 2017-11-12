@@ -852,8 +852,6 @@
 	}
 }
 
-
-
 // Marketing Contacts
 .fx-contact-panel {
 	position: relative;
@@ -902,12 +900,19 @@
 	}
 }
 .fx-tabs-vertical.marketing-contacts {
+	.text-label {
+		border-bottom: 1px solid $red;
+		font-weight: bold;
+		margin-bottom: 15px;
+		padding-bottom: 5px;
+		color: $red;
+	}
 	.list-info {
 		list-style: none;
 		padding: 0;
 		margin: 0;
 		li {
-			margin-bottom: 5px;
+			margin-bottom: 10px;
 			font-size: 13px;
 			span {
 				font-weight: bold;
@@ -968,9 +973,9 @@
 }
 
 // Account - Information
-.form-edit{
-	.list-info-fields{
-		li{
+.form-edit {
+	.list-info-fields {
+		li {
 			span{
 				display: inline-block;
 				vertical-align: middle;
@@ -978,6 +983,10 @@
 			}
 			button, input, select, textarea{
 				width: 62%;
+			}
+			input[type="text"] {
+				padding: 5px 10px;
+				border: 1px solid #DDD;
 			}
 		}
 	}
@@ -1324,8 +1333,6 @@
 }
 
 // Checkout
-// 
-// 
 .woocommerce-checkout{
 	.checkout-holder{
 		.shop_table .blockUI.blockOverlay {
