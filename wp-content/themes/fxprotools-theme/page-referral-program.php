@@ -1,16 +1,35 @@
 <?php
-$checklist = get_user_checklist();
 $active_referrals = get_user_active_referrals();
 $referral_count = count( $active_referrals);
+
+// sort the active referrals by date ASC
+usort($active_referrals, function($a, $b) {
+	return strtotime($a->date) - strtotime($b->date);
+});
+
+$valid_referral_count = 0;
+foreach ($active_referrals as $active_referral) {
+    // first referral will just check if there's a paid subscription
+    if ($valid_referral_count == 0) {
+        $valid_referral_count++;
+        continue;
+    }
+
+    // 2nd to nth referral
+    // valid only if subscribed for more than 30days
+	if(strtotime($active_referral->date) < strtotime('+1 days')) {
+		$valid_referral_count++;
+	}
+}
+
 $username = wp_get_current_user()->user_login;
 $referral_link = get_highest_converting_funnel_link();
 
-$accomplished = $referral_count;
 define( 'GAUGE_BASE', 237 );
 define( 'GAUGE_MAX', 470 );
 define( 'MAX_STEP', 3 );
 $average = ceil( ( GAUGE_MAX - GAUGE_BASE ) / MAX_STEP );
-$angle = GAUGE_BASE + ( $average * $accomplished );
+$angle = GAUGE_BASE + ( $average * $valid_referral_count );
 ?>
 <?php get_header(); ?>
 
@@ -43,32 +62,32 @@ $angle = GAUGE_BASE + ( $average * $accomplished );
                                         stroke-width="60" fill="none"></circle>
                                 <circle r="75" cx="50%" cy="95%" stroke="#03ae78"
                                         stroke-width="60" fill="none" stroke-dasharray="<?= $angle; ?>, 943"></circle>
-								<?php if ( $accomplished < MAX_STEP ): ?>
+								<?php if ( $valid_referral_count < MAX_STEP ): ?>
                                     <circle r="75" cx="50%" cy="94%" stroke="#DDD"
-                                            stroke-width="60" fill="none" stroke-dasharray="<?php echo $accomplished > 0 ? 200 : 240; ?>, 943"></circle>
+                                            stroke-width="60" fill="none" stroke-dasharray="<?php echo $valid_referral_count > 0 ? 200 : 240; ?>, 943"></circle>
 								<?php endif; ?>
-                                <g class="danger-dial-tuner" transform="rotate(126 108.93 111.42)" style="transform: rotate(<?= ceil( $accomplished / MAX_STEP * 180 ); ?>deg);transform-origin: 108.93px 111.42px 0px;">
+                                <g class="danger-dial-tuner" transform="rotate(126 108.93 111.42)" style="transform: rotate(<?= ceil( $valid_referral_count / MAX_STEP * 180 ); ?>deg);transform-origin: 108.93px 111.42px 0px;">
                                     <path class="danger-dial-tuner__needle"
                                           d="M109.82,104.28l-1.6-.13h0c-18-1.25-55.68,7.26-55.68,7.26s37.66,8.51,55.69,7.26h0.16a7.3,7.3,0,0,0,1.45-.15c5.22-.4,7.16-7.12,7.16-7.12S115,104.67,109.82,104.28Z"
                                           transform="translate(0 0.01)"></path>
                                     <circle class="danger-dial-tuner__knob" cx="108.93" cy="111.42" r="4.1" style="fill: #fff;"></circle>
                                 </g>
                             </svg>
-                            <span class="number"><?= $accomplished; ?></span> of <span class="number"><?= MAX_STEP; ?></span>
+                            <span class="number"><?= $valid_referral_count; ?></span> of <span class="number"><?= MAX_STEP; ?></span>
                         </div>
                         <div class="clearfix"></div>
 					</div>
 					<ul class="fx-board-list">
 						<li>
-							<span class="fx-checkbox <?php echo $referral_count > 0 ? 'checked' : '';?>"></span>
+							<span class="fx-checkbox <?php echo $valid_referral_count > 0 ? 'checked' : '';?>"></span>
 							<span class="fx-text">Refer First Friend</span>
 						</li>
 						<li>
-							<span class="fx-checkbox <?php echo $referral_count > 1 ? 'checked' : '';?>"></span>
+							<span class="fx-checkbox <?php echo $valid_referral_count > 1 ? 'checked' : '';?>"></span>
 							<span class="fx-text">Refer Second Friend</span>
 						</li>
 						<li>
-							<span class="fx-checkbox <?php echo $referral_count > 2 ? 'checked' : '';?>"></span>
+							<span class="fx-checkbox <?php echo $valid_referral_count > 2 ? 'checked' : '';?>"></span>
 							<span class="fx-text">Refer Third Friend</span>
 						</li>
 					</ul>
