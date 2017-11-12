@@ -1,3 +1,4 @@
+<p class="text-bold">Purchases</p>
 <div class="user-cancellation">
 	<div class="progress">
 	  <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" style="width: 80%" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100">STEP 3 of 3</div>
@@ -29,7 +30,6 @@
 $my_orders_columns = get_order_columns();
 $customer_orders = get_purchased_items(get_query_var('acc_id'));
 if ( $customer_orders ){ ?>
-	<p class="text-bold hide-on-cancel">Purchases</p>
 	<table class="shop_table shop_table_responsive my_account_orders">
 		<thead>
 			<tr>

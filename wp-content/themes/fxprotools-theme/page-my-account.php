@@ -164,7 +164,7 @@ get_header();
 												<li><span>Zip Code:</span> <?php echo get_the_author_meta('billing_postcode', get_current_user_id()) ?></li>
 											</ul>
 										</div>
-										<div class="col-xs-12 col-sm-6 col-md-6">
+										<div class="col-xs-12 col-sm-6 col-md-6 xs-m-t">
 											<p class="text-label">Shipping Information</p>
 											<ul class="list-info list-info-fields">
 												<li><span>Business Name:</span> <?php echo get_the_author_meta('shipping_company', get_current_user_id()) ?></li>
@@ -191,6 +191,7 @@ get_header();
 								<p class="text-bold">Genealogy Section</p>
 							</div>
 							<div class="tab-pane fade" id="f">
+								<p class="text-bold">Recent Activity</p>
 								<?php get_template_part('inc/templates/my-account/recent-activity'); ?>
 							</div>
 							<div class="tab-pane fade" id="g">
