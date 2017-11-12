@@ -12,7 +12,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-12 epx referred-members">
+			<div class="col-md-12 epx">
 				<?php echo do_shortcode('[afl_eps_matrix_reffered_downlines]'); ?>
 			</div>
 		</div>
