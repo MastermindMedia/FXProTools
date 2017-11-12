@@ -339,6 +339,20 @@
 			}
 		}
 	}
+	.xs-fx-course {
+		margin-top: -15px;
+		p {
+			font-size: $font-xs;
+		}
+	}
+	// Table - Lessons
+	.fx-table-lessons {
+		th {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+	}
 
 	// ------
 	// Custom

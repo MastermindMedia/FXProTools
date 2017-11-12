@@ -528,6 +528,13 @@
 // Table - Lessons
 .fx-table-lessons {
 	position: relative;
+	th {
+		background-color: $red;
+		color: $white;
+		&:first-child {
+			text-align: center;
+		}
+	}
 	.number {
 		font-size: 18px;
 		font-weight: bold;
