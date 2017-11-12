@@ -5,6 +5,22 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="profile" href="http://gmpg.org/xfn/11">
 	<title><?php echo wp_title( ' | ', false, 'right' ); bloginfo( 'name' );?></title>
+
+	<script type="text/javascript">
+		WebFontConfig = {
+		google: { families: [ 'Lato:300,400,700' ] }
+		};
+		(function() {
+		var wf = document.createElement('script');
+		wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+		'://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js';
+		wf.type = 'text/javascript';
+		wf.async = 'true';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(wf, s);
+		})();
+	</script>
+
 	<?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
