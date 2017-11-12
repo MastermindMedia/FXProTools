@@ -162,6 +162,9 @@
 				color: $white;
 				cursor: not-allowed;
 			}
+			&.icon-wallet:before {
+				display: none;
+			}
 		}
 	}
 }
