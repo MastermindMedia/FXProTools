@@ -99,7 +99,7 @@ $angle = GAUGE_BASE + ( $average * $accomplished );
                                     </a>
                                 </div>
                                 <div class="col-xs-12 col-sm-6 col-md-6">
-                                    <a href="#" class="btn btn-danger btn-lg block btn-ico-lg btn-two"></a>
+                                    <a href="/<?php echo Woocommerce_Settings::POST_NAME_FREE_SHIRT; ?>" class="btn btn-danger btn-lg block btn-ico-lg btn-two"></a>
                                 </div>
                             </div>
                         </div>
