@@ -282,31 +282,29 @@ HTML;
 
 			if ( user_membership_duration() < self::MIN_MEMBERSHIP_DURATION ) {
 				echo sprintf( $html, "You have to finish your 14-day trial to claim this", 'You have been a member for ' . user_membership_duration() . ' days so far.' );
-				exit;
+				return;
 			}
-			if ( self::can_claim_freeshirt() ) {
+			if ( self::has_claimed_shirt() ) {
                 echo sprintf( $html, "You already got your Free T-shirt", 'Lorem ipsum blah blah blah' );
+                return;
 			}
 		}
 
 		/**
-         * Answers the question if the user has already claimed his free shirt
-         * Checks the `Get your free shirt` checklist
+		 * If the user can claim the free tshirt
 		 * @return bool
 		 */
 		public static function can_claim_freeshirt() {
-			global $post;
+			return ! self::has_claimed_shirt() && user_membership_duration() >= self::MIN_MEMBERSHIP_DURATION;;
+		}
 
-			$claimed = $post->post_name == self::POST_NAME_FREE_SHIRT
-				&& wc_customer_bought_product( '', get_current_user_id(), $post->ID )
-                && user_membership_duration() >= self::MIN_MEMBERSHIP_DURATION;
-
-			// TODO: move this to checkout page
-			if ($claimed) {
-			    pass_onboarding_checklist('got_shirt');
-            }
-
-            return $claimed;
+		/**
+		 * If the user has already claimed the shirt in checkout
+		 * @return bool
+		 */
+		public static function has_claimed_shirt() {
+			$post = get_page_by_path( self::POST_NAME_FREE_SHIRT, OBJECT, 'product' );
+			return wc_customer_bought_product( '', get_current_user_id(), $post->ID );
 		}
 	}
 }

@@ -20,8 +20,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $product;
-if ( ! $product->is_purchasable() || Woocommerce_Settings::can_claim_freeshirt()) {
-    return;
+if ( ! ( $product->is_purchasable() ) ) {
+	return;
+}
+
+if ( Woocommerce_Settings::POST_NAME_FREE_SHIRT == $product->get_slug() && ! Woocommerce_Settings::can_claim_freeshirt() ) {
+	return;
 }
 
 echo wc_get_stock_html( $product );
