@@ -497,6 +497,10 @@
 		border-left: 1px solid #DDD;
 		border-right: 1px solid #DDD;
 		padding: 10px;
+		background-color: $white;
+		&:nth-child(2n) {
+			background-color: #FCFCFC;
+		}
 		&:last-child {
 			border-bottom: 1px solid #DDD;
 		}
