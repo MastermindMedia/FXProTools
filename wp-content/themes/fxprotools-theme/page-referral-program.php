@@ -4,12 +4,19 @@ $active_referrals = get_user_active_referrals();
 $referral_count = count( $active_referrals);
 $username = wp_get_current_user()->user_login;
 $referral_link = get_highest_converting_funnel_link();
+
+$accomplished = 0;
+define( 'GAUGE_BASE', 237 );
+define( 'GAUGE_MAX', 470 );
+define( 'MAX_STEP', 3 );
+$average = ceil( ( GAUGE_MAX - GAUGE_BASE ) / MAX_STEP );
+$angle = GAUGE_BASE + ( $average * $accomplished );
 ?>
 <?php get_header(); ?>
 
 	<?php get_template_part('inc/templates/nav-dashboard'); ?>
 
-	<div class="container">
+	<div class="container page-dashboard">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="fx-header-title">
@@ -23,12 +30,33 @@ $referral_link = get_highest_converting_funnel_link();
 					echo get_mb_pto1( 'video_embed', 'pto1' );
 				?>
 			</div>
-			<div class="col-md-4">
+			<div class="col-xs-12 col-sm-12 col-md-4">
 				<div class="fx-board checklist">
 					<div class="fx-board-header w-text">
-						<span>Refer 3 & Your Free</span>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <div class="group-title">
+                            <span class="title">Refer 3 & Your Free</span>
+                            <span class="sub">With Our Referral program You Can Gain Access To Your Membership For Free!</span>
+                        </div>
+                        <div class="group-counter">
+                            <svg id="meter" viewBox="0 0 217.36 118.8">
+                                <circle r="75" cx="50%" cy="95%" stroke="#DDD"
+                                        stroke-width="60" fill="none"></circle>
+                                <circle r="75" cx="50%" cy="95%" stroke="#03ae78"
+                                        stroke-width="60" fill="none" stroke-dasharray="<?= $angle; ?>, 943"></circle>
+								<?php if ( $accomplished < MAX_STEP ): ?>
+                                    <circle r="75" cx="50%" cy="94%" stroke="#DDD"
+                                            stroke-width="60" fill="none" stroke-dasharray="<?php echo $accomplished > 0 ? 200 : 240; ?>, 943"></circle>
+								<?php endif; ?>
+                                <g class="danger-dial-tuner" transform="rotate(126 108.93 111.42)" style="transform: rotate(<?= ceil( $accomplished / MAX_STEP * 180 ); ?>deg);transform-origin: 108.93px 111.42px 0px;">
+                                    <path class="danger-dial-tuner__needle"
+                                          d="M109.82,104.28l-1.6-.13h0c-18-1.25-55.68,7.26-55.68,7.26s37.66,8.51,55.69,7.26h0.16a7.3,7.3,0,0,0,1.45-.15c5.22-.4,7.16-7.12,7.16-7.12S115,104.67,109.82,104.28Z"
+                                          transform="translate(0 0.01)"></path>
+                                    <circle class="danger-dial-tuner__knob" cx="108.93" cy="111.42" r="4.1" style="fill: #fff;"></circle>
+                                </g>
+                            </svg>
+                            <span class="number"><?= $accomplished; ?></span> of <span class="number"><?= MAX_STEP; ?></span>
+                        </div>
+                        <div class="clearfix"></div>
 					</div>
 					<ul class="fx-board-list">
 						<li>
