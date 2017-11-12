@@ -2338,6 +2338,7 @@ form {
 	}
 }
 
+// Renewal
 .fx-renewal {
   .text-bold span {
     font-size: 2.7em;
@@ -2373,5 +2374,21 @@ form {
 		list-style: none;
 		margin: 0;
 		padding: 0;
+	}
+}
+
+// Epixel Plugin - Overwrite
+.epx {
+	// Referred Members
+	&.referred-members {
+		.panel-default>.panel-heading {
+			border-left-color: $red;
+		}
+		.table thead {
+			background: $red;
+			th {
+				color: $white;
+			}
+		}
 	}
 }
