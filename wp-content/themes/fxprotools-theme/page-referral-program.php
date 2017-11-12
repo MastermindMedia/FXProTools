@@ -5,7 +5,7 @@ $referral_count = count( $active_referrals);
 $username = wp_get_current_user()->user_login;
 $referral_link = get_highest_converting_funnel_link();
 
-$accomplished = 0;
+$accomplished = $referral_count;
 define( 'GAUGE_BASE', 237 );
 define( 'GAUGE_MAX', 470 );
 define( 'MAX_STEP', 3 );
