@@ -10,11 +10,11 @@ if ( ! ( $checklist['shared_video'] && $checklist['referred_friend'] ) ) {
 		$stats = get_funnel_stats( $funnel->ID );
 
 		foreach ( $stats as $stat ) {
-			if ( $stat['page_views']['unique'] >= 1 && ! $shared_video ) {
+			if ( isset($stat['page_views']) && $stat['page_views']['unique'] >= 1 && ! $shared_video ) {
 				pass_onboarding_checklist( 'shared_video' );
 				$shared_video = true;
 			}
-			if ( $stat['opt_ins']['all'] >= 1 && ! $referred_friend ) {
+			if ( isset($stat['opt_ins']) && $stat['opt_ins']['all'] >= 1 && ! $referred_friend ) {
 				pass_onboarding_checklist( 'referred_friend' );
 				$referred_friend = true;
 			}

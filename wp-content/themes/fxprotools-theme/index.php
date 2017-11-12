@@ -161,6 +161,12 @@
 										</div>
 										<p class="text-heading-sm">...If you've tried in the past to piece together dozens of other trading strategies, but they failed to produce consistent positive results...</p>
 										<p class="text-heading-sm">Then I want to to watch this quick video from one of our Top CopyProfitShare Members that will show you how simple your life can become when you start using our platform:</p>
+										<div class="text-center">
+											<a href="#trial-products" class="btn btn-danger btn-lg btn-lg-w-text scroll-to">
+												Create your Account Now!
+												<span>Sign up takes less than 60 seconds</span>
+											</a>
+										</div>
 									</div>
 									<div class="clearfix"></div>
 								</div>

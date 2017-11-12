@@ -14,7 +14,7 @@ $referral_link = get_highest_converting_funnel_link();
 			<div class="col-md-12">
 				<div class="fx-header-title">
 					<h1>Wait! Did You Know Your Access Could Be Free</h1>
-					<p>Step#3 - Refer 3 People To FX Pro Tools Products & Yours Become Free</p>
+					<p><span class="label-red">Step 3:</span> - Refer 3 People To FX Pro Tools Products & Yours Become Free</p>
 				</div>
 			</div>
 			<div class="col-md-8">
@@ -96,7 +96,7 @@ $referral_link = get_highest_converting_funnel_link();
 			<div class="clearfix"></div>
 			<br/>
 			<div class="col-md-12">
-				<a href="<?php bloginfo('url');?>/product/professional" class="btn btn-danger block padding-lg">Thanks For Letting Me Know.. Continue To Your Products</a>
+				<a href="<?php bloginfo('url');?>/product/professional" class="btn btn-danger block p-m">Thanks For Letting Me Know.. Continue To Your Products</a>
 			</div>
 		</div>
 	</div>
