@@ -25,7 +25,8 @@ if(!class_exists('SettingsMB')){
                 'mb_page_template_options_1',
                 'mb_page_template_options_2',
                 'mb_page_template_options_3',
-                'mb_emails'
+                'mb_emails',
+                'mb_course_categories'
             );
             if($metaboxes) {
                 foreach ($metaboxes as $key => $mb) {
@@ -802,6 +803,33 @@ if(!class_exists('SettingsMB')){
             return $meta_boxes;
         }
         
+        // MB - Course categories
+        public function mb_course_categories($meta_boxes)
+        {
+            $prefix = '';
+            $meta_boxes[] = array(
+                'id'         => 'course_category_fields',
+                'title'      => '',
+                'taxonomies' => array( 'ld_course_category' ),
+                'context'    => 'normal',
+                'priority'   => 'high',
+                'autosave'   => false,
+                'fields' => array(
+                    array(
+                        'name'      => 'Status',
+                        'id'        => $prefix . 'category_status',
+                        'type'      => 'select',
+                        //'placeholder'   => 'Default',
+                        'options'   => array(
+                            'published'        => 'published',
+                            'draft'       => 'draft',
+                        ),
+                    ),
+                ),
+            );
+            return $meta_boxes;
+        }
+
         public function mb_settings_pages($settings_pages)
         {
             $settings_pages[] = array(

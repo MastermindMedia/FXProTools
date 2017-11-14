@@ -2,6 +2,8 @@
 $category_slug = 'basic-training';
 $category = get_term_by('slug', $category_slug, 'ld_course_category' );
 $child_categories = get_course_category_children($category->term_id);
+dd($child_categories);
+dd(rwmb_meta( 'category_status', 27 ));
 ?>
 
 
@@ -23,17 +25,19 @@ $child_categories = get_course_category_children($category->term_id);
 						<ul class="nav nav-tabs fx-tabs" role="tablist">
 							<?php foreach($child_categories as $key => $category): ?>
 								<li role="presentation" class="<?php echo $key == 0 ? 'active' : 'false';?>">
-									<a href="#category-<?php echo $key + 1;?>" aria-controls="category-<?php echo $key + 1;?>" role="tab" data-toggle="tab"><?php echo $category->name;?></a>
+									<a href="#category-<?php echo $key + 1;?>" aria-controls="category-<?php echo $key + 1;?>" role="tab" data-toggle="tab">
+									<?php dd($category); ?>
+									<?php echo $category->name;?></a>
+									<?php 
+										echo rwmb_meta( 'category_status' );
+									?>
+									<?php echo get_post_meta( $category->term_id , 'category_status', true ); ?>
 								</li>
 							<?php endforeach;?>
 						</ul>
 						<div class="tab-content">
 							<?php foreach($child_categories as $key => $category): ?>
 								<div role="tabpanel" class="tab-pane <?php echo $key == 0 ? 'active' : 'false';?>" id="category-<?php echo $key + 1;?>">
-									<div class="fx-header-title">
-										<h2>Get The Most Out Of FX Pro Tools</h2>
-										<p>Supercharge your learning experience using FX Pro Tools</p>
-									</div>
 									<ul class="fx-list-courses">
 										<?php $courses = get_courses_by_category_id($category->term_id); ?>
 										<?php if( $courses ) : ?>
