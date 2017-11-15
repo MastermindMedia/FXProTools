@@ -15,14 +15,21 @@
 					<p><?php echo rwmb_meta('subtitle');?></p>
 				</div>
 				<br/>
+				<?php if( $courses ) : ?>
 				<ul class="fx-list-courses">
-					<?php if( $courses ) : ?>
-						<?php $count = 0; foreach($courses as $post): setup_postdata($post); $count++; ?>
-							<?php get_template_part('inc/templates/product/list-course'); ?>
-						<?php endforeach;?>
-						<?php wp_reset_query(); ?>
-					<?php endif;?>
+					<?php $count = 0; foreach($courses as $post): setup_postdata($post); $count++; ?>
+						<?php get_template_part('inc/templates/product/list-course'); ?>
+					<?php endforeach;?>
+					<?php wp_reset_query(); ?>
 				</ul>
+				<?php else: ?>
+				<div class="panel">
+					<div class="panel-body">
+						<h2 class="m-t-none">Oops!</h2>
+						<p>There are no available courses at this moment</p>
+					</div>
+				</div>
+				<?php endif; ?>
 			</div>
 		</div>
 	</div>
