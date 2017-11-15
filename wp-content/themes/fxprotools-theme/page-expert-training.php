@@ -1,11 +1,10 @@
-<?php
-$category_slug = 'advanced-training';
-$category = get_term_by('slug', $category_slug, 'ld_course_category' );
-$courses = get_courses_by_category_id($category->term_id);
-?>
-
-
 <?php get_header(); ?>
+	
+	<?php
+		$category = get_term_by('slug', 'expert-training', 'ld_course_category' );
+		$courses = get_courses_by_category_id($category->term_id);
+	?>
+
 	<?php get_template_part('inc/templates/nav-products'); ?>
 
 	<div class="container">
