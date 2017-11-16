@@ -11,7 +11,8 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 		const META_ENABLE_BUY_BUTTON = '_enable_buy_button';
 		const META_BUY_BUTTON_URL = '_buy_button_url';
 		const META_BUY_BUTTON_TEXT = '_buy_button_text';
-        
+        const POST_NAME_FREE_SHIRT = 'free-shirt';
+        const MIN_MEMBERSHIP_DURATION = 15;
 		/**
 		 * @var integer ID of the membership products
 		 */
@@ -40,6 +41,8 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 			add_action( 'template_redirect', array( $this, 'wc_redirect_to_checkout_if_cart' ) );
 			add_action( 'woocommerce_product_data_panels', array( $this, 'wc_buy_button_tab_fields' ) );
 			add_action( 'woocommerce_admin_process_product_object', array( $this, 'wc_save_buy_button_tab_fields' ) );
+			add_action( 'woocommerce_before_single_product', array( $this, 'wc_notif_before_single_product') );
+			add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'wc_add_gotodashboard_link') );
 		}
 
 		public function wc_setup_checkout_fields( $fields ) {
@@ -235,11 +238,11 @@ HTML;
 		 * @return string|void
 		 */
 		public function wc_archive_custom_cart_button_text( $default ) {
-			$enable_custom_button = get_post_meta( get_the_ID(), self::META_ENABLE_BUY_BUTTON );
-			if ( ! empty( $enable_custom_button ) && $enable_custom_button[0] == 'yes' ) {
-				$buy_button_text = get_post_meta( get_the_ID(), self::META_BUY_BUTTON_TEXT );
+			$enable_custom_button = get_post_meta( get_the_ID(), self::META_ENABLE_BUY_BUTTON, true );
+			if ( ! empty( $enable_custom_button ) && $enable_custom_button == 'yes' && !isset( $_GET['switch-subscription'])) {
+				$buy_button_text = get_post_meta( get_the_ID(), self::META_BUY_BUTTON_TEXT, true );
 				if ( ! empty( $buy_button_text ) ) {
-					return __( $buy_button_text[0], 'woocommerce' );
+					return __( $buy_button_text, 'woocommerce' );
 				}
 			}
 
@@ -253,17 +256,64 @@ HTML;
 		 * @return mixed
 		 */
 		public function wc_archive_custom_cart_button_url( $url ) {
-			$enable_custom_button = get_post_meta( get_the_ID(), self::META_ENABLE_BUY_BUTTON );
-			if ( ! empty( $enable_custom_button ) && $enable_custom_button[0] == 'yes' ) {
-				$buy_button_url = get_post_meta( get_the_ID(), self::META_BUY_BUTTON_URL );
+			$enable_custom_button = get_post_meta( get_the_ID(), self::META_ENABLE_BUY_BUTTON, true );
+			if ( ! empty( $enable_custom_button ) && $enable_custom_button == 'yes'  && !isset( $_GET['switch-subscription'] )) {
+				$buy_button_url = get_post_meta( get_the_ID(), self::META_BUY_BUTTON_URL, true );
 
 				if ( ! empty( $buy_button_url ) ) {
-					return $buy_button_url[0];
+					return $buy_button_url;
 				}
 			}
 
 			return $url;
 		}
+
+		/**
+		 * Displays message if the shirt has already been claimed
+		 */
+		public function wc_notif_before_single_product() {
+			$html = <<<HTML
+<div class="col-md-12">
+    <div class="fx-header-title">
+        <h1>%s</h1>
+        <p>%s</p>
+    </div>
+</div>
+HTML;
+
+			if ( user_membership_duration() < self::MIN_MEMBERSHIP_DURATION ) {
+				echo sprintf( $html, "You have to finish your 14-day trial to claim this", 'You have been a member for ' . user_membership_duration() . ' days so far.' );
+				return;
+			}
+			if ( self::has_claimed_shirt() ) {
+                echo sprintf( $html, "You already got your Free T-shirt", 'Lorem ipsum blah blah blah' );
+                return;
+			}
+		}
+
+		/**
+		 * If the user can claim the free tshirt
+		 * @return bool
+		 */
+		public static function can_claim_freeshirt() {
+			return ! self::has_claimed_shirt() && user_membership_duration() >= self::MIN_MEMBERSHIP_DURATION;;
+		}
+
+		/**
+		 * If the user has already claimed the shirt in checkout
+		 * @return bool
+		 */
+		public static function has_claimed_shirt() {
+			$post = get_page_by_path( self::POST_NAME_FREE_SHIRT, OBJECT, 'product' );
+			return wc_customer_bought_product( '', get_current_user_id(), $post->ID );
+		}
+
+		public function wc_add_gotodashboard_link() {
+            global $post;
+            if ($post->post_name ==  self::POST_NAME_FREE_SHIRT) {
+                echo '<a href="/dashboard" class="btn btn-link p-xxs m-l-sm">Go To Dashboard</a>';
+            }
+        }
 	}
 }
 

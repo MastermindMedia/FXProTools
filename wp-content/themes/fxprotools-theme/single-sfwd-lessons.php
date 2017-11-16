@@ -23,7 +23,7 @@ $progression_enabled = is_lesson_progression_enabled($course_id);
 	
 		<div class="container">
 			<div class="row">
-				<div class="col-md-3">
+				<div class="col-xs-12 col-sm-3 col-md-3">
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<h5 class="text-bold">Course Progress</h5>
@@ -44,25 +44,26 @@ $progression_enabled = is_lesson_progression_enabled($course_id);
 						</div>
 					</div>
 				</div>
-				<div class="col-md-9">
+				<div class="col-xs-12 col-sm-9 col-md-9">
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-xs-12 col-sm-12 col-md-12">
 							<div class="fx-header-title">
 								<h3>Lesson #<?php echo intval(array_search($lesson, $lessons)) + 1;?></h3>
 								<h1><?php the_title();?></h1>
 							</div>
 						</div>
-						<div class="col-md-12">
+						<div class="col-xs-12 col-sm-12 col-md-12">
 							<div class="fx-video-container">
 								<?php echo $video; ?>
 							</div>
 							<br/>
 						</div>
 						<div class="clearfix"></div>
-						<div class="col-md-12">
-							<div class="panel panel-default fx-course-outline">
+						<div class="col-xs-12 col-sm-12 col-md-12">
+							<div class="panel panel-default fx-course-outline xs-fx-course">
 								<div class="panel-body">
 									<div class="content">
+										<?php echo get_mb_pto1( 'video_embed', 'pto3' ); ?>
 										<?php echo wpautop($lesson->post_content); ?>
 									</div>
 									<br>
@@ -97,7 +98,7 @@ $progression_enabled = is_lesson_progression_enabled($course_id);
 	<?php else: ?>
 		<div class="container">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-xs-12 col-sm-12 col-md-12">
 					<h4>You must finish the previous lesson first: <a href="<?php echo get_permalink($previous_lesson->ID);?>"><?php echo $previous_lesson->post_title;?></a></h4>
 				</div>
 			</div>

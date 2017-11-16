@@ -314,9 +314,9 @@ class learndash_woocommerce {
 	{
 		$cart_items = WC()->cart->cart_contents;
 		foreach ( $cart_items as $key => $item ) {
-			$courses = get_post_meta( $item['data']->id, '_related_course', true );
+			$courses = get_post_meta( $item['data']->get_id(), '_related_course', true );
 			// wp_die( var_dump( $courses ) );
-			if ( isset( $courses ) || ! empty( $courses ) ) {
+			if ( isset( $courses ) && ! empty( $courses ) ) {
 				foreach ( $courses as $course ) {
 					if ( $course != 0 ) {
 						$this->add_front_scripts();
@@ -468,7 +468,7 @@ function learndash_woocommerce_set_course_as_virtual() {
 			 */
 			public function add_to_cart_url() {
 				// Code copied from WP Simple Product function of same name
-				$url = $this->is_purchasable() && $this->is_in_stock() ? remove_query_arg( 'added-to-cart', add_query_arg( 'add-to-cart', $this->id ) ) : get_permalink( $this->id );
+				$url = $this->is_purchasable() && $this->is_in_stock() ? remove_query_arg( 'added-to-cart', add_query_arg( 'add-to-cart', $this->get_id() ) ) : get_permalink( $this->id );
 				return apply_filters( 'woocommerce_product_add_to_cart_url', $url, $this );
 			}
 		}

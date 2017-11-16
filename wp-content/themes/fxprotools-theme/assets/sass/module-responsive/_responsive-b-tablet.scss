@@ -34,6 +34,41 @@
 			}
 		}
 	}
+	// Main Navigation
+	.fx-navbar-main {
+		.fx-navbar-header .navbar-brand img {
+			margin-top: 25px;
+			width: 110px;
+			max-width: initial;
+		}
+		.left ul {
+			margin-left: 0;
+		}
+		.fx-nav-options li {
+			margin-right: 0;
+			a {
+				img {
+					height: 28px;
+					margin: 0 auto;
+				}
+				span {
+					font-size: 12px;
+				}
+			}
+			&.account {
+				padding-top: 25px;
+				a {
+					padding: 20px 15px;
+					font-size: 12px;
+				}
+			}
+			a .icon-inbox {
+				font-size: 38px;
+				display: block;
+				margin: -5px 0;
+			}
+		}
+	}
 
 	// ------
 	// Common
@@ -150,7 +185,10 @@
 			margin-top: 15px;
 		}
 	}
-
+	// My account
+	.fx-tabs-vertical.marketing-contacts .list-info li span {
+		font-size: 12px;
+	}
 }
 
 // ---

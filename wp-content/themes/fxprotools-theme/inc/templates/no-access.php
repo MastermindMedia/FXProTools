@@ -6,6 +6,8 @@ if( isset($product) ){
 	$product_price = WC_Subscriptions_Product::get_sign_up_fee($product);
 	$product_price = $product_price == 0 ? $product->get_regular_price() : $product_price;
 	$subscription_price = WC_Subscriptions_Product::get_price( $product );
+	$switch_url = get_switch_subscription_url( $product->get_id() );
+	
 }
 
 
@@ -77,7 +79,7 @@ if( isset($product) ){
 						<div class="text-center">
 							<h2 class="m-b-md"><?php echo wc_price( $product_price ); ?> signup fee</h2>
 							<p class="text-bold">Plus $<?php echo $subscription_price;?> per month</p>
-							<a href="<?php echo get_the_permalink($product->get_id()); ?>" class="btn btn-danger block btn-lg m-b-md btn-lg-w-text">
+							<a href="<?php echo $switch_url; ?>" class="btn btn-danger block btn-lg m-b-md btn-lg-w-text">
 								Get Instant Access Now!
 								<span>Training + Forex &amp; Binary Auto Trader</span>
 							</a>

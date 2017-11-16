@@ -138,7 +138,7 @@ if(!class_exists('WC_Subscriptions_Settings')){
 						    if( isset($subscription_type) ) {
 								$product = wc_get_product( $item->get_product_id() );
 
-								if($product->get_id() == 48){ //if business product add ibo kit instead
+								if( in_array($product->get_id(), array( 48, 2921, 2920 )) ){ //if business product add ibo kit instead
 									$ibo_kit =  wc_get_product(2871);
 									$renewal_order->add_product($ibo_kit, 1);
 									$renewal_order->add_order_note('Add IBO Kit for Distributor Package');

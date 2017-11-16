@@ -89,7 +89,6 @@
 .fx-wrapper {
 	position: relative;
 	height: auto;
-	padding-bottom: 30px;
 	&.fx-login {
 		padding-bottom: 0;
 		height: 100%;
@@ -200,7 +199,7 @@
 					&:before {
 						content: "\f00c";
 						color: #FFF;
-						background: #1abc9c;
+						background: #03ae78;
 						font-family: FontAwesome;
 						position: absolute;
 						top: 0;
@@ -280,6 +279,7 @@
 	li {
 		width: 50%;
 		text-align: center;
+		background-color: $white;
 		a {
 			border: 1px solid #DDD;
 			border-radius: 0;
@@ -302,17 +302,20 @@
 	position: relative;
 	li {
 		text-align: center;
+		background-color: $white;
 		a {
 			border: 1px solid #DDD;
 			border-radius: 0;
 			display: block;
+			color: $black;
 		}
 		&.active a {
 			border-bottom: 1px solid #DDD;
 			background: #de1515;
-			color: #FFF;
+			color: $white;
 			&:focus, &:hover, &:active {
 				border-bottom: 1px solid #DDD;
+				color: $white;
 			}
 		}
 	}
@@ -321,6 +324,7 @@
 		border-bottom: 1px solid #DDD;
 		border-right: 1px solid #DDD;
 		padding: 20px;
+		background-color: $white;
 	}
 }
 
@@ -333,12 +337,14 @@
 		li {
 			float: none;
 			margin: 0;
+			background-color: $white;
 			&:first-child a { border-top: 1px solid #DDD!important; }
 			a {
 				margin-right: 0;
 				border-bottom: 1px solid #DDD!important;
 				border-left: 1px solid #DDD!important;
 				border-radius: 0;
+				color: $black;
 			}
 			&.active a {
 				background-color: #de1515;
@@ -492,6 +498,10 @@
 		border-left: 1px solid #DDD;
 		border-right: 1px solid #DDD;
 		padding: 10px;
+		background-color: $white;
+		&:nth-child(2n) {
+			background-color: #FCFCFC;
+		}
 		&:last-child {
 			border-bottom: 1px solid #DDD;
 		}
@@ -518,6 +528,13 @@
 // Table - Lessons
 .fx-table-lessons {
 	position: relative;
+	th {
+		background-color: $red;
+		color: $white;
+		&:first-child {
+			text-align: center;
+		}
+	}
 	.number {
 		font-size: 18px;
 		font-weight: bold;

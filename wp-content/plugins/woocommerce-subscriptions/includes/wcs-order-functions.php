@@ -153,6 +153,8 @@ function wcs_copy_order_meta( $from_order, $to_order, $type = 'subscription' ) {
 			 '_date_paid',
 			 '_completed_date',
 			 '_date_completed',
+			 '_edit_last',
+			 '_subscription_switch_data',
 			 '_order_key',
 			 '_edit_lock',
 			 '_wc_points_earned',
@@ -177,8 +179,15 @@ function wcs_copy_order_meta( $from_order, $to_order, $type = 'subscription' ) {
 	$meta       = $wpdb->get_results( $meta_query, 'ARRAY_A' );
 	$meta       = apply_filters( 'wcs_' . $type . '_meta', $meta, $to_order, $from_order );
 
+	// Pre WC 3.0 we need to save each meta individually, post 3.0 we can save the object once
+	$save = WC_Subscriptions::is_woocommerce_pre( '3.0' ) ? 'save' : 'set_prop_only';
+
 	foreach ( $meta as $meta_item ) {
-		wcs_set_objects_property( $to_order, $meta_item['meta_key'], maybe_unserialize( $meta_item['meta_value'] ), 'save', '', 'omit_key_prefix' );
+		wcs_set_objects_property( $to_order, $meta_item['meta_key'], maybe_unserialize( $meta_item['meta_value'] ), $save, '', 'omit_key_prefix' );
+	}
+
+	if ( is_callable( array( $to_order, 'save' ) ) ) {
+		$to_order->save();
 	}
 }
 
@@ -216,7 +225,7 @@ function wcs_create_order_from_subscription( $subscription, $type ) {
 		wcs_copy_order_meta( $subscription, $new_order, $type );
 
 		// Copy over line items and allow extensions to add/remove items or item meta
-		$items = apply_filters( 'wcs_new_order_items', $subscription->get_items( array( 'line_item', 'fee', 'shipping', 'tax' ) ), $new_order, $subscription );
+		$items = apply_filters( 'wcs_new_order_items', $subscription->get_items( array( 'line_item', 'fee', 'shipping', 'tax', 'coupon' ) ), $new_order, $subscription );
 		$items = apply_filters( 'wcs_' . $type . '_items', $items, $new_order, $subscription );
 
 		foreach ( $items as $item_index => $item ) {

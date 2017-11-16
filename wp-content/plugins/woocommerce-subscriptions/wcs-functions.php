@@ -527,7 +527,7 @@ function wcs_get_subscriptions_for_product( $product_ids, $fields = 'ids' ) {
 
 	// If we have an array of IDs, convert them to a comma separated list and sanatise them to make sure they're all integers
 	if ( is_array( $product_ids ) ) {
-		$ids_for_query = implode( "', '", array_map( 'absint', array_unique( $product_ids ) ) );
+		$ids_for_query = implode( "', '", array_map( 'absint', array_unique( array_filter( $product_ids ) ) ) );
 	} else {
 		$ids_for_query = absint( $product_ids );
 	}

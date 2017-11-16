@@ -153,7 +153,7 @@ class Apyc_Woo_CoachingTemplate{
 	 * @return array
 	 */
 	public function add_cart_item_data($cart_item_data, $product_id, $variation_id){
-		
+		//dd($_POST);exit();
 		$wc_get_prod = wc_get_product($product_id);
 		if( $wc_get_prod->get_type() == 'apyc_woo_gotowebinar_appointment' ){
 			$cart_item_data['selected_date'] = '';
@@ -256,6 +256,78 @@ class Apyc_Woo_CoachingTemplate{
 		);
 		return $fields;
 	}
+	public function webinar_completed($order_id){
+		$order = wc_get_order( $order_id );
+		$items = $order->get_items(); 
+		
+		$webinar_date = false;
+		$webinar_time = false;
+		foreach ( $items as $key => $item ) {
+			$webinar_date = wc_get_order_item_meta( $key, 'Date' );
+			$webinar_time = wc_get_order_item_meta( $key, 'Time' );
+			$product_id = $item['product_id'];
+			$item_id = $item->get_id();
+			//echo wc_update_order_item_meta($item_id, 'Date', 'October 03, 2017');
+			//echo $item_id;
+		}
+		//dd($order);
+		//dd($items);
+		//exit();
+		if( $webinar_date && $webinar_time ){
+			$owner_order_id =  get_post_meta( $order_id, '_customer_user', true );
+			$user_data = get_userdata($owner_order_id);
+			$product = wc_get_product($product_id);
+			//dd($product->get_name());
+			//dd($user_data);
+			$arg = array(
+				'start_date' => $webinar_date,
+				'time_start' => $webinar_time,
+			);
+			$dt = webinar_date_time_conversion($arg);
+			//dd($dt);
+			
+			//create webinar
+			$body_webinar = array(
+				"subject" => $product->get_name() . ' with ' . $user_data->first_name . ' ' . $user_data->last_name ,
+				"description" => _("Private Coaching"),
+				"times" => array(
+					array(
+						"startTime" => $dt->start_date_time,
+						"endTime" => $dt->end_date_time
+					)
+				),
+				"timeZone" => $dt->time_zone
+			);
+			//dd($body_webinar);
+			$webinar = apyc_create_webinar($body_webinar);
+			//dd($webinar);
+			if( isset($webinar['body']->webinarKey) ){
+				//echo $webinar['body']->webinarKey;
+				$webinar_key = $webinar['body']->webinarKey;
+				//get webinar details
+				add_user_meta($owner_order_id, 'webinar_key', $webinar_key);
+				$webinar_details = apyc_get_webinar_key($webinar_key);
+				//dd($webinar_details);
+				add_user_meta($owner_order_id, $webinar_key . '_webinar_details', $webinar_details);
+				//create registrant
+				$body_registrant = array(
+					"lastName" => $user_data->last_name,
+					"email"=> $user_data->user_email,
+					"firstName" => $user_data->first_name
+				);
+				//dd($body_registrant);
+				$registrant = apyc_create_registrant($webinar_key, $body_registrant);
+				if( $registrant['code'] == 201 ){
+					add_user_meta($owner_order_id, $webinar_key . '_order_id', $order_id);
+					add_user_meta($owner_order_id, $webinar_key . '_product_id', $product_id);
+					return true;
+				}
+				//dd($registrant);
+			}
+			
+		}
+	}
+	
 	public function __construct() {
 		add_action('woocommerce_before_add_to_cart_form', array($this,'action_woocommerce_before_add_to_cart_button'), 10, 0 ); 
 		add_action('woocommerce_apyc_woo_gotowebinar_appointment_add_to_cart', array($this, 'webinar_add_to_cart'));
@@ -269,5 +341,6 @@ class Apyc_Woo_CoachingTemplate{
 		//add_filter('woocommerce_is_purchasable', array($this,'is_purchasable'), 10, 2);
 		add_filter('woocommerce_loop_add_to_cart_link', array($this,'conditionally_replacing_add_to_cart_button'), 10, 2 );
 		add_filter('woocommerce_email_order_meta_fields', array($this, 'custom_woocommerce_email_order_meta_fields'), 10, 3 );
+		add_action( 'woocommerce_order_status_completed', array($this, 'webinar_completed'), 10, 1);
 	}
 }

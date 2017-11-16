@@ -103,6 +103,14 @@ class Apyc_Citrix_GoToWebinar_GetAll{
 		return false;
 	}
 	
+	public function get($webinarKey){
+		if( $this->token() ){
+			$url = $this->url . $this->token()->organizer_key . '/webinars/' . $webinarKey;
+			return $this->response($url);
+		}
+		return false;
+	}
+	
 	public function response($url){
 		if( $this->token() && isset($this->token()->access_token) ){
 			$body = array();

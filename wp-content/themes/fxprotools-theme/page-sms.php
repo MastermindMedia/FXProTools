@@ -1,5 +1,19 @@
 <?php 
 get_header();
+?>
+<div class="container top-marketing-buttons">
+	<div class="col-md-6">
+		<a href="<?php bloginfo('url'); ?>/my-account/inbox">
+			Email Marketing
+		</a>
+	</div>
+	<div class="col-md-6">
+		<a href="<?php bloginfo('url'); ?>/mail/sms" class="active">
+			SMS Marketing
+		</a>
+	</div>
+</div>
+<?php
 //url action, we get the state of the url query string, to perform
 $action = isset($_GET['_action']) ? $_GET['_action']:'';
 //holds data to pass to template

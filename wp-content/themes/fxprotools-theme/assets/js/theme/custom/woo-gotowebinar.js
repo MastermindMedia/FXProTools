@@ -9,12 +9,13 @@ var PublicGotoWebinar = function(){
 		return true;
 	}
 	function _datePickerOnSelect(dateText, inst){
-       // var date = $(this).val();
-       // console.log(dateText);
+		// var date = $(this).val();
+		// console.log(dateText);
         //console.log(inst);
         //console.log(inst.selectedDay);
 		$('.selected_date').val(inst.selectedDay);
-		$('.selected_month').val(inst.selectedMonth);
+		var selected_month = (inst.selectedMonth + 1);
+		$('.selected_month').val(selected_month);
 		$('.selected_year').val(inst.selectedYear);
 		$('.ajax-woowebinar-time-rage').html('<p> Getting time, please wait...</p>');
 		_ajaxGetTime(inst).done(function(data){
@@ -72,7 +73,7 @@ var PublicGotoWebinar = function(){
 				e.preventDefault();
 				var select_time = $(this).data('time');
 				$('.selected_time').val(select_time);
-				$('.single_add_to_cart_button').removeAttr('disabled');
+				$('.webinar_single_add_to_cart_button').removeAttr('disabled');
 				console.log(select_time);
 			});
 		},
@@ -108,7 +109,7 @@ var PublicGotoWebinar = function(){
 }();
 
 jQuery(document).ready( function($) {
-	$('.single_add_to_cart_button').attr('disabled', 'disabled');
+	$('.webinar_single_add_to_cart_button').attr('disabled', 'disabled');
 	PublicGotoWebinar.date_picker();
 	PublicGotoWebinar.time_click();
 });

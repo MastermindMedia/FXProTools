@@ -44,14 +44,17 @@ function verify_email_address($verification_code)
 {
     if( get_current_user_id() > 0)
     {
+        // just get passed this step if debug is enabled
+        if (WP_DEBUG) {
+	        pass_onboarding_checklist( 'verified_email' );
+	        return true;
+        }
         $user = get_user_by('id', get_current_user_id() );
         $secret = "fxprotools-";
         $hash = MD5( $secret . $user->data->user_email);
         if($hash == $verification_code)
         {
-            $checklist = get_user_checklist();
-            $checklist['verified_email'] = true;
-            update_user_meta( get_current_user_id(), '_onboard_checklist', $checklist );
+	        pass_onboarding_checklist('verified_email');
             return true;
         } else{
             return false;
@@ -61,6 +64,13 @@ function verify_email_address($verification_code)
     }
 }
 
+function pass_onboarding_checklist( $step ) {
+	if ( ! empty ( $step ) ) {
+		$checklist = get_user_checklist();
+		$checklist[ $step ] = true;
+		update_user_meta( get_current_user_id(), '_onboard_checklist', $checklist );
+	}
+}
 
 function random_checkout_time_elapsed(  $full = false)
 {
@@ -367,25 +377,24 @@ add_action('init','sess_start');
 function get_mb_pto1( $page_element, $pto = 'pto1' ) {
     switch ( $page_element ) {
         case 'main_header_menu':
-            return mb_menu_display( rwmb_meta( $pto . '_display_main_header_menu'), rwmb_meta( $pto . '_main_header_menu'), 'fx-nav-options', new Nav_Main_Header_Menu_Walker(), 'Main Header Menu', '' );
+            return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), rwmb_meta( $pto . '_main_header_menu'), 'fx-nav-options', new Nav_Main_Header_Menu_Walker(), 'Main Header Menu', '' );
             break;
         case 'secondary_header_menu':
-            return mb_menu_display( rwmb_meta( $pto . '_display_header_menu'), rwmb_meta( $pto . '_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
+            return mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), rwmb_meta( $pto . '_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
             break;
         case 'footer_left_menu':
-            return mb_menu_display( rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_fl'), 'footer-nav', '', 'Footer Menu 1', '' );
+            return mb_menu_display( $pto, rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_fl'), 'footer-nav', '', 'Footer Menu 1', '' );
             break;
         case 'footer_middle_menu':
-            return mb_menu_display( rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_mid'), 'footer-nav', '', 'Footer Menu 2', '' );
+            return mb_menu_display( $pto, rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_mid'), 'footer-nav', '', 'Footer Menu 2', '' );
             break;
         case 'footer_right_menu':
-            return mb_menu_display( rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_fr'), 'footer-nav', '', 'Footer Menu 3', 'with-log-inout' );
+            return mb_menu_display( $pto, rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_fr'), 'footer-nav', '', 'Footer Menu 3', 'with-log-inout' );
             break;
         case 'video_embed':
-            // pto1 and pto2 only has support for video tab
             if ( $pto == 'pto1' ) :
                 $video_url              = is_user_fx_customer() ? rwmb_meta( $pto . '_video_url_customer') : rwmb_meta( $pto . '_video_url_distributor') ;
-            elseif ( $pto == 'pto2' ) :
+            elseif ( $pto == 'pto2' || $pto == 'pto3' ) :
                 $video_url = rwmb_meta( $pto . '_video_url');
             endif;
             $video_autostart        = rwmb_meta( $pto . '_video_autostart');
@@ -431,7 +440,7 @@ function is_mb_video_float( $pto = 'pto1' ){
         return array('pto--floating-video');
 }
 
-function mb_menu_display( $display, $menu, $menu_class = '', $walker = '', $fallback, $location = '' ) {
+function mb_menu_display( &$pto, $display, $menu, $menu_class = '', $walker = '', $fallback, $location = '' ) {
     // menu fallback
     $menu_fb = $fallback;
     // check for menu display value
@@ -446,7 +455,7 @@ function mb_menu_display( $display, $menu, $menu_class = '', $walker = '', $fall
                     'container_class' => '',
                     'container_id'    => '',
                     'menu_id'         => $term_id,
-                    'menu_class'      => $menu_class,
+                    'menu_class'      => $menu_class . ' x' . $pto,
                     'echo'            => true,
                     'fallback_cb'     => 'wp_page_menu',
                     'before'          => '',
@@ -464,8 +473,28 @@ function mb_menu_display( $display, $menu, $menu_class = '', $walker = '', $fall
     }
     // if menu display is default
     else{
-        return wp_nav_menu( array('menu' => $menu_fb,'menu_class' => $menu_class, 'walker' => $walker ) );
+        return wp_nav_menu( array('menu' => $menu_fb,'menu_class' => $menu_class . ' xpto_default', 'walker' => $walker ) );
     }
+}
+
+function get_mb_multi_pto( $page_element ) {
+    ob_start();
+    echo get_mb_pto1( $page_element, 'pto1' );
+    $x_pto1 = ob_get_contents();
+    ob_end_clean();
+
+    ob_start();
+    echo get_mb_pto1( $page_element, 'pto2' );
+    $x_pto2 = ob_get_contents();
+    ob_end_clean();
+
+    ob_start();
+    echo get_mb_pto1( $page_element, 'pto3' );
+    $x_pto3 = ob_get_contents();
+    ob_end_clean();
+
+    // return $menu = strpos( $x_pto1, 'xpto1' ) ? $x_pto1 : ( strpos( $x_pto2, 'xpto2' ) ? $x_pto2 : ( strpos( $x_pto3, 'xpto3' ) ? $x_pto3 : $x_pto1 ) ) ;
+    return $menu = ( strpos( $x_pto1, 'xpto1' ) || empty( $x_pto1 ) ) ? $x_pto1 : ( ( strpos( $x_pto2, 'xpto2' ) || empty( $x_pto2 ) )  ? $x_pto2 : ( ( strpos( $x_pto3, 'xpto3' ) || empty( $x_pto3 ) ) ? $x_pto3 : $x_pto1 ) ) ;
 }
 
 // Menu locations
@@ -568,6 +597,18 @@ function get_users_with_active_subscriptions($subscription_ids, $user_fields = a
     return $results;
 }
 
+function user_unsubbed_from_list($user_id, $list_name) {
+    global $wpdb;
+    
+    return $wpdb->get_var("SELECT unsub.meta_id as 'unsub_id'
+        FROM {$wpdb->postmeta} unsub
+        INNER JOIN {$wpdb->postmeta} list ON
+            unsub.post_id = list.post_id AND
+            list.meta_key = 'email_list'
+        WHERE unsub.meta_key = '_user_{$user_id}_unsubscribe' AND
+        list.meta_value = '{$list_name}'");
+}
+
 // redirect to custom login page instead of wordpress page
 add_action('wp_login_failed', 'custom_redirect_login_failed');
 function custom_redirect_login_failed($username) {
@@ -601,7 +642,7 @@ function confirm_logout(){
 add_action('init','redirect_to_login');
 function redirect_to_login(){
     global $pagenow;
-	if ( 'wp-login.php' == $pagenow && isset($_GET['action']) && $_GET['action'] != 'logout' ) {
+	if ( 'wp-login.php' == $pagenow && !isset($_GET['action'])  ) {
 		if ( is_user_logged_in() ) {
 			wp_redirect( '/dashboard' );
 			exit();
@@ -670,4 +711,58 @@ if ( ! function_exists('apyc_has_active_user_subscription')) {
     function apyc_has_active_user_subscription ($user_id = null)  {
         return Apyc_User::get_instance()->hasActiveSubscription($user_id);
     }
+}
+
+function user_membership_duration() {
+	$today_obj = new DateTime( date( 'Y-m-d', strtotime( 'today' ) ) );
+	$register_date = get_the_author_meta( 'user_registered', get_current_user_id() );
+	$registered_obj = new DateTime( date( 'Y-m-d', strtotime( $register_date ) ) );
+	$interval_obj = $today_obj->diff( $registered_obj );
+
+	return $interval_obj->days;
+}
+
+function display_fx_gauge ($max_step, $step_taken = 0, $atts = []) {
+    $default = [
+        'gauge_base' => 237,
+        'gauge_max' => 470,
+        'fill' => '#03ae78'
+    ];
+	$args = wp_parse_args( $atts, $default );
+	extract ($args);
+
+	$average = ceil( ( $gauge_max - $gauge_base ) / $max_step );
+	$angle = $gauge_base + ( $average * $step_taken );
+
+	$html =<<<HTML
+<svg id="meter" viewBox="0 0 217.36 118.8">
+    <circle r="75" cx="50%%" cy="95%%" stroke="#DDD"
+            stroke-width="60" fill="none"></circle>
+    <circle r="75" cx="50%%" cy="95%%" stroke="%s"
+            stroke-width="60" fill="none" stroke-dasharray="%s, 943"></circle>
+    %s
+    <g class="danger-dial-tuner" transform="rotate(126 108.93 111.42)" style="transform: rotate(%sdeg);transform-origin: 108.93px 111.42px 0px;">
+        <path class="danger-dial-tuner__needle"
+              d="M109.82,104.28l-1.6-.13h0c-18-1.25-55.68,7.26-55.68,7.26s37.66,8.51,55.69,7.26h0.16a7.3,7.3,0,0,0,1.45-.15c5.22-.4,7.16-7.12,7.16-7.12S115,104.67,109.82,104.28Z"
+              transform="translate(0 0.01)"></path>
+        <circle class="danger-dial-tuner__knob" cx="108.93" cy="111.42" r="4.1" style="fill: #fff;"></circle>
+    </g>
+</svg>
+<span class="number">%s</span> of <span class="number">%s</span>
+HTML;
+
+    $cover_circle =<<<COVER
+<circle r="75" cx="50%%" cy="94%%" stroke="#DDD"  stroke-width="60" fill="none" stroke-dasharray="%s, 943"></circle>
+COVER;
+
+	$svg = sprintf($html,
+        $fill,
+		$angle,
+        sprintf($cover_circle, $step_taken > 0 ? 200 : 240),
+		ceil( $step_taken / $max_step * 180 ),
+		$step_taken,
+		$max_step
+    );
+
+	return $svg;
 }

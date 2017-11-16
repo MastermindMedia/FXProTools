@@ -17,6 +17,9 @@
 						<li role="presentation">
 							<a href="#past" aria-controls="past" role="tab" data-toggle="tab"><?php echo $tab_history_session;?></a>
 						</li>
+						<li role="presentation">
+							<a href="#private-coaching" aria-controls="private-coaching" role="tab" data-toggle="tab"><?php echo $tab_private_coaching;?></a>
+						</li>
 					</ul>
 					<div class="tab-content">
 						<div role="tabpanel" class="tab-pane padding-md active" id="upcoming">
@@ -24,6 +27,9 @@
 						</div>
 						<div role="tabpanel" class="tab-pane padding-md" id="past">
 							<?php $obj_view->view_theme($view_template . 'coaching/past-webinar.php', array()); ?>
+						</div>
+						<div role="tabpanel" class="tab-pane padding-md" id="private-coaching">
+							<?php $obj_view->view_theme($view_template . 'coaching/private-coaching-webinar.php', array()); ?>
 						</div>
 					</div>
 				</div>

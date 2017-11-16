@@ -1,7 +1,27 @@
 <?php
-$checklist = get_user_checklist();
 $active_referrals = get_user_active_referrals();
 $referral_count = count( $active_referrals);
+
+// sort the active referrals by date ASC
+usort($active_referrals, function($a, $b) {
+	return strtotime($a->date) - strtotime($b->date);
+});
+
+$valid_referral_count = 0;
+foreach ($active_referrals as $active_referral) {
+    // first referral will just check if there's a paid subscription
+    if ($valid_referral_count == 0) {
+        $valid_referral_count++;
+        continue;
+    }
+
+    // 2nd to nth referral
+    // valid only if subscribed for more than 30days
+	if(strtotime($active_referral->date) < strtotime('+1 days')) {
+		$valid_referral_count++;
+	}
+}
+
 $username = wp_get_current_user()->user_login;
 $referral_link = get_highest_converting_funnel_link();
 ?>
@@ -9,38 +29,43 @@ $referral_link = get_highest_converting_funnel_link();
 
 	<?php get_template_part('inc/templates/nav-dashboard'); ?>
 
-	<div class="container">
+	<div class="container page-dashboard">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="fx-header-title">
 					<h1>Wait! Did You Know Your Access Could Be Free</h1>
-					<p>Step#3 - Refer 3 People To FX Pro Tools Products & Yours Become Free</p>
+					<p><span class="label-red">Step 3:</span> - Refer 3 People To FX Pro Tools Products & Yours Become Free</p>
 				</div>
 			</div>
 			<div class="col-md-8">
 				<?php 
 					// Metabox Page Template Option - Video Embed 
-					echo get_mb_pto1('video_embed');
+					echo get_mb_pto1( 'video_embed', 'pto1' );
 				?>
 			</div>
-			<div class="col-md-4">
+			<div class="col-xs-12 col-sm-12 col-md-4">
 				<div class="fx-board checklist">
 					<div class="fx-board-header w-text">
-						<span>Refer 3 & Your Free</span>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <div class="group-title">
+                            <span class="title">Refer 3 & Your Free</span>
+                            <span class="sub">With Our Referral program You Can Gain Access To Your Membership For Free!</span>
+                        </div>
+                        <div class="group-counter">
+                            <?php echo display_fx_gauge(3, $valid_referral_count); ?>
+                        </div>
+                        <div class="clearfix"></div>
 					</div>
 					<ul class="fx-board-list">
 						<li>
-							<span class="fx-checkbox <?php echo $referral_count > 0 ? 'checked' : '';?>"></span>
+							<span class="fx-checkbox <?php echo $valid_referral_count > 0 ? 'checked' : '';?>"></span>
 							<span class="fx-text">Refer First Friend</span>
 						</li>
 						<li>
-							<span class="fx-checkbox <?php echo $referral_count > 1 ? 'checked' : '';?>"></span>
+							<span class="fx-checkbox <?php echo $valid_referral_count > 1 ? 'checked' : '';?>"></span>
 							<span class="fx-text">Refer Second Friend</span>
 						</li>
 						<li>
-							<span class="fx-checkbox <?php echo $referral_count > 2 ? 'checked' : '';?>"></span>
+							<span class="fx-checkbox <?php echo $valid_referral_count > 2 ? 'checked' : '';?>"></span>
 							<span class="fx-text">Refer Third Friend</span>
 						</li>
 					</ul>
@@ -63,7 +88,13 @@ $referral_link = get_highest_converting_funnel_link();
 								<div class="box">
 									Share your unique referral link
 									<div class="link">
-										<?php echo $referral_link; ?>?ref=<?php echo urlencode($username);?>
+										<?php  
+											if(strpos(get_the_author_meta('user_login', get_current_user_id()), ' ') > 0){
+												echo $referral_link; ?>?ref=<?php echo affwp_get_affiliate_id(wp_get_current_user()->ID);
+											}else{
+												echo $referral_link; ?>?ref=<?php echo urlencode($username);
+											}
+										?>
 									</div>
 								</div>
 							</div>
@@ -90,7 +121,7 @@ $referral_link = get_highest_converting_funnel_link();
 			<div class="clearfix"></div>
 			<br/>
 			<div class="col-md-12">
-				<a href="<?php bloginfo('url');?>/product/professional" class="btn btn-danger block padding-lg">Thanks For Letting Me Know.. Continue To Your Products</a>
+				<a href="<?php bloginfo('url');?>/product/professional" class="btn btn-danger block p-m">Thanks For Letting Me Know.. Continue To Your Products</a>
 			</div>
 		</div>
 	</div>

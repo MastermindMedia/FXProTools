@@ -1,4 +1,16 @@
 <?php get_header(); ?>
+<div class="container top-marketing-buttons">
+	<div class="col-xs-12 col-sm-6 col-md-6">
+		<a href="<?php bloginfo('url'); ?>/my-account/inbox" class="active">
+			Email Marketing
+		</a>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-6">
+		<a href="<?php bloginfo('url'); ?>/mail/sms">
+			SMS Marketing
+		</a>
+	</div>
+</div>
 <?php
 if (!function_exists('page_content')) {
     function page_content() {
@@ -51,7 +63,7 @@ if (isset($_GET['delete'])) {
 					<div class="panel panel-default">
 						<div class="panel-body">
 							<div class="row">
-								<div class="col-md-3">
+								<div class="col-xs-12 col-sm-3 col-md-3">
 									<?php
 									if (current_user_can('administrator')) {
 									?>
@@ -71,7 +83,7 @@ if (isset($_GET['delete'])) {
 										<li <?php if ($post->post_name == 'trash') { ?> class="active" <?php } ?>><a href="<?php bloginfo('url'); ?>/my-account/inbox/trash/"><i class=" fa fa-trash-o"></i> Trash</a></li>
 									</ul>
 								</div>
-								<div class="col-md-9">
+								<div class="col-xs-12 col-sm-9 col-md-9 xs-m-t">
 								    <?php page_content(); ?>
 								</div>
 							</div>

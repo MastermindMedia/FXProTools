@@ -12,32 +12,34 @@ function email_content() {
 	}
 	
 	?>
-	<table class="table table-bordered table-hover fx-table-inbox with-padding no-border-l-r m-t-sm">
-		<thead>
-			<th class="text-center"><input type="checkbox" id="selectAll"></th>
-			<th class="small" style="width: 75%;">Subject</th>
-			<th class="small text-center">Date</th>
-		</thead>
-		<tbody id="mailContainer">
-			<?php
-			if (count($emails) > 0) {
-				foreach ($emails as $email) {
-			?>
-			<tr class="<?php echo get_post_meta($email->ID, '_user_' . get_current_user_id() . '_state')[0]; ?>">
-				<td class="text-center"><input type="checkbox" class="email-select" data-id="<?php echo $email->ID; ?>" /></td>
-				<td><a href="<?php bloginfo('url'); ?>/my-account/inbox/read/?id=<?php echo $email->ID; ?>"><?php echo $email->post_title; ?></a></td>
-				<td class="text-center"><?php echo date_i18n( 'm/d/Y', strtotime($email->post_date) ); ?></td>
-			</tr>
-			<?php }
-			} else { ?>
-			<tr>
-				<td colspan="3">No emails found.</td>
-			</tr>
-			<?php
-			}
-			?>
-		</tbody>
-	</table>
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover fx-table-inbox with-padding no-border-l-r m-t-sm">
+			<thead>
+				<th class="text-center"><input type="checkbox" id="selectAll"></th>
+				<th class="small" style="width: 75%;">Subject</th>
+				<th class="small text-center">Date</th>
+			</thead>
+			<tbody id="mailContainer">
+				<?php
+				if (count($emails) > 0) {
+					foreach ($emails as $email) {
+				?>
+				<tr class="<?php echo get_post_meta($email->ID, '_user_' . get_current_user_id() . '_state')[0]; ?>">
+					<td class="text-center"><input type="checkbox" class="email-select" data-id="<?php echo $email->ID; ?>" /></td>
+					<td><a href="<?php bloginfo('url'); ?>/my-account/inbox/read/?id=<?php echo $email->ID; ?>"><?php echo $email->post_title; ?></a></td>
+					<td class="text-center"><?php echo date_i18n( 'm/d/Y', strtotime($email->post_date) ); ?></td>
+				</tr>
+				<?php }
+				} else { ?>
+				<tr>
+					<td colspan="3">No emails found.</td>
+				</tr>
+				<?php
+				}
+				?>
+			</tbody>
+		</table>
+	</div>
 	<?php
 }
 

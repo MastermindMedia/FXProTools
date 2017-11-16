@@ -1,5 +1,23 @@
 *** WooCommerce Subscriptions Changelog ***
 
+2017.11.01 - version 2.2.14
+* Fix: [WC3.2] Update use of deprecated cart fee functions to use new APIs introduced in WC 3.2. PR#2397
+* Fix: [WC3.2] Ensure line item download links are included in subscription related order emails. PR#2396
+* Fix: Copy coupon line items from subscriptions to renewal orders. PR#2374
+* Fix: Only apply recurring coupons to subscription products in parent orders #2375
+* Fix: Allow for custom field IDs when saving subscription shipping and billing fields. PR#2392
+* Tweak: Only save the order once when copying meta data between subscription and order objects - improves performance. PR#2383
+* Tweak: Trigger a do_action when an error occurs during the renewal order creation process. PR#2403
+* Tweak: Improve PayPal Standard error handling of IPNs which refer to subscriptions created with other systems. PR##2384
+
+2017.10.13 - version 2.2.13
+* Fix: Ensure wcs_get_subscriptions() returns the correct results when called with the 'customer_id' and 'product_id' arguments PR#2337
+* Fix: Always set the order key when manually creating subscriptions from the admin dashboard PR#2350
+* Fix: Delay granting download permissions until after the switch is complete - fixes missing download permissions after a switch PR#2339
+* Tweak: Display subscription IDs in date update exceptions PR#2342
+* Tweak: Cache the flag used to determine if subscriptions exist for a slight performance improvement PR#2360
+* Tweak: [WC3.2] Add support for applying subscription coupon types to subscriptions and orders via admin edit subscription/order screens PR#2371
+
 2017.09.15 - version 2.2.12
 * Fix: Add missing argument number to filter for print_switch_link() - fixes PHP Warning: Missing argument 2 for WC_Subscriptions_Switcher::print_switch_link() PR#2266
 * Fix: Store decimal price values in dot separated format in the database PR#2242

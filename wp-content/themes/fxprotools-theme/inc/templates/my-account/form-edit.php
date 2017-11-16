@@ -1,7 +1,7 @@
 <form action="<?php echo get_the_permalink(); ?>/?id=<?php echo get_query_var('acc_id'); ?>" method="POST" class="form-edit">
 	<div class="row">
-		<div class="col-md-6 m-b-lg">
-			<p class="text-bold text-center">General Information</p>
+		<div class="col-xs-12 col-sm-12 col-md-6 m-b-lg">
+			<p class="text-label">General Information</p>
 			<ul class="list-info list-info-fields">
 				<li><span>First Name:</span> <input type="text" name="first_name" id="first_name" value="<?php echo get_the_author_meta('first_name', get_query_var('acc_id')) ?>" /></li>
 				<li><span>Last Name:</span> <input type="text" name="last_name" id="last_name" value="<?php echo get_the_author_meta('last_name', get_query_var('acc_id')) ?>" /></li>
@@ -11,12 +11,13 @@
 				<li><span>Google Plus:</span> <input type="text" name="googleplus" id="googleplus" value="<?php echo get_the_author_meta('googleplus', get_query_var('acc_id')) ?>" /></li>
 			</ul>
 		</div>
-		<div class="col-md-6 m-b-lg">
-			<p class="text-bold text-center">Account Information</p>
+		<div class="col-xs-12 col-sm-12 col-md-6 m-b-lg">
+			<p class="text-label">Account Information</p>
 			<ul class="list-info list-info-fields">
 				<li><span>Affiliate ID:</span> <input type="text" readonly value="<?php echo affwp_get_affiliate_id( get_query_var('acc_id') ) ?>" /></li>
-				<li><span>Username:</span> <input type="text" name="user_login" id="user_login" value="<?php echo get_the_author_meta('user_login', get_query_var('acc_id')) ?>" /></li>
+				<li><span>Username:</span> <input type="text" name="user_login" id="user_login" value="<?php  if(strpos(get_the_author_meta('user_login', get_query_var('acc_id')), ' ') > 0){}else{echo get_the_author_meta('user_login', get_query_var('acc_id'));}?>" placeholder="<?php if(strpos(get_the_author_meta('user_login', get_query_var('acc_id')), ' ') > 0){echo '{please add your username}';}?>" /></li>
 				<li><span>Email:</span> <input type="text" name="user_email" id="user_email" value="<?php echo get_the_author_meta('user_email', get_query_var('acc_id')) ?>" /></li>
+				<li><span>Phone Number:</span> <input type="text" name="phone_number" id="phone_number" value="<?php echo get_the_author_meta('phone_number', get_query_var('acc_id')) ?>" /></li>
 				<li><span>SMS/Text Messaging:</span>
 					<span class="form-checkbox-holder">
 						<input type="hidden" value="no" name="user_sms_subs">
@@ -34,8 +35,8 @@
 			</ul>
 		</div>
 		<div class="clearfix"></div>
-		<div class="col-md-6">
-			<p class="text-bold text-center">Billing Information</p>
+		<div class="col-xs-12 col-sm-12 col-md-6">
+			<p class="text-label">Billing Information</p>
 			<ul class="list-info list-info-fields">
 				<li><span>Business Name:</span> <input type="text" name="billing_company" id="billing_company" value="<?php echo get_the_author_meta('billing_company', get_query_var('acc_id')) ?>" /></li>
 				<li><span>House # & Street Name:</span> <input type="text" name="billing_address_1" id="billing_address_1" value="<?php echo get_the_author_meta('billing_address_1', get_query_var('acc_id')) ?>" /></li>
@@ -45,8 +46,8 @@
 				<li><span>Zip Code:</span> <input type="text" name="billing_postcode" id="billing_postcode" value="<?php echo get_the_author_meta('billing_postcode', get_query_var('acc_id')) ?>" /></li>
 			</ul>
 		</div>
-		<div class="col-md-6">
-			<p class="text-bold text-center">Shipping Information</p>
+		<div class="col-xs-12 col-sm-12 col-md-6 xs-m-t">
+			<p class="text-label">Shipping Information</p>
 			<ul class="list-info list-info-fields">
 				<li><span>Business Name:</span> <input type="text" name="shipping_company" id="shipping_company" value="<?php echo get_the_author_meta('shipping_company', get_query_var('acc_id')) ?>" /></li>
 				<li><span>House # & Street Name:</span> <input type="text" name="shipping_address_1" id="shipping_address_1" value="<?php echo get_the_author_meta('shipping_address_1', get_query_var('acc_id')) ?>" /></li>

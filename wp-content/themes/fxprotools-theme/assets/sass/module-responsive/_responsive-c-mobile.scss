@@ -23,6 +23,11 @@
 	// ----------
 	// Navigation
 	// ----------
+	// Wordpress Admin Bar
+	#wpadminbar {
+	   display: none!important;
+	}
+
 	// Landing/Capture Page Navigation
 	.fx-landing .section-nav .fx-top-nav {
 		&.one {
@@ -59,6 +64,199 @@
 			}
 		}
 	}
+	// Main Navigation
+	.fx-navbar-main {
+		position: fixed;
+		z-index: 100;
+		top: 0;
+		left: 0;
+		right: 0;
+		border-bottom: none;
+		.fx-navbar-header {
+			float: left;
+			.navbar-brand {
+				padding: 0;
+				img {
+					width: 135px;
+					height: auto;
+					margin-top: 15px;
+				}
+			}
+		}
+		// Mobile Navigation
+		.xs-toggle-nav {
+			display: block;
+			width: 55px;
+			height: 60px;
+			position: relative;
+			margin-right: -15px;
+			background-color: #922121;
+			cursor: pointer;
+			float: right;
+			@include transform(rotate(0deg));
+			@include transition(.5s ease-in-out);
+			span {
+				display: block;
+				position: absolute;
+				height: 5px;
+				width: 35px;
+				opacity: 1;
+				left: 0;
+				right: 0;
+				margin: auto;
+				background-color: $white;
+				@include transform(rotate(0deg));
+				@include transition(.25s ease-in-out);
+				&:nth-child(1) {
+				 	top: 18px;
+				}
+				&:nth-child(2), &:nth-child(3) {
+					top: 28px;
+				}
+				&:nth-child(4) {
+					top: 38px;
+				}
+			}
+			&.open span {
+				&:nth-child(1) {
+					top: 18px;
+					width: 0%;
+					left: 50%;
+				}
+				&:nth-child(2) {
+					@include transform(rotate(45deg));
+				}
+				&:nth-child(3) {
+					@include transform(rotate(-45deg));
+				}
+				&:nth-child(4) {
+					top: 18px;
+					width: 0%;
+					left: 50%;
+				}
+			}
+		}
+		.xs-nav-side {
+			position: fixed;
+			z-index: 100;
+			top: 62px;
+			left: -245px;
+			height: 100%;
+			background-color: #403D3D;
+			width: 245px;
+			overflow-y: auto;
+			overflow-x: hidden;
+			@include transition(0.2s ease-in-out);
+			.fx-nav-options {
+				float: none;
+				margin: 0 -15px;
+				li {
+					float: none;
+					margin-right: 0;
+					border-bottom: 1px solid #EEE;
+					a {
+						text-align: left;
+						padding: 20px 15px;
+						line-height: initial;
+						@include transition(0.3s);
+						&:hover, &:focus, &:active {
+							background-color: #bb1414;
+						}
+						img {
+							width: 32px;
+							height: auto;
+							margin-right: 15px;
+							float: left;
+							vertical-align: top;
+							margin-top: -5px;
+						}
+					}
+					// Share/Team Icon
+					&:nth-child(3) a img,
+					&:nth-child(4) a img {
+						margin-top: -10px;
+					}
+				}
+				&.right {
+					li {
+						// width: 50%;
+						&.account {
+							padding-top: 0;
+							a {
+								background-color: transparent;
+								&:hover, &:focus, &:active {
+									background-color: #bb1414;
+								}
+							}
+						}
+						a .icon-inbox {
+							font-size: 30px;
+							float: left;
+							display: block;
+							width: 32px;
+							margin-right: 10px;
+							margin-top: -7px;
+							margin-left: 5px;
+						}
+					}
+				}
+			}
+		}
+	}
+	// When navigation is open
+	body.xs-nav-open {
+		overflow: hidden;
+		.xs-nav-side {
+			left: 0;
+		}
+		.fx-wrapper-content::before {
+			content: ' ';
+			position: absolute;
+			height: 100%;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			background-color: rgba(0, 0, 0, 0.31);
+			z-index: 1;
+		}
+	}
+	// Sub Navigation
+	.fx-navbar-sub {
+		.fx-nav-options {
+			margin: -1px -15px;
+			padding: 0;
+			li.dashboard {
+				display: none;
+			}
+			li {
+				width: 50%;
+				float: left;
+				outline: 1px solid #DDD;
+				padding: 0;
+				a {
+					padding: 10px 10px;
+					font-size: 12px;
+					display: block;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					// .number {
+					// 	display: none;
+					// }
+				}
+				&.current-menu-item a {
+					.number {
+						background-color: #922121;
+					}
+					.text {
+						border-bottom: none;
+						color: #922121;	
+					}
+				}
+			}
+		}
+	}
 	// Footer
 	.fx-footer {
 		padding: 50px 0 30px 0;
@@ -76,6 +274,17 @@
 	// ------
 	// Common
 	// ------
+	// If body has admin-bar class - added by wp
+	.admin-bar .fx-wrapper {
+   		padding-top: 16px;
+   	}
+	// Wrapper
+	.fx-wrapper {
+		padding-top: 62px;
+		&.fx-login {
+			padding-top: 0;
+		}
+	}
 	// Buttons
 	.btn-lg-w-text {
 		font-size: 22px;
@@ -102,6 +311,46 @@
 				float: none;
 				margin: 0 auto 10px auto;
 			}
+		}
+	}
+	// List - Courses
+	.fx-list-courses {
+		.list-item {
+			.left {
+				width: 12%;
+				float: left;
+				padding-right: 5px;
+				max-width: initial;
+				.box {
+					height: 80px;
+					.sash {
+						top: 0;
+						left: 0;
+						width: 100%;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+					}
+					.number {
+						font-size: 20px;
+						top: 20px;
+					}
+				}
+			}
+		}
+	}
+	.xs-fx-course {
+		margin-top: -15px;
+		p {
+			font-size: $font-xs;
+		}
+	}
+	// Table - Lessons
+	.fx-table-lessons {
+		th {
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
 		}
 	}
 
@@ -393,7 +642,6 @@
 			}
 		}
 	}
-
 	// Dashboard
 	.page-dashboard {
 		.btn-ico-lg {
@@ -409,12 +657,43 @@
 			font-size: 12px;
 		}
 	}
+	// My Account
+	.fx-tabs-vertical  {
+		.xs-m-t {
+			margin-top: 30px;
+		}
+		.nav-tabs li a {
+			span {
+				display: none;
+			}
+		}
+		.list-info li {
+			span {
+				font-size: 11px;
+				display: block;
+				width: 100%;
+				margin-bottom: 2px;
+			}
+			input[type="text"] {
+				width: 100%;
+			}
+		}
+	}
 	
 }
 @media screen and (max-width: 640px) {
 
 }
 @media screen and (max-width: 568px) {
+
+	// ------
+	// Custom
+	// ------
+	.log-out-notice span.label-red {
+		font-size: 15px;
+		padding: 10px;
+		display: block;
+	}
 
 }
 @media screen and (max-width: 520px) {
@@ -430,6 +709,39 @@
 }
 @media screen and (max-width: 480px) {
 	
+	// ------
+	// Common
+	// ------
+	// List - Courses
+	.fx-list-courses {
+		.list-item {
+			.left {
+				width: 100%;
+				float: none;
+				padding-right: 0;
+				max-width: initial;
+				.box {
+					height: 80px;
+					.sash {
+						top: 0;
+						left: 0;
+						width: 100%;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						white-space: nowrap;
+					}
+					.number {
+						font-size: 20px;
+						top: 20px;
+					}
+				}
+			}
+			.right {
+				width: 100%;
+			}
+		}
+	}	
+
 }
 @media screen and (max-width: 420px) {
 

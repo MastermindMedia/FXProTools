@@ -7,6 +7,9 @@ $category = get_term_by('slug', $category_slug, 'ld_course_category' );
 $courses = get_courses_by_category_id($category->term_id);
 $funnels = get_funnels();
 $referral = "/?ref=" .  wp_get_current_user()->user_login;
+if(strpos(get_the_author_meta('user_login', get_current_user_id()), ' ') > 0){
+	$referral = "/?ref=" . affwp_get_affiliate_id(wp_get_current_user()->ID);
+}
 ?>
 <?php get_header(); ?>
 	<?php if ( is_user_fx_distributor() || current_user_can('administrator') ): ?>
