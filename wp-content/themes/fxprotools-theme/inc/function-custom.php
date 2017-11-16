@@ -392,10 +392,9 @@ function get_mb_pto1( $page_element, $pto = 'pto1' ) {
             return mb_menu_display( $pto, rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_fr'), 'footer-nav', '', 'Footer Menu 3', 'with-log-inout' );
             break;
         case 'video_embed':
-            // pto1 and pto2 only has support for video tab
             if ( $pto == 'pto1' ) :
                 $video_url              = is_user_fx_customer() ? rwmb_meta( $pto . '_video_url_customer') : rwmb_meta( $pto . '_video_url_distributor') ;
-            elseif ( $pto == 'pto2' ) :
+            elseif ( $pto == 'pto2' || $pto == 'pto3' ) :
                 $video_url = rwmb_meta( $pto . '_video_url');
             endif;
             $video_autostart        = rwmb_meta( $pto . '_video_autostart');

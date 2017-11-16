@@ -549,8 +549,8 @@ if(!class_exists('SettingsMB')){
                 	'slug'		=> array( 'dashboard','access-products', 'referral-program', 'f2', 'lp1', 'lp2', 'lp3' ),
                 ),
                 'tabs'      => array(
-                    $prefix . 'page'    => __( 'Page', 'rwmb' ),
-                    // $prefix . 'video'   => __( 'Video', 'rwmb' ),
+                    // $prefix . 'page'    => __( 'Page', 'rwmb' ),
+                    $prefix . 'video'   => __( 'Video', 'rwmb' ),
                     $prefix . 'menu'    => __( 'Menu', 'rwmb' ),
                 ),
                 'tab_style'		=> 'left',

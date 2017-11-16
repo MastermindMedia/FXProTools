@@ -40,6 +40,7 @@ $course_prerequisites = learndash_get_course_prerequisites( $course_id );
 						<div class="panel-body">
 							<h3>Course Description</h3>
 							<div class="content">
+								<?php echo get_mb_pto1( 'video_embed', 'pto3' ); ?>
 								<?php echo wpautop($course->post_content); ?>
 							</div>
 							<hr/>
