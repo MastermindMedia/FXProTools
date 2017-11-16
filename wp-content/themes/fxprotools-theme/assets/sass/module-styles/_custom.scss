@@ -63,6 +63,14 @@
 					font-size: 13px;
 					padding-left: 35px;
 					display: none;
+					a {
+						font-weight: 700;
+						color: #000;
+					}
+					a:hover {
+						color: #de1515;
+						text-decoration: none;
+					}
 				}
 				.fx-text {
 					font-weight: bold;
