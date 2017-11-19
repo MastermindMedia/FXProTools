@@ -272,7 +272,10 @@ HTML;
 		 * Displays message if the shirt has already been claimed
 		 */
 		public function wc_notif_before_single_product() {
-			$html = <<<HTML
+		    // header if the product is free tshirt
+			global $post;
+			if ($post->post_name ==  self::POST_NAME_FREE_SHIRT) {
+				$html = <<<HTML
 <div class="col-md-12">
     <div class="fx-header-title">
         <h1>%s</h1>
@@ -281,13 +284,14 @@ HTML;
 </div>
 HTML;
 
-			if ( user_membership_duration() < self::MIN_MEMBERSHIP_DURATION ) {
-				echo sprintf( $html, "You have to finish your 14-day trial to claim this", 'You have been a member for ' . user_membership_duration() . ' days so far.' );
-				return;
-			}
-			if ( self::has_claimed_shirt() ) {
-                echo sprintf( $html, "You already got your Free T-shirt", 'Lorem ipsum blah blah blah' );
-                return;
+				if ( user_membership_duration() < self::MIN_MEMBERSHIP_DURATION ) {
+					echo sprintf( $html, "You have to finish your 14-day trial to claim this", 'You have been a member for ' . user_membership_duration() . ' days so far.' );
+					return;
+				}
+				if ( self::has_claimed_shirt() ) {
+					echo sprintf( $html, "You already got your Free T-shirt", 'Lorem ipsum blah blah blah' );
+					return;
+				}
 			}
 		}
 
