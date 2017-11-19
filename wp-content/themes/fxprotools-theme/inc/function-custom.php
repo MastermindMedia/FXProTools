@@ -172,6 +172,11 @@ function enforce_page_access()
 		    wp_redirect('/dashboard');
 		    exit;
 	    }
+
+	    if (is_page('access-products') && !get_user_meta(get_current_user_id(), '_skip_referral')) {
+	        wp_redirect('/referral-program');
+	        exit;
+        }
         return 0;
     }
     if( !is_product() && !is_cart() && !is_checkout() && !is_shop() && !is_404() && !is_front_page() ) {
