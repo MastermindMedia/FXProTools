@@ -39,7 +39,7 @@
 							<div class="clearfix"></div>
 						</li>
 						<li>
-							<h4 class="inline-block">Matrix</h4>
+							<h4 class="inline-block">Bonuses</h4>
 							<a href="#" class="btn btn-danger btn-lg fx-btn inline-block pull-right">Download</a>
 							<div class="clearfix"></div>
 						</li>

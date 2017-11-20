@@ -771,3 +771,19 @@ COVER;
 
 	return $svg;
 }
+
+
+add_filter( 'body_class','fx_user_role_class' );
+function fx_user_role_class( $classes ) {
+
+    if( is_user_fx_distributor() || current_user_can('administrator')){
+        $classes[] = 'distributor';
+    }
+
+    if ( is_user_fx_customer() ){
+        $classes[] = 'customer';
+    }
+
+    return $classes;
+     
+}
