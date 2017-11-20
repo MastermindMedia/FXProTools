@@ -33,7 +33,7 @@ $referral_link = get_highest_converting_funnel_link();
 		<div class="row">
 			<div class="col-md-12">
 				<div class="fx-header-title">
-					<h1>Wait! Did You Know Your Access Could Be Free</h1>
+					<h1><span style="color: $red;">Wait!</span> Did You Know Your Access Could Be Free</h1>
 					<p><span class="label-red">IMPORTANT</span> When You Refer <u>3</u> People To Our Products - Yours Become Free</p>
 				</div>
 			</div>
@@ -68,14 +68,11 @@ $referral_link = get_highest_converting_funnel_link();
 							<span class="fx-checkbox <?php echo $valid_referral_count > 2 ? 'checked' : '';?>"></span>
 							<span class="fx-text">Refer Third Friend</span>
 						</li>
-					</ul>
 
-
-					<ul class="fx-compensation-documents">
-											<li>
-												<h4 class="inline-block">Fast Start Bonuses</h4>
-												<a href="#" class="btn btn-danger btn-lg fx-btn inline-block pull-right">View</a>
-												<div class="clearfix"></div>
+						<li>
+							<h4 class="inline-block">Fast Start Bonuses</h4>
+								<a href="<?php bloginfo('url');?>/wallet/bonuses/" class="btn btn-danger btn-lg fx-btn inline-block pull-right">View</a>
+									<div class="clearfix"></div>
 											</li>
 										</ul>
 				</div>

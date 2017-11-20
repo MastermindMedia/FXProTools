@@ -11,8 +11,8 @@
 				</div>
 			</div>
 			<div class="col-md-8">
-				<?php 
-					// Metabox Page Template Option - Video Embed 
+				<?php
+					// Metabox Page Template Option - Video Embed
 					echo get_mb_pto1( 'video_embed', 'pto1' );
 				?>
 			</div>
@@ -30,17 +30,17 @@
 						</li>
 						<li>
 							<h4 class="inline-block">Your eWallet</h4>
-							<a href="#" class="btn btn-danger btn-lg fx-btn inline-block pull-right">Setup</a>
+							<a href="<?php bloginfo('url');?>/wallet/" class="btn btn-danger btn-lg fx-btn inline-block pull-right">Setup</a>
 							<div class="clearfix"></div>
 						</li>
 						<li>
 							<h4 class="inline-block">Your Matrix</h4>
-							<a href="#" class="btn btn-danger btn-lg fx-btn inline-block pull-right">View</a>
+							<a href="<?php bloginfo('url');?>/team/matrix-tree/" class="btn btn-danger btn-lg fx-btn inline-block pull-right">View</a>
 							<div class="clearfix"></div>
 						</li>
 						<li>
 							<h4 class="inline-block">Bonuses</h4>
-							<a href="#" class="btn btn-danger btn-lg fx-btn inline-block pull-right">View</a>
+							<a href="<?php bloginfo('url');?>/wallet/bonuses" class="btn btn-danger btn-lg fx-btn inline-block pull-right">View</a>
 							<div class="clearfix"></div>
 						</li>
 					</ul>
@@ -55,12 +55,12 @@
 				<div class="fx-ref-links">
 					<div class="row">
 						<div class="col-md-6">
-							
+
 						</div>
 						<div class="col-md-6">
 
 						</div>
-							
+
 					</div>
 				</div>
 			</div>
