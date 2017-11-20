@@ -34,12 +34,12 @@ $referral_link = get_highest_converting_funnel_link();
 			<div class="col-md-12">
 				<div class="fx-header-title">
 					<h1>Wait! Did You Know Your Access Could Be Free</h1>
-					<p><span class="label-red">Step 3:</span> - Refer 3 People To FX Pro Tools Products & Yours Become Free</p>
+					<p><span class="label-red">IMPORTANT</span> When You Refer <u>3</u> People To Our Products - Yours Become Free</p>
 				</div>
 			</div>
 			<div class="col-md-8">
-				<?php 
-					// Metabox Page Template Option - Video Embed 
+				<?php
+					// Metabox Page Template Option - Video Embed
 					echo get_mb_pto1( 'video_embed', 'pto1' );
 				?>
 			</div>
@@ -69,6 +69,15 @@ $referral_link = get_highest_converting_funnel_link();
 							<span class="fx-text">Refer Third Friend</span>
 						</li>
 					</ul>
+
+
+					<ul class="fx-compensation-documents">
+											<li>
+												<h4 class="inline-block">Fast Start Bonuses</h4>
+												<a href="#" class="btn btn-danger btn-lg fx-btn inline-block pull-right">View</a>
+												<div class="clearfix"></div>
+											</li>
+										</ul>
 				</div>
 			</div>
 		</div>
@@ -88,7 +97,7 @@ $referral_link = get_highest_converting_funnel_link();
 								<div class="box">
 									Share your unique referral link
 									<div class="link">
-										<?php  
+										<?php
 											if(strpos(get_the_author_meta('user_login', get_current_user_id()), ' ') > 0){
 												echo $referral_link; ?>?ref=<?php echo affwp_get_affiliate_id(wp_get_current_user()->ID);
 											}else{
@@ -121,7 +130,7 @@ $referral_link = get_highest_converting_funnel_link();
 			<div class="clearfix"></div>
 			<br/>
 			<div class="col-md-12">
-				<a href="<?php bloginfo('url');?>/product/professional" class="btn btn-danger block p-m skip-referral">Thanks For Letting Me Know.. Continue To Your Products</a>
+				<a href="<?php bloginfo('url');?>/access-products" class="btn btn-danger block p-m skip-referral">Thanks For Letting Me Know.. Continue To Your Products</a>
 			</div>
 		</div>
 	</div>
