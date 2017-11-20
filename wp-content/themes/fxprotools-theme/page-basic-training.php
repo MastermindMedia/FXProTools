@@ -14,14 +14,14 @@ $child_categories = get_course_category_children($category->term_id);
 			<div class="row">
 				<div class="col-md-12">
 					<div class="fx-header-title">
-						<h1>List of <?php echo $category->name;?></h1>
-						<p>Filter <?php echo $category->name;?> With Buttons Below</p>
+						<h1><?php echo $category->name;?></h1>
+						<p>Your <?php echo $category->name;?> Can Be Found Below:</p>
 					</div>
 				</div>
 				<div class="col-md-12">
 					<div role="tabpanel">
 						<ul class="nav nav-tabs fx-tabs" role="tablist">
-							<?php 
+							<?php
 							$term_counter = 0;
 							$active_categories = 0;
 							foreach($child_categories as $key => $category){
@@ -33,17 +33,17 @@ $child_categories = get_course_category_children($category->term_id);
 							if($active_categories < 1):
 							?>
 								<?php foreach($child_categories as $key => $category): ?>
-									<?php 
+									<?php
 										$term_status = get_term_meta( $category->term_id, 'category_status', true );
-										if($term_status != "draft"): 
+										if($term_status != "draft"):
 									?>
 											<li role="presentation" class="<?php echo $term_counter == 0 ? 'active' : 'false';?>">
 												<a href="#category-<?php echo $key + 1;?>" aria-controls="category-<?php echo $key + 1;?>" role="tab" data-toggle="tab">
 												<?php echo $category->name;?></a>
 											</li>
-									<?php 
+									<?php
 										$term_counter++;
-										endif; 
+										endif;
 									?>
 								<?php endforeach;?>
 							<?php endif; ?>
@@ -51,9 +51,9 @@ $child_categories = get_course_category_children($category->term_id);
 						<div class="tab-content">
 							<?php $term_counter = 0; ?>
 							<?php foreach($child_categories as $key => $category): ?>
-								<?php 
+								<?php
 									$term_status = get_term_meta( $category->term_id, 'category_status', true );
-									if($term_status != "draft"): 
+									if($term_status != "draft"):
 								?>
 								<div role="tabpanel" class="tab-pane <?php echo $term_counter == 0 ? 'active' : 'false';?>" id="category-<?php echo $key + 1;?>">
 									<ul class="fx-list-courses">
@@ -66,9 +66,9 @@ $child_categories = get_course_category_children($category->term_id);
 										<?php endif;?>
 									</ul>
 								</div>
-								<?php 
+								<?php
 									$term_counter++;
-									endif; 
+									endif;
 								?>
 							<?php endforeach;?>
 						</div>
