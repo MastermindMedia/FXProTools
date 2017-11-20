@@ -55,7 +55,13 @@ function afl_test_codes_callback () {
     $response[] = array('name'=> ($value->user_login.' ('.$value->ID.')'));
   }
   pr($response);*/
-
+  
+    if ( afl_variable_get('afl_enable_que_processing')) {
+    require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/API/api-remote-user-embedd-cron-callback.php';
+    if (function_exists('_process_embedd_users_queue')) {
+      _process_embedd_users_queue();
+    }
+  }
  
 }
 

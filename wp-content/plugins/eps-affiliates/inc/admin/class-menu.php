@@ -185,6 +185,16 @@
 					'#page_callback' 	=> 'afl_admin_advanced_queue_conf', 
 				);
 
+				//variable configuration
+				$menu['pagination_pages_conf'] = array(
+					// '#parent'					=> 'affiliate-eps-system-configurations',
+					'#parent'					=> 'no-parent',
+					'#page_title'			=> __( 'Pagination Pages Configuration', 'eps-affiliates' ), 
+					'#menu_title' 		=> __( 'Pagination Pages Configuration', 'eps-affiliates' ), 
+					'#access_callback'=> 'system_settings', 
+					'#menu_slug' 			=> 'affiliate-eps-pagination-pages-configurations', 
+					'#page_callback' 	=> 'afl_admin_pagination_added_pages_conf', 
+				);
 
 				$menu['hyper_wallet_conf'] = array(
 					// '#parent'					=> 'affiliate-eps-system-configurations',

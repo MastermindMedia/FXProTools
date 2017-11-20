@@ -638,7 +638,7 @@ function afl_admin_compensation_plan_form_submit($POST){
 	 	$form['#prefix'] ='<div class="form-group row">';
 	 	$form['#suffix'] ='</div>';
 
-	 	/*$form['fieldset'] = array(
+/*	 	$form['fieldset'] = array(
 	 		'#type'=>'fieldset',
 	 		'#title'=>'Cancelled spot openup'
 	 	);
@@ -660,8 +660,8 @@ function afl_admin_compensation_plan_form_submit($POST){
 	 		'#default_value'=> !empty($post['cancelled_genealogy_spot_openup_period_value']) ? $post['cancelled_genealogy_spot_openup_period_value'] : afl_variable_get('cancelled_genealogy_spot_openup_period_value',''),
 	 		'#required'=>TRUE
 	  );
-
 */
+
 
 	  //Deactivate member if no distributor package 
 	  	$form['fieldset_1'] = array(
