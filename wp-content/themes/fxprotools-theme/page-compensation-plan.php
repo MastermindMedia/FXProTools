@@ -30,17 +30,17 @@
 						</li>
 						<li>
 							<h4 class="inline-block">Your eWallet</h4>
-							<a href="#" class="btn btn-danger btn-lg fx-btn inline-block pull-right">Download</a>
+							<a href="#" class="btn btn-danger btn-lg fx-btn inline-block pull-right">Setup</a>
 							<div class="clearfix"></div>
 						</li>
 						<li>
 							<h4 class="inline-block">Your Matrix</h4>
-							<a href="#" class="btn btn-danger btn-lg fx-btn inline-block pull-right">Download</a>
+							<a href="#" class="btn btn-danger btn-lg fx-btn inline-block pull-right">View</a>
 							<div class="clearfix"></div>
 						</li>
 						<li>
 							<h4 class="inline-block">Bonuses</h4>
-							<a href="#" class="btn btn-danger btn-lg fx-btn inline-block pull-right">Download</a>
+							<a href="#" class="btn btn-danger btn-lg fx-btn inline-block pull-right">View</a>
 							<div class="clearfix"></div>
 						</li>
 					</ul>
