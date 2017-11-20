@@ -36,7 +36,13 @@
 		}
 	}
 	// Checklist
+
 	.fx-board.checklist {
+		li {
+    border-bottom: 1px solid #ddd;
+    padding: 12px;
+}
+		}
 		.group-title {
 			float: left;
 			width: 80%;
@@ -154,7 +160,7 @@
         padding: 0;
         padding-bottom: 0;
         height: 0;
-        overflow: hidden; 
+        overflow: hidden;
     }
     iframe{
         transition: width .2s ease-in-out, height .2s ease-in-out, transform .38s ease-in-out;
@@ -1741,7 +1747,7 @@
 	#payment {
 		div.payment_box{
 			display: block!important;
-		}	
+		}
 
 		.wc-authorize-net-cim-credit-card-new-payment-method-form{
 			> p:not(.validate-required){
@@ -2345,7 +2351,7 @@ li.false {
 		}
 	}
 
-	
+
 }
 
 // Login page
