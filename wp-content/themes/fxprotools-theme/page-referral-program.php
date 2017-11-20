@@ -33,7 +33,7 @@ $referral_link = get_highest_converting_funnel_link();
 		<div class="row">
 			<div class="col-md-12">
 				<div class="fx-header-title">
-					<h1><span style="color: #de1515;">Wait!</span> Did You Know Your Access Could Be Free</h1>
+					<h1><span style="color: #de1515;">Wait!</span> Did You Know Your Product Access Could Be Free?</h1>
 					<p><span class="label-red">IMPORTANT</span> When You Refer <u>3</u> People To Our Products - Yours Become Free</p>
 				</div>
 			</div>
