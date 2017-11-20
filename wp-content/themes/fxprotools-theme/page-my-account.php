@@ -97,9 +97,10 @@ get_header();
 							<li><a href="#b" data-toggle="tab"> <i class="fa fa-address-card-o visible-xs"></i> <span>Edit Contact</span></a></li>
 							<li><a href="#c" data-toggle="tab"> <i class="fa fa-credit-card visible-xs"></i> <span>Purchases</span></a></li>
 							<li><a href="#d" data-toggle="tab"> <i class="fa fa-star-o visible-xs"></i> <span>Memberships</span></a></li>
-							<li><a href="#e" data-toggle="tab"> <i class="fa fa-users visible-xs"></i> <span>Genealogy</span></a></li>
-							<li><a href="#f" data-toggle="tab"> <i class="fa fa-list visible-xs"></i> <span>Recent Activity</span></a></li>
-							<li><a href="#g" data-toggle="tab"> <i class="fa fa-gift visible-xs"></i> <span>Your Sponsor</span></a></li>
+							<!-- <li><a href="#e" data-toggle="tab"> <i class="fa fa-users visible-xs"></i> <span>Payment Methods</span></a></li> -->
+							<li><a href="#f" data-toggle="tab"> <i class="fa fa-users visible-xs"></i> <span>Genealogy</span></a></li>
+							<li><a href="#g" data-toggle="tab"> <i class="fa fa-list visible-xs"></i> <span>Recent Activity</span></a></li>
+							<li><a href="#h" data-toggle="tab"> <i class="fa fa-gift visible-xs"></i> <span>Your Sponsor</span></a></li>
 							<li><a href="<?php echo wp_logout_url('/login/'); ?>"><i class="fa fa-sign-out visible-xs"></i> <span>Logout</span></a></li>
 						</ul>
 						<div class="tab-content">
@@ -188,13 +189,16 @@ get_header();
 								<?php get_template_part('inc/templates/my-account/membership'); ?>
 							</div>
 							<div class="tab-pane fade" id="e">
-								<p class="text-bold">Genealogy Section</p>
+								<?php get_template_part('inc/templates/my-account/payment-methods'); ?>
 							</div>
 							<div class="tab-pane fade" id="f">
+								<p class="text-bold">Genealogy Section</p>
+							</div>
+							<div class="tab-pane fade" id="g">
 								<p class="text-bold">Recent Activity</p>
 								<?php get_template_part('inc/templates/my-account/recent-activity'); ?>
 							</div>
-							<div class="tab-pane fade" id="g">
+							<div class="tab-pane fade" id="h">
 								<p class="text-bold">Your Sponsor</p>
 							</div>
 						</div>
