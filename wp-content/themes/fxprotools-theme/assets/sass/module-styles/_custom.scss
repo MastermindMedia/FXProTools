@@ -38,10 +38,6 @@
 	// Checklist
 
 	.fx-board.checklist {
-		li {
-    border-bottom: 1px solid #ddd;
-    padding: 12px;
-}
 		}
 		.group-title {
 			float: left;
@@ -65,6 +61,7 @@
 			li {
 				cursor: pointer;
 				position: relative;
+				padding-left: 12px;
 				.content {
 					font-size: 13px;
 					padding-left: 35px;
