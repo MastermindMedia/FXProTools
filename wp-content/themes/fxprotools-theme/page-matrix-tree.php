@@ -6,8 +6,8 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="fx-header-title">
-					<h1>Genealogy Tree</h1>
-					<p>Check Below Direct Upline</p>
+					<h1>Your Matrix Tree</h1>
+					<p>Check Below For Your Full Matrix Tree</p>
 				</div>
 			</div>
 		</div>
@@ -17,5 +17,5 @@
 			</div>
 		</div>
 	</div>
-	
+
 <?php get_footer(); ?>

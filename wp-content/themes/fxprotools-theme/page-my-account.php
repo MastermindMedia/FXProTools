@@ -64,7 +64,7 @@ get_header();
 						<div class="media-body">
 							<div class="info">
 								<h4 class="media-heading text-normal">
-									<?php  
+									<?php
 										if(get_the_author_meta('first_name', get_current_user_id())){
 											echo get_the_author_meta('first_name', get_current_user_id()) . ' ' . get_the_author_meta('last_name', get_current_user_id());
 										}else{
@@ -98,7 +98,7 @@ get_header();
 							<li><a href="#c" data-toggle="tab"> <i class="fa fa-credit-card visible-xs"></i> <span>Purchases</span></a></li>
 							<li><a href="#d" data-toggle="tab"> <i class="fa fa-star-o visible-xs"></i> <span>Memberships</span></a></li>
 							<!-- <li><a href="#e" data-toggle="tab"> <i class="fa fa-users visible-xs"></i> <span>Payment Methods</span></a></li> -->
-							<li><a href="#f" data-toggle="tab"> <i class="fa fa-users visible-xs"></i> <span>Genealogy</span></a></li>
+							<li><a href="#f" data-toggle="tab"> <i class="fa fa-users visible-xs"></i> <span>Your Matrix</span></a></li>
 							<li><a href="#g" data-toggle="tab"> <i class="fa fa-list visible-xs"></i> <span>Recent Activity</span></a></li>
 							<li><a href="#h" data-toggle="tab"> <i class="fa fa-gift visible-xs"></i> <span>Your Sponsor</span></a></li>
 							<li><a href="<?php echo wp_logout_url('/login/'); ?>"><i class="fa fa-sign-out visible-xs"></i> <span>Logout</span></a></li>
@@ -122,8 +122,8 @@ get_header();
 											<p class="text-label">Account Information</p>
 											<ul class="list-info list-info-fields">
 												<li><span>Affiliate ID:</span> <?php echo affwp_get_affiliate_id( get_current_user_id() ) ?></li>
-												<li><span>Username:</span> 
-												<?php  
+												<li><span>Username:</span>
+												<?php
 													if(strpos(get_the_author_meta('user_login', get_current_user_id()), ' ') > 0){
 														echo '{please add your username}';
 													}else{
@@ -135,7 +135,7 @@ get_header();
 												<li><span>Phone Number:</span> <?php echo get_the_author_meta('phone_number', get_current_user_id()) ?></li>
 												<li><span>SMS/Text Messaging:</span> <?php
 													$sub = get_the_author_meta('user_sms_subs', get_current_user_id());
-													
+
 													if (strlen($sub) == 0) {
 														echo 'no';
 													} else {
@@ -144,7 +144,7 @@ get_header();
 												?></li>
 												<li><span>Email Updates:</span> <?php
 													$sub = get_the_author_meta('user_email_subs', get_current_user_id());
-													
+
 													if (strlen($sub) == 0) {
 														echo 'no';
 													} else {
@@ -192,7 +192,8 @@ get_header();
 								<?php get_template_part('inc/templates/my-account/payment-methods'); ?>
 							</div>
 							<div class="tab-pane fade" id="f">
-								<p class="text-bold">Genealogy Section</p>
+								<p class="text-bold">Matrix Section</p>
+								<?php get_template_part('inc/templates/my-account/matrix-section'); ?>
 							</div>
 							<div class="tab-pane fade" id="g">
 								<p class="text-bold">Recent Activity</p>
@@ -311,13 +312,13 @@ get_header();
 			        error: function(errorThrown){
 			            console.log(errorThrown);
 			        }
-			    }); 
+			    });
 		    }, 1000);
 		};
 	});
 </script>
 
-<?php 
+<?php
 if(isset($_GET['cancel']) && isset($_GET['order_type'])){
 	if($_GET['cancel'] == "yes" && $_GET['order_type'] == "purchase"){ ?>
 		<script type="text/javascript">
@@ -326,13 +327,13 @@ if(isset($_GET['cancel']) && isset($_GET['order_type'])){
 				$('.tab-pane#c').addClass('tab-pane-cancellation');
 			});
 		</script>
-<?php 
-	} 
+<?php
+	}
 }
 ?>
 
 
-<?php 
+<?php
 if(isset($_GET['cancel']) && isset($_GET['order_type'])){
 	if($_GET['cancel'] == "yes" && $_GET['order_type'] == "membership"){ ?>
 <script type="text/javascript">
@@ -341,9 +342,9 @@ if(isset($_GET['cancel']) && isset($_GET['order_type'])){
 		$('.tab-pane#d').addClass('tab-pane-cancellation');
 	});
 </script>
-<?php 
+<?php
 	}
-} 
+}
 ?>
 
 <?php if(isset($_GET['order_id'])){ ?>
