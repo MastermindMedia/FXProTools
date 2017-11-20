@@ -216,7 +216,7 @@ if(!class_exists('SettingsMB')){
                 	'relation'	=> 'OR',
                 	'ID'		=> '',
                 	'parent'	=> '',
-                	'slug'		=> array( 'dashboard','access-products', 'referral-program' ),
+                	'slug'		=> array( 'dashboard','access-products', 'referral-program','compensation-plan' ),
                 ),
                 'tabs'      => array(
                     $prefix . 'page'    => __( 'Page', 'rwmb' ),
@@ -546,7 +546,7 @@ if(!class_exists('SettingsMB')){
                 	'relation'	=> 'OR',
                 	'ID'		=> '',
                 	'parent'	=> '',
-                	'slug'		=> array( 'dashboard','access-products', 'referral-program', 'f2', 'lp1', 'lp2', 'lp3' ),
+                	'slug'		=> array( 'dashboard','access-products', 'referral-program', 'f2', 'lp1', 'lp2', 'lp3', 'compensation-plan' ),
                 ),
                 'tabs'      => array(
                     // $prefix . 'page'    => __( 'Page', 'rwmb' ),
