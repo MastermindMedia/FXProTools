@@ -10,6 +10,7 @@
 					<p>Check Below For Your Full Matrix Tree</p>
 				</div>
 			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-12">
 				<?php echo do_shortcode('[afl_eps_unilevel_genealogy_tree]'); ?>
