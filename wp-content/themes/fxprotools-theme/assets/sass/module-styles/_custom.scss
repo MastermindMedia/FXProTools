@@ -2,15 +2,12 @@
 // Custom
 // ------
 
-
 // Text Log
 p.logo-text {
     font-size: 30px;
     color: #fff;
     margin-top: 20px;
 }
-
-
 
 // Dashboard
 .page-dashboard {
@@ -46,9 +43,7 @@ p.logo-text {
 		}
 	}
 	// Checklist
-
 	.fx-board.checklist {
-		}
 		.group-title {
 			float: left;
 			width: 80%;
@@ -110,7 +105,6 @@ p.logo-text {
 		display: block;
 		margin: 0 auto 20px;
 		padding: 0;
-
 		li{
 			border-top: 1px solid #ddd;
 			border-left: 1px solid #ddd;
@@ -120,11 +114,9 @@ p.logo-text {
 			margin-bottom: 10px;
 			width: 100%;
 			padding: 10px 15px;
-
 			.fx-btn{
 				min-width: 120px;
 			}
-
 			h4{
 				margin-top: 15px;
 			}
@@ -141,6 +133,7 @@ p.logo-text {
     margin-bottom: 1rem;
     overflow: hidden;
 }
+
 // PTO Floating/Sticky Video Embed
 .fx-video-container {
     &#pto--floating-video{
