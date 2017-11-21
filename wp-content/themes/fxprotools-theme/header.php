@@ -35,8 +35,7 @@
 					<div class="col-xs-12 col-sm-2 col-md-2">
 						<div class="navbar-header fx-navbar-header">
 							<a class="navbar-brand" href="#">
-								<p class="logo-text">CPS GLOBAL<p>
-								<!-- <img src="<?php bloginfo('template_url'); ?>/assets/img/logo.png" class="img-responsive"> -->
+								<img src="<?php bloginfo('template_url'); ?>/assets/img/logo.png" class="img-responsive">
 							</a>
 						</div>
 						<div class="visible-xs">
