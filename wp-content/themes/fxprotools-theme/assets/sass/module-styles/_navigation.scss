@@ -24,8 +24,6 @@
 			a {
 			    display: block;
 			    padding: 25px 10px;
-					padding-bottom: 0px;
-			    line-height: 30px;
 			    text-align: center;
 			    color: $white;
 			    .image {
@@ -35,8 +33,9 @@
 						margin: 0 auto;
 					}
 				}
-				img{
-					height: 39px;
+				img {
+					height: 38px;
+					margin-bottom: 5px;
 				}
 			    span {
 					font-size: 13px;
@@ -50,7 +49,7 @@
 			    }
 			}
 			&.account {
-				padding-top: 40px;
+				padding-top: 33px;
 				a {
 					background: #ba1213;
 					line-height: 5px;
@@ -62,11 +61,9 @@
 	}
 	.fx-navbar-header .navbar-brand {
 		height: auto;
+		padding: 0;
 		img {
-			margin-top: 10px;
-			width: 250px;
-			height: auto;
-			max-height: none;
+			margin-top: 16px;
 		}
 	}
 }
