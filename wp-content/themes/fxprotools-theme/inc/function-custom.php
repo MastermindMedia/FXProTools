@@ -398,7 +398,7 @@ function get_mb_pto1( $page_element, $pto = 'pto1' ) {
             break;
         case 'video_embed':
             if ( $pto == 'pto1' ) :
-                $video_url              = is_user_fx_customer() ? rwmb_meta( $pto . '_video_url_customer') : rwmb_meta( $pto . '_video_url_distributor') ;
+                $video_url = is_user_fx_customer() ? rwmb_meta( $pto . '_video_url_customer') : rwmb_meta( $pto . '_video_url_distributor') ;
             elseif ( $pto == 'pto2' || $pto == 'pto3' ) :
                 $video_url = rwmb_meta( $pto . '_video_url');
             endif;
@@ -407,19 +407,24 @@ function get_mb_pto1( $page_element, $pto = 'pto1' ) {
             $scroll_class           = "";
             $scroll_url             = "";
             $float_class            = "";
+            $default_yt_video       = "";
 
             if( count( is_mb_video_scroll( $pto ) ) > 0 ){
-                $arr_scroll = is_mb_video_scroll( $pto );
+                $arr_scroll     = is_mb_video_scroll( $pto );
                 $scroll_class   = ( !empty( rtrim($arr_scroll[0]) ) ) ? $arr_scroll[0] : '';
                 $scroll_url     = ( !empty( rtrim($arr_scroll[1]) ) ) ? $arr_scroll[1] : '';
             }
 
             if( count( is_mb_video_float( $pto ) ) > 0 ){
-                $arr_float = is_mb_video_float( $pto );
+                $arr_float      = is_mb_video_float( $pto );
                 $float_class    = $arr_float[0];
             }
 
-            $html = '<div class="fx-video-container" id="' . $float_class . '" data-ptoaction="' . $scroll_class . '" data-ptoautostart="' . implode(' ', $video_autostart) . '" data-ptoshowcontrols="' . implode(' ', $video_show_controls) . '" data-ptourl="' . $scroll_url . '">';
+            if( count( is_mb_video_scroll( $pto ) ) === 0 && count( is_mb_video_float( $pto ) ) === 0 ){
+                $default_yt_video = "data-ptodefaultyt";
+            }
+
+            $html = '<div class="fx-video-container" ' . $default_yt_video . ' id="' . $float_class . '" data-ptoaction="' . $scroll_class . '" data-ptoautostart="' . implode(' ', $video_autostart) . '" data-ptoshowcontrols="' . implode(' ', $video_show_controls) . '" data-ptourl="' . $scroll_url . '">';
             $html .= ( !empty($scroll_class) ) ? '' : wp_oembed_get($video_url) ;
             $html .= '</div>';
             
