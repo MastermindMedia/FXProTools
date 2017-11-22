@@ -219,7 +219,7 @@ if(!class_exists('SettingsMB')){
                 	'slug'		=> array( 'dashboard','access-products', 'referral-program','compensation-plan' ),
                 ),
                 'tabs'      => array(
-                    $prefix . 'page'    => __( 'Page', 'rwmb' ),
+                    // $prefix . 'page'    => __( 'Page', 'rwmb' ),
                     $prefix . 'video'   => __( 'Video', 'rwmb' ),
                     $prefix . 'menu'    => __( 'Menu', 'rwmb' ),
                 ),
@@ -320,6 +320,7 @@ if(!class_exists('SettingsMB')){
                         'type'          => 'text',
                         'placeholder'   => '',
                         'tab'           => $prefix . 'video',
+                        'before'        => '<div class="dash-alert dash-alert--warning" role="alert"><strong>This option only works</strong> if this "page template" has video embed hardcoded into page or if the video embed <br> shortcode is present in the content of this page</div>'
                     ),
                     array(
                         'name'          => 'Video URL <sup style="color:#0073AA;">distributor</sup>',
@@ -391,7 +392,7 @@ if(!class_exists('SettingsMB')){
                 	'slug'		=> array( 'f2', 'lp1', 'lp2', 'lp3' ),
                 ),
                 'tabs'      => array(
-                    $prefix . 'page'    => __( 'Page', 'rwmb' ),
+                    // $prefix . 'page'    => __( 'Page', 'rwmb' ),
                     $prefix . 'video'   => __( 'Video', 'rwmb' ),
                     $prefix . 'menu'    => __( 'Menu', 'rwmb' ),
                 ),
@@ -485,6 +486,7 @@ if(!class_exists('SettingsMB')){
                         'type'          => 'text',
                         'placeholder'   => '',
                         'tab'           => $prefix . 'video',
+                        'before'        => '<div class="dash-alert dash-alert--warning" role="alert"><strong>This option only works</strong> if this "page template" has video embed hardcoded into page or if the video embed <br> shortcode is present in the content of this page</div>'
                     ),
                     array(
                         'name' 			=> 'Autostart Video',
@@ -643,6 +645,7 @@ if(!class_exists('SettingsMB')){
                         'type'          => 'text',
                         'placeholder'   => '',
                         'tab'           => $prefix . 'video',
+                        'before'        => '<div class="dash-alert dash-alert--warning" role="alert"><strong>This option only works</strong> if this "page template" has video embed hardcoded into page or if the video embed <br> shortcode is present in the content of this page</div>'
                     ),
                     array(
                         'name' 			=> 'Autostart Video',
