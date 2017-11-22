@@ -260,12 +260,16 @@ function get_user_active_referrals($user_id = 0)
 
 	foreach($affiliate_referrals as $key => $referral){
 		$order = wc_get_order( $referral->reference );
-		$user_id = $order->get_user_id();
 
-		if( !wcs_user_has_subscription( $user_id, '', 'active' ) ){
-			unset($affiliate_referrals[$key]);
-			continue;
+		if( $order ){
+			$user_id = $order->get_user_id();
+
+			if( !wcs_user_has_subscription( $user_id, '', 'active' ) ){
+				unset($affiliate_referrals[$key]);
+				continue;
+			}
 		}
+		
 	}
 
 	return $affiliate_referrals;
