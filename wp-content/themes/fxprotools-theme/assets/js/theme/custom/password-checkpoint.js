@@ -16,12 +16,14 @@ $(document).ready(function () {
             'confirm_password': $('#pwd-verify').val()
         };
 
+        var redirect_to = ( $('.fx-renewal #redirect_to').val() ) ? $('.fx-renewal #redirect_to').val() : '/dashboard';
+
         $.post(ajax_url, data, function () {
             $overlay.hide();
         }).done(function (response) {
             if (response.success) {
                 var count = 3;
-                var message = '<h2>Password successfully updated!</h2><p>You will be redirected to your dashboard in <strong>%s</strong> seconds.</p>';
+                var message = '<h2>Password successfully updated!</h2><p>You will be redirected in <strong>%s</strong> seconds.</p>';
                 $response.html(message.replace(/%s/g, count)).show();
                 var countdown = setInterval(function () {
                     if (count == 1) {
@@ -30,7 +32,7 @@ $(document).ready(function () {
                     $response.html(message.replace(/%s/g, count));
                     if (count == 0) {
                         clearInterval(countdown);
-                        window.open('/dashboard', "_self");
+                        window.open(redirect_to, "_self");
 
                     }
                     count--;
