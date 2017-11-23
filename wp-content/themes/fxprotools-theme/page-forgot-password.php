@@ -4,7 +4,7 @@
 	<div class="content-wrapper">
 		<div class="content">						
 			<h2>Applying With Us</h2>
-			<p class="sub">FX Pro Tools Which provides forex educations & training is accessible by invitation only.</p>
+			<p class="sub"><?php echo get_bloginfo('name'); ?> Which provides forex educations & training is accessible by invitation only.</p>
 			<p class="small">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 			tempor incididunt ut labore et dolore magna aliqua. sit amet, consectetur adipisicing. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 			tempor incididunt ut labore et dolore magna aliqua. sit amet, consectetur adipisicing</p>
