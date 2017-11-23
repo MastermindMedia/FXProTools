@@ -24,7 +24,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
-					<a href="<?php bloginfo('url'); ?>" class="logo">CopyProfitShare</a>
+					<a href="<?php bloginfo('url'); ?>" class="logo"><?php echo get_bloginfo('name'); ?></a>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<ul class="fx-nav">
