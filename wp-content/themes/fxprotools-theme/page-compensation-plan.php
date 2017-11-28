@@ -20,7 +20,7 @@
 				<div class="fx-board checklist">
 					<div class="fx-board-header w-text">
                         <span class="title">Compensation Plan Documents</span>
-                        <span class="sub">How to Build A Business with CopyProfitShare</span>
+                        <span class="sub">How to Build A Business with <?php echo get_bloginfo('name'); ?></span>
 					</div>
 					<ul class="fx-compensation-documents">
 						<li>

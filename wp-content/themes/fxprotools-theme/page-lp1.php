@@ -408,9 +408,9 @@
 										</div>
 										<hr/>
 										<h3>So, What's The Catch...?</h3>
-										<p class="text-heading-sm">There is NO catch.  We're going to let you test drive FX Pro Tools AND Our Signals today for FREE because we know that after you start using them, you'll wonder how your ever going to survive without them again! </p>
+										<p class="text-heading-sm">There is NO catch.  We're going to let you test drive <?php echo get_bloginfo('name'); ?> AND Our Signals today for FREE because we know that after you start using them, you'll wonder how your ever going to survive without them again! </p>
 										<h3>Is There A Guarantee?</h3>
-										<p class="text-heading-sm">Of course.  :)  We guarantee that you'll LOVE Fx Pro Tools, and if for some reason you decide later that you don't want to be a member anymore, then we'll happily cancel your account without any penalties or fees.  We don't believe in any long term contracts so you can come and go as you please.</p>
+										<p class="text-heading-sm">Of course.  :)  We guarantee that you'll LOVE <?php echo get_bloginfo('name'); ?>, and if for some reason you decide later that you don't want to be a member anymore, then we'll happily cancel your account without any penalties or fees.  We don't believe in any long term contracts so you can come and go as you please.</p>
 										<h3>Here's What To Do Next:</h3>
 										<p class="text-heading-sm">From here it's just finalizing the details. Click on the button below, pick what subscription plan you want to be on, and we can finally get started!</p>
 										<p class="text-heading-sm">Thanks for taking the time to read this letter and watch the training video and I look forward to hearing from you soon!</p>
@@ -555,7 +555,7 @@
 									<li class="col-xs-12 col-md-6">
 										<div class="faq-item no-border">
 											<span class="question"><i class="fa fa-question-circle"></i> Do I have to install anything?</span>
-											<div class="answer">No! We created FX Pro Tools so you wouldn't have too. Just login, start clicking, and you can access your training & cloud hosted” softwares. </div>
+											<div class="answer">No! We created <?php echo get_bloginfo('name'); ?> so you wouldn't have too. Just login, start clicking, and you can access your training & cloud hosted” softwares. </div>
 										</div>
 									</li>
 								</ul>
@@ -714,7 +714,7 @@
 									<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 										<div class="header-text m-b-md">
 											<p class="text-center text-heading text-bold"><span class="text-red">VIDEO TESTIMONIALS!</span> Show Proof 
-											That “FX Pro Tools” Has ALREADY Dramatically Changed The Businesses And Lives Of Countless Others... 
+											That “<?php echo get_bloginfo('name'); ?>” Has ALREADY Dramatically Changed The Businesses And Lives Of Countless Others... 
 											People Around The World!  </p>
 										</div>
 										<p class="text-center">If You're Sick And Tired Of All The Hype, Scams And Claims You See Online Lately, Then Pay Attention To These Amazing Success Stories From Actual, Real Students...</p>
@@ -783,7 +783,7 @@
 									</div>
 									<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 										<p><strong>P.S. In case you're one of those people</strong> (like me) who just skip to the end of the letter, here's the deal:</p>
-										<p>We're going to let you test drive FX Pro Tools AND Our Signals today... because we know that after you start using them, you'll wonder how your ever going to survive without them again! </p>
+										<p>We're going to let you test drive <?php echo get_bloginfo('name'); ?> AND Our Signals today... because we know that after you start using them, you'll wonder how your ever going to survive without them again! </p>
 										<p>There's not catch... no gimmicks... </p>
 										<p>If fact, if you don't love the our platform - We will even refund your and you don’t ever have to hear from us again!</p>
 										<p>So, Click the button below to get your DISCOUNTED access now.</p>
