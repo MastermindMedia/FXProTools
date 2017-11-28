@@ -151,6 +151,13 @@
 					}
 
 				}
+				&.icon-shop {
+					a{
+						background-image: url('../../img/ico-shop.png');
+						background-size: 30px;
+					}
+
+				}
 			}
 			&.current-menu-item a .text {
 				border-bottom: 3px solid $red;

@@ -138,7 +138,7 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 			$wrap_before .= '<div class="row">';
 			$wrap_before .= '<div class="col-xs-12 col-sm-12 col-md-12">';
 			$wrap_before .= '<ul class="fx-nav-options">';
-        	$wrap_before .= '<li class="dashboard icon icon-products"><a href="{$link}">&nbsp;</a></li>';
+        	$wrap_before .= '<li class="dashboard icon icon-shop"><a href="{$link}">&nbsp;</a></li>';
 			$wrap_after   = '</ul>';
 			$wrap_after   = '</div></div></div></div>';
 
