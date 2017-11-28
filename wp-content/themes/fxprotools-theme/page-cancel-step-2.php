@@ -65,7 +65,7 @@
 						<p><input class="form-control" type="email" placeholder="Your Email Address"></p>
 						<button type="submit" class="btn btn-danger btn-lg btn-block">Continue To Finalize Cancelation</button>
 					</form>
-					<h3>FX Pro Tools is the leading Binary Options & Forex Platform...but maybe you feel lost in your journey to learn the foreign exchange market....</h3>
+					<h3><?php echo get_bloginfo('name'); ?> is the leading Binary Options & Forex Platform...but maybe you feel lost in your journey to learn the foreign exchange market....</h3>
 					<h3><a href="#">Join us for one of our LIVE Webinars</a> hosted by our Expert Forex Veterans dedicated to seeing you win!</h3>
 				</div>
 				<div class="panel panel-default">

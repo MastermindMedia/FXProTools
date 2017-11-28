@@ -94,13 +94,13 @@ $dashboard_checklist = [
             <div class="fx-header-title">
 				<?php if ( is_user_fx_customer() ) : ?>
                     <h1>Welcome! Thanks for Being A Loyal Customer</h1>
-                    <p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of CopyProfitShare!</p>
+                    <p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of <?php echo get_bloginfo('name'); ?>!</p>
 				<?php elseif ( is_user_fx_distributor() ) : ?>
                     <h1>Welcome! Thanks for Being A Loyal Distributor</h1>
-                    <p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of CopyProfitShare!</p>
+                    <p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of <?php echo get_bloginfo('name'); ?>!</p>
 				<?php else : ?>
                     <h1>Welcome! Thanks for Being A Loyal Distributor</h1>
-                    <p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of CopyProfitShare!</p>
+                    <p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of <?php echo get_bloginfo('name'); ?>!</p>
 				<?php endif; ?>
             </div>
         </div>

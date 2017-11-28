@@ -89,7 +89,7 @@ $referral_link = get_highest_converting_funnel_link();
 							<div class="fx-ref-link">
 								<div class="fx-ref-title">
 									<h3>Option 1: Refer To Someone</h3>
-									<p>Tell your friends and coworkers about FX Pro Tools</p>
+									<p>Tell your friends and coworkers about <?php echo get_bloginfo('name'); ?></p>
 								</div>
 								<div class="box">
 									Share your unique referral link
@@ -113,7 +113,7 @@ $referral_link = get_highest_converting_funnel_link();
 								</div>
 								<div class="box">
 									<div class="text-center">
-										We provide you with all the Marketing Sales <br/>Funnels you need to explain FX Pro tools
+										We provide you with all the Marketing Sales <br/>Funnels you need to explain <?php echo get_bloginfo('name'); ?>
 									</div>
 									<a href="<?php bloginfo('url');?>/markting/funnels" class="btn btn-danger block padding-md">
 										Access Your Sales Funnels

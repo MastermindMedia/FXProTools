@@ -6,7 +6,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12">
-					<p>CopyProfitShare is the map that teaches you specialized market knowledge!</p>
+					<p><?php echo get_bloginfo('name'); ?> is the map that teaches you specialized market knowledge!</p>
 				</div>
 			</div>
 		</div>

@@ -6,7 +6,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12">
-						<p>CopyProfitShare is the map that teaches you specialized market knowledge!</p>
+						<p><?php echo get_bloginfo('name'); ?> is the map that teaches you specialized market knowledge!</p>
 					</div>
 				</div>
 			</div>
@@ -34,7 +34,7 @@
 					<div class="col-xs-12 col-sm-6 col-md-4">
 						<div class="item-info">
 							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico1.png" class="img-responsive icon">
-							<p>Gain full Access to <br/> CopyProfitShare's training <br/> videos &amp; courses.</p>
+							<p>Gain full Access to <br/> <?php echo get_bloginfo('name'); ?>'s training <br/> videos &amp; courses.</p>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-4">
@@ -90,7 +90,7 @@
 										</div>
 										<div class="row">
 											<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 text-center">
-												<h3 class="m-t-sm">Are Currently Learning Forex & Binary Trading From CopyProfitShare</h3>
+												<h3 class="m-t-sm">Are Currently Learning Forex & Binary Trading From <?php echo get_bloginfo('name'); ?></h3>
 												<p>...But first before we do that. Here is a quick history of Forex and Binary Trading to help you understand what it is, and more importantly, why do YOU want to learn it...</p>
 											</div>
 										</div>
@@ -160,7 +160,7 @@
 											<h3 class="label-red">Our Methods Pratically Allow You To “Legally Steal” From That $4 Trillon Dollars In Currency Turnover...</h3>
 										</div>
 										<p class="text-heading-sm">...If you've tried in the past to piece together dozens of other trading strategies, but they failed to produce consistent positive results...</p>
-										<p class="text-heading-sm">Then I want to to watch this quick video from one of our Top CopyProfitShare Members that will show you how simple your life can become when you start using our platform:</p>
+										<p class="text-heading-sm">Then I want to to watch this quick video from one of our Top <?php echo get_bloginfo('name'); ?> Members that will show you how simple your life can become when you start using our platform:</p>
 										<div class="text-center">
 											<a href="#trial-products" class="btn btn-danger btn-lg btn-lg-w-text scroll-to">
 												Create your Account Now!
