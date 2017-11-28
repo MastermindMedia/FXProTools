@@ -43,6 +43,7 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 			add_action( 'woocommerce_admin_process_product_object', array( $this, 'wc_save_buy_button_tab_fields' ) );
 			add_action( 'woocommerce_before_single_product', array( $this, 'wc_notif_before_single_product') );
 			add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'wc_add_gotodashboard_link') );
+			remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20);
 		}
 
 		public function wc_setup_checkout_fields( $fields ) {
@@ -132,10 +133,14 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 		 */
 		public function wc_custom_breadcrumbs() {
 			$link = is_shop() ? get_permalink( wc_get_page_id( 'shop' ) ) : get_permalink();
-			$wrap_before = '<div class="navbar fx-navbar-sub">';
-    		$wrap_before .= '<ul class="fx-nav-options">';
+			$wrap_before  = '<div class="navbar fx-navbar-sub">';
+			$wrap_before .= '<div class="container">';
+			$wrap_before .= '<div class="row">';
+			$wrap_before .= '<div class="col-xs-12 col-sm-12 col-md-12">';
+			$wrap_before .= '<ul class="fx-nav-options">';
         	$wrap_before .= '<li class="dashboard icon icon-products"><a href="{$link}">&nbsp;</a></li>';
-			$wrap_after = '</ul></div>';
+			$wrap_after   = '</ul>';
+			$wrap_after   = '</div></div></div></div>';
 
 			return array(
 				'delimiter'   => '',
@@ -310,6 +315,7 @@ HTML;
                 echo '<a href="/dashboard" class="btn btn-link p-xxs m-l-sm">Go To Dashboard</a>';
             }
         }
+        
 	}
 }
 
