@@ -132,18 +132,10 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 		 */
 		public function wc_custom_breadcrumbs() {
 			$link = is_shop() ? get_permalink( wc_get_page_id( 'shop' ) ) : get_permalink();
-			$wrap_before = <<<HTML
-<div class="navbar fx-navbar-sub">
-    <ul class="fx-nav-options">
-        <li class="dashboard">
-            <a class="icon icon-share" href="{$link}">&nbsp;</a>
-        </li>
-HTML;
-
-			$wrap_after = <<<HTML
-    </ul>
-</div>
-HTML;
+			$wrap_before = '<div class="navbar fx-navbar-sub">';
+    		$wrap_before .= '<ul class="fx-nav-options">';
+        	$wrap_before .= '<li class="dashboard icon icon-products"><a href="{$link}">&nbsp;</a></li>';
+			$wrap_after = '</ul></div>';
 
 			return array(
 				'delimiter'   => '',

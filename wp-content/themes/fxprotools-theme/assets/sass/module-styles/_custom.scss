@@ -2477,3 +2477,17 @@ form {
         border-color: #faebcc;
     }
 }
+
+// Woocommerce Override
+.woocommerce {
+
+	div.product .woocommerce-tabs ul.tabs {
+		margin: 0
+	}
+	div.product .woocommerce-tabs .panel {
+		padding: 0 20px 20px 20px;
+	}
+	.single_add_to_cart_button.button.alt {
+		padding: 15px 20px;
+	}
+}
