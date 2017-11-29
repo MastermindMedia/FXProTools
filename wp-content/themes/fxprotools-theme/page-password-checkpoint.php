@@ -6,25 +6,7 @@ if( isset( $subscription['subscription']) ){
 }
 
 ?>
-<nav class="navbar fx-navbar-sub">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <ul class="fx-nav-options">
-                    <li class="dashboard">
-                        <a class="icon icon-share" href="/dashboard">&nbsp</a>
-                    </li>
-                    <li class="active">
-                        <a href="/dashboard">
-                            <span class="number">1</span>
-                            <span class="text">User Orientation</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</nav>
+<?php get_template_part('inc/templates/nav-import-user'); ?>
 <div class="fx-landing fx-renewal m-t-n-md">
     <div class="section-w-panel">
         <div class="container">
@@ -39,10 +21,10 @@ if( isset( $subscription['subscription']) ){
 									$name = wp_get_current_user()->display_name;
 								}
 								?>
-                                <h1>Welcome <?= $name; ?></h1>
+                                <h1>Welcome To CopyProfitSuccess, <?= $name; ?></h1>
                                 <input type="hidden" id="username" value="<?= $name; ?>"/>
                                 <input type="hidden" id="redirect_to" value="<?php echo isset($renewal_order_link) ? $renewal_order_link : '/dashboard';?>">
-                                <h3>This is your first time signing into <?= get_bloginfo( 'name' ); ?></h3>
+                                <h4><span class="label-red">Step 1:</span> Since this is the first time accessing your account you need to update your password...</h4>
                             </div>
                             <div class="text-center heading">
                                 <div class="row">
