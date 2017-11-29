@@ -6,14 +6,19 @@
 */
 	class Form_validation_rules {
 
+		
 		//required field
 		public function rule_required($name = '',$value = '', $field = ''){
+
 			$response = array();
 			if (empty($value)) {
 				$response['status'] 	= 0;
 				$response['message'] 	= 'Field '.$name.' field required';
 				if (!empty($field) ){
 					$field = str_replace('_','-',$field);
+ 					// wp_enqueue_script( 'jq-min', , array(), '1.0' );
+ 					$link = EPSAFFILIATE_PLUGIN_ASSETS."js/jquery.min.js";
+ 					echo "<script type='text/javascript' src='".$link."'></script>";
 					echo '<script>$(function () {inform_error("'.$field.'");});</script>';
 				}
 			} else {
@@ -30,6 +35,9 @@
 
 					if (!empty($field) ){
 						$field = str_replace('_','-',$field);
+ 					wp_enqueue_script( 'jq-toast', EPSAFFILIATE_PLUGIN_ASSETS.'js/jquery.min.js', array(), '1.0' );
+ 						$link = EPSAFFILIATE_PLUGIN_ASSETS."js/jquery.min.js";
+ 						echo "<script type='text/javascript' src='".$link."'></script>";
 						echo '<script>$(function () {inform_error("'.$field.'");});</script>';
 					}
 
@@ -48,6 +56,8 @@
 
 					if (!empty($field) ){
 						$field = str_replace('_','-',$field);
+						$link = EPSAFFILIATE_PLUGIN_ASSETS."js/jquery.min.js";
+ 						echo "<script type='text/javascript' src='".$link."'></script>";
 						echo '<script>$(function () {inform_error("'.$field.'");});</script>';
 					}
 
@@ -67,6 +77,9 @@
 					
 					if (!empty($field) ){
 						$field = str_replace('_','-',$field);
+						
+						$link = EPSAFFILIATE_PLUGIN_ASSETS."js/jquery.min.js";
+ 						echo "<script type='text/javascript' src='".$link."'></script>";
 						echo '<script>$(function () {inform_error("'.$field.'");});</script>';
 					}
 
@@ -85,6 +98,8 @@
 
 					if (!empty($field) ){
 						$field = str_replace('_','-',$field);
+						$link = EPSAFFILIATE_PLUGIN_ASSETS."js/jquery.min.js";
+ 						echo "<script type='text/javascript' src='".$link."'></script>";
 						echo '<script>$(function () {inform_error("'.$field.'");});</script>';
 					}
 
@@ -104,6 +119,8 @@
 
 					if (!empty($field) ){
 						$field = str_replace('_','-',$field);
+						$link = EPSAFFILIATE_PLUGIN_ASSETS."js/jquery.min.js";
+ 						echo "<script type='text/javascript' src='".$link."'></script>";
 						echo '<script>$(function () {inform_error("'.$field.'");});</script>';
 					}
 
@@ -123,6 +140,8 @@
 
 					if (!empty($field) ){
 						$field = str_replace('_','-',$field);
+						$link = EPSAFFILIATE_PLUGIN_ASSETS."js/jquery.min.js";
+ 						echo "<script type='text/javascript' src='".$link."'></script>";
 						echo '<script>$(function () {inform_error("'.$field.'");});</script>';
 					}
 
@@ -142,6 +161,8 @@
 
 					if (!empty($field) ){
 						$field = str_replace('_','-',$field);
+						$link = EPSAFFILIATE_PLUGIN_ASSETS."js/jquery.min.js";
+ 						echo "<script type='text/javascript' src='".$link."'></script>";
 						echo '<script>$(function () {inform_error("'.$field.'");});</script>';
 					}
 
@@ -161,6 +182,8 @@
 
 					if (!empty($field) ){
 						$field = str_replace('_','-',$field);
+						$link = EPSAFFILIATE_PLUGIN_ASSETS."js/jquery.min.js";
+ 						echo "<script type='text/javascript' src='".$link."'></script>";
 						echo '<script>$(function () {inform_error("'.$field.'");});</script>';
 					}
 
@@ -180,6 +203,8 @@
 
 					if (!empty($field) ){
 						$field = str_replace('_','-',$field);
+						$link = EPSAFFILIATE_PLUGIN_ASSETS."js/jquery.min.js";
+ 						echo "<script type='text/javascript' src='".$link."'></script>";
 						echo '<script>$(function () {inform_error("'.$field.'");});</script>';
 					}
 

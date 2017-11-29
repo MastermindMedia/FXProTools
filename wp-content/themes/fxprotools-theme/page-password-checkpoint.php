@@ -1,4 +1,11 @@
-<?php get_header(); ?>
+<?php 
+get_header(); 
+$subscription = get_user_main_subscription();
+if( isset( $subscription['subscription']) ){
+    $renewal_order_link = get_renewal_order_checkout_link( $subscription['subscription'] );
+}
+
+?>
 <nav class="navbar fx-navbar-sub">
     <div class="container">
         <div class="row">
@@ -34,6 +41,7 @@
 								?>
                                 <h1>Welcome <?= $name; ?></h1>
                                 <input type="hidden" id="username" value="<?= $name; ?>"/>
+                                <input type="hidden" id="redirect_to" value="<?php echo isset($renewal_order_link) ? $renewal_order_link : '/dashboard';?>">
                                 <h3>This is your first time signing into <?= get_bloginfo( 'name' ); ?></h3>
                             </div>
                             <div class="text-center heading">

@@ -31,6 +31,7 @@ add_action("wp_ajax_email_sent", "email_sent");
 add_action( 'wp_ajax_fx_renew_password', 'fx_renew_password' );
 add_action( 'wp_ajax_nopriv_fx_renew_password', 'fx_renew_password' );
 add_action( 'wp_ajax_checklist_pass', 'checklist_pass' );
+add_action( 'wp_ajax_skip_referral', 'skip_referral' );
 
 function email_from_status($status)
 {
@@ -207,4 +208,9 @@ function checklist_pass() {
 		pass_onboarding_checklist( sanitize_text_field( $_POST['step'] ) );
 		wp_send_json_success();
 	}
+}
+
+function skip_referral() {
+	update_user_meta (get_current_user_id(), '_skip_referral', 1);
+	wp_send_json_success();
 }

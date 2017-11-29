@@ -216,10 +216,10 @@ if(!class_exists('SettingsMB')){
                 	'relation'	=> 'OR',
                 	'ID'		=> '',
                 	'parent'	=> '',
-                	'slug'		=> array( 'dashboard','access-products', 'referral-program' ),
+                	'slug'		=> array( 'dashboard','access-products', 'referral-program','compensation-plan' ),
                 ),
                 'tabs'      => array(
-                    $prefix . 'page'    => __( 'Page', 'rwmb' ),
+                    // $prefix . 'page'    => __( 'Page', 'rwmb' ),
                     $prefix . 'video'   => __( 'Video', 'rwmb' ),
                     $prefix . 'menu'    => __( 'Menu', 'rwmb' ),
                 ),
@@ -320,6 +320,7 @@ if(!class_exists('SettingsMB')){
                         'type'          => 'text',
                         'placeholder'   => '',
                         'tab'           => $prefix . 'video',
+                        'before'        => '<div class="dash-alert dash-alert--warning" role="alert"><strong>This option only works</strong> if this "page template" has video embed hardcoded into page or if the video embed <br> shortcode is present in the content of this page</div>'
                     ),
                     array(
                         'name'          => 'Video URL <sup style="color:#0073AA;">distributor</sup>',
@@ -389,164 +390,6 @@ if(!class_exists('SettingsMB')){
                 	'ID'		=> '',
                 	'parent'	=> '',
                 	'slug'		=> array( 'f2', 'lp1', 'lp2', 'lp3' ),
-                ),
-                'tabs'      => array(
-                    $prefix . 'page'    => __( 'Page', 'rwmb' ),
-                    $prefix . 'video'   => __( 'Video', 'rwmb' ),
-                    $prefix . 'menu'    => __( 'Menu', 'rwmb' ),
-                ),
-                'tab_style'		=> 'left',
-                'tab_wrapper'	=> true,
-                'fields' 	=> array(
-                    array(
-                        'name' 		=> 'Display Main Header Menu',
-                        'id' 		=> $prefix . 'display_main_header_menu',
-                        'type' 		=> 'select',
-                        'desc'		=> 'Choose to show or hide the header',
-                        'placeholder'	=> 'Default',
-                        'options'	=> array(
-                            'yes'		=> 'Yes',
-                            'no'		=> 'No',
-                        ),
-                        'tab'           => $prefix . 'menu',
-                    ),
-                    array(
-                        'name' 			=> 'Main Header Menu',
-                        'id' 			=> $prefix . 'main_header_menu',
-                        'type' 			=> 'taxonomy_advanced',
-                        'taxonomy'		=> array('nav_menu'),
-                        'field_type'	=> 'select',
-                        'placeholder'	=> 'Default',
-                        'tab'           => $prefix . 'menu',
-                    ),
-                    array(
-                        'name' 		=> 'Display Secondary Header Menu',
-                        'id' 		=> $prefix . 'display_header_menu',
-                        'type' 		=> 'select',
-                        'desc'		=> 'Choose to show or hide the header',
-                        'placeholder'	=> 'Default',
-                        'options'	=> array(
-                            'yes'		=> 'Yes',
-                            'no'		=> 'No',
-                        ),
-                        'tab'           => $prefix . 'menu',
-                    ),
-                    array(
-                        'name' 			=> 'Secondary Header Menu',
-                        'id' 			=> $prefix . 'secondary_header_menu',
-                        'type' 			=> 'taxonomy_advanced',
-                        'taxonomy'		=> array('nav_menu'),
-                        'field_type'	=> 'select',
-                        'placeholder'	=> 'Default',
-                        'tab'           => $prefix . 'menu',
-                    ),
-                    array(
-                        'name' 			=> 'Display Footer Menu',
-                        'id' 			=> $prefix . 'display_footer_menu',
-                        'type' 			=> 'select',
-                        'desc'			=> 'Choose to show or hide the header',
-                        'placeholder'	=> 'Default',
-                        'options'		=> array(
-                            'yes'		=> 'Yes',
-                            'no'		=> 'No',
-                        ),
-                        'tab'           => $prefix . 'menu',
-                    ),
-                    array(
-                        'name' 			=> 'Footer Menu ( Far Left )',
-                        'id' 			=> $prefix . 'footer_menu_fl',
-                        'type' 			=> 'taxonomy_advanced',
-                        'taxonomy'		=> array('nav_menu'),
-                        'field_type'	=> 'select',
-                        'placeholder'	=> 'Default',
-                        'tab'           => $prefix . 'menu',
-                    ),
-                    array(
-                        'name' 			=> 'Footer Menu ( Middle )',
-                        'id' 			=> $prefix . 'footer_menu_mid',
-                        'type' 			=> 'taxonomy_advanced',
-                        'taxonomy'		=> array('nav_menu'),
-                        'field_type'	=> 'select',
-                        'placeholder'	=> 'Default',
-                        'tab'           => $prefix . 'menu',
-                    ),
-                    array(
-                        'name' 			=> 'Footer Menu ( Far Right )',
-                        'id' 			=> $prefix . 'footer_menu_fr',
-                        'type' 			=> 'taxonomy_advanced',
-                        'taxonomy'		=> array('nav_menu'),
-                        'field_type'	=> 'select',
-                        'placeholder'	=> 'Default',
-                        'tab'           => $prefix . 'menu',
-                    ),
-                    array(
-                        'name'          => 'Video URL',
-                        'id'            => $prefix . 'video_url',
-                        'type'          => 'text',
-                        'placeholder'   => '',
-                        'tab'           => $prefix . 'video',
-                    ),
-                    array(
-                        'name' 			=> 'Autostart Video',
-                        'id' 			=> $prefix . 'video_autostart',
-                        'type' 			=> 'checkbox_list',
-                        'placeholder'	=> '',
-                        'options'		=> array(
-                            'yes'		=> '',
-                        ),
-                        'tab'           => $prefix . 'video',
-                    ),
-                    array(
-                        'name' 			=> 'Show Video Controls',
-                        'id' 			=> $prefix . 'video_show_controls',
-                        'type' 			=> 'checkbox_list',
-                        'placeholder'	=> '',
-                        'options'		=> array(
-                            'yes'		=> '',
-                        ),
-                        'tab'           => $prefix . 'video',
-                    ),
-                    array(
-                        'name' 			=> 'Scrolling Video',
-                        'id' 			=> $prefix . 'video_scrolling',
-                        'type' 			=> 'checkbox_list',
-                        'placeholder'	=> '',
-                        'options'		=> array(
-                            'yes'		=> '',
-                        ),
-                        'tab'           => $prefix . 'video',
-                    ),
-                    array(
-                        'name' 			=> 'Floating Video',
-                        'id' 			=> $prefix . 'video_floating',
-                        'type' 			=> 'checkbox_list',
-                        'placeholder'	=> '',
-                        'options'		=> array(
-                            'yes'		=> '',
-                        ),
-                        'tab'           => $prefix . 'video',
-                    ),
-                ),
-            );
-            return $meta_boxes;
-        }
-
-        // MB - Page Template Options #3 without video tab
-        public function mb_page_template_options_3($meta_boxes)
-        {
-            $prefix = 'pto3_';
-            $meta_boxes[] = array(
-                'id'         => 'page_template_options_3',
-                'title'      => 'Page Template Options',
-                'post_types' => array( 'post', 'page', 'sfwd-courses', 'sfwd-lessons' ),
-                'context'    => 'advanced',
-                'priority'   => 'high',
-                'autosave'   => false,
-                'exclude' => array(
-                	'relation'	=> 'OR',
-                	'ID'		=> '',
-                	'parent'	=> '',
-                	'slug'		=> array( 'dashboard','access-products', 'referral-program', 'f2', 'lp1', 'lp2', 'lp3' ),
                 ),
                 'tabs'      => array(
                     // $prefix . 'page'    => __( 'Page', 'rwmb' ),
@@ -643,6 +486,166 @@ if(!class_exists('SettingsMB')){
                         'type'          => 'text',
                         'placeholder'   => '',
                         'tab'           => $prefix . 'video',
+                        'before'        => '<div class="dash-alert dash-alert--warning" role="alert"><strong>This option only works</strong> if this "page template" has video embed hardcoded into page or if the video embed <br> shortcode is present in the content of this page</div>'
+                    ),
+                    array(
+                        'name' 			=> 'Autostart Video',
+                        'id' 			=> $prefix . 'video_autostart',
+                        'type' 			=> 'checkbox_list',
+                        'placeholder'	=> '',
+                        'options'		=> array(
+                            'yes'		=> '',
+                        ),
+                        'tab'           => $prefix . 'video',
+                    ),
+                    array(
+                        'name' 			=> 'Show Video Controls',
+                        'id' 			=> $prefix . 'video_show_controls',
+                        'type' 			=> 'checkbox_list',
+                        'placeholder'	=> '',
+                        'options'		=> array(
+                            'yes'		=> '',
+                        ),
+                        'tab'           => $prefix . 'video',
+                    ),
+                    array(
+                        'name' 			=> 'Scrolling Video',
+                        'id' 			=> $prefix . 'video_scrolling',
+                        'type' 			=> 'checkbox_list',
+                        'placeholder'	=> '',
+                        'options'		=> array(
+                            'yes'		=> '',
+                        ),
+                        'tab'           => $prefix . 'video',
+                    ),
+                    array(
+                        'name' 			=> 'Floating Video',
+                        'id' 			=> $prefix . 'video_floating',
+                        'type' 			=> 'checkbox_list',
+                        'placeholder'	=> '',
+                        'options'		=> array(
+                            'yes'		=> '',
+                        ),
+                        'tab'           => $prefix . 'video',
+                    ),
+                ),
+            );
+            return $meta_boxes;
+        }
+
+        // MB - Page Template Options #3 without video tab
+        public function mb_page_template_options_3($meta_boxes)
+        {
+            $prefix = 'pto3_';
+            $meta_boxes[] = array(
+                'id'         => 'page_template_options_3',
+                'title'      => 'Page Template Options',
+                'post_types' => array( 'post', 'page', 'sfwd-courses', 'sfwd-lessons' ),
+                'context'    => 'advanced',
+                'priority'   => 'high',
+                'autosave'   => false,
+                'exclude' => array(
+                	'relation'	=> 'OR',
+                	'ID'		=> '',
+                	'parent'	=> '',
+                	'slug'		=> array( 'dashboard','access-products', 'referral-program', 'f2', 'lp1', 'lp2', 'lp3', 'compensation-plan' ),
+                ),
+                'tabs'      => array(
+                    // $prefix . 'page'    => __( 'Page', 'rwmb' ),
+                    $prefix . 'video'   => __( 'Video', 'rwmb' ),
+                    $prefix . 'menu'    => __( 'Menu', 'rwmb' ),
+                ),
+                'tab_style'		=> 'left',
+                'tab_wrapper'	=> true,
+                'fields' 	=> array(
+                    array(
+                        'name' 		=> 'Display Main Header Menu',
+                        'id' 		=> $prefix . 'display_main_header_menu',
+                        'type' 		=> 'select',
+                        'desc'		=> 'Choose to show or hide the header',
+                        'placeholder'	=> 'Default',
+                        'options'	=> array(
+                            'yes'		=> 'Yes',
+                            'no'		=> 'No',
+                        ),
+                        'tab'           => $prefix . 'menu',
+                    ),
+                    array(
+                        'name' 			=> 'Main Header Menu',
+                        'id' 			=> $prefix . 'main_header_menu',
+                        'type' 			=> 'taxonomy_advanced',
+                        'taxonomy'		=> array('nav_menu'),
+                        'field_type'	=> 'select',
+                        'placeholder'	=> 'Default',
+                        'tab'           => $prefix . 'menu',
+                    ),
+                    array(
+                        'name' 		=> 'Display Secondary Header Menu',
+                        'id' 		=> $prefix . 'display_header_menu',
+                        'type' 		=> 'select',
+                        'desc'		=> 'Choose to show or hide the header',
+                        'placeholder'	=> 'Default',
+                        'options'	=> array(
+                            'yes'		=> 'Yes',
+                            'no'		=> 'No',
+                        ),
+                        'tab'           => $prefix . 'menu',
+                    ),
+                    array(
+                        'name' 			=> 'Secondary Header Menu',
+                        'id' 			=> $prefix . 'secondary_header_menu',
+                        'type' 			=> 'taxonomy_advanced',
+                        'taxonomy'		=> array('nav_menu'),
+                        'field_type'	=> 'select',
+                        'placeholder'	=> 'Default',
+                        'tab'           => $prefix . 'menu',
+                    ),
+                    array(
+                        'name' 			=> 'Display Footer Menu',
+                        'id' 			=> $prefix . 'display_footer_menu',
+                        'type' 			=> 'select',
+                        'desc'			=> 'Choose to show or hide the header',
+                        'placeholder'	=> 'Default',
+                        'options'		=> array(
+                            'yes'		=> 'Yes',
+                            'no'		=> 'No',
+                        ),
+                        'tab'           => $prefix . 'menu',
+                    ),
+                    array(
+                        'name' 			=> 'Footer Menu ( Far Left )',
+                        'id' 			=> $prefix . 'footer_menu_fl',
+                        'type' 			=> 'taxonomy_advanced',
+                        'taxonomy'		=> array('nav_menu'),
+                        'field_type'	=> 'select',
+                        'placeholder'	=> 'Default',
+                        'tab'           => $prefix . 'menu',
+                    ),
+                    array(
+                        'name' 			=> 'Footer Menu ( Middle )',
+                        'id' 			=> $prefix . 'footer_menu_mid',
+                        'type' 			=> 'taxonomy_advanced',
+                        'taxonomy'		=> array('nav_menu'),
+                        'field_type'	=> 'select',
+                        'placeholder'	=> 'Default',
+                        'tab'           => $prefix . 'menu',
+                    ),
+                    array(
+                        'name' 			=> 'Footer Menu ( Far Right )',
+                        'id' 			=> $prefix . 'footer_menu_fr',
+                        'type' 			=> 'taxonomy_advanced',
+                        'taxonomy'		=> array('nav_menu'),
+                        'field_type'	=> 'select',
+                        'placeholder'	=> 'Default',
+                        'tab'           => $prefix . 'menu',
+                    ),
+                    array(
+                        'name'          => 'Video URL',
+                        'id'            => $prefix . 'video_url',
+                        'type'          => 'text',
+                        'placeholder'   => '',
+                        'tab'           => $prefix . 'video',
+                        'before'        => '<div class="dash-alert dash-alert--warning" role="alert"><strong>This option only works</strong> if this "page template" has video embed hardcoded into page or if the video embed <br> shortcode is present in the content of this page</div>'
                     ),
                     array(
                         'name' 			=> 'Autostart Video',

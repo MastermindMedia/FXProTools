@@ -36,7 +36,7 @@ if( isset($product) ){
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-6">
-					<a href="<?php bloginfo('url');?>" class="logo">CopyProfitShare</a>
+					<a href="<?php bloginfo('url');?>" class="logo"><?php echo get_bloginfo('name'); ?></a>
 				</div>
 				<div class="col-sm-6">
 					<ul class="fx-nav">
@@ -51,7 +51,7 @@ if( isset($product) ){
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<p>CopyProfitShare is the map that teaches you specialized market knowledge!</p>
+					<p><?php echo get_bloginfo('name'); ?> is the map that teaches you specialized market knowledge!</p>
 				</div>
 			</div>
 		</div>

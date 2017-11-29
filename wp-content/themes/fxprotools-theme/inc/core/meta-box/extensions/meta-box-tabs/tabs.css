@@ -119,3 +119,18 @@
 	margin: 0;
 	padding: 0;
 }
+.dash-alert--warning{
+    background-color: #FFF6F7;
+    border: 1px solid #FFC8C8;
+    color: #000;
+}
+.dash-alert{
+	padding: .75rem 1.25rem;
+    margin: 1rem 0;
+    border-radius: .10rem;
+}
+.dash-alert b,
+.dash-alert strong{
+	font-weight: 700;
+	color: #000;
+}

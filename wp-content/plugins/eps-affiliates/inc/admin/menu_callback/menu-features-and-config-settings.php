@@ -176,6 +176,24 @@ function afl_system_features_and_configurations () {
 		);
 	/*
 	 * --------------------------------------------------------------------------
+	 * Pagination pages configuration
+	 * --------------------------------------------------------------------------
+	*/
+		$i++;
+		$rows[$i]['label_1'] = array(
+			'#type' => 'label',
+			'#title'=> 'Pagination pages configuration',
+		);
+		$rows[$i]['link_1'] = array(
+			'#type' => 'markup',
+			'#markup' => '<a href="?page=affiliate-eps-pagination-pages-configurations">
+											<span class="btn btn-rounded btn-sm btn-icon btn-default">
+												<i class="fa fa-cog"></i>
+											</span>
+										</a>',
+		);
+	/*
+	 * --------------------------------------------------------------------------
 	 * roles and permissions config
 	 * --------------------------------------------------------------------------
 	*/

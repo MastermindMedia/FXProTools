@@ -24,7 +24,7 @@
 	);
 	$query['#limit'] = 500;
 	$queued_data = db_select($query, 'get_results');
-	// pr($queued_data,1);
+	
 	foreach ($queued_data as $key => $value) {
 		$unique_id = $value->item_id;
 		//update the status as processing
@@ -103,7 +103,8 @@
 		       	 * Creat user if exists
 		       	 * ------------------------------------------------------------------- 
 		       	*/
-							$sponsor 	= _check_remote_mlmid_exist($data['sponsor_mlmid']);
+							// $sponsor 	= _check_remote_mlmid_exist($data['sponsor_mlmid']);
+							$sponsor 	= afl_root_user();
 							$response = _api_insert_user_( $sponsor, $data, $processed_times );
 						} else {
 							// afl_log('cron','remote users embedd cron queue failed.User name already exists',array('queue_data'=>$data),LOGS_ERROR);
@@ -116,7 +117,8 @@
 							 * ------------------------------------------------------------
 							*/
 
-								$sponsor 	= _check_remote_mlmid_exist($data['sponsor_mlmid']);
+								// $sponsor 	= _check_remote_mlmid_exist($data['sponsor_mlmid']);
+								$sponsor 	= afl_root_user();
 								$begin 		= _api_get_last_inserted($data['name']); 
 								$data['name'] = $data['name'].'-'.$begin;
 								$response = _api_insert_user_( $sponsor, $data, $processed_times );
@@ -247,7 +249,9 @@
  	*/
 		 if ( $user && is_numeric( $user )) {
 		 	
-		 	_api_user_add_to_genealogy( $user, $sponsor, $data );
+		 	// _api_user_add_to_genealogy( $user, $sponsor, $data );
+		 	_api_user_add_to_holding_tank( $user, $sponsor, $data );
+		 	
      	$response = $user;
 
 		 } else {

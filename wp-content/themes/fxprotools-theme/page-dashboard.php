@@ -56,31 +56,31 @@ if ( ! empty( $checklist ) ) {
 $dashboard_checklist = [
 	'verified_email'    => [
 		'title'   => 'Verify your e-mail',
-		'subtext' => 'Check your inbox and confirm your email to gain access'
+		'subtext' => 'Check your Inbox and confirm your email to complete this step, or you can confirm it is correct in "My Account" by <a href="/my-account">clicking here</a>'
 	],
 	'verified_profile'  => [
 		'title'   => 'Update/Verify Profile (SMS #)',
-		'subtext' => 'Add your Phone Number to your profile to get instant notifications.'
+		'subtext' => 'Add / Update your Phone Number in your profile to get instant notifications by going to "My Account" <a href="/my-account">click here</a>'
 	],
 	'scheduled_webinar' => [
 		'title'   => 'Schedule For Webinar',
-		'subtext' => 'Don\'t miss out weekly Q&A webinars to answer all your questions.'
-	],
-	'accessed_products' => [
-		'title'   => 'Access your product',
-		'subtext' => 'Full Access to the products you purchased 24/7.'
+		'subtext' => 'Don\'t miss out weekly Q&A webinars to answer all your questions, click the "Reserve A Seat" button.'
 	],
 	'got_shirt'         => [
 		'title'   => 'Get your free shirt',
-		'subtext' => 'Receive one FREE T-shirt from our store with coupon code: XXXXXX'
+		'subtext' => 'Receive one FREE T-shirt from our store by clicking on "Get Free Shirt Button" or by <a href="/product/free-shirt">clicking here</a>.'
+	],
+	'accessed_products' => [
+		'title'   => 'Access your product',
+		'subtext' => 'Full Access to the products you purchased 24/7, <a href="/access-products">click here</a>.'
 	],
 	'shared_video'      => [
 		'title'   => 'Share Video',
-		'subtext' => 'Use our special invitation video to share this valuable skillset with someone.'
+		'subtext' => 'Use our special invitation video to share this valuable skillset with someone. Start sharing by <a href="/marketing/funnels">clicking here</a>.'
 	],
 	'referred_friend'   => [
 		'title'   => 'Refer A Friend',
-		'subtext' => 'When you refer people to our platform, we reward you!'
+		'subtext' => 'Refer people to our platform & we will reward you! Find out more about our referral program by <a href="/referral-program">clicking here</a>.'
 	],
 ];
 ?>
@@ -94,13 +94,13 @@ $dashboard_checklist = [
             <div class="fx-header-title">
 				<?php if ( is_user_fx_customer() ) : ?>
                     <h1>Welcome! Thanks for Being A Loyal Customer</h1>
-                    <p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of CopyProfitShare!</p>
+                    <p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of <?php echo get_bloginfo('name'); ?>!</p>
 				<?php elseif ( is_user_fx_distributor() ) : ?>
                     <h1>Welcome! Thanks for Being A Loyal Distributor</h1>
-                    <p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of CopyProfitShare!</p>
+                    <p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of <?php echo get_bloginfo('name'); ?>!</p>
 				<?php else : ?>
                     <h1>Welcome! Thanks for Being A Loyal Distributor</h1>
-                    <p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of CopyProfitShare!</p>
+                    <p><span class="label-red">Step 1:</span> Onboarding Message &amp; Getting The Most Out Of <?php echo get_bloginfo('name'); ?>!</p>
 				<?php endif; ?>
             </div>
         </div>

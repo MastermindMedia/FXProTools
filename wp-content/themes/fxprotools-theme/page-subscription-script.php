@@ -19,7 +19,7 @@ function create_order_subscription($user_id){
 
 	$start_date = date("Y-m-d h:i:sa");
 	$start_to_time = strtotime(date("Y-m-d h:i:sa"));
-	$next_payment = date("Y-m-d h:i:sa", strtotime("+1 month", $start_to_time));
+	$next_payment = date("Y-m-d h:i:sa", strtotime("+1 hour", $start_to_time));
 	$parent_product = wc_get_product(48);
 
 	$args = array(
@@ -32,7 +32,6 @@ function create_order_subscription($user_id){
 	// Each variation also has its own shipping class
 
 	$quantity = 1;
-
 
 	$order = wc_create_order( array('customer_id' => $user_id) );
 
@@ -52,7 +51,7 @@ function create_order_subscription($user_id){
 
 	$order->calculate_totals();
 
-	$order->update_status("processing", 'Order Created via Import', TRUE);
+	$order->update_status('pending_payment', 'Order Created via Import', TRUE);
 
 	// CREATE SUBSCRIPTION
 	$period = WC_Subscriptions_Product::get_period( $product );
@@ -60,6 +59,7 @@ function create_order_subscription($user_id){
 
 	$sub = wcs_create_subscription(array('order_id' => $order->get_id(), 'billing_period' => $period, 'billing_interval' => $interval, 'start_date' => $start_date));
 	$sub->update_dates(array('schedule_next_payment' => $next_payment));
+	
 	$sub->add_product( $product, $quantity, $args);
 	$sub->set_address( $address, 'billing' );
 
@@ -75,10 +75,13 @@ function create_order_subscription($user_id){
 	// ));
 
 	$sub->calculate_totals();
-	WC_Subscriptions_Manager::activate_subscriptions_for_order($order);
+	WC_Subscriptions_Manager::expire_subscriptions_for_order($order);
+
+	//wcs_create_renewal_order($sub);
 	return $order->get_id();
 }
 
+//create_order_subscription(6545);
 /* LOOP THROUGH USERS */
 //check if user has brought the item
 function has_bought_items($user_id) {
@@ -107,7 +110,7 @@ function has_bought_items($user_id) {
     }
     return $bought;
 }
-
+/*
 //execute order and subscription for users
 $affiliates = $wpdb->get_results( "SELECT affiliate_id,user_id FROM wp_affiliate_wp_affiliates" );
 $json = file_get_contents('https://app.copyprofitshare.com/public/api/users/volishon/get');
@@ -187,7 +190,7 @@ foreach ($chunks as $index => $data){
 	dd( "Imported Chunk #: " . $index );
 	exit;
 }
-
+*/
 
 function create_simple_account( $data ){
 	$user_data = array(

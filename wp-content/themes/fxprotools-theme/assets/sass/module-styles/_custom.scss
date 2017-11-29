@@ -2,6 +2,13 @@
 // Custom
 // ------
 
+// Text Log
+p.logo-text {
+    font-size: 30px;
+    color: #fff;
+    margin-top: 20px;
+}
+
 // Dashboard
 .page-dashboard {
 	.btn-ico-lg {
@@ -59,10 +66,19 @@
 			li {
 				cursor: pointer;
 				position: relative;
+				padding: 12px;
 				.content {
 					font-size: 13px;
 					padding-left: 35px;
 					display: none;
+					a {
+						font-weight: 700;
+						color: #000;
+					}
+					a:hover {
+						color: #de1515;
+						text-decoration: none;
+					}
 				}
 				.fx-text {
 					font-weight: bold;
@@ -81,6 +97,33 @@
 		}
 	}
 }
+
+.page-compensation-plan{
+	.fx-compensation-documents{
+		max-width: 85%;
+		max-width: calc( 100% - 40px);
+		display: block;
+		margin: 0 auto 20px;
+		padding: 0;
+		li{
+			border-top: 1px solid #ddd;
+			border-left: 1px solid #ddd;
+			border-right: 1px solid #ddd;
+			border-bottom: 5px solid #de1515!important;
+			display: inline-block;
+			margin-bottom: 10px;
+			width: 100%;
+			padding: 10px 15px;
+			.fx-btn{
+				min-width: 120px;
+			}
+			h4{
+				margin-top: 15px;
+			}
+		}
+	}
+}
+
 .resp {
 	margin-top: 1rem;
     position: relative;
@@ -90,6 +133,7 @@
     margin-bottom: 1rem;
     overflow: hidden;
 }
+
 // PTO Floating/Sticky Video Embed
 .fx-video-container {
     &#pto--floating-video{
@@ -116,7 +160,7 @@
         padding: 0;
         padding-bottom: 0;
         height: 0;
-        overflow: hidden; 
+        overflow: hidden;
     }
     iframe{
         transition: width .2s ease-in-out, height .2s ease-in-out, transform .38s ease-in-out;
@@ -1699,6 +1743,19 @@
 	}
 }
 
+#add_payment_method {
+	#payment {
+		div.payment_box{
+			display: block!important;
+		}
+
+		.wc-authorize-net-cim-credit-card-new-payment-method-form{
+			> p:not(.validate-required){
+				display: none!important;
+			}
+		}
+	}
+}
 .noty_theme__relax.noty_bar{
 	border-radius: 59px;
 	.noty_body{
@@ -2294,7 +2351,7 @@ li.false {
 		}
 	}
 
-	
+
 }
 
 // Login page
@@ -2405,5 +2462,32 @@ form {
 				font-weight: bold;
 			}
 		}
+	}
+}
+
+// Page Template Option - Dashboard
+.dash-alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    &--warning{
+        color: #8a6d3b;
+        background-color: #fcf8e3;
+        border-color: #faebcc;
+    }
+}
+
+// Woocommerce Override
+.woocommerce {
+
+	div.product .woocommerce-tabs ul.tabs {
+		margin: 0
+	}
+	div.product .woocommerce-tabs .panel {
+		padding: 0 20px 20px 20px;
+	}
+	.single_add_to_cart_button.button.alt {
+		padding: 15px 20px;
 	}
 }

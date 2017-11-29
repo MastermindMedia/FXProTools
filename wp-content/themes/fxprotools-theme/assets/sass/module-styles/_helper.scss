@@ -24,6 +24,20 @@
 	-moz-border-radius: 0;
 }
 
+.distributor-inline,
+.distributor-block{
+	display: none!important;
+}
+
+.distributor .distributor-inline{
+	display: inline-block!important;
+}
+
+.distributor .distributor-block{
+	display: block!important;
+}
+
+
 // Texts
 .text-bold {
 	font-weight: bold;

@@ -43,6 +43,7 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 			add_action( 'woocommerce_admin_process_product_object', array( $this, 'wc_save_buy_button_tab_fields' ) );
 			add_action( 'woocommerce_before_single_product', array( $this, 'wc_notif_before_single_product') );
 			add_action( 'woocommerce_after_add_to_cart_button', array( $this, 'wc_add_gotodashboard_link') );
+			remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20);
 		}
 
 		public function wc_setup_checkout_fields( $fields ) {
@@ -132,18 +133,14 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 		 */
 		public function wc_custom_breadcrumbs() {
 			$link = is_shop() ? get_permalink( wc_get_page_id( 'shop' ) ) : get_permalink();
-			$wrap_before = <<<HTML
-<div class="navbar fx-navbar-sub">
-    <ul class="fx-nav-options">
-        <li class="dashboard">
-            <a class="icon icon-share" href="{$link}">&nbsp;</a>
-        </li>
-HTML;
-
-			$wrap_after = <<<HTML
-    </ul>
-</div>
-HTML;
+			$wrap_before  = '<div class="navbar fx-navbar-sub">';
+			$wrap_before .= '<div class="container">';
+			$wrap_before .= '<div class="row">';
+			$wrap_before .= '<div class="col-xs-12 col-sm-12 col-md-12">';
+			$wrap_before .= '<ul class="fx-nav-options">';
+        	$wrap_before .= '<li class="dashboard icon icon-shop"><a href="{$link}">&nbsp;</a></li>';
+			$wrap_after   = '</ul>';
+			$wrap_after   = '</div></div></div></div>';
 
 			return array(
 				'delimiter'   => '',
@@ -272,7 +269,10 @@ HTML;
 		 * Displays message if the shirt has already been claimed
 		 */
 		public function wc_notif_before_single_product() {
-			$html = <<<HTML
+		    // header if the product is free tshirt
+			global $post;
+			if ($post->post_name ==  self::POST_NAME_FREE_SHIRT) {
+				$html = <<<HTML
 <div class="col-md-12">
     <div class="fx-header-title">
         <h1>%s</h1>
@@ -281,13 +281,14 @@ HTML;
 </div>
 HTML;
 
-			if ( user_membership_duration() < self::MIN_MEMBERSHIP_DURATION ) {
-				echo sprintf( $html, "You have to finish your 14-day trial to claim this", 'You have been a member for ' . user_membership_duration() . ' days so far.' );
-				return;
-			}
-			if ( self::has_claimed_shirt() ) {
-                echo sprintf( $html, "You already got your Free T-shirt", 'Lorem ipsum blah blah blah' );
-                return;
+				if ( user_membership_duration() < self::MIN_MEMBERSHIP_DURATION ) {
+					echo sprintf( $html, "You have to finish your 14-day trial to claim this", 'You have been a member for ' . user_membership_duration() . ' days so far.' );
+					return;
+				}
+				if ( self::has_claimed_shirt() ) {
+					echo sprintf( $html, "You already got your Free T-shirt", 'Lorem ipsum blah blah blah' );
+					return;
+				}
 			}
 		}
 
@@ -314,6 +315,7 @@ HTML;
                 echo '<a href="/dashboard" class="btn btn-link p-xxs m-l-sm">Go To Dashboard</a>';
             }
         }
+        
 	}
 }
 

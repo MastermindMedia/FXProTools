@@ -114,3 +114,18 @@ function popup_alert($title, $message){
 	$('#alert-modal .modal-body p').html($message);
 	$('#alert-modal').modal('show');
 }
+
+$(document).on('click','.skip-referral', function(e) {
+	e.preventDefault();
+
+    var ajaxUrl = fx.ajax_url;
+    var data = {
+    	'action': 'skip_referral'
+	};
+    $.post(ajaxUrl, data)
+		.done(function(response){
+			if (response.success) {
+                window.location.href = $('.skip-referral').attr('href');
+			}
+		});
+});

@@ -33,13 +33,13 @@ $referral_link = get_highest_converting_funnel_link();
 		<div class="row">
 			<div class="col-md-12">
 				<div class="fx-header-title">
-					<h1>Wait! Did You Know Your Access Could Be Free</h1>
-					<p><span class="label-red">Step 3:</span> - Refer 3 People To FX Pro Tools Products & Yours Become Free</p>
+					<h1><span style="color: #de1515;">Wait!</span> Did You Know Your Product Access Could Be Free?</h1>
+					<p><span class="label-red">IMPORTANT</span> When You Refer <u>3</u> People To Our Products - Yours Become Free</p>
 				</div>
 			</div>
 			<div class="col-md-8">
-				<?php 
-					// Metabox Page Template Option - Video Embed 
+				<?php
+					// Metabox Page Template Option - Video Embed
 					echo get_mb_pto1( 'video_embed', 'pto1' );
 				?>
 			</div>
@@ -68,7 +68,13 @@ $referral_link = get_highest_converting_funnel_link();
 							<span class="fx-checkbox <?php echo $valid_referral_count > 2 ? 'checked' : '';?>"></span>
 							<span class="fx-text">Refer Third Friend</span>
 						</li>
-					</ul>
+
+						<li>
+							<h4 class="inline-block">Fast Start Bonuses</h4>
+								<a href="<?php bloginfo('url');?>/wallet/bonuses/" class="btn btn-danger btn-lg fx-btn inline-block pull-right">View</a>
+									<div class="clearfix"></div>
+											</li>
+										</ul>
 				</div>
 			</div>
 		</div>
@@ -83,12 +89,12 @@ $referral_link = get_highest_converting_funnel_link();
 							<div class="fx-ref-link">
 								<div class="fx-ref-title">
 									<h3>Option 1: Refer To Someone</h3>
-									<p>Tell your friends and coworkers about FX Pro Tools</p>
+									<p>Tell your friends and coworkers about <?php echo get_bloginfo('name'); ?></p>
 								</div>
 								<div class="box">
 									Share your unique referral link
 									<div class="link">
-										<?php  
+										<?php
 											if(strpos(get_the_author_meta('user_login', get_current_user_id()), ' ') > 0){
 												echo $referral_link; ?>?ref=<?php echo affwp_get_affiliate_id(wp_get_current_user()->ID);
 											}else{
@@ -107,7 +113,7 @@ $referral_link = get_highest_converting_funnel_link();
 								</div>
 								<div class="box">
 									<div class="text-center">
-										We provide you with all the Marketing Sales <br/>Funnels you need to explain FX Pro tools
+										We provide you with all the Marketing Sales <br/>Funnels you need to explain <?php echo get_bloginfo('name'); ?>
 									</div>
 									<a href="<?php bloginfo('url');?>/markting/funnels" class="btn btn-danger block padding-md">
 										Access Your Sales Funnels
@@ -121,7 +127,7 @@ $referral_link = get_highest_converting_funnel_link();
 			<div class="clearfix"></div>
 			<br/>
 			<div class="col-md-12">
-				<a href="<?php bloginfo('url');?>/product/professional" class="btn btn-danger block p-m">Thanks For Letting Me Know.. Continue To Your Products</a>
+				<a href="<?php bloginfo('url');?>/access-products" class="btn btn-danger block p-m skip-referral">Thanks For Letting Me Know.. Continue To Your Products</a>
 			</div>
 		</div>
 	</div>

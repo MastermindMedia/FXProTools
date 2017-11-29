@@ -34,6 +34,7 @@
     
     $tank_users = db_select($query, 'get_results');
     $count = count($tank_users);
+
     $default_img = EPSAFFILIATE_PLUGIN_ASSETS.'/images/avathar.png';
 
 if ( !function_exists('_check_remote_mlmid_exist')) {

@@ -86,14 +86,18 @@ function get_user_subscription_details()
 
 function get_user_main_subscription(){
 	$subscription_details = get_user_subscription_details();
-	$subscription = $subscription_details[0];
-	foreach( $subscription_details as $detail){
-	    if( strtolower( $detail['package_type'] ) == 'business' ){
-	        $subscription = $detail;
-	        break;
-	    }
+	
+	if( sizeof($subscription_details) > 0) {
+		$subscription = $subscription_details[0];
+		foreach( $subscription_details as $detail){
+		    if( strtolower( $detail['package_type'] ) == 'business' ){
+		        $subscription = $detail;
+		        break;
+		    }
+		}
+		return $subscription;
 	}
-	return $subscription;
+	return false;
 }
 
 function get_renewal_order_checkout_link( $subscription ){
@@ -167,4 +171,9 @@ function paused_account_enforce_access()
 	        }
 	    }
 	}
+}
+
+
+function automatic_renewal_payment_integration(){
+	
 }

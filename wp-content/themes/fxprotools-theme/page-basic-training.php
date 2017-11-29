@@ -2,8 +2,6 @@
 $category_slug = 'basic-training';
 $category = get_term_by('slug', $category_slug, 'ld_course_category' );
 $child_categories = get_course_category_children($category->term_id);
-dd($child_categories);
-dd(rwmb_meta( 'category_status', 27 ));
 ?>
 
 
@@ -16,28 +14,48 @@ dd(rwmb_meta( 'category_status', 27 ));
 			<div class="row">
 				<div class="col-md-12">
 					<div class="fx-header-title">
-						<h1>List of <?php echo $category->name;?></h1>
-						<p>Filter <?php echo $category->name;?> With Buttons Below</p>
+						<h1><?php echo $category->name;?></h1>
+						<p>Your <?php echo $category->name;?> Can Be Found Below:</p>
 					</div>
 				</div>
 				<div class="col-md-12">
 					<div role="tabpanel">
 						<ul class="nav nav-tabs fx-tabs" role="tablist">
-							<?php foreach($child_categories as $key => $category): ?>
-								<li role="presentation" class="<?php echo $key == 0 ? 'active' : 'false';?>">
-									<a href="#category-<?php echo $key + 1;?>" aria-controls="category-<?php echo $key + 1;?>" role="tab" data-toggle="tab">
-									<?php dd($category); ?>
-									<?php echo $category->name;?></a>
-									<?php 
-										echo rwmb_meta( 'category_status' );
+							<?php
+							$term_counter = 0;
+							$active_categories = 0;
+							foreach($child_categories as $key => $category){
+								$term_status = get_term_meta( $category->term_id, 'category_status', true );
+								if($term_status != "draft"){
+									$active_categories++;
+								}
+							}
+							if($active_categories < 1):
+							?>
+								<?php foreach($child_categories as $key => $category): ?>
+									<?php
+										$term_status = get_term_meta( $category->term_id, 'category_status', true );
+										if($term_status != "draft"):
 									?>
-									<?php echo get_post_meta( $category->term_id , 'category_status', true ); ?>
-								</li>
-							<?php endforeach;?>
+											<li role="presentation" class="<?php echo $term_counter == 0 ? 'active' : 'false';?>">
+												<a href="#category-<?php echo $key + 1;?>" aria-controls="category-<?php echo $key + 1;?>" role="tab" data-toggle="tab">
+												<?php echo $category->name;?></a>
+											</li>
+									<?php
+										$term_counter++;
+										endif;
+									?>
+								<?php endforeach;?>
+							<?php endif; ?>
 						</ul>
 						<div class="tab-content">
+							<?php $term_counter = 0; ?>
 							<?php foreach($child_categories as $key => $category): ?>
-								<div role="tabpanel" class="tab-pane <?php echo $key == 0 ? 'active' : 'false';?>" id="category-<?php echo $key + 1;?>">
+								<?php
+									$term_status = get_term_meta( $category->term_id, 'category_status', true );
+									if($term_status != "draft"):
+								?>
+								<div role="tabpanel" class="tab-pane <?php echo $term_counter == 0 ? 'active' : 'false';?>" id="category-<?php echo $key + 1;?>">
 									<ul class="fx-list-courses">
 										<?php $courses = get_courses_by_category_id($category->term_id); ?>
 										<?php if( $courses ) : ?>
@@ -48,6 +66,10 @@ dd(rwmb_meta( 'category_status', 27 ));
 										<?php endif;?>
 									</ul>
 								</div>
+								<?php
+									$term_counter++;
+									endif;
+								?>
 							<?php endforeach;?>
 						</div>
 					</div>

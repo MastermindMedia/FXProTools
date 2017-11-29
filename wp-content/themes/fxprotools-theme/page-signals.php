@@ -6,7 +6,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12">
-					<p>CopyProfitShare is the map that teaches you specialized market knowledge!</p>
+					<p><?php echo get_bloginfo('name'); ?> is the map that teaches you specialized market knowledge!</p>
 				</div>
 			</div>
 		</div>
@@ -144,7 +144,7 @@
 								<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 									<div class="header-text m-b-md">
 										<p class="text-center text-heading text-bold"><span class="text-red">VIDEO TESTIMONIALS!</span> Show Proof 
-										That “FX Pro Tools” Has ALREADY Dramatically Changed The Businesses And Lives Of Countless Others... 
+										That “<?php echo get_bloginfo('name'); ?>” Has ALREADY Dramatically Changed The Businesses And Lives Of Countless Others... 
 										People Around The World!  </p>
 									</div>
 									<p class="text-center">If You're Sick And Tired Of All The Hype, Scams And Claims You See Online Lately, Then Pay Attention To These Amazing Success Stories From Actual, Real Students...</p>
@@ -213,7 +213,7 @@
 								</div>
 								<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 									<p><strong>P.S. In case you're one of those people</strong> (like me) who just skip to the end of the letter, here's the deal:</p>
-									<p>We're going to let you test drive FX Pro Tools AND Our Signals today... because we know that after you start using them, you'll wonder how your ever going to survive without them again! </p>
+									<p>We're going to let you test drive <?php echo get_bloginfo('name'); ?> AND Our Signals today... because we know that after you start using them, you'll wonder how your ever going to survive without them again! </p>
 									<p>There's not catch... no gimmicks... </p>
 									<p>If fact, if you don't love the our platform - We will even refund your and you don’t ever have to hear from us again!</p>
 									<p>So, Click the button below to get your DISCOUNTED access now.</p>
@@ -471,7 +471,7 @@
 								<li class="col-md-6">
 									<div class="faq-item no-border">
 										<span class="question"><i class="fa fa-question-circle"></i> Do I have to install anything?</span>
-										<div class="answer">No! We created FX Pro Tools so you wouldn't have too. Just login, start clicking, and you can access your training & cloud hosted” softwares. </div>
+										<div class="answer">No! We created <?php echo get_bloginfo('name'); ?> so you wouldn't have too. Just login, start clicking, and you can access your training & cloud hosted” softwares. </div>
 									</div>
 								</li>
 							</ul>

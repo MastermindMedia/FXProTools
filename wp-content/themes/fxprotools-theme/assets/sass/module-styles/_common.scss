@@ -100,11 +100,14 @@
 	text-align: center;
 	margin: 15px 0 40px 0;
 	h1, h2 {
-		font-size: 25px;
+		font-size: 39px;
 		margin-top: 0;
 		margin-bottom: 5px;
 		font-weight: bold;
 	}
+  p {
+    font-size: 18px;
+  }
 }
 
 // Mid Header Title
@@ -181,7 +184,7 @@
 		margin: 0;
 		li {
 			border-bottom: 1px solid #DDD;
-			padding: 10px;
+			padding: 20px;
 			&:first-child { border-top: 1px solid #DDD; }
 			&:last-child { border-bottom: none; }
 			.fx-checkbox {

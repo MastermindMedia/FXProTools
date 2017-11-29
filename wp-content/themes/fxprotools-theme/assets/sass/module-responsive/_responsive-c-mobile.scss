@@ -77,9 +77,9 @@
 			.navbar-brand {
 				padding: 0;
 				img {
-					width: 135px;
+					width: 160px;
 					height: auto;
-					margin-top: 15px;
+					margin-top: 8px;
 				}
 			}
 		}
@@ -140,8 +140,8 @@
 			position: fixed;
 			z-index: 100;
 			top: 62px;
+			bottom: 0;
 			left: -245px;
-			height: 100%;
 			background-color: #403D3D;
 			width: 245px;
 			overflow-y: auto;

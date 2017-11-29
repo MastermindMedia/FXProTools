@@ -6,7 +6,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12">
-						<p>CopyProfitShare is the map that teaches you specialized market knowledge!</p>
+						<p><?php echo get_bloginfo('name'); ?> is the map that teaches you specialized market knowledge!</p>
 					</div>
 				</div>
 			</div>
@@ -34,7 +34,7 @@
 					<div class="col-xs-12 col-sm-6 col-md-4">
 						<div class="item-info">
 							<img src="<?php bloginfo('template_url'); ?>/assets/img/ico1.png" class="img-responsive icon">
-							<p>Gain full Access to <br/> CopyProfitShare's training <br/> videos &amp; courses.</p>
+							<p>Gain full Access to <br/> <?php echo get_bloginfo('name'); ?>'s training <br/> videos &amp; courses.</p>
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-4">
@@ -90,7 +90,7 @@
 										</div>
 										<div class="row">
 											<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 text-center">
-												<h3 class="m-t-sm">Are Currently Learning Forex & Binary Trading From CopyProfitShare</h3>
+												<h3 class="m-t-sm">Are Currently Learning Forex & Binary Trading From <?php echo get_bloginfo('name'); ?></h3>
 												<p>...But first before we do that. Here is a quick history of Forex and Binary Trading to help you understand what it is, and more importantly, why do YOU want to learn it...</p>
 											</div>
 										</div>
@@ -160,7 +160,7 @@
 											<h3 class="label-red">Our Methods Pratically Allow You To “Legally Steal” From That $4 Trillon Dollars In Currency Turnover...</h3>
 										</div>
 										<p class="text-heading-sm">...If you've tried in the past to piece together dozens of other trading strategies, but they failed to produce consistent positive results...</p>
-										<p class="text-heading-sm">Then I want to to watch this quick video from one of our Top CopyProfitShare Members that will show you how simple your life can become when you start using our platform:</p>
+										<p class="text-heading-sm">Then I want to to watch this quick video from one of our Top <?php echo get_bloginfo('name'); ?> Members that will show you how simple your life can become when you start using our platform:</p>
 										<div class="text-center">
 											<a href="#trial-products" class="btn btn-danger btn-lg btn-lg-w-text scroll-to">
 												Create your Account Now!
@@ -411,9 +411,9 @@
 										</div>
 										<hr/>
 										<h3>So, What's The Catch...?</h3>
-										<p class="text-heading-sm">There is NO catch.  We're going to let you test drive FX Pro Tools AND Our Signals today for FREE because we know that after you start using them, you'll wonder how your ever going to survive without them again! </p>
+										<p class="text-heading-sm">There is NO catch.  We're going to let you test drive <?php echo get_bloginfo('name'); ?> AND Our Signals today for FREE because we know that after you start using them, you'll wonder how your ever going to survive without them again! </p>
 										<h3>Is There A Guarantee?</h3>
-										<p class="text-heading-sm">Of course.  :)  We guarantee that you'll LOVE Fx Pro Tools, and if for some reason you decide later that you don't want to be a member anymore, then we'll happily cancel your account without any penalties or fees.  We don't believe in any long term contracts so you can come and go as you please.</p>
+										<p class="text-heading-sm">Of course.  :)  We guarantee that you'll LOVE <?php echo get_bloginfo('name'); ?>, and if for some reason you decide later that you don't want to be a member anymore, then we'll happily cancel your account without any penalties or fees.  We don't believe in any long term contracts so you can come and go as you please.</p>
 										<h3>Here's What To Do Next:</h3>
 										<p class="text-heading-sm">From here it's just finalizing the details. Click on the button below, pick what subscription plan you want to be on, and we can finally get started!</p>
 										<p class="text-heading-sm">Thanks for taking the time to read this letter and watch the training video and I look forward to hearing from you soon!</p>
@@ -558,7 +558,7 @@
 									<li class="col-xs-12 col-md-6">
 										<div class="faq-item no-border">
 											<span class="question"><i class="fa fa-question-circle"></i> Do I have to install anything?</span>
-											<div class="answer">No! We created FX Pro Tools so you wouldn't have too. Just login, start clicking, and you can access your training & cloud hosted” softwares. </div>
+											<div class="answer">No! We created <?php echo get_bloginfo('name'); ?> so you wouldn't have too. Just login, start clicking, and you can access your training & cloud hosted” softwares. </div>
 										</div>
 									</li>
 								</ul>
@@ -717,7 +717,7 @@
 									<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 										<div class="header-text m-b-md">
 											<p class="text-center text-heading text-bold"><span class="text-red">VIDEO TESTIMONIALS!</span> Show Proof 
-											That “FX Pro Tools” Has ALREADY Dramatically Changed The Businesses And Lives Of Countless Others... 
+											That “<?php echo get_bloginfo('name'); ?>” Has ALREADY Dramatically Changed The Businesses And Lives Of Countless Others... 
 											People Around The World!  </p>
 										</div>
 										<p class="text-center">If You're Sick And Tired Of All The Hype, Scams And Claims You See Online Lately, Then Pay Attention To These Amazing Success Stories From Actual, Real Students...</p>
@@ -786,7 +786,7 @@
 									</div>
 									<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 										<p><strong>P.S. In case you're one of those people</strong> (like me) who just skip to the end of the letter, here's the deal:</p>
-										<p>We're going to let you test drive FX Pro Tools AND Our Signals today... because we know that after you start using them, you'll wonder how your ever going to survive without them again! </p>
+										<p>We're going to let you test drive <?php echo get_bloginfo('name'); ?> AND Our Signals today... because we know that after you start using them, you'll wonder how your ever going to survive without them again! </p>
 										<p>There's not catch... no gimmicks... </p>
 										<p>If fact, if you don't love the our platform - We will even refund your and you don’t ever have to hear from us again!</p>
 										<p>So, Click the button below to get your DISCOUNTED access now.</p>
