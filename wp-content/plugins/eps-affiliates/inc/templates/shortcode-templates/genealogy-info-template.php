@@ -6,13 +6,13 @@
 */
 	$sponsor 	= array();
 	$uid 			= get_uid();
-	$node 		= afl_genealogy_node($uid);
+	$node 		= afl_genealogy_node($uid,'matrix');
 	if ( $node ) {
 		if ( !empty( $node->referrer_uid )) {
 			$sponsor 					= afl_user_data( $node->referrer_uid );
 			$sponsor_node 	 	= afl_genealogy_node($node->referrer_uid);
 		}
-	}
+	//}
 	// $sponsor 			= afl_user_data( 162 );
 	// $sponsor_node = afl_genealogy_node(162);
  ?>
@@ -60,3 +60,11 @@
 			  </div>
 		  </div>
 		</div>
+<?php 
+} else { ?>
+	<div class="panel panel-default">
+		<div class="panel-body">
+			Unable to view 
+		</div>
+	</div>
+<?php }
