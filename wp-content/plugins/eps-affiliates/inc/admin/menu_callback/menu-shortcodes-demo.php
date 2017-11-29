@@ -107,4 +107,10 @@
 		do_shortcode('[afl_genealogy_info]');
 		echo '</div>';
 
+		//Hyperwallet form
+		echo '<div class="row" style="border:3px solid #ccc;padding:4px;margin:25px 0px 0px 0px;background:#fff;">';
+		echo '<h3 class="text-center">Hyperwallet conf : [hyper_wallet_acc_form] </h3>';
+		do_shortcode('[hyper_wallet_acc_form]');
+		echo '</div>';
+
 	}

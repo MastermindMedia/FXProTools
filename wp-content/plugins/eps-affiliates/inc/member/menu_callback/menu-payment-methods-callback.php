@@ -70,6 +70,7 @@ function afl_user_payment_method_conf_form(){
 * ------------------------------------------------------------
 */
 function afl_user_payment_method_form(){
+
 	global $wpdb;
 	$uid 					 = get_current_user_id();
 
@@ -610,6 +611,7 @@ function afl_user_payment_conf_error_form(){
 * ------------------------------------------------------------
 */
 function afl_user_payment_conf_method_hyperwallet_form(){
+	
 	 if ( isset($_POST['submit']) ) {
 	 	$validation = afl_user_payment_conf_method_hyperwallet_form_validation($_POST);
 	 	if ($validation) {

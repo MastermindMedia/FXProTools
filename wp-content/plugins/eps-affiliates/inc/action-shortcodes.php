@@ -82,3 +82,6 @@ add_shortcode('afl_bonus_summary_and_incentives',
 // Hyper Wallet User Details Table
 add_shortcode( 'hyper_wallet_acc_detail',
     									 'show_hyper_wallet' );
+// Hyper Wallet User Details Table
+add_shortcode( 'hyper_wallet_acc_form',
+    									 'afl_user_payment_conf_method_hyperwallet_form' );
