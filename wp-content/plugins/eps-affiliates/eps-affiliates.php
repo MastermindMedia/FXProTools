@@ -543,6 +543,10 @@
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/hyper_wallet/menu-callback/hyper_wallet_menu_callback.php';
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/hyper_wallet/eps-hyper-wallet.php';
 
+
+ 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-add-imported-users.php';
+
+
 			}
 			
 		/**

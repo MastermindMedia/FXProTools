@@ -688,25 +688,34 @@ function afl_admin_compensation_plan_form_submit($POST){
  * -------------------------------------------------------------------------
 */
 	function afl_admin_extra_config_validation ($form_state = array()) {
-		$rules[] = array(
-	 		'value'=> $form_state['cancelled_genealogy_spot_openup_period'],
-	 		'name' =>'Spot openup period',
-	 		'field' =>'cancelled_genealogy_spot_openup_period',
-	 		'rules' => array(
-	 			'rule_required',
-	 		)
-	 	);
-	 	$rules[] = array(
-	 		'value'=> $form_state['cancelled_genealogy_spot_openup_period_value'],
-	 		'name' =>'Spot openup period value',
-	 		'field' =>'cancelled_genealogy_spot_openup_period_value',
-	 		'rules' => array(
-	 			'rule_required',
-	 			'rule_is_numeric'
-	 		)
-	 	);
-	 	$resp  = set_form_validation_rule($rules);
-	 	return $resp;
+		if(isset($form_state['cancelled_genealogy_spot_openup_period'])) {
+
+			$rules[] = array(
+		 		'value'=> $form_state['cancelled_genealogy_spot_openup_period'],
+		 		'name' =>'Spot openup period',
+		 		'field' =>'cancelled_genealogy_spot_openup_period',
+		 		'rules' => array(
+		 			'rule_required',
+		 		)
+		 	);
+		}
+		if(isset($form_state['cancelled_genealogy_spot_openup_period'])) {
+
+		 	$rules[] = array(
+		 		'value'=> $form_state['cancelled_genealogy_spot_openup_period_value'],
+		 		'name' =>'Spot openup period value',
+		 		'field' =>'cancelled_genealogy_spot_openup_period_value',
+		 		'rules' => array(
+		 			'rule_required',
+		 			'rule_is_numeric'
+		 		)
+		 	);
+		}
+		$resp = TRUE;
+		if(isset($rules)) {
+	 		$resp  = set_form_validation_rule($rules);
+		}
+	 		return $resp;
 	}
 /*
  * -------------------------------------------------------------------------

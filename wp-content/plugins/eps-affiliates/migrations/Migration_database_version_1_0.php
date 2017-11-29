@@ -66,7 +66,9 @@
 	 		$this->afl_unilevel_user_genealogy();
 	 		$this->afl_unilevel_user_holding_tank();
 	 		$this->afl_unilevel_tree_last_insertion_positions();
-
+			
+			#data export dable
+	 		$this->afl_user_exort_data();
 
 	 	}
 	 	//downgrade the database version
@@ -1379,4 +1381,45 @@
 	    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
 		                  MODIFY `afl_incentive_history_id` int(11) NOT NULL AUTO_INCREMENT;' );
 	 	}
+
+ /*
+  * ----------------------------------------------------------------------------------------------------------
+  * Data Export details
+  * ----------------------------------------------------------------------------------------------------------
+ */
+	 private function afl_user_exort_data () {
+	 		$table_name = $this->tbl_prefix .'afl_user_exort_data';
+      $sql = "CREATE TABLE IF NOT EXISTS `$table_name` (
+              `id` int(11) NULL,
+              `userDbId` int(11) NULL,
+              `userMlmId` int(11) NULL,
+              `name` varchar(60)  NULL DEFAULT '',
+              `email` varchar(100) NULL DEFAULT '',
+              `phone_number` int(11) NULL,
+              `status` varchar(60)  NULL DEFAULT '',
+              `auth_sub_date` int(11) NULL,
+              `auth_sub_date__date` varchar(60)  NULL DEFAULT '',
+              `auth_sub_date__timezone_type` int(11) NULL,
+              `auth_sub_date__timezone` varchar(60)  NULL DEFAULT '',
+              `auth_merchant_number` int(11) NULL,
+              `sponsor_name` varchar(60)  NULL DEFAULT '',
+              `sponsor_mlmid` int(11) NULL,
+              `sponsor_db_id` int(11) NULL,
+              `sponsor_email` varchar(100) NULL DEFAULT '',
+              `sponsor_phone_number` int(11) NULL,
+              `sponsor_status` varchar(60)  NULL DEFAULT ''
+            ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+            pr($sql);
+      require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+      dbDelta( $sql );
+      global $wpdb;
+      //indexes
+      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+                    ADD PRIMARY KEY (`id`);' );
+      //AUTO increment
+      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+                      MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;' );
+	 	}
+
+
 } //here closing the class

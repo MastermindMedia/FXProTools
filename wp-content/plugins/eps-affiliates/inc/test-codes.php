@@ -17,6 +17,61 @@ function check_rank_achied() {
 }
 
 function afl_test_codes_callback () {
+  $str = unserialize('a:10:{s:8:"userDbId";s:4:"3808";s:9:"userMlmId";s:7:"1001557";s:4:"name";s:15:"Kholeka Kholeka";s:5:"email";s:17:"lineok2@gmail.com";s:12:"phone_number";s:10:"0827016716";s:6:"status";s:6:"Active";s:13:"auth_sub_date";a:3:{s:4:"date";s:26:"2017-06-05 10:38:03.000000";s:13:"timezone_type";s:1:"3";s:8:"timezone";s:3:"UTC";}s:20:"auth_merchant_number";s:1:"1";s:12:"sponsor_name";s:12:"Thandi Ncube";s:13:"sponsor_mlmid";s:7:"1001520";}');
+  // pr($str,1); 
+
+  // if ( afl_variable_get('afl_enable_que_processing')) {
+    /*require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/API/api-remote-user-embedd-cron-callback.php';
+    if (function_exists('_process_embedd_users_queue')) {
+      _process_embedd_users_queue();
+    }*/
+  // }
+
+
+
+     // pr($roles);
+  /*$args = array(
+        'role' => 'holding_member',
+      );
+     $users = get_users($args);
+     pr($users);
+*/
+//      foreach ($users as $key => $value) {
+//       if ($value->ID != afl_root_user())
+//         wp_delete_user($value->ID);
+//      }
+
+  /*$table_name = 'wp_afl_user_exort_data';
+      $sql = "CREATE TABLE IF NOT EXISTS `$table_name` (
+              `id` int(11) NULL,
+              `userDbId` int(11) NULL,
+              `userMlmId` int(11) NULL,
+              `name` varchar(60)  NULL DEFAULT '',
+              `email` varchar(100) NULL DEFAULT '',
+              `phone_number` int(11) NULL,
+              `status` varchar(60)  NULL DEFAULT '',
+              `auth_sub_date` int(11) NULL,
+              `auth_sub_date__date` varchar(60)  NULL DEFAULT '',
+              `auth_sub_date__timezone_type` int(11) NULL,
+              `auth_sub_date__timezone` varchar(60)  NULL DEFAULT '',
+              `auth_merchant_number` int(11) NULL,
+              `sponsor_name` varchar(60)  NULL DEFAULT '',
+              `sponsor_mlmid` int(11) NULL,
+              `sponsor_db_id` int(11) NULL,
+              `sponsor_email` varchar(100) NULL DEFAULT '',
+              `sponsor_phone_number` int(11) NULL,
+              `sponsor_status` varchar(60)  NULL DEFAULT ''
+            ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
+            pr($sql);
+      require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+      dbDelta( $sql );
+      global $wpdb;
+      //indexes
+      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+                    ADD PRIMARY KEY (`id`);' );
+      //AUTO increment
+      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+                      MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;' );*/
    /*$uid = get_uid();
   
   if (isset($_POST['search_key'])) {
@@ -56,12 +111,12 @@ function afl_test_codes_callback () {
   }
   pr($response);*/
   
-    if ( afl_variable_get('afl_enable_que_processing')) {
+    /*if ( afl_variable_get('afl_enable_que_processing')) {
     require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/API/api-remote-user-embedd-cron-callback.php';
     if (function_exists('_process_embedd_users_queue')) {
       _process_embedd_users_queue();
     }
-  }
+  }*/
  
 }
 

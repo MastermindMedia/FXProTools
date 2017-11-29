@@ -699,7 +699,7 @@
  * -------------------------------------------------
 */
  	function eps_affiliates_block_member_callback ($uid = '') {
-	 	if (!empty($uid)) {
+	 	if (!empty($uid) && $uid != afl_root_user()) {
 	 		global $wpdb;
 	 		//update genealogy ststus
 	 		$update = $wpdb->update(

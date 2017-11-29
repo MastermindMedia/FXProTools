@@ -205,6 +205,16 @@
 					'#menu_slug' 			=> 'affiliate-eps-hyperwallet-configurations', 
 					'#page_callback' 	=> 'afl_hyper_wallet_config_settings', 
 				);
+
+				$menu['afl_import_user_menu'] = array(
+					// '#parent'					=> 'affiliate-eps-system-configurations',
+					'#parent'					=> 'affiliate-eps-system-configurations',
+					'#page_title'			=> __( 'Import Users', 'Import Users' ), 
+					'#menu_title' 		=> __( 'Import Users', 'Import Users' ), 
+					'#access_callback'=> 'system_settings', 
+					'#menu_slug' 			=> 'affiliate-eps-import-users', 
+					'#page_callback' 	=> 'afl_import_users', 
+				);
 				
 				afl_system_admin_menu($menu);
 

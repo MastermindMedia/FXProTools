@@ -50,6 +50,14 @@ function afl_genealogy_configuration_form ($post) {
  		
  	);
 
+ 	$form['root_user_remoteMlmId'] = array(
+ 		'#type' 					=> 'text',
+ 		'#title' 					=> 'Root User Remote MLM Id',
+ 		'#default_value' 	=> afl_variable_get('root_user_remoteMlmId',''),
+ 		'#prefix'					=> '<div class="form-group row">',
+ 		'#suffix' 				=> '</div>'
+ 	);
+
  	$form['clear_data'] = array(
  		'#title' 	=> 'Clear test data',
  		'#type'  	=> 'checkbox',
@@ -109,7 +117,34 @@ function afl_genealogy_configuration_form_submit ($form_state){
 	if ( isset($form_state['remove_customer'])) {
 		afl_remove_customers();
 	}
+
+	if(isset($form_state['root_user_remoteMlmId'])) {
+		afl_variable_set('root_user_remoteMlmId', $form_state['root_user_remoteMlmId']);
+		afl_set_root_mlmid($form_state['root_user_remoteMlmId']);
+
+		
+	}
 	echo wp_set_message('Genealogy reset', 'success');
+}
+
+function afl_set_root_mlmid($mlmid) {
+	global $wpdb;
+		$root_user = afl_root_user();
+		$wpdb->update( 
+						_table_name('afl_user_genealogy'), 
+						array( 
+							'remote_user_mlmid' => $mlmid,
+						), 
+						array( 'uid' => $root_user )
+					);
+
+		$wpdb->update( 
+						_table_name('afl_unilevel_user_genealogy'), 
+						array( 
+							'remote_user_mlmid' => $mlmid,
+						), 
+						array( 'uid' => $root_user )
+					);
 }
 /*
  * --------------------------------------------------------
@@ -159,6 +194,8 @@ function afl_genealogy_configuration_form_submit ($form_state){
 		
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_user_holding_transactions')."`");
 		
+		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_user_exort_data')."`");
+		
 	}
 /*
  * ------------------------------------------------------------------------
@@ -168,8 +205,15 @@ function afl_genealogy_configuration_form_submit ($form_state){
 
 	function afl_remove_users () {
 		//change all the users has afl_member role
-		 $args = array(
+		 /*$args = array(
 	      'role' => 'afl_member',
+	    );*/
+
+	    $args = array(
+	      'role__in' => array(
+	      	'afl_member',
+	      	'holding_member'
+	      	),
 	    );
 	   $users = get_users($args);
 	   //remove all the role
