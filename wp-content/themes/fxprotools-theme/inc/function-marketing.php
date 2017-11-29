@@ -256,7 +256,7 @@ function get_user_active_referrals($user_id = 0)
 		'number'       => -1,
 		'affiliate_id' => $affiliate_id
 	) );
-	
+
 
 	foreach($affiliate_referrals as $key => $referral){
 		$order = wc_get_order( $referral->reference );

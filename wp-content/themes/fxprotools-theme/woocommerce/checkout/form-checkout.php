@@ -32,8 +32,6 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 	return;
 }
  
-
-
 ?>
 
 
