@@ -41,7 +41,7 @@ function afl_test_codes_callback () {
 //         wp_delete_user($value->ID);
 //      }
 
-  $table_name = 'wp_afl_user_exort_data';
+  /*$table_name = 'wp_afl_user_exort_data';
       $sql = "CREATE TABLE IF NOT EXISTS `$table_name` (
               `id` int(11) NULL,
               `userDbId` int(11) NULL,
@@ -71,7 +71,7 @@ function afl_test_codes_callback () {
                     ADD PRIMARY KEY (`id`);' );
       //AUTO increment
       $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-                      MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;' );
+                      MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;' );*/
    /*$uid = get_uid();
   
   if (isset($_POST['search_key'])) {
