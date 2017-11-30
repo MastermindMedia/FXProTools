@@ -639,7 +639,7 @@ function afl_user_payment_conf_method_hyperwallet_form(){
 					// pr($response);
 		print do_shortcode("[hyper_wallet_acc_detail data='".$check->data."']");
 	}else {
-		print '<label>Your Wallet is not yet created. Create One.</label>';
+		print '<label class="note">Your Wallet is not yet created. Create One.</label>';
    	$form = array();
  		$form['#method'] = 'post';
 		$form['#action'] = $_SERVER['REQUEST_URI'];
