@@ -2469,15 +2469,19 @@ form {
 			margin-left: 0;
 			margin-right: 0;
 		}
+		label.note {
+			background-color: $red;
+			width: 100%;
+			font-weight: normal;
+			color: $white;
+			padding: 15px;
+		}
 		form {
 			margin-top: 10px;
-			.panel {
-				border: none;
-				margin-bottom: 0;
-				box-shadow: none;
-				.panel-body {
-					padding: 0;
-				}
+			.btn-danger {
+				display: block;
+				width: 100%;
+				padding: 14px 0;
 			}
 		}
 	}
