@@ -2463,6 +2463,24 @@ form {
 			}
 		}
 	}
+	// E-wallet Page
+	&.wallet-form {
+		.form-group.row {
+			margin-left: 0;
+			margin-right: 0;
+		}
+		form {
+			margin-top: 10px;
+			.panel {
+				border: none;
+				margin-bottom: 0;
+				box-shadow: none;
+				.panel-body {
+					padding: 0;
+				}
+			}
+		}
+	}
 }
 
 // Page Template Option - Dashboard

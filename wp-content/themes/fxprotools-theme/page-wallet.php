@@ -45,29 +45,12 @@
 				<div class="fx-header-title">
 					<h1>How Can We Pay You?</h1>
 					<p>Setup your payment methods for commissions</p>
+				</div>	
+				<div class="panel panel-default epx wallet-form">
+					<div class="panel-body">
+						<?php echo do_shortcode('[hyper_wallet_acc_form]'); ?>
+					</div>
 				</div>
-
-
-
-
-				<div class="col-md-12">
-									<div class="panel panel-default">
-										<div class="panel-body">
-												<?php echo do_shortcode('[hyper_wallet_acc_form]'); ?>
-										</div>
-									</div>
-								</div>
-
-
-
-
-
-
-
-
-
-
-
 				<!-- <div role="tabpanel">
 					<div class="fx-tabs-bordered">
 						<ul class="nav nav-tabs fx-tabs-bordered" role="tablist">
