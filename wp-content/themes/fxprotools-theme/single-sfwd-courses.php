@@ -41,7 +41,7 @@ $course_prerequisites = learndash_get_course_prerequisites( $course_id );
 							<h3>Course Description</h3>
 							<div class="content">
 								<?php echo get_mb_pto1( 'video_embed', 'pto3' ); ?>
-								<?php echo wpautop($course->post_content); ?>
+								<?php echo do_shortcode(get_post_field('post_content', $course_id)); ?>
 							</div>
 							<hr/>
 							<h5 class="text-bold">Course Progress</h5>
