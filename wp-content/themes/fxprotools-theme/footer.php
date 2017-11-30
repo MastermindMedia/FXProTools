@@ -29,7 +29,7 @@
 					</div>
 					<div class="col-xs-12 col-sm-12 col-md-12">
 						<div class="text-center">
-							<span>support@fxprotools.com | +1-800-781-0187 (M-F 10am-10pm EST)</span>
+							<span>support@copyprofitsuccess.com | +1-800-781-0187 (M-F 10am-10pm EST)</span>
 							<img src="<?php bloginfo('template_url'); ?>/assets/img/credit-cards.png" class="img-responsive inline-block credit-cards">
 							<span>&copy; 2017 <?php echo get_bloginfo('name'); ?>. All Rights Reserved</span>
 						</div>

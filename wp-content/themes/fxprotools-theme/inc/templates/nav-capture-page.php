@@ -6,7 +6,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-8 col-md-6">
 					<ul class="fx-nav w-border">
-						<li><a href="mailto:support@fxprotools.com">support@fxprotools.com</a></li>
+						<li><a href="mailto:support@copyprofitsuccess.com">support@copyprofitsuccess.com</a></li>
 						<li><a href="tel:+1 800 781 0187">+1 800 781 0187</a></li>
 						<li>Mon-Fri 10am-10pm EST</li>
 					</ul>
