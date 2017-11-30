@@ -64,7 +64,7 @@ $progression_enabled = is_lesson_progression_enabled($course_id);
 								<div class="panel-body">
 									<div class="content">
 										<?php echo get_mb_pto1( 'video_embed', 'pto3' ); ?>
-										<?php echo wpautop($lesson->post_content); ?>
+										<?php echo do_shortcode(get_post_field('post_content', $lesson_id)); ?>
 									</div>
 									<br>
 									<?php if( !learndash_is_lesson_complete($user_id, $lesson->ID) ): ?>
