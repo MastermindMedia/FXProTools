@@ -24,7 +24,7 @@
 									quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 									consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 									cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-									proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>	
+									proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 								</div>
 								<div class="col-md-2">
 									<a href="<?php bloginfo('url');?>/product/course" class="btn btn-default block">Learn More</a>
@@ -46,7 +46,29 @@
 					<h1>How Can We Pay You?</h1>
 					<p>Setup your payment methods for commissions</p>
 				</div>
-				<div role="tabpanel">
+
+
+
+
+				<div class="col-md-12">
+									<div class="panel panel-default">
+										<div class="panel-body">
+												<?php echo do_shortcode('[hyper_wallet_acc_form]'); ?>
+										</div>
+									</div>
+								</div>
+
+
+
+
+
+
+
+
+
+
+
+				<!-- <div role="tabpanel">
 					<div class="fx-tabs-bordered">
 						<ul class="nav nav-tabs fx-tabs-bordered" role="tablist">
 							<li role="presentation" class="active">
@@ -171,6 +193,8 @@
 		</div>
 	</div>
 
-	
+-->
+
+
 
 <?php get_footer(); ?>
