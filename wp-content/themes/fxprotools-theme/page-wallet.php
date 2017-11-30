@@ -186,14 +186,14 @@
 							<div role="tabpanel" class="tab-pane fade" id="seven">
 								<strong>I-Payout Settings Goes Here</strong>
 							</div>
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
--->
+
 
 
 
