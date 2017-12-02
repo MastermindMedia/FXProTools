@@ -180,7 +180,6 @@ class WC_Subscriptions_Payment_Gateways {
 
 			/*------- custom by ben -----------------*/
 			$renewal_order = apply_filters( 'fx_before_gateway_renewal_order', $renewal_order);
-			error_log( print_r($renewal_order,true) );
 			do_action( 'woocommerce_scheduled_subscription_payment_' . $renewal_order_payment_method, $renewal_order->get_total(), $renewal_order );
 			/*------- custom by ben -----------------*/
 		}

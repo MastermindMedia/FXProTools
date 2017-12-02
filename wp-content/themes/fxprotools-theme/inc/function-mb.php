@@ -82,6 +82,12 @@ if(!class_exists('SettingsMB')){
                         'placeholder' => 'Short Description',
                         'name'        => 'Short Description',
                     ),
+                    array(
+                        'id'          => $prefix . 'personal_volume',
+                        'type'        => 'number',
+                        'placeholder' => 'Personal Volume',
+                        'name'        => 'Personal Volume',
+                    ),
                 ),
             );
             return $meta_boxes;

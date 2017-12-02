@@ -172,8 +172,3 @@ function paused_account_enforce_access()
 	    }
 	}
 }
-
-
-function automatic_renewal_payment_integration(){
-	
-}
