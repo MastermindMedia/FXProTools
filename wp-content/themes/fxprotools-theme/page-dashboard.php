@@ -1,12 +1,17 @@
 <?php
 $checklist = get_user_checklist();
 
+/*
 // Get Your CPS Shirt
 if ( ! $checklist['got_shirt'] ) {
 	if ( Woocommerce_Settings::has_claimed_shirt() ) {
 		pass_onboarding_checklist( 'got_shirt' );
 	}
 }
+
+*/
+
+
 
 // Share Video && Refer a friend
 if ( ! $checklist['shared_video'] ) {
