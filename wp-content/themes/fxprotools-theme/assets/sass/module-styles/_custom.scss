@@ -2494,4 +2494,8 @@ form {
 			display: none;
 		}
 	}
+	// Hide quantity input if slug is free-shirt
+	.free-shirt .quantity {
+		display: none;
+	}
 }
