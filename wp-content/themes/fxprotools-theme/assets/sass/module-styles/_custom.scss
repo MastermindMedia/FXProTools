@@ -2472,12 +2472,23 @@ form {
 			padding: 5px;
 		}
 	}
-	.single_add_to_cart_button.button.alt {
+	.single_add_to_cart_button.button.alt, .btn-link {
 		padding: 15px 20px;
 		color: $white;
 		background-color: $red;
 		&:hover {
 			background-color: $red;
+		}
+	}
+	.btn-link {
+		padding: 11px;
+		border-radius: 4px;
+		font-weight: bold;
+		background-color: #c6c6c6;
+		color: #333;
+		&:hover {
+			text-decoration: none;
+			color: $white;
 		}
 	}
 	.summary {
@@ -2489,9 +2500,25 @@ form {
 			width: 60px;
 		}
 		.variations {
-			display: none;
+			// display: none;
+			td.label {
+				margin-right: -15px;
+				vertical-align: middle!important;
+				padding-right: 0!important;
+				color: $black;
+				font-size: 15px;
+			}
 		}
 		.product_type_variable-subscription {
+			display: none;
+		}
+	}
+	div.product form.cart .variations select {
+		min-width: inherit;
+		padding: 5px;
+	}
+	.product_meta {
+		.sku_wrapper {
 			display: none;
 		}
 	}
