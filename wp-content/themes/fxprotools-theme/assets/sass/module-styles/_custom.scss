@@ -2484,8 +2484,8 @@ form {
 		.product_title  ~ .price {
 			display: none;
 		}
-		.quantity {
-			display: none!important;
+		.quantity .qty {
+			padding: 10px;
 		}
 		.variations {
 			display: none;
