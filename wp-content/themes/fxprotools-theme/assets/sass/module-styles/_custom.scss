@@ -1376,6 +1376,14 @@ p.logo-text {
 	}
 }
 
+.woocommerce{
+	.product-type-variable-subscription{
+		.variations{
+			display: none!important;
+		}
+	}
+	
+}
 // Checkout
 .woocommerce-checkout{
 	.checkout-holder{
@@ -1383,6 +1391,14 @@ p.logo-text {
 		  position: relative!important;
 		  display: none!important;
 		}
+
+		.postid-48{
+			.variations{
+				display: none!important;
+			}
+		}
+
+
 
 		.col2-set{
 			.col-1{
@@ -2455,6 +2471,7 @@ form {
 
 // Woocommerce Override
 .woocommerce {
+
 	div.product .woocommerce-tabs ul.tabs {
 		margin: 0
 	}

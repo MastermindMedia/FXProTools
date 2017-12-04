@@ -1941,6 +1941,7 @@ class WC_Subscriptions_Switcher {
 
 			if ( ! empty( $add_note ) ) {
 				$subscription->add_order_note( $add_note );
+				
 			}
 
 			if ( ! empty( $switch_data['billing_schedule'] ) ) {

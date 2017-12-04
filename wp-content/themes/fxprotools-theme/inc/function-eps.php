@@ -62,3 +62,14 @@ function eps_distributor_kit_purchased( $subscription ) {
 }; 
          
 add_action( 'woocommerce_subscription_renewal_payment_complete', 'eps_distributor_kit_purchased', 10, 1 ); 
+
+
+function eps_switched_from_customer_distributor() { 
+	if( is_user_logged_in() && is_user_fx_distributor() ){
+		do_action('eps_affiliates_become_distributor_from_customer', get_current_user_id() );
+		error_log('Invoked : eps_affiliates_become_distributor_from_customer');
+	}
+	
+}; 
+         
+add_action( 'woocommerce_subscriptions_switch_completed', 'eps_switched_from_customer_distributor', 10, 1 ); 

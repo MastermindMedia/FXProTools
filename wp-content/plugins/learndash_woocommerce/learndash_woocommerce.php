@@ -98,7 +98,6 @@ class learndash_woocommerce {
 	}
 
 	public function store_related_courses( $id, $post ) {
-		$related_courses = $_POST['_related_course'];
 		if ( isset( $_POST['_related_course'] ) ) {
 			update_post_meta( $id, '_related_course', $_POST['_related_course'] );
 		}
