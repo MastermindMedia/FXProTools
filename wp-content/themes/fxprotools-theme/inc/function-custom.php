@@ -404,13 +404,16 @@ function get_mb_pto1( $page_element, $pto = 'pto1' ) {
             endif;
             $video_autostart        = rwmb_meta( $pto . '_video_autostart');
             $video_show_controls    = rwmb_meta( $pto . '_video_show_controls');
+            $video_disable_related  = rwmb_meta( $pto . '_video_disable_related');
+            $video_hide_info        = rwmb_meta( $pto . '_video_hide_info');
+            $video_disable_sharing  = rwmb_meta( $pto . '_video_disable_sharing');
             $scroll_class           = "";
             $scroll_url             = "";
             $float_class            = "";
             $default_yt_video       = "";
 
-            if( count( is_mb_video_scroll( $pto ) ) > 0 ){
-                $arr_scroll     = is_mb_video_scroll( $pto );
+            if( count( is_mb_video_scroll( $pto, $video_url ) ) > 0 ){
+                $arr_scroll     = is_mb_video_scroll( $pto, $video_url );
                 $scroll_class   = ( !empty( rtrim($arr_scroll[0]) ) ) ? $arr_scroll[0] : '';
                 $scroll_url     = ( !empty( rtrim($arr_scroll[1]) ) ) ? $arr_scroll[1] : '';
             }
@@ -420,11 +423,12 @@ function get_mb_pto1( $page_element, $pto = 'pto1' ) {
                 $float_class    = $arr_float[0];
             }
 
-            if( count( is_mb_video_scroll( $pto ) ) === 0 && count( is_mb_video_float( $pto ) ) === 0 ){
-                $default_yt_video = "data-ptodefaultyt";
-            }
+            // Hide this default no show info for now.
+            // if( count( is_mb_video_scroll( $pto, $video_url ) ) === 0 && count( is_mb_video_float( $pto ) ) === 0 ){
+            //     $default_yt_video = "data-ptodefaultyt";
+            // }
 
-            $html = '<div class="fx-video-container" ' . $default_yt_video . ' id="' . $float_class . '" data-ptoaction="' . $scroll_class . '" data-ptoautostart="' . implode(' ', $video_autostart) . '" data-ptoshowcontrols="' . implode(' ', $video_show_controls) . '" data-ptourl="' . $scroll_url . '">';
+            $html = '<div class="fx-video-container" ' . $default_yt_video . ' id="' . $float_class . '" data-ptoaction="' . $scroll_class . '" data-ptoautostart="' . implode(' ', $video_autostart) . '" data-ptoshowcontrols="' . implode(' ', $video_show_controls) . '" data-ptohideinfo="'. implode(' ', $video_hide_info) .'" data-ptodisablerelated="'. implode(' ', $video_disable_related) .'" data-ptourl="' . $scroll_url . '">';
             $html .= ( !empty($scroll_class) ) ? '' : wp_oembed_get($video_url) ;
             $html .= '</div>';
             
@@ -438,10 +442,10 @@ function get_mb_pto1( $page_element, $pto = 'pto1' ) {
 }
 
 
-function is_mb_video_scroll( $pto = 'pto1' ){
+function is_mb_video_scroll( $pto = 'pto1', &$video ){
     $video_scrolling = implode( ' ', rwmb_meta( $pto . '_video_scrolling') );
     if( !empty( rtrim($video_scrolling) ) && $video_scrolling == 'yes' ) 
-        return array('pto--scrolling-video', rwmb_meta( $pto . '_video_url'));
+        return array('pto--scrolling-video', $video);
 }
 
 function is_mb_video_float( $pto = 'pto1' ){
