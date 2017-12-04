@@ -20,6 +20,7 @@ if(!class_exists('ThemeSettings')){
 		public function __construct()
 		{
 			add_action('wp_enqueue_scripts', array($this, 'enqueue_theme_assets'));
+			add_action('after_setup_theme', array($this, 'theme_settings'));
 		}
 
 		public function enqueue_theme_assets()
@@ -70,6 +71,17 @@ if(!class_exists('ThemeSettings')){
 						break;
 				}
 			}
+		}
+
+		public function theme_settings(){
+			$defaults = array(
+		        'height'      => 210,
+		        'width'       => 665,
+		        'flex-height' => true,
+		        'flex-width'  => true,
+		        'header-text' => array( 'site-title', 'site-description' ),
+		    );
+		    add_theme_support( 'custom-logo', $defaults );
 		}
 	}
 }

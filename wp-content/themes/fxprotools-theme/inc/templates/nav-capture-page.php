@@ -24,7 +24,11 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
+					<?php if ( function_exists( 'the_custom_logo' ) ) {
+					    the_custom_logo();
+					} else { ?>
 					<a href="<?php bloginfo('url'); ?>" class="logo"><?php echo get_bloginfo('name'); ?></a>
+					<?php } ?>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<ul class="fx-nav">
