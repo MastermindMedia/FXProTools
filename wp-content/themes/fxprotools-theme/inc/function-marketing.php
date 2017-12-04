@@ -116,12 +116,11 @@ function get_funnel_stats($funnel_id, $date_filter = array(), $user_id = 0)
 	return $stats;
 }
 
-function get_funnel_visits( $user_id ){
+function get_funnel_visits( $affiliate_id ){
 	global $wpdb;
 
 	$affiliate_cond = '';
-	if( $user_id > 0){
-		$affiliate_id = affwp_get_affiliate_id( $user_id );
+	if( $affiliate_id > 0){
 		$affiliate_cond = "WHERE affiliate_id = {$affiliate_id}";
 	}
 
