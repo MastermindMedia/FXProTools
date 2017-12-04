@@ -23,6 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <?php
+	global $post;
+    $post_slug = $post->post_name;
 	/**
 	 * woocommerce_before_single_product hook.
 	 *
@@ -36,7 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	 }
 ?>
 
-<div id="product-<?php the_ID(); ?>" <?php post_class(); ?>>
+<div id="product-<?php the_ID(); ?>" <?php post_class($post_slug); ?>>
 
 	<?php
 		/**
