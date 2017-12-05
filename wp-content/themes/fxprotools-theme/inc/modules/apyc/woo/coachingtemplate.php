@@ -248,11 +248,11 @@ class Apyc_Woo_CoachingTemplate{
 	public function custom_woocommerce_email_order_meta_fields( $fields, $sent_to_admin, $order ) {
 		$fields['meta_key'] = array(
 			'label' => __( 'Webinar Appointment Date' ),
-			'value' => get_post_meta( $order->id, 'Date', true ),
+			'value' => get_post_meta( $order->get_id(), 'Date', true ),
 		);
 		$fields['meta_key'] = array(
 			'label' => __( 'Webinar Appointment Time' ),
-			'value' => get_post_meta( $order->id, 'Time', true ),
+			'value' => get_post_meta( $order->get_id(), 'Time', true ),
 		);
 		return $fields;
 	}

@@ -16,11 +16,11 @@ function fx_distributor_subscription_products()
 	return array( 48, 2921, 2920 );
 }
 
-function is_user_fx_customer()
+function is_user_fx_customer($user_id = '', $status = 'active')
 {
 	$subscription_products = fx_customer_subscription_products();
 	foreach($subscription_products as $s){
-		if( wcs_user_has_subscription( '', $s, 'active') ){
+		if( wcs_user_has_subscription( $user_id , $s, $status) ){
 			return true;
 		}
 	}
@@ -28,11 +28,11 @@ function is_user_fx_customer()
 }
 
 
-function is_user_fx_distributor()
+function is_user_fx_distributor($user_id  = '', $status = 'active')
 {
 	$subscription_products = fx_distributor_subscription_products();
 	foreach($subscription_products as $s){
-		if( wcs_user_has_subscription( '', $s, 'active') ){
+		if( wcs_user_has_subscription( $user_id , $s, $status) ){
 			return true;
 		}
 	}
