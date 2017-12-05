@@ -86,7 +86,7 @@ class Apyc_Woo_CoachingTemplate{
 	public function enqueue_scripts(){
 		global $theme_version, $woocommerce, $post;
 
-		wp_enqueue_style( 'jquery-ui-theme', 'http://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css' );
+		wp_enqueue_style( 'jquery-ui-theme',  get_template_directory_uri().'/vendors/boostrap-datepicker-1.7.1/css/jquery-ui.css' );
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 		
 		$product_meta_array = array();
