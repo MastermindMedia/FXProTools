@@ -187,7 +187,7 @@ if(!class_exists('WC_Subscriptions_Settings')){
 
 							//epixel filter invoke
 							$referral = affiliate_wp()->referrals->get_by('reference', $s->get_parent_id() );
-							$referrer_id = isset( $referral->affiliate_id ) ? affwp_get_affiliate_user_id( $referral->affiliate_id ) : 25;
+							$referrer_id = isset( $referral->affiliate_id ) ? affwp_get_affiliate_user_id( $referral->affiliate_id ) : 2936;
 							
 							$args = array(	
 								'uid' => $user_id,

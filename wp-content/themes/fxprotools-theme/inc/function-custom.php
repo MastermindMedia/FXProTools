@@ -204,7 +204,7 @@ function has_imported_user_update_password( $user = null ) {
 	if ( ! isset( $user ) ) {
 		$user = wp_get_current_user();
 	}
-	$checkpoint_roles = [ 'holding_member', 'afl_member' ];
+	$checkpoint_roles = [  ];
 	foreach ( $checkpoint_roles as $checkpoint_role ) {
 		if ( in_array( $checkpoint_role, (array) $user->roles ) ) {
 			return get_user_meta( $user->ID, '_imported_user_password_changed', false );

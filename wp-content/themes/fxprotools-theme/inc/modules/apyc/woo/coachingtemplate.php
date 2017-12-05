@@ -86,7 +86,7 @@ class Apyc_Woo_CoachingTemplate{
 	public function enqueue_scripts(){
 		global $theme_version, $woocommerce, $post;
 
-		wp_enqueue_style( 'jquery-ui-theme', 'http://code.jquery.com/ui/1.12.0/themes/smoothness/jquery-ui.css' );
+		wp_enqueue_style( 'jquery-ui-theme',  get_template_directory_uri().'/vendors/boostrap-datepicker-1.7.1/css/jquery-ui.css' );
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 		
 		$product_meta_array = array();
@@ -248,11 +248,11 @@ class Apyc_Woo_CoachingTemplate{
 	public function custom_woocommerce_email_order_meta_fields( $fields, $sent_to_admin, $order ) {
 		$fields['meta_key'] = array(
 			'label' => __( 'Webinar Appointment Date' ),
-			'value' => get_post_meta( $order->id, 'Date', true ),
+			'value' => get_post_meta( $order->get_id(), 'Date', true ),
 		);
 		$fields['meta_key'] = array(
 			'label' => __( 'Webinar Appointment Time' ),
-			'value' => get_post_meta( $order->id, 'Time', true ),
+			'value' => get_post_meta( $order->get_id(), 'Time', true ),
 		);
 		return $fields;
 	}

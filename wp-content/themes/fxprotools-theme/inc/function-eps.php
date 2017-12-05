@@ -4,6 +4,10 @@ eps_commerce_purchase_complete
 eps_commerce_joining_package_purchase_complete
 eps_commerce_distributor_kit_purchase_complete
 eps_affiliates_become_distributor_from_customer
+eps_affiliates_place_user_in_holding_tank
+eps_affiliates_unilevel_place_user_in_holding_tank
+eps_affiliates_place_customer_under_sponsor
+eps_affiliates_place_user_in_holding_tank
  */
 
 function eps_subscription_order_completed( $subscription ) { 
@@ -29,7 +33,6 @@ function eps_subscription_order_completed( $subscription ) {
 	    error_log('Invoked : eps_commerce_purchase_complete ' . print_r($result, true) );
 	}
 
-   
    
 }; 
          
@@ -73,3 +76,36 @@ function eps_switched_from_customer_distributor() {
 }; 
          
 add_action( 'woocommerce_subscriptions_switch_completed', 'eps_switched_from_customer_distributor', 10, 1 ); 
+
+
+function eps_affiliate_place_user_after_order( $subscription, $order, $recurring_cart ) { 
+	$user_id = $order->get_customer_id();
+    $referral = affiliate_wp()->referrals->get_by('reference', $order->get_id() );
+	$referrer_id = isset( $referral->affiliate_id ) ? affwp_get_affiliate_user_id( $referral->affiliate_id ) : 2936;
+
+	if(isset($referrer_id)){
+		if( is_user_fx_customer( $user_id, 'any' ) ){
+			$user = new WP_User( $user_id );
+			$user->add_role( 'afl_customer' ); 
+
+			if( $referrer_id == 2936 || is_user_fx_distributor($referrer_id, 'any') ){
+				do_action('eps_affiliates_unilevel_place_user_in_holding_tank', $user_id, $referrer_id);
+				error_log('Invoked: eps_affiliates_unilevel_place_user_in_holding_tank ' . $user_id . ':' . $referrer_id);
+			}
+			else if( is_user_fx_customer( $referrer_id, 'any' ) ){
+				do_action('eps_affiliates_place_customer_under_sponsor', $user_id, $referrer_id);
+				error_log('Invoked: eps_affiliates_place_customer_under_sponsor ' . $user_id . ':' . $referrer_id);
+			}
+			
+		}
+		if( is_user_fx_distributor($user_id, 'any') ){
+			$user = new WP_User( $user_id );
+			$user->add_role( 'afl_member' );
+			do_action('eps_affiliates_place_user_in_holding_tank', $user_id, $referrer_id);
+			error_log('Invoked: eps_affiliates_place_user_in_holding_tank ' . $user_id . ':' . $referrer_id);
+		}
+	}
+}; 
+         
+add_action( 'woocommerce_checkout_subscription_created', 'eps_affiliate_place_user_after_order', 10, 3 ); 
+
