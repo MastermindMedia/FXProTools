@@ -403,7 +403,7 @@ function get_mb_pto1( $page_element, $pto = 'pto1' ) {
                 $video_url = rwmb_meta( $pto . '_video_url');
             endif;
             $video_autostart        = rwmb_meta( $pto . '_video_autostart');
-            $video_show_controls    = rwmb_meta( $pto . '_video_show_controls');
+            $video_disable_controls = rwmb_meta( $pto . '_video_disable_controls');
             $video_disable_related  = rwmb_meta( $pto . '_video_disable_related');
             $video_hide_info        = rwmb_meta( $pto . '_video_hide_info');
             $video_disable_sharing  = rwmb_meta( $pto . '_video_disable_sharing');
@@ -428,7 +428,7 @@ function get_mb_pto1( $page_element, $pto = 'pto1' ) {
             //     $default_yt_video = "data-ptodefaultyt";
             // }
 
-            $html = '<div class="fx-video-container" ' . $default_yt_video . ' id="' . $float_class . '" data-ptoaction="' . $scroll_class . '" data-ptoautostart="' . implode(' ', $video_autostart) . '" data-ptoshowcontrols="' . implode(' ', $video_show_controls) . '" data-ptohideinfo="'. implode(' ', $video_hide_info) .'" data-ptodisablerelated="'. implode(' ', $video_disable_related) .'" data-ptourl="' . $scroll_url . '">';
+            $html = '<div class="fx-video-container" ' . $default_yt_video . ' id="' . $float_class . '" data-ptoaction="' . $scroll_class . '" data-ptoautostart="' . implode(' ', $video_autostart) . '" data-ptodisablecontrols="' . implode(' ', $video_disable_controls) . '" data-ptohideinfo="'. implode(' ', $video_hide_info) .'" data-ptodisablerelated="'. implode(' ', $video_disable_related) .'" data-ptourl="' . $scroll_url . '">';
             $html .= ( !empty($scroll_class) ) ? '' : wp_oembed_get($video_url) ;
             $html .= '</div>';
             

@@ -3,14 +3,14 @@
         $youtube            = 'youtube.com';
         $vimeo              = 'vimeo.com';
         $auto_start         = $('*[data-ptoautostart*="yes"]');
-        $show_controls      = $('*[data-ptoshowcontrols*="yes"]');
+        $disable_controls   = $('*[data-ptodisablecontrols*="yes"]');
         $disable_related    = $('*[data-ptodisablerelated*="yes"]');
         $hide_info          = $('*[data-ptohideinfo*="yes"]');
         $disable_sharing    = $('*[data-ptodisablesharing*="yes"]');
 
         var youtube = {
             "autoplay"          : "autoplay=1",
-            "showcontrols"      : "controls=1",
+            "disablecontrols"   : "controls=0",
             "disablerelvideos"  : "rel=0",
             "hideinfo"          : "showinfo=0",
             "disablesharing"    : null
@@ -18,7 +18,7 @@
 
         var vimeo = {
             "autoplay"          : "autoplay=1",
-            "showcontrols"      : null,
+            "disablecontrols"   : null,
             "disablerelvideos"  : null,
             "hideinfo"          : "title=0&byline=0&portrait=0",
             // TODO: not working on cross-domain content.
@@ -48,13 +48,13 @@
             }
 
             // show control option only for vimeo.
-            if( $show_controls.length > 0 ){
-                $show_controls.each(function(){
+            if( $disable_controls.length > 0 ){
+                $disable_controls.each(function(){
                     $iframe = $(this).find('iframe');
                     $src = $iframe.attr('src');
 
                     if($src.indexOf($youtube) !== -1){
-                        $new_src = $src.replace( $src, checkQueryString( $src, youtube.showcontrols ) );
+                        $new_src = $src.replace( $src, checkQueryString( $src, youtube.disablecontrols ) );
                         $iframe.attr( 'src', $new_src );
                     }else{
                         return;

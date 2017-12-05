@@ -346,8 +346,8 @@ if(!class_exists('SettingsMB')){
                         'tab'           => $prefix . 'video',
                     ),
                     array(
-                        'name' 			=> 'Show Video Controls',
-                        'id' 			=> $prefix . 'video_show_controls',
+                        'name' 			=> 'Disable Video Controls',
+                        'id' 			=> $prefix . 'video_disable_controls',
                         'type' 			=> 'checkbox_list',
                         'placeholder'	=> '',
                         'options'		=> array(
@@ -545,8 +545,8 @@ if(!class_exists('SettingsMB')){
                         'tab'           => $prefix . 'video',
                     ),
                     array(
-                        'name' 			=> 'Show Video Controls',
-                        'id' 			=> $prefix . 'video_show_controls',
+                        'name' 			=> 'Disable Video Controls',
+                        'id' 			=> $prefix . 'video_disable_controls',
                         'type' 			=> 'checkbox_list',
                         'placeholder'	=> '',
                         'options'		=> array(
@@ -744,8 +744,8 @@ if(!class_exists('SettingsMB')){
                         'tab'           => $prefix . 'video',
                     ),
                     array(
-                        'name' 			=> 'Show Video Controls',
-                        'id' 			=> $prefix . 'video_show_controls',
+                        'name' 			=> 'Disable Video Controls',
+                        'id' 			=> $prefix . 'video_disable_controls',
                         'type' 			=> 'checkbox_list',
                         'placeholder'	=> '',
                         'options'		=> array(
