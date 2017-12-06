@@ -8,7 +8,7 @@
 			<div class="col-md-12">
 				<div class="fx-header-title">
 					<h1>Go To Your "Matrix" Holding Tank</h1>
-					<p><a href="<?php bloginfo('url'); ?>/team/matrix-tree/"></a><?php bloginfo('url'); ?>/team/matrix-tree/</p>
+					<p><a href="<?php bloginfo('url'); ?>/team/matrix-tree/"><?php bloginfo('url'); ?>/team/matrix-tree/</a></p>
 				</div>
 			</div>
 		</div>
