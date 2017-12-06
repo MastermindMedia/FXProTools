@@ -103,6 +103,8 @@ function eps_affiliate_place_user_after_order( $subscription, $order, $recurring
 			$user->add_role( 'afl_member' );
 			do_action('eps_affiliates_place_user_in_holding_tank', $user_id, $referrer_id);
 			error_log('Invoked: eps_affiliates_place_user_in_holding_tank ' . $user_id . ':' . $referrer_id);
+			do_action('eps_affiliates_unilevel_place_user_in_holding_tank', $user_id, $referrer_id);
+			error_log('Invoked: eps_affiliates_unilevel_place_user_in_holding_tank ' . $user_id . ':' . $referrer_id);
 		}
 	}
 }; 
