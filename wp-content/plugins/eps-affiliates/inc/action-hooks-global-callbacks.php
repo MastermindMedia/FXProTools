@@ -190,7 +190,7 @@
 	 	// 	$response['response']	=	'Failure';
 	 	// 	$response['error'][] 	= 'Affiliate point needs to be an integer number';
 	 	// }
-
+	 	$args['category'] = 'Distributor Kit';
 	 	//details enter to the purchase table
 	 	if ( empty($response['error'])){
 	 		$ins = afl_purchase($args);

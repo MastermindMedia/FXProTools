@@ -111,7 +111,7 @@ function afl_user_payment_method_form(){
 			$rows[$i][$key] = array(
 				'#type' 					=> 'checkbox',
 				'#default_value' 	=> $flag,
-				'#attributes' 		=> array('switch' => 'switch', 'class'=> array('single-switch-checkbox') ),
+				// '#attributes' 		=> array('switch' => 'switch', 'class'=> array('single-switch-checkbox') ),
 			);
 			// $link = '?page=user-payment-conf-'.$key;
 			$link = '?page=affiliate-eps-payment_method&tab='.$key;
@@ -201,7 +201,6 @@ function afl_user_payment_method_form_submit($form_state){
   }
    if($q) {
      echo wp_set_message(__('Your payment method saved successfully.'), 'success');
-      // wp_redirect('?page=affiliate-eps-payment_method&tab='.$payment_method);
    }
 }
 
