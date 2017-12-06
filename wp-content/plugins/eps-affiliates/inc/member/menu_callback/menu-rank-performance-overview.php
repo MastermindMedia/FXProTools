@@ -339,6 +339,7 @@ function afl_rank_performance_overview_shortcode_callback () {
 	 		$below_rank = $i - 1;
 			  if ($below_rank > 0 ) {
 			  	for ($j = 1; $j <= $below_rank ; $j++) { 
+			  		$count_all = FALSE;
 			  		$required = afl_variable_get('rank_'.$i.'_rank_'.$j.'_required_count',0);
 			  		// $in_each 	= afl_variable_get('rank_'.$i.'_rank_'.$j.'_required_each_leg',0);
 			  		$in_leg_count = afl_variable_get('rank_'.$i.'_rank_'.$j.'_required_in_legs');
