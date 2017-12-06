@@ -493,9 +493,12 @@ function  afl_user_payment_autherization_form(){
 	$table = $wpdb->prefix .'afl_user_payment_methods';
 	$check = $wpdb->get_row("SELECT  * FROM `$table` WHERE `uid` = $uid ");
 
-	if(! $check){
-		wp_redirect('?page=affiliate-eps-payment_method');
-	}
+	 if(! $check){
+   	$redirect = afl_variable_get('redirect_select_payment_method');
+		if ( !empty($redirect)) {
+			header("Location:".$redirect." ");
+		}
+  }
 	$form = array();
 	 $form['#method'] = 'post';
 	 $form['#action'] = $_SERVER['REQUEST_URI'];
@@ -624,11 +627,25 @@ function afl_user_payment_conf_method_hyperwallet_form(){
 	$table = $wpdb->prefix .'afl_user_payment_methods';
   $check = $wpdb->get_row("SELECT  * FROM `$table` WHERE `uid` = $uid AND `method` = 'method_hyperwallet' AND `status` = 1 ");
   if(! $check){
-   	$redirect = afl_variable_get('redirect_select_payment_method_detail');
+   	$redirect = afl_variable_get('redirect_select_payment_method');
 		if ( !empty($redirect)) {
 			header("Location:".$redirect." ");
 		}
   }
+
+  //check set transaction password
+  $table = $wpdb->prefix. 'afl_transaction_authorization';
+	$password = $wpdb->get_row("SELECT * FROM $table WHERE (uid = '$uid' )");
+	if(!$password){
+		echo wp_set_message('Please create a transaction password before proceeding', 'warning');
+		$redirect = afl_variable_get('redirect_set_transaction_password');
+			if ( !empty($redirect)) {
+				header("Location:".$redirect." ");
+			}
+		/*
+			goto set payment password set forms
+		*/
+	}
 // pr($check,1);
 	$data = json_decode($check->data);
 	// pr($_SERVER['REQUEST_URI']);

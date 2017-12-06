@@ -653,16 +653,27 @@
  * ---------------------------------------------------------
 */
  function eps_affiliates_place_user_in_holding_tank_callback ($uid = '', $sponsor = '') {
- 	
- 		global $wpdb;
- 		$reg_obj = new Eps_affiliates_registration;
-    //adds to the holding tank
-    $reg_obj->afl_add_to_holding_tank(
-    							array(
-										'sponsor_uid' => $sponsor,
-										'uid'					=> $uid,
-									)
-							);
+ 		//check the user already in afl_user_holding_tank
+		$query['#select'] = _table_name('afl_user_holding_tank');
+    $query['#where'] = array(
+      '`'._table_name('afl_user_holding_tank').'`.`uid`='.$uid,
+      '`'._table_name('afl_user_holding_tank').'`.`referrer_uid`='.$sponsor
+    );
+    $exist = db_select($query, 'get_row');
+    
+    //if not exist
+    if ( !$exist) {
+    	global $wpdb;
+	 		$reg_obj = new Eps_affiliates_registration;
+	    //adds to the holding tank
+	    $reg_obj->afl_add_to_holding_tank(
+	    							array(
+											'sponsor_uid' => $sponsor,
+											'uid'					=> $uid,
+										)
+								);
+    } 
+ 		
  }
  /*
  * ---------------------------------------------------------
@@ -670,16 +681,26 @@
  * ---------------------------------------------------------
 */
  function eps_affiliates_unilevel_place_user_in_holding_tank_callback ($uid = '', $sponsor = '') {
- 	
- 		global $wpdb;
- 		$reg_obj = new Eps_affiliates_unilevel_registration;
-    //adds to the holding tank
-    $reg_obj->afl_add_to_holding_tank(
-    							array(
-										'sponsor_uid' => $sponsor,
-										'uid'					=> $uid,
-									)
-							);
+ 		
+ 		//check the user already in afl_unilevel_user_holding_tankHide
+		$query['#select'] = _table_name('afl_unilevel_user_holding_tankHide');
+    $query['#where'] = array(
+      '`'._table_name('afl_unilevel_user_holding_tankHide').'`.`uid`='.$uid,
+      '`'._table_name('afl_unilevel_user_holding_tankHide').'`.`referrer_uid`='.$sponsor
+    );
+    $exist = db_select($query, 'get_row');
+    //if not exist
+    if ( !$exist) {
+	 		global $wpdb;
+	 		$reg_obj = new Eps_affiliates_unilevel_registration;
+	    //adds to the holding tank
+	    $reg_obj->afl_add_to_holding_tank(
+	    							array(
+											'sponsor_uid' => $sponsor,
+											'uid'					=> $uid,
+										)
+								);
+	  }
  }
 /*-------------------------------------------------------------------------------------------------------------*/
 
@@ -691,13 +712,23 @@
  * -------------------------------------------------------
 */
 	function eps_affiliates_place_user_under_sponsor_callback ($uid = '', $sponsor = '') {
-		$reg_obj = new Eps_affiliates_registration;
-		$reg_obj->afl_join_member(
-									array(
-										'sponsor_uid' => $sponsor,
-										'uid'					=> $uid,
-									)
-							);
+		//check the user already in afl_user_genealogy
+		$query['#select'] = _table_name('afl_user_genealogy');
+    $query['#where'] = array(
+      '`'._table_name('afl_user_genealogy').'`.`uid`='.$uid,
+      '`'._table_name('afl_user_genealogy').'`.`referrer_uid`='.$sponsor
+    );
+    $exist = db_select($query, 'get_row');
+     //if not exist
+    if ( !$exist) {
+			$reg_obj = new Eps_affiliates_registration;
+			$reg_obj->afl_join_member(
+										array(
+											'sponsor_uid' => $sponsor,
+											'uid'					=> $uid,
+										)
+								);
+		}
 
 	}
 /*
@@ -706,13 +737,23 @@
  * -------------------------------------------------------
 */
 	function eps_affiliates_unilevel_place_user_under_sponsor_callback ($uid = '', $sponsor = '') {
-		$reg_obj = new Eps_affiliates_unilevel_registration;
-		$reg_obj->afl_join_unilevel_member(
-									array(
-										'sponsor_uid' => $sponsor,
-										'uid'					=> $uid,
-									)
-							);
+		//check the user already in afl_user_genealogy
+		$query['#select'] = _table_name('afl_user_genealogy');
+    $query['#where'] = array(
+      '`'._table_name('afl_user_genealogy').'`.`uid`='.$uid,
+      '`'._table_name('afl_user_genealogy').'`.`referrer_uid`='.$sponsor
+    );
+    $exist = db_select($query, 'get_row');
+      //if not exist
+    if ( !$exist) {
+			$reg_obj = new Eps_affiliates_unilevel_registration;
+			$reg_obj->afl_join_unilevel_member(
+										array(
+											'sponsor_uid' => $sponsor,
+											'uid'					=> $uid,
+										)
+								);
+		}
 
 	}
 /*-------------------------------------------------------------------------------------------------------------*/

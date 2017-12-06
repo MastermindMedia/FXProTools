@@ -17,7 +17,7 @@
 */
 	function eps_affiliates_holding_tank_user_expiry_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_holding_tank_user_expiry_scheduler' ) ) {  
-		   wp_schedule_event( time(), 'everyhour', 'eps_affiliates_holding_tank_user_expiry_scheduler' );  
+		   wp_schedule_event( time(), 'six_mins', 'eps_affiliates_holding_tank_user_expiry_scheduler' );  
 		}
 	}
 
@@ -59,7 +59,7 @@
 */
 	function eps_affiliates_unilevel_holding_tank_user_expiry_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_unilevel_holding_tank_user_expiry_scheduler' ) ) {  
-		   wp_schedule_event( time(), 'everyhour', 'eps_affiliates_unilevel_holding_tank_user_expiry_scheduler' );  
+		   wp_schedule_event( time(), 'six_mins', 'eps_affiliates_unilevel_holding_tank_user_expiry_scheduler' );  
 		}
 	}
 
@@ -101,7 +101,7 @@
 */
 	function eps_affiliates_monthly_matrix_compensation_payout_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_monthly_matrix_compensation_payout' ) ) {  
-		   wp_schedule_event( time(), 'everyhour', 'eps_affiliates_monthly_matrix_compensation_payout' );  
+		   wp_schedule_event( time(), 'six_mins', 'eps_affiliates_monthly_matrix_compensation_payout' );  
 		}
 	}
 /*
@@ -156,7 +156,7 @@
 */
 	function eps_affiliates_monthly_release_holding_bonus_payouts_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_monthly_release_holding_bonus_payouts' ) ) {  
-		   wp_schedule_event( time(), 'everyhour', 'eps_affiliates_monthly_release_holding_bonus_payouts' );  
+		   wp_schedule_event( time(), 'six_mins', 'eps_affiliates_monthly_release_holding_bonus_payouts' );  
 		}
 	}
 
@@ -181,7 +181,7 @@
 */
 	function eps_affiliates_monthly_pool_bonus_payout_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_monthly_pool_bonus_payout' ) ) {  
-		   wp_schedule_event( time(), 'everyhour', 'eps_affiliates_monthly_pool_bonus_payout' );  
+		   wp_schedule_event( time(), 'six_mins', 'eps_affiliates_monthly_pool_bonus_payout' );  
 		}
 	}
 /*
@@ -225,7 +225,7 @@
 */
 	function eps_affiliates_remote_users_embedd_cron_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_remote_users_embedd_cron' ) ) {  
-		   wp_schedule_event( time(), 'everyhour', 'eps_affiliates_remote_users_embedd_cron' );  
+		   wp_schedule_event( time(), 'six_mins', 'eps_affiliates_remote_users_embedd_cron' );  
 		}
 	}
 /*
@@ -273,7 +273,7 @@
 */
 	function eps_affiliates_deactived_spot_openup_cron_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_deactived_spot_openup_cron' ) ) {  
-		   wp_schedule_event( time(), 'everyhour', 'eps_affiliates_deactived_spot_openup_cron' );  
+		   wp_schedule_event( time(), 'six_mins', 'eps_affiliates_deactived_spot_openup_cron' );  
 		}
 	}
 /*
@@ -317,7 +317,7 @@
 */
 	function eps_affiliates_bonus_incentive_cron_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_bonus_incentive_cron' ) ) {  
-		   wp_schedule_event( time(), 'everyhour', 'eps_affiliates_bonus_incentive_cron' );  
+		   wp_schedule_event( time(), 'six_mins', 'eps_affiliates_bonus_incentive_cron' );  
 		}
 	}
 /*
@@ -352,7 +352,7 @@
  * -------------------------------------------------------------
 */
 	function cron_add_hour( $schedules ) {
-	    $schedules['everyhour'] = array(
+	    $schedules['six_mins'] = array(
 		    'interval' => 360,
 		    'display' => __( 'Once Every Hour' )
 	    );

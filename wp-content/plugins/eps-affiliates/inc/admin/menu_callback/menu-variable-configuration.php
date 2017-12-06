@@ -13,7 +13,7 @@ function afl_admin_variable_configurations (){
  * ------------------------------------------------------------
 */
  function afl_variable_tabs () {
-		new Afl_enque_scripts('common');
+		
  	
  	$tabs = array();
  	$tabs['system_variables'] = array(
@@ -190,9 +190,9 @@ function afl_payment_methods_form(){
 	if (isset($_POST['submit'])) {
  			$variables = $_POST;
  			unset($variables['submit']);
- 			if (afl_payment_methods_form_validation($variables)) {
+ 			//if (afl_payment_methods_form_validation($variables)) {
  				afl_payment_methods_form_submit($variables);
- 			}
+ 			//}
  		}
 
  		$form = array();
@@ -541,7 +541,7 @@ function afl_page_redirection_conf () {
 	 		'#default_value' 	=> afl_variable_get('redirect_select_payment_method', ''),
 	 		'#prefix'					=> '<div class="form-group row">',
 	 		'#suffix' 				=> '</div>',
-	 		'#required' 			=> TRUE
+	 		// '#required' 			=> TRUE
 
 	 	);
 
@@ -551,7 +551,7 @@ function afl_page_redirection_conf () {
 	 		'#default_value' 	=> afl_variable_get('redirect_select_payment_method_detail', ''),
 	 		'#prefix'					=> '<div class="form-group row">',
 	 		'#suffix' 				=> '</div>',
-	 		'#required' 			=> TRUE
+	 		// '#required' 			=> TRUE
 
 	 	);
 
@@ -561,7 +561,7 @@ function afl_page_redirection_conf () {
 	 		'#default_value' 	=> afl_variable_get('redirect_set_transaction_password', ''),
 	 		'#prefix'					=> '<div class="form-group row">',
 	 		'#suffix' 				=> '</div>',
-	 		'#required' 			=> TRUE
+	 		// '#required' 			=> TRUE
 
 	 	);
 

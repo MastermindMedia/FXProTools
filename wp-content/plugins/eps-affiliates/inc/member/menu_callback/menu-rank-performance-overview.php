@@ -2,6 +2,7 @@
 
 function afl_rank_performance_overview () {
 	echo afl_eps_page_header();
+		new Afl_enque_scripts('common');
 	
 	echo afl_content_wrapper_begin();
 		afl_rank_occured_details();
@@ -10,6 +11,14 @@ function afl_rank_performance_overview () {
 		afl_rank_performance_overview_template();
 	echo afl_content_wrapper_end();
 }
+
+function afl_rank_performance_overview_shortcode_callback () {
+		afl_rank_occured_details();
+		afl_rank_group_volume_details();
+		// afl_rank_leg_customer_sales();
+		afl_rank_performance_overview_template();
+}
+
 /*
  * ------------------------------------------
  * sales under each leg

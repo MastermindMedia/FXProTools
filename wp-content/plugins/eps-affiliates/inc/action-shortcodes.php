@@ -97,3 +97,12 @@ add_shortcode( 'hyper_wallet_acc_form',
 //withdraw fund form
 add_shortcode( 'withdraw_fund_form',
     									 'afl_ewallet_withdraw_fund_form' );
+
+
+//rank overview
+
+add_shortcode( 'afl_rank_performance_overview_shortcode',
+    									 'afl_rank_performance_overview_shortcode_callback' );\
+//rank overview
+add_shortcode( 'afl_incentive_history_report',
+    									 'afl_incentive_history_report_table' );

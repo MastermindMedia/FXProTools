@@ -79,32 +79,40 @@ add_action( 'woocommerce_subscriptions_switch_completed', 'eps_switched_from_cus
 
 
 function eps_affiliate_place_user_after_order( $subscription, $order, $recurring_cart ) { 
+
 	$user_id = $order->get_customer_id();
-    $referral = affiliate_wp()->referrals->get_by('reference', $order->get_id() );
-	$referrer_id = isset( $referral->affiliate_id ) ? affwp_get_affiliate_user_id( $referral->affiliate_id ) : 2936;
+	//check the user is already placed in any one of the tree,
+	//if he placed then we doesnot need to add this user again holding tank.
+	$matrix_node = afl_genealogy_node( $user_id );
+	$uni_node 	 = afl_genealogy_node( $user_id , 'unilevel');
 
-	if(isset($referrer_id)){
-		if( is_user_fx_customer( $user_id, 'any' ) ){
-			$user = new WP_User( $user_id );
-			$user->add_role( 'afl_customer' ); 
+	if ( empty($uni_node ) && empty($matrix_node) ) {
+		$referral = affiliate_wp()->referrals->get_by('reference', $order->get_id() );
+		$referrer_id = isset( $referral->affiliate_id ) ? affwp_get_affiliate_user_id( $referral->affiliate_id ) : 2936;
 
-			if( $referrer_id == 2936 || is_user_fx_distributor($referrer_id, 'any') ){
+		if(isset($referrer_id)){
+			if( is_user_fx_customer( $user_id, 'any' ) ){
+				$user = new WP_User( $user_id );
+				$user->add_role( 'afl_customer' ); 
+
+				if( $referrer_id == 2936 || is_user_fx_distributor($referrer_id, 'any') ){
+					do_action('eps_affiliates_unilevel_place_user_in_holding_tank', $user_id, $referrer_id);
+					error_log('Invoked: eps_affiliates_unilevel_place_user_in_holding_tank ' . $user_id . ':' . $referrer_id);
+				}
+				else if( is_user_fx_customer( $referrer_id, 'any' ) ){
+					do_action('eps_affiliates_place_customer_under_sponsor', $user_id, $referrer_id);
+					error_log('Invoked: eps_affiliates_place_customer_under_sponsor ' . $user_id . ':' . $referrer_id);
+				}
+				
+			}
+			if( is_user_fx_distributor($user_id, 'any') ){
+				$user = new WP_User( $user_id );
+				$user->add_role( 'afl_member' );
+				do_action('eps_affiliates_place_user_in_holding_tank', $user_id, $referrer_id);
+				error_log('Invoked: eps_affiliates_place_user_in_holding_tank ' . $user_id . ':' . $referrer_id);
 				do_action('eps_affiliates_unilevel_place_user_in_holding_tank', $user_id, $referrer_id);
 				error_log('Invoked: eps_affiliates_unilevel_place_user_in_holding_tank ' . $user_id . ':' . $referrer_id);
 			}
-			else if( is_user_fx_customer( $referrer_id, 'any' ) ){
-				do_action('eps_affiliates_place_customer_under_sponsor', $user_id, $referrer_id);
-				error_log('Invoked: eps_affiliates_place_customer_under_sponsor ' . $user_id . ':' . $referrer_id);
-			}
-			
-		}
-		if( is_user_fx_distributor($user_id, 'any') ){
-			$user = new WP_User( $user_id );
-			$user->add_role( 'afl_member' );
-			do_action('eps_affiliates_place_user_in_holding_tank', $user_id, $referrer_id);
-			error_log('Invoked: eps_affiliates_place_user_in_holding_tank ' . $user_id . ':' . $referrer_id);
-			do_action('eps_affiliates_unilevel_place_user_in_holding_tank', $user_id, $referrer_id);
-			error_log('Invoked: eps_affiliates_unilevel_place_user_in_holding_tank ' . $user_id . ':' . $referrer_id);
 		}
 	}
 }; 

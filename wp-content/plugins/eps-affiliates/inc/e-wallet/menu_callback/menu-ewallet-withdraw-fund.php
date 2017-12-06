@@ -31,14 +31,16 @@ function afl_ewallet_withdraw_fund_form(){
 	 }
 	$table = $wpdb->prefix. 'afl_user_payment_methods';
 	$payment_method = $wpdb->get_row("SELECT * FROM $table WHERE (uid = '$uid' AND status= '". 1 ."')");
-	if ( !$payment_method->completed) {
-		$redirect = afl_variable_get('redirect_select_payment_method_detail');
+
+	if(!$payment_method){
+			$redirect = afl_variable_get('redirect_select_payment_method');
 			if ( !empty($redirect)) {
 				header("Location:".$redirect." ");
 			}
 			echo wp_set_message('Please set your payment method details first before proceeding withdrawal ', 'warning');
-	}	else if(!$payment_method){
-			$redirect = afl_variable_get('redirect_select_payment_method');
+	}
+	else if ( !$payment_method->completed) {
+		$redirect = afl_variable_get('redirect_select_payment_method_detail');
 			if ( !empty($redirect)) {
 				header("Location:".$redirect." ");
 			}

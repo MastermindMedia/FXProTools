@@ -148,7 +148,7 @@ if (!empty($parent)) :
 <?php else : ?>
     <div class="panel panel-default">
       <div class="panel-body">
-        Unable to view genealogy.
+        Unable to view genealogy.You are not placed the parent's unilevel tree yet.
       </div>
     </div>
 <?php endif;

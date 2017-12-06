@@ -824,7 +824,7 @@ body {
   left: 0;
 }
 
-.navbar {
+/*.navbar {
   margin: 0;
   border-width: 0;
   border-radius: 0;
@@ -885,7 +885,7 @@ body {
   max-height: 20px;
   margin-top: -4px;
   vertical-align: middle;
-}
+}*/
 
 @media (min-width: 768px) {
   .app-aside,

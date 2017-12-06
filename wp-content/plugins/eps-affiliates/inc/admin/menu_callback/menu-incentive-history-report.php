@@ -1,6 +1,7 @@
 <?php 
 
 function afl_incentive_history_report () {
+		new Afl_enque_scripts('common');
 	echo afl_eps_page_header();
 	afl_content_wrapper_begin();
 		afl_incentive_history_report_table();
@@ -8,7 +9,6 @@ function afl_incentive_history_report () {
 }
 
 function afl_incentive_history_report_table () {
-		new Afl_enque_scripts('common');
 	
 	$pagination = new CI_Pagination;
 
