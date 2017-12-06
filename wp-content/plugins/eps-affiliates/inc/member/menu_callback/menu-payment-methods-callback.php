@@ -624,7 +624,10 @@ function afl_user_payment_conf_method_hyperwallet_form(){
 	$table = $wpdb->prefix .'afl_user_payment_methods';
   $check = $wpdb->get_row("SELECT  * FROM `$table` WHERE `uid` = $uid AND `method` = 'method_hyperwallet' AND `status` = 1 ");
   if(! $check){
-   	wp_redirect('http://woocommerce-plugin/affiliate-area/');
+   	$redirect = afl_variable_get('redirect_select_payment_method_detail');
+		if ( !empty($redirect)) {
+			header("Location:".$redirect." ");
+		}
   }
 // pr($check,1);
 	$data = json_decode($check->data);
