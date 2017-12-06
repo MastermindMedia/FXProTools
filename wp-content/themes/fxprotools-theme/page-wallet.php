@@ -45,7 +45,7 @@
 				<div class="fx-header-title">
 					<h1>How Can We Pay You?</h1>
 					<p>Setup your payment methods for commissions</p>
-				</div>	
+				</div>
 				<div class="panel panel-default epx wallet-form">
 					<div class="panel-body">
 						<?php echo do_shortcode('[hyper_wallet_acc_form]'); ?>
