@@ -108,35 +108,31 @@
 		do_shortcode('[afl_genealogy_info]');
 		echo '</div>';
 
-		//Hyperwallet form
-		echo '<div class="row" style="border:3px solid #ccc;padding:4px;margin:25px 0px 0px 0px;background:#fff;">';
-		echo '<h3 class="text-center">Hyperwallet conf : [hyper_wallet_acc_form] </h3>';
-		do_shortcode('[hyper_wallet_acc_form]');
-		echo '</div>';
+
 
 		//set transaction password
-		echo '<div class="row" style="border:3px solid #ccc;padding:4px;margin:25px 0px 0px 0px;background:#fff;">';
-		echo '<h3 class="text-center">Set transaction password : [set_transaction_password] </h3>';
-		do_shortcode('[set_transaction_password]');
-		echo '</div>';
+		// echo '<div class="row" style="border:3px solid #ccc;padding:4px;margin:25px 0px 0px 0px;background:#fff;">';
+		// echo '<h3 class="text-center">Set transaction password : [set_transaction_password] </h3>';
+		// do_shortcode('[set_transaction_password]');
+		// echo '</div>';
 
 			// set transaction password
-		echo '<div class="row" style="border:3px solid #ccc;padding:4px;margin:25px 0px 0px 0px;background:#fff;">';
-		echo '<h3 class="text-center">Select payment method form : [select_payment_method_form] </h3>';
-		do_shortcode('[select_payment_method_form]');
-		echo '</div>';
+		// echo '<div class="row" style="border:3px solid #ccc;padding:4px;margin:25px 0px 0px 0px;background:#fff;">';
+		// echo '<h3 class="text-center">Select payment method form : [select_payment_method_form] </h3>';
+		// do_shortcode('[select_payment_method_form]');
+		// echo '</div>';
 
 				//set transaction password
-		echo '<div class="row" style="border:3px solid #ccc;padding:4px;margin:25px 0px 0px 0px;background:#fff;">';
-		echo '<h3 class="text-center">Hyper wallet : [hyper_wallet_acc_form] </h3>';
-		do_shortcode('[hyper_wallet_acc_form]');
-		echo '</div>';
+		// echo '<div class="row" style="border:3px solid #ccc;padding:4px;margin:25px 0px 0px 0px;background:#fff;">';
+		// echo '<h3 class="text-center">Hyper wallet : [hyper_wallet_acc_form] </h3>';
+		// do_shortcode('[hyper_wallet_acc_form]');
+		// echo '</div>';
 
 				// set transaction password
-		echo '<div class="row" style="border:3px solid #ccc;padding:4px;margin:25px 0px 0px 0px;background:#fff;">';
-		echo '<h3 class="text-center">Withdraw Fund : [withdraw_fund_form] </h3>';
-		do_shortcode('[withdraw_fund_form]');
-		echo '</div>';
+		// echo '<div class="row" style="border:3px solid #ccc;padding:4px;margin:25px 0px 0px 0px;background:#fff;">';
+		// echo '<h3 class="text-center">Withdraw Fund : [withdraw_fund_form] </h3>';
+		// do_shortcode('[withdraw_fund_form]');
+		// echo '</div>';
 
 				//set transaction password
 		echo '<div class="row" style="border:3px solid #ccc;padding:4px;margin:25px 0px 0px 0px;background:#fff;">';
