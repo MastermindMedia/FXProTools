@@ -28,7 +28,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<?php echo do_shortcode('[afl_eps_unilevel_holding_tank]'); ?>
+				<?php echo do_shortcode('[afl_eps_matrix_holding_tank]'); ?>
 			</div>
 		</div>
 	</div>
