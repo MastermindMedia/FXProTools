@@ -147,6 +147,7 @@
 .genealogy-hierarchy .person .bx-wrapper .bx-controls-direction .bx-prev{left: 0px;}
 
 
+.form-item.clearfix.form-type-checkbox .i-checks {display: block;}
 
   /* small screen */
 @media (max-width: 768px) {
