@@ -79,9 +79,21 @@ add_shortcode('afl_bonus_summary_and_incentives',
 
 
 
+
+
+
+//set transaction password
+add_shortcode( 'set_transaction_password',
+    									 'afl_user_payment_autherization_form' );
+//withdrawselect payment method
+add_shortcode( 'select_payment_method_form',
+    									 'afl_user_payment_method_form' );
 // Hyper Wallet User Details Table
 add_shortcode( 'hyper_wallet_acc_detail',
     									 'show_hyper_wallet' );
 // Hyper Wallet User Details Table
-add_shortcode( 'hyper_wallet_acc_form_',
+add_shortcode( 'hyper_wallet_acc_form',
     									 'afl_user_payment_conf_method_hyperwallet_form' );
+//withdraw fund form
+add_shortcode( 'withdraw_fund_form',
+    									 'afl_ewallet_withdraw_fund_form' );

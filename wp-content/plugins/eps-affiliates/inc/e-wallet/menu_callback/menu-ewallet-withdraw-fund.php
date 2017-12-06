@@ -5,6 +5,8 @@
  * -------------------------------------------------------------------
 */
 function afl_ewallet_withdraw_fund(){
+	new Afl_enque_scripts('common');
+
 	echo afl_eps_page_header();
 	echo afl_content_wrapper_begin();
 		afl_ewallet_withdraw_fund_form();
@@ -17,8 +19,7 @@ function afl_ewallet_withdraw_fund(){
  * -------------------------------------------------------------------
 */
 function afl_ewallet_withdraw_fund_form(){
-		new Afl_enque_scripts('common');
-	
+
 	global $wpdb;
 	$uid 					 = get_current_user_id();
 
@@ -30,8 +31,17 @@ function afl_ewallet_withdraw_fund_form(){
 	 }
 	$table = $wpdb->prefix. 'afl_user_payment_methods';
 	$payment_method = $wpdb->get_row("SELECT * FROM $table WHERE (uid = '$uid' AND status= '". 1 ."')");
-	if(!$payment_method || !$payment_method->completed){
-				header("Location: ?page=affiliate-eps-payment_method");
+	if ( !$payment_method->completed) {
+		$redirect = afl_variable_get('redirect_select_payment_method_detail');
+			if ( !empty($redirect)) {
+				header("Location:".$redirect." ");
+			}
+			echo wp_set_message('Please set your payment method details first before proceeding withdrawal ', 'warning');
+	}	else if(!$payment_method){
+			$redirect = afl_variable_get('redirect_select_payment_method');
+			if ( !empty($redirect)) {
+				header("Location:".$redirect." ");
+			}
 			echo wp_set_message('Please set your payment method details first before proceeding withdrawal ', 'warning');
 	}
 	else{
@@ -39,7 +49,10 @@ function afl_ewallet_withdraw_fund_form(){
 		$password = $wpdb->get_row("SELECT * FROM $table WHERE (uid = '$uid' )");
   	if(!$password){
   		echo wp_set_message('Please create a transaction password before proceeding', 'warning');
-  		header("Location: ?page=affiliate-eps-payment_method&tab=autherization");
+  		$redirect = afl_variable_get('redirect_set_transaction_password');
+				if ( !empty($redirect)) {
+					header("Location:".$redirect." ");
+				}
   		/*
 				goto set payment password set forms
 			*/
@@ -212,6 +225,7 @@ function afl_ewallet_withdraw_fund_form(){
  * -------------------------------------------------------------------
 */
 function afl_ewallet_withdraw_fund_form_validation($form_state){
+	
 	global $wpdb;
 	$uid 		 = get_current_user_id();
 	if($form_state['password'] && $form_state['withdrwal_amount']){
@@ -264,7 +278,7 @@ function afl_ewallet_withdraw_fund_form_validation($form_state){
 		    return false;
     	}
     	if($requested_amount < $withdrawal_min_value){
-    		echo wp_set_message(__('Withdrawal amount should be greater or equal to '. ($withdrawal_min_value) ), 'danger');
+    		echo wp_set_message(__("Withdrawal amount should be greater or equal to ". ($withdrawal_min_value) ), "danger");
 		    return false;
   		}
   		if($requested_amount > $eligible_amount){
@@ -275,7 +289,7 @@ function afl_ewallet_withdraw_fund_form_validation($form_state){
 
 	}
 	else{
-		echo wp_set_message(__(' "Amount to be withdraw" and "Transaction Password" fields are required .'), 'danger');
+		echo wp_set_message(__('Amount to be withdraw and Transaction Password fields are required .'), 'danger');
 	}
 }
 

@@ -4,7 +4,7 @@ jQuery(document).ready(function(){
 
   jQuery('[data-toggle="tooltip"]').tooltip();   
   
-  jQuery('body').addClass('eps');
+   
     
 
 });

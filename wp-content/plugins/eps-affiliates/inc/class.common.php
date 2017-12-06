@@ -345,7 +345,7 @@ $common_include = new Eps_affiliates_common();
 				break;
 				case 'submit':
 					$bt_name = !empty($element['#name']) ? $element['#name'] : 'submit';
-					$html .= '<input type="submit" class=" btn btn-danger '.$class.'" value="'.$element['#value'].'" name="'.$bt_name.'">';
+					$html .= '<input type="submit" class=" btn btn-primary '.$class.'" value="'.$element['#value'].'" name="'.$bt_name.'">';
 				break;
 				case 'label':
 					$html .= '<label class="label-style '.$class.'">'.$element['#title'].'</label>';
