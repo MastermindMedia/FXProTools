@@ -66,6 +66,7 @@ $custom_functions = array(
     'function-wc-subscriptions', // WC Subscription settings,
     'function-subscriptions', //  Subscription functions,
     'function-email', // Email,
+    'function-eps', //EPS action and filters
     'function-custom', // All custom functions
 );
 

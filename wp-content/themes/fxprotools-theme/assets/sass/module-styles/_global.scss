@@ -25,6 +25,10 @@ body {
     font-size: 14px;
     background-color: $smokey!important;
 }
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+   opacity: 1;
+}
 
 // Typography
 h1, h2, h3, h4, h5, h6 {

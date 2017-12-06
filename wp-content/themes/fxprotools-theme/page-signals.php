@@ -465,7 +465,7 @@
 								<li class="col-md-6">
 									<div class="faq-item no-border">
 										<span class="question"><i class="fa fa-question-circle"></i> If I have a question about your website, can I talk to someone?</span>
-										<div class="answer">Yes! We have a first class support team who can answer your questions 24 hours a day, 7 days a week! Just click on the "support" link on the bottom of any of our pages or go to http://support.fxprotools.com </div>
+										<div class="answer">Yes! We have a first class support team who can answer your questions 24 hours a day, 7 days a week! Just click on the "support" link on the bottom of any of our pages or go to http://support.copyprofitsuccess.com </div>
 									</div>
 								</li>
 								<li class="col-md-6">

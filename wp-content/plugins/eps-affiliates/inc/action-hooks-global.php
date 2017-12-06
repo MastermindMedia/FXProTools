@@ -14,6 +14,14 @@
 */
  add_filter('eps_commerce_joining_package_purchase_complete', 
  						'eps_commerce_joining_package_purchase_complete', 10, 1);
+ /*
+ * ------------------------------------------------------------
+ * Hook after purchas setup fee complete save details 
+ * to eps backend
+ * ------------------------------------------------------------
+*/
+ add_filter('eps_commerce_package_set_up_fee', 
+ 						'eps_commerce_package_set_up_fee', 10, 1);
 /*
  * ------------------------------------------------------------
  * Hook after the renewal of distributor kit

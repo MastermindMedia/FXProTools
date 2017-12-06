@@ -5,6 +5,8 @@
 * ------------------------------------------------------------
 */
 function afl_user_payment_methods(){
+		new Afl_enque_scripts('common');
+
 	echo afl_eps_page_header();
 	echo afl_content_wrapper_begin();
 		afl_user_payment_method_conf_form();
@@ -16,7 +18,6 @@ function afl_user_payment_methods(){
 * ------------------------------------------------------------
 */
 function afl_user_payment_method_conf_form(){
-		new Afl_enque_scripts('common');
 	
 	global $wpdb;
 	$uid 					 = get_current_user_id();
@@ -114,15 +115,15 @@ function afl_user_payment_method_form(){
 			);
 			// $link = '?page=user-payment-conf-'.$key;
 			$link = '?page=affiliate-eps-payment_method&tab='.$key;
-			$rows[$i]['conf_'.$key] = array(
-			'#type' => 'markup',
-			'#markup' => '<a href="'.$link.'" ><span class="btn btn-rounded btn-sm btn-icon btn-default"><i class="fa fa-cog"></i></span></a>',
-		);
+		// 	$rows[$i]['conf_'.$key] = array(
+		// 	'#type' => 'markup',
+		// 	'#markup' => '<a href="'.$link.'" ><span class="btn btn-rounded btn-sm btn-icon btn-default"><i class="fa fa-cog"></i></span></a>',
+		// );
 			$i++;
 		}
 
 		$table['#rows'] = $rows;
-		$table['#header'] 		= array('Payment Methods','Status','Configuration');
+		$table['#header'] 		= array('Payment Methods','Status');
 
 		$render_table  = '';
 		$render_table .= afl_form_open($_SERVER['REQUEST_URI'],'POST', array('id'=>'form-afl-ewallet-withdraw-fund'));
@@ -200,7 +201,7 @@ function afl_user_payment_method_form_submit($form_state){
   }
    if($q) {
      echo wp_set_message(__('Your payment method saved successfully.'), 'success');
-      wp_redirect('?page=affiliate-eps-payment_method&tab='.$payment_method);
+      // wp_redirect('?page=affiliate-eps-payment_method&tab='.$payment_method);
    }
 }
 
@@ -611,7 +612,7 @@ function afl_user_payment_conf_error_form(){
 * ------------------------------------------------------------
 */
 function afl_user_payment_conf_method_hyperwallet_form(){
-	
+		new Afl_enque_scripts('common');
 	 if ( isset($_POST['submit']) ) {
 	 	$validation = afl_user_payment_conf_method_hyperwallet_form_validation($_POST);
 	 	if ($validation) {
@@ -623,7 +624,10 @@ function afl_user_payment_conf_method_hyperwallet_form(){
 	$table = $wpdb->prefix .'afl_user_payment_methods';
   $check = $wpdb->get_row("SELECT  * FROM `$table` WHERE `uid` = $uid AND `method` = 'method_hyperwallet' AND `status` = 1 ");
   if(! $check){
-   	wp_redirect('?page=affiliate-eps-payment_method');
+   	$redirect = afl_variable_get('redirect_select_payment_method_detail');
+		if ( !empty($redirect)) {
+			header("Location:".$redirect." ");
+		}
   }
 // pr($check,1);
 	$data = json_decode($check->data);

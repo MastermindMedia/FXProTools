@@ -18,7 +18,7 @@ if( isset($product) ){
 			<div class="row">
 				<div class="col-sm-6">
 					<ul class="fx-missing-left fx-missing-nav">
-						<li><a href="mailto:support@fxprotools.com">support@fxprotools.com</a></li>
+						<li><a href="mailto:support@fcopyprofitsuccess.com">support@fcopyprofitsuccess.com</a></li>
 						<li><a href="tel:+1 800 781 0187">+1 800 781 0187</a></li>
 						<li>Mon-Fri 10am-10pm EST</li>
 					</ul>

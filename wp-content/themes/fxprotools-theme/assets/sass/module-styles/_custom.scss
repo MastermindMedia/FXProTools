@@ -2,6 +2,15 @@
 // Custom
 // ------
 
+//Header
+.custom-logo-link{
+	img{
+		width: 300px;
+		max-width: 100%;
+    	height: auto;
+	}
+	
+}
 // Text Log
 p.logo-text {
     font-size: 30px;
@@ -1376,6 +1385,14 @@ p.logo-text {
 	}
 }
 
+.woocommerce{
+	.product-type-variable-subscription{
+		.variations{
+			display: none!important;
+		}
+	}
+	
+}
 // Checkout
 .woocommerce-checkout{
 	.checkout-holder{
@@ -1383,6 +1400,14 @@ p.logo-text {
 		  position: relative!important;
 		  display: none!important;
 		}
+
+		.postid-48{
+			.variations{
+				display: none!important;
+			}
+		}
+
+
 
 		.col2-set{
 			.col-1{
@@ -2307,53 +2332,6 @@ li.false {
 	border: none;
 }
 
-// WooCommerce Shop
-.woocommerce {
-	.added_to_cart.wc-forward {
-		padding: 6px;
-		background-color: #de1515;
-		color: #fff;
-		&:hover {
-			background-color: #e6e6e6;
-			color: #333;
-			border: 1px solid #adadad;
-			padding: 5px;
-		}
-	}
-
-	.single_add_to_cart_button.button.alt {
-		color: #fff;
-		background-color: #de1515;
-		padding: 7px 15px;
-		&:hover {
-			color: #333;
-			background-color: #e6e6e6;
-			border: 1px solid #adadad;
-			padding: 6px 15px;
-		}
-	}
-
-	.summary {
-		.product_title  ~ .price{
-			display: none;
-		}
-
-		.quantity{
-			display: none!important;
-		}
-
-		.variations{
-			display: none;
-		}
-
-		.product_type_variable-subscription{
-			display: none;
-		}
-	}
-
-
-}
-
 // Login page
 form {
 	&.has-error {
@@ -2463,6 +2441,28 @@ form {
 			}
 		}
 	}
+	// E-wallet Page
+	&.wallet-form {
+		.form-group.row {
+			margin-left: 0;
+			margin-right: 0;
+		}
+		label.note {
+			background-color: $red;
+			width: 100%;
+			font-weight: normal;
+			color: $white;
+			padding: 15px;
+		}
+		form {
+			margin-top: 10px;
+			.btn-danger {
+				display: block;
+				width: 100%;
+				padding: 14px 0;
+			}
+		}
+	}
 }
 
 // Page Template Option - Dashboard
@@ -2487,7 +2487,69 @@ form {
 	div.product .woocommerce-tabs .panel {
 		padding: 0 20px 20px 20px;
 	}
-	.single_add_to_cart_button.button.alt {
+	.added_to_cart.wc-forward {
+		padding: 6px;
+		background-color: #de1515;
+		color: #fff;
+		&:hover {
+			background-color: #e6e6e6;
+			color: #333;
+			border: 1px solid #adadad;
+			padding: 5px;
+		}
+	}
+	.single_add_to_cart_button.button.alt, .btn-link {
 		padding: 15px 20px;
+		color: $white;
+		background-color: $red;
+		&:hover {
+			background-color: $red;
+		}
+	}
+	.btn-link {
+		padding: 11px;
+		border-radius: 4px;
+		font-weight: bold;
+		background-color: #c6c6c6;
+		color: #333;
+		&:hover {
+			text-decoration: none;
+			color: $white;
+		}
+	}
+	.summary {
+		.product_title  ~ .price {
+			display: none;
+		}
+		.quantity .qty {
+			padding: 10px;
+			width: 60px;
+		}
+		.variations {
+			// display: none;
+			td.label {
+				margin-right: -15px;
+				vertical-align: middle!important;
+				padding-right: 0!important;
+				color: $black;
+				font-size: 15px;
+			}
+		}
+		.product_type_variable-subscription {
+			display: none;
+		}
+	}
+	div.product form.cart .variations select {
+		min-width: inherit;
+		padding: 5px;
+	}
+	.product_meta {
+		.sku_wrapper {
+			display: none;
+		}
+	}
+	// Hide quantity input if slug is free-shirt
+	.free-shirt .quantity {
+		display: none;
 	}
 }

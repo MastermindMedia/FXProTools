@@ -28,6 +28,10 @@ function afl_admin_variable_configurations (){
  		'page_callback' => 'afl_widget_settings_form',
  		'title'					=> 'Widgets Settings'
  	);
+ 	$tabs['page_redirection_var'] = array(
+ 		'page_callback' => 'afl_page_redirection_conf',
+ 		'title'					=> 'Page Redirection Settings'
+ 	);
  	$tabs['extra_var'] = array(
  		'page_callback' => 'afl_extra_variable_conf',
  		'title'					=> 'Extra Settings'
@@ -511,4 +515,66 @@ function afl_extra_variable_conf_submit ($vars = array()) {
 	// 	}
 	// }
 	// wp_set_message('Configuration has been saved successfully', 'success');
+}
+
+
+function afl_page_redirection_conf () {
+
+		if (isset($_POST['submit'])) {
+ 			$variables = $_POST;
+ 			unset($variables['submit']);
+ 			if (afl_payment_methods_form_validation($variables)) {
+ 				afl_page_redirection_conf_submit($variables);
+ 			}
+ 		}
+
+ 		$form = array();
+ 		$form['#method'] = 'post';
+		$form['#action'] = $_SERVER['REQUEST_URI'];
+		$form['#prefix'] ='<div class="form-group row">';
+	 	$form['#suffix'] ='</div>';
+
+	 	//payment source
+	 	$form['redirect_select_payment_method'] = array(
+	 		'#type' 					=> 'textfield',
+	 		'#title' 					=> 'Redirection path to select payment method',
+	 		'#default_value' 	=> afl_variable_get('redirect_select_payment_method', ''),
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>',
+	 		'#required' 			=> TRUE
+
+	 	);
+
+	 	$form['redirect_select_payment_method_detail'] = array(
+	 		'#type' 					=> 'textfield',
+	 		'#title' 					=> 'Redirection path to payment method details',
+	 		'#default_value' 	=> afl_variable_get('redirect_select_payment_method_detail', ''),
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>',
+	 		'#required' 			=> TRUE
+
+	 	);
+
+	 	$form['redirect_set_transaction_password'] = array(
+	 		'#type' 					=> 'textfield',
+	 		'#title' 					=> 'Redirection path to set transaction password',
+	 		'#default_value' 	=> afl_variable_get('redirect_set_transaction_password', ''),
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>',
+	 		'#required' 			=> TRUE
+
+	 	);
+
+ 		$form['submit'] = array(
+	 		'#type' => 'submit',
+	 		'#value'=>' Save configuration'
+	 	);
+	 	echo afl_render_form($form);
+}
+
+function afl_page_redirection_conf_submit ($form_state = array()) {
+	foreach ($form_state as $key => $value) {
+		afl_variable_set($key, maybe_serialize($value));
+	}
+	wp_set_message('Configuration has been saved successfully', 'success');
 }

@@ -82,6 +82,12 @@ if(!class_exists('SettingsMB')){
                         'placeholder' => 'Short Description',
                         'name'        => 'Short Description',
                     ),
+                    array(
+                        'id'          => $prefix . 'personal_volume',
+                        'type'        => 'number',
+                        'placeholder' => 'Personal Volume',
+                        'name'        => 'Personal Volume',
+                    ),
                 ),
             );
             return $meta_boxes;
@@ -340,8 +346,8 @@ if(!class_exists('SettingsMB')){
                         'tab'           => $prefix . 'video',
                     ),
                     array(
-                        'name' 			=> 'Show Video Controls',
-                        'id' 			=> $prefix . 'video_show_controls',
+                        'name' 			=> 'Disable Video Controls',
+                        'id' 			=> $prefix . 'video_disable_controls',
                         'type' 			=> 'checkbox_list',
                         'placeholder'	=> '',
                         'options'		=> array(
@@ -349,6 +355,46 @@ if(!class_exists('SettingsMB')){
                         ),
                         'tab'           => $prefix . 'video',
                     ),
+                    array(
+                        'name' 			=> 'Disable Related',
+                        'id' 			=> $prefix . 'video_disable_related',
+                        'type' 			=> 'checkbox_list',
+                        'placeholder'	=> '',
+                        'options'		=> array(
+                            'yes'		=> '',
+                        ),
+                        'tab'           => $prefix . 'video',
+                    ),
+                    array(
+                        'name' 			=> 'Hide Info',
+                        'id' 			=> $prefix . 'video_hide_info',
+                        'type' 			=> 'checkbox_list',
+                        'placeholder'	=> '',
+                        'options'		=> array(
+                            'yes'		=> '',
+                        ),
+                        'tab'           => $prefix . 'video',
+                    ),
+                    // array(
+                    //     'name' 			=> 'Disable Sharing',
+                    //     'id' 			=> $prefix . 'video_disable_sharing',
+                    //     'type' 			=> 'checkbox_list',
+                    //     'placeholder'	=> '',
+                    //     'options'		=> array(
+                    //         'yes'		=> '',
+                    //     ),
+                    //     'tab'           => $prefix . 'video',
+                    // ),
+                    // array(
+                    //     'name' 			=> 'Hide Branding',
+                    //     'id' 			=> $prefix . 'video_hide_branding',
+                    //     'type' 			=> 'checkbox_list',
+                    //     'placeholder'	=> '',
+                    //     'options'		=> array(
+                    //         'yes'		=> '',
+                    //     ),
+                    //     'tab'           => $prefix . 'video',
+                    // ),
                     array(
                         'name' 			=> 'Scrolling Video',
                         'id' 			=> $prefix . 'video_scrolling',
@@ -499,8 +545,8 @@ if(!class_exists('SettingsMB')){
                         'tab'           => $prefix . 'video',
                     ),
                     array(
-                        'name' 			=> 'Show Video Controls',
-                        'id' 			=> $prefix . 'video_show_controls',
+                        'name' 			=> 'Disable Video Controls',
+                        'id' 			=> $prefix . 'video_disable_controls',
                         'type' 			=> 'checkbox_list',
                         'placeholder'	=> '',
                         'options'		=> array(
@@ -508,6 +554,46 @@ if(!class_exists('SettingsMB')){
                         ),
                         'tab'           => $prefix . 'video',
                     ),
+                    array(
+                        'name' 			=> 'Disable Related',
+                        'id' 			=> $prefix . 'video_disable_related',
+                        'type' 			=> 'checkbox_list',
+                        'placeholder'	=> '',
+                        'options'		=> array(
+                            'yes'		=> '',
+                        ),
+                        'tab'           => $prefix . 'video',
+                    ),
+                    array(
+                        'name' 			=> 'Hide Info',
+                        'id' 			=> $prefix . 'video_hide_info',
+                        'type' 			=> 'checkbox_list',
+                        'placeholder'	=> '',
+                        'options'		=> array(
+                            'yes'		=> '',
+                        ),
+                        'tab'           => $prefix . 'video',
+                    ),
+                    // array(
+                    //     'name' 			=> 'Disable Sharing',
+                    //     'id' 			=> $prefix . 'video_disable_sharing',
+                    //     'type' 			=> 'checkbox_list',
+                    //     'placeholder'	=> '',
+                    //     'options'		=> array(
+                    //         'yes'		=> '',
+                    //     ),
+                    //     'tab'           => $prefix . 'video',
+                    // ),
+                    // array(
+                    //     'name' 			=> 'Hide Branding',
+                    //     'id' 			=> $prefix . 'video_hide_branding',
+                    //     'type' 			=> 'checkbox_list',
+                    //     'placeholder'	=> '',
+                    //     'options'		=> array(
+                    //         'yes'		=> '',
+                    //     ),
+                    //     'tab'           => $prefix . 'video',
+                    // ),
                     array(
                         'name' 			=> 'Scrolling Video',
                         'id' 			=> $prefix . 'video_scrolling',
@@ -658,8 +744,8 @@ if(!class_exists('SettingsMB')){
                         'tab'           => $prefix . 'video',
                     ),
                     array(
-                        'name' 			=> 'Show Video Controls',
-                        'id' 			=> $prefix . 'video_show_controls',
+                        'name' 			=> 'Disable Video Controls',
+                        'id' 			=> $prefix . 'video_disable_controls',
                         'type' 			=> 'checkbox_list',
                         'placeholder'	=> '',
                         'options'		=> array(
@@ -667,6 +753,46 @@ if(!class_exists('SettingsMB')){
                         ),
                         'tab'           => $prefix . 'video',
                     ),
+                    array(
+                        'name' 			=> 'Disable Related',
+                        'id' 			=> $prefix . 'video_disable_related',
+                        'type' 			=> 'checkbox_list',
+                        'placeholder'	=> '',
+                        'options'		=> array(
+                            'yes'		=> '',
+                        ),
+                        'tab'           => $prefix . 'video',
+                    ),
+                    array(
+                        'name' 			=> 'Hide Info',
+                        'id' 			=> $prefix . 'video_hide_info',
+                        'type' 			=> 'checkbox_list',
+                        'placeholder'	=> '',
+                        'options'		=> array(
+                            'yes'		=> '',
+                        ),
+                        'tab'           => $prefix . 'video',
+                    ),
+                    // array(
+                    //     'name' 			=> 'Disable Sharing',
+                    //     'id' 			=> $prefix . 'video_disable_sharing',
+                    //     'type' 			=> 'checkbox_list',
+                    //     'placeholder'	=> '',
+                    //     'options'		=> array(
+                    //         'yes'		=> '',
+                    //     ),
+                    //     'tab'           => $prefix . 'video',
+                    // ),
+                    // array(
+                    //     'name' 			=> 'Hide Branding',
+                    //     'id' 			=> $prefix . 'video_hide_branding',
+                    //     'type' 			=> 'checkbox_list',
+                    //     'placeholder'	=> '',
+                    //     'options'		=> array(
+                    //         'yes'		=> '',
+                    //     ),
+                    //     'tab'           => $prefix . 'video',
+                    // ),
                     array(
                         'name' 			=> 'Scrolling Video',
                         'id' 			=> $prefix . 'video_scrolling',

@@ -18,12 +18,13 @@ if(!class_exists('AdminSettings')){
 		{
 			add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_assets'));
 			add_action('login_enqueue_scripts',  array($this, 'enqueue_admin_assets'));
-			add_filter('login_headerurl', array($this, 'login_logo_link'));
 			add_action('admin_menu',  array($this, 'remove_admin_menus'), 99);
 			add_action('admin_init', array($this, 'remove_dashboard_meta'));
 			add_action('after_setup_theme', array($this, 'remove_admin_bar_non_admin'));
-			add_theme_support('menus');
 			add_action('widgets_init', array($this, 'register_widget_options'));
+			add_filter('login_headerurl', array($this, 'login_logo_link'));
+			add_theme_support('menus');
+			add_theme_support('post-thumbnails');
 		}
 
 		// Admin assets

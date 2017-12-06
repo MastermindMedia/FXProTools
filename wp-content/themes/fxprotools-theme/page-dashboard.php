@@ -1,12 +1,17 @@
 <?php
 $checklist = get_user_checklist();
 
-// Get Your Free Shirt
+/*
+// Get Your CPS Shirt
 if ( ! $checklist['got_shirt'] ) {
 	if ( Woocommerce_Settings::has_claimed_shirt() ) {
 		pass_onboarding_checklist( 'got_shirt' );
 	}
 }
+
+*/
+
+
 
 // Share Video && Refer a friend
 if ( ! $checklist['shared_video'] ) {
@@ -67,8 +72,8 @@ $dashboard_checklist = [
 		'subtext' => 'Don\'t miss out weekly Q&A webinars to answer all your questions, click the "Reserve A Seat" button.'
 	],
 	'got_shirt'         => [
-		'title'   => 'Get your free shirt',
-		'subtext' => 'Receive one FREE T-shirt from our store by clicking on "Get Free Shirt Button" or by <a href="/product/free-shirt">clicking here</a>.'
+		'title'   => 'Get your CPS Shirt',
+		'subtext' => 'Get A CPS T-shirt from our store 75% OFF by clicking on "Get CPS Shirt Button" or by <a href="/product/copy-profit-success-tshirt/">clicking here</a>.'
 	],
 	'accessed_products' => [
 		'title'   => 'Access your product',

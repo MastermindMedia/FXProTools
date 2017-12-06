@@ -153,42 +153,55 @@ if(!class_exists('WC_Subscriptions_Settings')){
 			if( !$has_paid_signup_fee ){
 
 				foreach($subscriptions as $s){
+					
+					$items = $s->get_items();
+				    foreach($items as $key => $item){
 
-					if( $s->has_status('on-hold') ){
-						$items = $s->get_items();
+				    	if( isset( $item['variation_id']) && in_array( $item['variation_id'], array(2921, 2931, 2928) ) ) {
+							$product = wc_get_product( $item->get_product_id() );
+							$args = array(
+						        'attribute_subscription-type' => 'normal'
+						    );
+						    $product_variation = $product->get_matching_variation($args);
+							$product = wc_get_product($product_variation);
+							$signup_fee = $product->get_sign_up_fee();
+							$payment_total = $signup_fee + $renewal_order->get_total();
 
-					    foreach($items as $key => $item){
-					    	$subscription_type = wc_get_order_item_meta($key, 'subscription-type', true);
-					    	if($subscription_type == 'trial'){
-								$product = wc_get_product( $item->get_product_id() );
-								$args = array(
-							        'attribute_subscription-type' => 'normal'
-							    );
-							    $product_variation = $product->get_matching_variation($args);
-								$product = wc_get_product($product_variation);
-								$signup_fee = $product->get_sign_up_fee();
-								$payment_total = $signup_fee + $renewal_order->get_total();
+							$item = new WC_Order_Item_Fee();
 
-								$item = new WC_Order_Item_Fee();
-								$item->set_props( array(
-										'name'      => 'Signup Fee',
-										'tax_class' => 0,
-										'total'     => $signup_fee,
-										'total_tax' => 0,
-										'taxes'     => array(
-										'total' => 0,
-									),
-									'order_id'  => $renewal_order->get_id(),
-							    ) );
-								$item->save();
-								$renewal_order->add_item($item);
-								$renewal_order->add_order_note('Added Sign Up Fee');
-								add_user_meta( $user_id , '_has_paid_signup_fee', 1); 
+							$item->set_props( array(
+									'name'      => 'Signup Fee',
+									'tax_class' => 0,
+									'total'     => $signup_fee,
+									'total_tax' => 0,
+									'taxes'     => array(
+									'total' => 0,
+								),
+								'order_id'  => $renewal_order->get_id(),
+						    ) );
 
-								
-					    	}
-					    }
-					}
+							$item->save();
+							$renewal_order->add_item($item);
+							$renewal_order->add_order_note('Added Sign Up Fee');
+							add_user_meta( $user_id , '_has_paid_signup_fee', 1); 
+
+							//epixel filter invoke
+							$referral = affiliate_wp()->referrals->get_by('reference', $s->get_parent_id() );
+							$referrer_id = isset( $referral->affiliate_id ) ? affwp_get_affiliate_user_id( $referral->affiliate_id ) : 2936;
+							
+							$args = array(	
+								'uid' => $user_id,
+								'associated_uid' => $referrer_id,
+								'order_id' => $renewal_order->get_id(),
+								'amount_paid' => $signup_fee
+							);
+							error_log('Invoked : eps_commerce_joining_package_purchase_complete ' . print_r($args, true) );
+						    $result = apply_filters('eps_commerce_joining_package_purchase_complete', $args);
+						    error_log('Invoked : eps_commerce_joining_package_purchase_complete ' . print_r($result, true) );
+						    
+							
+				    	}
+				    }
 				}
 			}
 
