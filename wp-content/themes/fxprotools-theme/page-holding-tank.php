@@ -22,7 +22,7 @@
 			<div class="col-md-12">
 				<div class="fx-header-title">
 					<h1>Go To Your "Uni-Level" Holding Tank</h1>
-					<p><a href="<?php bloginfo('url'); ?>/team/unilevel-tree-view/"><?php bloginfo('url'); ?>/team/unilevel-tree-view/"></a></p>
+					<p><a href="<?php bloginfo('url'); ?>/team/unilevel-tree-view/"><?php bloginfo('url'); ?>/team/unilevel-tree-view/</a></p>
 				</div>
 			</div>
 		</div>
