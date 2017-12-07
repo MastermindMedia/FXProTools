@@ -189,6 +189,28 @@
 	.fx-tabs-vertical.marketing-contacts .list-info li span {
 		font-size: 12px;
 	}
+
+	// Checkout - Woocommerce
+	.woocommerce-checkout .fx-wrapper {
+		padding-top: 15px;
+	}
+	.woocommerce-checkout .checkout-holder .col2-set .col-1,
+	.woocommerce-checkout .checkout-holder .col2-set .col-2 {
+		width: 100%;
+		padding: 0;
+	}
+	.woocommerce-checkout .checkout-holder .checkout-sidebar img {
+		margin: 0 auto;
+		display: block;
+	}
+	.woocommerce-checkout .checkout-holder .panel .col-form-label {
+		padding-left: 0;
+	}
+	.woocommerce-billing-fields .form-group.row {
+		margin-left: 0;
+		margin-right: 0;
+		margin-bottom: 0;
+	}
 }
 
 // ---
