@@ -494,6 +494,7 @@ function  afl_user_payment_autherization_form(){
 
 	 if(! $check){
 		echo wp_set_message('You need to complete step here before you can access this page', 'warning');
+	 	
    	$redirect = afl_variable_get('redirect_select_payment_method');
 		if ( !empty($redirect)) {
 			header("Location:".$redirect." ");

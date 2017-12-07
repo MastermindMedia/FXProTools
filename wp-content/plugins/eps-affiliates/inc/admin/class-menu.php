@@ -837,6 +837,15 @@
 					'#menu_slug' 			=> 'affiliate-eps-my-purchases', 
 					'#page_callback' 	=> 'afl_my_purchase',
 				);
+
+				$menu['all_purchase_'] = array(
+					'#parent'					=> 'affiliate-eps-purchases',
+					'#page_title'			=> __( 'Overall Purchases', 'Overall Purchases' ),
+					'#menu_title' 		=> __( 'Overall Purchases', 'Overall Purchases' ),
+					'#access_callback'=> 'overall_purchases', 
+					'#menu_slug' 			=> 'affiliate-eps-all-purchases', 
+					'#page_callback' 	=> 'afl_all_purchase',
+				);
 				afl_system_admin_menu($menu);
 		 }
 		/*

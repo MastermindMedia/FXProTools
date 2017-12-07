@@ -1,17 +1,14 @@
-<?php
-
-function afl_my_purchase () {
-	echo afl_eps_page_header();
+<?php 
+	function afl_all_purchase () {
+			echo afl_eps_page_header();
 	echo afl_content_wrapper_begin();
 		new Afl_enque_scripts('common');
 	
-		afl_my_purchase_callback();
+		afl_all_purchase_callback();
 	echo afl_content_wrapper_end();
-}
+	}
 
-
-function afl_my_purchase_callback () {
-	
+	function afl_all_purchase_callback () {
 		$uid = get_uid();
 
 		if (isset($_GET['uid'])) {
@@ -23,26 +20,25 @@ function afl_my_purchase_callback () {
 	
 		$pagination = new CI_Pagination;
 
-		$config['total_rows'] =  (_my_purchases($uid,array(),TRUE));
-		$config['base_url'] 	= '?page=affiliate-eps-downline-members';
+		$config['total_rows'] =  (_all_purchases(array(),TRUE));
+		$config['base_url'] 	= '?page=affiliate-eps-all-purchases';
 		$config['per_page'] 	= 50;
 
 		
 		$index = !empty($_GET['page_count']) ? $_GET['page_count'] : 0;
 		$filter = array(
-			'start' => $index,
-			'length' =>$config['per_page']
+			'index' => $index,
+			'limit' => $config['per_page']
 		);
-		$data  = _my_purchases($uid,$filter);
-		// pr($data);
+		$data  = _all_purchases($filter);
 		
 		$pagination->initialize($config);
 		$links = $pagination->create_links();
 
 		$table = array();
-		$table['#links']  = $links;
+		$table['#links']  		= $links;
 		$table['#name'] 			= '';
-		// $table['#title'] 			= 'Business Profit Overview(Monthly)';
+		$table['#title'] 			= 'Overall system Purchases';
 		$table['#prefix'] 		= '';
 		$table['#suffix'] 		= '';
 		$table['#attributes'] = array(
@@ -55,10 +51,15 @@ function afl_my_purchase_callback () {
 
 		$table['#header'] = array(
 			__('#'),
+			__('Username'),
 			__('Category'),
 			__('Points'),
 			__('Order ID'),		
 			__('Purchase Date'),		
+			__('Purchase Day'),		
+			__('Purchase Week'),		
+			__('Purchase Month'),		
+			__('Purchase Year'),		
 			__('Extra Params'),		
 		);
 		$rows = array();
@@ -67,6 +68,12 @@ function afl_my_purchase_callback () {
 				'#type' =>'markup',
 				'#markup'=> ($index * 1) + ($key + 1)
 			);
+
+			$rows[$key]['markup_uname'] = array(
+				'#type' =>'markup',
+				'#markup'=> $value->display_name
+			);
+
 			$rows[$key]['markup_1'] = array(
 				'#type' =>'markup',
 				'#markup'=> $value->category
@@ -83,6 +90,24 @@ function afl_my_purchase_callback () {
 				'#type' =>'markup',
 				'#markup'=> afl_system_date_format($value->created,TRUE)
 			);
+
+			$rows[$key]['markup_day'] = array(
+				'#type' =>'markup',
+				'#markup'=> $value->purchase_day
+			);
+
+			$rows[$key]['markup_month'] = array(
+				'#type' =>'markup',
+				'#markup'=> $value->purchase_month
+			);
+			$rows[$key]['markup_week'] = array(
+				'#type' =>'markup',
+				'#markup'=> $value->purchase_week
+			);
+			$rows[$key]['markup_year'] = array(
+				'#type' =>'markup',
+				'#markup'=> $value->purchase_year
+			);
 			$rows[$key]['markup_5'] = array(
 				'#type' =>'markup',
 				'#markup'=> ($value->extra_params)
@@ -92,19 +117,18 @@ function afl_my_purchase_callback () {
 		$table['#rows'] = $rows;
 
 		echo apply_filters('afl_render_table',$table);
+	}
 
-}
-
-function _my_purchases ( $uid = '', $filters = array(), $count = FALSE ) {
-	if (empty($uid)) 
-		$uid = get_uid();
+function _all_purchases ( $filters = array(), $count = FALSE ) {
 
 	$query = array();
 	$query['#select'] = _table_name('afl_purchases');
-	$query['#where'] = array(
-		'`'._table_name('afl_purchases').'`.`uid` ='.$uid
-	);
-	if (!empty($limit) ) {
+	$query['#join']  = array(
+   _table_name('users') => array(
+   		'#condition' =>  _table_name('users').'.`ID`'.'='._table_name('afl_purchases').'.`uid`',
+  	),
+	); 
+	if (!empty($filters['limit']) ) {
 		$query['#limit'] = $filters['index'].','.$filters['limit'];
 	}
 	$res = db_select($query, 'get_results');
