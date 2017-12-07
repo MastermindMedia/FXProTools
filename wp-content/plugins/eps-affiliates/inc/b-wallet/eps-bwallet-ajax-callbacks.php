@@ -62,9 +62,13 @@ function afl_admin_business_trans_datatable_callback(){
 			else{
 				$status =  "<button type='button' class='btn btn-danger'>Debit</button>";
 			}
+			
+			$member_node  = afl_user_data($value->uid);
+			$mbr_name = !empty($member_node->display_name) ? $member_node->display_name : 'unavaiilable';
 			$output['data'][] = [
 	   		$key+1,
 	     	ucfirst(strtolower($value->category)),
+	     	$mbr_name." (".$value->uid.")",
 	     	$value->display_name." (".$value->associated_user_id.")",
 	 			number_format(afl_get_commerce_amount($value->amount_paid), 2, '.', ',')." " .$value->currency_code ,
 	     	$status,

@@ -37,6 +37,12 @@
 			'#title' 				=> __('AFL Matrix Add New customer'),
 			'#description'	=> 'Add new affiliate customer under the user'
 		);
+
+		//All customer
+		$permissions['afl_unilevel_all_customers'] = array(
+			'#title' 				=> __('AFL system customers'),
+			'#description'	=> 'system customers'
+		);
 		//new customer
 		$permissions['afl_holding_tank'] = array(
 			'#title' 				=> __('AFL Matrix Holding tank'),
@@ -108,6 +114,12 @@
 		$permissions['afl_purchase'] = array(
 			'#title' 				=> __('AFL Purchase'),
 			'#description' 	=> 'affiliates system purchases '
+		);
+
+		//overall purchases
+		$permissions['overall_purchases'] = array(
+			'#title' 				=> __('AFL Overall system Purchase'),
+			'#description' 	=> 'affiliates overall system purchases '
 		);
 		//rank performance overview
 		$permissions['afl_rank_performance_overview'] = array(

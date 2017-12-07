@@ -33,17 +33,21 @@ function afl_ewallet_withdraw_fund_form(){
 	$payment_method = $wpdb->get_row("SELECT * FROM $table WHERE (uid = '$uid' AND status= '". 1 ."')");
 
 	if(!$payment_method){
-			$redirect = afl_variable_get('redirect_select_payment_method');
-			if ( !empty($redirect)) {
-				header("Location:".$redirect." ");
-			}
+		$redirect = afl_variable_get('redirect_select_payment_method');
+		$params['redirect'] = urlencode($_SERVER['REQUEST_URI']);
+
+		if ( !empty($redirect)) {
+			header("Location:".afl_build_url($redirect,$params)." ");
+		}
 			echo wp_set_message('Please set your payment method details first before proceeding withdrawal ', 'warning');
 	}
 	else if ( !$payment_method->completed) {
 		$redirect = afl_variable_get('redirect_select_payment_method_detail');
-			if ( !empty($redirect)) {
-				header("Location:".$redirect." ");
-			}
+		$params['redirect'] = urlencode($_SERVER['REQUEST_URI']);
+
+		if ( !empty($redirect)) {
+			header("Location:".afl_build_url($redirect,$params)." ");
+		}
 			echo wp_set_message('Please set your payment method details first before proceeding withdrawal ', 'warning');
 	}
 	else{
@@ -52,9 +56,11 @@ function afl_ewallet_withdraw_fund_form(){
   	if(!$password){
   		echo wp_set_message('Please create a transaction password before proceeding', 'warning');
   		$redirect = afl_variable_get('redirect_set_transaction_password');
-				if ( !empty($redirect)) {
-					header("Location:".$redirect." ");
-				}
+			$params['redirect'] = urlencode($_SERVER['REQUEST_URI']);
+
+			if ( !empty($redirect)) {
+				header("Location:".afl_build_url($redirect,$params)." ");
+			}
   		/*
 				goto set payment password set forms
 			*/

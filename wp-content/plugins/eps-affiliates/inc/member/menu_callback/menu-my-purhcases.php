@@ -3,13 +3,14 @@
 function afl_my_purchase () {
 	echo afl_eps_page_header();
 	echo afl_content_wrapper_begin();
+		new Afl_enque_scripts('common');
+	
 		afl_my_purchase_callback();
 	echo afl_content_wrapper_end();
 }
 
 
 function afl_my_purchase_callback () {
-		new Afl_enque_scripts('common');
 	
 		$uid = get_uid();
 

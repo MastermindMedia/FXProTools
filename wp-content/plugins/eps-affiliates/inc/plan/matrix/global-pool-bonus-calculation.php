@@ -190,7 +190,7 @@ function _check_global_pool_alredy_paid ($type = '', $uid = '') {
 function _check_global_pool_paid_this_month ($uid = '') {
 	$afl_date_splits = afl_date_splits(afl_date());
 	$query = array();
-	$query['#select']  =_table_name('afl_global_pool_bonus_transactions');
+	$query['#select']  =_table_name('afl_user_holding_transactions');
 	$query['#where']   = array(
 		'hidden_transaction = 0',
 		'deleted = 0',

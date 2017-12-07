@@ -43,8 +43,8 @@
 				</ul>
 				<br/>
 				<div class="fx-header-title">
-					<h1>How Can We Pay You?</h1>
-					<p>Select Set Your eWallet Pin</p>
+					<h1>Set Your eWallet Password</h1>
+					<p>Make Sure You Keep This Somewhere Safe</p>
 				</div>
 				<div class="panel panel-default epx wallet-form">
 					<div class="panel-body">

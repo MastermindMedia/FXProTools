@@ -2874,3 +2874,22 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 		$payout_modes = list_extract_allowed_values(afl_variable_get('afl_system_payout_modes'), 'list_text');
 		return $payout_modes;
 	}
+/*
+ * -----------------------------------------------------------------------
+ * Manipulate the query parameters
+ * -----------------------------------------------------------------------
+*/
+	function afl_build_url ( $url = '', $params = array() ) {
+		if ( $url ) {
+			$query = parse_url($url, PHP_URL_QUERY);
+			$build_q = http_build_query($params);
+			// Returns a string if the URL has parameters or NULL if not
+			if ($query) {
+			    $url .= '&'.$build_q;
+			} else {
+			    $url .= '?'.$build_q;
+			}
+		} 
+
+		return $url;
+	}

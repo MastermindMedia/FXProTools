@@ -96,11 +96,21 @@ function eps_affiliate_place_user_after_order( $subscription, $order, $recurring
 				$user->add_role( 'afl_customer' ); 
 
 				if( $referrer_id == 2936 || is_user_fx_distributor($referrer_id, 'any') ){
+					//this add the user to the customer table
+					do_action('eps_affiliates_place_customer_under_sponsor', $user_id, $referrer_id);
+					error_log('Invoked: eps_affiliates_place_customer_under_sponsor ' . $user_id . ':' . $referrer_id);
+
+					//adds the customer to referrer's holding tank
 					do_action('eps_affiliates_unilevel_place_user_in_holding_tank', $user_id, $referrer_id);
 					error_log('Invoked: eps_affiliates_unilevel_place_user_in_holding_tank ' . $user_id . ':' . $referrer_id);
 				}
 				else if( is_user_fx_customer( $referrer_id, 'any' ) ){
+					//add to the customer table
 					do_action('eps_affiliates_place_customer_under_sponsor', $user_id, $referrer_id);
+					error_log('Invoked: eps_affiliates_place_customer_under_sponsor ' . $user_id . ':' . $referrer_id);
+
+					//add directly to the genealogy
+					do_action('eps_affiliates_unilevel_place_user_under_sponsor', $user_id, $referrer_id);
 					error_log('Invoked: eps_affiliates_place_customer_under_sponsor ' . $user_id . ':' . $referrer_id);
 				}
 				
@@ -108,8 +118,11 @@ function eps_affiliate_place_user_after_order( $subscription, $order, $recurring
 			if( is_user_fx_distributor($user_id, 'any') ){
 				$user = new WP_User( $user_id );
 				$user->add_role( 'afl_member' );
+				//add to unilevel holding tank
 				do_action('eps_affiliates_place_user_in_holding_tank', $user_id, $referrer_id);
 				error_log('Invoked: eps_affiliates_place_user_in_holding_tank ' . $user_id . ':' . $referrer_id);
+
+				//add to matrix holding tank
 				do_action('eps_affiliates_unilevel_place_user_in_holding_tank', $user_id, $referrer_id);
 				error_log('Invoked: eps_affiliates_unilevel_place_user_in_holding_tank ' . $user_id . ':' . $referrer_id);
 			}

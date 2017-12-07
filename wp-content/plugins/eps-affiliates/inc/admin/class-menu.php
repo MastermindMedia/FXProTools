@@ -434,6 +434,7 @@
 					'#page_callback' 	=> 'afl_unilevel_my_customers', 
 				);
 
+
 				$menu['holding_genealogy_toggle_placement'] = array(
 					// '#parent'					=> 'no-parent',
 					'#parent'					=> 'affiliate-eps-unilevel-user-network',
@@ -622,6 +623,7 @@
 				'#page_callback' 	=> 'afl_members_manage', 
 				'#weight'					=>	5.2
 			);
+
 			$menu['members_manage'] = array(
 				'#parent'					=> 'affiliate-eps-manage-members',
 				'#page_title'			=> __( 'Manage Members', 'Manage Members' ),
@@ -629,6 +631,15 @@
 				'#access_callback'=> 'manage_members', 
 				'#menu_slug' 			=> 'affiliate-eps-manage-members', 
 				'#page_callback' 	=> 'afl_members_manage', 
+			);
+
+			$menu['all_customers'] = array(
+				'#parent'					=> 'affiliate-eps-manage-members',
+				'#page_title'			=> __( 'System Customers', 'System Customers' ),    
+				'#menu_title' 		=> __( 'System Customers', 'System Customers' ),    
+				'#access_callback'=> 'afl_unilevel_all_customers', 
+				'#menu_slug' 			=> 'affiliate-eps-unilevel-all-customers', 
+				'#page_callback' 	=> 'afl_unilevel_all_customers', 
 			);
 			$menu['members_blocked'] = array(
 				'#parent'					=> 'affiliate-eps-manage-members',
@@ -812,6 +823,16 @@
 					'#menu_slug' 			=> 'eps-fund-deposit', 
 					'#page_callback' 	=> 'afl_admin_fund_deposit', 
 				);
+
+				$menu['global_pool_bonus'] = array(
+					'#parent'					=> 'eps-test',
+					'#page_title'			=> __( 'Global pool bonus check', 'Global pool bonus check' ),
+					'#menu_title' 		=> __( 'Global pool bonus check', 'Global pool bonus check' ),
+					'#access_callback'=> 'afl_code_testing', 
+					'#menu_slug' 			=> 'eps-pool-bonus-check', 
+					'#page_callback' 	=> 'afl_admin_global_pool_check_user', 
+				);
+
 				afl_system_admin_menu($menu);
 		 }
 		/*
@@ -836,6 +857,15 @@
 					'#access_callback'=> 'afl_purchase', 
 					'#menu_slug' 			=> 'affiliate-eps-my-purchases', 
 					'#page_callback' 	=> 'afl_my_purchase',
+				);
+
+				$menu['all_purchase_'] = array(
+					'#parent'					=> 'affiliate-eps-purchases',
+					'#page_title'			=> __( 'Overall Purchases', 'Overall Purchases' ),
+					'#menu_title' 		=> __( 'Overall Purchases', 'Overall Purchases' ),
+					'#access_callback'=> 'overall_purchases', 
+					'#menu_slug' 			=> 'affiliate-eps-all-purchases', 
+					'#page_callback' 	=> 'afl_all_purchase',
 				);
 				afl_system_admin_menu($menu);
 		 }
