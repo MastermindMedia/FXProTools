@@ -493,6 +493,8 @@ function  afl_user_payment_autherization_form(){
 	$check = $wpdb->get_row("SELECT  * FROM `$table` WHERE `uid` = $uid ");
 
 	 if(! $check){
+		echo wp_set_message('You need to complete step here before you can access this page', 'warning');
+	 	
    	$redirect = afl_variable_get('redirect_select_payment_method');
 		if ( !empty($redirect)) {
 			header("Location:".$redirect." ");
@@ -626,6 +628,7 @@ function afl_user_payment_conf_method_hyperwallet_form(){
 	$table = $wpdb->prefix .'afl_user_payment_methods';
   $check = $wpdb->get_row("SELECT  * FROM `$table` WHERE `uid` = $uid AND `method` = 'method_hyperwallet' AND `status` = 1 ");
   if(! $check){
+		echo wp_set_message('You need to complete step here before you can access this page', 'warning');
    	$redirect = afl_variable_get('redirect_select_payment_method');
 		if ( !empty($redirect)) {
 			header("Location:".$redirect." ");
