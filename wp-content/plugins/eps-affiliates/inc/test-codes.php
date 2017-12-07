@@ -17,7 +17,7 @@ function check_rank_achied() {
 }
 
 function afl_test_codes_callback () {
-  $str = unserialize('a:10:{s:8:"userDbId";s:4:"3808";s:9:"userMlmId";s:7:"1001557";s:4:"name";s:15:"Kholeka Kholeka";s:5:"email";s:17:"lineok2@gmail.com";s:12:"phone_number";s:10:"0827016716";s:6:"status";s:6:"Active";s:13:"auth_sub_date";a:3:{s:4:"date";s:26:"2017-06-05 10:38:03.000000";s:13:"timezone_type";s:1:"3";s:8:"timezone";s:3:"UTC";}s:20:"auth_merchant_number";s:1:"1";s:12:"sponsor_name";s:12:"Thandi Ncube";s:13:"sponsor_mlmid";s:7:"1001520";}');
+  // $str = unserialize('a:10:{s:8:"userDbId";s:4:"3808";s:9:"userMlmId";s:7:"1001557";s:4:"name";s:15:"Kholeka Kholeka";s:5:"email";s:17:"lineok2@gmail.com";s:12:"phone_number";s:10:"0827016716";s:6:"status";s:6:"Active";s:13:"auth_sub_date";a:3:{s:4:"date";s:26:"2017-06-05 10:38:03.000000";s:13:"timezone_type";s:1:"3";s:8:"timezone";s:3:"UTC";}s:20:"auth_merchant_number";s:1:"1";s:12:"sponsor_name";s:12:"Thandi Ncube";s:13:"sponsor_mlmid";s:7:"1001520";}');
   // pr($str,1); 
 
   // if ( afl_variable_get('afl_enable_que_processing')) {
@@ -117,11 +117,111 @@ function afl_test_codes_callback () {
       _process_embedd_users_queue();
     }
   }*/
- 
+  // do_action('eps_affiliates_place_user_in_holding_tank',14190,162);
+  // $query = array();
+  // $query['#select'] = _table_name('afl_purchases');
+  // $query['#join']  = array(
+  //  _table_name('users') => array(
+  //     '#condition' =>  _table_name('users').'.`ID`'.'='._table_name('afl_purchases').'.`uid`',
+  //   ),
+  // ); 
+  // if (!empty($limit) ) {
+  //   $query['#limit'] = $filters['index'].','.$filters['limit'];
+  // }
+  // $res = db_select($query, 'get_results');
+  // pr($res);
+
+  // require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/plan/matrix/global-pool-bonus-calculation.php';
+  // if (function_exists('_calculate_global_pool_bonus')) {
+  //   _calculate_global_pool_bonus();
+  // }
+$params['category'] = 2;     // Overwrite if exists
+$params['name'] = 2;     // Overwrite if exists
+    
+
+pr(http_build_query($params));
+
+pr(afl_build_url('http://example.com/search', $params));
+// pr( $afl_date_splits = afl_date_splits($date));
+//   pr(_get_company_profit_monthly());
 }
 
+function afl_admin_global_pool_check_user () {
+    $pagination = new CI_Pagination;
 
+    $config['total_rows'] =  (_pool_bonus_check(array(),TRUE));
+    $config['base_url']   = '?page=affiliate-eps-unilevel-all-customers';
+    $config['per_page']   = 50;
 
+    
+    $index = !empty($_GET['page_count']) ? $_GET['page_count'] : 0;
+    $filter = array(
+      'index' => $index,
+      'limit' => $config['per_page']
+    );
+    $data  = _pool_bonus_check($filter);
+    
+    $pagination->initialize($config);
+    $links = $pagination->create_links();
+
+    $table = array();
+    $table['#links']      = $links;
+    $table['#name']       = '';
+    // $table['#title']       = 'Overall system Purchases';
+    $table['#prefix']     = '';
+    $table['#suffix']     = '';
+    $table['#attributes'] = array(
+            'class' => array(
+                'table',
+                'table-bordered',
+                'my-table-center',
+              )
+            );
+
+    $table['#header'] = array(
+      __('#'),
+      __('user ID'),
+      __('Username'),
+      __('Sponsor'),
+      __('Parent'),
+    );
+    $rows = array();
+    foreach ($data as $key => $value) {
+      $rows[$key]['markup_0'] = array(
+        '#type' =>'markup',
+        '#markup'=> ($index * 1) + ($key + 1)
+      );
+
+      $rows[$key]['markup_uid'] = array(
+        '#type' =>'markup',
+        '#markup'=> $value->uid
+      );
+      $rows[$key]['markup_uname'] = array(
+        '#type' =>'markup',
+        '#markup'=> $value->display_name
+      );
+
+      $sponsor_node  = afl_user_data($value->referrer_uid);
+      $rows[$key]['markup_sponsor'] = array(
+        '#type' =>'markup',
+        '#markup'=> !empty($sponsor_node->display_name) ? $sponsor_node->display_name : 'unavailable'
+      );
+
+      $parent_node  = afl_user_data($value->parent_uid);
+      $rows[$key]['markup_parent'] = array(
+        '#type' =>'markup',
+        '#markup'=> !empty($parent_node->display_name) ? $parent_node->display_name : 'unavailable'
+      );
+    }
+  
+    $table['#rows'] = $rows;
+
+    echo apply_filters('afl_render_table',$table);
+}
+
+function _pool_bonus_check () {
+
+}
 
 
 
