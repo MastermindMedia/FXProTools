@@ -51,6 +51,7 @@
 
 		$table['#header'] = array(
 			__('#'),
+			__('user ID'),
 			__('Username'),
 			__('Category'),
 			__('Points'),
@@ -69,6 +70,10 @@
 				'#markup'=> ($index * 1) + ($key + 1)
 			);
 
+			$rows[$key]['markup_uid'] = array(
+				'#type' =>'markup',
+				'#markup'=> $value->uid
+			);
 			$rows[$key]['markup_uname'] = array(
 				'#type' =>'markup',
 				'#markup'=> $value->display_name
@@ -131,6 +136,13 @@ function _all_purchases ( $filters = array(), $count = FALSE ) {
 	if (!empty($filters['limit']) ) {
 		$query['#limit'] = $filters['index'].','.$filters['limit'];
 	}
+
+	if ( !empty($_GET['uid'])) {
+		$query['#where'] = array( 
+   			_table_name('afl_purchases').'.`uid`='.$_GET['uid']
+    ); 	
+	}
+
 	$res = db_select($query, 'get_results');
 	if ($count)
 		return count($res);
