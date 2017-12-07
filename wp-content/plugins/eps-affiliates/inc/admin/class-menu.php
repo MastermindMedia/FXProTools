@@ -632,7 +632,7 @@
 				'#menu_slug' 			=> 'affiliate-eps-manage-members', 
 				'#page_callback' 	=> 'afl_members_manage', 
 			);
-			
+
 			$menu['all_customers'] = array(
 				'#parent'					=> 'affiliate-eps-manage-members',
 				'#page_title'			=> __( 'System Customers', 'System Customers' ),    
@@ -823,6 +823,16 @@
 					'#menu_slug' 			=> 'eps-fund-deposit', 
 					'#page_callback' 	=> 'afl_admin_fund_deposit', 
 				);
+
+				$menu['global_pool_bonus'] = array(
+					'#parent'					=> 'eps-test',
+					'#page_title'			=> __( 'Global pool bonus check', 'Global pool bonus check' ),
+					'#menu_title' 		=> __( 'Global pool bonus check', 'Global pool bonus check' ),
+					'#access_callback'=> 'afl_code_testing', 
+					'#menu_slug' 			=> 'eps-pool-bonus-check', 
+					'#page_callback' 	=> 'afl_admin_global_pool_check_user', 
+				);
+
 				afl_system_admin_menu($menu);
 		 }
 		/*
