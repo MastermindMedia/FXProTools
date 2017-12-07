@@ -109,6 +109,12 @@
 			'#title' 				=> __('AFL Purchase'),
 			'#description' 	=> 'affiliates system purchases '
 		);
+
+		//overall purchases
+		$permissions['overall_purchases'] = array(
+			'#title' 				=> __('AFL Overall system Purchase'),
+			'#description' 	=> 'affiliates overall system purchases '
+		);
 		//rank performance overview
 		$permissions['afl_rank_performance_overview'] = array(
 			'#title' 				=> __('AFL Rank performance Overview'),
