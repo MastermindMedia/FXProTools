@@ -74,6 +74,13 @@ function afl_user_payment_method_form(){
 
 	global $wpdb;
 	$uid 					 = get_current_user_id();
+	$table = $wpdb->prefix .'afl_user_payment_methods';
+	$check = $wpdb->get_row("SELECT  * FROM `$table` WHERE `uid` = $uid ");
+
+  if( !$check){
+		echo wp_set_message('You need to complete step here before you can access this page', 'warning');
+	}
+
 
 	 if ( isset($_POST['submit']) ) {
 	 	$validation = afl_user_payment_method_form_validation($_POST);
@@ -492,14 +499,20 @@ function  afl_user_payment_autherization_form(){
 	$table = $wpdb->prefix .'afl_user_payment_methods';
 	$check = $wpdb->get_row("SELECT  * FROM `$table` WHERE `uid` = $uid ");
 
-	 if(! $check){
-		echo wp_set_message('You need to complete step here before you can access this page', 'warning');
-	 	
+	 if( !$check){
    	$redirect = afl_variable_get('redirect_select_payment_method');
 		if ( !empty($redirect)) {
 			header("Location:".$redirect." ");
 		}
   }
+
+  //display a message
+  $table = _table_name('afl_transaction_authorization');
+	$exist = $wpdb->get_row("SELECT  * FROM `$table` WHERE `uid` = $uid ");
+	if(!$exist){
+		wp_set_message('You need to complete step here before you can access this page', 'warning');
+	}
+
 	$form = array();
 	 $form['#method'] = 'post';
 	 $form['#action'] = $_SERVER['REQUEST_URI'];

@@ -523,9 +523,9 @@ function afl_page_redirection_conf () {
 		if (isset($_POST['submit'])) {
  			$variables = $_POST;
  			unset($variables['submit']);
- 			if (afl_payment_methods_form_validation($variables)) {
+ 			// if (afl_payment_methods_form_validation($variables)) {
  				afl_page_redirection_conf_submit($variables);
- 			}
+ 			// }
  		}
 
  		$form = array();
