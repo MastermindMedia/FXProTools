@@ -209,6 +209,10 @@ function afl_user_payment_method_form_submit($form_state){
    if($q) {
      echo wp_set_message(__('Your payment method saved successfully.'), 'success');
    }
+
+  if (isset($_GET['redirect'])) {
+		header("Location:".$_GET['redirect']." ");
+  }
 }
 
 /*
@@ -488,10 +492,14 @@ function afl_user_payment_conf_method_paypal_form_submit($form_state){
 * ------------------------------------------------------------
 */
 function  afl_user_payment_autherization_form(){
+
 	if ( isset($_POST['submit']) ) {
 		$validation = afl_user_payment_autherization_form_validation($_POST);
 		if (!empty($validation)) {
 			afl_user_payment_autherization_form_submit($_POST);
+			if (isset($_GET['redirect'])) {
+				header("Location:".$_GET['redirect']." ");
+		  }
 		}
 	 }
 	global $wpdb;
@@ -501,8 +509,10 @@ function  afl_user_payment_autherization_form(){
 
 	 if( !$check){
    	$redirect = afl_variable_get('redirect_select_payment_method');
+  	$params['redirect'] = urlencode($_SERVER['REQUEST_URI']);
+
 		if ( !empty($redirect)) {
-			header("Location:".$redirect." ");
+			header("Location:".afl_build_url($redirect,$params)." ");
 		}
   }
 
@@ -609,6 +619,7 @@ function afl_user_payment_autherization_form_submit($form_state){
 	else{
 			echo wp_set_message(__('Some error occured. Please try again later..'), 'success');
 	}
+
 }
 
 /*
@@ -642,8 +653,10 @@ function afl_user_payment_conf_method_hyperwallet_form(){
   if(! $check){
 		echo wp_set_message('You need to complete step here before you can access this page', 'warning');
    	$redirect = afl_variable_get('redirect_select_payment_method');
+		$params['redirect'] = urlencode($_SERVER['REQUEST_URI']);
+
 		if ( !empty($redirect)) {
-			header("Location:".$redirect." ");
+			header("Location:".afl_build_url($redirect,$params)." ");
 		}
   }
 
@@ -653,9 +666,11 @@ function afl_user_payment_conf_method_hyperwallet_form(){
 	if(!$password){
 		echo wp_set_message('Please create a transaction password before proceeding', 'warning');
 		$redirect = afl_variable_get('redirect_set_transaction_password');
-			if ( !empty($redirect)) {
-				header("Location:".$redirect." ");
-			}
+		$params['redirect'] = urlencode($_SERVER['REQUEST_URI']);
+
+		if ( !empty($redirect)) {
+			header("Location:".afl_build_url($redirect,$params)." ");
+		}
 		/*
 			goto set payment password set forms
 		*/
@@ -800,6 +815,9 @@ function afl_user_payment_conf_method_hyperwallet_form_submit($form_state){
 	  }
 	}
 
+  if (isset($_GET['redirect'])) {
+		header("Location:".$_GET['redirect']." ");
+  }
 }
 
 
