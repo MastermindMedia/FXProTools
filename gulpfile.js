@@ -7,12 +7,15 @@ var gulp = require('gulp'),
 	flatten = require('gulp-flatten'),
 	sourcemaps = require('gulp-sourcemaps'),
 	uglify = require('gulp-uglify'),
-	cssreplace = require('gulp-replace');
+	cssreplace = require('gulp-replace'),
+	imagemin = require('gulp-imagemin');
+	cache = require('gulp-cache');
 
 var theme_location = './wp-content/themes/fxprotools-theme',
 	config = {
 		theme_sass: theme_location + '/assets/sass/**/*.scss',
 		theme_js: theme_location + '/assets/js/theme/custom/**/*.js',
+		theme_img: theme_location + '/assets/img/*',
 		output: theme_location + '/assets'
 	};
 
@@ -54,6 +57,24 @@ gulp.task('watch-sass', ['sass'], function(){
 // Default Task for watching js
 gulp.task('watch-js', ['js'], function(){
 	gulp.watch(config.theme_js, ['js']);
+});
+
+// Optimize images
+gulp.task('opt-img', function(){
+	gulp.src(config.theme_img)
+		.pipe(cache(imagemin([
+			imagemin.gifsicle({interlaced: true}),
+			imagemin.jpegtran({progressive: true}),
+			imagemin.optipng({optimizationLevel: 5}),
+			imagemin.svgo({
+				plugins: [
+					{removeViewBox: true},
+					{cleanupIDs: false}
+				]
+			})
+		], { verbose: true })))
+		.pipe(flatten())
+		.pipe(gulp.dest(config.output + '/img'))
 });
 
 // Default Task for watching both sass/js
