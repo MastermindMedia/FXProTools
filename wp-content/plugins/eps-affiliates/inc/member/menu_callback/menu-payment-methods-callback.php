@@ -71,7 +71,7 @@ function afl_user_payment_method_conf_form(){
 * ------------------------------------------------------------
 */
 function afl_user_payment_method_form(){
-pr('here');
+
 	global $wpdb;
 	$uid 					 = get_current_user_id();
 	$table = $wpdb->prefix .'afl_user_payment_methods';
@@ -86,6 +86,9 @@ pr('here');
 	 	$validation = afl_user_payment_method_form_validation($_POST);
 	 	if (!empty($validation)) {
 	 		afl_user_payment_method_form_submit($_POST);
+		  if (isset($_GET['redirect'])) {
+				header("Location:".urldecode($_GET['redirect'])." ");
+		  }
 	 	}
 	 }
 		global $wpdb;
@@ -210,9 +213,6 @@ function afl_user_payment_method_form_submit($form_state){
      echo wp_set_message(__('Your payment method saved successfully.'), 'success');
    }
 
-  if (isset($_GET['redirect'])) {
-		header("Location:".$_GET['redirect']." ");
-  }
 }
 
 /*
@@ -497,8 +497,8 @@ function  afl_user_payment_autherization_form(){
 		$validation = afl_user_payment_autherization_form_validation($_POST);
 		if (!empty($validation)) {
 			afl_user_payment_autherization_form_submit($_POST);
-			if (isset($_GET['redirect'])) {
-				header("Location:".$_GET['redirect']." ");
+		  if (isset($_GET['redirect'])) {
+				header("Location:".urldecode($_GET['redirect'])." ");
 		  }
 		}
 	 }
@@ -640,10 +640,14 @@ function afl_user_payment_conf_error_form(){
 * ------------------------------------------------------------
 */
 function afl_user_payment_conf_method_hyperwallet_form(){
+
 	 if ( isset($_POST['submit']) ) {
 	 	$validation = afl_user_payment_conf_method_hyperwallet_form_validation($_POST);
 	 	if ($validation) {
 	 		afl_user_payment_conf_method_hyperwallet_form_submit($_POST);
+	 		 if (isset($_GET['redirect'])) {
+				header("Location:".urldecode($_GET['redirect'])." ");
+		  }
 	 	}
 	 }
 	global $wpdb;

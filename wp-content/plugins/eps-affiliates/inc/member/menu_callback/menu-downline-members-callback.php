@@ -38,8 +38,8 @@ function afl_downline_members_callback(){
 			'length' =>$config['per_page']
 		);
 		$filter['fields'] = array(
-		  _table_name('afl_user_downlines') => array('level'),
-		  _table_name('afl_user_genealogy') => array('member_rank','created','relative_position'),
+		  _table_name('afl_user_downlines') => array('level','relative_position'),
+		  _table_name('afl_user_genealogy') => array('member_rank','created'),
 		  _table_name('users') => array('display_name', 'ID')
 		 );
 		$data  = afl_get_user_downlines($uid,$filter);
