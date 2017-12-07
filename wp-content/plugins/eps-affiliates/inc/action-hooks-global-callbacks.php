@@ -731,11 +731,11 @@
 */
  function eps_affiliates_unilevel_place_user_in_holding_tank_callback ($uid = '', $sponsor = '') {
  		
- 		//check the user already in afl_unilevel_user_holding_tankHide
-		$query['#select'] = _table_name('afl_unilevel_user_holding_tankHide');
+ 		//check the user already in afl_unilevel_user_holding_tank
+		$query['#select'] = _table_name('afl_unilevel_user_holding_tank');
     $query['#where'] = array(
-      '`'._table_name('afl_unilevel_user_holding_tankHide').'`.`uid`='.$uid,
-      '`'._table_name('afl_unilevel_user_holding_tankHide').'`.`referrer_uid`='.$sponsor
+      '`'._table_name('afl_unilevel_user_holding_tank').'`.`uid`='.$uid,
+      '`'._table_name('afl_unilevel_user_holding_tank').'`.`referrer_uid`='.$sponsor
     );
     $exist = db_select($query, 'get_row');
     //if not exist

@@ -64,6 +64,7 @@ function afl_business_transactions(){
             <tr>
                 <th>#</th>
                 <th>Category</th>
+                <th>Member</th>
                 <th>Associated Member</th>
                 <th>Amount</th>
                 <th>Credit Status</th>
