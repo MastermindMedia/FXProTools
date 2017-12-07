@@ -6,6 +6,8 @@
 */
 function afl_admin_payout_configuration(){
 		echo afl_eps_page_header();
+		new Afl_enque_scripts('common');
+		
 	$post = array();
 	if (isset($_POST['submit']) ){
 			$post = $_POST;
