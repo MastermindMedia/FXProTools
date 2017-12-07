@@ -210,16 +210,17 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
     $args = array(
 		'exclude'      => array(get_current_user_id()),
 		'number'       => '100',
+		'role__not_in' => array('administrator')
 	 ); 
 
 	$all_users = get_users( $args );
-	//dd($all_users);
+	$user_count = count($all_users);
 
 	foreach($all_users as $user){
 		$customer_id = $user->ID;
 		$name       = get_the_author_meta('first_name', $customer_id) . " " . get_the_author_meta('last_name', $customer_id);
     	$state      = get_the_author_meta('billing_state', $customer_id);
-    	$prod_random = array('IBO Kit','Signals','1 On 1 Advance Coaching','Auto-Trader','Business + IBO Kit','Professional');
+    	$prod_random = array('IBO Kit','Signals','Business + IBO Kit','Professional');
     	shuffle($prod_random);
     	$activity   = "Recently ordered " . $prod_random[0];
     	$time       = random_checkout_time_elapsed();
@@ -247,6 +248,81 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
     		'time'     => $time
     	);
 	}
+
+	if($user_count <= 30){
+		$fake_users = array(
+			array(
+				"name"     => 'Brian B.',
+				"location" => 'New Jersey'
+			),
+			array(
+				"name"     => 'Donald DeRenzo',
+				"location" => 'New Mexico'
+			),
+			array(
+				"name"     => 'Jesse Smithers',
+				"location" => 'Nevada'
+			),
+			array(
+				"name"     => 'Sheryl Williams',
+				"location" => 'West Virginia'
+			),
+			array(
+				"name"     => 'Alicia McCollum',
+				"location" => 'New Hampshire'
+			),
+			array(
+				"name"     => 'Kiara Collins',
+				"location" => 'New Jersey'
+			),
+			array(
+				"name"     => 'Elizabeth Keen',
+				"location" => 'South Dakota'
+			),
+			array(
+				"name"     => 'Jason Moore',
+				"location" => 'Georgia'
+			),
+			array(
+				"name"     => 'Lucy Mayfield',
+				"location" => 'Maine'
+			),
+			array(
+				"name"     => 'Spencer Ryan',
+				"location" => 'Delaware'
+			),
+			array(
+				"name"     => 'Rob Harper',
+				"location" => 'New York'
+			),
+			array(
+				"name"     => 'Ryan Mendez',
+				"location" => 'Florida'
+			),
+			array(
+				"name"     => 'Gregory McGinnis',
+				"location" => 'Alabama'
+			),
+			array(
+				"name"     => 'Miley Parker',
+				"location" => 'California'
+			),
+		);
+
+		foreach($fake_users as $user){
+			$prod_random = array('IBO Kit','Signals','Business + IBO Kit','Professional');
+	    	shuffle($prod_random);
+	    	$activity   = "Recently ordered " . $prod_random[0];
+	    	$time       = random_checkout_time_elapsed();
+			$orders[] = array(
+	    		'image'    => "https://maps.googleapis.com/maps/api/staticmap?center=" . urlencode( $user['location'] ) . "&zoom=13&size=120x120&maptype=roadmap&key=AIzaSyAMRPELYMjUR8a0q0UArdw8oLRYrjuLA6o",
+	    		'name'     => $user['name'] . ', ' . $user['location'],
+	    		'activity' => $activity,
+	    		'time'     => $time
+	    	);
+		}
+	}
+
 	?>
 
 	<script type="text/javascript">
