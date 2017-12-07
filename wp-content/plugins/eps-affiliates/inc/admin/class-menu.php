@@ -434,6 +434,7 @@
 					'#page_callback' 	=> 'afl_unilevel_my_customers', 
 				);
 
+
 				$menu['holding_genealogy_toggle_placement'] = array(
 					// '#parent'					=> 'no-parent',
 					'#parent'					=> 'affiliate-eps-unilevel-user-network',
@@ -621,6 +622,15 @@
 				'#menu_slug' 			=> 'affiliate-eps-manage-members', 
 				'#page_callback' 	=> 'afl_members_manage', 
 				'#weight'					=>	5.2
+			);
+
+			$menu['all_customers'] = array(
+				'#parent'					=> 'affiliate-eps-manage-members',
+				'#page_title'			=> __( 'System Customers', 'System Customers' ),    
+				'#menu_title' 		=> __( 'System Customers', 'System Customers' ),    
+				'#access_callback'=> 'afl_unilevel_all_customers', 
+				'#menu_slug' 			=> 'affiliate-eps-unilevel-all-customers', 
+				'#page_callback' 	=> 'afl_unilevel_all_customers', 
 			);
 			$menu['members_manage'] = array(
 				'#parent'					=> 'affiliate-eps-manage-members',

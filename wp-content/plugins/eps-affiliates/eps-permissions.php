@@ -37,6 +37,12 @@
 			'#title' 				=> __('AFL Matrix Add New customer'),
 			'#description'	=> 'Add new affiliate customer under the user'
 		);
+
+		//All customer
+		$permissions['afl_unilevel_all_customers'] = array(
+			'#title' 				=> __('AFL system customers'),
+			'#description'	=> 'system customers'
+		);
 		//new customer
 		$permissions['afl_holding_tank'] = array(
 			'#title' 				=> __('AFL Matrix Holding tank'),
