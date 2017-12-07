@@ -472,49 +472,64 @@ function afl_widget_settings_form_submit ($form_state = array()) {
 
 function afl_extra_variable_conf () {
 
-		// if (isset($_POST['submit'])) {
- 	// 		$variables = $_POST;
- 	// 		unset($variables['submit']);
- 	// 		afl_extra_variable_conf_submit($variables);
- 	// 	}
+		if (isset($_POST['submit'])) {
+ 			$variables = $_POST;
+ 			unset($variables['submit']);
+ 			afl_extra_variable_conf_submit($variables);
+ 		}
 
- 	// 	$form = array();
- 	// 	$form['#method'] = 'post';
-		// $form['#action'] = $_SERVER['REQUEST_URI'];
-		// $form['#prefix'] ='<div class="form-group row">';
-	 // 	$form['#suffix'] ='</div>';
+ 		$form = array();
+ 		$form['#method'] = 'post';
+		$form['#action'] = $_SERVER['REQUEST_URI'];
+		$form['#prefix'] ='<div class="form-group row">';
+	 	$form['#suffix'] ='</div>';
 
-	 // 	//payment source
-	 // 	$form['afl_enable_que_processing'] = array(
-	 // 		'#type' 					=> 'checkbox',
-	 // 		'#title' 					=> 'Enable / Disable remote users embedd que processing',
-	 // 		'#default_value' 	=> afl_variable_get('afl_enable_que_processing', ''),
-	 // 		'#prefix'					=> '<div class="form-group row">',
-	 // 		'#suffix' 				=> '</div>',
 
-	 // 	);
+	 	$form['rank_income_fieldset'] = array(
+	 		'#type'=>'fieldset',
+	 		'#title' => __('Rank Income')
+	 	);
+	 	//payment source
+	 	$form['rank_income_fieldset']['afl_rank_achieved_monlthy_income_pay'] = array(
+	 		'#type' 					=> 'checkbox',
+	 		'#title' 					=> 'Pay rank monthly income when user achieve a rank',
+	 		'#default_value' 	=> afl_variable_get('afl_rank_achieved_monlthy_income_pay', ''),
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>',
 
- 	// 	$form['submit'] = array(
-	 // 		'#type' => 'submit',
-	 // 		'#value'=>' Save configuration'
-	 // 	);
-	 // 	echo afl_render_form($form);
+	 	);
+
+	 	//payment source
+	 	$form['rank_income_fieldset']['afl_give_skiped_monthly_rank_income'] = array(
+	 		'#type' 					=> 'checkbox',
+	 		'#title' 					=> 'Pay the missed income when a user achieve higher rank',
+	 		'#default_value' 	=> afl_variable_get('afl_give_skiped_monthly_rank_income', ''),
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>',
+
+	 	);
+ 		$form['submit'] = array(
+	 		'#type' => 'submit',
+	 		'#value'=>' Save configuration'
+	 	);
+	 	echo afl_render_form($form);
 }
 
 function afl_extra_variable_conf_submit ($vars = array()) {
-	// $checkboxes = array(
-	// 	'afl_enable_que_processing'
-	// );
+	$checkboxes = array(
+		'afl_rank_achieved_monlthy_income_pay',
+		'afl_give_skiped_monthly_rank_income'
+	);
 	
-	// foreach ($vars as $key => $value) {
-	// 	afl_variable_set($key, $value);
-	// }
-	// foreach ($checkboxes as $checkbox) {
-	// 	if ( !array_key_exists($checkbox, $vars)) {
-	// 		afl_variable_set($checkbox, '');
-	// 	}
-	// }
-	// wp_set_message('Configuration has been saved successfully', 'success');
+	foreach ($vars as $key => $value) {
+		afl_variable_set($key, $value);
+	}
+	foreach ($checkboxes as $checkbox) {
+		if ( !array_key_exists($checkbox, $vars)) {
+			afl_variable_set($checkbox, '');
+		}
+	}
+	wp_set_message('Configuration has been saved successfully', 'success');
 }
 
 

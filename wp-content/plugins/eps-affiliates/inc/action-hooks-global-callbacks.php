@@ -639,6 +639,55 @@
 					$rank_history_data['rank_date'] 	= afl_date_combined($date_splits);
 
 					$wpdb->insert($rank_history_table, $rank_history_data);
+
+				/*
+		 		 * ---------------------------------------------------------
+		 		 * check any income for the specified rank
+		 		 * ---------------------------------------------------------
+		 		*/
+			 		if ( afl_variable_get('afl_rank_achieved_monlthy_income_pay')) {
+			 			$rank_monthly_income = afl_variable_get('rank_'.$i.'_monthly_income',0);
+			 			if ( $rank_monthly_income ) {
+			 				$transaction = array();
+					    $transaction['uid'] 					= $uid;
+					    $transaction['associated_user_id'] = $uid;
+					    $transaction['level'] 				= 0;
+					    $transaction['currency_code'] = afl_currency();
+					    $transaction['order_id'] 			= 1;
+					    $transaction['int_payout'] 		= 0;
+					    $transaction['credit_status'] = 0;
+					    $transaction['amount_paid'] 	= afl_commerce_amount($rank_monthly_income);
+					    $transaction['category'] 			= 'Rank Achieved Income';
+					    $transaction['notes'] 				= 'Rank '.$i.' achieved monthly income';
+					    afl_member_transaction($transaction, TRUE);
+			 			}
+			 		}
+			 	/*
+		 		 * ---------------------------------------------------------
+		 		 * if a user get higher rank without achieveing lower, then
+		 		 * give all the income to that  user
+		 		 * ---------------------------------------------------------
+		 		*/	
+		 			if ( afl_variable_get('afl_give_skiped_monthly_rank_income')) {
+		 				$rank = $i;
+		 				for( $loop = 0; $loop <= $rank; $rank++){
+		 					$check_already_paid = _check_rank_achieve_income_paid_already($uid, $rank);
+		 					if ( !$check_already_paid ) {
+		 						$transaction = array();
+						    $transaction['uid'] 					= $uid;
+						    $transaction['associated_user_id'] = $uid;
+						    $transaction['level'] 				= 0;
+						    $transaction['currency_code'] = afl_currency();
+						    $transaction['order_id'] 			= 1;
+						    $transaction['int_payout'] 		= 0;
+						    $transaction['credit_status'] = 0;
+						    $transaction['amount_paid'] 	= afl_commerce_amount($rank_monthly_income);
+						    $transaction['category'] 			= 'Rank Achieved Income';
+						    $transaction['notes'] 				= 'Rank '.$rank.' achieved monthly income';
+						    afl_member_transaction($transaction, TRUE);
+		 					}
+		 				}
+		 			}
 	 				break;
 	 			}
  		}
@@ -1655,4 +1704,30 @@
 		if (function_exists('_afl_member_account_cancel')) {
 			_afl_member_account_cancel();
 		}
+	}
+/*
+ * ----------------------------------------------------
+ * Check the rank acheievd income given or not
+ * ----------------------------------------------------
+*/
+	function _check_rank_achieve_income_paid_already ( $uid = '', $rank = '') {
+		$flag = FALSE;
+		if ( $rank && $uid) {
+			$query['#select'] =  _table_name('afl_user_transactions');
+
+			$note = "Rank".$rank." achieved monthly income";
+	 		$query['#where']  = array(
+	 			'uid = '.$uid,
+	 			'associated_user_id = '.$uid,
+	 			'category="Rank Achieved Income"',
+	 			'notes="'.$note.'"'
+	 		);
+
+	 		$data = db_select($query, 'get_row');
+	 		if ( $data) {
+	 			$flag = TRUE;
+	 		}
+		}
+
+		return $flag;
 	}
