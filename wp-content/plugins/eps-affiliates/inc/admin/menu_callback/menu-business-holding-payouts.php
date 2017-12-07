@@ -3,13 +3,13 @@
 function afl_system_business_holding_payouts () {
 	do_action('eps_affiliate_page_header');
  	do_action('afl_content_wrapper_begin');
+		new Afl_enque_scripts('common');
  		afl_system_business_holding_payouts_callback();
  	do_action('afl_content_wrapper_end');
 }
 
 function afl_system_business_holding_payouts_callback () {
-		new Afl_enque_scripts('common');
-
+		
 		$pagination = new CI_Pagination;
 
 		$config['total_rows'] =  count(_get_holding_payouts());
@@ -40,9 +40,9 @@ function afl_system_business_holding_payouts_callback () {
 			__('#'),
 			// __('User ID'),
 			__('User Name'),
+			__('Category'),
 			__('Amount'),
 			__('Transaction Date'),
-			__('Category'),
 			__('Details'),
 		);
 		$rows = array();
