@@ -423,11 +423,6 @@ function get_mb_pto1( $page_element, $pto = 'pto1' ) {
                 $float_class    = $arr_float[0];
             }
 
-            // Hide this default no show info for now.
-            // if( count( is_mb_video_scroll( $pto, $video_url ) ) === 0 && count( is_mb_video_float( $pto ) ) === 0 ){
-            //     $default_yt_video = "data-ptodefaultyt";
-            // }
-
             $html = '<div class="fx-video-container" ' . $default_yt_video . ' id="' . $float_class . '" data-ptoaction="' . $scroll_class . '" data-ptoautostart="' . implode(' ', $video_autostart) . '" data-ptodisablecontrols="' . implode(' ', $video_disable_controls) . '" data-ptohideinfo="'. implode(' ', $video_hide_info) .'" data-ptodisablerelated="'. implode(' ', $video_disable_related) .'" data-ptourl="' . $scroll_url . '">';
             $html .= ( !empty($scroll_class) ) ? '' : wp_oembed_get($video_url) ;
             $html .= '</div>';

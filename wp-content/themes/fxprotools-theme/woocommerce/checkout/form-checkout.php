@@ -108,6 +108,21 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 	<div id="checkout-panel-3" class="panel panel-default panel-gray">
 		<div class="panel-body">
 			<h5>Order Summary <span>Price:</span></h5>
+			<?php if(isset($_COOKIE['affwp_ref'])): ?>
+				<?php $user = new WP_User( affwp_get_affiliate_user_id($_COOKIE['affwp_ref'])); ?>
+				<table class="" style="    width: 100%;background: #fff;border: 1px solid #ccc;padding: 10px;font-size: 1.1rem; margin-bottom: 15px;">
+					<tbody>
+						<tr class="cart_item">
+							<td class="product-name" style="padding: 10px;">
+								<strong>Your Referring Sponsor :</strong>
+							</td>
+							<td class="product-total" style="padding: 10px; text-align: right;">
+								<strong><?php echo $user->display_name;?></strong> (<?php echo $user->user_login;?> )
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			<?php endif ;?>
 			<div class="term-wrap">
 				<div class="no-pad-left">
 					<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox" name="terms" id="terms">
