@@ -13,9 +13,10 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12 epx">
-				<?php echo do_shortcode('[afl_eps_unilevel_reffered_downlines]'); ?>
+				<?php echo do_shortcode('[afl_eps_matrix_downlines]'); ?>
+				<?php echo do_shortcode('[afl_eps_unilevel_downlines]'); ?>
 			</div>
 		</div>
 	</div>
-	
+
 <?php get_footer(); ?>
