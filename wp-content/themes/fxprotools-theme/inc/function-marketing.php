@@ -138,9 +138,9 @@ function get_total_distributor_sales( $funnel, $user_id = 0 ){
 	global $wpdb;
 	
 	$affiliate_cond = '';
+	$affiliate_id = affwp_get_affiliate_id( $user_id );
 
-	if( $user_id > 0){
-		$affiliate_id = affwp_get_affiliate_id( $user_id );
+	if( $affiliate_id ){
 		$affiliate_cond = "AND referrals.affiliate_id = {$affiliate_id}";
 	}
 
@@ -156,15 +156,17 @@ function get_total_distributor_sales( $funnel, $user_id = 0 ){
         WHERE `description` LIKE \"%Business%\" {$visit_cond} {$affiliate_cond}
     ");
 
-    return $results[0]->sales_count;
+
+
+    return isset( $results[0] ) ? $results[0]->sales_count : 0;
 }
 
 function get_total_customer_sales( $funnel, $user_id = 0 ){
 	global $wpdb;
 	$affiliate_cond = '';
+	$affiliate_id = affwp_get_affiliate_id( $user_id );
 
-	if( $user_id > 0){
-		$affiliate_id = affwp_get_affiliate_id( $user_id );
+	if( $affiliate_id ){
 		$affiliate_cond = "AND referrals.affiliate_id = {$affiliate_id}";
 	}
 
@@ -180,15 +182,15 @@ function get_total_customer_sales( $funnel, $user_id = 0 ){
         WHERE  (`description` LIKE \"%Signals%\" OR `description` LIKE \"%Professional%\") {$visit_cond} {$affiliate_cond}
     ");
 
-    return $results[0]->sales_count;
+    return isset( $results[0] ) ? $results[0]->sales_count : 0;
 }
 
 function get_total_funnel_sales( $link_url, $user_id = 0 ){
 	global $wpdb;
 	$affiliate_cond = '';
+	$affiliate_id = affwp_get_affiliate_id( $user_id );
 
-	if( $user_id > 0){
-		$affiliate_id = affwp_get_affiliate_id( $user_id );
+	if( $affiliate_id ){
 		$affiliate_cond = "AND referrals.affiliate_id = {$affiliate_id}";
 	}
 
