@@ -14,6 +14,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<?php echo do_shortcode('[afl_eps_unilevel_genealogy_tree]'); ?>
+				<?php echo do_shortcode('[afl_unilevel_holding_tank_genealogy_toggle_placement]'); ?>
 			</div>
 		</div>
 		<div class="row">

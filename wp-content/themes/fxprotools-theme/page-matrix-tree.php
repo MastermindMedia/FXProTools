@@ -16,6 +16,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<?php echo do_shortcode('[afl_eps_matrix_genealogy_tree]'); ?>
+				<?php echo do_shortcode('[afl_eps_matrix_holding_tank_genealogy_toggle_placement]'); ?>
 			</div>
 		</div>
 		<div class="row">
