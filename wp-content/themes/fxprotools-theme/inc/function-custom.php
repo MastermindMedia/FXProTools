@@ -796,3 +796,19 @@ function fx_user_role_class( $classes ) {
     return $classes;
      
 }
+
+function load_custom_wp_admin_page_css($hook) {
+    if ( 'post.php' != $hook ) {
+        return;
+    }
+    wp_enqueue_style( 'custom_wp_admin__page_css', get_template_directory_uri() . '/assets/css/admin/admin-page.css' );
+}
+add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_page_css' );
+
+function load_custom_wp_admin_page_js($hook) {
+    if ( 'post.php' != $hook ) {
+        return;
+    }
+    wp_enqueue_script( 'custom_wp_admin_page_js', get_template_directory_uri() . '/assets/js/admin/admin-page.js' );
+}
+add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_page_js' );
