@@ -32,19 +32,6 @@
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="col-md-12">
-				<div class="fx-header-title">
-					<h1>Direct Downline Members</h1>
-					<p>Check Below For Direct Downline Members</p>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<?php echo do_shortcode('[afl_eps_matrix_downlines]'); ?>
-			</div>
-		</div>
 
 		<div class="row">
 			<div class="col-md-12">
