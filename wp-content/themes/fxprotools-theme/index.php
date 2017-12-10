@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-	
+
 	<div class="fx-landing main">
 		<?php get_template_part('inc/templates/nav-capture-page'); ?>
 		<div class="fx-red-note">
@@ -254,7 +254,7 @@
 											<p class="text-heading">software - guide your next move. </p>
 										</div>
 										<p class="text-center">Our Market Training is provides you with just enough information so that you can enter ANY market & trade any currency that you can imagine...</p>
-									</div>								
+									</div>
 									<div class="col-md-12">
 										<div class="step-item m-t-lg">
 											<div class="m-b-lg">
@@ -310,22 +310,6 @@
 												</div>
 												<div class="col-md-8">
 													<img src="http://via.placeholder.com/700x350" class="center-block img-responsive">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="step-item">
-											<div class="m-b-lg">
-												<h2><span class="label-red">Binary &amp; Forex</span> Auto Trader</h2>
-											</div>
-											<div class="row">
-												<div class="col-md-8">
-													<img src="http://via.placeholder.com/700x350" class="center-block img-responsive">
-												</div>
-												<div class="col-md-4">
-													<p class="text-heading-sm">Put your feet up and let our algorithmic autotrader do the work for you. Set up is fast and easy.</p>
-													<p class="text-heading-sm">Place trades while you sleep and keep on top of the markets without ever lifting a finger.</p>
 												</div>
 											</div>
 										</div>
@@ -597,7 +581,7 @@
 						</div>
 						<div class="row m-t-lg">
 							<?php $ui_items = array('Recurring Commissions', 'Referral Bonuses', 'Marketing Tools', '7 Day Placement Holding Tank', 'Weekly Payouts', 'Complete Backoffice'); ?>
-							<?php 
+							<?php
 							$count = 1;
 							foreach ($ui_items as $key => $ui):
 							?>
@@ -685,7 +669,7 @@
 											<p class="text-heading"><span class="text-bold text-green">$8,404,681</span> Is How Much We<br/>
 											Paid Our Students In 2017</p>
 											<p class="text-heading sm label-green m-t-md">
-												<strong>YUP, That’s Right</strong>...We Pay Our Distrubtors Comissions 
+												<strong>YUP, That’s Right</strong>...We Pay Our Distrubtors Comissions
 												For Any New Members. <strong>LEARN & EARN - TODAY!</strong>
 											</p>
 										</div>
@@ -716,8 +700,8 @@
 									</div>
 									<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 										<div class="header-text m-b-md">
-											<p class="text-center text-heading text-bold"><span class="text-red">VIDEO TESTIMONIALS!</span> Show Proof 
-											That “<?php echo get_bloginfo('name'); ?>” Has ALREADY Dramatically Changed The Businesses And Lives Of Countless Others... 
+											<p class="text-center text-heading text-bold"><span class="text-red">VIDEO TESTIMONIALS!</span> Show Proof
+											That “<?php echo get_bloginfo('name'); ?>” Has ALREADY Dramatically Changed The Businesses And Lives Of Countless Others...
 											People Around The World!  </p>
 										</div>
 										<p class="text-center">If You're Sick And Tired Of All The Hype, Scams And Claims You See Online Lately, Then Pay Attention To These Amazing Success Stories From Actual, Real Students...</p>

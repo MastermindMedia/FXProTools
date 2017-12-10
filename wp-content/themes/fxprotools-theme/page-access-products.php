@@ -78,7 +78,7 @@ $coaching = wcs_user_has_subscription( '', 50, 'active');
 						<a href="<?php bloginfo('url');?>/basic-training/" class="action btn btn-danger fx-btn">Explore Product</a>
 					</li>
 					<li>
-						<span>Market Signals</span>
+						<span>Market Trade Signals</span>
 						<a href="<?php bloginfo('url');?>/trade-signals/" class="action btn btn-danger fx-btn"><?php echo $market_scanner || current_user_can('administrator') ? 'Explore Product' : 'Upgrade Now <i class="fa fa-shopping-cart"></i>';?></a>
 					</li>
 					<li>
