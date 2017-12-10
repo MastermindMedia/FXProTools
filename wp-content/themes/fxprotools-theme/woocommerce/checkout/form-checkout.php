@@ -110,7 +110,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 			<h5>Order Summary <span>Price:</span></h5>
 			<?php if(isset($_COOKIE['affwp_ref'])): ?>
 				<?php $user = new WP_User( affwp_get_affiliate_user_id($_COOKIE['affwp_ref'])); ?>
-				<table class="affiliate-referrer"">
+				<table class="affiliate-referrer">
 					<tbody>
 						<tr class="cart_item">
 							<td class="product-name">
