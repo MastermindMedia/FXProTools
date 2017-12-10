@@ -1,4 +1,4 @@
-<?php 
+<?php
 $subscription_details = get_user_subscription_details();
 
 $subscription = [];
@@ -33,8 +33,8 @@ $coaching = wcs_user_has_subscription( '', 50, 'active');
 				</div>
 			</div>
 			<div class="col-md-8">
-				<?php 
-					// Metabox Page Template Option - Video Embed 
+				<?php
+					// Metabox Page Template Option - Video Embed
 					echo get_mb_pto1( 'video_embed', 'pto1' );
 				?>
 			</div>
@@ -74,20 +74,12 @@ $coaching = wcs_user_has_subscription( '', 50, 'active');
 			<div class="col-md-12">
 				<ul class="fx-list-training">
 					<li>
-						<span>Basic Training</span>
+						<span>Training</span>
 						<a href="<?php bloginfo('url');?>/basic-training/" class="action btn btn-danger fx-btn">Explore Product</a>
 					</li>
 					<li>
-						<span>Expert Training</span>
-						<a href="<?php bloginfo('url');?>/advanced-training/" class="action btn btn-danger fx-btn">Explore Product</a>
-					</li>
-					<li>
-						<span>Market Scanner</span>
-						<a href="<?php bloginfo('url');?>/scanner/" class="action btn btn-danger fx-btn"><?php echo $market_scanner || current_user_can('administrator') ? 'Explore Product' : 'Upgrade Now <i class="fa fa-shopping-cart"></i>';?></a>
-					</li>
-					<li>
-						<span>FX Auto Trader</span>
-						<a href="<?php bloginfo('url');?>/auto-trader/" class="action btn btn-danger fx-btn"><?php echo $auto_trader || current_user_can('administrator')  ? 'Explore Product' : 'Upgrade Now <i class="fa fa-shopping-cart"></i>';?></a>
+						<span>Market Signals</span>
+						<a href="<?php bloginfo('url');?>/trade-signals/" class="action btn btn-danger fx-btn"><?php echo $market_scanner || current_user_can('administrator') ? 'Explore Product' : 'Upgrade Now <i class="fa fa-shopping-cart"></i>';?></a>
 					</li>
 					<li>
 						<span>1 on 1 Coaching</span>
