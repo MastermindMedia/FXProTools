@@ -15,7 +15,7 @@
  * @package 	WooCommerce/Templates
  * @version     2.3.0
  */
- 
+
 get_header();
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -31,7 +31,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 	echo apply_filters( 'woocommerce_checkout_must_be_logged_in_message', __( 'You must be logged in to checkout.', 'woocommerce' ) );
 	return;
 }
- 
+
 ?>
 
 
@@ -64,7 +64,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 	</div>
 
 	<?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
-	
+
 	<div class="checkout-sidebar">
 		<div class="checkout-sidebar-item">
 			<img src="<?php bloginfo('template_directory');?>/assets/img/checkout/sidebar-banner.png" class="img-responsive">
@@ -213,7 +213,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
   </div>
 </div>
 
-<?php  
+<?php
 	$orders = array();
 	$order_statuses = array('wc-on-hold', 'wc-processing', 'wc-completed', 'wc-pending', 'wc-cancelled', 'wc-refunded', 'wc-failed');
     $sub=get_posts( array(
@@ -226,7 +226,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 		'exclude'      => array(get_current_user_id()),
 		'number'       => '100',
 		'role__not_in' => array('administrator')
-	 ); 
+	 );
 
 	$all_users = get_users( $args );
 	$user_count = count($all_users);
@@ -346,7 +346,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 			var customer_size = notifications.length;
 			var counter = 1;
 
-			jQuery('[data-toggle="popover"]').popover(); 
+			jQuery('[data-toggle="popover"]').popover();
 
 			setInterval(function(){
 				if(counter > customer_size){
@@ -386,7 +386,7 @@ foreach( WC()->cart->get_cart() as $cart_item ){
 			$popup_type = 'default';
 		}
 	}
-	
+
 }
 
 if ( isset($popup_type) ):
@@ -402,7 +402,7 @@ if ( isset($popup_type) ):
 			jQuery('.checkout-popup.<?php echo $popup_type;?>').modal('show');
 		}
 	}
-	
+
 	jQuery('.close').click(function(){
 		jQuery('.checkout-popup.<?php echo $popup_type;?>').modal('hide');
 		$.cookie('checkout_popup_cookie', 'active', { expires: 12 });

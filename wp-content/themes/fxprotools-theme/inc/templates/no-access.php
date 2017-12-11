@@ -7,7 +7,7 @@ if( isset($product) ){
 	$product_price = $product_price == 0 ? $product->get_regular_price() : $product_price;
 	$subscription_price = WC_Subscriptions_Product::get_price( $product );
 	$switch_url = get_switch_subscription_url( $product->get_id() );
-	
+
 }
 
 
@@ -28,7 +28,7 @@ if( isset($product) ){
 						<li><a href="#" class="btn-flag">English</a></li>
 						<li class="fx-nav-btn"><a href="<?php echo get_option('home'); ?>/login">Members Login</a></li>
 					</ul>
-				</div>		
+				</div>
 			</div>
 		</div>
 	</div>
@@ -43,7 +43,7 @@ if( isset($product) ){
 						<li><a href="<?php echo get_option('home'); ?>/#trial-products">Become a Customer</a></li>
 						<li><a href="<?php echo get_option('home'); ?>/#trial-products">Become a Distributor</a></li>
 					</ul>
-				</div>		
+				</div>
 			</div>
 		</div>
 	</div>
@@ -90,7 +90,7 @@ if( isset($product) ){
 			</div>
 			<div class="col-md-6">
 				<div class="note">
-					<img src="http://via.placeholder.com/600x300?text=Video" class="img-responsive centered-block m-b-sm">
+					<img src="https://via.placeholder.com/600x300?text=Video" class="img-responsive centered-block m-b-sm">
 					<p class="text-center">Find out about becoming a trader during the next free webinar.</p>
 					<a href="<?php echo get_the_permalink($product->get_id()); ?>" class="btn btn-danger block btn-lg m-b-md btn-lg-w-text">Upgrade Your Account!</a>
 				</div>

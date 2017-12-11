@@ -78,7 +78,7 @@
 									<div class="col-xs-12 col-sm-12 col-md-8">
 										<div class="note">
 											<p class="text-center text-bold">What is Forex &amp; Binary Trading?</p>
-											<img src="http://via.placeholder.com/600x300?text=Video" class="img-responsive centered-block m-b-sm">
+											<img src="https://via.placeholder.com/600x300?text=Video" class="img-responsive centered-block m-b-sm">
 											<p class="text-center text-bold">What This Short Video</p>
 										</div>
 									</div>
@@ -241,7 +241,7 @@
 											It Is To Use Our Platform...
 											</h2>
 											<div class="m-t-md">
-												<img src="http://via.placeholder.com/960x490" class="center-block img-responsive">
+												<img src="https://via.placeholder.com/960x490" class="center-block img-responsive">
 											</div>
 										</div>
 									</div>
@@ -266,7 +266,7 @@
 													<p class="text-heading-sm">Learn everything you need to know to start trading today.for long-term success.</p>
 												</div>
 												<div class="col-md-8">
-													<img src="http://via.placeholder.com/700x350" class="center-block img-responsive">
+													<img src="https://via.placeholder.com/700x350" class="center-block img-responsive">
 												</div>
 											</div>
 										</div>
@@ -278,7 +278,7 @@
 											</div>
 											<div class="row">
 												<div class="col-md-8">
-													<img src="http://via.placeholder.com/700x350" class="center-block img-responsive">
+													<img src="https://via.placeholder.com/700x350" class="center-block img-responsive">
 												</div>
 												<div class="col-md-4">
 													<p class="text-heading-sm">When your just starting out. The “Learning Curve” can be a bit much. This is why you have our expert traders doing LIVE Webinars.</p>
@@ -309,7 +309,7 @@
 													<p class="text-heading-sm">Spend less time anyalzing the markets, or picking fake-outs. We do the hard work for you.</p>
 												</div>
 												<div class="col-md-8">
-													<img src="http://via.placeholder.com/700x350" class="center-block img-responsive">
+													<img src="https://via.placeholder.com/700x350" class="center-block img-responsive">
 												</div>
 											</div>
 										</div>
@@ -333,7 +333,7 @@
 								<p class="intro-note"><span class="label-green">Turning A Profiting</span> &amp; Growing Your Wallet</p>
 							</div>
 							<div class="m-t-lg m-b-lg">
-								<img src="http://via.placeholder.com/960x500?text=Video" class="img-responsive centered-block m-b-sm">
+								<img src="https://via.placeholder.com/960x500?text=Video" class="img-responsive centered-block m-b-sm">
 							</div>
 							<div class="text-center">
 								<a href="#trial-products" class="btn btn-danger btn-lg btn-lg-w-text">
@@ -710,42 +710,42 @@
 								<div class="row m-t-md m-b-md">
 									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+											<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Eddie L. of Florida, USA</span>
 											<span class="small">"Retired Teacher"</span>
 										</div>
 									</div>
 									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+											<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Sol A. of Texas, USA</span>
 											<span class="small">"Rabbi"</span>
 										</div>
 									</div>
 									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+											<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Gerard F. of  Rio, Brazil</span>
 											<span class="small">"Electromechanical Engineer"</span>
 										</div>
 									</div>
 									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+											<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Tim F. of Ontario, CA</span>
 											<span class="small">"IT Professional"</span>
 										</div>
 									</div>
 									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+											<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">John S. of New York, USA</span>
 											<span class="small">"Teacher"</span>
 										</div>
 									</div>
 									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+											<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Mark E. of California, USA</span>
 											<span class="small">"Ex Pizza Delivery Boy</span>
 										</div>
