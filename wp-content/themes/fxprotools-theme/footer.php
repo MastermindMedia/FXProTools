@@ -52,6 +52,21 @@
 	</div><!-- /fx-wrapper-content -->
 </div><!-- /fx-wrapper -->
 
+<?php
+/**
+ * Intercom setting
+ * 
+ */
+if (is_user_logged_in()): ?>
+    <?php $user = wp_get_current_user(); ?>
+    <script>
+    window.intercomSettings = {
+        app_id: "tyotu8pw",
+        email: "<?= $user->user_email ; ?>",
+        user_hash: "<?= get_user_intercom_HMAC($user); ?>"
+    };
+    </script>
+<?php endif; ?>
 <?php wp_footer(); ?>
 
 </body>
