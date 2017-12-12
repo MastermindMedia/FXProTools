@@ -32,7 +32,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<p>This website utilizes some of the most advanced techniques to protect your information including technical, administrative and even physical safeguards againts unauthorized access, misuse and improper disclosure.</p>
 			</div>
 	 		<div class="form-group row ">
-			    <div class="col-md-9 col-xs-12">
+			    <div class="col-xs-12">
 				    <div class="row">
 				    	<div class="col-md-12 payment-form">
 				    		<?php if ( $gateway->has_fields() || $gateway->get_description() ) : ?>

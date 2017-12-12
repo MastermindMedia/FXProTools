@@ -148,15 +148,15 @@ $(document).ready(function () {
             wordSequences: true ,
             wordTwoCharacterClasses: false,
             wordRepetitions: false,
-            wordLowercase: true,
-            wordUppercase: true,
-            wordOneNumber: true,
-            wordThreeNumbers: true,
-            wordOneSpecialChar: true,
-            wordTwoSpecialChar: true,
-            wordUpperLowerCombo: true,
-            wordLetterNumberCombo: true,
-            wordLetterNumberCharCombo: true
+            wordLowercase: false,
+            wordUppercase: false,
+            wordOneNumber: false,
+            wordThreeNumbers: false,
+            wordOneSpecialChar: false,
+            wordTwoSpecialChar: false,
+            wordUpperLowerCombo: false,
+            wordLetterNumberCombo: false,
+            wordLetterNumberCharCombo: false
         }
     };
 
