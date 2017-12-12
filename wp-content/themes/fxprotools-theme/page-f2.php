@@ -3,6 +3,7 @@
 Template Name: F2
 */
 $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : 'business.admin';
+$ref_user_id = affwp_get_affiliate_user_id( $ref );
 ?>
 <?php get_header(); ?>
 
@@ -99,6 +100,7 @@ $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : 'business.admin';
 									<input type="text" class="form-control" name="contact" placeholder="Phone #(Optional)">
 								</div>
 								<input type="hidden" name="funnel_id" value="f2">
+								<input type="hidden" name="affiliate_user_id" value="<?php echo $ref_user_id;?>">
 								<input type="hidden" name="redirect_to" value="<?php echo site_url ('lp2/?ref='.$ref );?>">
 								<button type="submit" class="btn btn-danger btn-lg block">Submit</button>
 							</form>
