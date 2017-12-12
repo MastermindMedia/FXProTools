@@ -147,7 +147,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 
 <?php do_action( 'woocommerce_after_checkout_form', $checkout ); ?>
 
-<div class="modal fade normal checkout-popup" id="checkout-popup-1" tabindex="-1" data-backdrop="static" data-keyboard="false">
+<div class="modal fade trial checkout-popup" id="checkout-popup-1" tabindex="-1" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog">
     <div class="modal-content">
       <button type="button" id="hide-checkout-popup" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
@@ -162,7 +162,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
       	<p>So go ahead and <a href="#">take advantage of this no-risk</a>, $1 TRIAL OFFER right now because you will never see it again once you leave this page.</p>
       	<p><strong>LAST CHANCE!</strong> Just click the "<strong>GET STARTED FOR $1.00 TODAY</strong>" button below... so can learn how to start earning a full time income from home.</p>
       	<div class="text-center">
-      		<a href="#" class="btn btn-success btn-lg m-b-md btn-lg-w-text btn-trial">
+      		<a href="#" class="btn btn-success btn-lg m-b-md btn-lg-w-text btn-trial " data-dismiss="modal">
 				Get Your Access For $1.00 Trial Now!
 				<span>Sign-up takes less than 60 seconds. Pick a plan to get started!</span>
 			</a>
@@ -179,8 +179,20 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
       <button type="button" id="hide-checkout-popup" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
       <div class="modal-body">
       	<h2 class="text-center">WAIT!!</h2>
-      	<h3 class="text-center">PLEASE FINISH THE TRIAL CHECKOUT...</h3>
-      	<br>
+      	<h3 class="text-center">DON'T GO EMPTY HANDED...</h3>
+        <p class="intro-note label-red text-center">GET STARTED TODAY FOR $1.00</p>
+        <p class="text-center"><img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/dollar.jpg"></p>
+        <p>....Because you took time to visit our website we are presenting you with this valuable, <strong>ONE TIME ONLY, $1 TRIAL OFFER...</strong></p>
+        <p><strong>No Tricks or Gimmicks</strong>....click the red "GET STARTED FOR $1.00 TODAY" button below right now... <span class="label-red">you'll receive this product for 30 days! Only $1.00!</span></p>
+      	<p>Remember... we show you exactly - step-by- step - how to start earning money in your spare time from home... while doing fun, simple work right from your computer, tablet or smart-phone.</p>
+      	<p>So go ahead and <a href="#">take advantage of this no-risk</a>, $1 TRIAL OFFER right now because you will never see it again once you leave this page.</p>
+      	<p><strong>LAST CHANCE!</strong> Just click the "<strong>GET STARTED FOR $1.00 TODAY</strong>" button below... so can learn how to start earning a full time income from home.</p>
+      	<div class="text-center">
+      		<a href="#" class="btn btn-success btn-lg m-b-md btn-lg-w-text btn-trial"  data-dismiss="modal">
+				Get Your Access For $1.00 Trial Now!
+				<span>Sign-up takes less than 60 seconds. Pick a plan to get started!</span>
+			</a>
+      	</div>
       	<p>P.S. Immediately after clicking the red button above, you will get <a href="#">instant access</a> to the Training Website.</p>
       </div>
     </div>
@@ -202,7 +214,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
       	<p>So go ahead and <a href="#">take advantage of this no-risk</a>, $1 TRIAL OFFER right now because you will never see it again once you leave this page.</p>
       	<p><strong>LAST CHANCE!</strong> Just click the "<strong>GET STARTED FOR $1.00 TODAY</strong>" button below... so can learn how to start earning a full time income from home.</p>
       	<div class="text-center">
-      		<a href="#" class="btn btn-success btn-lg m-b-md btn-lg-w-text btn-trial">
+      		<a href="#" class="btn btn-success btn-lg m-b-md btn-lg-w-text btn-trial "  data-dismiss="modal">
 				Get Your Access For $1.00 Trial Now!
 				<span>Sign-up takes less than 60 seconds. Pick a plan to get started!</span>
 			</a>
@@ -237,7 +249,18 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
     	$state      = get_the_author_meta('billing_state', $customer_id);
     	$prod_random = array('IBO Kit','Signals','Business + IBO Kit','Professional');
     	shuffle($prod_random);
-    	$activity   = "Recently ordered " . $prod_random[0];
+    	$real_order = "";
+
+    	$cust_orders = get_customer_orders($customer_id);
+		$order_items = wc_get_order( $cust_orders[0]->ID );
+		$items = $order_items->get_items();
+		foreach($items as $item){
+			if($item->get_product_id() != 49 || $item->get_product_id() != 50){
+				$real_order = $item->get_name();
+			}
+		}
+
+    	$activity   = "Recently ordered " . isset($real_order) ? $real_order : $prod_random[0];
     	$time       = random_checkout_time_elapsed();
     	$user_login = get_the_author_meta('user_login', $customer_id);
     	$st_random  = array('Alabama','California','Colorado','Illinois','Florida','Delaware','New York','Indiana','Kansas','Massachussets','Nevada','New Mexico','Oklahoma','Texas','Utah','Virginia','Washington');
@@ -337,7 +360,6 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 	    	);
 		}
 	}
-
 	?>
 
 	<script type="text/javascript">

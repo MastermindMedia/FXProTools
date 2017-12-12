@@ -1,4 +1,9 @@
-<?php get_header(); ?>
+<?php 
+/*
+Template Name: Matrix Tree
+*/
+get_header(); 
+?>
 
 	<?php get_template_part('inc/templates/nav-team'); ?>
 
@@ -18,6 +23,9 @@
 				<?php echo do_shortcode('[afl_eps_matrix_holding_tank_genealogy_toggle_placement]'); ?>
 			</div>
 		</div>
+
+
+<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="fx-header-title">
@@ -31,36 +39,25 @@
 				<?php echo do_shortcode('[afl_eps_matrix_holding_tank]'); ?>
 			</div>
 		</div>
+	</div>
 
 
+
+<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="fx-header-title">
-					<h1>Direct Upline</h1>
-					<p>Check Below Direct Upline</p>
+					<h1>Matrix Downline Members</h1>
+					<p>Check Below For Matrix Direct Downline Members</p>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<?php echo do_shortcode('[afl_eps_matrix_direct_uplines_shortcode]'); ?>
+				<?php echo do_shortcode('[afl_eps_matrix_downlines]'); ?>
 			</div>
 		</div>
-
-
-		<div class="row">
-			<div class="col-md-12">
-				<div class="fx-header-title">
-					<h1>Referred Members</h1>
-					<p>Check Below For Referred Members</p>
-				</div>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md-12">
-				<?php echo do_shortcode('[afl_eps_matrix_reffered_downlines]'); ?>
-			</div>
-		</div>
+	</div>
 
 
 

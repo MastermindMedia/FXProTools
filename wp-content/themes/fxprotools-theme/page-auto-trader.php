@@ -1,4 +1,7 @@
 <?php
+/*
+Template Name: Auto Trader
+*/
 	$product_id = 49; //auto trader package
 	$product = wc_get_product( $product_id );
 	$courses = get_courses_by_product_id( $product_id  ); 

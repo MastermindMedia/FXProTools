@@ -1,4 +1,8 @@
-<?php get_header(); ?>
+<?php 
+/*
+Template Name: Forgot Password
+*/
+get_header(); ?>
 
 <div class="left">
 	<div class="content-wrapper">

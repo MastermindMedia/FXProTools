@@ -1,4 +1,7 @@
 <?php
+/*
+Template Name: Coaching
+*/
 get_header();
 
 $product_id = 50; 

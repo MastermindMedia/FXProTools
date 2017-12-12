@@ -1,4 +1,7 @@
 <?php
+/*
+Template Name: Access Products
+*/
 $subscription_details = get_user_subscription_details();
 
 $subscription = [];

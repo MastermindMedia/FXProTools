@@ -1,4 +1,7 @@
 <?php
+/*
+Template Name: F1
+*/
 $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : 'business.admin';
 ?>
 <?php get_header(); ?>

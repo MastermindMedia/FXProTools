@@ -1,5 +1,7 @@
 <?php
-
+/*
+Template Name: My Account
+*/
 $checklist = get_user_checklist();
 set_query_var('acc_id', get_current_user_id());
 if(isset($_POST['user_login'])){

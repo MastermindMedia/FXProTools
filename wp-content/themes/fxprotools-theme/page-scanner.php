@@ -1,4 +1,7 @@
 <?php
+/*
+Template Name: Scanner
+*/
 	$product_id = 47; //professional package
 	$product = wc_get_product( $product_id );
 	$courses = get_courses_by_product_id( $product_id  ); 

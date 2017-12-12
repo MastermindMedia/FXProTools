@@ -1,4 +1,7 @@
 <?php
+/*
+Template Name: Add Payment Method
+*/
 get_header();
 /* 
 halt

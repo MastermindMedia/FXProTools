@@ -1,4 +1,7 @@
 <?php
+/*
+Template Name: Trade Signals
+*/
 	$product_id = 47; //professional package
 	$product = wc_get_product( $product_id );
 	$courses = get_courses_by_product_id( $product_id  );
@@ -25,7 +28,7 @@ get_header(); ?>
 					<br/>
 					<div class="fx-header-title">
 						<h1><?php the_title();?></h1>
-						<p><?php echo rwmb_meta('subtitle');?>Never Miss An Oppurtinity To Profit From The Markets</p>
+						<p><?php echo rwmb_meta('subtitle');?>Never Miss An Opportunity To Profit From The Markets</p>
 					</div>
 				</div>
 				<div class="col-md-12">

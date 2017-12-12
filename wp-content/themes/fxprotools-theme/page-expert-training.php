@@ -1,4 +1,9 @@
-<?php get_header(); ?>
+<?php 
+/*
+Template Name: Expert Training
+*/
+get_header();
+?>
 	
 	<?php
 		$category = get_term_by('slug', 'expert-training', 'ld_course_category' );

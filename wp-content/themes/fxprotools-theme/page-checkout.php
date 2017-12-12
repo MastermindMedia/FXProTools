@@ -1,4 +1,9 @@
-<?php get_header(); ?>
+<?php 
+/*
+Template Name: Checkout
+*/
+get_header(); 
+?>
 	
 	<?php if( is_user_logged_in() ) : ?>	
 		<?php get_template_part('inc/templates/nav-import-user'); ?>

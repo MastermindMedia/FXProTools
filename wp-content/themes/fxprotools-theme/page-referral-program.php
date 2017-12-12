@@ -1,4 +1,7 @@
 <?php
+/*
+Template Name: Referral Program
+*/
 $active_referrals = get_user_active_referrals();
 $referral_count = count( $active_referrals);
 

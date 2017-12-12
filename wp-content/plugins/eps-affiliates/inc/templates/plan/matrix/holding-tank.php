@@ -85,7 +85,10 @@ if ( $tank_users ) : ?>
 
   			<div class="form-group row">
   				<label for="choose-parent" class="form-label">Choose Parent</label>
-  				<input name="choose_parent" id="choose-parent" data-path="member_downlines_autocomplete" class="auto_complete form-control " value="" type="text">
+  				<!-- <input name="choose_parent" id="choose-parent" data-path="member_downlines_autocomplete" class="auto_complete form-control " value="" type="text"> -->
+           <select class="form-control " id="choose-parent">
+            <?php echo _get_member_downline_users_as_option(); ?>
+          </select>
   			</div>
         
         <div class="form-group row" id="available-free-spaces">

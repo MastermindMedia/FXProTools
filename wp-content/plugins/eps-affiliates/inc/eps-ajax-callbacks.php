@@ -133,6 +133,58 @@ function member_users_auto_complete_callback($search_key = '') {
  * logined user
  * ------------------------------------------------
 */
+function _get_member_downline_users_as_option($tree_mode = '') {
+  $uid = afl_current_uid();
+  if (eps_is_admin()) {
+    $uid = afl_root_user();
+  }
+
+  $data     = afl_get_users();
+  $response = array();
+
+  global $wpdb;
+  $querystr = " SELECT * from `"._table_name('users')."` WHERE `display_name` LIKE '%".$search_key."%' ;";
+  
+  $genealogy_tree = _table_name('afl_user_genealogy');
+  if ( !empty($tree_mode) && $tree_mode == 'unilevel') {
+    $genealogy_tree = _table_name('afl_unilevel_user_genealogy');
+  }
+
+  $query = array();
+  $query['#select']  = $genealogy_tree;
+  $query['#join'] = array(
+    _table_name('users') => array(
+     '#condition'=> '`'._table_name('users').'`.`ID` = `'.$genealogy_tree.'`.`uid` '
+    )
+  );
+  if (!eps_is_admin()) {
+    $query['#where'] = array(
+      '`'.$genealogy_tree.'`.`referrer_uid` = '.$uid
+    );
+    $query['#where_or'] = array(
+      '`'.$genealogy_tree.'`.`uid` = '.$uid
+    );
+  }
+  $query['#fields'] = array(
+    _table_name('users') => array('user_login', 'ID')
+  );
+  $result = db_select($query, 'get_results');
+  
+
+  echo '<option value="0">Please select a parent</option>';
+  foreach ($result as $key => $value) {
+    $response = array('name'=> ($value->user_login.' ('.$value->ID.')'));
+    echo '<option value="'.$response['name'].'">'.$response['name'].'</option>';
+  }
+}
+
+
+/*
+ * ------------------------------------------------
+ * get users name and id unser the currenlty 
+ * logined user
+ * ------------------------------------------------
+*/
 function member_downlines_auto_complete_callback($search_key = '') {
   $uid = get_uid();
   

@@ -1,4 +1,7 @@
 <?php
+/*
+Template Name: Basic Training
+*/
 $category_slug = 'basic-training';
 $category = get_term_by('slug', $category_slug, 'ld_course_category' );
 $child_categories = get_course_category_children($category->term_id);

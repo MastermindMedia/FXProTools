@@ -1,4 +1,9 @@
-<?php get_header(); ?>
+<?php 
+/*
+Template Name: Logout Notice
+*/
+get_header(); 
+?>
 
 <div class="fx-landing main">
     <?php get_template_part('inc/templates/nav-capture-page'); ?>
