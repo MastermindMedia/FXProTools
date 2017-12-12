@@ -1,4 +1,7 @@
 <?php
+/*
+Template Name: Cancel Step 2
+*/
 	$option = $_GET['option'];
 ?>
 <?php get_header(); ?>

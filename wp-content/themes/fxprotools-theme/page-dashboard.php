@@ -1,4 +1,7 @@
 <?php
+/*
+Template Name: Dashboard
+*/
 $checklist = get_user_checklist();
 
 /*

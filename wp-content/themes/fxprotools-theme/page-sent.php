@@ -1,4 +1,7 @@
 <?php
+/*
+Template Name: Sent
+*/
 $emails = get_posts(array(
 	'posts_per_page'	=> -1,
 	'orderby'			=> 'modified',

@@ -1,4 +1,7 @@
 <?php
+/*
+Template Name: Read
+*/
 if (isset($_GET['redirect'])) {
 	$email = (object)array('ID' => $_GET['id']);
 	

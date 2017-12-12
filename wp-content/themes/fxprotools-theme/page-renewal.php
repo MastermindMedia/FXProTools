@@ -1,4 +1,7 @@
 <?php 
+/*
+Template Name: Renewal
+*/
 $subscription = get_user_main_subscription();
 $renewal_order_link = get_renewal_order_checkout_link( $subscription['subscription'] );
 ?>

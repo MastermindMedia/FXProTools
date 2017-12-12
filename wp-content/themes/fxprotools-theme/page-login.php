@@ -1,4 +1,9 @@
-<?php get_header(); ?>
+<?php 
+/*
+Template Name: Login
+*/
+get_header();
+?>
 
 <div class="left">
     <div class="content-wrapper">

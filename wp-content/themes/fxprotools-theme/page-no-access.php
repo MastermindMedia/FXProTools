@@ -1,5 +1,9 @@
 
-<?php get_header(); ?>
+<?php get_header(); 
+/*
+Template Name: No Access
+*/
+?>
 
 	<?php get_template_part('inc/templates/nav-products'); ?>
 

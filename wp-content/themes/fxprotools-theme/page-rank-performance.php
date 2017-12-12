@@ -1,4 +1,9 @@
-<?php get_header(); ?>
+<?php 
+/*
+Template Name: Rank Performance
+*/
+get_header(); 
+?>
 
 	<?php get_template_part('inc/templates/nav-team'); ?>
 

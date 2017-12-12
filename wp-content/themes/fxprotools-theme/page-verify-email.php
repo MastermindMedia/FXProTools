@@ -1,4 +1,7 @@
 <?php
+/*
+Template Name: Verify Email
+*/
 $verification_code = isset( $_GET['code'] ) ? $_GET['code'] : '';
 ?>
 <?php get_header(); ?>

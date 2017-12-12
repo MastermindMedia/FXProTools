@@ -1,4 +1,7 @@
 <?php 
+/*
+Template Name: User
+*/
 set_query_var('acc_id', $_GET['id']);
 if(isset($_POST['user_login'])){
 	session_start();

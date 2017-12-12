@@ -1,4 +1,9 @@
-<?php get_header(); ?>
+<?php 
+/*
+Template Name: Cancel Step 1
+*/
+get_header(); 
+?>
 	<div class="container cancellation-step cancellation-step-2">
 		<div class="row">
 			<div class="col-md-12">

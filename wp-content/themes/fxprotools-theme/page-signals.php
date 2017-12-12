@@ -1,4 +1,9 @@
-<?php get_header(); ?>
+<?php 
+/*
+Template Name: Signals
+*/
+get_header(); 
+?>
 
 <div class="fx-landing signals">
 	<?php get_template_part('inc/templates/nav-capture-page'); ?>

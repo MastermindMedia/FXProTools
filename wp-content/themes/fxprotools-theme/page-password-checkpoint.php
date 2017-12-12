@@ -1,4 +1,7 @@
 <?php 
+/*
+Template Name: Password Checkpoint
+*/
 get_header(); 
 $subscription = get_user_main_subscription();
 if( isset( $subscription['subscription']) ){

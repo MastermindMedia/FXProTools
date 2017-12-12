@@ -1,4 +1,7 @@
 <?php 
+/*
+Template Name: SMS
+*/
 get_header();
 ?>
 <div class="container top-marketing-buttons">
