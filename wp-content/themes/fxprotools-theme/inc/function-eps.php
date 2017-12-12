@@ -116,8 +116,6 @@ function eps_affiliate_place_user_after_order( $subscription, $order, $recurring
 				
 			}
 			if( is_user_fx_distributor($user_id, 'any') ){
-				$user = new WP_User( $user_id );
-				$user->add_role( 'afl_member' );
 				//add to unilevel holding tank
 				do_action('eps_affiliates_place_user_in_holding_tank', $user_id, $referrer_id);
 				error_log('Invoked: eps_affiliates_place_user_in_holding_tank ' . $user_id . ':' . $referrer_id);
@@ -125,6 +123,10 @@ function eps_affiliate_place_user_after_order( $subscription, $order, $recurring
 				//add to matrix holding tank
 				do_action('eps_affiliates_unilevel_place_user_in_holding_tank', $user_id, $referrer_id);
 				error_log('Invoked: eps_affiliates_unilevel_place_user_in_holding_tank ' . $user_id . ':' . $referrer_id);
+
+				
+				$user = new WP_User( $user_id );
+				$user->add_role( 'afl_member' );
 			}
 		}
 	}

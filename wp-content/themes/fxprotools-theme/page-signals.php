@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-	
+
 <div class="fx-landing signals">
 	<?php get_template_part('inc/templates/nav-capture-page'); ?>
 	<div class="fx-red-note">
@@ -52,7 +52,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-12 col-sm-6 col-md-6">
-									<img src="http://via.placeholder.com/502x251" class="center-block img-responsive">
+									<img src="https://via.placeholder.com/502x251" class="center-block img-responsive">
 								</div>
 								<div class="col-xs-12 col-sm-6 col-md-6">
 									<div class="content">
@@ -62,7 +62,7 @@
 							</div>
 							<div class="row m-t-lg m-b-lg">
 								<div class="col-xs-12 col-sm-6 col-sm-push-6 col-md-6 col-md-push-6">
-									<img src="http://via.placeholder.com/502x251" class="center-block img-responsive">
+									<img src="https://via.placeholder.com/502x251" class="center-block img-responsive">
 								</div>
 								<div class="col-xs-12 col-sm-6 col-sm-pull-6 col-md-6 col-md-pull-6">
 									<div class="content">
@@ -72,7 +72,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-12 col-sm-6 col-md-6">
-									<img src="http://via.placeholder.com/502x251" class="center-block img-responsive">
+									<img src="https://via.placeholder.com/502x251" class="center-block img-responsive">
 								</div>
 								<div class="col-xs-12 col-sm-6 col-md-6">
 									<div class="content">
@@ -143,8 +143,8 @@
 							<div class="row">
 								<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 									<div class="header-text m-b-md">
-										<p class="text-center text-heading text-bold"><span class="text-red">VIDEO TESTIMONIALS!</span> Show Proof 
-										That “<?php echo get_bloginfo('name'); ?>” Has ALREADY Dramatically Changed The Businesses And Lives Of Countless Others... 
+										<p class="text-center text-heading text-bold"><span class="text-red">VIDEO TESTIMONIALS!</span> Show Proof
+										That “<?php echo get_bloginfo('name'); ?>” Has ALREADY Dramatically Changed The Businesses And Lives Of Countless Others...
 										People Around The World!  </p>
 									</div>
 									<p class="text-center">If You're Sick And Tired Of All The Hype, Scams And Claims You See Online Lately, Then Pay Attention To These Amazing Success Stories From Actual, Real Students...</p>
@@ -153,42 +153,42 @@
 							<div class="row m-t-md m-b-md">
 								<div class="col-xs-12 col-sm-6 col-md-6">
 									<div class="testimonial-item">
-										<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+										<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 										<span class="title">Eddie L. of Florida, USA</span>
 										<span class="small">"Retired Teacher"</span>
 									</div>
 								</div>
 								<div class="col-xs-12 col-sm-6 col-md-6">
 									<div class="testimonial-item">
-										<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+										<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 										<span class="title">Sol A. of Texas, USA</span>
 										<span class="small">"Rabbi"</span>
 									</div>
 								</div>
 								<div class="col-xs-12 col-sm-6 col-md-6">
 									<div class="testimonial-item">
-										<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+										<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 										<span class="title">Gerard F. of  Rio, Brazil</span>
 										<span class="small">"Electromechanical Engineer"</span>
 									</div>
 								</div>
 								<div class="col-xs-12 col-sm-6 col-md-6">
 									<div class="testimonial-item">
-										<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+										<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 										<span class="title">Tim F. of Ontario, CA</span>
 										<span class="small">"IT Professional"</span>
 									</div>
 								</div>
 								<div class="col-xs-12 col-sm-6 col-md-6">
 									<div class="testimonial-item">
-										<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+										<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 										<span class="title">John S. of New York, USA</span>
 										<span class="small">"Teacher"</span>
 									</div>
 								</div>
 								<div class="col-xs-12 col-sm-6 col-md-6">
 									<div class="testimonial-item">
-										<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+										<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 										<span class="title">Mark E. of California, USA</span>
 										<span class="small">"Ex Pizza Delivery Boy</span>
 									</div>
@@ -280,7 +280,7 @@
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-xs-12 col-sm-6 col-md-6">
-									<img src="http://via.placeholder.com/502x251" class="center-block img-responsive">
+									<img src="https://via.placeholder.com/502x251" class="center-block img-responsive">
 								</div>
 								<div class="col-xs-12 col-sm-6 col-md-6">
 									<div class="content">
@@ -290,7 +290,7 @@
 							</div>
 							<div class="row m-t-lg m-b-lg">
 								<div class="col-xs-12 col-sm-6 col-sm-push-6 col-md-6 col-md-push-6">
-									<img src="http://via.placeholder.com/502x251" class="center-block img-responsive">
+									<img src="https://via.placeholder.com/502x251" class="center-block img-responsive">
 								</div>
 								<div class="col-xs-12 col-sm-6 col-sm-pull-6 col-md-6 col-md-pull-6">
 									<div class="content">
@@ -300,7 +300,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-12 col-sm-6 col-md-6">
-									<img src="http://via.placeholder.com/502x251" class="center-block img-responsive">
+									<img src="https://via.placeholder.com/502x251" class="center-block img-responsive">
 								</div>
 								<div class="col-xs-12 col-sm-6 col-md-6">
 									<div class="content">
@@ -318,7 +318,7 @@
 							</div>
 							<div class="row m-t-lg m-b-lg">
 								<div class="col-xs-12 col-sm-6 col-sm-push-6 col-md-6 col-md-push-6">
-									<img src="http://via.placeholder.com/502x251" class="center-block img-responsive">
+									<img src="https://via.placeholder.com/502x251" class="center-block img-responsive">
 								</div>
 								<div class="col-xs-12 col-sm-6 col-sm-pull-6 col-md-6 col-md-pull-6">
 									<div class="content">
@@ -328,7 +328,7 @@
 							</div>
 							<div class="row">
 								<div class="col-xs-12 col-sm-6 col-md-6">
-									<img src="http://via.placeholder.com/502x251" class="center-block img-responsive">
+									<img src="https://via.placeholder.com/502x251" class="center-block img-responsive">
 								</div>
 								<div class="col-xs-12 col-sm-6 col-md-6">
 									<div class="content">
@@ -465,7 +465,7 @@
 								<li class="col-md-6">
 									<div class="faq-item no-border">
 										<span class="question"><i class="fa fa-question-circle"></i> If I have a question about your website, can I talk to someone?</span>
-										<div class="answer">Yes! We have a first class support team who can answer your questions 24 hours a day, 7 days a week! Just click on the "support" link on the bottom of any of our pages or go to http://support.copyprofitsuccess.com </div>
+										<div class="answer">Yes! We have a first class support team who can answer your questions 24 hours a day, 7 days a week! Just click on the "support" link on the bottom of any of our pages or go to https://support.copyprofitsuccess.com </div>
 									</div>
 								</li>
 								<li class="col-md-6">

@@ -13,9 +13,11 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<?php echo do_shortcode('[afl_eps_unilevel_genealogy_tree]'); ?>
+				<?php echo do_shortcode('[afl_unilevel_holding_tank_genealogy_toggle_placement]'); ?>
 			</div>
 		</div>
+
+<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="fx-header-title">
@@ -30,5 +32,23 @@
 			</div>
 		</div>
 	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="fx-header-title">
+				<h1>Unilevel Direct Downline</h1>
+				<p>Check Below For Your Unilevel Direct Downline</p>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<?php echo do_shortcode('[afl_eps_unilevel_downlines]'); ?>
+		</div>
+	</div>
+</div>
+
 
 <?php get_footer(); ?>

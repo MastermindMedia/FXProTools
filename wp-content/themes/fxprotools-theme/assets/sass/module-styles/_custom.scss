@@ -1407,7 +1407,23 @@ p.logo-text {
 			}
 		}
 
+		.affiliate-referrer{
+			width: 100%;
+			background: #fff;
+			border: 1px solid #ccc;
+			padding: 10px;
+			font-size: 1.1rem;
+			margin-bottom: 15px;
 
+			.product-name{
+				padding: 10px;
+			}
+
+			.product-total{
+				padding: 10px;
+				text-align: right;
+			}
+		}
 
 		.col2-set{
 			.col-1{
@@ -1467,6 +1483,14 @@ p.logo-text {
 		.woocommerce-billing-fields{
 			& > h3{
 				display: none;
+			}
+			.select2.select2-container.select2-container--default{
+				display: none;
+			}
+			.input-wrapper{
+				.select2.select2-container.select2-container--default{
+					display: block;
+				}
 			}
 		}
 		#order_review{

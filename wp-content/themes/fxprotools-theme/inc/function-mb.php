@@ -226,12 +226,33 @@ if(!class_exists('SettingsMB')){
                 ),
                 'tabs'      => array(
                     // $prefix . 'page'    => __( 'Page', 'rwmb' ),
+                    $prefix . 'attributes'   => __( 'Attributes', 'rwmb' ),
                     $prefix . 'video'   => __( 'Video', 'rwmb' ),
                     $prefix . 'menu'    => __( 'Menu', 'rwmb' ),
                 ),
                 'tab_style'		=> 'left',
                 'tab_wrapper'	=> true,
                 'fields' 	=> array(
+                    array(
+                        'name'      => 'Parent',
+                        'id'        => $prefix . 'parent_id',
+                        'type'      => 'select',
+                        'desc'      => '',
+                        'options'   => array(
+                            'default'       => 'None',
+                        ),
+                        'tab'           => $prefix . 'attributes',
+                    ),
+                    array(
+                        'name'      => 'Page Template',
+                        'id'        => $prefix . 'page_template',
+                        'type'      => 'select',
+                        'desc'      => '',
+                        'options'   => array(
+                            'default'       => 'Default',
+                        ),
+                        'tab'           => $prefix . 'attributes',
+                    ),
                     array(
                         'name' 		=> 'Display Main Header Menu',
                         'id' 		=> $prefix . 'display_main_header_menu',

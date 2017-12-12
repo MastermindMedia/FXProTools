@@ -25,7 +25,7 @@
 					<ul class="fx-compensation-documents">
 						<li>
 							<h4 class="inline-block">PDF Document</h4>
-							<a href="#" class="btn btn-danger btn-lg fx-btn inline-block pull-right">Download</a>
+							<a href="<?php bloginfo('template_directory');?>/assets/doc/CopyProfitSuccess-Compensation-Presentation.pdf" class="btn btn-danger btn-lg fx-btn inline-block pull-right">Download</a>
 							<div class="clearfix"></div>
 						</li>
 						<li>

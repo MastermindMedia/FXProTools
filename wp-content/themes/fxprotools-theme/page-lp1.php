@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-	
+
 	<div class="fx-landing main">
 		<?php get_template_part('inc/templates/nav-capture-page'); ?>
 		<div class="fx-red-note">
@@ -20,8 +20,8 @@
 							<p class="intro-note label-red inline-block">Become An Expert Market Trader!</p>
 							<p class="intro-note sm"> Discover More Profitabe Trades With Our Proven Strategies &amp; Technolgy</p>
 						</div>
-						<?php 
-							// Metabox Page Template Option - Video Embed 
+						<?php
+							// Metabox Page Template Option - Video Embed
 							echo get_mb_pto1( 'video_embed', 'pto2' );
 						?>
 						<div class="text-center">
@@ -81,7 +81,7 @@
 									<div class="col-xs-12 col-sm-12 col-md-8">
 										<div class="note">
 											<p class="text-center text-bold">What is Forex &amp; Binary Trading?</p>
-											<img src="http://via.placeholder.com/600x300?text=Video" class="img-responsive centered-block m-b-sm">
+											<img src="https://via.placeholder.com/600x300?text=Video" class="img-responsive centered-block m-b-sm">
 											<p class="text-center text-bold">What This Short Video</p>
 										</div>
 									</div>
@@ -238,7 +238,7 @@
 											It Is To Use Our Platform...
 											</h2>
 											<div class="m-t-md">
-												<img src="http://via.placeholder.com/960x490" class="center-block img-responsive">
+												<img src="https://via.placeholder.com/960x490" class="center-block img-responsive">
 											</div>
 										</div>
 									</div>
@@ -251,7 +251,7 @@
 											<p class="text-heading">software - guide your next move. </p>
 										</div>
 										<p class="text-center">Our Market Training is provides you with just enough information so that you can enter ANY market & trade any currency that you can imagine...</p>
-									</div>								
+									</div>
 									<div class="col-md-12">
 										<div class="step-item m-t-lg">
 											<div class="m-b-lg">
@@ -263,7 +263,7 @@
 													<p class="text-heading-sm">Learn everything you need to know to start trading today.for long-term success.</p>
 												</div>
 												<div class="col-md-8">
-													<img src="http://via.placeholder.com/700x350" class="center-block img-responsive">
+													<img src="https://via.placeholder.com/700x350" class="center-block img-responsive">
 												</div>
 											</div>
 										</div>
@@ -275,7 +275,7 @@
 											</div>
 											<div class="row">
 												<div class="col-md-8">
-													<img src="http://via.placeholder.com/700x350" class="center-block img-responsive">
+													<img src="https://via.placeholder.com/700x350" class="center-block img-responsive">
 												</div>
 												<div class="col-md-4">
 													<p class="text-heading-sm">When your just starting out. The “Learning Curve” can be a bit much. This is why you have our expert traders doing LIVE Webinars.</p>
@@ -306,23 +306,7 @@
 													<p class="text-heading-sm">Spend less time anyalzing the markets, or picking fake-outs. We do the hard work for you.</p>
 												</div>
 												<div class="col-md-8">
-													<img src="http://via.placeholder.com/700x350" class="center-block img-responsive">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="step-item">
-											<div class="m-b-lg">
-												<h2><span class="label-red">Binary &amp; Forex</span> Auto Trader</h2>
-											</div>
-											<div class="row">
-												<div class="col-md-8">
-													<img src="http://via.placeholder.com/700x350" class="center-block img-responsive">
-												</div>
-												<div class="col-md-4">
-													<p class="text-heading-sm">Put your feet up and let our algorithmic autotrader do the work for you. Set up is fast and easy.</p>
-													<p class="text-heading-sm">Place trades while you sleep and keep on top of the markets without ever lifting a finger.</p>
+													<img src="https://via.placeholder.com/700x350" class="center-block img-responsive">
 												</div>
 											</div>
 										</div>
@@ -346,7 +330,7 @@
 								<p class="intro-note"><span class="label-green">Turning A Profiting</span> &amp; Growing Your Wallet</p>
 							</div>
 							<div class="m-t-lg m-b-lg">
-								<img src="http://via.placeholder.com/960x500?text=Video" class="img-responsive centered-block m-b-sm">
+								<img src="https://via.placeholder.com/960x500?text=Video" class="img-responsive centered-block m-b-sm">
 							</div>
 							<div class="text-center">
 								<a href="#trial-products" class="btn btn-danger btn-lg btn-lg-w-text">
@@ -549,7 +533,7 @@
 									<li class="col-xs-12 col-md-6">
 										<div class="faq-item no-border">
 											<span class="question"><i class="fa fa-question-circle"></i> If I have a question about your website, can I talk to someone?</span>
-											<div class="answer">Yes! We have a first class support team who can answer your questions 24 hours a day, 7 days a week! Just click on the "support" link on the bottom of any of our pages or go to http://support.copyprofitsuccess.com </div>
+											<div class="answer">Yes! We have a first class support team who can answer your questions 24 hours a day, 7 days a week! Just click on the "support" link on the bottom of any of our pages or go to https://support.copyprofitsuccess.com </div>
 										</div>
 									</li>
 									<li class="col-xs-12 col-md-6">
@@ -594,7 +578,7 @@
 						</div>
 						<div class="row m-t-lg">
 							<?php $ui_items = array('Recurring Commissions', 'Referral Bonuses', 'Marketing Tools', '7 Day Placement Holding Tank', 'Weekly Payouts', 'Complete Backoffice'); ?>
-							<?php 
+							<?php
 							$count = 1;
 							foreach ($ui_items as $key => $ui):
 							?>
@@ -682,7 +666,7 @@
 											<p class="text-heading"><span class="text-bold text-green">$8,404,681</span> Is How Much We<br/>
 											Paid Our Students In 2017</p>
 											<p class="text-heading sm label-green m-t-md">
-												<strong>YUP, That’s Right</strong>...We Pay Our Distrubtors Comissions 
+												<strong>YUP, That’s Right</strong>...We Pay Our Distrubtors Comissions
 												For Any New Members. <strong>LEARN & EARN - TODAY!</strong>
 											</p>
 										</div>
@@ -713,8 +697,8 @@
 									</div>
 									<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 										<div class="header-text m-b-md">
-											<p class="text-center text-heading text-bold"><span class="text-red">VIDEO TESTIMONIALS!</span> Show Proof 
-											That “<?php echo get_bloginfo('name'); ?>” Has ALREADY Dramatically Changed The Businesses And Lives Of Countless Others... 
+											<p class="text-center text-heading text-bold"><span class="text-red">VIDEO TESTIMONIALS!</span> Show Proof
+											That “<?php echo get_bloginfo('name'); ?>” Has ALREADY Dramatically Changed The Businesses And Lives Of Countless Others...
 											People Around The World!  </p>
 										</div>
 										<p class="text-center">If You're Sick And Tired Of All The Hype, Scams And Claims You See Online Lately, Then Pay Attention To These Amazing Success Stories From Actual, Real Students...</p>
@@ -723,42 +707,42 @@
 								<div class="row m-t-md m-b-md">
 									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+											<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Eddie L. of Florida, USA</span>
 											<span class="small">"Retired Teacher"</span>
 										</div>
 									</div>
 									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+											<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Sol A. of Texas, USA</span>
 											<span class="small">"Rabbi"</span>
 										</div>
 									</div>
 									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+											<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Gerard F. of  Rio, Brazil</span>
 											<span class="small">"Electromechanical Engineer"</span>
 										</div>
 									</div>
 									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+											<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Tim F. of Ontario, CA</span>
 											<span class="small">"IT Professional"</span>
 										</div>
 									</div>
 									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+											<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">John S. of New York, USA</span>
 											<span class="small">"Teacher"</span>
 										</div>
 									</div>
 									<div class="col-xs-12 col-sm-6 col-md-6">
 										<div class="testimonial-item">
-											<img src="http://via.placeholder.com/500x250" class="img-responsive centered-block">
+											<img src="https://via.placeholder.com/500x250" class="img-responsive centered-block">
 											<span class="title">Mark E. of California, USA</span>
 											<span class="small">"Ex Pizza Delivery Boy</span>
 										</div>

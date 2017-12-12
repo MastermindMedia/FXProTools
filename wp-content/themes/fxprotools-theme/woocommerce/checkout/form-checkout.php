@@ -15,7 +15,7 @@
  * @package 	WooCommerce/Templates
  * @version     2.3.0
  */
- 
+
 get_header();
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -31,7 +31,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 	echo apply_filters( 'woocommerce_checkout_must_be_logged_in_message', __( 'You must be logged in to checkout.', 'woocommerce' ) );
 	return;
 }
- 
+
 ?>
 
 
@@ -64,7 +64,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 	</div>
 
 	<?php do_action( 'woocommerce_checkout_after_order_review' ); ?>
-	
+
 	<div class="checkout-sidebar">
 		<div class="checkout-sidebar-item">
 			<img src="<?php bloginfo('template_directory');?>/assets/img/checkout/sidebar-banner.png" class="img-responsive">
@@ -108,6 +108,21 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 	<div id="checkout-panel-3" class="panel panel-default panel-gray">
 		<div class="panel-body">
 			<h5>Order Summary <span>Price:</span></h5>
+			<?php if(isset($_COOKIE['affwp_ref'])): ?>
+				<?php $user = new WP_User( affwp_get_affiliate_user_id($_COOKIE['affwp_ref'])); ?>
+				<table class="affiliate-referrer">
+					<tbody>
+						<tr class="cart_item">
+							<td class="product-name">
+								<strong>Your Referring Sponsor :</strong>
+							</td>
+							<td class="product-total">
+								<strong><?php echo $user->display_name;?></strong> (<?php echo $user->user_login;?> )
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			<?php endif ;?>
 			<div class="term-wrap">
 				<div class="no-pad-left">
 					<input type="checkbox" class="woocommerce-form__input woocommerce-form__input-checkbox" name="terms" id="terms">
@@ -198,7 +213,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
   </div>
 </div>
 
-<?php  
+<?php
 	$orders = array();
 	$order_statuses = array('wc-on-hold', 'wc-processing', 'wc-completed', 'wc-pending', 'wc-cancelled', 'wc-refunded', 'wc-failed');
     $sub=get_posts( array(
@@ -210,16 +225,17 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
     $args = array(
 		'exclude'      => array(get_current_user_id()),
 		'number'       => '100',
-	 ); 
+		'role__not_in' => array('administrator')
+	 );
 
 	$all_users = get_users( $args );
-	//dd($all_users);
+	$user_count = count($all_users);
 
 	foreach($all_users as $user){
 		$customer_id = $user->ID;
 		$name       = get_the_author_meta('first_name', $customer_id) . " " . get_the_author_meta('last_name', $customer_id);
     	$state      = get_the_author_meta('billing_state', $customer_id);
-    	$prod_random = array('IBO Kit','Signals','1 On 1 Advance Coaching','Auto-Trader','Business + IBO Kit','Professional');
+    	$prod_random = array('IBO Kit','Signals','Business + IBO Kit','Professional');
     	shuffle($prod_random);
     	$activity   = "Recently ordered " . $prod_random[0];
     	$time       = random_checkout_time_elapsed();
@@ -247,6 +263,81 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
     		'time'     => $time
     	);
 	}
+
+	if($user_count <= 30){
+		$fake_users = array(
+			array(
+				"name"     => 'Brian B.',
+				"location" => 'New Jersey'
+			),
+			array(
+				"name"     => 'Donald DeRenzo',
+				"location" => 'New Mexico'
+			),
+			array(
+				"name"     => 'Jesse Smithers',
+				"location" => 'Nevada'
+			),
+			array(
+				"name"     => 'Sheryl Williams',
+				"location" => 'West Virginia'
+			),
+			array(
+				"name"     => 'Alicia McCollum',
+				"location" => 'New Hampshire'
+			),
+			array(
+				"name"     => 'Kiara Collins',
+				"location" => 'New Jersey'
+			),
+			array(
+				"name"     => 'Elizabeth Keen',
+				"location" => 'South Dakota'
+			),
+			array(
+				"name"     => 'Jason Moore',
+				"location" => 'Georgia'
+			),
+			array(
+				"name"     => 'Lucy Mayfield',
+				"location" => 'Maine'
+			),
+			array(
+				"name"     => 'Spencer Ryan',
+				"location" => 'Delaware'
+			),
+			array(
+				"name"     => 'Rob Harper',
+				"location" => 'New York'
+			),
+			array(
+				"name"     => 'Ryan Mendez',
+				"location" => 'Florida'
+			),
+			array(
+				"name"     => 'Gregory McGinnis',
+				"location" => 'Alabama'
+			),
+			array(
+				"name"     => 'Miley Parker',
+				"location" => 'California'
+			),
+		);
+
+		foreach($fake_users as $user){
+			$prod_random = array('IBO Kit','Signals','Business + IBO Kit','Professional');
+	    	shuffle($prod_random);
+	    	$activity   = "Recently ordered " . $prod_random[0];
+	    	$time       = random_checkout_time_elapsed();
+			$orders[] = array(
+	    		'image'    => "https://maps.googleapis.com/maps/api/staticmap?center=" . urlencode( $user['location'] ) . "&zoom=13&size=120x120&maptype=roadmap&key=AIzaSyAMRPELYMjUR8a0q0UArdw8oLRYrjuLA6o",
+	    		'name'     => $user['name'] . ', ' . $user['location'],
+	    		'activity' => $activity,
+	    		'time'     => $time
+	    	);
+		}
+	}
+
 	?>
 
 	<script type="text/javascript">
@@ -255,7 +346,7 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 			var customer_size = notifications.length;
 			var counter = 1;
 
-			jQuery('[data-toggle="popover"]').popover(); 
+			jQuery('[data-toggle="popover"]').popover();
 
 			setInterval(function(){
 				if(counter > customer_size){
@@ -295,7 +386,7 @@ foreach( WC()->cart->get_cart() as $cart_item ){
 			$popup_type = 'default';
 		}
 	}
-	
+
 }
 
 if ( isset($popup_type) ):
@@ -311,7 +402,7 @@ if ( isset($popup_type) ):
 			jQuery('.checkout-popup.<?php echo $popup_type;?>').modal('show');
 		}
 	}
-	
+
 	jQuery('.close').click(function(){
 		jQuery('.checkout-popup.<?php echo $popup_type;?>').modal('hide');
 		$.cookie('checkout_popup_cookie', 'active', { expires: 12 });

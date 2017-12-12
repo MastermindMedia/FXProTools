@@ -35,7 +35,7 @@ if(strpos(get_the_author_meta('user_login', get_current_user_id()), ' ') > 0){
 					<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 						<?php
 							$count = 0;
-							$no_thumbnail = 'http://via.placeholder.com/150x150?text=No Image';
+							$no_thumbnail = 'https://via.placeholder.com/150x150?text=No Image';
 							foreach($funnels as $post): setup_postdata($post); $count++;
 							$stats = get_funnel_stats( get_the_ID() );
 						?>

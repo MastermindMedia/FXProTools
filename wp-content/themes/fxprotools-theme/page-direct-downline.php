@@ -6,16 +6,32 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="fx-header-title">
-					<h1>Direct Downline</h1>
+					<h1>Matrix Direct Downline</h1>
 					<p>Check Below For Your Available Contacts</p>
 				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12 epx">
-				<?php echo do_shortcode('[afl_eps_unilevel_reffered_downlines]'); ?>
+				<?php echo do_shortcode('[afl_eps_matrix_downlines]'); ?>
 			</div>
 		</div>
 	</div>
-	
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="fx-header-title">
+					<h1>Unilevel Direct Downline</h1>
+					<p>Check Below For Your Available Contacts</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 epx">
+				<?php echo do_shortcode('[afl_eps_unilevel_downlines]'); ?>
+			</div>
+		</div>
+	</div>
+
 <?php get_footer(); ?>
