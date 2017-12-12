@@ -10,7 +10,7 @@ function get_user_intercom_HMAC($user) {
 		return hash_hmac(
 			'sha256', // hash function
 			$user->ID, // user's id
-			'dummy_secret_key'
+			'l_-sHsUYbgK3VTBs9AoKgG7kBc1fMAT7fnEgIt1A'
 		);
 	}
 	return null;
