@@ -6,17 +6,18 @@
 	<link rel="profile" href="https://gmpg.org/xfn/11">
 	<title><?php echo wp_title( ' | ', false, 'right' ); bloginfo( 'name' );?></title>
 
-	<!-- Global site tag (gtag.js) - Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110702266-1"></script>
-	<script>
-	  window.dataLayer = window.dataLayer || [];
-	  function gtag(){dataLayer.push(arguments);}
-	  gtag('js', new Date());
+	<?php if (!isset($_SERVER['HTTP_USER_AGENT']) || stripos($_SERVER['HTTP_USER_AGENT'], 'Speed Insights') === false): ?>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-110702266-1"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
 
-	  gtag('config', 'UA-110702266-1');
-	</script>
-
-
+		gtag('config', 'UA-110702266-1');
+		</script>
+	<?php endif; ?>
+	
 	<script type="text/javascript">
 		WebFontConfig = {
 		google: { families: [ 'Lato:300,400,700' ] }
