@@ -25,7 +25,7 @@ get_header(); ?>
 					<br/>
 					<div class="fx-header-title">
 						<h1><?php the_title();?></h1>
-						<p><?php echo rwmb_meta('subtitle');?>Never Miss An Oppurtinity To Profit From The Markets</p>
+						<p><?php echo rwmb_meta('subtitle');?>Never Miss An Opportunity To Profit From The Markets</p>
 					</div>
 				</div>
 				<div class="col-md-12">
