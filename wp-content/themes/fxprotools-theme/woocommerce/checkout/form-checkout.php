@@ -249,7 +249,18 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
     	$state      = get_the_author_meta('billing_state', $customer_id);
     	$prod_random = array('IBO Kit','Signals','Business + IBO Kit','Professional');
     	shuffle($prod_random);
-    	$activity   = "Recently ordered " . $prod_random[0];
+    	$real_order = "";
+
+    	$cust_orders = get_customer_orders($customer_id);
+		$order_items = wc_get_order( $cust_orders[0]->ID );
+		$items = $order_items->get_items();
+		foreach($items as $item){
+			if($item->get_product_id() != 49 || $item->get_product_id() != 50){
+				$real_order = $item->get_name();
+			}
+		}
+
+    	$activity   = "Recently ordered " . isset($real_order) ? $real_order : $prod_random[0];
     	$time       = random_checkout_time_elapsed();
     	$user_login = get_the_author_meta('user_login', $customer_id);
     	$st_random  = array('Alabama','California','Colorado','Illinois','Florida','Delaware','New York','Indiana','Kansas','Massachussets','Nevada','New Mexico','Oklahoma','Texas','Utah','Virginia','Washington');
@@ -349,7 +360,6 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
 	    	);
 		}
 	}
-
 	?>
 
 	<script type="text/javascript">
