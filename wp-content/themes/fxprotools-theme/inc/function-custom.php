@@ -788,8 +788,13 @@ function fx_user_role_class( $classes ) {
         $classes[] = 'customer';
     }
 
+    if(!current_user_can('administrator')){
+        $classes[] = 'is-not-admin';
+    }else{
+        $classes[] = 'is-admin';
+    }
+
     return $classes;
-     
 }
 
 function load_custom_wp_admin_page_css($hook) {
@@ -807,3 +812,11 @@ function load_custom_wp_admin_page_js($hook) {
     wp_enqueue_script( 'custom_wp_admin_page_js', get_template_directory_uri() . '/assets/js/admin/admin-page.js' );
 }
 add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_page_js' );
+
+function restrict_customer_admin_access() {
+    if ( is_user_fx_customer() ) {
+        wp_redirect( home_url() . '/my-account' );
+        exit;
+    }
+}
+add_action( 'admin_init', 'restrict_customer_admin_access' );
