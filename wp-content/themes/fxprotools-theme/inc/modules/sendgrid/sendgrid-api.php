@@ -17,9 +17,9 @@ if(!class_exists('FX_Sendgrid_Api')){
 			$response = $sg->client->contactdb()->lists()->_($list_id)->recipients()->get(null, $query_params);
 			return $response->body();
 		}
-		static function search_contacts( $field_name, $field_value )
+		static function search_contacts( $funnel_id, $user_id )
 		{
-			$query_params = json_decode('{"' . $field_name . '" : "' . $field_value .'"}');
+			$query_params = json_decode('{"campaign": "' . $funnel_id .'", "affiliate_user_id" : "'.$user_id.'"}');
 			$sg = new \SendGrid( self::SENDGRID_API_KEY );
 			$response =  $sg->client->contactdb()->recipients()->search()->get(null, $query_params);
 			return json_decode( $response->body() );

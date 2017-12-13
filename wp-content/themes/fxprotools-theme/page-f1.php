@@ -3,6 +3,7 @@
 Template Name: F1
 */
 $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : 'business.admin';
+$ref_user_id = affwp_get_affiliate_user_id( $ref );
 ?>
 <?php get_header(); ?>
 
@@ -36,6 +37,7 @@ $ref = isset( $_GET['ref'] ) ? $_GET['ref'] : 'business.admin';
 								</div>
 								<div class="text-center m-t-md">
 									<input type="hidden" name="funnel_id" value="f1">
+									<input type="hidden" name="affiliate_user_id" value="<?php echo $ref_user_id;?>">
 									<input type="hidden" name="redirect_to" value="<?php echo site_url ('lp1/?ref='.$ref );?>">
 									<button type="submit" class="btn btn-danger btn-lg">Click To Get Access</button>
 								</div>

@@ -97,7 +97,7 @@ function get_funnel_stats($funnel_id, $date_filter = array(), $user_id = 0)
 
 	//opt ins
 	$funnel_id = trim( parse_url( rwmb_meta('capture_page_url', '', $funnel_id), PHP_URL_PATH ), '/');
-	$search = FX_Sendgrid_Api::search_contacts('campaign', $funnel_id);
+	$search = FX_Sendgrid_Api::search_contacts($funnel_id, get_current_user_id() );
 	$cp_stats['opt_ins']['all'] = $search->recipient_count; 
 	$cp_stats['opt_ins']['rate'] = ( $cp_stats['page_views']['all'] >= 1 && $cp_stats['opt_ins']['all'] >= 1) ? round( $cp_stats['opt_ins']['all'] / $cp_stats['page_views']['all'] * 100, 2) : 0;
 
