@@ -234,7 +234,7 @@ class SendTwilio {
     		}
     		
     		$msg = substr($content, 0, 1600);
-    		
+    		print_r(admin_url('admin-ajax.php?action=twilio_callback'));die();
     		$message = $client->messages->create(
     		  $number, // Text this number
     		  array(
