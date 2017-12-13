@@ -2478,7 +2478,7 @@ form {
 			}
 		}
 	}
-	// E-wallet Page
+	// Wallet Page
 	&.wallet-form {
 		.form-group.row {
 			margin-left: 0;
@@ -2499,6 +2499,34 @@ form {
 				padding: 14px 0;
 			}
 		}
+	}
+}
+
+// Epixel Plugin - Distributor
+.distributor {
+	// Global
+	.panel-default > .panel-heading {
+		border-left-color: $red;
+	}
+	.table thead {
+		background: $red;
+		th {
+			color: $white;
+		}
+	}
+	.form-group.row {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.btn-primary {
+	    background-color: $red;
+	    border-color: $red;
+	    border-bottom: 4px solid #940000;
+	    font-weight: bold;
+	    &:hover, &:active, &:focus {
+	    	 background-color: $red;
+	    	border-color: $red;
+	    }
 	}
 }
 
