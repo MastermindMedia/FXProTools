@@ -1,12 +1,7 @@
 jQuery(document).ready(function(){
-
 	jQuery( ".date_time_picker" ).datepicker();
-
   jQuery('[data-toggle="tooltip"]').tooltip();   
-  
-   
-    
-
+  jQuery('body').addClass('eps');
 });
 
 jQuery(function () {
