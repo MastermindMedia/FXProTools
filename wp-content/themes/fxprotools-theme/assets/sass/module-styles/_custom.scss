@@ -2528,6 +2528,10 @@ form {
 	    	border-color: $red;
 	    }
 	}
+	// Since wallet/withdraw page is loaded in shortcode
+	&.parent-pageid-2578 form {
+		margin-top: 30px;
+	}
 }
 
 // Page Template Option - Dashboard
