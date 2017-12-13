@@ -141,6 +141,28 @@ function ajax_send_email() {
 	wp_die();
 }
 
+add_action("wp_ajax_send_sms", "ajax_send_sms");
+
+function ajax_send_sms() {
+	$postid = wp_insert_post(array(
+		'post_type' => 'fx_sms',
+		'post_status' => 'publish'
+	));
+	
+	update_post_meta($postid, "sms_recipient_type", $_POST["sms_recipient_type"]);
+	update_post_meta($postid, "recipient_group", $_POST["recipient_group"]);
+	update_post_meta($postid, "recipient_product", $_POST["recipient_product"]);
+	update_post_meta($postid, "recipient_individual_type", $_POST["recipient_individual_type"]);
+	update_post_meta($postid, "recipient_individual_sms", $_POST["recipient_individual_sms"]);
+	update_post_meta($postid, "recipient_individual_user", $_POST["recipient_individual_user"]);
+	update_post_meta($postid, "sms_content", $_POST["body"]);
+	
+	post_sms_published($postid);
+	
+	echo "OK";
+	wp_die();
+}
+
 add_action("wp_ajax_nopriv_sendgrid_callback", "sendgrid_callback");
 
 function sendgrid_callback() {
@@ -178,6 +200,42 @@ function sendgrid_callback() {
 	}
 	
 	wp_send_json(['success' => false]);
+}
+
+add_action("wp_ajax_nopriv_twilio_callback", "twilio_callback");
+
+function twilio_callback() {
+	global $wpdb;
+	
+	try
+	{
+		$sid = $_POST['MessageSid'];
+		
+	    $results = $wpdb->get_results("SELECT post_id, meta_value
+	        FROM {$wpdb->postmeta} WHERE meta_key='_{$sid}_user'
+	    ");
+		
+		$postid = $results[0]->post_id;
+		$userid = $results[0]->meta_value;
+		
+		switch ($_POST['MessageStatus']) {
+			case 'delivered':
+				update_post_meta($postid, '_user_' . $userid . '_delivered', true);
+				break;
+			case 'undelivered':
+			case 'failed':
+				update_post_meta($postid, '_user_' . $userid . '_bounce', true);
+				break;
+		}
+		
+		wp_send_json(['success' => true]);
+	}
+	catch (\Error $e) {
+		wp_send_json(['success' => false, 'message' => $e->getMessage()]);
+	}
+	catch (\Exception $e) {
+		wp_send_json(['success' => false, 'message' => $e->getMessage()]);
+	}
 }
 
 function fx_renew_password() {

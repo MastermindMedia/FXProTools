@@ -26,6 +26,7 @@ if(!class_exists('SettingsMB')){
                 'mb_page_template_options_2',
                 'mb_page_template_options_3',
                 'mb_emails',
+                'mb_sms',
                 'mb_course_categories'
             );
             if($metaboxes) {
@@ -914,6 +915,114 @@ if(!class_exists('SettingsMB')){
                         'id'	=> $prefix . 'email_content',
                         'type'	=> 'wysiwyg',
                         'name'	=> 'Email Content'
+                    )
+                )
+            );
+            
+            $meta_boxes[] = array(
+                'id'			=> 'email_settings_fields',
+                'title' 		=> 'Email Settings',
+                'settings_pages'	=> array('email-settings'),
+                'context'		=> 'advanced',
+                'priority'		=> 'high',
+                'autosave'		=> false,
+                'fields'		=> array(
+                    array(
+                        'id'	=> $prefix . 'email_from_name',
+                        'type'	=> 'text',
+                        'name'	=> 'From Name'
+                    ),
+                    array(
+                        'id'	=> $prefix . 'email_from_address',
+                        'type'	=> 'text',
+                        'name'	=> 'From Email'
+                    ),
+                ),
+                'validation' => array(
+                    'rules' => array(
+                        $prefix.'email_from_name' => array(
+                            'required' => true
+                        ),
+                        $prefix.'email_from_address' => array(
+                            'required' => true,
+                            'email' => true
+                        ),
+                    )
+                )
+            );
+
+            return $meta_boxes;
+        }
+
+        // MB - SMS
+        public function mb_sms($meta_boxes)
+        {
+            $prefix = '';
+            $meta_boxes[] = array(
+                'id'			=> 'sms_custom_fields',
+                'title' 		=> 'SMS Details',
+                'post_types'	=> array('fx_sms'),
+                'context'		=> 'advanced',
+                'priority'		=> 'high',
+                'autosave'		=> false,
+                'fields'		=> array(
+                    array(
+                        'id'	=> $prefix . 'sms_recipient_type',
+                        'type'	=> 'select',
+                        'name'	=> 'Recipient Type',
+                        'options' => array(
+                            'all'		=> 'All Users',
+                            'group'		=> 'Group',
+                            'product'	=> 'Product',
+                            'individual'=> 'Individual'
+                        )
+                    ),
+                    array(
+                        'id'	=> $prefix . 'recipient_group',
+                        'type'	=> 'select',
+                        'name'	=> 'Group Type',
+                        'options' => array(
+                            'customer'		=> 'Customers',
+                            'distributor'	=> 'Distributors',
+                            'both'			=> 'Both'
+                        ),
+                        'visible' => array($prefix . 'sms_recipient_type', 'group')
+                    ),
+                    array(
+                        'id'	=> $prefix . 'recipient_product',
+                        'type'	=> 'post',
+                        'name'	=> 'Product',
+                        'post_type' => 'product',
+                        'field_type' => 'select_advanced',
+                        'visible' => array($prefix . 'sms_recipient_type', 'product')
+                    ),
+                    array(
+                        'id'	=> $prefix . 'recipient_individual_type',
+                        'type'	=> 'select',
+                        'name'	=> 'Individual Type',
+                        'options' => array(
+                            'sms'	=> 'Specified Number',
+                            'user'	=> 'User'
+                        ),
+                        'visible' => array($prefix . 'sms_recipient_type', 'individual')
+                    ),
+                    array(
+                        'id'	=> $prefix . 'recipient_individual_sms',
+                        'type'	=> 'text',
+                        'name'	=> 'Individual Number',
+                        'visible' => array($prefix . 'recipient_individual_type', 'sms')
+                    ),
+                    array(
+                        'id'	=> $prefix . 'recipient_individual_user',
+                        'type'	=> 'user',
+                        'name'	=> 'Individual User',
+                        'field_type' => 'select_advanced',
+                        'visible' => array($prefix . 'recipient_individual_type', 'user')
+                    ),
+                    array(
+                        'id'	=> $prefix . 'sms_content',
+                        'type'	=> 'textarea',
+                        'name'	=> 'SMS Content'
                     )
                 )
             );

@@ -17,7 +17,7 @@ if(!class_exists('CptSettings')){
 		// Initialize function(s)
 		public function __construct()
 		{
-			$cpts = array('init_cpt_webinar', 'init_cpt_funnels', 'init_cpt_emails');
+			$cpts = array('init_cpt_webinar', 'init_cpt_funnels', 'init_cpt_emails', 'init_cpt_sms');
 			if($cpts) {
 				foreach ($cpts as $key => $cpt) {
 					add_filter('init', array($this, $cpt));
@@ -180,6 +180,59 @@ if(!class_exists('CptSettings')){
 						'items_list'            => 'Emails list',
 						'items_list_navigation' => 'Emails list navigation',
 						'filter_items_list'     => 'Filter Emails list',
+					)
+				)
+			);
+		}
+
+		// Custom Post - Email
+		public function init_cpt_sms()
+		{
+			register_post_type('fx_sms',
+				array(
+					'capability_type'     => 'page',
+					'hierarchical'        => false,
+					'public'              => false,
+					'show_ui'             => true,
+					'has_archive'         => true,
+					'publicly_queryable'  => false,
+					'exclude_from_search' => true,
+					'show_in_menu'        => true,
+					'show_in_nav_menus'   => false,
+					'show_in_admin_bar'   => true,
+					'can_export'          => true,
+					'menu_position'       => 8,
+					'menu_icon'           => 'dashicons-email',
+					'rewrite'             => array('slug' => 'sms'),
+					'supports'            => array(''),
+					'labels' => array(
+						'name'                  => 'SMSs',
+						'singular_name'         => 'SMS',
+						'menu_name'             => 'SMSs',
+						'name_admin_bar'        => 'SMS',
+						'archives'              => 'SMS Archives',
+						'attributes'            => 'SMS Attributes',
+						'parent_item_colon'     => 'Parent SMS:',
+						'all_items'             => 'All SMSs',
+						'add_new_item'          => 'Send New SMS',
+						'add_new'               => 'Send SMS',
+						'new_item'              => 'New SMS',
+						'edit_item'             => 'Edit SMS',
+						'update_item'           => 'Update SMS',
+						'view_item'             => 'View SMS',
+						'view_items'            => 'View SMSs',
+						'search_items'          => 'Search SMS',
+						'not_found'             => 'Not found',
+						'not_found_in_trash'    => 'Not found in Trash',
+						'featured_image'        => 'Featured Image',
+						'set_featured_image'    => 'Set featured image',
+						'remove_featured_image' => 'Remove featured image',
+						'use_featured_image'    => 'Use as featured image',
+						'insert_into_item'      => 'Insert into item',
+						'uploaded_to_this_item' => 'Uploaded to this SMS',
+						'items_list'            => 'SMSs list',
+						'items_list_navigation' => 'SMSs list navigation',
+						'filter_items_list'     => 'Filter SMSs list',
 					)
 				)
 			);

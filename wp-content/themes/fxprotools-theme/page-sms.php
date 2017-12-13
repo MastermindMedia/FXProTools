@@ -2,40 +2,8 @@
 /*
 Template Name: SMS
 */
-get_header();
-?>
-<div class="container top-marketing-buttons">
-	<div class="col-md-6">
-		<a href="<?php bloginfo('url'); ?>/my-account/inbox">
-			Email Marketing
-		</a>
-	</div>
-	<div class="col-md-6">
-		<a href="<?php bloginfo('url'); ?>/mail/sms" class="active">
-			SMS Marketing
-		</a>
-	</div>
-</div>
-<?php
-//url action, we get the state of the url query string, to perform
-$action = isset($_GET['_action']) ? $_GET['_action']:'';
-//holds data to pass to template
-$data = array();
+$smsPage = true;
 
-$view = new Apyc_View;
-$theme_js = $view->get_assets_js_theme();
-$template = $view->get_view_templates();
-$data['view_theme_js'] = $theme_js;
-$data['view_template'] = $template;
-$data['obj_view'] = $view;
-
-switch($action){
-	default:
-		$data['title'] = _('SMS Marketing');
-		$data['sub_heading'] = _('Sub Heading Here');
-
-		$view->view_theme($template . 'sms/main.php', $data);
-	break;
-}
-
+$emails = get_sms_for_user(array('unread', 'read'));
+include(__DIR__ . '/inc/templates/email-list.php');
 get_footer(); ?>

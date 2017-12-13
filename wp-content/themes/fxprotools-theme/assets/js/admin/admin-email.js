@@ -8,7 +8,7 @@ jQuery(function($) {
     $("label[for=title]").text("Enter subject here");
     
     if ($("#post-status-display").text() == "Published") {
-        $("#wpbody-content input, #wpbody-content select, #wpbody-content button").prop("disabled", true);
+        $("#wpbody-content input, #wpbody-content select, #wpbody-content button, #wpbody-content textarea").prop("disabled", true);
         
         var interval = setInterval(function() {
             if (tinymce && tinymce.activeEditor && tinymce.activeEditor.getContent().length > -1) {

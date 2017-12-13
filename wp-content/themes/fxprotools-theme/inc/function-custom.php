@@ -530,6 +530,30 @@ function add_login_logout_link( $items, $args ) {
     return $items;
 }
 
+function get_sms_for_user($statuses, $user_id = null)
+{
+    if (!$user_id) {
+        $user_id = get_current_user_id();
+    }
+
+    $response = get_posts(array(
+        'posts_per_page'	=> -1,
+        'orderby'			=> 'modified',
+        'order'				=> 'DESC',
+        'post_type'			=> 'fx_sms',
+        'meta_key'			=> '_user_' . $user_id . '_state',
+        'meta_query'		=> array(
+            array(
+                'key'       => '_user_' . $user_id . '_state',
+                'value'     => $statuses,
+                'compare'   => 'IN',
+            )
+        )
+    ));
+
+    return $response;
+}
+
 function get_emails_for_user($statuses, $user_id = null)
 {
     if (!$user_id) {
@@ -604,6 +628,10 @@ function get_users_with_active_subscriptions($subscription_ids, $user_fields = a
     ");
 
     return $results;
+}
+
+function user_unsubbed_from_sms($user_id) {
+    return !!get_the_author_meta('sms_unsubbed', $user_id);
 }
 
 function user_unsubbed_from_list($user_id, $list_name) {

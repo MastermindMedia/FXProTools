@@ -77,6 +77,7 @@ jQuery(function ($) {
 		$("#recipient_individual_type").change(function() {
 		    switch ($(this).val()) {
 		        case "email":
+		        case "sms":
 		            $("#recipient_individual_name").parents(".form-group").show();
 		            $("#recipient_individual_email").parents(".form-group").show();
 		            $("#recipient_individual_user").parents(".form-group").hide();
@@ -112,14 +113,16 @@ jQuery(function ($) {
             }
 		}).change();
 		
-		tinymce.init({ selector:'#body', menubar: false, statusbar: false,
-		    plugins: "link",
-            setup: function (editor) {
-                editor.on('change', function () {
-                    editor.save();
-                });
-            }
-        });
+		if (!isSms) {
+    		tinymce.init({ selector:'#body', menubar: false, statusbar: false,
+    		    plugins: "link",
+                setup: function (editor) {
+                    editor.on('change', function () {
+                        editor.save();
+                    });
+                }
+            });
+		}
         
         var submitting = false;
         
@@ -132,7 +135,10 @@ jQuery(function ($) {
         		}
         	});
         	
-        	hasError = hasError || !tinymce.get("body").getContent();
+        	if (!isSms) {
+        	    hasError = hasError || !tinymce.get("body").getContent();
+        	}
+        	
         	return hasError;
         }
         
@@ -148,17 +154,22 @@ jQuery(function ($) {
             if (!checkForErrors()) {
                 submitting = true;
                 
-                $("#compose").find("input, select").prop("disabled", true);
-                tinymce.get("body").setMode('readonly');
+                $("#compose").find("input, select, textarea").prop("disabled", true);
+                
+                if (!isSms) {
+                    tinymce.get("body").setMode('readonly');
+                }
                 
                 $.post(ajaxUrl, {
-                    action: "send_email",
+                    action: isSms ? "send_sms" : "send_email",
                     email_recipient_type: $("#email_recipient_type").val(),
+                    sms_recipient_type: $("#email_recipient_type").val(),
                     recipient_group: $("#recipient_group").val(),
                     recipient_product: $("#recipient_product").val(),
                     recipient_individual_type: $("#recipient_individual_type").val(),
                     recipient_individual_name: $("#recipient_individual_name").val(),
                     recipient_individual_email: $("#recipient_individual_email").val(),
+                    recipient_individual_sms: $("#recipient_individual_email").val(),
                     recipient_individual_user: $("#recipient_individual_user").val(),
                     subject: $("#subject").val(),
                     body: $("#body").val(),
@@ -166,12 +177,18 @@ jQuery(function ($) {
                     if (response.trim() != "OK") {
                         alert("Error: " + response);
                     } else {
-                        alert("Email sent.");
-                        window.location.href = "/my-account/sent";
+                        
+                        if (isSms) {
+                            alert("SMS sent.");
+                            window.location.href = "/my-account/sent-sms";
+                        } else {
+                            alert("Email sent.");
+                            window.location.href = "/my-account/sent";
+                        }
                     }
                     
                     submitting = false;
-                    $("#compose").find("input, select").prop("disabled", false);
+                    $("#compose").find("input, select, textarea").prop("disabled", false);
                     tinymce.get("body").setMode('design');
                 });
             }
