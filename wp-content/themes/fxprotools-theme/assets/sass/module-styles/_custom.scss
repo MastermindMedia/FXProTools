@@ -2502,7 +2502,8 @@ form {
 	}
 	// My Account
 	&.tab-pane {
-		.affiliate-sponsor-details {
+		.affiliate-sponsor-details,
+		.affiliate-genealogy-details {
 			.panel-body {
 				padding: 30px 15px;
 			}
@@ -2510,10 +2511,17 @@ form {
 				padding: 0;
 				margin: 0 0 20px 0;
 			}
+			.group-btn-link {
+				min-height: 100px;
+			}
 			.button-link {
+				display: block;
 				background: $red;
 				&:hover {
 					color: $white;
+				}
+				&.view-team-tree {
+					text-align: center;
 				}
 			}
 		}
