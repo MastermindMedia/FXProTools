@@ -190,7 +190,7 @@ get_header();
 							<div class="tab-pane fade" id="d">
 								<?php get_template_part('inc/templates/my-account/membership'); ?>
 							</div>
-							<div class="tab-pane fade" id="e">
+							<div class="tab-pane fade epx" id="e">
 								<?php get_template_part('inc/templates/my-account/genealogy'); ?>
 							</div>
 							<div class="tab-pane fade hide-on-customer" id="f">
