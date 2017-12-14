@@ -52,21 +52,7 @@
 	</div><!-- /fx-wrapper-content -->
 </div><!-- /fx-wrapper -->
 
-<?php
-/**
- * Intercom setting
- * 
- */
-if (is_user_logged_in() && $_SERVER['SERVER_NAME '] == 'copyprofitsuccess.com'): ?>
-    <?php $user = wp_get_current_user(); ?>
-    <script>
-    window.intercomSettings = {
-        app_id: "tyotu8pw",
-        email: "<?= $user->user_email ; ?>",
-        user_hash: "<?= get_user_intercom_HMAC($user); ?>"
-    };
-    </script>
-<?php endif; ?>
+<?php get_template_part('footer','intercom'); ?>
 <?php wp_footer(); ?>
 
 </body>
