@@ -1,10 +1,6 @@
-
-<!-- intercom -->
-
 <?php
 /**
  * Intercom setting
- *
  */
 if (is_user_logged_in() && isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] == 'copyprofitsuccess.com'): ?>
 	<?php $user = wp_get_current_user(); ?>
