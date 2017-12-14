@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 global $product;
-if ( ! ( $product->is_purchasable() ) ) {
+if ( ! ( $product->is_purchasable() ) && $product->get_sale_price() == '') {
 	return;
 }
 
