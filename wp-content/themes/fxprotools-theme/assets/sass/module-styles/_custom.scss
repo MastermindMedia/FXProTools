@@ -2500,6 +2500,24 @@ form {
 			}
 		}
 	}
+	// My Account
+	&.tab-pane {
+		.affiliate-sponsor-details {
+			.panel-body {
+				padding: 30px 15px;
+			}
+			.profile-info {
+				padding: 0;
+				margin: 0 0 20px 0;
+			}
+			.button-link {
+				background: $red;
+				&:hover {
+					color: $white;
+				}
+			}
+		}
+	}
 }
 
 .eps {
