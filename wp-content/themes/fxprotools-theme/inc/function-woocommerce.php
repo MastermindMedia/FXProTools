@@ -11,7 +11,7 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 		const META_ENABLE_BUY_BUTTON = '_enable_buy_button';
 		const META_BUY_BUTTON_URL = '_buy_button_url';
 		const META_BUY_BUTTON_TEXT = '_buy_button_text';
-        const POST_NAME_FREE_SHIRT = 'free-shirt';
+        const POST_NAME_FREE_SHIRT = 'copy-profit-success-tshirt';
         const MIN_MEMBERSHIP_DURATION = 15;
 		/**
 		 * @var integer ID of the membership products

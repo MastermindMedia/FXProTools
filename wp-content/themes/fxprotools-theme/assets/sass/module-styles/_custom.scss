@@ -2502,6 +2502,17 @@ form {
 	}
 }
 
+.eps {
+	.container {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	.xs-nav-side .row {
+		margin-right: -15px;
+		margin-left: -15px;
+	}
+}
+
 // Epixel Plugin - Distributor
 .distributor {
 	// Global
