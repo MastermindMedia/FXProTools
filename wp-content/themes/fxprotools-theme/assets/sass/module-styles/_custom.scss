@@ -2517,11 +2517,9 @@ form {
 			.button-link {
 				display: block;
 				background: $red;
+				text-align: center;
 				&:hover {
 					color: $white;
-				}
-				&.view-team-tree {
-					text-align: center;
 				}
 			}
 		}
