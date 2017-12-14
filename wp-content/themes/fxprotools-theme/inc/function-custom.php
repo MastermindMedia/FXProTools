@@ -530,6 +530,30 @@ function add_login_logout_link( $items, $args ) {
     return $items;
 }
 
+function get_sms_for_user($statuses, $user_id = null)
+{
+    if (!$user_id) {
+        $user_id = get_current_user_id();
+    }
+
+    $response = get_posts(array(
+        'posts_per_page'	=> -1,
+        'orderby'			=> 'modified',
+        'order'				=> 'DESC',
+        'post_type'			=> 'fx_sms',
+        'meta_key'			=> '_user_' . $user_id . '_state',
+        'meta_query'		=> array(
+            array(
+                'key'       => '_user_' . $user_id . '_state',
+                'value'     => $statuses,
+                'compare'   => 'IN',
+            )
+        )
+    ));
+
+    return $response;
+}
+
 function get_emails_for_user($statuses, $user_id = null)
 {
     if (!$user_id) {
@@ -604,6 +628,10 @@ function get_users_with_active_subscriptions($subscription_ids, $user_fields = a
     ");
 
     return $results;
+}
+
+function user_unsubbed_from_sms($user_id) {
+    return !!get_the_author_meta('sms_unsubbed', $user_id);
 }
 
 function user_unsubbed_from_list($user_id, $list_name) {
@@ -788,8 +816,13 @@ function fx_user_role_class( $classes ) {
         $classes[] = 'customer';
     }
 
+    if(!current_user_can('administrator')){
+        $classes[] = 'is-not-admin';
+    }else{
+        $classes[] = 'is-admin';
+    }
+
     return $classes;
-     
 }
 
 function load_custom_wp_admin_page_css($hook) {
@@ -807,3 +840,11 @@ function load_custom_wp_admin_page_js($hook) {
     wp_enqueue_script( 'custom_wp_admin_page_js', get_template_directory_uri() . '/assets/js/admin/admin-page.js' );
 }
 add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_page_js' );
+
+function restrict_customer_admin_access() {
+    if ( ! current_user_can('administrator') ) {
+        wp_redirect( home_url() . '/my-account' );
+        exit;
+    }
+}
+add_action( 'admin_init', 'restrict_customer_admin_access' );

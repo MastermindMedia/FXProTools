@@ -66,6 +66,7 @@ $custom_functions = array(
     'function-wc-subscriptions', // WC Subscription settings,
     'function-subscriptions', //  Subscription functions,
     'function-email', // Email,
+    'function-sms', // SMS,
     'function-eps', //EPS action and filters
     'function-intercom', //Intercom functions
     'function-custom', // All custom functions

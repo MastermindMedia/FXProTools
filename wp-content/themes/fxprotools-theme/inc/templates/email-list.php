@@ -1,6 +1,7 @@
 <?php
 function email_content() {
 	global $emails;
+	global $smsPage;
 	
 	// Filter emails.
 	if (isset($_POST['search'])) {
@@ -16,7 +17,7 @@ function email_content() {
 		<table class="table table-bordered table-hover fx-table-inbox with-padding no-border-l-r m-t-sm">
 			<thead>
 				<th class="text-center"><input type="checkbox" id="selectAll"></th>
-				<th class="small" style="width: 75%;">Subject</th>
+				<th class="small" style="width: 75%;"><?php if (isset($smsPage) && $smsPage) { ?>Content<?php } else { ?>Subject<?php } ?></th>
 				<th class="small text-center">Date</th>
 			</thead>
 			<tbody id="mailContainer">
@@ -26,13 +27,19 @@ function email_content() {
 				?>
 				<tr class="<?php echo get_post_meta($email->ID, '_user_' . get_current_user_id() . '_state')[0]; ?>">
 					<td class="text-center"><input type="checkbox" class="email-select" data-id="<?php echo $email->ID; ?>" /></td>
-					<td><a href="<?php bloginfo('url'); ?>/my-account/inbox/read/?id=<?php echo $email->ID; ?>"><?php echo $email->post_title; ?></a></td>
+					<td><a href="<?php bloginfo('url'); ?>/my-account/<?php if (isset($smsPage) && $smsPage) { ?>sms/read-sms<?php } else { ?>inbox/read<?php } ?>/?id=<?php echo $email->ID; ?>"><?php
+						if (isset($smsPage) && $smsPage) {
+							echo rwmb_meta('sms_content', null, $email->ID);
+						} else {
+							echo $email->post_title;
+						}
+					?></a></td>
 					<td class="text-center"><?php echo date_i18n( 'm/d/Y', strtotime($email->post_date) ); ?></td>
 				</tr>
 				<?php }
 				} else { ?>
 				<tr>
-					<td colspan="3">No emails found.</td>
+					<td colspan="3">No <?php if (isset($smsPage) && $smsPage) { ?>SMS<?php } else { ?>emails<?php } ?> found.</td>
 				</tr>
 				<?php
 				}

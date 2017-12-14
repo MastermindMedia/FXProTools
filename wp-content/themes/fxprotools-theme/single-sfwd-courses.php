@@ -23,8 +23,6 @@ $course_prerequisites = learndash_get_course_prerequisites( $course_id );
 					</div>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
-					<div class="fx-video-container"></div>
-					<br/>
 					<div class="learndash_join_button">
 						<form method="post">
 							<input type="hidden" value="<?php echo $course_id;?>" name="course_id" />
@@ -38,9 +36,9 @@ $course_prerequisites = learndash_get_course_prerequisites( $course_id );
 				<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
 					<div class="panel panel-default fx-course-outline xs-fx-course">
 						<div class="panel-body">
-							<h3>Course Description</h3>
 							<div class="content">
 								<?php echo get_mb_pto1( 'video_embed', 'pto3' ); ?>
+								<h3>Course Description</h3>
 								<?php echo do_shortcode(get_post_field('post_content', $course_id)); ?>
 							</div>
 							<hr/>

@@ -56,14 +56,8 @@ get_header();
 						<?php echo do_shortcode('[select_payment_method_form]'); ?>
 					</div>
 				</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
-
-
-
-
 
 <?php get_footer(); ?>

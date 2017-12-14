@@ -68,6 +68,21 @@
 	}
 }
 
+body.customer{
+	.fx-navbar-main{
+		.fx-nav-options{
+			li{
+				&.hide-on-customer{
+					display: none;
+				}
+			}
+		}
+	}
+	.hide-on-customer{
+		display: none;
+	}
+}
+
 // Sub Navigation
 .fx-navbar-sub {
 	position: relative!important;
