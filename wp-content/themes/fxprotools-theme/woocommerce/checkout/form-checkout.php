@@ -252,39 +252,42 @@ if ( ! $checkout->is_registration_enabled() && $checkout->is_registration_requir
     	$real_order = "";
 
     	$cust_orders = get_customer_orders($customer_id);
-		$order_items = wc_get_order( $cust_orders[0]->ID );
-		$items = $order_items->get_items();
-		foreach($items as $item){
-			if($item->get_product_id() != 49 || $item->get_product_id() != 50){
-				$real_order = $item->get_name();
+    	if( sizeof($cust_orders) > 0){
+    		$order_items = wc_get_order( $cust_orders[0]->ID );
+			$items = $order_items->get_items();
+			foreach($items as $item){
+				if($item->get_product_id() != 49 || $item->get_product_id() != 50){
+					$real_order = $item->get_name();
+				}
 			}
-		}
 
-    	$activity   = "Recently ordered " . isset($real_order) ? $real_order : $prod_random[0];
-    	$time       = random_checkout_time_elapsed();
-    	$user_login = get_the_author_meta('user_login', $customer_id);
-    	$st_random  = array('Alabama','California','Colorado','Illinois','Florida','Delaware','New York','Indiana','Kansas','Massachussets','Nevada','New Mexico','Oklahoma','Texas','Utah','Virginia','Washington');
-		shuffle($st_random);
-		$get_state  = $st_random[0];
+	    	$activity   = "Recently ordered " . isset($real_order) ? $real_order : $prod_random[0];
+	    	$time       = random_checkout_time_elapsed();
+	    	$user_login = get_the_author_meta('user_login', $customer_id);
+	    	$st_random  = array('Alabama','California','Colorado','Illinois','Florida','Delaware','New York','Indiana','Kansas','Massachussets','Nevada','New Mexico','Oklahoma','Texas','Utah','Virginia','Washington');
+			shuffle($st_random);
+			$get_state  = $st_random[0];
 
-    	if($state == ""){
-    		$state = $get_state;
+	    	if($state == ""){
+	    		$state = $get_state;
+	    	}
+
+	    	if(!get_the_author_meta('first_name', $customer_id)){
+	    		if (strpos($user_login, '@') !== false) {
+				    $name = strstr($user_login, '@', true);
+				}else{
+					$name = $user_login;
+				}
+	    	}
+
+	    	$orders[] = array(
+	    		'image'    => "https://maps.googleapis.com/maps/api/staticmap?center=" . urlencode( $state ) . "&zoom=13&size=120x120&maptype=roadmap&key=AIzaSyAMRPELYMjUR8a0q0UArdw8oLRYrjuLA6o",
+	    		'name'     => $name . ', ' . $state,
+	    		'activity' => $activity,
+	    		'time'     => $time
+	    	);
     	}
-
-    	if(!get_the_author_meta('first_name', $customer_id)){
-    		if (strpos($user_login, '@') !== false) {
-			    $name = strstr($user_login, '@', true);
-			}else{
-				$name = $user_login;
-			}
-    	}
-
-    	$orders[] = array(
-    		'image'    => "https://maps.googleapis.com/maps/api/staticmap?center=" . urlencode( $state ) . "&zoom=13&size=120x120&maptype=roadmap&key=AIzaSyAMRPELYMjUR8a0q0UArdw8oLRYrjuLA6o",
-    		'name'     => $name . ', ' . $state,
-    		'activity' => $activity,
-    		'time'     => $time
-    	);
+		
 	}
 
 	if($user_count <= 30){
