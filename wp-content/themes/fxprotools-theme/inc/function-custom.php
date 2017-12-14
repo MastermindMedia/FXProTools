@@ -842,7 +842,7 @@ function load_custom_wp_admin_page_js($hook) {
 add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_page_js' );
 
 function restrict_customer_admin_access() {
-    if ( is_user_fx_customer() ) {
+    if ( ! current_user_can('administrator') ) {
         wp_redirect( home_url() . '/my-account' );
         exit;
     }
