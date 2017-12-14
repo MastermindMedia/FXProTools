@@ -1,3 +1,5 @@
+
+<!-- intercom -->
 <?php
 /**
  * Intercom setting
