@@ -97,11 +97,20 @@ $referral_link = get_highest_converting_funnel_link();
 								<div class="box">
 									Share your unique referral link
 									<div class="link">
+
 										<?php
+											// commented out this code in regards to this task https://github.com/MastermindMedia/FXProTools/issues/148
+											// if(strpos(get_the_author_meta('user_login', get_current_user_id()), ' ') > 0){
+											// 	echo $referral_link; ?><!--?ref=--><?php //echo affwp_get_affiliate_id(wp_get_current_user()->ID);
+											// }else{
+											// 	echo $referral_link; ?><!--?ref=--><?php //echo urlencode($username);
+											// }
+											$p_h = stripos($_SERVER['SERVER_PROTOCOL'],'https') === true ? 'https://' : 'http://' . $_SERVER['HTTP_HOST']; 
+											$temp_referral_link =  $p_h . "/lp1/";
 											if(strpos(get_the_author_meta('user_login', get_current_user_id()), ' ') > 0){
-												echo $referral_link; ?>?ref=<?php echo affwp_get_affiliate_id(wp_get_current_user()->ID);
+												echo $temp_referral_link; ?>?ref=<?php echo affwp_get_affiliate_id(wp_get_current_user()->ID);
 											}else{
-												echo $referral_link; ?>?ref=<?php echo urlencode($username);
+												echo $temp_referral_link; ?>?ref=<?php echo urlencode($username);
 											}
 										?>
 									</div>
