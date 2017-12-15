@@ -2584,6 +2584,13 @@ form {
 	 }
 }
 
+// Trigger for Customer Only
+.customer {
+	.fx-navbar-main .left ul.fx-nav-options li:nth-child(4) {
+		display: none;
+	}
+}
+
 // Page Template Option - Dashboard
 .dash-alert {
     padding: 15px;
