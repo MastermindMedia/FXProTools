@@ -20,9 +20,12 @@ function get_funnels()
 
 function property_occurence_count($array, $property, $value)
 {
+
 	$count = 0;
 	foreach ($array as $object) {
-		if ( preg_replace('{/$}', '', $object->{$property} ) == preg_replace('{/$}', '', $value ) ){
+		$record_url =  parse_url($object->{$property}, PHP_URL_HOST) . parse_url($object->{$property}, PHP_URL_PATH);
+		$check_url =  parse_url($value , PHP_URL_HOST) . parse_url(  $value, PHP_URL_PATH);
+		if ( rtrim($record_url, '/') == rtrim($check_url, '/')  ){
 			$count++;
 		}
 	}
@@ -64,7 +67,9 @@ function date_is_in_range($date_from, $date_to, $date)
 
 function get_funnel_stats($funnel_id, $date_filter = array(), $user_id = 0)
 {
-	$affiliate_id = $user_id > 0 ? affwp_get_affiliate_id( $user_id ) : current_user_can('administrator') ? 0 : affwp_get_affiliate_id( get_current_user_id() );
+	$user_id  = current_user_can('administrator') ? 0 : get_current_user_id();
+	$affiliate_id = $user_id == 0 ? : affwp_get_affiliate_id( $user_id );
+
 	
 	$visits = get_funnel_visits( $affiliate_id );
 	if( $date_filter ){
@@ -84,7 +89,7 @@ function get_funnel_stats($funnel_id, $date_filter = array(), $user_id = 0)
 					   'sales' 		=> array('count' => 0, 'rate' 	 => 0),
 				);
 
-	$sales_stats = array( 'customer_sales' => get_total_distributor_sales( $funnel, current_user_can('administrator') ? 0 : get_current_user_id() ), 'distributor_sales' => get_total_customer_sales( $funnel, current_user_can('administrator') ? 0 : get_current_user_id() ) );
+	$sales_stats = array( 'customer_sales' => get_total_customer_sales( $funnel, $user_id), 'distributor_sales' => get_total_distributor_sales( $funnel, $user_id) );
 
 	//all
 	$cp_stats['page_views']['all'] = property_occurence_count($visits, 'url',  $funnel['cp_url'] );

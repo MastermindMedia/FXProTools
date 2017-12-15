@@ -40,7 +40,7 @@ if(strpos(get_the_author_meta('user_login', get_current_user_id()), ' ') > 0){
 							$count = 0;
 							$no_thumbnail = 'https://via.placeholder.com/150x150?text=No Image';
 							foreach($funnels as $post): setup_postdata($post); $count++;
-							$stats = get_funnel_stats( get_the_ID() );
+							$stats = get_funnel_stats( get_the_ID(), array(), get_current_user_id() );
 						?>
 						<div class="accordion-group panel-default funnel-accordion">
 							<div class="panel-heading" role="tab" id="heading-<?php echo $count;?>">
