@@ -188,6 +188,18 @@ function enforce_page_access()
     }
 }
 
+add_action('wp', 'restirct_customer_access');
+function restirct_customer_access()
+{
+    global $post;
+    if( is_user_logged_in() && is_user_fx_customer() ) {
+        if ( url_segment(1) == 'team' ) {
+            wp_redirect( home_url() . '/dashboard' );
+        }
+        return 0;
+    }
+}
+
 add_filter('login_redirect', 'customer_login_redirect');
 function customer_login_redirect( $redirect_to, $request = '', $user = '' ){
 	if ( ! empty( $_POST['redirect_to'] ) ) {
@@ -213,7 +225,6 @@ function has_imported_user_update_password( $user = null ) {
 
 	return true;
 }
-
 
 add_action('init', 'course_category_rewrite');
 function course_category_rewrite()
