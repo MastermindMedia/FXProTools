@@ -188,7 +188,7 @@ function enforce_page_access()
     }
 }
 
-add_action('wp', 'restirct_customer_access');
+//add_action('wp', 'restirct_customer_access');
 function restirct_customer_access()
 {
     global $post;
@@ -853,7 +853,7 @@ function load_custom_wp_admin_page_js($hook) {
 add_action( 'admin_enqueue_scripts', 'load_custom_wp_admin_page_js' );
 
 function restrict_customer_admin_access() {
-    if ( ! current_user_can('administrator') ) {
+    if ( ! current_user_can('administrator') && !defined( 'DOING_AJAX' ) ) {
         wp_redirect( home_url() . '/my-account' );
         exit;
     }
