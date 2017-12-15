@@ -13,6 +13,7 @@ function dd($array) {
 	echo '</pre>';
 }
 
+// Get query string
 function get_query_string()
 {
 	$string = '';
@@ -26,5 +27,14 @@ function get_query_string()
 		$counter++;
 	}
 	return $string;
+}
+
+// Get url segment
+function url_segment($segment = false)
+{
+	if($segment == false) return false;
+	$uri_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+	$uri_segments = explode('/', $uri_path);
+	return $uri_segments[$segment];
 }
 
