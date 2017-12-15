@@ -1398,6 +1398,10 @@ p.logo-text {
 	.checkout-holder{
 		margin-top: 20px;
 
+		@media screen and (max-width: 767px){
+			margin-top: 70px;
+		}
+
 		.woocommerce-password-hint, .woocommerce-password-strength {
 		display: none;
 		}
@@ -1815,6 +1819,12 @@ p.logo-text {
 				display: none!important;
 			}
 		}
+	}
+}
+
+.noty_layout{
+	@media screen and (max-width: 767px){
+		display: none;
 	}
 }
 .noty_theme__relax.noty_bar{
