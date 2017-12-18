@@ -28,7 +28,6 @@ function eps_subscription_order_completed( $subscription ) {
 			'afl_point' => $pv
 		);
 
-		error_log('Invoked : eps_commerce_purchase_complete ' . print_r($args, true) );
 	    $result = apply_filters('eps_commerce_purchase_complete', $args);
 	    error_log('Invoked : eps_commerce_purchase_complete ' . print_r($result, true) );
 	}
@@ -51,7 +50,6 @@ function eps_distributor_kit_purchased( $subscription ) {
 				'uid' => $subscription->get_customer_id(),
 				'order_id' => $renewal->get_id()
 			);
-			error_log('Invoked : eps_commerce_distributor_kit_purchase_complete ' . print_r($args, true) );
 		    $result = apply_filters('eps_commerce_distributor_kit_purchase_complete', $args);
 		   	error_log('Invoked : eps_commerce_distributor_kit_purchase_complete ' . print_r($result, true) );
 
@@ -133,4 +131,39 @@ function eps_affiliate_place_user_after_order( $subscription, $order, $recurring
 }; 
          
 add_action( 'woocommerce_checkout_subscription_created', 'eps_affiliate_place_user_after_order', 10, 3 ); 
+
+
+
+function eps_calculate_faststart_bonus( $subscription ) { 
+
+	$referral = affiliate_wp()->referrals->get_by('reference', $subscription->get_parent_id() );
+	$referrer_id = isset( $referral->affiliate_id ) ? affwp_get_affiliate_user_id( $referral->affiliate_id ) : 2936;
+	$user_id = $subscription->get_customer_id();
+	$has_paid_signup_fee = get_user_meta( $referrer_id , '_has_paid_signup_fee', true ); 
+	$has_collected_bonus_from_user =  get_user_meta( $user_id , '_has_paid_signup_fee', true );
+
+	if( is_user_fx_distributor( $referrer_id ) && $has_paid_signup_fee &&  !$has_collected_bonus_from_user ){
+		$items = $subscription->get_items();
+
+	    foreach($items as $key => $item){
+	    	if( isset( $item['variation_id'] ) && in_array( $item['variation_id'], array(2920, 2930, 2927) ) ) {
+	    		add_user_meta( $user_id , '_has_paid_signup_fee', 1); 
+	    		do_action('afl_calculate_fast_start_bonus', $user_id, $referrer_id);
+				error_log('Invoked: afl_calculate_fast_start_bonus ' . $user_id . ':' . $referrer_id);
+				break;
+	    	}
+	    	else{
+	    		error_log('Invoked Fail: afl_calculate_fast_start_bonus : Invalid Variation ID');
+	    	}
+	    }
+
+	}
+	else{
+		error_log('Invoked Fail: afl_calculate_fast_start_bonus, not valid distributor or claimed already');
+	}
+}; 
+         
+add_action( 'woocommerce_subscription_payment_complete', 'eps_calculate_faststart_bonus', 10, 1 ); 
+
+
 
