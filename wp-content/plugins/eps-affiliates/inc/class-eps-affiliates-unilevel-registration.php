@@ -368,7 +368,7 @@ class Eps_affiliates_unilevel_registration {
 			 	*/
 			 		$user_roles = afl_user_roles($post_data['uid']);
 			 		if ( !array_key_exists('afl_customer', $user_roles)) {
-				 		do_action('afl_calculate_fast_start_bonus',$post_data['uid'],$post_data['sponsor_uid']);
+				 		// do_action('afl_calculate_fast_start_bonus',$post_data['uid'],$post_data['sponsor_uid']);
 			 		}
 				}
 			}
