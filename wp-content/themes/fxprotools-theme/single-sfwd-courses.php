@@ -9,8 +9,19 @@ $course_prerequisites = learndash_get_course_prerequisites( $course_id );
 
 <?php get_header(); ?>
 
-	<?php get_template_part('inc/templates/nav-products'); ?>
-	
+	<nav class="navbar fx-navbar-sub">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<ul id="38" class="fx-nav-options xpto3">
+						<li class="dashboard icon icon-products "><a href="<?php bloginfo('url'); ?>/basic-training"><span class="number">#</span><span class="text">Basic Training</span></a></li>
+						<li class="current-menu-item"><a title="1." href="javascript:void(0)"><span class="number">1.</span><span class="text"><?php echo get_the_title(); ?></span></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</nav>
+
 	<?php if( !is_course_prerequities_completed($course_id) ): ?>
 		<?php get_template_part('inc/templates/course/prerequisites'); ?>
 	<?php elseif( !sfwd_lms_has_access_fn($course_id) ): ?>

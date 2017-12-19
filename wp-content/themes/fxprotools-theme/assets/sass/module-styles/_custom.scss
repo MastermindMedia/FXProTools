@@ -1398,6 +1398,10 @@ p.logo-text {
 	.checkout-holder{
 		margin-top: 20px;
 
+		@media screen and (max-width: 767px){
+			margin-top: 70px;
+		}
+
 		.woocommerce-password-hint, .woocommerce-password-strength {
 		display: none;
 		}
@@ -1815,6 +1819,12 @@ p.logo-text {
 				display: none!important;
 			}
 		}
+	}
+}
+
+.noty_layout{
+	@media screen and (max-width: 767px){
+		display: none;
 	}
 }
 .noty_theme__relax.noty_bar{
@@ -2500,6 +2510,30 @@ form {
 			}
 		}
 	}
+	// My Account
+	&.tab-pane {
+		.affiliate-sponsor-details,
+		.affiliate-genealogy-details {
+			.panel-body {
+				padding: 30px 15px;
+			}
+			.profile-info {
+				padding: 0;
+				margin: 0 0 20px 0;
+			}
+			.group-btn-link {
+				min-height: 100px;
+			}
+			.button-link {
+				display: block;
+				background: $red;
+				text-align: center;
+				&:hover {
+					color: $white;
+				}
+			}
+		}
+	}
 }
 
 .eps {
@@ -2548,6 +2582,13 @@ form {
 	 	color: $black;
 	 	text-shadow: none;
 	 }
+}
+
+// Trigger for Customer Only
+.customer {
+	.fx-navbar-main .left ul.fx-nav-options li:nth-child(4) {
+		display: none;
+	}
 }
 
 // Page Template Option - Dashboard

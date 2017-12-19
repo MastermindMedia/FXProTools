@@ -4,6 +4,30 @@ Template Name: Checkout
 */
 get_header(); 
 ?>
+<nav class="navbar fx-navbar-main" role="navigation">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-3 col-md-3">
+				<div class="navbar-header fx-navbar-header">
+					<a class="navbar-brand" href="#">
+						<img src="<?php bloginfo('template_url'); ?>/assets/img/logo.png" class="img-responsive">
+						<br>
+					</a>
+				</div>
+				
+			</div>
+			<div class="xs-nav-side col-sm-9 col-md-9">
+				<div class="row">
+					<div class="col-xs-12 col-sm-8 col-md-8">
+					</div>
+					<div class="col-xs-12 col-sm-4 col-md-4">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</nav>
 	
 	<?php if( is_user_logged_in() ) : ?>	
 		<?php get_template_part('inc/templates/nav-import-user'); ?>

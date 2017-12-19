@@ -40,7 +40,7 @@
 			      	</ul>
 			      </div>
 			      <div class="col-md-6">
-			      	<a href="?page=abc" class="button-link">View Direct Upline</a>
+			      	<a href="<?php bloginfo('url');	?>/team/direct-upline/" class="button-link">View Direct Upline</a>
 			      </div>
 			    </div>
 			  </div>

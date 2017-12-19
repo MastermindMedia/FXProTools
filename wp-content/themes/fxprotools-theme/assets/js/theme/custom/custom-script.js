@@ -19,7 +19,7 @@ jQuery(document).ready( function($) {
 		$(this).wrap('<span class="input-wrapper"></span>')
 	});
 
-	$('#billing_first_name_field, #billing_last_name_field, #billing_email_field, #billing_phone_field, #account_password_field, #billing_address_1_field, #billing_city_field, #billing_state_field, #billing_postcode_field, #billing_country_field').each(function(){
+	$('#billing_first_name_field, #billing_last_name_field, #billing_email_field, #billing_phone_field, #account_username_field, #account_password_field, #billing_address_1_field, #billing_city_field, #billing_state_field, #billing_postcode_field, #billing_country_field').each(function(){
 		$(this).find('label').addClass('col-md-3 col-form-label');
 		$(this).find('.input-wrapper').addClass('col-md-9');
 	});
@@ -30,6 +30,7 @@ jQuery(document).ready( function($) {
 		'#billing_last_name_field', 
 		'#billing_email_field',
 		'#billing_phone_field', 
+		'#account_username_field',
 		'#account_password_field'
 	];
 

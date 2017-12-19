@@ -49,10 +49,10 @@
 			      <div class="col-md-6">
 				      <div class="row">
 				      	<div class="col-md-6">
-				      		<a href="#" class="button-link"><?= __('Distributors').' : '.apply_filters('afl_my_distributors_count',$node->uid); ?></a>
+				      		<a href="<?php bloginfo('url'); ?>/team/matrix-tree/" class="button-link"><?= __('Distributors').' : '.apply_filters('afl_my_distributors_count',$node->uid); ?></a>
 				      	</div>
 				      	<div class="col-md-6">
-				      		<a href="#" class="button-link"><?= __('Customers').' : '.apply_filters('afl_my_customers_count',$node->uid); ?></a>
+				      		<a href="<?php bloginfo('url'); ?>/team/matrix-tree/" class="button-link"><?= __('Customers').' : '.apply_filters('afl_my_customers_count',$node->uid); ?></a>
 				      	</div>
 				      </div>
 			      </div>

@@ -42,20 +42,21 @@
 			      <div class="col-md-6">
 				      <div class="row">
 				      	<div class="col-md-6">
-				      		<a href="#" class="button-link"><?= __('Distributors').' : '.apply_filters('afl_my_distributors_count',$node->uid); ?></a>
+				      		<div class="group-btn-link">
+				      			<a href="<?php bloginfo('url'); ?>/team/direct-downline/" class="button-link"><?= __('Distributors').' : '.apply_filters('afl_my_distributors_count',$node->uid); ?></a>
+				      		</div>
 				      	</div>
 				      	<div class="col-md-6">
-				      		<a href="#" class="button-link"><?= __('Customers').' : '.apply_filters('afl_my_customers_count',$node->uid); ?></a>
+				      		<div class="group-btn-link">
+				      			<a href="<?php bloginfo('url'); ?>/team/direct-downline/" class="button-link"><?= __('Customers').' : '.apply_filters('afl_my_customers_count',$node->uid); ?></a>
+				      		</div>
 				      	</div>
+					    <div class="col-md-12">
+					    	<a href="#" class="button-link view-team-tree"><?= __('View Team Tree'); ?></a>
+					    </div>
 				      </div>
 			      </div>
 			    </div>
-
-	      	<div class="row">
-		      	<div class="col-md-6">
-		      		<a href="#" class="button-link"><?= __('View Team Tree'); ?></a>
-		      	</div>
-		      </div>
 		      
 			  </div>
 		  </div>
