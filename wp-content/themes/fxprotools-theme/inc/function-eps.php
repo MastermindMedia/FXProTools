@@ -11,31 +11,51 @@ eps_affiliates_place_user_in_holding_tank
  */
 
 function eps_subscription_order_completed( $subscription ) { 
-
     $items = $subscription->get_items();
 
 	foreach($items as $key => $item){
 		$pv = rwmb_meta('personal_volume', '',  $item->get_product_id());
 	}
 
-	$renewal = $subscription->get_last_order('renewal');
+	$last_order = $subscription->get_last_order('all');
 
-	if( isset($renewal) ){
+	if( wcs_order_contains_renewal($last_order) ){
 		 $args = array(	
 			'uid' => $subscription->get_customer_id(),
-			'order_id' => $renewal->get_id(),
-			'amount_paid' => $renewal->get_total(),
+			'order_id' => $last_order->get_id(),
+			'amount_paid' => $last_order->get_total(),
 			'afl_point' => $pv
 		);
 
 	    $result = apply_filters('eps_commerce_purchase_complete', $args);
-	    error_log('Invoked : eps_commerce_purchase_complete ' . print_r($result, true) );
+	    error_log('Invoked : eps_commerce_purchase_complete via renewal ' . print_r($result, true) );
+	}
+
+	else {
+		$parent_order = new WC_Order($subscription->get_parent_id());
+
+	    foreach($items as $key => $item){
+	    	if( isset( $item['variation_id'] ) && in_array( $item['variation_id'], array(2920, 2930, 2927) ) ) {
+	    		$args = array(	
+					'uid' => $subscription->get_customer_id(),
+					'order_id' => $parent_order->get_id(),
+					'amount_paid' => $parent_order->get_total(),
+					'afl_point' => $pv
+				);
+
+			    $result = apply_filters('eps_commerce_purchase_complete', $args);
+			    error_log('Invoked : eps_commerce_purchase_complete via regular checkout' . print_r($result, true) );
+	    	}
+	    	else{
+	    		 error_log('Invoke Fail : eps_commerce_purchase_complete via regular checkout, INVALID VARIATION' );
+	    	}
+	    }
 	}
 
    
 }; 
          
-add_action( 'woocommerce_subscription_renewal_payment_complete', 'eps_subscription_order_completed', 10, 1 ); 
+add_action( 'woocommerce_subscription_payment_complete', 'eps_subscription_order_completed', 10, 1 ); 
 
 
 function eps_distributor_kit_purchased( $subscription ) { 
@@ -44,7 +64,7 @@ function eps_distributor_kit_purchased( $subscription ) {
 
 	foreach($items as $key => $item){
 		if( $item['product_id'] == 2871 || $item['product_id'] == '48'){
-			$renewal = $subscription->get_last_order('renewal');
+			$renewal = $subscription->get_last_order('all', array('renewal'));
 
 		    $args = array(	
 				'uid' => $subscription->get_customer_id(),
@@ -63,6 +83,7 @@ function eps_distributor_kit_purchased( $subscription ) {
 }; 
          
 add_action( 'woocommerce_subscription_renewal_payment_complete', 'eps_distributor_kit_purchased', 10, 1 ); 
+
 
 
 function eps_switched_from_customer_distributor() { 
@@ -148,6 +169,7 @@ function eps_calculate_faststart_bonus( $subscription ) {
 	    foreach($items as $key => $item){
 	    	if( isset( $item['variation_id'] ) && in_array( $item['variation_id'], array(2920, 2930, 2927) ) ) {
 	    		add_user_meta( $user_id , '_has_paid_signup_fee', 1); 
+
 	    		do_action('afl_calculate_fast_start_bonus', $user_id, $referrer_id);
 				error_log('Invoked: afl_calculate_fast_start_bonus ' . $user_id . ':' . $referrer_id);
 				break;
@@ -166,4 +188,4 @@ function eps_calculate_faststart_bonus( $subscription ) {
 add_action( 'woocommerce_subscription_payment_complete', 'eps_calculate_faststart_bonus', 10, 1 ); 
 
 
-
+ 
