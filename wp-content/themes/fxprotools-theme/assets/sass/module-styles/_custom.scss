@@ -2541,6 +2541,7 @@ form {
 	// Matrix Tree
 	.genealogy-hierarchy .person {
 		position: relative;
+		min-width: 100px;
 		.toggle-left-arrow, .toggle-right-arrow {
 			float: none;
 			position: absolute;
