@@ -2538,6 +2538,22 @@ form {
 			}
 		}
 	}
+	// Matrix Tree
+	.genealogy-hierarchy .person {
+		position: relative;
+		.toggle-left-arrow, .toggle-right-arrow {
+			float: none;
+			position: absolute;
+			font-size: 10px;
+			top: 15px;
+		}
+		.toggle-left-arrow {
+			left: 0;
+		}
+		.toggle-right-arrow {
+			right: 0;
+		}
+	}
 }
 
 .eps {
