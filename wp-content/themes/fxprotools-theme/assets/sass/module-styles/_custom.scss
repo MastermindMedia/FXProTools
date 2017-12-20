@@ -2471,6 +2471,10 @@ form {
 	// Global
 	.panel-default > .panel-heading {
 		border-left-color: $red;
+		h4 {
+			color: $black;
+			font-weight: 900;
+		}
 	}
 	.table thead {
 		background: $red;
