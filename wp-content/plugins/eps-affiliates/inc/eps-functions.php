@@ -46,7 +46,7 @@
  function _check_required_gv_meets ($uid = '', $rank = '') {
  		//get an array of downline user id with their group volume
  		$my_pv   = _get_user_pv($uid);
- 		$legs_gv = _get_user_direct_legs_gv($uid);
+ 		$legs_gv = _get_user_direct_legs_gv($uid, FALSE, 'unilevel');
  		
  		//check conidition meets
  		$required_gv = afl_variable_get('rank_'.$rank.'_gv',0);
@@ -74,7 +74,7 @@
  * ----------------------------------------------------
 */
  function _check_required_distributors_meets ($uid = '', $rank = '') {
- 		$user_distrib = _get_user_distributor_count($uid);
+ 		$user_distrib = _get_user_distributor_count($uid, 'unilevel');
  		//check conidition meets
  		$required_distrib = afl_variable_get('rank_'.$rank.'_no_of_distributors',0);
  		// pr($rank);
@@ -83,7 +83,7 @@
  		if ($required_distrib <= $user_distrib  ){
  			return true;
  		} else {
- 			return false;
+ 			return 0;
  		}
  }
  /*
@@ -135,13 +135,22 @@
 	          */
 
 
-	          $downlines = afl_get_user_downlines_uid($uid, array('level'=>1), false);
-
+	          $downlines = afl_get_unilevel_user_downlines_uid($uid, array('level'=>1), false);
+	          
 	          $condition_statuses  = array();
 	          //find the ranks ($i) of this downlines
 	          foreach ($downlines as $key => $value) {
 	              //get the downlines users downlines count having the rank $i
-	              $down_downlines_count = afl_get_user_downlines_uid($value->downline_user_id, array('member_rank'=>$i),TRUE);
+	              $down_downlines_count = afl_get_unilevel_user_downlines_uid($value->downline_user_id, array('member_rank'=>$i),TRUE);
+
+		            if ( afl_variable_get('count_leg_rank_for_rank_qualification')) {
+		            	$node = afl_genealogy_node($value->downline_user_id,'unilevel');
+		            	$rank = !empty($node->member_rank) ? $node->member_rank : 0;
+		            	if ( $rank >= $i) {
+		            		$down_downlines_count += 1;
+		            	}
+		            }
+
 	              /*
 	               * --------------------------------------------------
 	               * Get the downlines count of members having the rank
@@ -180,7 +189,7 @@
 	           * ---------------------------------------------------------------
 	          */
 	            $downlines = array();
-	            $result = afl_get_user_downlines_uid($uid, array('level'=>1), false);
+	            $result = afl_get_unilevel_user_downlines_uid($uid, array(), false);
 	            foreach ($result as $key => $value) {
 	              $downlines[] = $value->downline_user_id;
 	            }
@@ -189,21 +198,23 @@
 	            //check the ranks under this users
 	            $query = array();
 
-	            $query['#select'] = _table_name('afl_user_downlines');
+	            $query['#select'] = _table_name('afl_ranks');
 	            $query['#where'] = array(
-	              '`'._table_name('afl_user_downlines').'`.`member_rank`='.$i,
+	              '`'._table_name('afl_ranks').'`.`member_rank`>='.$i,
 	            );
-	            if (!empty($implodes)) {
-	              $query['#where'][] = '`'._table_name('afl_user_downlines').'`.`uid` IN ('.$implodes.')';
+	            if (!empty($downlines)) {
+	              $query['#where_in'] = [
+	              	'uid' => $downlines
+	              ];
 	            }
 
 	            $query['#expression'] = array(
-	              'COUNT(`'._table_name('afl_user_downlines').'`.`member_rank`) as count'
+	              'COUNT(`'._table_name('afl_ranks').'`.`member_rank`) as count'
 	            );
 	            $result = db_select($query, 'get_row');
 	            $rank_existed_count = $result->count;
 
-
+	           
               if ( $rank_existed_count >= $required_in_one_count ){
                 $meets_flag = 1;
               } else {
@@ -232,14 +243,13 @@
  		$tree = 'unilevel';
  		//get an array of downline user id with their group volume
  		$my_pv   = _get_user_pv($uid);
- 		$legs_gv = _get_user_direct_legs_gv($uid);
+ 		$legs_gv = _get_user_direct_legs_gv($uid, FALSE,'unilevel');
  		
  		//check conidition meets
  		$required_gv = afl_variable_get('rank_'.$rank.'_gv',0);
-
  		//get maximum group volume required for this rank
  		$max_taken 			= afl_variable_get('rank_'.$rank.'_max_gv_taken_1_leg',0);
- 		$maximum_taken 	= afl_commission($required_gv, $max_taken);
+ 		$maximum_taken 	= afl_commission($max_taken,$required_gv);
  		//get maximum taken from a leg
  		//check with the maximum 
  		$user_gv = 0;
@@ -250,7 +260,7 @@
  			$leg_gv 						= ($amount > $maximum_taken) ? $maximum_taken : $amount;
  			//get the customers sales details from the leg uid
  			$leg_customer_sale 	= get_user_downline_customers_sales($leg_uid,TRUE);
- 			// pr($leg_customer_sale);
+ 			
  			//customer leg rule
  			$leg_rule 		 		= afl_variable_get('rank_'.$rank.'_customer_rule_from_1_leg',0);
 		 	$leg_rule_amount 	= afl_commission($leg_rule,$leg_gv);
@@ -300,7 +310,7 @@
  * get user pv
  * ---------------------------------------------------
 */
- function _get_user_gv ($uid = '') {
+ function _get_user_gv ($uid = '', $tree = 'matrix') {
  	global $wpdb;
  	if (empty($uid))
  		$uid = afl_current_uid();
@@ -310,6 +320,9 @@
 
  	//direct downlines
  	$downlines    = afl_get_user_downlines_uid($uid);
+ 	if ( $tree == 'unilevel') {
+ 		$downlines = afl_get_unilevel_user_downlines_uid($uid);
+ 	}
  	$downlines_uid = array();
  	foreach ($downlines as $key =>$down_uid) {
  		$downlines_uid[] = $down_uid->downline_user_id;
@@ -338,9 +351,10 @@
  * get user pv V1
  * ---------------------------------------------------
 */
-function _get_user_gv_v1($uid = '', $rank ='', $add_with_user_pv = FALSE) {
+function _get_user_gv_v1($uid = '', $rank ='', $add_with_user_pv = FALSE,$tree = 'matrix') {
 	$my_pv   = _get_user_pv($uid);
-	$legs_gv = _get_user_direct_legs_gv($uid);
+	$legs_gv = _get_user_direct_legs_gv($uid,FALSE,'unilevel');
+	
 	//check conidition meets
 	$required_gv = afl_variable_get('rank_'.$rank.'_gv',0);
 
@@ -352,10 +366,8 @@ function _get_user_gv_v1($uid = '', $rank ='', $add_with_user_pv = FALSE) {
 	//check with the maximum 
 	$user_gv = 0;
 	foreach ($legs_gv as $key => $amount) {
-	// pr($maximum_taken);
-	// pr($amount);
 		$user_gv += ($amount >= $maximum_taken) ? $maximum_taken : $amount;
-		// pr($user_gv);
+		
 	}
 	if ( $add_with_user_pv ) 
 		$user_gv = $my_pv + $user_gv;
@@ -367,11 +379,21 @@ function _get_user_gv_v1($uid = '', $rank ='', $add_with_user_pv = FALSE) {
  * No.of distributor count
  * -------------------------------------------------
 */
- function _get_user_distributor_count ($uid) {
- 	$downlines    = afl_get_sponsor_downlines_uid($uid, array(), TRUE);
+ function _get_user_distributor_count ($uid,$tree = 'unilevel') {
+ 		$downlines    = afl_get_sponsor_downlines_uid($uid, array(),TRUE);
+ 	if ( $tree == 'unilevel') {
+	 	$downlines    = (array)afl_get_unilevel_user_downlines_uid($uid, array());
+		$customers_ids = (array)get_user_downline_customers($uid);
+
+		$downline_count = count($downlines);		
+		$customer_count = count($customers_ids);
+
+		$distrib_count = $downline_count - $customer_count;
+
+ 	}
 	// pr($downlines);
- 	if ($downlines) {
- 		return $downlines;
+ 	if ($distrib_count) {
+ 		return $distrib_count;
  	} else
  		return 0;
  }

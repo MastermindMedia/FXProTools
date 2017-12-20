@@ -41,6 +41,8 @@ function _bonus_nd_incentives_table () {
 						'class' => array(
 								'table',
 								'table-bordered',
+								'my-table-center',
+								
 							)
 						);
 

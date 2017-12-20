@@ -67,7 +67,7 @@ function afl_downline_members_callback(){
 			__('Userid'),
 			__('Username'),
 			__('Level'),		
-			__('Relative Position'),		
+			// __('Relative Position'),		
 			__('Rank'),		
 			__('Created On'),		
 		);
@@ -89,10 +89,10 @@ function afl_downline_members_callback(){
 				'#type' =>'markup',
 				'#markup'=> $value->level
 			);
-			$rows[$key]['markup_4'] = array(
-				'#type' =>'markup',
-				'#markup'=> $value->relative_position
-			);
+			// $rows[$key]['markup_4'] = array(
+			// 	'#type' =>'markup',
+			// 	'#markup'=> $value->relative_position
+			// );
 			$rows[$key]['markup_5'] = array(
 				'#type' =>'markup',
 				'#markup'=> render_rank($value->member_rank)

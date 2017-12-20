@@ -539,11 +539,11 @@
 	 		 * ---------------------------------------------------------
 	 		*/
 	 			/*------- Update the genealogy rank --------------------*/
-	 			$node = afl_genealogy_node($uid);
-	 			$member_rank = $node->member_rank;
+	 			$node = afl_genealogy_node($uid, 'unilevel');
+	 			$member_rank = !empty($node->member_rank) ? $node->member_rank : 0;
 	 			$update_id = '';
-	 			// pr($member_rank);
-	 			if ( $member_rank <= $i) : 
+
+	 			if ( $member_rank < $i) : 
 		 			$update_id = $wpdb->update(
 												$table_prefix.'afl_user_genealogy',
 												array(
@@ -647,20 +647,23 @@
 		 		*/
 			 		if ( afl_variable_get('afl_rank_achieved_monlthy_income_pay')) {
 			 			$rank_monthly_income = afl_variable_get('rank_'.$i.'_monthly_income',0);
-			 			if ( $rank_monthly_income ) {
-			 				$transaction = array();
-					    $transaction['uid'] 					= $uid;
-					    $transaction['associated_user_id'] = $uid;
-					    $transaction['level'] 				= 0;
-					    $transaction['currency_code'] = afl_currency();
-					    $transaction['order_id'] 			= 1;
-					    $transaction['int_payout'] 		= 0;
-					    $transaction['credit_status'] = 0;
-					    $transaction['amount_paid'] 	= afl_commerce_amount($rank_monthly_income);
-					    $transaction['category'] 			= 'Rank Achieved Income';
-					    $transaction['notes'] 				= 'Rank '.$i.' achieved monthly income';
-					    afl_member_transaction($transaction, TRUE);
-			 			}
+		 				$check_already_paid = _check_rank_achieve_income_paid_already($uid, $i);
+		 				if ( !$check_already_paid ) {
+				 			if ( $rank_monthly_income ) {
+				 				$transaction = array();
+						    $transaction['uid'] 					= $uid;
+						    $transaction['associated_user_id'] = $uid;
+						    $transaction['level'] 				= 0;
+						    $transaction['currency_code'] = afl_currency();
+						    $transaction['order_id'] 			= 1;
+						    $transaction['int_payout'] 		= 0;
+						    $transaction['credit_status'] = 1;
+						    $transaction['amount_paid'] 	= afl_commerce_amount($rank_monthly_income);
+						    $transaction['category'] 			= 'Rank Achieved Income';
+						    $transaction['notes'] 				= 'Rank '.$i.' achieved monthly income';
+						    afl_member_transaction($transaction, TRUE);
+				 			}
+				 		}
 			 		}
 			 	/*
 		 		 * ---------------------------------------------------------
@@ -670,8 +673,9 @@
 		 		*/	
 		 			if ( afl_variable_get('afl_give_skiped_monthly_rank_income')) {
 		 				$rank = $i;
-		 				for( $loop = 0; $loop <= $rank; $rank++){
-		 					$check_already_paid = _check_rank_achieve_income_paid_already($uid, $rank);
+		 				for( $loop = 1; $loop <= $rank; $loop++){
+				 			$rank_monthly_income = afl_variable_get('rank_'.$loop.'_monthly_income',0);
+		 					$check_already_paid = _check_rank_achieve_income_paid_already($uid, $loop);
 		 					if ( !$check_already_paid ) {
 		 						$transaction = array();
 						    $transaction['uid'] 					= $uid;
@@ -680,10 +684,10 @@
 						    $transaction['currency_code'] = afl_currency();
 						    $transaction['order_id'] 			= 1;
 						    $transaction['int_payout'] 		= 0;
-						    $transaction['credit_status'] = 0;
+						    $transaction['credit_status'] = 1;
 						    $transaction['amount_paid'] 	= afl_commerce_amount($rank_monthly_income);
 						    $transaction['category'] 			= 'Rank Achieved Income';
-						    $transaction['notes'] 				= 'Rank '.$rank.' achieved monthly income';
+						    $transaction['notes'] 				= 'Rank '.$loop.' achieved monthly income';
 						    afl_member_transaction($transaction, TRUE);
 		 					}
 		 				}
@@ -1715,7 +1719,7 @@
 		if ( $rank && $uid) {
 			$query['#select'] =  _table_name('afl_user_transactions');
 
-			$note = "Rank".$rank." achieved monthly income";
+			$note = "Rank ".$rank." achieved monthly income";
 	 		$query['#where']  = array(
 	 			'uid = '.$uid,
 	 			'associated_user_id = '.$uid,
@@ -1724,6 +1728,7 @@
 	 		);
 
 	 		$data = db_select($query, 'get_row');
+
 	 		if ( $data) {
 	 			$flag = TRUE;
 	 		}

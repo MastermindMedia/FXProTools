@@ -5,6 +5,8 @@
  * ------------------------------------------------
 */
 function afl_ewallet_summary(){
+	new Afl_enque_scripts('common');
+	
 	echo afl_eps_page_header();
 	afl_content_wrapper_begin();
 

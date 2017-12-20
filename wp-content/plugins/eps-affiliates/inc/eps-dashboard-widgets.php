@@ -290,13 +290,13 @@
 		$uid = afl_current_uid();
 		$query = array();
 
-		$query['#select'] = _table_name('afl_user_genealogy');
+		$query['#select'] = _table_name('afl_unilevel_user_genealogy');
 		$query['#where'] 	= array(
-			'`'._table_name('afl_user_genealogy').'`.`uid` ='.$uid
+			'`'._table_name('afl_unilevel_user_genealogy').'`.`uid` ='.$uid
 		);
 
 		$query['#fields'] = array(
-			_table_name('afl_user_genealogy') => array('member_rank')
+			_table_name('afl_unilevel_user_genealogy') => array('member_rank')
 		);
 		$rank = db_select($query,'get_var');
 

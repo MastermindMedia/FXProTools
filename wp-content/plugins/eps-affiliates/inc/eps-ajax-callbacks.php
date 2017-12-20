@@ -1,4 +1,25 @@
 <?php
+
+function _system_user_autocomplete ( $search_key ) {
+  if (isset($_POST['search_key'])) {
+    $search_key = $_POST['search_key'];
+  }
+ 
+  $query = array();
+  $query['#select']  =_table_name('users');
+  
+  $query['#fields'] = array(
+    _table_name('users') => array('user_login', 'ID')
+  );
+  $result = db_select($query, 'get_results');
+  
+  foreach ($result as $key => $value) {
+    $response[] = array('name'=> ($value->user_login.' ('.$value->ID.')'));
+  }
+  echo json_encode($response);
+  die();
+}
+
 /*
  * ------------------------------------------------
  * get users name and id
@@ -143,27 +164,35 @@ function _get_member_downline_users_as_option($tree_mode = '') {
   $response = array();
 
   global $wpdb;
-  $querystr = " SELECT * from `"._table_name('users')."` WHERE `display_name` LIKE '%".$search_key."%' ;";
   
-  $genealogy_tree = _table_name('afl_user_genealogy');
+  $genealogy_tree = _table_name('afl_user_downlines');
   if ( !empty($tree_mode) && $tree_mode == 'unilevel') {
-    $genealogy_tree = _table_name('afl_unilevel_user_genealogy');
+    $genealogy_tree = _table_name('afl_unilevel_user_downlines');
   }
 
   $query = array();
   $query['#select']  = $genealogy_tree;
   $query['#join'] = array(
     _table_name('users') => array(
-     '#condition'=> '`'._table_name('users').'`.`ID` = `'.$genealogy_tree.'`.`uid` '
+     '#condition'=> '`'._table_name('users').'`.`ID` = `'.$genealogy_tree.'`.`downline_user_id` '
     )
   );
+  // if (!eps_is_admin()) {
+  //   $query['#where'] = array(
+  //     '`'.$genealogy_tree.'`.`referrer_uid` = '.$uid
+  //   );
+  //   $query['#where_or'] = array(
+  //     '`'.$genealogy_tree.'`.`uid` = '.$uid
+  //   );
+  // }
+
   if (!eps_is_admin()) {
     $query['#where'] = array(
-      '`'.$genealogy_tree.'`.`referrer_uid` = '.$uid
-    );
-    $query['#where_or'] = array(
       '`'.$genealogy_tree.'`.`uid` = '.$uid
     );
+    // $query['#where_or'] = array(
+    //   '`'.$genealogy_tree.'`.`uid` = '.$uid
+    // );
   }
   $query['#fields'] = array(
     _table_name('users') => array('user_login', 'ID')

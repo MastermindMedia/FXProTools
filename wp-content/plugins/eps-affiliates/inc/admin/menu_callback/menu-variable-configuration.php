@@ -508,6 +508,18 @@ function afl_extra_variable_conf () {
 	 		'#suffix' 				=> '</div>',
 
 	 	);
+
+	 	//payment source
+	 	$form['rank_income_fieldset']['count_leg_rank_for_rank_qualification'] = array(
+	 		'#type' 					=> 'checkbox',
+	 		'#title' 					=> 'Count leg ran for rank qualification achievement',
+	 		'#default_value' 	=> afl_variable_get('count_leg_rank_for_rank_qualification', ''),
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>',
+
+	 	);
+
+
  		$form['submit'] = array(
 	 		'#type' => 'submit',
 	 		'#value'=>' Save configuration'
@@ -518,7 +530,8 @@ function afl_extra_variable_conf () {
 function afl_extra_variable_conf_submit ($vars = array()) {
 	$checkboxes = array(
 		'afl_rank_achieved_monlthy_income_pay',
-		'afl_give_skiped_monthly_rank_income'
+		'afl_give_skiped_monthly_rank_income',
+		'count_leg_rank_for_rank_qualification',
 	);
 	
 	foreach ($vars as $key => $value) {

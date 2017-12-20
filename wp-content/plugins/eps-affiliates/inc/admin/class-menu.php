@@ -920,6 +920,23 @@
 					'#page_callback' 	=> 'afl_incentive_history_report',
 				);
 
+				$menu['rank_history'] = array(
+					'#parent' 				=> 'affiliate-eps-reports',
+					'#page_title'			=> __( 'Rank History', 'Rank History' ),
+					'#menu_title' 		=> __( 'Rank History', 'Rank History' ),
+					'#access_callback'=> 'afl_rank_history_report', 
+					'#menu_slug' 			=> 'affiliate-eps-rank-history-report', 
+					'#page_callback' 	=> 'afl_rank_history_report',
+				);
+
+				$menu['rank_achievement'] = array(
+					'#parent' 				=> 'affiliate-eps-reports',
+					'#page_title'			=> __( 'Rank Achievment', 'Rank Achievment' ),
+					'#menu_title' 		=> __( 'Rank Achievment', 'Rank Achievment' ),
+					'#access_callback'=> 'system_rank_configurations', 
+					'#menu_slug' 			=> 'affiliate-eps-check-rank', 
+					'#page_callback' 	=> '_check_rank_page',
+				);
 				afl_system_admin_menu($menu);
 		 }
 

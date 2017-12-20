@@ -34,8 +34,7 @@ function afl_unilevel_refered_members_callback () {
 			'length' =>$config['per_page']
 		);
 		// $filter['fields'] = array(
-		//   _table_name('afl_unilevel_user_downlines') => array('level'),
-		//   _table_name('afl_unilevel_user_genealogy') => array('member_rank', 'relative_position','created'),
+		//   _table_name('afl_unilevel_user_genealogy') => array('member_rank', 'relative_position','created', 'level'),
 		//   _table_name('users') => array('display_name', 'ID')
 		//  );
 		$data  = afl_unilevel_get_user_refered_downlines($uid,$filter);
@@ -63,7 +62,7 @@ function afl_unilevel_refered_members_callback () {
 			__('Userid'),
 			__('Username'),
 			__('Level'),		
-			__('Relative Position'),		
+			// __('Relative Position'),		
 			__('Rank'),		
 			__('Created On'),		
 		);
@@ -85,12 +84,12 @@ function afl_unilevel_refered_members_callback () {
 			);
 			$rows[$key]['markup_3'] = array(
 				'#type' =>'markup',
-				'#markup'=> $value->level
+				'#markup'=> get_unilevel_level_from(get_uid(),$value->ID)
 			);
-			$rows[$key]['markup_4'] = array(
-				'#type' =>'markup',
-				'#markup'=> $value->relative_position
-			);
+			// $rows[$key]['markup_4'] = array(
+			// 	'#type' =>'markup',
+			// 	'#markup'=> get_unilevel_relative_position_from(get_uid(),$value->ID)
+			// );
 			$rows[$key]['markup_5'] = array(
 				'#type' =>'markup',
 				'#markup'=> (array_key_exists('afl_customer',$user_roles)) ? render_rank('','Customer'):render_rank($value->member_rank)

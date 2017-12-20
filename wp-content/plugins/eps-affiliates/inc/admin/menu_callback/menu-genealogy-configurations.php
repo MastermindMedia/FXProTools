@@ -50,14 +50,23 @@ function afl_genealogy_configuration_form ($post) {
  		
  	);
 
- 	$form['root_user_remoteMlmId'] = array(
- 		'#type' 					=> 'text',
- 		'#title' 					=> 'Root User Remote MLM Id',
- 		'#default_value' 	=> afl_variable_get('root_user_remoteMlmId',''),
- 		'#prefix'					=> '<div class="form-group row">',
- 		'#suffix' 				=> '</div>'
- 	);
+ 	
 
+	$form['root_user_remoteMlmId'] = array(
+	 		'#type' 					=> 'text',
+	 		'#title' 					=> 'Root User Remote MLM Id',
+	 		'#default_value' 	=> afl_variable_get('root_user_remoteMlmId',''),
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>'
+	 	);
+
+	$form['reset_root_user_rank'] = array(
+	 		'#type' 					=> 'checkbox',
+	 		'#title' 					=> 'Reset root user Rank',
+	 		'#default_value' 	=> afl_variable_get('reset_root_user_rank',''),
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>'
+	 	);
  	$form['clear_data'] = array(
  		'#title' 	=> 'Clear test data',
  		'#type'  	=> 'checkbox',
@@ -104,6 +113,9 @@ function afl_genealogy_configuration_form ($post) {
 function afl_genealogy_configuration_form_submit ($form_state){
 	if (!empty($form_state['root_user']) ){
 		afl_variable_set('root_user', $form_state['root_user']);
+	}
+	if ( !empty($form_state['reset_root_user_rank']) ) {
+		_reset_admin_rank();
 	}
 
 	if (isset($form_state['clear_data']) ){
@@ -195,6 +207,7 @@ function afl_set_root_mlmid($mlmid) {
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_user_holding_transactions')."`");
 		
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_user_exort_data')."`");
+		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_bonus_incentive_history')."`");
 		
 	}
 /*
@@ -240,4 +253,28 @@ function afl_set_root_mlmid($mlmid) {
 	   	if ($value->ID != afl_root_user())
 	   		wp_delete_user($value->ID);
 	   }
+	}
+/*
+ * ------------------------------------------------------------------------
+ * Reset the admin rank
+ * ------------------------------------------------------------------------
+*/
+	function _reset_admin_rank ( $rank = 0) {
+		global $wpdb;
+		$root_user = afl_root_user();
+		$wpdb->update( 
+			_table_name('afl_user_genealogy'), 
+			array( 
+				'member_rank' => $rank,
+			), 
+			array( 'uid' => $root_user )
+		);
+
+		$wpdb->update( 
+			_table_name('afl_unilevel_user_genealogy'), 
+			array( 
+				'member_rank' => $rank,
+			), 
+			array( 'uid' => $root_user )
+		);
 	}

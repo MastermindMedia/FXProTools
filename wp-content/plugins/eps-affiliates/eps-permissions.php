@@ -17,6 +17,11 @@
 			'#title' 				=> __('Affiliates Dashboard'),
 			'#description' 	=> 'Eps affiliates dashboard'
 		);
+		//access backoffice
+		$permissions['eps_affiliates_access_backoffice'] = array(
+			'#title' 				=> __('Affiliates Access Backoffice'),
+			'#description' 	=> 'Eps affiliates Access Backoffice'
+		);
 	/*
 	 * -----------------------------------------------------
 	 * Matrix network Permissions
@@ -142,6 +147,12 @@
 		$permissions['afl_incentive_history_report'] = array(
 			'#title' 				=> __('AFL Incentives Overview'),
 			'#description' 	=> 'affiliates incentives overview '
+		);
+
+		//Rank summary report
+		$permissions['afl_rank_history_report'] = array(
+			'#title' 				=> __('AFL Rank History Overview'),
+			'#description' 	=> 'affiliates Rank History overview '
 		);
 		
 		//user payment method configuration

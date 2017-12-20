@@ -1,4 +1,9 @@
 <?php 
+
+// define( 'WOO_PAYMENT_DIR', plugin_dir_path( __FILE__ )); 
+// add_1action( 'plugins_loaded', 'woo_payment_gateway' );
+
+
 /*
  * -----------------------------------------------------------
  * Action / Fiter hooks

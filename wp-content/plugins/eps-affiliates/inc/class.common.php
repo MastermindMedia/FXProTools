@@ -1483,7 +1483,9 @@ if(!function_exists('afl_get_rank_names')){
 		if (!empty($filter['search_valu'])) {
 			$query['#like'] = array('`display_name`' => $filter['search_valu']);
 		}
-
+		$query['#order_by'] = [
+			'uid' => 'ASC'
+		];
 		$result = db_select($query, 'get_results');
 
 		// pr($result = db_select($query, 'get_results'),1);
@@ -1575,6 +1577,34 @@ if(!function_exists('afl_get_rank_names')){
 			);
 			$query['#where'] = array(
 				'`'._table_name('afl_user_genealogy').'`.`referrer_uid`='.$sponsor_uid.''
+			);
+
+			$query['#order_by'] = array(
+				'`level`' => 'ASC'
+			);
+			$result = db_select($query, 'get_results');
+
+			// pr($result = db_select($query, 'get_results'),1);
+			if ($count)
+				return count($result);
+			return $result;
+		}
+/*
+	 * -----------------------------------------------------------------------------
+	 * get the downlines uid details of sponsor
+	 * -----------------------------------------------------------------------------
+	*/
+		function afl_get_sponsor_unilevel_downlines_uid ($sponsor_uid = '', $filter = array(), $count = false){
+			global $wpdb;
+
+			$query = array();
+			$query['#select'] = _table_name('afl_unilevel_user_genealogy');
+
+			$query['#fields'] = array(
+				_table_name('afl_unilevel_user_genealogy') => array('uid')
+			);
+			$query['#where'] = array(
+				'`'._table_name('afl_unilevel_user_genealogy').'`.`referrer_uid`='.$sponsor_uid.''
 			);
 
 			$query['#order_by'] = array(
@@ -1719,6 +1749,27 @@ if(!function_exists('afl_get_rank_names')){
 				$where_flag = 1;
 			} else {
 				$sql .= 'AND '.$where_in;
+			}
+		}
+
+		//where not in
+		$where_not_in = '';
+		if (isset($data['#where_not_in'])) {
+			foreach ($data['#where_not_in'] as $key => $value) {
+		 		$val = implode(',', $value);
+		 		if (empty($val) ) {
+		 			return array();
+		 		}
+		 		$where_not_in .='`'.$key.'`NOT IN ('.$val.')';
+		 	}
+		}
+
+		if (!empty($where_not_in) ){
+			if (!$where_flag) {
+				$sql .= 'WHERE '.$where_not_in;
+				$where_flag = 1;
+			} else {
+				$sql .= 'AND '.$where_not_in;
 			}
 		}
 
@@ -2665,9 +2716,11 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 	 	);
 	 	$query['#where'] = array(
 	    '`'.$table.'`.`parent_uid`='.$uid.'',
-	    '`'.$table.'`.`level`=1'
+	    // '`'.$table.'`.`level`=1'
 	 	);
-
+ 		$query['#order_by'] = array(
+    	'relative_position' => 'ASC'
+   	);
 	 	if ( $return_uids ) {
 	 		$query['#fields'] = array(
 	 			$table => array('uid','relative_position')
@@ -2686,13 +2739,16 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
  * Get direct legs group volume details
  * --------------------------------------------------------------------
 */
-	function _get_user_direct_legs_gv( $uid = '', $return_sum = FALSE, $tree = 'matrix', $include_customers = TRUE) {
+	function _get_user_direct_legs_gv( $uid = '', $return_sum = FALSE, $tree = 'matrix', $include_customers = TRUE, $pv_not_cust = FALSE) {
 		$gv_array = [];
 		$sum = 0;
 	 	$legs = _get_user_direct_legs($uid, TRUE, FALSE, $tree);
+	 	
 	 	foreach ($legs as $key => $value) {
+	 		$gv = 0;
 	 		//group volume of user
-	 		$gv = _get_user_gv($value->uid);
+	 		$gv = _get_user_gv($value->uid,$tree);
+
 	 		//self volume
 	 		$pv = _get_user_pv($value->uid);
 	 		//customer sales
@@ -2700,10 +2756,18 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 	 		if($include_customers) {
 	 			$leg_customer_sale 	= get_user_downline_customers_sales($value->uid,TRUE);
 	 		}
-			
-	 		$gv_array[$value->uid] = $gv + $pv + $leg_customer_sale; 
+	 		//pv not add with this if the user is a customer
+			if ( $pv_not_cust ){
+				//check the user is customer
+				if (!empty(afl_customer_node($value->uid))) {
+					$pv = 0;
+				}
+			}
+
+	 		$gv_array[$value->uid] = $gv + $pv + 0; 
 	 		$sum = $sum + $gv;
 	 	}
+
 
 	 	if ( $return_sum ) {
 	 		return $sum;
@@ -2892,4 +2956,110 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 		} 
 
 		return $url;
+	}
+/*
+ * -----------------------------------------------------------------------
+ * team uids
+ * -----------------------------------------------------------------------
+*/
+	function _tree_uids ( $uid, $tree = 'matrix') {
+			$table = _table_name('afl_user_genealogy');
+		if ( $tree == 'unilevel') {
+			$table = _table_name('afl_unilevel_user_genealogy');
+		}
+		$query['#select'] = $table;
+		$query['#fields'] = [
+			$table => ['uid']
+		];
+		$query['#where'] = [
+			'referrer_uid='.$uid
+		];
+		$res = db_select($query, 'get_results');
+		return array_ret($res,'uid');
+	}
+/*
+ * -----------------------------------------------------------------------
+ * User downlines distributors unilevel
+ * -----------------------------------------------------------------------
+*/
+	function _downline_distributors_ ( $uid = '', $tree = 'matrix', $count = FALSE) {
+		$uids = _tree_uids($uid, $tree);
+
+		if ( $tree == 'unilevel') {
+			$table = _table_name('afl_user_downlines');
+			if ( $tree == 'unilevel') {
+				$table = _table_name('afl_unilevel_user_downlines');
+			}
+			$customers = get_user_downline_customers($uid);
+			$customers = array_ret($customers,'uid');
+			
+			if ( !empty($customers)) {
+				$query['#select'] = $table;
+				$query['#fields'] = [
+					$table => ['downline_user_id']
+				];
+				$query['#where'] = [
+					'uid='.$uid
+				];
+				$query['#where_not_in'] = [
+					'downline_user_id' => $customers
+				];
+				$res = db_select($query, 'get_results');
+				$uids = array_ret($res,'downline_user_id');
+			}
+
+		}
+		if ($count) 
+			return count($uids);
+		return $uids;
+	}
+
+	function _get_direct_leg_ditrib_sales( $uid = '', $tree = 'matrix',$return_sum = FALSE,$pv_not_cust = FALSE){
+		$gv_array = [];
+		$sum = $gv  = 0;
+	 	$legs = _get_user_direct_legs($uid, TRUE, FALSE, $tree);
+	 	
+	 	foreach ($legs as $key => $value) {
+	 		
+	 		$gv = 0;
+	 		//group volume of user only distributors
+	 		$distribs = _downline_distributors_($value->uid, $tree);
+
+	 		$query = array();
+		 	$query['#select'] = _table_name('afl_purchases');
+		 	$query['#where_in'] 	= array(
+		 		'uid' => $distribs
+		 	);
+
+		 	$query['#expression'] 	= array(
+		 		'SUM(`afl_points`) as sum'
+		 	);
+		 	$result = db_select($query, 'get_row');
+			$result = (array)$result;
+			
+			if (isset($result['sum'])) {
+		 		$gv = $result['sum']/100;
+		 	}
+
+	 		//self volume
+	 		$pv = _get_user_pv($value->uid);
+	 		//pv not add with this if the user is a customer
+			if ( $pv_not_cust ){
+				//check the user is customer
+				if (!empty(afl_customer_node($value->uid))) {
+					$pv = 0;
+				}
+			}
+	 		// pr($distribs);
+
+	 		$gv_array[$value->uid] = $gv + $pv ; 
+	 		$sum = $sum + $gv;
+	 		
+	 	}
+
+	 	if ( $return_sum ) {
+	 		return $sum;
+	 	}
+
+	 	return $gv_array;
 	}

@@ -164,6 +164,14 @@ function eps_affiliates_admin_notices () {
 
  /*
  * ------------------------------------------------------------
+ * Users autocomplete initialization
+ * ------------------------------------------------------------
+*/
+ add_action('wp_ajax_sys_users_auto_complete', '_system_user_autocomplete');
+ add_action('wp_ajax_nopriv_sys_users_auto_complete', '_system_user_autocomplete');
+
+ /*
+ * ------------------------------------------------------------
  * customers autocomplete initialization
  * ------------------------------------------------------------
 */

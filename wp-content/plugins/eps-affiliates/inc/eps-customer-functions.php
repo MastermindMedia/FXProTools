@@ -42,7 +42,7 @@
  	}
  	$downlines 		= afl_get_unilevel_user_downlines_uid($uid);
  	$downlines 		= array_ret($downlines,'downline_user_id');
-
+ 	$downlines[]  = $uid;
  	$query = array();
  	$query['#select'] = _table_name('afl_customer');
  	$query['#fields'] = array(
@@ -65,7 +65,8 @@
  	}
  	//downlines cstomers
  	$customers  = array_ret(get_user_downline_customers($uid), 'uid');
- 	// pr($uid);
+ 	// pr($customers);
+ 	
  	
  	//get purchases
  	$query = array();

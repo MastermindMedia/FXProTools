@@ -44,11 +44,11 @@ function afl_generate_users_form () {
 
         if ($user) {
 
-        	// do_action('eps_affiliates_place_user_in_holding_tank',$user ,$sponsor_uid );
-    			// do_action('eps_affiliates_unilevel_place_user_in_holding_tank',$user ,$sponsor_uid );
+        	do_action('eps_affiliates_place_user_in_holding_tank',$user ,$sponsor_uid );
+    			do_action('eps_affiliates_unilevel_place_user_in_holding_tank',$user ,$sponsor_uid );
 
-        	do_action('eps_affiliates_place_user_under_sponsor',$user ,$sponsor_uid );
-    			do_action('eps_affiliates_unilevel_place_user_under_sponsor',$user ,$sponsor_uid );
+        	// do_action('eps_affiliates_place_user_under_sponsor',$user ,$sponsor_uid );
+    			// do_action('eps_affiliates_unilevel_place_user_under_sponsor',$user ,$sponsor_uid );
 
         	// $reg_object = new Eps_affiliates_registration;
 	        // $reg_object->afl_join_member(

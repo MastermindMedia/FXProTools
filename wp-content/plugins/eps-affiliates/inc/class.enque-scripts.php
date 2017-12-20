@@ -28,15 +28,15 @@
 						);
 		  			
 		  			$enque_array['css'] = array(
-		  				// 'bootstrap-cs'		=> EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css',
+		  				'bootstrap-css'		=> '',
 		  				'toaster-cs' 			=> EPSAFFILIATE_PLUGIN_ASSETS.'css/toastr.css',
 		  				'app' 						=> EPSAFFILIATE_PLUGIN_ASSETS.'css/app.css',
 		  				'developer' 			=> EPSAFFILIATE_PLUGIN_ASSETS.'css/developer.css',
 		  				'simple-line-ico'	=> EPSAFFILIATE_PLUGIN_ASSETS.'plugins/simple-line-icons/css/simple-line-icons.css',
 		  			);
 
-					if(is_admin()){
-						$enque_array['css'] = array('bootstrap-css' => EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css');
+					if(is_admin() || current_user_can('eps_affiliates_access_backoffice')){
+						$enque_array['css']['bootstrap-css'] = EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css';
 					}
 
 					$enque_array['ajax_object'] = array(
@@ -61,14 +61,14 @@
 		  			
 		  			$enque_array['css'] = array(
 		  				'toaster-cs' 			=> EPSAFFILIATE_PLUGIN_ASSETS.'css/toastr.css',
-		  				// 'bootstrap-css'		=> EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css',
+		  				
 		  				'app' 						=> EPSAFFILIATE_PLUGIN_ASSETS.'css/app.css',
 		  				'developer' 			=> EPSAFFILIATE_PLUGIN_ASSETS.'css/developer.css',
 		  				'simple-line-ico'	=> EPSAFFILIATE_PLUGIN_ASSETS.'plugins/simple-line-icons/css/simple-line-icons.css',
 		  			);
 
-		  			if(is_admin()){
-						$enque_array['css'] = array('bootstrap-css' => EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css');
+		  			if(is_admin() || current_user_can('eps_affiliates_access_backoffice')){
+						$enque_array['css']['bootstrap-css'] = EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css';
 					}
 
 					$enque_array['ajax_object'] = array(
@@ -89,10 +89,10 @@
 					);
 					$enque_array['css'] = array(
 		  				'toaster-cs' 			=> EPSAFFILIATE_PLUGIN_ASSETS.'css/toastr.css',
-		  				// 'bootstrap-css'		=> EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css',
+		  				'bootstrap-css'		=> '',
 		  			);
-		  			if(is_admin()){
-						$enque_array['css'] = array('bootstrap-css' => EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css');
+		  			if(is_admin() || current_user_can('eps_affiliates_access_backoffice')){
+						$enque_array['css']['bootstrap-css'] = EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css';
 					}
 		  		break;
 
@@ -106,10 +106,10 @@
 					);
 					$enque_array['css'] = array(
 		  				'toaster-cs' 			=> EPSAFFILIATE_PLUGIN_ASSETS.'css/toastr.css',
-		  				// 'bootstrap-css'		=> EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css',
+		  				'bootstrap-css'		=> '',
 		  			);
-		  			if(is_admin()){
-						$enque_array['css'] = array('bootstrap-css' => EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css');
+		  			if(is_admin() || current_user_can('eps_affiliates_access_backoffice')){
+						$enque_array['css']['bootstrap-css'] = EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css';
 					}
 		  		break;
 
@@ -127,11 +127,11 @@
 		  				'toaster-cs' 			=> EPSAFFILIATE_PLUGIN_ASSETS.'css/toastr.css',
 						'plan-heirarchy'	=> EPSAFFILIATE_PLUGIN_PLAN.'/matrix/css/heirarchy/css/hierarchy-view.css',
 		  				'plan-style' 			=> EPSAFFILIATE_PLUGIN_PLAN.'matrix/css/heirarchy/css/main.css',
-		  				// 'bootstrap-css'		=> EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css',
+		  				'bootstrap-css'		=> '',
 		  			);
 
-		  			if(is_admin()){
-						$enque_array['css'] = array('bootstrap-css' => EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css');
+		  			if(is_admin() || current_user_can('eps_affiliates_access_backoffice')){
+						$enque_array['css']['bootstrap-css'] = EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css';
 					}
 
 					$enque_array['ajax_object'] = array(
@@ -146,10 +146,10 @@
 	  			case 'eps-direct-uplines':
 		  			$enque_array['css'] = array(
 		  				'zig-zag-cs'		  => EPSAFFILIATE_PLUGIN_ASSETS.'plugins/zigzag-timeline/Zigzagtimeline.css',
-		  				// 'bootstrap-css'		=> EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css',
+		  				'bootstrap-css'		=> '',
 		  			);
-		  			if(is_admin()){
-						$enque_array['css'] = array('bootstrap-css' => EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css');
+		  			if(is_admin() || current_user_can('eps_affiliates_access_backoffice')){
+						$enque_array['css']['bootstrap-css'] = EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css';
 					}
 	  			break;
 
@@ -169,11 +169,11 @@
 		  			
 		  			$enque_array['css'] = array(
 		  				'toaster-cs' 			=> EPSAFFILIATE_PLUGIN_ASSETS.'css/toastr.css',
-		  				// 'bootstrap-css'		=> EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css',
+		  				'bootstrap-css'		=> '',
 		  			);
 
-		  			if(is_admin()){
-						$enque_array['css'] = array('bootstrap-css' => EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css');
+		  			if(is_admin() || current_user_can('eps_affiliates_access_backoffice')){
+						$enque_array['css']['bootstrap-css'] = EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css';
 					}
 
 					$enque_array['ajax_object'] = array(
@@ -202,11 +202,11 @@
 						'jquery-cnfrm-cs'	=> EPSAFFILIATE_PLUGIN_ASSETS.'plugins/jquery-confirm/css/jquery-confirm.css',
 						'plan-heirarchy'	=> EPSAFFILIATE_PLUGIN_PLAN.'/matrix/css/heirarchy/css/hierarchy-view.css',
 		  				'plan-style' 			=> EPSAFFILIATE_PLUGIN_PLAN.'matrix/css/heirarchy/css/main.css',
-		  				// 'bootstrap-css'		=> EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css',
+		  				'bootstrap-css'		=> '',
 		  			);
 
-		  			if(is_admin()){
-						$enque_array['css'] = array('bootstrap-css' => EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css');
+		  			if(is_admin() || current_user_can('eps_affiliates_access_backoffice')){
+						$enque_array['css']['bootstrap-css'] = EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css';
 					}
 
 					$enque_array['ajax_object'] = array(
@@ -231,11 +231,11 @@
 		  			$enque_array['css'] = array(
 		  				'toaster-cs' 			=> EPSAFFILIATE_PLUGIN_ASSETS.'css/toastr.css',
 		  				'plan-develoepr' 	=> EPSAFFILIATE_PLUGIN_ASSETS.'plugins/dataTables/css/dataTables.bootstrap.min.css',
-		  				// 'bootstrap-css'		=> EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css',
+		  				'bootstrap-css'		=> '',
 		  			);
 
-		  			if(is_admin()){
-						$enque_array['css'] = array('bootstrap-css' => EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css');
+		  			if(is_admin() || current_user_can('eps_affiliates_access_backoffice')){
+						$enque_array['css']['bootstrap-css'] = EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css';
 					}
 
 					$enque_array['ajax_object'] = array(
@@ -259,11 +259,11 @@
 		  			
 		  			$enque_array['css'] = array(
 		  				'toaster-cs' 			=> EPSAFFILIATE_PLUGIN_ASSETS.'css/toastr.css',
-		  				// 'bootstrap-css'		=> EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css',
+		  				'bootstrap-css'		=> '',
 		  			);
 
-		  			if(is_admin()){
-						$enque_array['css'] = array('bootstrap-css' => EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css');
+		  			if(is_admin() || current_user_can('eps_affiliates_access_backoffice')){
+						$enque_array['css']['bootstrap-css'] = EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css';
 					}
 
 					$enque_array['ajax_object'] = array(
@@ -286,12 +286,12 @@
 		  			
 		  			$enque_array['css'] = array(
 		  				'toaster-cs' 			=> EPSAFFILIATE_PLUGIN_ASSETS.'css/toastr.css',
-		  				// 'bootstrap-css'		=> EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css',
+		  				'bootstrap-css'		=> '',
 		  			);
 
-		  			if(is_admin()){
-						$enque_array['css'] = array('bootstrap-css' => EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css');
-					}
+		  			if(is_admin() || current_user_can('eps_affiliates_access_backoffice')){
+							$enque_array['css']['bootstrap-css'] = EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css';
+						}
 
 					$enque_array['ajax_object'] = array(
 						'common-js' => array(

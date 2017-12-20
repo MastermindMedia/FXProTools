@@ -422,7 +422,8 @@ if (jQuery('.custom-business-expense-history-table').length) {
     var sponsor = jQuery('#current-user-id').val();
     var uid     = jQuery('#seleted-user-id').val();
     var choose_sponsor  = jQuery('#choose-parent').val();
-    if ( choose_sponsor ) {
+    
+    if ( choose_sponsor != 0 && choose_sponsor ) {
       sponsor = choose_sponsor.match(/\((\d+)\)/)[1];
     }
     
