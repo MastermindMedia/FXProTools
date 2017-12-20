@@ -1,16 +1,30 @@
 <?php
-/*
-Template Name: Contacts
-*/
 $product_id = 2920; //business package
-$product = wc_get_product( $product_id );
-get_user_active_referrals();
+$product = wc_get_product( $product_id );					
+$page_counter = 1;
 ?>
 <?php get_header(); ?>
+
+<?php  
+$list = array (
+    array('vin', 'bbb', 'ccc', 'dddd'),
+    array('123', '456', '789'),
+    array('"aaa"', '"bbb"')
+);
+
+$fp = fopen('file.csv', 'w');
+
+foreach ($list as $fields) {
+    fputcsv($fp, $fields);
+}
+
+fclose($fp);
+?>
 
 	<?php get_template_part('inc/templates/nav-marketing'); ?>
 
 	<?php if ( is_user_fx_distributor() || current_user_can('administrator')  ): ?>
+
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -18,19 +32,9 @@ get_user_active_referrals();
 						<h1>Contacts</h1>
 					</div>
 					<div class="row">
-						<div class="col-md-8">
-							<?php  
-								if(isset($_GET['i'])){
-									echo '<div><strong>Page #'. $_GET['i'] .'</strong></div>';
-								}
-								if(isset($_GET['search'])){
-									echo '<div><strong>Search results for: '. $_GET['search'] .'</strong></div>';
-								}
-							?>
-						</div>
-						<div class="col-md-4">
+						<div class="col-md-12">
 							<div class="text-right m-b-md">
-								<a href="#" class="btn btn-default"><i class="fa fa-download"></i> Export Contacts</a>
+								<a href="#" id="export_contacts" class="btn btn-default"><i class="fa fa-download"></i> Export Contacts</a>
 							</div>
 						</div>
 					</div>
@@ -38,7 +42,7 @@ get_user_active_referrals();
 					<div class="fx-search-contact">
 						<div class="panel panel-default">
 							<div class="panel-body">
-								<form action="" method="GET">
+								<form id="contact-search-form" action="" method="GET">
 									<div class="input-group">
 										<div class="input-group-addon"><i class="fa fa-search"></i></div>
 										<input type="text" class="form-control" name="search" placeholder="Search by name or e-mail">
@@ -49,193 +53,10 @@ get_user_active_referrals();
 					</div>
 					<div class="clearfix"></div>
 
-					<ul class="fx-list-contacts">
-						<?php  
-							$query_offset_multi = 10;
-							$query_offset = 1;
-							$contacts = array();
-							$results = array();		
- 							$search_results = array();
-							$page_counter = 1;
-							$page_num = 1;
-							$ref_count = 0;
-							$ref_count_search = 0;
-							if(isset($_GET['i'])){
-								$page_num = $_GET['i'];
-							}
-							$query_offset = $page_num * $query_offset_multi;
-							$affiliate_ids = array();
-
-							$user = wp_get_current_user();
-							if ( in_array( 'administrator', (array) $user->roles ) ) {
-								if(isset($_GET['search'])){
-									$search_string = trim($_GET['search']);
-									$all_refs = $wpdb->get_results( "SELECT * FROM wp_users WHERE user_login LIKE '%{$search_string}%' OR user_email LIKE '%{$search_string}%' OR user_nicename LIKE '%{$search_string}%' LIMIT 10 OFFSET " . ($query_offset - 10) );
-									foreach($all_refs as $affiliate){
-										$affiliate_ids[] = $affiliate->ID;
-									}
-									$ref_count_search = $wpdb->get_var("SELECT COUNT(*) FROM wp_users WHERE user_login LIKE '%{$search_string}%' OR user_email LIKE '%{$search_string}%' OR user_nicename LIKE '%{$search_string}%'");
-								}else{
-									$all_refs = $wpdb->get_results( "SELECT * FROM wp_users LIMIT 10 OFFSET " . $query_offset );
-									foreach($all_refs as $affiliate){
-										$affiliate_ids[] = $affiliate->ID;
-									}
-									$ref_count = $wpdb->get_var("SELECT COUNT(*) FROM wp_users");
-								}
-							}else{
-								if(isset($_GET['search'])){
-									$affiliate_id = affwp_get_affiliate_id( get_current_user_id() );
-									$referrals = affiliate_wp()->referrals->get_referrals( array(
-										'number'       => -1,
-										'affiliate_id' => $affiliate_id
-									) );
-								}else{
-									$referrals = $wpdb->get_results( "SELECT * FROM wp_affiliate_wp_referrals WHERE affiliate_id = '". affwp_get_affiliate_id(get_current_user_id()) ."' LIMIT 10 OFFSET " . ($query_offset - 10) );
-									$ref_count = $wpdb->get_var("SELECT COUNT(*) FROM wp_affiliate_wp_referrals WHERE affiliate_id = '" . affwp_get_affiliate_id(get_current_user_id()) . "'" );
-								}
-							}
-
-							if ( in_array( 'administrator', (array) $user->roles ) ){
-								$contacts = get_admin_contacts($affiliate_ids);
-							}else{
-								$contacts = get_user_contacts($referrals);
-							}
-
-							if( isset( $_GET['search'] ) && !in_array( 'administrator', (array) $user->roles ) ){		
-								foreach ($contacts as $index => $index_item) {		
-							       	foreach($index_item as $item){		
-							       		if(stripos($item,$_GET['search']) !== false){		
-							       			if(!in_array($index, $results,TRUE)){		
-							       				array_push($results, $index);
-							       				$ref_count_search++;
-							       			}		
-							       		}		
-							       	}		
-							    }		
-							    foreach($results as $result){		
-							    	array_push($search_results,$contacts[$result]);		
-							    }		
-							    $contacts = $search_results;		
-							}
-							if( !isset( $_GET['search'] ) ){
-								//dd($contacts);
-								$total_pages = ceil($ref_count / $query_offset_multi);
-								if(!empty($contacts)){
-									foreach($contacts as $contact){
-								
-						?>
-										<li>
-											<div class="media">
-												<div class="media-left">
-													<?php echo $contact['avatar']; ?>
-												</div>
-												<div class="media-body">
-													<div class="info">
-														<h5 class="media-heading text-bold">
-															<?php  
-																if($contact['fname']){
-																	echo $contact['fname'] . ' ' . $contact['lname'];
-																}else{
-																	echo $contact['username'];
-																}
-															?>
-														</h5>
-														<p><?php echo $contact['email']; ?></p>
-													</div>
-													<div class="actions">
-														<span class="small"><?php echo $contact['date']; ?></span>
-														<a href="<?php bloginfo('url');?>/marketing/contacts/user?id=<?php echo $contact['id'] ?>" class="btn btn-default btn-sm m-l-sm">View</a>
-													</div>
-												</div>
-											</div>
-										</li>
-						<?php 
-									}//contacts loop
-								}else{
-									echo '<strong>no contacts found.</strong>';
-								}
-							}//if search not set
-							else{
-								$total_pages = ceil($ref_count_search / $query_offset_multi);
-								$search_counter = 0;
-								if(!empty($contacts)){
-									foreach($contacts as $contact){
-										if(isset($query_offset) && $search_counter <= (($query_offset - 9) + 9) && $search_counter >= ($query_offset - 9) || in_array( 'administrator', (array) $user->roles )){
-						?>
-								
-										<li>
-											<div class="media">
-												<div class="media-left">
-													<?php echo $contact['avatar']; ?>
-												</div>
-												<div class="media-body">
-													<div class="info">
-														<h5 class="media-heading text-bold">
-															<?php  
-																if($contact['fname']){
-																	echo $contact['fname'] . ' ' . $contact['lname'];
-																}else{
-																	echo $contact['username'];
-																}
-															?>
-														</h5>
-														<p><?php echo $contact['email']; ?></p>
-													</div>
-													<div class="actions">
-														<span class="small"><?php echo $contact['date']; ?></span>
-														<a href="<?php bloginfo('url');?>/marketing/contacts/user?id=<?php echo $contact['id'] ?>" class="btn btn-default btn-sm m-l-sm">View</a>
-													</div>
-												</div>
-											</div>
-										</li>
-						<?php			
-										}
-										$search_counter++;
-									}// foreach
-								}else{
-									echo '<strong>no contacts found.</strong>';
-								}//if empty
-							}
-						?>
-					</ul>
-					<form class="contact-pagination" method="GET" action="<?php echo get_the_permalink(); ?>">
-						<ul class="pagination">
-							<?php  
-								if($total_pages > 0){
-									if($total_pages < 5){
-										while($page_counter <= $total_pages){
-							?>
-											<li class="<?php if($page_num == $page_counter){ echo "active"; } ?>"><a href="<?php echo get_the_permalink(); ?>?i=<?php echo $page_counter; ?><?php if(isset($_GET['search'])){ echo "&search=" . $_GET['search']; } ?>"><?php echo $page_counter ?></a></li>
-							<?php
-											$page_counter++;
-										}
-									}else{
-
-							?>				
-										<?php if($page_num >= 2){ ?>
-											<li><a href="<?php echo get_the_permalink(); ?>?i=<?php echo ($page_num - 1) ?><?php if(isset($_GET['search'])){ echo "&search=" . $_GET['search']; } ?>"><</a></li>
-										<?php } ?>
-										<li class="<?php if($page_num == 1){ echo "active"; } ?>"><a href="<?php echo get_the_permalink(); ?>?i=1<?php if(isset($_GET['search'])){ echo "&search=" . $_GET['search']; } ?>">1</a></li>
-										<?php if($page_num < $total_pages && $page_num < ($total_pages - 1)){ ?>
-											<li class="<?php if($page_num == ($page_num + 1)){ echo "active"; } ?>"><a href="<?php echo get_the_permalink(); ?>?i=<?php echo ($page_num + 1); ?><?php if(isset($_GET['search'])){ echo "&search=" . $_GET['search']; } ?>"><?php echo ($page_num + 1); ?></a></li>
-										<?php } ?>
-										<input type="number" name="i" class="form-control" placeholder="page #"></input>
-										<?php if(isset($_GET['search'])){ ?>
-											<input type="hidden" name="search" value="<?php echo $_GET['search'] ?>">
-										<?php } ?>
-										<?php if($page_num < $total_pages){ ?>
-											<li class="<?php if($page_num == ($total_pages - 1)){ echo "active"; } ?>"><a href="<?php echo get_the_permalink(); ?>?i=<?php echo ($total_pages - 1); ?><?php if(isset($_GET['search'])){ echo "&search=" . $_GET['search']; } ?>"><?php echo ($total_pages - 1); ?></a></li>
-										<?php } ?>
-										<li class="<?php if($page_num == $total_pages){ echo "active"; } ?>"><a href="<?php echo get_the_permalink(); ?>?i=<?php echo $total_pages; ?><?php if(isset($_GET['search'])){ echo "&search=" . $_GET['search']; } ?>"><?php echo $total_pages; ?></a></li>
-										<?php if($page_num < $total_pages){ ?>
-											<li><a href="<?php echo get_the_permalink(); ?>?i=<?php echo ($page_num + 1) ?><?php if(isset($_GET['search'])){ echo "&search=" . $_GET['search']; } ?>">></a></li>
-										<?php } ?>
-							<?php
-									}
-								}
-							?>
-						</ul>
-					</form>
+					<div class="contact-status"></div>
+					<div class="contacts-container">
+					<!-- insert contact list here via ajax -->
+					</div>
 				</div>
 			</div>
 		</div>
@@ -243,3 +64,129 @@ get_user_active_referrals();
 		<?php get_template_part('inc/templates/no-access'); ?>
 	<?php endif; ?>
 <?php get_footer(); ?>
+
+<script type="text/javascript">
+	var getUrlParameter = function getUrlParameter(sParam) {
+	    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+	        sURLVariables = sPageURL.split('&'),
+	        sParameterName,
+	        i;
+
+	    for (i = 0; i < sURLVariables.length; i++) {
+	        sParameterName = sURLVariables[i].split('=');
+
+	        if (sParameterName[0] === sParam) {
+	            return sParameterName[1] === undefined ? true : sParameterName[1];
+	        }
+	    }
+	};
+
+	function get_contacts(){
+		$.ajax({
+	        url: "<?php echo get_option('home'); ?>/wp-admin/admin-ajax.php ?>",
+	        method: 'POST',
+	        data: {
+	            'action':'ajax_contacts',
+	            'page_num' : page_num,
+	            'query_offset_multi' : query_offset_multi,
+	            'search_string ': search_string
+	        },
+	        beforeSend: function(){
+	        	$("#contact-search-form input").prop("disabled", true);
+	        	$('.contact-status').html('');
+	        	$('.contact-status').append('<div class="col-md-6 col-md-offset-3"><div class="progress"><div class="progress-bar progress-bar-danger progress-bar-striped progress-bar-animated active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">Your contacts are loading</div></div></div>');
+	        },
+	        success:function(data) {
+	        	var json = JSON.parse(data);
+	        	console.log(json);
+	            $.ajax({
+			        url: "<?php echo get_option('home'); ?>/wp-admin/admin-ajax.php ?>",
+			        method: "POST",
+			        data: {
+			            'action':'format_contacts',
+			            'contacts' : json.contacts,
+			            'ref_count' : json.ref_count,
+			            'ref_count_search' : json.ref_count_search,
+			            'query_offset' : json.query_offset,
+			            'query_offset_multi' : query_offset_multi,
+			            'search_term' : search_string,
+			            'page_num' : page_num
+			        },
+			        beforeSend: function(){
+			        	$('.contact-status').html('');
+	        			$('.contact-status').append('<div class="col-md-6 col-md-offset-3"><div class="progress"><div class="progress-bar progress-bar-danger progress-bar-striped progress-bar-animated active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">Preparing your contacts</div></div></div>');
+			        },
+			        success:function(data) {
+			        	$('.contacts-container').html('');
+			            $('.contacts-container').prepend(data);
+			            $("#contact-search-form input").prop("disabled", false);
+			            $('.contact-status').html('');
+			        },
+			        error: function(errorThrown){
+			            console.log(errorThrown);
+			        }
+			    }); 
+	        },
+	        error: function(errorThrown){
+	            console.log(errorThrown);
+	        }
+	    }); 
+	}
+
+	var search_string = null;
+	var page_num = 1;
+	var query_offset_multi = 10;
+	var query_offset = 1;	
+	if(getUrlParameter('i')){
+		page_num = getUrlParameter('i');
+	}
+	if(getUrlParameter('search')){
+		search_string = getUrlParameter('search');
+	}
+
+	$(document).ready(function(){
+		get_contacts();
+		$('#contact-search-form').submit(function(e){
+			e.preventDefault();
+			search_string = $('input[name="search"]').val();
+			page_num = 1;
+			$('.contacts-container').html('');
+			get_contacts();
+		});
+		$('body').on('submit','#contact-pagination',function(e){
+			e.preventDefault();
+			page_num = $('input[name="i"]').val();
+			search_string = $('#contact-search-form input[name="search"]').val();
+			$('.contacts-container').html('');
+			get_contacts();
+		});
+		$('body').on('click','#contact-pagination a',function(e){
+			e.preventDefault();
+			page_num = $(this).attr('data-page');
+			//alert(page_num);
+			search_string = $('#contact-search-form input[name="search"]').val();
+			$('.contacts-container').html('');
+			get_contacts();
+		});
+
+		//csv
+		$('body').on('click','#export_contacts',function(e){
+			e.preventDefault();
+			$.ajax({
+		        url: "<?php echo get_option('home'); ?>/wp-admin/admin-ajax.php ?>",
+		        method: "POST",
+		        data: {
+
+		        },
+		        beforeSend: function(){
+		        },
+		        success:function(data) {
+		        	console.log(data);
+		        },
+		        error: function(errorThrown){
+		            console.log(errorThrown);
+		        }
+		    }); 
+		});
+	});
+</script>
