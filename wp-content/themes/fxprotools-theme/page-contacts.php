@@ -83,7 +83,7 @@ fclose($fp);
 
 	function get_contacts(){
 		$.ajax({
-	        url: "<?php echo get_option('home'); ?>/wp-admin/admin-ajax.php ?>",
+	        url: "<?php echo get_option('home'); ?>/wp-admin/admin-ajax.php",
 	        method: 'POST',
 	        data: {
 	            'action':'ajax_contacts',
@@ -100,7 +100,7 @@ fclose($fp);
 	        	var json = JSON.parse(data);
 	        	console.log(json);
 	            $.ajax({
-			        url: "<?php echo get_option('home'); ?>/wp-admin/admin-ajax.php ?>",
+			        url: "<?php echo get_option('home'); ?>/wp-admin/admin-ajax.php",
 			        method: "POST",
 			        data: {
 			            'action':'format_contacts',
