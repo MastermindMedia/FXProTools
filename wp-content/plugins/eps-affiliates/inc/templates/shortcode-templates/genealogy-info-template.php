@@ -33,7 +33,7 @@
 			    <div class="row">
 			      <div class="col-md-6">
 			      	<ul class="profile-info">
-			      		<li class="profile-header">Genealogy Info:</li>
+			      		<li class="profile-header">Matrix Info:</li>
 			      		<?php 
 			      			$legs_gv_sum 	= 0;
  									$legs_gv 			= _get_user_direct_legs_gv_with_position($node->uid);
@@ -49,11 +49,18 @@
 			      <div class="col-md-6">
 				      <div class="row">
 				      	<div class="col-md-6">
-				      		<a href="<?php bloginfo('url'); ?>/team/matrix-tree/" class="button-link"><?= __('Distributors').' : '.apply_filters('afl_my_distributors_count',$node->uid); ?></a>
+				      		<div class="group-btn-link">
+				      			<a href="<?php bloginfo('url'); ?>/team/referred-members/" class="button-link"><?= __('Distributors').' : '.apply_filters('afl_my_distributors_count',$node->uid); ?></a>
+				      		</div>
 				      	</div>
 				      	<div class="col-md-6">
-				      		<a href="<?php bloginfo('url'); ?>/team/matrix-tree/" class="button-link"><?= __('Customers').' : '.apply_filters('afl_my_customers_count',$node->uid); ?></a>
+				      		<div class="group-btn-link">
+				      			<a href="<?php bloginfo('url'); ?>/team/referred-members/" class="button-link"><?= __('Customers').' : '.apply_filters('afl_my_customers_count',$node->uid); ?></a>
+				      		</div>
 				      	</div>
+				      	<div class="col-md-12">
+					    	<a href="<?php bloginfo('url'); ?>/team/matrix-tree/" class="button-link view-team-tree"><?= __('View Matrix Tree'); ?></a>
+					    </div>
 				      </div>
 			      </div>
 			    </div>
