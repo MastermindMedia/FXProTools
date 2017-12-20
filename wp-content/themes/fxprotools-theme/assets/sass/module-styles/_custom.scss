@@ -2544,8 +2544,8 @@ form {
 		.toggle-left-arrow, .toggle-right-arrow {
 			float: none;
 			position: absolute;
-			font-size: 10px;
-			top: 15px;
+			font-size: 8px;
+			top: 12px;
 		}
 		.toggle-left-arrow {
 			left: 0;
@@ -2553,6 +2553,10 @@ form {
 		.toggle-right-arrow {
 			right: 0;
 		}
+	}
+	.holding-toggle-user-image > img {
+		height: 60px;
+		border: 1px solid #CCC;
 	}
 }
 
