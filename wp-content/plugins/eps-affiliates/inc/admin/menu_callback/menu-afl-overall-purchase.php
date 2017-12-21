@@ -101,13 +101,13 @@
 				'#markup'=> $value->purchase_day
 			);
 
-			$rows[$key]['markup_month'] = array(
-				'#type' =>'markup',
-				'#markup'=> $value->purchase_month
-			);
 			$rows[$key]['markup_week'] = array(
 				'#type' =>'markup',
 				'#markup'=> $value->purchase_week
+			);
+			$rows[$key]['markup_month'] = array(
+				'#type' =>'markup',
+				'#markup'=> $value->purchase_month
 			);
 			$rows[$key]['markup_year'] = array(
 				'#type' =>'markup',
