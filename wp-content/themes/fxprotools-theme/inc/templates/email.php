@@ -1,4 +1,19 @@
 <?php get_header(); ?>
+<?php
+$unreadCount = 0;
+$sentCount = 0;
+$trashCount = 0;
+
+if (!isset($smsPage) || !$smsPage) {
+	$unreadCount = count_emails_for_user(array('unread', 'read'));
+	$sentCount = count_sent_emails();
+	$trashCount = count_emails_for_user(array('trash'));
+} else {
+	$unreadCount = count_sms_for_user(array('unread', 'read'));
+	$sentCount = count_sent_sms();
+	$trashCount = count_sms_for_user(array('trash'));
+}
+?>
 <div class="container top-marketing-buttons">
 	<div class="col-xs-12 col-sm-6 col-md-6">
 		<a href="<?php bloginfo('url'); ?>/my-account/inbox" <?php if (!isset($smsPage) || !$smsPage) { ?>class="active"<?php } ?>>
@@ -72,15 +87,30 @@ if (isset($_GET['delete'])) {
 									}
 									?>
 									<ul class="fx-inbox-nav">
-										<li <?php if ($post->post_name == 'inbox' || $post->post_name == 'sms') { ?> class="active" <?php } ?>><a href="<?php bloginfo('url'); ?>/<?php if (isset($smsPage) && $smsPage) { ?>sms<?php } else { ?>inbox<?php } ?>"><i class="fa fa-inbox"></i> Inbox <span class="label label-danger pull-right" id="unreadCount">0</span></a></li>
+										<li <?php if ($post->post_name == 'inbox' || $post->post_name == 'sms') { ?> class="active" <?php } ?>>
+											<a href="<?php bloginfo('url'); ?>/my-account/<?php if (isset($smsPage) && $smsPage) { ?>sms<?php } else { ?>inbox<?php } ?>">
+												<i class="fa fa-inbox"></i> Inbox
+												<span class="label label-danger pull-right" id="unreadCount"><?php echo $unreadCount; ?></span>
+											</a>
+										</li>
 										<?php
 										if (current_user_can('administrator')) {
 										?>
-										<li <?php if ($post->post_name == 'sent' || $post->post_name == 'sent-sms') { ?> class="active" <?php } ?>><a href="<?php bloginfo('url'); ?>/my-account/<?php if (isset($smsPage) && $smsPage) { ?>sms/sent-sms/<?php } else { ?>inbox/sent/<?php } ?>"><i class="fa fa-envelope-o"></i> Sent</a></li>
+										<li <?php if ($post->post_name == 'sent' || $post->post_name == 'sent-sms') { ?> class="active" <?php } ?>>
+											<a href="<?php bloginfo('url'); ?>/my-account/<?php if (isset($smsPage) && $smsPage) { ?>sms/sent-sms/<?php } else { ?>inbox/sent/<?php } ?>">
+												<i class="fa fa-envelope-o"></i> Sent
+												<span class="label label-danger pull-right"><?php echo $sentCount; ?></span>
+											</a>
+										</li>
 										<?php
 										}
 										?>
-										<li <?php if ($post->post_name == 'trash' || $post->post_name == 'trash-sms') { ?> class="active" <?php } ?>><a href="<?php bloginfo('url'); ?>/my-account/<?php if (isset($smsPage) && $smsPage) { ?>sms/trash-sms/<?php } else { ?>inbox/trash/<?php } ?>"><i class=" fa fa-trash-o"></i> Trash</a></li>
+										<li <?php if ($post->post_name == 'trash' || $post->post_name == 'trash-sms') { ?> class="active" <?php } ?>>
+											<a href="<?php bloginfo('url'); ?>/my-account/<?php if (isset($smsPage) && $smsPage) { ?>sms/trash-sms/<?php } else { ?>inbox/trash/<?php } ?>">
+												<i class=" fa fa-trash-o"></i> Trash
+												<span class="label label-danger pull-right"><?php echo $trashCount; ?></span>
+											</a>
+										</li>
 									</ul>
 								</div>
 								<div class="col-xs-12 col-sm-9 col-md-9 xs-m-t">

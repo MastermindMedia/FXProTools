@@ -113,7 +113,7 @@ jQuery(function ($) {
             }
 		}).change();
 		
-		if (!isSms) {
+		if (!window.isSms) {
     		tinymce.init({ selector:'#body', menubar: false, statusbar: false,
     		    plugins: "link",
                 setup: function (editor) {
@@ -135,7 +135,7 @@ jQuery(function ($) {
         		}
         	});
         	
-        	if (!isSms) {
+        	if (!window.isSms) {
         	    hasError = hasError || !tinymce.get("body").getContent();
         	}
         	
@@ -156,12 +156,12 @@ jQuery(function ($) {
                 
                 $("#compose").find("input, select, textarea").prop("disabled", true);
                 
-                if (!isSms) {
+                if (!window.isSms) {
                     tinymce.get("body").setMode('readonly');
                 }
                 
                 $.post(ajaxUrl, {
-                    action: isSms ? "send_sms" : "send_email",
+                    action: window.isSms ? "send_sms" : "send_email",
                     email_recipient_type: $("#email_recipient_type").val(),
                     sms_recipient_type: $("#email_recipient_type").val(),
                     recipient_group: $("#recipient_group").val(),
@@ -178,7 +178,7 @@ jQuery(function ($) {
                         alert("Error: " + response);
                     } else {
                         
-                        if (isSms) {
+                        if (window.isSms) {
                             alert("SMS sent.");
                             window.location.href = "/my-account/sent-sms";
                         } else {
