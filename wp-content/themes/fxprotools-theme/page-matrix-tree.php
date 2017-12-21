@@ -7,8 +7,6 @@ get_header();
 
 	<?php get_template_part('inc/templates/nav-team'); ?>
 
-
-
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
@@ -17,15 +15,17 @@ get_header();
 					<p>Check Below For Your Full Matrix Tree</p>
 				</div>
 			</div>
-			</div>
+		</div>
+	</div>
+	<div class="container-fluid"></div>
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-12 epx">
 				<?php echo do_shortcode('[afl_eps_matrix_holding_tank_genealogy_toggle_placement]'); ?>
 			</div>
 		</div>
+	</div>
 
-
-<div class="container">
+	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="fx-header-title">
@@ -41,9 +41,7 @@ get_header();
 		</div>
 	</div>
 
-
-
-<div class="container">
+	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="fx-header-title">
@@ -57,11 +55,6 @@ get_header();
 				<?php echo do_shortcode('[afl_eps_matrix_downlines]'); ?>
 			</div>
 		</div>
-	</div>
-
-
-
-
 	</div>
 
 <?php get_footer(); ?>

@@ -2471,6 +2471,10 @@ form {
 	// Global
 	.panel-default > .panel-heading {
 		border-left-color: $red;
+		h4 {
+			color: $black;
+			font-weight: 900;
+		}
 	}
 	.table thead {
 		background: $red;
@@ -2533,6 +2537,31 @@ form {
 				}
 			}
 		}
+	}
+	// Matrix Tree
+	.genealogy-hierarchy .person {
+		position: relative;
+		min-width: 100px;
+		.toggle-left-arrow, .toggle-right-arrow {
+			float: none;
+			position: absolute;
+			font-size: 8px;
+			top: 12px;
+		}
+		.toggle-left-arrow {
+			left: 0;
+		}
+		.toggle-right-arrow {
+			right: 0;
+		}
+	}
+	.genealogy-hierarchy .person > img {
+		height: 65px;
+		border: 1px solid #CCC;
+	}
+	.holding-toggle-user-image > img {
+		height: 60px;
+		border: 1px solid #CCC;
 	}
 }
 
