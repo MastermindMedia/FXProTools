@@ -112,7 +112,7 @@ function _manage_member_page_callback_filter ( $tree = 'unilevel' ) {
 		$config['per_page'] 	= 50;
 
 		
-		$index = !empty($filter['page_count']) ? $filter['page_count'] : 0;
+		$index = !empty($_GET['page_count']) ? $_GET['page_count'] : 0;
 		$filter = array(
 			'index' => $index,
 			'limit' => $config['per_page']
@@ -134,9 +134,9 @@ function _manage_member_page_callback_filter ( $tree = 'unilevel' ) {
 
 		$data  = affiliate_data($tree,$filter,FALSE);
 		
-		
 		$pagination->initialize($config);
 		$links = $pagination->create_links();
+		
 
 		$table = array();
 		$table['#links']  = $links;
