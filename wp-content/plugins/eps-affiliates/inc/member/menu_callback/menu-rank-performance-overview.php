@@ -228,7 +228,7 @@ function afl_rank_performance_overview_shortcode_callback () {
 				$maximum_gv_taken = afl_commission($max_gv_taken,$required);
 				// $leg_customer_sale 	= get_user_downline_customers_sales($uid,TRUE);
 				// $earned += $leg_customer_sale;
-				// pr($earned);
+				
 
 				$markup = '';
 				$markup .= '<label class="label text-info m-l-xs">Required : '.$required.'</label><br>';

@@ -2983,8 +2983,9 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
  * -----------------------------------------------------------------------
 */
 	function _downline_distributors_ ( $uid = '', $tree = 'matrix', $count = FALSE) {
-		$uids = _tree_uids($uid, $tree);
-
+		$uids = afl_get_unilevel_user_downlines_uid($uid);
+		$uids = array_ret($uids, 'downline_user_id');
+		
 		if ( $tree == 'unilevel') {
 			$table = _table_name('afl_user_downlines');
 			if ( $tree == 'unilevel') {
@@ -3024,7 +3025,6 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 	 		$gv = 0;
 	 		//group volume of user only distributors
 	 		$distribs = _downline_distributors_($value->uid, $tree);
-
 	 		$query = array();
 		 	$query['#select'] = _table_name('afl_purchases');
 		 	$query['#where_in'] 	= array(
