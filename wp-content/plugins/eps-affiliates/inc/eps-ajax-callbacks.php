@@ -26,14 +26,14 @@ function _system_user_autocomplete ( $search_key ) {
  * ------------------------------------------------
 */
 function users_auto_complete_callback($search_key = '') {
-	if (isset($_POST['search_key'])) {
-		$search_key = $_POST['search_key'];
-	}
-	$data 		= afl_get_users();
-	$response = array();
+  if (isset($_POST['search_key'])) {
+    $search_key = $_POST['search_key'];
+  }
+  $data     = afl_get_users();
+  $response = array();
 
-	global $wpdb;
-	$querystr = " SELECT * from `"._table_name('users')."` WHERE `display_name` LIKE '%".$search_key."%' ;";
+  global $wpdb;
+  $querystr = " SELECT * from `"._table_name('users')."` WHERE `display_name` LIKE '%".$search_key."%' ;";
 
 
   $query = array();
@@ -41,6 +41,36 @@ function users_auto_complete_callback($search_key = '') {
   $query['#join'] = array(
     _table_name('users') => array(
      '#condition'=> '`'._table_name('users').'`.`ID` = `'._table_name('afl_user_genealogy').'`.`uid` '
+    )
+  );
+  $query['#fields'] = array(
+    _table_name('users') => array('user_login', 'ID')
+  );
+  $result = db_select($query, 'get_results');
+  
+  foreach ($result as $key => $value) {
+    $response[] = array('name'=> ($value->user_login.' ('.$value->ID.')'));
+  }
+  echo json_encode($response);
+  die();
+}
+/*
+ * ------------------------------------------------
+ * get users name and id
+ * ------------------------------------------------
+*/
+function unilevel_users_auto_complete_callback($search_key = '') {
+	if (isset($_POST['search_key'])) {
+		$search_key = $_POST['search_key'];
+	}
+	$data 		= afl_get_users();
+	$response = array();
+
+  $query = array();
+  $query['#select']  =_table_name('afl_unilevel_user_genealogy');
+  $query['#join'] = array(
+    _table_name('users') => array(
+     '#condition'=> '`'._table_name('users').'`.`ID` = `'._table_name('afl_unilevel_user_genealogy').'`.`uid` '
     )
   );
   $query['#fields'] = array(
@@ -187,13 +217,15 @@ function _get_member_downline_users_as_option($tree_mode = '') {
   // }
 
   if (!eps_is_admin()) {
+    $uid = afl_root_user();
+  }
     $query['#where'] = array(
       '`'.$genealogy_tree.'`.`uid` = '.$uid
     );
     // $query['#where_or'] = array(
     //   '`'.$genealogy_tree.'`.`uid` = '.$uid
     // );
-  }
+  // }
   $query['#fields'] = array(
     _table_name('users') => array('user_login', 'ID')
   );
@@ -503,17 +535,14 @@ function member_downlines_auto_complete_callback($search_key = '') {
        * else provide the role afl_member
        * ------------------------------------------------
       */
+        $theUser = new WP_User($uid);
         $user_roles = afl_user_roles($uid);
         if ( !array_key_exists('afl_customer', $user_roles)) {
           if (!has_role($uid, 'afl_member')){
-            $theUser = new WP_User($uid);
-            $theUser->remove_role( 'holding_member' );
             $theUser->add_role( 'afl_member' );
           }
-        } else {
-          $theUser = new WP_User($uid);
-          $theUser->remove_role( 'holding_member' );
-        }
+        } 
+        $theUser->remove_role( 'holding_member' );
 
       $tree_mode = !empty($_POST['tree_mode']) ? $_POST['tree_mode'] : 'matrix'; 
       //insert user to genealogy

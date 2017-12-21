@@ -781,6 +781,9 @@
 											'uid'					=> $uid,
 										)
 								);
+			$theUser = new WP_User($uid);
+			$theUser->remove_role( 'holding_member' );
+			$theUser->add_role( 'afl_member' );
 		}
 
 	}
@@ -806,6 +809,18 @@
 											'uid'					=> $uid,
 										)
 								);
+			$user_roles = afl_user_roles($uid);
+			if ( !array_key_exists('afl_customer', $user_roles)) {
+				if (!has_role($uid, 'afl_member')){
+					$theUser = new WP_User($uid);
+					$theUser->remove_role( 'holding_member' );
+					$theUser->add_role( 'afl_member' );
+				}
+			} else {
+				$theUser = new WP_User($uid);
+				$theUser->remove_role( 'holding_member' );
+			}
+
 		}
 
 	}
@@ -828,6 +843,10 @@
 										'uid'					=> $uid
 									)
 							);
+		$theUser = new WP_User($uid);
+		$theUser->remove_role( 'holding_member' );
+		$theUser->add_role( 'afl_member' );
+
 		//get the details from the holding tank
 		$holding_data = _get_holding_tank_data($uid);
 		$remote_user_mlm_id 		= '';
@@ -872,7 +891,19 @@
 										'sponsor_uid' => $sponsor,
 										'uid'					=> $uid
 									)
+				
 							);
+		$user_roles = afl_user_roles($uid);
+		$theUser = new WP_User($uid);
+
+		if ( !array_key_exists('afl_customer', $user_roles)) {
+			if (!has_role($uid, 'afl_member')){
+				$theUser->add_role( 'afl_member' );
+			}
+		} 
+		$theUser->remove_role( 'holding_member' );
+
+
 		//get the details from the holding tank
 		$holding_data = _get_holding_tank_data($uid, 'unilevel');
 		$remote_user_mlm_id 		= '';

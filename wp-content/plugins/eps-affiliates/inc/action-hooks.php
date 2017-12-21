@@ -162,6 +162,13 @@ function eps_affiliates_admin_notices () {
  add_action('wp_ajax_users_auto_complete', 'users_auto_complete_callback');
  add_action('wp_ajax_nopriv_users_auto_complete', 'users_auto_complete_callback');
 
+/*
+ * ------------------------------------------------------------
+ * Users autocomplete initialization
+ * ------------------------------------------------------------
+*/
+ add_action('wp_ajax_unilevel_users_auto_complete', 'unilevel_users_auto_complete_callback');
+ add_action('wp_ajax_nopriv_unilevel_users_auto_complete', 'unilevel_users_auto_complete_callback');
  /*
  * ------------------------------------------------------------
  * Users autocomplete initialization
