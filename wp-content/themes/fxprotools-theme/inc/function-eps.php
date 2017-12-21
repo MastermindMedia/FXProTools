@@ -43,6 +43,7 @@ function eps_subscription_order_completed( $subscription ) {
 					'afl_point' => $pv
 				);
 
+				error_log('Invoked : eps_commerce_purchase_complete via regular checkout' . print_r($args, true) );
 			    $result = apply_filters('eps_commerce_purchase_complete', $args);
 			    error_log('Invoked : eps_commerce_purchase_complete via regular checkout' . print_r($result, true) );
 	    	}

@@ -150,6 +150,7 @@ if(!class_exists('WC_Subscriptions_Settings')){
 			}
 
 			//add signup fee to renewal
+			/* -- signup waived for trial
 			if( !$has_paid_signup_fee ){
 
 				foreach($subscriptions as $s){
@@ -204,6 +205,7 @@ if(!class_exists('WC_Subscriptions_Settings')){
 				    }
 				}
 			}
+			--*/
 
 			$renewal_order->calculate_totals();
 			return $renewal_order;
