@@ -172,7 +172,7 @@ function _manage_member_page_callback_filter ( $tree = 'unilevel' ) {
 			);
 			$rows[$key]['markup_member'] = array(
 				'#type' =>'markup',
-				'#markup'=> $value->display_name.'<span class="label label-primary">'.$value->uid.'</span>'
+				'#markup'=> $value->display_name.'<span class="label bg-info"><a href="#"  class="username">'.$value->user_login.'</a></span>  <span class="label label-primary">'.$value->ID.'</span>'
 			);
 			$node  = afl_genealogy_node($value->parent_uid,$tree);
 
