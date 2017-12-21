@@ -589,6 +589,80 @@ function get_emails_for_user($statuses, $user_id = null)
     return $response;
 }
 
+function count_sms_for_user($statuses, $user_id = null)
+{
+    if (!$user_id) {
+        $user_id = get_current_user_id();
+    }
+
+    $response = new WP_Query(array(
+        'posts_per_page'	=> -1,
+        'orderby'			=> 'modified',
+        'order'				=> 'DESC',
+        'post_type'			=> 'fx_sms',
+        'meta_key'			=> '_user_' . $user_id . '_state',
+        'meta_query'		=> array(
+            array(
+                'key'       => '_user_' . $user_id . '_state',
+                'value'     => $statuses,
+                'compare'   => 'IN',
+            )
+        )
+    ));
+
+    return $response->found_posts;
+}
+
+function count_emails_for_user($statuses, $user_id = null)
+{
+    if (!$user_id) {
+        $user_id = get_current_user_id();
+    }
+
+    $response = new WP_Query(array(
+        'posts_per_page'	=> -1,
+        'orderby'			=> 'modified',
+        'order'				=> 'DESC',
+        'post_type'			=> 'fx_email',
+        'meta_key'			=> '_user_' . $user_id . '_state',
+        'meta_query'		=> array(
+            array(
+                'key'       => '_user_' . $user_id . '_state',
+                'value'     => $statuses,
+                'compare'   => 'IN',
+            )
+        )
+    ));
+
+    return $response->found_posts;
+}
+
+function count_sent_sms()
+{
+    $response = new WP_Query(array(
+        'posts_per_page'	=> -1,
+        'orderby'			=> 'modified',
+        'order'				=> 'DESC',
+        'post_type'			=> 'fx_sms',
+        'post_status'       => 'publish'
+    ));
+
+    return $response->found_posts;
+}
+
+function count_sent_emails()
+{
+    $response = new WP_Query(array(
+        'posts_per_page'	=> -1,
+        'orderby'			=> 'modified',
+        'order'				=> 'DESC',
+        'post_type'			=> 'fx_email',
+        'post_status'       => 'publish'
+    ));
+
+    return $response->found_posts;
+}
+
 function get_users_who_ordered($product_ids, $user_fields = array('user_email'))
 {
     global $wpdb;

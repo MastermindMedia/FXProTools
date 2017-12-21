@@ -23,7 +23,6 @@ function check_username()
 }
 
 add_action("wp_ajax_email_inbox", "email_inbox");
-add_action("wp_ajax_email_inbox_count", "email_inbox_count");
 add_action("wp_ajax_email_trash", "email_trash");
 add_action("wp_ajax_email_read", "email_read");
 add_action("wp_ajax_email_delete", "email_delete");
@@ -56,12 +55,6 @@ function email_from_status($status)
 function email_inbox()
 {
 	email_from_status(array('unread', 'read'));
-}
-
-function email_inbox_count()
-{
-	header("Content-Type: application/json");
-	wp_send_json(count(get_emails_for_user(array('unread'))));
 }
 
 function email_trash()
