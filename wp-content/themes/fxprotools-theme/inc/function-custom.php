@@ -853,6 +853,7 @@ function display_fx_gauge ($max_step, $step_taken = 0, $atts = []) {
 	$args = wp_parse_args( $atts, $default );
 	extract ($args);
 
+	$step_taken = $step_taken<= $max_step ? $step_taken : $max_step;
 	$average = ceil( ( $gauge_max - $gauge_base ) / $max_step );
 	$angle = $gauge_base + ( $average * $step_taken );
 
