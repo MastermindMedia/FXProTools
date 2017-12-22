@@ -1406,6 +1406,19 @@ p.logo-text {
 		display: none;
 		}
 
+		#billing_state.input-text{
+			height: 40px;
+		    border-radius: 0;
+		    border: 1px solid #ccc;
+		    width: 100%;
+		    padding: 6px 12px;
+		    font-size: 14px;
+		    line-height: 1.42857143;
+		    color: #555;
+		    background-color: #fff;
+		    background-image: none;
+		}
+
 		.shop_table .blockUI.blockOverlay {
 		  position: relative!important;
 		  display: none!important;

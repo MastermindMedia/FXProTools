@@ -115,9 +115,9 @@ function get_course_category_children($course_cat_id)
 
 	if( !empty($children_ids) ){
 		$child_categories = get_terms( array(
-		    'taxonomy'   => 'ld_course_category',
-		    'include'    => $children_ids,
-		    'hide_empty' => false,
+			'taxonomy'   => 'ld_course_category',
+			'include'    => $children_ids,
+			'hide_empty' => false,
 		) );
 		return !$child_categories ? false: $child_categories;
 	} else{
@@ -171,3 +171,9 @@ function forced_lesson_time()
 		return $button_disabled;
 	}
 }
+
+add_filter("learndash_course_completion_url", function($link, $course_id) {
+	$course_meta = get_post_meta( $course_id, '_sfwd-courses', true );
+	$link = ( !isset( $course_meta['sfwd-courses_course_completed_redirect_enabled'] ) ) ? $link : ( empty($course_meta['sfwd-courses_course_completed_redirect_url']) ? $link : $course_meta['sfwd-courses_course_completed_redirect_url'] ) ;
+    return $link;
+}, 5, 2);

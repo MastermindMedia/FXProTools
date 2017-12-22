@@ -1116,6 +1116,20 @@ if ( ! class_exists( 'SFWD_LMS' ) ) {
 							'default' => '',
 							'show_in_rest' => true,
 						),
+						'course_completed_redirect_enabled' => array(
+							'name' => sprintf( _x( 'Enable %s Completed URL Redirect', 'placeholder: Course', 'learndash' ), LearnDash_Custom_Label::get_label( 'course' ) ),
+							'type' => 'checkbox',
+							'checked_value' => 'on',
+							'help_text' => __( 'Check this out if you want a custom redirect URL after a course completion', 'learndash' ),
+							'show_in_rest' => true,
+						),
+						'course_completed_redirect_url' => array(
+							'name' => sprintf( _x( 'Completed %s URL', 'Course', 'learndash' ), LearnDash_Custom_Label::get_label( 'course' ) ),
+							'type' => 'input',
+							'help_text' => __( 'Redirect URL', 'learndash' ),
+							'show_in_rest' => true,
+							'placeholder' => stripos($_SERVER['SERVER_PROTOCOL'], 'https') === true ? 'https://' :'http://' . $_SERVER['HTTP_HOST'] . '/custom-redirect-url',
+						),
 					),
 				),
 				'sfwd-lessons' => array(
