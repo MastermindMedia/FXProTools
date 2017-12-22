@@ -547,6 +547,17 @@ function learndash_course_edit_page_javascript() {
 	} );
 	jQuery("input[name=sfwd-courses_course_points_enabled]").change();
 
+	jQuery("input[name=sfwd-courses_course_completed_redirect_enabled]").change( function() {
+		if(jQuery("input[name=sfwd-courses_course_completed_redirect_enabled]:checked").val() == undefined) {
+			jQuery("#sfwd-courses_course_completed_redirect_url").hide();
+		}
+		else
+		{
+			jQuery("#sfwd-courses_course_completed_redirect_url").slideDown('slow');
+		}
+	} );
+	jQuery("input[name=sfwd-courses_course_completed_redirect_enabled]").change();
+
 
 }
 function learndash_quiz_edit_page_javascript() {
