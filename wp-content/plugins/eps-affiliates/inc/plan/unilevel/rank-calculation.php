@@ -5,6 +5,7 @@
  * ---------------------------------------------------
 */
 	function _rank_calculation_scheduler_callback () {
+
 		$afl_date = afl_date();
 		//get the purchase details today
 		$query = array();
@@ -13,7 +14,6 @@
 	  	_table_name('afl_purchases') => array('uid')
 	  );
 	  $query['#where'] = array(
-	    '`'._table_name('afl_purchases').'`.`created`= '.$afl_date,
 	    '`'._table_name('afl_purchases').'`.`cron_status` != 2',
 	    '`'._table_name('afl_purchases').'`.`category` = "product purchase"',
 	  );
@@ -31,6 +31,10 @@
    		}
    		
 
+   	}
+   	//log cron run
+   	if ( afl_variable_get('cron_logs_enable')) {
+			afl_log('rank_calculation_scheduler','cron run completed',array(),LOGS_INFO);
    	}
 	}
 

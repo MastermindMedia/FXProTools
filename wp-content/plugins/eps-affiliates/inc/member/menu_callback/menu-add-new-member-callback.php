@@ -61,6 +61,8 @@
     				do_action('eps_affiliates_place_user_in_holding_tank',$post_data['uid'] ,$post_data['sponsor_uid'] );
     				do_action('eps_affiliates_unilevel_place_user_in_holding_tank',$post_data['uid'] ,$post_data['sponsor_uid'] );
 
+    				
+
 	        	$post_data['uid'] = $user_uid;
 	        	//extract sponsor uid
 	        	preg_match_all('/\d+/', $sponsor, $matches);
@@ -72,6 +74,13 @@
     			$business_transactions['order_id'] 			 = 1;
 	       	
 	       	$response = apply_filters('eps_commerce_joining_package_purchase_complete',$business_transactions);
+	       	//create a purchase
+  				$args['order_id']		 = 1;
+					$args['afl_point']	 = 145;
+					$args['uid'] 				 = $post_data['uid'];
+					$args['amount_paid'] = 145;
+  				apply_filters('eps_commerce_purchase_complete',$args);
+    				
 	       	if ( !empty( $response['status']  )) {
 				 		echo wp_set_message('Member has been created successfully', 'success');
 	       	} else  {

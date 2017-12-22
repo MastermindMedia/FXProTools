@@ -163,6 +163,12 @@ function _calculate_global_pool_bonus () {
  			}
  		}
  	}
+
+ 	//log cron run
+ 	if ( afl_variable_get('cron_logs_enable')) {
+		afl_log('global_pool_bonus_scheduler','cron run completed',array(),LOGS_INFO);
+ 	}
+
 }
 /**
  * -------------------------------------------------------

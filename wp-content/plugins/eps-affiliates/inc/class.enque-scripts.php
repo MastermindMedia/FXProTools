@@ -61,7 +61,7 @@
 		  			
 		  			$enque_array['css'] = array(
 		  				'toaster-cs' 			=> EPSAFFILIATE_PLUGIN_ASSETS.'css/toastr.css',
-		  				
+		  				'bootstrap-css'		=> '',
 		  				'app' 						=> EPSAFFILIATE_PLUGIN_ASSETS.'css/app.css',
 		  				'developer' 			=> EPSAFFILIATE_PLUGIN_ASSETS.'css/developer.css',
 		  				'simple-line-ico'	=> EPSAFFILIATE_PLUGIN_ASSETS.'plugins/simple-line-icons/css/simple-line-icons.css',

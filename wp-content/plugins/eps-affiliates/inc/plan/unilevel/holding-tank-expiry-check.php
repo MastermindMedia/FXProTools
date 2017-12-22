@@ -66,5 +66,8 @@
 					);
 				}
 			}
-		
+		//log cron run
+	 	if ( afl_variable_get('cron_logs_enable')) {
+			afl_log('unilevel_holding_expiry_scheduler','cron run completed',array(),LOGS_INFO);
+	 	}
  }

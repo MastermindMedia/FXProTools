@@ -69,6 +69,11 @@
 				}
 			}
 		}
+
+		//log cron run
+   	if ( afl_variable_get('cron_logs_enable')) {
+			afl_log('member_bonus_incentive_scheduler','cron run completed',array(),LOGS_INFO);
+   	}
 	}
 
 /**

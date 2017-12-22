@@ -519,6 +519,19 @@ function afl_extra_variable_conf () {
 
 	 	);
 
+	 	$form['cron_logs'] = array(
+	 		'#type'=>'fieldset',
+	 		'#title' => __('Cron Logs')
+	 	);
+	 	//cron logs
+	 	$form['cron_logs']['cron_logs_enable'] = array(
+	 		'#type' 					=> 'checkbox',
+	 		'#title' 					=> '(Enable / Disable) cron logs',
+	 		'#default_value' 	=> afl_variable_get('cron_logs_enable', ''),
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>',
+
+	 	);
 
  		$form['submit'] = array(
 	 		'#type' => 'submit',

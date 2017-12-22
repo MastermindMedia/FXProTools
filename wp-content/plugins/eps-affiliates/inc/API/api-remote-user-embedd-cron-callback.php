@@ -79,7 +79,10 @@
 			)
 		);
 	}
-
+	//log cron run
+ 	if ( afl_variable_get('cron_logs_enable')) {
+		afl_log('process_embedd_users_scheduler','cron run completed',array(),LOGS_INFO);
+ 	}
  }
 /*
  * -------------------------------------------------------

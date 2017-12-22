@@ -245,7 +245,7 @@ function _manage_member_page_callback_filter ( $tree = 'unilevel' ) {
 				),
 			);
 
-			if (!empty($filter['index'])) {
+			if (!empty($filter['limit'])) {
 				$query['#limit'] = $filter['index'].','.$filter['limit'];
 			}
 			
@@ -274,7 +274,7 @@ function _manage_member_page_callback_filter ( $tree = 'unilevel' ) {
 			$affiliates = db_select($query, 'get_results');
 			
 			if ($count ) {
-				return count($count) ;
+				return count($affiliates) ;
 			}
 			return $affiliates;
 		}

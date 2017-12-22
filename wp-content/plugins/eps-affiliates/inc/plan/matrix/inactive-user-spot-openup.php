@@ -18,7 +18,7 @@
 		);
 		$query['#limit'] 		 = 500;
 		$result = db_select($query, 'get_results');
-		pr($result);
+		
 		//loop through the users
 		foreach ($result as $key => $value) {
 			$actived_on 	= $value->actived_on;
@@ -52,4 +52,9 @@
 				}	
 			}
 		}
+
+		//log cron run
+   	if ( afl_variable_get('cron_logs_enable')) {
+			afl_log('matrix_inactive_user_spot_open_up_scheduler','cron run completed',array(),LOGS_INFO);
+   	}
 	}

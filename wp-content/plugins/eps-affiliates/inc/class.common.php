@@ -362,7 +362,8 @@ $common_include = new Eps_affiliates_common();
 					}
 
 					$html .= '</label>';
-					$html .= '<select class="form-control '.$class.'" name="'.$key.'" >';
+					$multiple = !empty($element['#multiple']) ? TRUE : FALSE;
+					$html .= '<select class="form-control '.$class.'" name="'.$key.'" multiple = "'.$multiple.'" >';
 					if (!empty($element['#options'])) {
 						foreach ($element['#options'] as $data => $value) {
 

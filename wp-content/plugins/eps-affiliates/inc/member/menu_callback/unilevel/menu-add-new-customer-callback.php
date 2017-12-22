@@ -77,7 +77,12 @@
 		    			}
 
 
-
+		    				//create a purchase
+		  				$args['order_id']		 = 1;
+							$args['afl_point']	 = 145;
+							$args['uid'] 				 = $post_data['uid'];
+							$args['amount_paid'] = 145;
+		  				apply_filters('eps_commerce_purchase_complete',$args);
 
     				
 	        	$post_data['uid'] = $user_uid;

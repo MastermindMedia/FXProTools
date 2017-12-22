@@ -3,6 +3,7 @@
 		do_action('eps_affiliate_page_header');
 		do_action('afl_content_wrapper_begin');
 		afl_admin_recent_log_messages_filter_form();
+		_exposed_callback_filter();
 			afl_admin_recent_log_messages_table();
 		do_action('afl_content_wrapper_end');
 	}
@@ -37,55 +38,55 @@
       </li>';
 	  echo '</ul>';
 
-		// $form = array();
- 	// 	$form['#method'] = 'GET';
-		// $form['#action'] = $_SERVER['REQUEST_URI'];
-		// $form['#prefix'] ='<div class="form-group row">';
-	 // 	$form['#suffix'] ='</div>';
-	 // 	pr(http_build_query($_GET));
-	 // 	//payment source
- 	// 	$form['page'] = array(
-	 // 		'#type' => 'hidden',
-	 // 		'#default_value' => http_build_query($_GET)
-	 // 	);
-	 // 	$form['severity'] = array(
-	 // 		'#type' 					=> 'select',
-	 // 		'#title' 					=> 'Severity',
-	 // 		'#options'				=> array(
-	 // 										'none'=>'None',
-	 // 										LOGS_CRITICAL =>'Critical',
-	 // 										LOGS_ERROR =>'Error',
-	 // 										LOGS_WARNING =>'Warning',
-	 // 										LOGS_NOTICE =>'Notice',
-	 // 										LOGS_INFO =>'Info',
-	 // 										LOGS_DEBUG =>'Debug'
-	 // 		),
-	 // 		'#prefix'					=> '<div class="form-group row col-md-3">',
-	 // 		'#suffix' 				=> '</div>',
-	 // 		'#default_value'  => !empty($_GET['severity']) ? $_GET['severity']:'none'
-
-	 // 	);
-	 // 	$form['type'] = array(
-	 // 		'#type' 					=> 'select',
-	 // 		'#title' 					=> 'Type',
-	 // 		'#options'				=> _get_log_types(),
-	 // 		'#prefix'					=> '<div class="form-group row col-md-3">',
-	 // 		'#suffix' 				=> '</div>',
-	 // 		'#default_value'  => !empty($_GET['severity']) ? $_GET['severity']:''
-
-	 // 	);
-	 // 	$form['submit'] = array(
-	 // 		'#type' => 'submit',
-	 // 		'#value' =>'Filter',
-	 // 		'#prefix'					=> '<div class="form-group row col-md-12">',
-	 // 		'#suffix' 				=> '</div>',
-
-	 // 	);
-	 // 	echo afl_render_form($form);
-	 
 
 	}
+function _exposed_callback_filter ( $tree = 'unilevel' ) {
+	
+		$form = array();
+		$form['#action'] = $_SERVER['REQUEST_URI'];
+ 		$form['#method'] = 'get';
+ 		$form['#prefix'] ='<div class="form-group row">';
+ 		$form['#suffix'] ='</div>';
 
+ 		$form['page'] = array(
+	 		'#type'  	=> 'hidden',
+	 		'#name'		=> 'page',
+	 		'#default_value'=>!empty($_GET['page']) ? $_GET['page'] : '',
+	 	);
+ 		$form['tab'] = array(
+	 		'#type'  	=> 'hidden',
+	 		'#name'		=> 'tab',
+	 		'#default_value'=>!empty($_GET['tab']) ? $_GET['tab'] : '',
+	 	);
+	 	
+ 		$form['type'] = array(
+	 		'#title' 	=> 'Category',
+	 		'#type'  	=> 'select',
+	 		'#name'		=> 'type',
+	 		'#multiple'		=> TRUE,
+	 		'#options' => _get_distinct_type_logs(),
+	 		'#default_value'=> isset($_GET['type']) ? $_GET['type'] : '',
+	 		'#prefix' => '<div class="col-md-2">',
+	 		'#suffix' => '</div>'
+
+	 	);
+
+	 	$form['submit'] = array(
+	 		'#title' => 'Submit',
+	 		'#type' => 'submit',
+	 		'#value' => 'Filter',
+	 		'#attributes' => array(
+	 			'class' => array(
+	 				'btn','btn-primary'
+	 			)
+	 		),
+	 		'#prefix' => '<div class="col-md-2">',
+	 		'#suffix' => '</div>'
+	 		
+	 	);
+
+ 		echo afl_render_form($form);
+	}
 	function afl_admin_recent_log_messages_table () {
 		$pagination = new CI_Pagination;
 
@@ -257,4 +258,9 @@
 		}
 		$resp = db_select($query, 'get_results');
 		return count($resp);
+	}
+
+	function _get_distinct_type_logs () {
+		$types = _get_log_types();
+		return $types;
 	}
