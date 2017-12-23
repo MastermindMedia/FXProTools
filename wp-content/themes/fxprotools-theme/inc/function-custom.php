@@ -182,6 +182,9 @@ function enforce_page_access()
     if( !is_product() && !is_cart() && !is_checkout() && !is_shop() && !is_404() && !is_front_page() ) {
         if( !in_array($slug, $guest_allowed_pages) ){
 	        $args = [ 'redirect_to' => $slug ];
+	        if (!empty($_GET)) {
+	            $args = array_merge($args, $_GET);
+            }
 	        wp_redirect( home_url() . '/login/?' . http_build_query( $args ) );
 	        exit;
         }
@@ -201,9 +204,9 @@ function restirct_customer_access()
 }
 
 add_filter('login_redirect', 'customer_login_redirect');
-function customer_login_redirect( $redirect_to, $request = '', $user = '' ){
-	if ( ! empty( $_POST['redirect_to'] ) ) {
-		return home_url( $_POST['redirect_to'] );
+function customer_login_redirect( $redirect_to){
+	if ( ! empty( $redirect_to ) ) {
+		return home_url( $redirect_to );
 	}
     return home_url('dashboard');
 }
