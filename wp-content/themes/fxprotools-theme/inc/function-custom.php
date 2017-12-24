@@ -206,6 +206,9 @@ function restirct_customer_access()
 add_filter('login_redirect', 'customer_login_redirect');
 function customer_login_redirect( $redirect_to){
 	if ( ! empty( $redirect_to ) ) {
+		if ( strpos( $redirect_to, home_url() ) !== false ) {
+			return $redirect_to;
+		}
 		return home_url( $redirect_to );
 	}
     return home_url('dashboard');
