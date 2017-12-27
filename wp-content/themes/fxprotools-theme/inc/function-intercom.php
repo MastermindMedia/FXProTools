@@ -94,5 +94,5 @@ class CPSIntercom {
 	}
 }
 
-//return new CPSIntercom();
+return new CPSIntercom();
 
