@@ -43,9 +43,17 @@ function eps_subscription_order_completed( $subscription ) {
 					'afl_point' => $pv
 				);
 
-				error_log('Invoked : eps_commerce_purchase_complete via regular checkout' . print_r($args, true) );
 			    $result = apply_filters('eps_commerce_purchase_complete', $args);
 			    error_log('Invoked : eps_commerce_purchase_complete via regular checkout' . print_r($result, true) );
+
+			    if( $item['variation_id'] == 2920){
+			    	$args = array(	
+						'uid' => $subscription->get_customer_id(),
+						'order_id' => $parent_order->get_id()
+					);
+				    $result = apply_filters('eps_commerce_distributor_kit_purchase_complete', $args);
+				   	error_log('Invoked : eps_commerce_distributor_kit_purchase_complete ' . print_r($result, true) );
+			    }
 	    	}
 	    	else{
 	    		 error_log('Invoke Fail : eps_commerce_purchase_complete via regular checkout, INVALID VARIATION' );
@@ -64,7 +72,7 @@ function eps_distributor_kit_purchased( $subscription ) {
     $items = $subscription->get_items();
 
 	foreach($items as $key => $item){
-		if( $item['product_id'] == 2871 || $item['product_id'] == '48'){
+		if( $item['product_id'] == 2871 || $item['product_id'] == 48){
 			$renewal = $subscription->get_last_order('all', array('renewal'));
 
 		    $args = array(	

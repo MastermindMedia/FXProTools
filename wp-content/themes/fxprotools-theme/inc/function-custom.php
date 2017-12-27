@@ -182,6 +182,9 @@ function enforce_page_access()
     if( !is_product() && !is_cart() && !is_checkout() && !is_shop() && !is_404() && !is_front_page() ) {
         if( !in_array($slug, $guest_allowed_pages) ){
 	        $args = [ 'redirect_to' => $slug ];
+	        if (!empty($_GET)) {
+	            $args = array_merge($args, $_GET);
+            }
 	        wp_redirect( home_url() . '/login/?' . http_build_query( $args ) );
 	        exit;
         }
@@ -201,9 +204,12 @@ function restirct_customer_access()
 }
 
 add_filter('login_redirect', 'customer_login_redirect');
-function customer_login_redirect( $redirect_to, $request = '', $user = '' ){
-	if ( ! empty( $_POST['redirect_to'] ) ) {
-		return home_url( $_POST['redirect_to'] );
+function customer_login_redirect( $redirect_to){
+	if ( ! empty( $redirect_to ) ) {
+		if ( strpos( $redirect_to, home_url() ) !== false ) {
+			return $redirect_to;
+		}
+		return home_url( $redirect_to );
 	}
     return home_url('dashboard');
 }
@@ -853,6 +859,7 @@ function display_fx_gauge ($max_step, $step_taken = 0, $atts = []) {
 	$args = wp_parse_args( $atts, $default );
 	extract ($args);
 
+	$step_taken = $step_taken<= $max_step ? $step_taken : $max_step;
 	$average = ceil( ( $gauge_max - $gauge_base ) / $max_step );
 	$angle = $gauge_base + ( $average * $step_taken );
 
