@@ -79,7 +79,6 @@ get_header();
 									<li><i class="fa fa-mobile"></i> <?php echo get_the_author_meta('billing_phone', get_current_user_id()); ?></li>
 									<li><i class="fa fa-home"></i> <?php echo get_the_author_meta('billing_city', get_current_user_id()); ?>, <?php echo get_the_author_meta('billing_state', get_current_user_id()); ?></li>
 								</ul>
-								<p>IP Address: 192.168.8.1</p>
 							</div>
 							<div class="action">
 								<div>
