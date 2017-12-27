@@ -68,7 +68,6 @@ $custom_functions = array(
     'function-email', // Email,
     'function-sms', // SMS,
     'function-eps', //EPS action and filters
-    'function-intercom', //Intercom functions
     'function-custom', // All custom functions
 );
 
@@ -98,14 +97,22 @@ $modules = array(
 
     // Walkers
     'walkers/nav-secondary-walker',
-    'walkers/nav-main-walker'
-);
+    'walkers/nav-main-walker',
 
+	// Intercom
+	'intercom/intercom-php/intercom'
+);
 if($modules){
     foreach($modules as $key => $md){
         require_once('inc/modules/'.$md.'.php');
     }
 }
+
+/**
+ * Include custom function for Intercom
+ * only after its modules are autoloaded
+ */
+require_once('inc/function-intercom.php');
 
 // Remove WP Emoji for pageSpeed optimization.
 remove_action('wp_head', 'print_emoji_detection_script', 7);
