@@ -69,7 +69,6 @@ class CPSIntercom {
 			$user_data = [
 				'email'      => $email,
 				'id'         => $user_id,
-				'user_login' => $user_login,
 				'first_name' => $first_name,
 				'last_name'  => $last_name,
 			];
