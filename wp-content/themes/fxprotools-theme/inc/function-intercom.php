@@ -69,8 +69,6 @@ class CPSIntercom {
 			$user_data = [
 				'email'      => $email,
 				'id'         => $user_id,
-				'first_name' => $first_name,
-				'last_name'  => $last_name,
 			];
 			if ( in_array( $role, $this->userRoles ) ) {
 				$user = new IntercomUsers( $this->client );
