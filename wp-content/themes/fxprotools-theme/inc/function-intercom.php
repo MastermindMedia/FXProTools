@@ -11,6 +11,7 @@ class CPSIntercom {
 	const SECRET_KEY = 'l_-sHsUYbgK3VTBs9AoKgG7kBc1fMAT7fnEgIt1A';
 	const HASH = 'sha256';
 
+	/** @var array  */
 	private $userRoles = [
 		'administrator',
 		'editor',
@@ -22,6 +23,7 @@ class CPSIntercom {
 		'business_director',
 	];
 
+	/** @var array  */
 	private $leadRoles = [
 		'subscriber',
 		'customer',
@@ -30,8 +32,12 @@ class CPSIntercom {
 		'afl_customer',
 	];
 
+	/** @var IntercomClient  */
 	private $client;
 
+	/**
+	 * CPSIntercom constructor.
+	 */
 	public function __construct() {
 		$this->client = new IntercomClient( self::ACCESS_TOKEN, null );
 		add_action( 'user_register', [ $this, 'add_user_to_intercom' ] );
@@ -53,6 +59,10 @@ class CPSIntercom {
 		return null;
 	}
 
+	/**
+	 * Creates an intercom account
+	 * @param $user_id
+	 */
 	public function add_user_to_intercom( $user_id ) {
 		if ( ! empty( $_POST ) ) {
 			extract( $_POST );
@@ -84,5 +94,5 @@ class CPSIntercom {
 	}
 }
 
-return new CPSIntercom();
+//return new CPSIntercom();
 
