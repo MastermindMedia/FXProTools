@@ -73,7 +73,7 @@ class CPSIntercom {
 				'first_name' => $first_name,
 				'last_name'  => $last_name,
 			];
-			if ( in_array( $role, $this->leadRoles ) ) {
+			if ( in_array( $role, $this->userRoles ) ) {
 				$user = new IntercomUsers( $this->client );
 				try {
 					$user->create( $user_data );
@@ -84,7 +84,7 @@ class CPSIntercom {
 				}
 			}
 
-			if ( in_array( $role, $this->userRoles ) ) {
+			if ( in_array( $role, $this->leadRoles ) ) {
 				$lead = new IntercomLeads( $this->client );
 				try {
 					$lead->create( $user_data );
