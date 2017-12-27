@@ -75,10 +75,9 @@ class CPSIntercom {
 				try {
 					$user->create( $user_data );
 				} catch ( GuzzleException $e ) {
-					echo '<pre>';
-					var_export( $e );
-					exit;
+					error_log( $e->getMessage() );
 				}
+				return;
 			}
 
 			if ( in_array( $role, $this->leadRoles ) ) {
@@ -86,8 +85,9 @@ class CPSIntercom {
 				try {
 					$lead->create( $user_data );
 				} catch ( GuzzleException $e ) {
-					error_log( $e );
+					error_log( $e->getMessage() );
 				}
+				return;
 			}
 		}
 	}
