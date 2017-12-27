@@ -78,7 +78,9 @@ class CPSIntercom {
 				try {
 					$user->create( $user_data );
 				} catch ( GuzzleException $e ) {
-					error_log( $e );
+					echo '<pre>';
+					var_export( $e );
+					exit;
 				}
 			}
 
