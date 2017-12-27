@@ -11,23 +11,28 @@
 		$query = array();
 	  $query['#select'] = _table_name('afl_purchases');
 	  $query['#fields'] = array(
-	  	_table_name('afl_purchases') => array('uid')
+	  	_table_name('afl_purchases') => array('uid','afl_purchases_id')
 	  );
+	  $query['#join']  = array(
+     _table_name('afl_unilevel_user_genealogy') => array(
+     		'#condition' => _table_name('afl_purchases').'.`uid`'.'='._table_name('afl_unilevel_user_genealogy').'.`uid`'
+    	)
+  	);
 	  $query['#where'] = array(
 	    '`'._table_name('afl_purchases').'`.`cron_status` != 2',
-	    '`'._table_name('afl_purchases').'`.`category` = "product purchase"',
+	    // '`'._table_name('afl_purchases').'`.`category` = "product purchase"',
 	  );
 	  $query['#limit'] = 500;
    	$data = db_select($query, 'get_results');
    	
    	foreach ($data as $key => $value) {
    		try{
-   			_change_cron_status($value->uid, 1);
+   			_change_cron_status($value->afl_purchases_id,$value->uid, 1);
 	   			_recursive_calc_user_rank( $value->uid );
-	   		_change_cron_status($value->uid, 2);
+	   		_change_cron_status($value->afl_purchases_id,$value->uid, 2);
    		} catch(Exception $e){
    			afl_log('cron_rank_updation','Error %er',array('%er'=>print_r($e,TRUE)),LOGS_ERROR);
-	   		_change_cron_status($value->uid, -1);
+	   		_change_cron_status($value->afl_purchases_id,$value->uid, -1);
    		}
    		
 
@@ -52,7 +57,7 @@
 
 	}
 
-	function _change_cron_status ( $uid, $status){
+	function _change_cron_status ($afl_purchases_id, $uid, $status){
  	global $wpdb;
 
 		$update_id = $wpdb->update(
@@ -61,7 +66,8 @@
 				'cron_status' => $status
 			),
 			array(
-				'uid' => $uid
+				'uid' => $uid,
+				'afl_purchases_id' => $afl_purchases_id
 			)
 		);
 	}

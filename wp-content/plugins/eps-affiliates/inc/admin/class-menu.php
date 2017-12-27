@@ -937,6 +937,14 @@
 					'#menu_slug' 			=> 'affiliate-eps-check-rank', 
 					'#page_callback' 	=> '_check_rank_page',
 				);
+				$menu['matrix_compenesation_days'] = array(
+					'#parent' 				=> 'affiliate-eps-reports',
+					'#page_title'			=> __( 'Matrix Compensation Days', 'Matrix Compensation Days' ),
+					'#menu_title' 		=> __( 'Matrix Compensation Days', 'Matrix Compensation Days' ),
+					'#access_callback'=> 'system_rank_configurations', 
+					'#menu_slug' 			=> 'affiliate-eps-check-matrix-comp-days', 
+					'#page_callback' 	=> '_check_matrix_compensation_days',
+				);
 				afl_system_admin_menu($menu);
 		 }
 

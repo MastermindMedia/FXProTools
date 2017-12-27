@@ -240,6 +240,8 @@
  * ---------------------------------------------------
 */
  function _check_required_customer_rule($uid = '', $rank = '') {
+	if ( afl_variable_get('enable_rank_customer_rule'))  {
+
  		$tree = 'unilevel';
  		//get an array of downline user id with their group volume
  		$my_pv   = _get_user_pv($uid);
@@ -273,7 +275,10 @@
 
 			$flag = $flag * 1;
  		}
-
+ 	}
+ 	else 
+ 		$flag = 1;
+ 	
  		return $flag;
  }
 /*

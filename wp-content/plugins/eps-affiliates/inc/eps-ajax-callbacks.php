@@ -661,7 +661,7 @@ function member_downlines_auto_complete_callback($search_key = '') {
       */
         $user_roles = afl_user_roles($uid);
         if ( !array_key_exists('afl_customer', $user_roles)) {
-          // do_action('afl_calculate_fast_start_bonus',$uid,$_POST['sponsor']);
+          do_action('afl_calculate_fast_start_bonus',$uid,$_POST['sponsor']);
         }
 
 

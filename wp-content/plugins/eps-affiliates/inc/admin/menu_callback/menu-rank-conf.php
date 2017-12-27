@@ -384,6 +384,18 @@
  		'#type' => 'fieldset',
  		'#title'=>'Basic Configuration',
  	);
+	
+	$form['field_customer_leg_rule'] = array(
+ 		'#type' => 'fieldset',
+ 		'#title'=>'Enable / Disable customer leg rule',
+ 	);
+
+	$form['field_customer_leg_rule']['enable_rank_customer_rule'] = array(
+		'#type' 				=> 'checkbox',
+		'#title'				=> '',
+		'#default_value' 	=> afl_variable_get('enable_rank_customer_rule'),
+		
+	);
 
 	$form['field']['rank_expiry'] = array(
 		'#type' 				=> 'select',
@@ -443,8 +455,18 @@
  * -----------------------------------------------------------
 */	
 	function render_basic_configurations_form_submit ($form_state = array()) {
+		
 		foreach ($form_state as $key => $value) {
 			afl_variable_set($key,maybe_serialize($value));
 		}
+		//here set unset the values for the checkboxes
+		$checkboxes = array(
+			'enable_rank_customer_rule'
+		);
+		foreach ($checkboxes as $checkbox) {
+		if ( !array_key_exists($checkbox, $form_state)) {
+			afl_variable_set($checkbox, '');
+		}
+	}
 		echo wp_set_message(__('Configuration has been saved successfully.'), 'success');
 	}

@@ -94,13 +94,11 @@
 			  $transaction = array();
 		    $transaction['uid'] 								= $args['uid'];
 		    $transaction['associated_user_id'] 	= $args['uid'];
-		    $transaction['payout_id'] 					= 0;
-		    $transaction['level']								= 0;
 		    $transaction['currency_code'] 			= afl_currency();
-		    $transaction['order_id'] 						= 1;
+		    $transaction['order_id'] 						= $args['order_id'];
 		    $transaction['int_payout'] 					= 0;
 		    $transaction['hidden_transaction'] 	= 0;
-		    $transaction['credit_status'] 			= 0;
+		    $transaction['credit_status'] 			= 1;
 		    $transaction['amount_paid'] 				= afl_commerce_amount($args['afl_point']);
 		    $transaction['category'] 						= $category;
 		    $transaction['notes'] 							= $category;
@@ -111,8 +109,8 @@
 		    $transaction['transaction_week'] 		= $afl_date_splits['w'];
 		    $transaction['transaction_date'] 		= afl_date_combined($afl_date_splits);
 		    $transaction['created'] 						= afl_date();
-			  //to mbr transaction
-				// afl_member_transaction($transaction, TRUE);
+			  //to business transaction
+				afl_business_transaction($transaction);
 			}
 		 	if (!$ins) {
 		 		$response['status'] 	= 0;
@@ -522,9 +520,12 @@
 
 	 			//check the customer rule
 	 			//1 leg group volume * 55 % = customer sales
-	 			if (!_check_required_customer_rule($uid,$i)) {
-	 				continue;
-	 			}
+	 			//check the rule for this enabled
+				if ( afl_variable_get('enable_rank_customer_rule'))  {
+		 			if (!_check_required_customer_rule($uid,$i)) {
+		 				continue;
+		 			}
+		 		}
 				// pr ('Rank '. $i) ;
 	 		// 	pr ('------------------------------------------------') ;
 				// pr ('Rank '. $i) ;

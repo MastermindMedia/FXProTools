@@ -180,11 +180,13 @@ function afl_rank_performance_overview_shortcode_callback () {
 			__('PV','affiliates-eps'), 
 			__('GV','affiliates-eps'), 
 			__('Maximum GV taken (1 leg)','affiliates-eps'), 
-			__('Customer Leg rule','affiliates-eps'), 
-			__('Distributors','affiliates-eps'),
-			__('Qualifications','affiliates-eps'),
-			
 		);
+		if ( afl_variable_get('enable_rank_customer_rule'))  {
+			$table['#header'][] = __('Customer Leg rule','affiliates-eps');
+		}
+		$table['#header'][] = __('Distributors','affiliates-eps');
+		$table['#header'][] = __('Qualifications','affiliates-eps');
+			
 		$rows = array();
 
 	 	$max_rank = afl_variable_get('number_of_ranks');
@@ -263,6 +265,8 @@ function afl_rank_performance_overview_shortcode_callback () {
 
 
 	 		/* ------ Customer leg rule  -----------------------------------------------------------*/
+			if ( afl_variable_get('enable_rank_customer_rule'))  {
+
 	 			$markup = '';
 	 			$tree = 'unilevel';
 		 		//get an array of downline user id with their group volume
@@ -342,7 +346,7 @@ function afl_rank_performance_overview_shortcode_callback () {
 					'#type' => 'markup',
 					'#markup'=> $markup,
 				);
-
+	 		}
 	 		/* ------ Customer leg rule  -----------------------------------------------------------*/
 
 

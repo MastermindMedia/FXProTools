@@ -62,6 +62,7 @@
 			__('Purchase Month'),		
 			__('Purchase Year'),		
 			__('Extra Params'),		
+			__('Cron Status'),		
 		);
 		$rows = array();
 		foreach ($data as $key => $value) {
@@ -116,6 +117,10 @@
 			$rows[$key]['markup_5'] = array(
 				'#type' =>'markup',
 				'#markup'=> ($value->extra_params)
+			);
+			$rows[$key]['markup_cron_status'] = array(
+				'#type' =>'markup',
+				'#markup'=> _render_cron_status($value->cron_status)
 			);
 		}
 	
