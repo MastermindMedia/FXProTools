@@ -317,13 +317,13 @@ function afl_rank_performance_overview_shortcode_callback () {
 		 			$leg_customer_sale 	= get_user_downline_customers_sales($leg_uid,TRUE);
 		 			$markup .= '<td>'.$leg_customer_sale.'</td>';
 
-		 			// pr($leg_customer_sale);
+		 			
 		 			//customer leg rule
-		 			$leg_rule_amount 	= afl_commission($leg_rule,$leg_gv);
+		 			$leg_rule_amount 	= afl_commission($leg_rule,$leg_gv,FALSE);
 		 			$markup .= '<td>'.$leg_rule_amount.'</td>';
-
+		 			// pr($leg_rule_amount);
 		 			//check the leg rule amount greater than or equal to the leg_customer_sale
-		 			if (empty($leg_customer_sale) || ($leg_rule_amount >= $leg_customer_sale) ) {
+		 			if (($leg_rule_amount > $leg_customer_sale) ) {
 		 				$leg_condition = '<span class="text-center"><i class="text-center fa fa-lg fa-thumbs-o-down  text-danger m-b-xs"></i></span>';
 		 			} else {
 		 				$leg_condition = '<span class="text-center"><i class="text-center fa fa-lg fa-thumbs-o-up  text-success m-b-xs"></i></span>';
