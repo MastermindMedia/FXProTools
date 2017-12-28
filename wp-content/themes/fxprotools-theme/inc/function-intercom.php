@@ -177,6 +177,8 @@ class CPSIntercom {
 		if ( ! isset( $user_meta[ self::INTERCOM_ID_USER_META ] ) ) {
 			add_user_meta( $user_id, self::INTERCOM_ID_USER_META, $intercomUser->id );
 		}
+
+		$this->createEvent( 'update-profile', $user_id );
 	}
 
 	private function parse_user_meta( $user_id ) {
