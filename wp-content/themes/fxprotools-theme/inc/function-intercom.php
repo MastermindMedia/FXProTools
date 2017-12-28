@@ -169,7 +169,8 @@ class CPSIntercom {
 	public function intercom_update_user( $user_id ) {
 		$user_data = get_userdata( $user_id );
 		$user_meta = $this->parse_user_meta( $user_id );
-		$user_info = array_merge( (array) $user_data->data, $user_meta );
+		$user_onboard_checklist = $this->get_onboard_checklist( $user_id );
+		$user_info = array_merge( (array) $user_data->data, $user_meta, $user_onboard_checklist );
 
 		$intercom_data = $this->arrange_intercom_data( $user_info );
 		$intercomUser = $this->create_user( $intercom_data );
@@ -204,27 +205,43 @@ class CPSIntercom {
 
 	private function get_custom_attributes( array $data ) {
 		return [
-			'nickname'           => $data['nickname'],
-			'first_name'         => $data['first_name'],
-			'last_name'          => $data['last_name'],
-			'user_sms_subs'      => $data['user_sms_subs'],
-			'user_email_subs'    => $data['user_email_subs'],
-			'billing_company'    => $data['billing_company'],
-			'billing_address_2'  => $data['billing_address_2'],
-			'billing_city'       => $data['billing_city'],
-			'billing_state'      => $data['billing_state'],
-			'billing_postcode'   => $data['billing_postcode'],
-			'shipping_company'   => $data['shipping_company'],
-			'shipping_address_1' => $data['shipping_address_1'],
-			'shipping_address_2' => $data['shipping_address_2'],
-			'shipping_city'      => $data['shipping_city'],
-			'shipping_state'     => $data['shipping_state'],
-			'shipping_postcode'  => $data['shipping_postcode'],
-			'website'            => $data['website'],
-			'facebook'           => $data['facebook'],
-			'twitter'            => $data['twitter'],
-			'googleplus'         => $data['googleplus'],
+			'nickname'                    => $data['nickname'],
+			'first_name'                  => $data['first_name'],
+			'last_name'                   => $data['last_name'],
+			'user_sms_subs'               => $data['user_sms_subs'],
+			'user_email_subs'             => $data['user_email_subs'],
+			'billing_company'             => $data['billing_company'],
+			'billing_address_2'           => $data['billing_address_2'],
+			'billing_city'                => $data['billing_city'],
+			'billing_state'               => $data['billing_state'],
+			'billing_postcode'            => $data['billing_postcode'],
+			'shipping_company'            => $data['shipping_company'],
+			'shipping_address_1'          => $data['shipping_address_1'],
+			'shipping_address_2'          => $data['shipping_address_2'],
+			'shipping_city'               => $data['shipping_city'],
+			'shipping_state'              => $data['shipping_state'],
+			'shipping_postcode'           => $data['shipping_postcode'],
+			'website'                     => $data['website'],
+			'facebook'                    => $data['facebook'],
+			'twitter'                     => $data['twitter'],
+			'googleplus'                  => $data['googleplus'],
+			'uid'                         => $this->get_uid( $data ),
+			'checklist_verified_email'    => $data['verified_email'],
+			'checklist_verified_profile'  => $data['verified_profile'],
+			'checklist_scheduled_webinar' => $data['scheduled_webinar'],
+			'checklist_accessed_products' => $data['accessed_products'],
+			'checklist_got_shirt'         => $data['got_shirt'],
+			'checklist_shared_video'      => $data['shared_video'],
+			'checklist_referred_friend'   => $data['referred_friend'],
 		];
+	}
+
+	private function get_uid( $data ) {
+		return home_url( '/intercom-switch' ) . '/?uid=' . $data['ID'];
+	}
+
+	private function get_onboard_checklist( $user_id ) {
+		return get_user_meta( $user_id, ONBOARD_CHECKLIST_META_KEY, true );
 	}
 }
 

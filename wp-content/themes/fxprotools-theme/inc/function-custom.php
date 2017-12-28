@@ -6,11 +6,12 @@
  * All custom functions
  */
 
-define('SKIP_PASSWORD_CHECKPOINT', false);
+defined('SKIP_PASSWORD_CHECKPOINT') || define('SKIP_PASSWORD_CHECKPOINT', false);
+defined('ONBOARD_CHECKLIST_META_KEY') || define('ONBOARD_CHECKLIST_META_KEY','_onboard_checklist');
 
 function get_user_checklist()
 {
-    $checklist = get_user_meta(get_current_user_id(), '_onboard_checklist', true);
+    $checklist = get_user_meta(get_current_user_id(), ONBOARD_CHECKLIST_META_KEY, true);
     return is_array($checklist) ? $checklist : register_user_checklist(get_current_user_id());
 }
 
@@ -68,7 +69,7 @@ function pass_onboarding_checklist( $step ) {
 	if ( ! empty ( $step ) ) {
 		$checklist = get_user_checklist();
 		$checklist[ $step ] = true;
-		update_user_meta( get_current_user_id(), '_onboard_checklist', $checklist );
+		update_user_meta( get_current_user_id(), ONBOARD_CHECKLIST_META_KEY, $checklist );
 	}
 }
 
@@ -268,7 +269,7 @@ function register_user_checklist($user_id)
         'shared_video'		=> false,
         'referred_friend'	=> false,
     );
-    add_user_meta( $user_id, '_onboard_checklist', $checklist);
+    add_user_meta( $user_id, ONBOARD_CHECKLIST_META_KEY, $checklist);
 }
 
 add_action('user_register', 'send_email_verification');
