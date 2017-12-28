@@ -48,7 +48,7 @@ class CPS_Intercom {
 	 */
 	public function __construct() {
 		$this->client = new IntercomClient( self::ACCESS_TOKEN, null );
-		add_action( 'user_register', [ $this, 'intercom_add_user' ] );
+//		add_action( 'user_register', [ $this, 'intercom_add_user' ] );
 		add_action( 'profile_update', [ $this, 'intercom_update_user' ] );
 		add_action( 'delete_user', [ $this, 'intercom_delete_user' ] );
 	}
@@ -143,8 +143,6 @@ class CPS_Intercom {
 			/** @var IntercomUsers */
 			return $user->create( $data );
 		} catch ( GuzzleException $e ) {
-			var_dump($e->getMessage());
-			exit;
 			error_log( $e->getMessage() );
 		}
 	}
@@ -160,8 +158,6 @@ class CPS_Intercom {
 			/** @var IntercomUsers */
 			return $user->deleteUser( $id );
 		} catch ( GuzzleException $e ) {
-			var_dump($e->getMessage());
-			exit;
 			error_log( $e->getMessage() );
 		}
 	}
