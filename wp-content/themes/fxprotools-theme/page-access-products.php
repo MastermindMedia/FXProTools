@@ -19,6 +19,7 @@ if ( ! empty ( $subscription_details ) ) {
 	}
 }
 
+$trial_expiration_date = floor( ( strtotime( $subscription['trial_expiry_date'] ) - time() ) / ( 60 * 60 * 24 ) );
 $market_scanner =  wcs_user_has_subscription( '', 47, 'active') || is_user_fx_distributor();
 $auto_trader = wcs_user_has_subscription( '', 49, 'active');
 $coaching = wcs_user_has_subscription( '', 50, 'active');
@@ -54,6 +55,9 @@ $coaching = wcs_user_has_subscription( '', 50, 'active');
 							<li><label>Start Date</label> <span><?php echo date('F d, Y', strtotime($subscription['start_date']) );?></span></li>
 							<li><label>Next Payment</label> <span><?php echo date('F d, Y', strtotime($subscription['next_payment_date']) );?></span></li>
 							<?php if( $subscription['trial_expiry_date'] ):?><li><label>Trial End</label> <span><?php echo date('F d, Y', strtotime($subscription['trial_expiry_date']) );?></span></li><?php endif;?>
+							<?php if($subscription['trial_expiry_date']){ ?>
+								<li>You Have <?php echo ($trial_expiration_date > 0) ? $trial_expiration_date : "0"; ?> Days Left On Trial</li>
+							<?php } ?>
 						</ul>
                         <?php else: ?>
                             <p class="text-center">You don't have any package subscription</p>
@@ -61,6 +65,11 @@ $coaching = wcs_user_has_subscription( '', 50, 'active');
 					</div>
 					<?php if (!empty($subscription)) : ?>
 					    <p class="text-center small">Auto Renew is Enabled. To change this, go to Account Settings</p>
+					    <div class="button-holder">
+					    	<button type="button" class="action btn btn-lg btn-danger fx-btn" data-toggle="modal" data-target="#access-upgrade-modal">
+							  Upgrade Your Trial
+							</button>
+					    </div>
 					<?php endif; ?>
 				</div>
 			</div>
@@ -109,4 +118,25 @@ if ( isset( $checklist[ $step ] ) && ! $checklist[ $step ] && ! empty( $subscrip
         });
     </script>
 <?php endif; ?>
+
+<!-- Modal -->
+<div class="modal fade modal-mini" id="access-upgrade-modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+      	<h4 class="modal-title" id="exampleModalLabel">Would You Like To Upgrade Your Trial Account?</h4>
+        Activating your Trial account before the "Renewal" date will charge the card we have on the file today. You will be active to qualify for personal volume, group volume and receive compensation
+      </div>
+      <div class="modal-footer">
+        <a href="<?php echo get_option('home'); ?>/renewal" class="btn btn-primary">Yes, Upgrade My Account Now!</a>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No, Just Continue Trial</button>
+        <div class="modal-footer-note">
+        	...Or You Can Go To "Account Settings" <a href="/my-account">click here</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <?php get_footer(); ?>

@@ -407,10 +407,6 @@ add_filter('afl_member_personal_volume',
 	add_action('afl_member_account_cancelation',
  						 'afl_member_account_cancelation_callback',10,1);
 
-// pr(apply_filters('afl_ewallet_last_week_earnings',get_uid()),1);
-
-
-	
 /*
  * -----------------------------------------------------------------
  * Hyper Wallet Payout
@@ -418,3 +414,11 @@ add_filter('afl_member_personal_volume',
 */
 	add_filter('afl_hyper_wallet_payout',
  						 'afl_hyper_wallet_payout',10,1);
+
+/*
+ * -----------------------------------------------------------------
+ * Give the rank achieved income
+ * -----------------------------------------------------------------
+*/
+	add_action('afl_rank_achieved_income_distribute',
+ 						 'afl_rank_achieved_income_distribute_callback',10,2);

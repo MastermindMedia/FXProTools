@@ -116,13 +116,15 @@ function _get_furthrer_qualification_to_achieve_rank ($rank = '', $uid = '') {
 		$ret_string .= '</br>* You need '.($required - $earned).' more distributors to unlock this';
 	}
 
-	// //check distributor count meets
-	// if (!_check_required_qualifications_meets($uid, $rank)) {
-	// 	$required = afl_variable_get('rank_'.$rank.'_no_of_distributors',0);
-	// 	$earned 	= _get_user_distributor_count($uid); 
-
-	// 	$ret_string .= '</br>* You need '.($required - $earned).' more distributors to unlock this';
-	// }
-	
+	//meet the customer rule
+	if (!_check_required_customer_rule($uid, $rank)) {
+		$ret_string .= '</br>* You need meet the required customer rule';
+	}
+	$node = afl_genealogy_node($uid);
+	if (isset($node->member_rank)) {
+		if ( $node->member_rank >= $rank) {
+			$ret_string = 'UNLOCKED';
+		}
+	}
 	return $ret_string;
 }

@@ -40,6 +40,7 @@ function afl_system_business_holding_payouts_callback () {
 			__('#'),
 			// __('User ID'),
 			__('User Name'),
+			__('Associate User'),
 			__('Category'),
 			__('Amount'),
 			__('Transaction Date'),
@@ -59,7 +60,12 @@ function afl_system_business_holding_payouts_callback () {
 
 			$rows[$key]['markup_uname'] = array(
 				'#type' =>'markup',
-				'#markup'=> $value->user_login
+				'#markup'=> _render_member_name($value->uid)
+			);
+
+			$rows[$key]['markup_assoc'] = array(
+				'#type' =>'markup',
+				'#markup'=> _render_member_name($value->associated_user_id)
 			);
 
 			$rows[$key]['markup_category'] = array(
