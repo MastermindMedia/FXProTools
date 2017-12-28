@@ -11,9 +11,10 @@ class CPSIntercom {
 	const ACCESS_TOKEN = 'dG9rOmUxMzMyODcyX2UxMGRfNDZmOF84ZjM5XzY4MTc1MWJiNTBmNzoxOjA=';
 	const SECRET_KEY = 'l_-sHsUYbgK3VTBs9AoKgG7kBc1fMAT7fnEgIt1A';
 	const HASH = 'sha256';
+	const INTERCOM_ID_USER_META = '_intercom_user_id';
 
 	/** @var array */
-	private $userRoles = [
+	private $user_roles = [
 		'administrator',
 		'editor',
 		'author',
@@ -25,7 +26,7 @@ class CPSIntercom {
 	];
 
 	/** @var array */
-	private $leadRoles = [
+	private $lead_roles = [
 		'subscriber',
 		'customer',
 		'holding_member',
@@ -72,24 +73,15 @@ class CPSIntercom {
 			 * @var $role string
 			 */
 			extract( $_POST );
-			if ( in_array( $role, $this->userRoles ) ) {
-				$user = new IntercomUsers( $this->client );
-
-				$user_data = $this->generateData('user', $user_id);
-
-				try {
-					/** @var IntercomUsers $intercomUser */
-					$intercomUser = $user->create( $user_data );
-					add_user_meta($user_id, '__intercom_user_id', $intercomUser->id);
-				} catch ( GuzzleException $e ) {
-					error_log( $e->getMessage() );
-				}
-
+			if ( in_array( $role, $this->user_roles ) ) {
+				$user_data = $this->generateData( 'user', $user_id );
+				$intercomUser = $this->create_user( $user_data );
+				add_user_meta( $user_id, self::INTERCOM_ID_USER_META, $intercomUser->id );
 				$this->createEvent( 'register-user', $user_id );
 				return;
 			}
 
-			if ( in_array( $role, $this->leadRoles ) ) {
+			if ( in_array( $role, $this->lead_roles ) ) {
 				$lead = new IntercomLeads( $this->client );
 
 				$lead_data = $this->generateData( 'lead' );
@@ -101,6 +93,16 @@ class CPSIntercom {
 				$this->createEvent( 'register-lead', $user_id );
 				return;
 			}
+		}
+	}
+
+	private function create_user( array $data ) {
+		$user = new IntercomUsers( $this->client );
+		try {
+			/** @var IntercomUsers */
+			return $user->create( $data );
+		} catch ( GuzzleException $e ) {
+			error_log( $e->getMessage() );
 		}
 	}
 
@@ -156,7 +158,6 @@ class CPSIntercom {
 					];
 				}
 				break;
-
 		}
 
 		return $data;
@@ -166,12 +167,61 @@ class CPSIntercom {
 	 * @param $user_id int
 	 */
 	public function intercom_update_user( $user_id ) {
-		$user_info = get_userdata( $user_id );
-		if ( isset( $_GET['test'] ) ) {
-			var_dump( $user_info->data );
-			var_dump( get_user_meta( $user_id ) );
-			exit;
+		$user_data = get_userdata( $user_id );
+		$user_meta = $this->parse_user_meta( $user_id );
+		$user_info = array_merge( (array) $user_data->data, $user_meta );
+
+		$intercom_data = $this->arrange_intercom_data( $user_info );
+		$intercomUser = $this->create_user( $intercom_data );
+
+		if ( ! isset( $user_meta[ self::INTERCOM_ID_USER_META ] ) ) {
+			add_user_meta( $user_id, self::INTERCOM_ID_USER_META, $intercomUser->id );
 		}
+	}
+
+	private function parse_user_meta( $user_id ) {
+		$user_meta = get_user_meta( $user_id );
+		$data = [];
+		foreach ( $user_meta as $meta_key => $value ) {
+			$data[ $meta_key ] = $value[0];
+		}
+
+		return $data;
+	}
+
+	private function arrange_intercom_data( $data ) {
+		return [
+			'user_id'           => $data['user_id'],
+			'email'             => $data['user_email'],
+			'name'              => sprintf( '%s %s', $data['first_name'], $data['last_name'] ),
+			'phone'             => $data['phone_number'],
+			'signed_up_at'      => strtotime( $data['user_registered'] ),
+			'custom_attributes' => $this->get_custom_attributes( $data ),
+		];
+	}
+
+	private function get_custom_attributes( array $data ) {
+		return [
+			'nickname'           => $data['nickname'],
+			'first_name'         => $data['first_name'],
+			'last_name'          => $data['last_name'],
+			'user_sms_subs'      => $data['user_sms_subs'],
+			'user_email_subs'    => $data['user_email_subs'],
+			'billing_company'    => $data['billing_company'],
+			'billing_address_2'  => $data['billing_address_2'],
+			'billing_city'       => $data['billing_city'],
+			'billing_state'      => $data['billing_state'],
+			'billing_postcode'   => $data['billing_postcode'],
+			'shipping_company'   => $data['shipping_company'],
+			'shipping_address_1' => $data['shipping_address_1'],
+			'shipping_address_2' => $data['shipping_address_2'],
+			'shipping_city'      => $data['shipping_city'],
+			'shipping_state'     => $data['shipping_state'],
+			'shipping_postcode'  => $data['shipping_postcode'],
+			'facebook'           => $data['facebook'],
+			'twitter'            => $data['twitter'],
+			'googleplus'         => $data['googleplus'],
+		];
 	}
 }
 
