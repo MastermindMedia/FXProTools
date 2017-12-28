@@ -83,8 +83,10 @@ class CPS_Intercom {
 			if ( in_array( $role, $this->user_roles ) ) {
 				$user_data = $this->generate_data( 'user', $user_id );
 				$intercomUser = $this->create_user( $user_data );
-				add_user_meta( $user_id, self::INTERCOM_ID_USER_META, $intercomUser->id );
-				$this->create_event( self::EVENT_REGISTER_USER, $user_id );
+				if ($intercomUser) {
+					add_user_meta( $user_id, self::INTERCOM_ID_USER_META, $intercomUser->id );
+					$this->create_event( self::EVENT_REGISTER_USER, $user_id );
+				}
 				return;
 			}
 
@@ -141,6 +143,8 @@ class CPS_Intercom {
 			/** @var IntercomUsers */
 			return $user->create( $data );
 		} catch ( GuzzleException $e ) {
+			var_dump($e->getMessage());
+			exit;
 			error_log( $e->getMessage() );
 		}
 	}
@@ -156,6 +160,8 @@ class CPS_Intercom {
 			/** @var IntercomUsers */
 			return $user->deleteUser( $id );
 		} catch ( GuzzleException $e ) {
+			var_dump($e->getMessage());
+			exit;
 			error_log( $e->getMessage() );
 		}
 	}
