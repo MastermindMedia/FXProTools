@@ -74,23 +74,23 @@ class CPSIntercom {
 			 */
 			extract( $_POST );
 			if ( in_array( $role, $this->user_roles ) ) {
-				$user_data = $this->generateData( 'user', $user_id );
+				$user_data = $this->generate_data( 'user', $user_id );
 				$intercomUser = $this->create_user( $user_data );
 				add_user_meta( $user_id, self::INTERCOM_ID_USER_META, $intercomUser->id );
-				$this->createEvent( 'register-user', $user_id );
+				$this->create_event( 'register-user', $user_id );
 				return;
 			}
 
 			if ( in_array( $role, $this->lead_roles ) ) {
 				$lead = new IntercomLeads( $this->client );
 
-				$lead_data = $this->generateData( 'lead' );
+				$lead_data = $this->generate_data( 'lead' );
 				try {
 					$lead->create( $lead_data );
 				} catch ( GuzzleException $e ) {
 					error_log( $e->getMessage() );
 				}
-				$this->createEvent( 'register-lead', $user_id );
+				$this->create_event( 'register-lead', $user_id );
 				return;
 			}
 		}
@@ -110,7 +110,7 @@ class CPSIntercom {
 	 * @param $event_name
 	 * @param $user_id
 	 */
-	private function createEvent( $event_name, $user_id ) {
+	private function create_event( $event_name, $user_id ) {
 		$event = new IntercomEvents( $this->client );
 		try {
 			$event->create( [
@@ -129,7 +129,7 @@ class CPSIntercom {
 	 *
 	 * @return array
 	 */
-	private function generateData( $type, $user_id = null ) {
+	private function generate_data( $type, $user_id = null ) {
 		$data = [];
 
 		/**
@@ -178,7 +178,7 @@ class CPSIntercom {
 			add_user_meta( $user_id, self::INTERCOM_ID_USER_META, $intercomUser->id );
 		}
 
-		$this->createEvent( 'update-profile', $user_id );
+		$this->create_event( 'update-profile', $user_id );
 	}
 
 	private function parse_user_meta( $user_id ) {
@@ -229,4 +229,3 @@ class CPSIntercom {
 }
 
 return new CPSIntercom();
-
