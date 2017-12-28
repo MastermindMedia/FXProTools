@@ -8,7 +8,6 @@
 						<?php
 							// Metabox Page Template Option
 							echo get_mb_multi_pto( 'footer_left_menu' );
-
 						?>
 					</div>
 					<div class="col-xs-12 col-sm-4 col-md-4">
@@ -21,7 +20,12 @@
 						<?php
 							// Metabox Page Template Option
 							echo get_mb_multi_pto( 'footer_right_menu' );
+							// Login/Logout Link
+							$link = is_user_logged_in() ? '<a href="'.get_bloginfo('url').'/wp-login.php?action=logout">Logout</a>' : '<a href="'.get_bloginfo('url').'/wp-login.php">Login</a>';
 						?>
+						<ul class="footer-nav">
+							<li><?php echo $link; ?></li>
+						</ul>
 					</div>
 					<div class="clearfix"></div>
 					<div class="col-xs-12 col-sm-12 col-md-12">

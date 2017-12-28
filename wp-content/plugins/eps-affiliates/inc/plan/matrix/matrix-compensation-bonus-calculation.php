@@ -7,6 +7,8 @@
  * --------------------------------------------------------------------------
 */
  function _calculate_matrix_compensation () {
+ 		$this_mnth_actived_members = [];
+
  		$matrix_given_date 	= afl_variable_get('matrix_compensation_given_day', 1);
 	 	$current_date				= afl_date();
 	 	$afl_date_splits 		= afl_date_splits(afl_date());
@@ -15,17 +17,30 @@
 
 
 
-	 		$query = array();
+	 		/*$query = array();
 	 		$query['#select'] = _table_name('afl_user_genealogy');
 	 		$query['#where']  = array(
 	 			'deleted = 0',
 	 			'status = 1'
 	 		);
 			// $query['#limit'] 		 = 100;
+	 		$users  = db_select($query, 'get_results');*/
+
+	 		//get user list they having distributor kit this month from purchases
+	 		$afl_date = afl_date();
+	 		$afl_date_splits = afl_date_splits($afl_date);
+
+	 		$query['#select'] = _table_name('afl_purchases');
+	 		$query['#where']  = array(
+	 			'category = "Distributor Kit"',
+	 			'purchase_month = '.$afl_date_splits['m'],
+	 			'purchase_year = '.$afl_date_splits['y'],
+	 		);
 	 		$users  = db_select($query, 'get_results');
 
 	 		foreach ($users as $key => $user) {
-	 			
+	 			$this_mnth_actived_members[] = $user->uid;
+
 	 		/*
 	 		 * -----------------------------------------------------
 	 		 * IF a user status is 1 then check the months he actived 
@@ -35,17 +50,17 @@
 	 		 * -----------------------------------------------------
 	 		*/
 	 			$months_actived = 0;
-	 			$actived_on  		= $user->actived_on;
+	 			/*$actived_on  		= $user->actived_on;
 	 			if(is_numeric($actived_on)) {
 		 			$diff						= $current_date - $actived_on;
 		 			$years 					= floor($diff / (365*60*60*24));
 		 			$months_actived = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
 		 			$months_actived = $months_actived + 0;
-	 			}
+	 			}*/
 	 			$maximum_period = afl_variable_get('matrix_compensation_period_maximum', 3);
 
 	 			// pr($actived_on);
-	 			
+	 			$months_actived = _get_howmany_months_user_active($user->uid);
 	 			if (!empty($months_actived)) {
 	 				//check the difference greater than maximum period
 	 				//if yes, taken the maximum
@@ -69,28 +84,50 @@
             if(!$max_level) {
             	continue;
             }
+          
+          $prev_date = strtotime('-1 month',afl_date());
+          $prev_month_split = afl_date_splits($prev_date);
 
-
-
-	 				$query = array();
+          //get the actived distributos prev month under this user
+          $downline_distribs = _get_downline_distributors_($user->uid, 'matrix');
+          $query['#select'] = _table_name('afl_purchases');
+			 		$query['#where']  = array(
+			 			'category = "Distributor Kit"',
+			 			'purchase_month = '.$prev_month_split['m'],
+			 			'purchase_year = '.$prev_month_split['y'],
+			 		);
+			 		$query['#where_in'] = [
+			 			'uid' =>  $downline_distribs
+			 		];
+			 		$query['#expression'] = array(
+			 			'COUNT(`'._table_name('afl_purchases').'`.`uid`) as count'
+			 		);
+			 		$respo  = db_select($query, 'get_row');
+			 		
+	 				/*$query = array();
 			 		$query['#select'] = _table_name('afl_user_downlines');
 			 		$query['#join'] 	= array(
 			 			_table_name('afl_user_genealogy') => array(
 			 				'#condition' => '`'._table_name('afl_user_downlines').'`.`downline_user_id` = `'._table_name('afl_user_genealogy').'`.`uid`'
-			 			)
+			 			),
+			 			_table_name('afl_purchases') => array(
+			 				'#condition' => '`'._table_name('afl_purchases').'`.`uid` = `'._table_name('afl_user_downlines').'`.`downline_user_id`'
+			 			),
 			 		);
 
 			 		$query['#where']  = array(
 			 			'`'._table_name('afl_user_genealogy').'`.`status` = 1',
 			 			'`'._table_name('afl_user_downlines').'`.`uid` = '.$user->uid,
 			 			'`'._table_name('afl_user_downlines').'`.`level` <='.$max_level,
-
+			 			'`'._table_name('afl_purchases').'`.`category` ="Distributor Kit"',
+			 			'`'._table_name('afl_purchases').'`.`purchase_month` ='.$afl_date_splits['m'],
+			 			'`'._table_name('afl_purchases').'`.`purchase_year` ='.$afl_date_splits['y'],
 			 		);
 			 		$query['#expression'] = array(
 			 			'COUNT(`'._table_name('afl_user_genealogy').'`.`uid`) as count'
 			 		);
 
-			 		$respo = db_select($query, 'get_row');
+			 		$respo = db_select($query, 'get_row');*/
 	
 			 		$count = !empty($respo->count) ? $respo->count : 0;
 
@@ -100,13 +137,9 @@
 			 		 * 
 			 		 */
 			 		$inactive_count = _afl_inactive_user_downline_count($user->uid, $max_level);
-
 			 		
-			 		$count += $inactive_count;
+			 		// $count += $inactive_count;
 
-			 		// pr('$count');
-			 		// pr($count);
-			 		
 			 		//get the bonus for the $months_actived 
 			 		$amount_for_actived_month = afl_variable_get('month_'.$months_actived.'_matrix_compensation', 0);
 			 		$user_amount = $amount_for_actived_month * $count;
@@ -124,7 +157,7 @@
 					   $transaction['credit_status'] 			= 1;
 					   $transaction['amount_paid'] 				= afl_commerce_amount($user_amount);
 					   $transaction['category'] 					= 'MATRIX COMPENSATION';
-					   $transaction['notes'] 							= 'Matrix compensation for '.$months_actived.' actived months having '.$count.' actived distributors';
+					   $transaction['notes'] 							= 'Matrix compensation for '.$months_actived.' actived months having '.$count.' actived distributors On '.$prev_month_split['m'].'/'.$prev_month_split['y'];
 
 					   //check already paid
 					   $query = array();
@@ -157,27 +190,18 @@
 	 			}
 	 		}
 
-	 		$query = array();
-	 		$query['#select'] = _table_name('afl_user_genealogy');
-	 		$query['#where']  = array(
-	 			'deleted = 0',
-	 			'status = 1'
-	 		);
-			// $query['#limit'] 		 = 100;
-	 		$users  = db_select($query, 'get_results');
-	 		
-
-	 		foreach ($users as $key => $user) {
-				// if($user->uid != 5400) {continue;}
-				//cannot give the bonus, if the user has no renewal on this month
-
-				$hs_distrib_kit = _has_distributor_kit_renewal($user->uid);
-				if (!$hs_distrib_kit && afl_variable_get('deactive_member_if_no_distrib_pack',0) ) {
-					//update the status of the user, blocked
-					apply_filters('eps_affiliates_block_member',$user->uid);
-					continue;
-				}
-			}
+			//block the users NOT IN $this_mnth_actived_members , 
+			/*if ( !empty($this_mnth_actived_members)) {
+				$update_query['#table'] = _table_name('afl_user_genealogy');
+				$update_query['#fields'] = [
+					'status' => 0,
+					'deactived_on' => afl_date()
+				];
+				$update_query['#where_not_in'] = [
+					'uid' => $this_mnth_actived_members
+				];
+				db_update($update_query);
+			}*/
 	 		//log cron run
 		 	if ( afl_variable_get('cron_logs_enable')) {
 				afl_log('matrix_compensation_payout_scheduler','cron run completed',array(),LOGS_INFO);
@@ -296,3 +320,4 @@
   }
   return $max_level;
  }
+

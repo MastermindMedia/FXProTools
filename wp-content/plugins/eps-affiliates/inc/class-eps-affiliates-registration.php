@@ -352,7 +352,7 @@ class Eps_affiliates_registration {
 			 	 * ---------------------------------------------------------------------- 
 			 	*/
 
-				 	// do_action('afl_calculate_fast_start_bonus',$post_data['uid'],$post_data['sponsor_uid']);
+				 	do_action('afl_calculate_fast_start_bonus',$post_data['uid'],$post_data['sponsor_uid']);
 
 				}
 			}

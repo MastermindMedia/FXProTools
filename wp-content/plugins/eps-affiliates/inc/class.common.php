@@ -362,8 +362,13 @@ $common_include = new Eps_affiliates_common();
 					}
 
 					$html .= '</label>';
+					//need a multi select dropdown
 					$multiple = !empty($element['#multiple']) ? TRUE : FALSE;
-					$html .= '<select class="form-control '.$class.'" name="'.$key.'" multiple = "'.$multiple.'" >';
+					if ( $multiple)
+						$html .= '<select class="form-control '.$class.'" name="'.$key.'" multiple = "'.$multiple.'" >';
+					else
+						$html .= '<select class="form-control '.$class.'" name="'.$key.'" >';
+					
 					if (!empty($element['#options'])) {
 						foreach ($element['#options'] as $data => $value) {
 
@@ -1869,15 +1874,129 @@ if(!function_exists('afl_get_rank_names')){
 */
 	function db_update($data = array()) {
 		$sql = '';
+		$set_flag = FALSE;
+		$where_flag = FALSE;
 		if ( !empty( $data ) ) {
 			if (isset($data['#table'])) {
 				$sql .= 'UPDATE '.$data['#table'];
 			}
 
-			if ( isset( $data['#set'] ) ){
-				foreach ($data['#set'] as $key => $value) {
-
+			/*
+			 * -----------------------------------------------------
+			 * SET FIELDS Begin
+			 * -----------------------------------------------------
+			*/
+				if ( isset( $data['#fields'] ) ){
+					foreach ($data['#fields'] as $key => $value) {
+						//create the set query
+						$set_query = $key.' = '.$value;
+						//if previoly not have a set query,
+						if ( !$set_flag) {
+							$sql .= ' SET '.$set_query;
+							$set_flag = TRUE;
+						} else {
+							//having a  set before
+							$sql .= ', '.$set_query;
+						}
+					}
 				}
+			/*
+			 * -----------------------------------------------------
+			 * SET FIELDS End
+			 * -----------------------------------------------------
+			*/
+
+
+			/*
+			 * -----------------------------------------------------
+			 * WHERE Begin
+			 * -----------------------------------------------------
+			*/
+				if (isset($data['#where'])) {
+					$where_flag = 1;
+					$where = ' WHERE ';
+					if (count($data['#where']) > 1 ){
+						$where .= $data['#where'][0];
+						$sql 	 .= $where;
+						foreach ($data['#where'] as $condition) {
+							$sql .= ' AND '.$condition.' ';
+						}
+					} else {
+						foreach ($data['#where'] as $condition) {
+							$sql .= ' WHERE '.$condition.' ';
+						}
+					}
+				}
+			/*
+			 * -----------------------------------------------------
+			 * WHERE End
+			 * -----------------------------------------------------
+			*/
+
+			/*
+			 * -----------------------------------------------------
+			 * WHERE IN Begin
+			 * -----------------------------------------------------
+			*/
+				$where_in = '';
+				if (isset($data['#where_in'])) {
+					foreach ($data['#where_in'] as $key => $value) {
+				 		$val = implode(',', $value);
+				 		if (empty($val) ) {
+				 			return array();
+				 		}
+				 		$where_in .='`'.$key.'` IN ('.$val.')';
+				 	}
+				}
+
+				if (!empty($where_in) ){
+					if (!$where_flag) {
+						$sql .= ' WHERE '.$where_in;
+						$where_flag = 1;
+					} else {
+						$sql .= ' AND '.$where_in;
+					}
+				}
+			/*
+			 * -----------------------------------------------------
+			 * WHERE IN End
+			 * -----------------------------------------------------
+			*/
+
+
+			/*
+			 * -----------------------------------------------------
+			 * WHERE NOT IN Begin
+			 * -----------------------------------------------------
+			*/
+				$where_not_in = '';
+				if (isset($data['#where_not_in'])) {
+					foreach ($data['#where_not_in'] as $key => $value) {
+				 		$val = implode(',', $value);
+				 		if (empty($val) ) {
+				 			return array();
+				 		}
+				 		$where_not_in .='`'.$key.'` NOT IN ('.$val.')';
+				 	}
+				}
+
+				if (!empty($where_not_in) ){
+					if (!$where_flag) {
+						$sql .= ' WHERE '.$where_not_in;
+						$where_flag = 1;
+					} else {
+						$sql .= ' AND '.$where_not_in;
+					}
+				}
+			/*
+			 * -----------------------------------------------------
+			 * WHERE NOT IN End
+			 * -----------------------------------------------------
+			*/
+
+			if ( !empty($sql)) {
+				global $wpdb;
+				$wpdb->query($sql);
 			}
 		}
 	}
@@ -3015,7 +3134,48 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 			return count($uids);
 		return $uids;
 	}
+/*
+ * -----------------------------------------------------------------------
+ * User downlines distributors 
+ * -----------------------------------------------------------------------
+*/
+	function _get_downline_distributors_ ( $uid = '', $tree = 'matrix', $count = FALSE) {
 
+		$uids = afl_get_user_downlines_uid($uid);
+		if ( $tree == 'unilevel') {
+			$uids = afl_get_unilevel_user_downlines_uid($uid);
+		}
+
+		$uids = array_ret($uids, 'downline_user_id');
+		
+		if ( $tree == 'unilevel') {
+			$table = _table_name('afl_user_downlines');
+			if ( $tree == 'unilevel') {
+				$table = _table_name('afl_unilevel_user_downlines');
+			}
+			$customers = get_user_downline_customers($uid);
+			$customers = array_ret($customers,'uid');
+			
+			if ( !empty($customers)) {
+				$query['#select'] = $table;
+				$query['#fields'] = [
+					$table => ['downline_user_id']
+				];
+				$query['#where'] = [
+					'uid='.$uid
+				];
+				$query['#where_not_in'] = [
+					'downline_user_id' => $customers
+				];
+				$res = db_select($query, 'get_results');
+				$uids = array_ret($res,'downline_user_id');
+			}
+
+		}
+		if ($count) 
+			return count($uids);
+		return $uids;
+	}
 	function _get_direct_leg_ditrib_sales( $uid = '', $tree = 'matrix',$return_sum = FALSE,$pv_not_cust = FALSE){
 		$gv_array = [];
 		$sum = $gv  = 0;
@@ -3064,3 +3224,87 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 
 	 	return $gv_array;
 	}
+
+function _render_cron_status ( $cron_status = 0) {
+
+  $variable_list = list_extract_allowed_values(afl_variable_get('afl_var_cron_statuses'),'list_text',false);
+  if(isset($variable_list[$cron_status])){
+		switch ($cron_status) {
+	  	case -1:
+	      return '<span class="badge bg-danger">'.__($variable_list[$cron_status]).'</span>';
+	 		break;
+
+	 		case 0:
+	      return '<span class="badge bg-info">'.__($variable_list[$cron_status]).'</span>';
+	 		break;
+
+	 		case 1:
+	      return '<span class="badge bg-warning">'.__($variable_list[$cron_status]).'</span>';
+	 		break;
+
+	 		case 2:
+	      return '<span class="badge bg-success">'.__($variable_list[$cron_status]).'</span>';
+	 		break;
+	 		default : 
+	      return '<span class="badge bg-danger">'.__($variable_list[$cron_status]).'</span>';
+	 		break;
+	  }
+	}else{
+      return __(ucwords(strtolower($cron_status)));
+    }
+}
+
+function _render_member_name ($uid) {
+	$value = afl_user_data($uid);
+	$display_name = !empty($value->display_name) ? $value->display_name : '';
+	$user_login = !empty($value->user_login) ? $value->user_login : '';
+	$ID = !empty($value->ID) ? $value->ID : '';
+
+	return $display_name.'<span class="label bg-info"><a href="#"  class="username">'.$user_login.'</a></span>  <span class="label label-primary">'.$ID.'</span>';
+}
+
+function _render_credit_status ( $status = -1) {
+	if($status == 1 ){
+		return "<button type='button' class='btn btn-success btn-sm'>Credit</button>";
+	}
+	else{
+		return "<button type='button' class='btn btn-danger'>Debit</button>";
+	}
+
+	return $status;
+}
+
+/*
+ * ------------------------------------------------------------------
+ * Returns how many months a auser has been actived
+ * ------------------------------------------------------------------
+*/
+ function _get_howmany_months_user_active ( $uid = '') {
+ 	//the maximum loop limit
+ 	$maximum_loop_limit = afl_variable_get('matrix_compensation_period_maximum', 3 );
+ 	$afl_date = afl_date();
+
+ 	$actived_months = 0;
+ 	for ( $i = 1; $i<=$maximum_loop_limit; $i++) {
+ 		
+ 		$checking_date   = strtotime('-'.$i.' month',$afl_date);
+ 		$afl_date_splits = afl_date_splits($checking_date);
+ 		
+ 		$query['#select'] = _table_name('afl_purchases');
+ 		$query['#where']  = array(
+ 			'category = "Distributor Kit"',
+ 			'purchase_month = '.$afl_date_splits['m'],
+ 			'purchase_year = '.$afl_date_splits['y'],
+ 			'uid = '.$uid,
+ 		);
+ 		$hav_purchase  = db_select($query, 'get_row');
+ 		if ( !empty($hav_purchase )) {
+ 			++$actived_months;
+ 		} else {
+ 			break;
+ 		}
+
+ 	}
+
+ 	return $actived_months;
+ }

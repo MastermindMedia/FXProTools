@@ -180,11 +180,13 @@ function afl_rank_performance_overview_shortcode_callback () {
 			__('PV','affiliates-eps'), 
 			__('GV','affiliates-eps'), 
 			__('Maximum GV taken (1 leg)','affiliates-eps'), 
-			__('Customer Leg rule','affiliates-eps'), 
-			__('Distributors','affiliates-eps'),
-			__('Qualifications','affiliates-eps'),
-			
 		);
+		if ( afl_variable_get('enable_rank_customer_rule'))  {
+			$table['#header'][] = __('Customer Leg rule','affiliates-eps');
+		}
+		$table['#header'][] = __('Distributors','affiliates-eps');
+		$table['#header'][] = __('Qualifications','affiliates-eps');
+			
 		$rows = array();
 
 	 	$max_rank = afl_variable_get('number_of_ranks');
@@ -263,6 +265,8 @@ function afl_rank_performance_overview_shortcode_callback () {
 
 
 	 		/* ------ Customer leg rule  -----------------------------------------------------------*/
+			if ( afl_variable_get('enable_rank_customer_rule'))  {
+
 	 			$markup = '';
 	 			$tree = 'unilevel';
 		 		//get an array of downline user id with their group volume
@@ -313,13 +317,13 @@ function afl_rank_performance_overview_shortcode_callback () {
 		 			$leg_customer_sale 	= get_user_downline_customers_sales($leg_uid,TRUE);
 		 			$markup .= '<td>'.$leg_customer_sale.'</td>';
 
-		 			// pr($leg_customer_sale);
+		 			
 		 			//customer leg rule
-		 			$leg_rule_amount 	= afl_commission($leg_rule,$leg_gv);
+		 			$leg_rule_amount 	= afl_commission($leg_rule,$leg_gv,FALSE);
 		 			$markup .= '<td>'.$leg_rule_amount.'</td>';
-
+		 			// pr($leg_rule_amount);
 		 			//check the leg rule amount greater than or equal to the leg_customer_sale
-		 			if (empty($leg_customer_sale) || ($leg_rule_amount >= $leg_customer_sale) ) {
+		 			if (($leg_rule_amount > $leg_customer_sale) ) {
 		 				$leg_condition = '<span class="text-center"><i class="text-center fa fa-lg fa-thumbs-o-down  text-danger m-b-xs"></i></span>';
 		 			} else {
 		 				$leg_condition = '<span class="text-center"><i class="text-center fa fa-lg fa-thumbs-o-up  text-success m-b-xs"></i></span>';
@@ -342,7 +346,7 @@ function afl_rank_performance_overview_shortcode_callback () {
 					'#type' => 'markup',
 					'#markup'=> $markup,
 				);
-
+	 		}
 	 		/* ------ Customer leg rule  -----------------------------------------------------------*/
 
 

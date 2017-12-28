@@ -38,7 +38,7 @@ function afl_business_summary(){
 		afl_content_wrapper_end();
 }
 
-function afl_business_transactions(){
+function afl_business_transactions_ajax(){
 		
 
 	echo afl_eps_page_header();

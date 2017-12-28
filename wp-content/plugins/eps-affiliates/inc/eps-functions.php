@@ -240,6 +240,8 @@
  * ---------------------------------------------------
 */
  function _check_required_customer_rule($uid = '', $rank = '') {
+	if ( afl_variable_get('enable_rank_customer_rule'))  {
+
  		$tree = 'unilevel';
  		//get an array of downline user id with their group volume
  		$my_pv   = _get_user_pv($uid);
@@ -263,17 +265,20 @@
  			
  			//customer leg rule
  			$leg_rule 		 		= afl_variable_get('rank_'.$rank.'_customer_rule_from_1_leg',0);
-		 	$leg_rule_amount 	= afl_commission($leg_rule,$leg_gv);
+		 	$leg_rule_amount 	= afl_commission($leg_rule,$leg_gv,FALSE);
  			
 
  			//check the leg rule amount greater than or equal to the leg_customer_sale
- 			if ( empty($leg_customer_sale) || ($leg_rule_amount >= $leg_customer_sale)  ) {
+ 			if ( ($leg_rule_amount > $leg_customer_sale)  ) {
  				$flag = $flag * 0;
  			}
 
 			$flag = $flag * 1;
  		}
-
+ 	}
+ 	else 
+ 		$flag = 1;
+ 	
  		return $flag;
  }
 /*

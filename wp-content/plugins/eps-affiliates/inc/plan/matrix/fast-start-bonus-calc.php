@@ -45,8 +45,8 @@
 	$query = array();
 	$query['#select']  =_table_name('afl_user_holding_transactions');
 	$query['#where']   = array(
-		'hidden_transaction = 0',
-		'deleted = 0',
+		// 'hidden_transaction = 0',
+		// 'deleted = 0',
 		'uid='.$uid,
 		'associated_user_id='.$assc_uid
 	);

@@ -523,30 +523,6 @@ function get_mb_multi_pto( $page_element ) {
     return $menu = ( strpos( $x_pto1, 'xpto1' ) || empty( $x_pto1 ) ) ? $x_pto1 : ( ( strpos( $x_pto2, 'xpto2' ) || empty( $x_pto2 ) )  ? $x_pto2 : ( ( strpos( $x_pto3, 'xpto3' ) || empty( $x_pto3 ) ) ? $x_pto3 : $x_pto1 ) ) ;
 }
 
-// Menu locations
-add_action( 'init', 'register_my_menus' );
-function register_my_menus() {
-    register_nav_menus(
-        array(
-            'with-log-inout' => __( 'with Login-Logout' ),
-        )
-    );
-}
-
-// Login / Logout menu
-add_filter( 'wp_nav_menu_items', 'add_login_logout_link', 10, 2 );
-function add_login_logout_link( $items, $args ) {
-    if( $args->theme_location == 'with-log-inout' ){
-        ob_start();
-        wp_loginout('index.php');
-        $loginoutlink = ob_get_contents();
-        ob_end_clean();
-        $items .= '<li>'. $loginoutlink .'</li>';
-        return $items;
-    }
-    return $items;
-}
-
 function get_sms_for_user($statuses, $user_id = null)
 {
     if (!$user_id) {

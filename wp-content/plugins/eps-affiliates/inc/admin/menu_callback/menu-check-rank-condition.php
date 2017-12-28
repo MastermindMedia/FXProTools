@@ -194,9 +194,13 @@
 			__('PV'),
 			__('GV'),		
 			__('Distributor Count'),		
-			__('Customer Rule'),		
-			__('Qualification'),		
 		);
+		if ( afl_variable_get('enable_rank_customer_rule'))  {
+			$table['#header'][] = __('Customer Rule');
+		}
+		$table['#header'][]	=	__('Qualification');
+
+		
 		$rows = array();
 		/* ------ CRITERIA 1  --------------------------------------------------------*/
 			$key = 0;
@@ -239,6 +243,7 @@
 		/* ------ CRITERIA 3  --------------------------------------------------------*/
 
 		/* ------ CRITERIA 4  --------------------------------------------------------*/
+		if ( afl_variable_get('enable_rank_customer_rule'))  {
 			$status = _check_required_customer_rule($uid, $rank);
 			if ($status) {
 				$condition = '<span class="text-center"><i class="text-center fa fa-lg fa-thumbs-o-up  text-success m-b-xs"></i></span>';
@@ -249,6 +254,7 @@
 				'#type' =>'markup',
 				'#markup'=> $condition
 			);
+		} 
 		/* ------ CRITERIA 4  --------------------------------------------------------*/
 
 		/* ------ CRITERIA 5  --------------------------------------------------------*/

@@ -94,13 +94,11 @@
 			  $transaction = array();
 		    $transaction['uid'] 								= $args['uid'];
 		    $transaction['associated_user_id'] 	= $args['uid'];
-		    $transaction['payout_id'] 					= 0;
-		    $transaction['level']								= 0;
 		    $transaction['currency_code'] 			= afl_currency();
-		    $transaction['order_id'] 						= 1;
+		    $transaction['order_id'] 						= $args['order_id'];
 		    $transaction['int_payout'] 					= 0;
 		    $transaction['hidden_transaction'] 	= 0;
-		    $transaction['credit_status'] 			= 0;
+		    $transaction['credit_status'] 			= 1;
 		    $transaction['amount_paid'] 				= afl_commerce_amount($args['afl_point']);
 		    $transaction['category'] 						= $category;
 		    $transaction['notes'] 							= $category;
@@ -111,8 +109,8 @@
 		    $transaction['transaction_week'] 		= $afl_date_splits['w'];
 		    $transaction['transaction_date'] 		= afl_date_combined($afl_date_splits);
 		    $transaction['created'] 						= afl_date();
-			  //to mbr transaction
-				// afl_member_transaction($transaction, TRUE);
+			  //to business transaction
+				afl_business_transaction($transaction);
 			}
 		 	if (!$ins) {
 		 		$response['status'] 	= 0;
@@ -522,9 +520,12 @@
 
 	 			//check the customer rule
 	 			//1 leg group volume * 55 % = customer sales
-	 			if (!_check_required_customer_rule($uid,$i)) {
-	 				continue;
-	 			}
+	 			//check the rule for this enabled
+				if ( afl_variable_get('enable_rank_customer_rule'))  {
+		 			if (!_check_required_customer_rule($uid,$i)) {
+		 				continue;
+		 			}
+		 		}
 				// pr ('Rank '. $i) ;
 	 		// 	pr ('------------------------------------------------') ;
 				// pr ('Rank '. $i) ;
@@ -645,53 +646,7 @@
 		 		 * check any income for the specified rank
 		 		 * ---------------------------------------------------------
 		 		*/
-			 		if ( afl_variable_get('afl_rank_achieved_monlthy_income_pay')) {
-			 			$rank_monthly_income = afl_variable_get('rank_'.$i.'_monthly_income',0);
-		 				$check_already_paid = _check_rank_achieve_income_paid_already($uid, $i);
-		 				if ( !$check_already_paid ) {
-				 			if ( $rank_monthly_income ) {
-				 				$transaction = array();
-						    $transaction['uid'] 					= $uid;
-						    $transaction['associated_user_id'] = $uid;
-						    $transaction['level'] 				= 0;
-						    $transaction['currency_code'] = afl_currency();
-						    $transaction['order_id'] 			= 1;
-						    $transaction['int_payout'] 		= 0;
-						    $transaction['credit_status'] = 1;
-						    $transaction['amount_paid'] 	= afl_commerce_amount($rank_monthly_income);
-						    $transaction['category'] 			= 'Rank Achieved Income';
-						    $transaction['notes'] 				= 'Rank '.$i.' achieved monthly income';
-						    afl_member_transaction($transaction, TRUE);
-				 			}
-				 		}
-			 		}
-			 	/*
-		 		 * ---------------------------------------------------------
-		 		 * if a user get higher rank without achieveing lower, then
-		 		 * give all the income to that  user
-		 		 * ---------------------------------------------------------
-		 		*/	
-		 			if ( afl_variable_get('afl_give_skiped_monthly_rank_income')) {
-		 				$rank = $i;
-		 				for( $loop = 1; $loop <= $rank; $loop++){
-				 			$rank_monthly_income = afl_variable_get('rank_'.$loop.'_monthly_income',0);
-		 					$check_already_paid = _check_rank_achieve_income_paid_already($uid, $loop);
-		 					if ( !$check_already_paid ) {
-		 						$transaction = array();
-						    $transaction['uid'] 					= $uid;
-						    $transaction['associated_user_id'] = $uid;
-						    $transaction['level'] 				= 0;
-						    $transaction['currency_code'] = afl_currency();
-						    $transaction['order_id'] 			= 1;
-						    $transaction['int_payout'] 		= 0;
-						    $transaction['credit_status'] = 1;
-						    $transaction['amount_paid'] 	= afl_commerce_amount($rank_monthly_income);
-						    $transaction['category'] 			= 'Rank Achieved Income';
-						    $transaction['notes'] 				= 'Rank '.$loop.' achieved monthly income';
-						    afl_member_transaction($transaction, TRUE);
-		 					}
-		 				}
-		 			}
+		 			do_action('afl_rank_achieved_income_distribute',$uid, $i);
 	 				break;
 	 			}
  		}
@@ -1748,7 +1703,7 @@
 	function _check_rank_achieve_income_paid_already ( $uid = '', $rank = '') {
 		$flag = FALSE;
 		if ( $rank && $uid) {
-			$query['#select'] =  _table_name('afl_user_transactions');
+			$query['#select'] =  _table_name('afl_user_holding_transactions');
 
 			$note = "Rank ".$rank." achieved monthly income";
 	 		$query['#where']  = array(
@@ -1766,4 +1721,66 @@
 		}
 
 		return $flag;
+	}
+
+
+/**
+ * -------------------------------------------------------------------------------
+ * If a user achieve any rank, thene distribute the rank achieved income 
+ * compensation for that user
+ *
+ * @param $uid  : user id
+ * @param $rank  : rank achieved
+ * -------------------------------------------------------------------------------
+*/
+	function afl_rank_achieved_income_distribute_callback ( $uid = '', $rank = 0) {
+
+ 		if ( afl_variable_get('afl_rank_achieved_monlthy_income_pay')) {
+ 				$rank_monthly_income = afl_variable_get('rank_'.$rank.'_monthly_income',0);
+				$check_already_paid = _check_rank_achieve_income_paid_already($uid, $rank);
+				if ( !$check_already_paid ) {
+		 			if ( $rank_monthly_income ) {
+		 				$transaction = array();
+				    $transaction['uid'] 					= $uid;
+				    $transaction['associated_user_id'] = $uid;
+				    $transaction['level'] 				= 0;
+				    $transaction['currency_code'] = afl_currency();
+				    $transaction['order_id'] 			= 1;
+				    $transaction['int_payout'] 		= 0;
+				    $transaction['credit_status'] = 1;
+				    $transaction['amount_paid'] 	= afl_commerce_amount($rank_monthly_income);
+				    $transaction['category'] 			= 'Rank Achieved Income';
+				    $transaction['notes'] 				= 'Rank '.$rank.' achieved monthly income';
+				    afl_member_holding_transaction($transaction, TRUE);
+		 			}
+		 		}
+ 		}
+ 	/*
+		 * ---------------------------------------------------------
+		 * if a user get higher rank without achieveing lower, then
+		 * give all the income to that  user
+		 * ---------------------------------------------------------
+		*/	
+			if ( afl_variable_get('afl_give_skiped_monthly_rank_income')) {
+				for( $loop = 1; $loop <= $rank; $loop++){
+	 				$rank_monthly_income = afl_variable_get('rank_'.$loop.'_monthly_income',0);
+					$check_already_paid = _check_rank_achieve_income_paid_already($uid, $loop);
+		 			if ( $rank_monthly_income ) {
+						if ( !$check_already_paid ) {
+							$transaction = array();
+					    $transaction['uid'] 					= $uid;
+					    $transaction['associated_user_id'] = $uid;
+					    $transaction['level'] 				= 0;
+					    $transaction['currency_code'] = afl_currency();
+					    $transaction['order_id'] 			= 1;
+					    $transaction['int_payout'] 		= 0;
+					    $transaction['credit_status'] = 1;
+					    $transaction['amount_paid'] 	= afl_commerce_amount($rank_monthly_income);
+					    $transaction['category'] 			= 'Rank Achieved Income';
+					    $transaction['notes'] 				= 'Rank '.$loop.' achieved monthly income';
+					    afl_member_holding_transaction($transaction, TRUE);
+						}
+					}
+				}
+			}
 	}
