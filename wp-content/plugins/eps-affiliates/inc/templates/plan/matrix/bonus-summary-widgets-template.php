@@ -2,7 +2,7 @@
 <div class="col-md-5">
 	<div class="panel panel-default text-center m-r-n-xs">
 		<div class="panel-body">
-			<span>Your A</span>
+			<span>You are a</span>
 			<h3 class="m-t-xs"><?= apply_filters('afl_member_current_rank_name',get_uid()) ?></h3>
 		</div>
 	</div>
