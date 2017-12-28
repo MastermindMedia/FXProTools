@@ -11,7 +11,7 @@ class CPSIntercom {
 	const SECRET_KEY = 'l_-sHsUYbgK3VTBs9AoKgG7kBc1fMAT7fnEgIt1A';
 	const HASH = 'sha256';
 
-	/** @var array  */
+	/** @var array */
 	private $userRoles = [
 		'administrator',
 		'editor',
@@ -23,7 +23,7 @@ class CPSIntercom {
 		'business_director',
 	];
 
-	/** @var array  */
+	/** @var array */
 	private $leadRoles = [
 		'subscriber',
 		'customer',
@@ -32,7 +32,7 @@ class CPSIntercom {
 		'afl_customer',
 	];
 
-	/** @var IntercomClient  */
+	/** @var IntercomClient */
 	private $client;
 
 	/**
@@ -61,17 +61,22 @@ class CPSIntercom {
 
 	/**
 	 * Creates an intercom account
+	 *
 	 * @param $user_id
 	 */
 	public function add_user_to_intercom( $user_id ) {
 		if ( ! empty( $_POST ) ) {
 			extract( $_POST );
-			$user_data = [
-				'email'      => $email,
-				'id'         => $user_id,
-			];
 			if ( in_array( $role, $this->userRoles ) ) {
 				$user = new IntercomUsers( $this->client );
+
+				$user_data = [
+					'email'        => $email,
+					'user_id'      => $user_id,
+					'name'         => $first_name . ' ' . $last_name,
+					'signed_up_at' => strtotime( "now" ),
+				];
+
 				try {
 					$user->create( $user_data );
 				} catch ( GuzzleException $e ) {
@@ -82,8 +87,13 @@ class CPSIntercom {
 
 			if ( in_array( $role, $this->leadRoles ) ) {
 				$lead = new IntercomLeads( $this->client );
+
+				$lead_data = [
+					'email' => $email,
+					'name'  => $first_name . ' ' . $last_name,
+				];
 				try {
-					$lead->create( $user_data );
+					$lead->create( $lead_data );
 				} catch ( GuzzleException $e ) {
 					error_log( $e->getMessage() );
 				}
