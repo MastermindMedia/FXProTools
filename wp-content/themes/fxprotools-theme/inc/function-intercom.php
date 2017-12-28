@@ -78,8 +78,9 @@ class CPSIntercom {
 				$user_data = $this->generateData('user', $user_id);
 
 				try {
-					$user->create( $user_data );
-
+					/** @var IntercomUsers $intercomUser */
+					$intercomUser = $user->create( $user_data );
+					add_user_meta($user_id, '__intercom_user_id', $intercomUser->id);
 				} catch ( GuzzleException $e ) {
 					error_log( $e->getMessage() );
 				}
