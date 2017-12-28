@@ -42,6 +42,9 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 	if( !$checklist['verified_profile'] && $has_phone_number){
 		pass_onboarding_checklist('verified_profile');
 	}
+	// update Intercom account of the user
+    $intercom = new CPSIntercom();
+	$intercom->intercom_update_user(get_query_var('acc_id'));
 	wp_redirect( home_url() . '/autologin?user_id=' . get_query_var('acc_id') );
 }
 
