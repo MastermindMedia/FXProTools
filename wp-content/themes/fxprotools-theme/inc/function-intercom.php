@@ -191,7 +191,7 @@ class CPSIntercom {
 
 	private function arrange_intercom_data( $data ) {
 		return [
-			'user_id'           => $data['user_id'],
+			'user_id'           => $data['ID'],
 			'email'             => $data['user_email'],
 			'name'              => sprintf( '%s %s', $data['first_name'], $data['last_name'] ),
 			'phone'             => $data['phone_number'],
