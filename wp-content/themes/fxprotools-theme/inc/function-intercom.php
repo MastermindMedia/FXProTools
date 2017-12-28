@@ -75,7 +75,7 @@ class CPSIntercom {
 			if ( in_array( $role, $this->userRoles ) ) {
 				$user = new IntercomUsers( $this->client );
 
-				$user_data = $this->generateData();
+				$user_data = $this->generateData('user', $user_id);
 
 				try {
 					$user->create( $user_data );
@@ -122,24 +122,25 @@ class CPSIntercom {
 
 	/**
 	 * @param string $type
+	 * @param null $user_id
 	 *
 	 * @return array
 	 */
-	private function generateData( $type = 'user' ) {
+	private function generateData( $type, $user_id = null ) {
 		$data = [];
+
+		/**
+		 * @var $email string
+		 * @var $first_name string
+		 * @var $last_name string
+		 */
+		extract( $_POST );
+
 		switch ( $type ) {
 			case 'user' :
 				if ( ! empty( $_POST ) ) {
-					/**
-					 * @var $email string
-					 * @var $user_id string
-					 * @var $first_name string
-					 * @var $last_name string
-					 */
-					extract( $_POST );
 					$data = [
 						'email'        => $email,
-						/** @var $user_id string */
 						'user_id'      => $user_id,
 						'name'         => $first_name . ' ' . $last_name,
 						'signed_up_at' => strtotime( "now" ),
@@ -148,12 +149,6 @@ class CPSIntercom {
 				break;
 			case 'lead':
 				if ( ! empty( $_POST ) ) {
-					/**
-					 * @var $email string
-					 * @var $first_name string
-					 * @var $last_name string
-					 */
-					extract( $_POST );
 					$data = [
 						'email' => $email,
 						'name'  => $first_name . ' ' . $last_name,
