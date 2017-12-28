@@ -220,6 +220,7 @@ class CPSIntercom {
 			'shipping_city'      => $data['shipping_city'],
 			'shipping_state'     => $data['shipping_state'],
 			'shipping_postcode'  => $data['shipping_postcode'],
+			'website'            => $data['website'],
 			'facebook'           => $data['facebook'],
 			'twitter'            => $data['twitter'],
 			'googleplus'         => $data['googleplus'],
