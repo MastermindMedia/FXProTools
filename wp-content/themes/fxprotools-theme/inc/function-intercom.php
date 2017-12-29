@@ -48,9 +48,9 @@ class CPS_Intercom {
 	 */
 	public function __construct() {
 		$this->client = new IntercomClient( self::ACCESS_TOKEN, null );
-//		add_action( 'user_register', [ $this, 'intercom_add_user' ] );
-//		add_action( 'profile_update', [ $this, 'intercom_update_user' ] );
-//		add_action( 'delete_user', [ $this, 'intercom_delete_user' ] );
+		add_action( 'user_register', [ $this, 'intercom_add_user' ] );
+		add_action( 'profile_update', [ $this, 'intercom_update_user' ] );
+		add_action( 'delete_user', [ $this, 'intercom_delete_user' ] );
 	}
 
 	/**
@@ -83,10 +83,10 @@ class CPS_Intercom {
 			if ( in_array( $role, $this->user_roles ) ) {
 				$user_data = $this->generate_data( 'user', $user_id );
 				$intercomUser = $this->create_user( $user_data );
-//				if ($intercomUser) {
-//					add_user_meta( $user_id, self::INTERCOM_ID_USER_META, $intercomUser->id );
-//					$this->create_event( self::EVENT_REGISTER_USER, $user_id );
-//				}
+				if ($intercomUser) {
+					add_user_meta( $user_id, self::INTERCOM_ID_USER_META, $intercomUser->id );
+					$this->create_event( self::EVENT_REGISTER_USER, $user_id );
+				}
 			}
 
 			elseif ( in_array( $role, $this->lead_roles ) ) {
@@ -302,4 +302,4 @@ class CPS_Intercom {
 	}
 }
 
-//return new CPS_Intercom();
+return new CPS_Intercom();
