@@ -1,5 +1,5 @@
 <?php
-require_once('modules/intercom/intercom-php/CPS_Intercom_Model.php');
+require_once( 'modules/intercom/intercom-php/CPS_Intercom_Model.php' );
 
 use Intercom\IntercomClient;
 use Intercom\IntercomUsers;
@@ -80,16 +80,14 @@ class CPS_Intercom {
 			 * @var $role string
 			 */
 			extract( $_POST );
-			if ( (!empty($role) && in_array( $role, $this->user_roles )) || !isset($role) ) {
+			if ( ( ! empty( $role ) && in_array( $role, $this->user_roles ) ) || ! isset( $role ) ) {
 				$user_data = $this->generate_data( 'user', $user_id );
 				$intercomUser = $this->create_user( $user_data );
-				if ($intercomUser) {
+				if ( $intercomUser ) {
 					add_user_meta( $user_id, self::INTERCOM_ID_USER_META, $intercomUser->id );
 					$this->create_event( self::EVENT_REGISTER_USER, $user_id );
 				}
-			}
-
-			elseif ( in_array( $role, $this->lead_roles ) ) {
+			} elseif ( in_array( $role, $this->lead_roles ) ) {
 				$lead = new IntercomLeads( $this->client );
 
 				$lead_data = $this->generate_data( 'lead' );
@@ -188,18 +186,22 @@ class CPS_Intercom {
 
 		/**
 		 * @var $email string
+		 * @var $billing_email string
 		 * @var $first_name string
+		 * @var $billing_first_name string
 		 * @var $last_name string
+		 * @var $billing_last_name string
 		 */
 		extract( $_POST );
 
+		$name = sprintf( '%s %s', $first_name ?: $billing_first_name, $last_name ?: $billing_last_name );
 		switch ( $type ) {
 			case 'user' :
 				if ( ! empty( $_POST ) ) {
 					$data = [
-						CPS_Intercom_Model::KEY_EMAIL        => $email,
+						CPS_Intercom_Model::KEY_EMAIL        => $email ?: $billing_email,
 						CPS_Intercom_Model::KEY_USER_ID      => $user_id,
-						CPS_Intercom_Model::KEY_NAME         => $first_name . ' ' . $last_name,
+						CPS_Intercom_Model::KEY_NAME         => $name,
 						CPS_Intercom_Model::KEY_SIGNED_UP_AT => strtotime( "now" ),
 					];
 				}
@@ -207,8 +209,8 @@ class CPS_Intercom {
 			case 'lead':
 				if ( ! empty( $_POST ) ) {
 					$data = [
-						CPS_Intercom_Model::KEY_EMAIL => $email,
-						CPS_Intercom_Model::KEY_NAME  => $first_name . ' ' . $last_name,
+						CPS_Intercom_Model::KEY_EMAIL => $email ?: $billing_email,
+						CPS_Intercom_Model::KEY_NAME  => $name,
 					];
 				}
 				break;
@@ -231,8 +233,8 @@ class CPS_Intercom {
 		return [
 			CPS_Intercom_Model::KEY_USER_ID           => $data['ID'],
 			CPS_Intercom_Model::KEY_EMAIL             => $data['user_email'],
-			CPS_Intercom_Model::KEY_NAME              => CPS_Intercom_Model::get_name($data),
-			CPS_Intercom_Model::KEY_PHONE             => $data['phone_number'],
+			CPS_Intercom_Model::KEY_NAME              => CPS_Intercom_Model::get_name( $data ),
+			CPS_Intercom_Model::KEY_PHONE             => $data['phone_number'] ?: $data['billing_phone'],
 			CPS_Intercom_Model::KEY_SIGNED_UP_AT      => strtotime( $data['user_registered'] ),
 			CPS_Intercom_Model::KEY_LAST_SEEN_IP      => $this->get_real_IP(),
 			CPS_Intercom_Model::KEY_CUSTOM_ATTRIBUTES => $this->get_custom_attributes( $data ),
@@ -275,7 +277,7 @@ class CPS_Intercom {
 
 	private function get_uid( $data ) {
 		$args = [ CPS_Intercom_Model::KEY_UID => $data['ID'] ];
-		return sprintf( self::UID_TEMPLATE, home_url( self::INTERCOM_SWITCH_PAGE ), http_build_query( $args ) );
+		return sprintf( CPS_Intercom_Model::UID_TEMPLATE, home_url( CPS_Intercom_Model::INTERCOM_SWITCH_PAGE ), http_build_query( $args ) );
 	}
 
 	private function get_onboard_checklist( $user_id ) {
