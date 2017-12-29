@@ -104,7 +104,7 @@ function _get_furthrer_qualification_to_achieve_rank ($rank = '', $uid = '') {
 	//check gv meets
 	if (!_check_required_gv_meets($uid, $rank)) {
 		$required = afl_variable_get('rank_'.$rank.'_gv',0);
-		$earned 	= _get_user_gv_v1($uid); 
+		$earned 	= _get_user_gv_v1($uid, $rank, TRUE); 
 
 		$ret_string .= '</br>* You need '.($required - $earned).' more Group volume to unlock this';
 	}
