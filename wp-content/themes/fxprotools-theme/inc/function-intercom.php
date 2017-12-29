@@ -80,7 +80,7 @@ class CPS_Intercom {
 			 * @var $role string
 			 */
 			extract( $_POST );
-			if ( in_array( $role, $this->user_roles ) ) {
+			if ( (!empty($role) && in_array( $role, $this->user_roles )) || !isset($role) ) {
 				$user_data = $this->generate_data( 'user', $user_id );
 				$intercomUser = $this->create_user( $user_data );
 				if ($intercomUser) {
@@ -137,14 +137,12 @@ class CPS_Intercom {
 	 */
 	private function create_user( array $data ) {
 		$user = new IntercomUsers( $this->client );
-		var_dump($data);
-		exit;
-//		try {
-//			/** @var IntercomUsers */
-//			return $user->create( $data );
-//		} catch ( GuzzleException $e ) {
-//			error_log( $e->getMessage() );
-//		}
+		try {
+			/** @var IntercomUsers */
+			return $user->create( $data );
+		} catch ( GuzzleException $e ) {
+			error_log( $e->getMessage() );
+		}
 	}
 
 	/**
