@@ -16,8 +16,7 @@ class CPS_Intercom {
 	const INTERCOM_ID_USER_META = '_intercom_user_id';
 	const EVENT_REGISTER_USER = 'register-user';
 	const EVENT_UPDATE_PROFILE = 'update-profile';
-	const UID_TEMPLATE = '%s?%s';
-	const INTERCOM_SWITCH_PAGE = '/intercom-switch';
+
 
 	/** @var array */
 	private $user_roles = [
