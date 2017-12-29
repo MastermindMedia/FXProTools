@@ -54,17 +54,19 @@ function afl_team_purchase_overview_template () {
 			$uid = $_GET['uid'];
 		}
 
+		$page_path = http_build_query($_GET);
+
 		$pagination = new CI_Pagination;
 
 		$config['total_rows'] =  (afl_get_team_purchases($uid,array(),TRUE,$tree));
-		$config['base_url'] 	= '?page=affiliate-eps-team-purchases-reports';
+		$config['base_url'] 	= '?'.$page_path;
 		$config['per_page'] 	= 50;
 
 		
 		$index = !empty($_GET['page_count']) ? $_GET['page_count'] : 0;
 		$filter = array(
-			'start' => $index,
-			'length' =>$config['per_page']
+			'index' => $index,
+			'limit' =>$config['per_page']
 		);
 		$data  = afl_get_team_purchases($uid,$filter,FALSE,$tree);
 		
@@ -148,6 +150,9 @@ function afl_team_purchase_overview_template () {
 		$query['#where_in'] = [
 			'uid' => $uids
 		];
+		if (!empty($filter['limit'])) {
+				$query['#limit'] = $filter['index'].','.$filter['limit'];
+			}
 		$res = db_select($query, 'get_results');
 		if ($count)
 			return count($res);
