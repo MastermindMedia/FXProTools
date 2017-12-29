@@ -101,7 +101,7 @@ $modules = array(
 
 	// Intercom
 	'intercom/intercom-php/intercom',
-	'intercom/intercom-php/CPS_Intercom_Model',
+//	'intercom/intercom-php/CPS_Intercom_Model',
 );
 if($modules){
     foreach($modules as $key => $md){
