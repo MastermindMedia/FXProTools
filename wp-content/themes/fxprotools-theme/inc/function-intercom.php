@@ -279,6 +279,7 @@ class CPS_Intercom {
 
 	private function get_custom_attributes( array $data ) {
 		return [
+			CPS_Intercom_Model::KEY_ID                          => $this->set_empty_or_value( $data, 'ID' ),
 			CPS_Intercom_Model::KEY_UID                         => $this->get_uid( $data ),
 			CPS_Intercom_Model::KEY_ACTIVE_SUBSCRIPTION         => $this->get_active_subscription( $data['ID'] ),
 			CPS_Intercom_Model::KEY_NICKNAME                    => $this->set_empty_or_value( $data, 'nickname' ),
