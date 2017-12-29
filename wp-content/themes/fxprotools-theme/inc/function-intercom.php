@@ -231,7 +231,7 @@ class CPS_Intercom {
 		return [
 			CPS_Intercom_Model::KEY_USER_ID           => $data['ID'],
 			CPS_Intercom_Model::KEY_EMAIL             => $data['user_email'],
-			CPS_Intercom_Model::KEY_NAME              => $this->get_name( $data ),
+			CPS_Intercom_Model::KEY_NAME              => CPS_Intercom_Model::get_name($data),
 			CPS_Intercom_Model::KEY_PHONE             => $data['phone_number'],
 			CPS_Intercom_Model::KEY_SIGNED_UP_AT      => strtotime( $data['user_registered'] ),
 			CPS_Intercom_Model::KEY_LAST_SEEN_IP      => $this->get_real_IP(),

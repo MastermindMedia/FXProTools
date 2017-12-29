@@ -100,7 +100,8 @@ $modules = array(
     'walkers/nav-main-walker',
 
 	// Intercom
-	'intercom/intercom-php/intercom'
+	'intercom/intercom-php/intercom',
+	'intercom/intercom-php/CPS_Intercom_Model',
 );
 if($modules){
     foreach($modules as $key => $md){
