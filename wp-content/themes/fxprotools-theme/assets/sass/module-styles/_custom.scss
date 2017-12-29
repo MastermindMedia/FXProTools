@@ -1257,7 +1257,56 @@ p.logo-text {
 
 	}
 
+.access-products{
+	&.fx-board{
+		.fx-board-header{
+			font-size: 24px;
+			text-align: center;
+			padding-bottom: 0;
+		}
+	}
+}
 
+.button-holder{
+	text-align: center;
+	padding: 0 15px 10px 15px;
+	.btn{
+		text-align: center;
+		width: 100%;
+		display: block;
+	}
+}
+
+.modal-mini{
+	.modal-content{
+		border-radius: 0;
+		h4{
+			margin-bottom: 8px;
+		}
+	}
+	.modal-body{
+		padding: 15px 20px;
+	}
+	.modal-dialog{
+		max-width: 470px;
+		top: 20%;
+		border-radius: 0;
+	}
+	.modal-footer{
+		text-align: center;
+		border-top: 0;
+		padding: 15px 20px;
+		padding-top: 8px;
+	}
+	.modal-footer-note{
+		color: #797979;
+		padding-top: .8rem;
+		font-size: .8rem;
+		a{
+			color: #de1515;
+		}
+	}
+}
 
 
 
