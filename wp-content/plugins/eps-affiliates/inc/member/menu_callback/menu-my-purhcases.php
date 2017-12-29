@@ -56,6 +56,7 @@ function afl_my_purchase_callback () {
 		$table['#header'] = array(
 			__('#'),
 			__('Category'),
+			__('Amount Paid'),
 			__('Points'),
 			__('Order ID'),		
 			__('Purchase Date'),		
@@ -70,6 +71,10 @@ function afl_my_purchase_callback () {
 			$rows[$key]['markup_1'] = array(
 				'#type' =>'markup',
 				'#markup'=> $value->category
+			);
+			$rows[$key]['markup_amount_paid'] = array(
+				'#type' =>'markup',
+				'#markup'=> afl_format_payment_amount($value->amount_paid)
 			);
 			$rows[$key]['markup_2'] = array(
 				'#type' =>'markup',

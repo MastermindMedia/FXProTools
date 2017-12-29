@@ -99,7 +99,7 @@
 		    $transaction['int_payout'] 					= 0;
 		    $transaction['hidden_transaction'] 	= 0;
 		    $transaction['credit_status'] 			= 1;
-		    $transaction['amount_paid'] 				= afl_commerce_amount($args['afl_point']);
+		    $transaction['amount_paid'] 				= !empty($args['amount_paid']) ? afl_commerce_amount($args['amount_paid']):0;
 		    $transaction['category'] 						= $category;
 		    $transaction['notes'] 							= $category;
 		    $transaction['transaction_day'] 		= $afl_date_splits['d'];

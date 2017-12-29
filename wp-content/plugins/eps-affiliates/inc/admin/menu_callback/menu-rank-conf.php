@@ -397,6 +397,19 @@
 		
 	);
 
+
+	$form['field_pool_bonus'] = array(
+ 		'#type' => 'fieldset',
+ 		'#title'=>'Enable / Disable pool bonus',
+ 	);
+
+	$form['field_pool_bonus']['afl_enable_pool_bonus'] = array(
+		'#type' 				=> 'checkbox',
+		'#title'				=> '',
+		'#default_value' 	=> afl_variable_get('afl_enable_pool_bonus'),
+		
+	);
+
 	$form['field']['rank_expiry'] = array(
 		'#type' 				=> 'select',
 		'#title'				=> 'Rank Expiry',
@@ -461,7 +474,8 @@
 		}
 		//here set unset the values for the checkboxes
 		$checkboxes = array(
-			'enable_rank_customer_rule'
+			'enable_rank_customer_rule',
+			'afl_enable_pool_bonus',
 		);
 		foreach ($checkboxes as $checkbox) {
 		if ( !array_key_exists($checkbox, $form_state)) {

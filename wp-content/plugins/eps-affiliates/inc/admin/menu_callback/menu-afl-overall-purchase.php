@@ -54,6 +54,7 @@
 			__('user ID'),
 			__('Username'),
 			__('Category'),
+			__('Amount Paid'),
 			__('Points'),
 			__('Order ID'),		
 			__('Purchase Date'),		
@@ -83,6 +84,10 @@
 			$rows[$key]['markup_1'] = array(
 				'#type' =>'markup',
 				'#markup'=> $value->category
+			);
+			$rows[$key]['markup_amount_paid'] = array(
+				'#type' =>'markup',
+				'#markup'=> afl_format_payment_amount($value->amount_paid)
 			);
 			$rows[$key]['markup_2'] = array(
 				'#type' =>'markup',
