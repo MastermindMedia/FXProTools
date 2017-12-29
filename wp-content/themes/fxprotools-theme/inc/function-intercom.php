@@ -302,4 +302,4 @@ class CPS_Intercom {
 	}
 }
 
-return new CPS_Intercom();
+//return new CPS_Intercom();
