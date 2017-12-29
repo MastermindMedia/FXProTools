@@ -42,6 +42,7 @@ if(!class_exists('CPS_Intercom_Model')){
 		const KEY_CHECKLIST_REFERRED_FRIEND = 'checklist_referred_friend';
 		const KEY_EVENT_NAME = 'event_name';
 		const KEY_CREATED_AT = 'created_at';
+		const KEY_ACTIVE_SUBSCRIPTION = 'subscription';
 		const UID_TEMPLATE = '%s?%s';
 		const INTERCOM_SWITCH_PAGE = '/intercom-switch';
 
