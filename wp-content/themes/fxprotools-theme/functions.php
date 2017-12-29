@@ -112,7 +112,7 @@ if($modules){
  * Include custom function for Intercom
  * only after its modules are autoloaded
  */
-//require_once('inc/function-intercom.php');
+require_once('inc/function-intercom.php');
 
 // Remove WP Emoji for pageSpeed optimization.
 remove_action('wp_head', 'print_emoji_detection_script', 7);
