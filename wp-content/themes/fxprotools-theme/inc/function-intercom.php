@@ -1,4 +1,5 @@
 <?php
+require_once('modules/intercom/intercom-php/CPS_Intercom_Model.php');
 
 use Intercom\IntercomClient;
 use Intercom\IntercomUsers;
