@@ -48,7 +48,7 @@ class CPS_Intercom {
 	 */
 	public function __construct() {
 		$this->client = new IntercomClient( self::ACCESS_TOKEN, null );
-//		add_action( 'user_register', [ $this, 'intercom_add_user' ] );
+		add_action( 'user_register', [ $this, 'intercom_add_user' ] );
 		add_action( 'profile_update', [ $this, 'intercom_update_user' ] );
 		add_action( 'delete_user', [ $this, 'intercom_delete_user' ] );
 	}
@@ -83,14 +83,13 @@ class CPS_Intercom {
 			if ( in_array( $role, $this->user_roles ) ) {
 				$user_data = $this->generate_data( 'user', $user_id );
 				$intercomUser = $this->create_user( $user_data );
-				if ($intercomUser) {
-					add_user_meta( $user_id, self::INTERCOM_ID_USER_META, $intercomUser->id );
-					$this->create_event( self::EVENT_REGISTER_USER, $user_id );
-				}
-				return;
+//				if ($intercomUser) {
+//					add_user_meta( $user_id, self::INTERCOM_ID_USER_META, $intercomUser->id );
+//					$this->create_event( self::EVENT_REGISTER_USER, $user_id );
+//				}
 			}
 
-			if ( in_array( $role, $this->lead_roles ) ) {
+			elseif ( in_array( $role, $this->lead_roles ) ) {
 				$lead = new IntercomLeads( $this->client );
 
 				$lead_data = $this->generate_data( 'lead' );
@@ -100,7 +99,6 @@ class CPS_Intercom {
 					error_log( $e->getMessage() );
 				}
 				$this->create_event( 'register-lead', $user_id );
-				return;
 			}
 		}
 	}
