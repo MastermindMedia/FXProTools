@@ -25,6 +25,7 @@ if (!class_exists('CPS_Printful')) {
 			try {
 				return $this->get('order', '@' . $order_number);
 			} catch (GuzzleException $exception) {
+				var_dump($exception->getMessage());
 				error_log ($exception->getMessage());
 			}
 			return null;

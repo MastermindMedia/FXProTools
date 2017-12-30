@@ -16,7 +16,7 @@ if(isset($_POST['user_login'])){
 
 if (isset($_GET['test'])) {
     $printful = new \CPS\CPS_Printful();
-    var_dump($printful->get_order(29087));
+    $printful->get_order(29087);
 }
 ?>
 <?php
