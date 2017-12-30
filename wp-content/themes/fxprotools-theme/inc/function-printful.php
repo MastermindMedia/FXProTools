@@ -22,8 +22,10 @@ if (!class_exists('CPS_Printful')) {
 		}
 
 		public function get_order ($order_number) {
+			$order = '@' . $order_number;
 			try {
-				return $this->get('order', '@' . $order_number);
+				$printful_order = $this->get('order', $order);
+				return $printful_order;
 			} catch (GuzzleException $exception) {
 				var_dump($exception->getMessage());
 				error_log ($exception->getMessage());
@@ -35,15 +37,13 @@ if (!class_exists('CPS_Printful')) {
 		 * @param string $endpoint
 		 * @param string  $query
 		 * @return mixed
-		 * @throws \GuzzleHttp\Exception\GuzzleException
+		 * @throws GuzzleException
 		 */
 		public function get($endpoint, $query)
 		{
-
-			$response = $this->http_client->request('GET', self::PRINTFUL_API_URL . '/' . $endpoint . '/' . $query, [
+			return $this->http_client->request('GET', self::PRINTFUL_API_URL . '/' . $endpoint . '/' . $query, [
 				'Authorization' => ['Basic ' . $this->api_key],
 			]);
-			return ($response);
 		}
 
 		/**
