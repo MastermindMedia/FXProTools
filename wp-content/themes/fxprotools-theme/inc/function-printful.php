@@ -1,8 +1,10 @@
 <?php
 
-namespace CPS;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
+require_once 'modules/printful/vendor/autoload.php';
+
+use Printful\Exceptions\PrintfulApiException;
+use Printful\Exceptions\PrintfulException;
+use Printful\PrintfulApiClient;
 
 if (!class_exists('CPS_Printful')) {
 
@@ -13,46 +15,36 @@ if (!class_exists('CPS_Printful')) {
 
 		/** @var string */
 		private $api_key;
-		/** @var Client */
+		/** @var PrintfulApiClient */
 		private $http_client;
 
 		public function __construct() {
 			$printful_options = get_option(self::OPTION_WC_PRINTFUL_KEY);
 			$this->api_key = $printful_options['printful_key'];
-			$this->set_client(new Client());
+			$this->set_client(new PrintfulApiClient($this->api_key));
 		}
 
 		public function get_order ($order_number) {
 			$order = '@' . $order_number;
 			try {
-				$printful_order = $this->get(self::PRINTFUL_API_ORDER_ENDPOINT, $order);
-				return $printful_order;
-			} catch (GuzzleException $exception) {
-				var_dump($exception->getMessage());
-				error_log ($exception->getMessage());
+				return $this->http_client->get('orders/' . $order);
+			} catch (PrintfulApiException $e) {
+				var_dump($e->getMessage());
+				error_log ('Printful API Exception: ' . $e->getCode() . ' ' . $e->getMessage());
+			} catch (PrintfulException $e) {
+				// API call failed
+				var_dump($e->getMessage());
+				error_log($this->http_client->getLastResponseRaw());
 			}
 			return null;
 		}
 
 		/**
-		 * @param string $endpoint
-		 * @param string  $query
-		 * @return mixed
-		 * @throws GuzzleException
-		 */
-		public function get($endpoint, $query)
-		{
-			return $this->http_client->request('GET', self::PRINTFUL_API_URL . '/' . $endpoint . $query, [
-				'Authorization' => ['Basic ' . $this->api_key],
-			]);
-		}
-
-		/**
-		 * Sets GuzzleHttp client.
+		 * Sets PrintfulApiClient client.
 		 *
-		 * @param Client $client
+		 * @param PrintfulApiClient $client
 		 */
-		public function set_client($client)
+		private function set_client($client)
 		{
 			$this->http_client = $client;
 		}

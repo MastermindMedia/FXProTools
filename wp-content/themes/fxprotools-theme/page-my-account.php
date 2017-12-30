@@ -15,7 +15,12 @@ if(isset($_POST['user_login'])){
 }
 
 if (isset($_GET['test'])) {
-    var_dump(class_exists('\\CPS\\CPS_Printful'));
+    if (class_exists('CPS_Printful')) {
+        $pf = new CPS_Printful();
+        var_dump($pf->get_order(29087));
+    } else {
+        var_dump('Class Not Found');
+    }
 }
 ?>
 <?php
