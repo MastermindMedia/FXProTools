@@ -9,6 +9,7 @@ if (!class_exists('CPS_Printful')) {
 	class CPS_Printful {
 		const OPTION_WC_PRINTFUL_KEY = 'woocommerce_printful_settings';
 		const PRINTFUL_API_URL = 'https://api.printful.com/';
+		const PRINTFUL_API_ORDER_ENDPOINT = 'orders/';
 
 		/** @var string */
 		private $api_key;
@@ -24,7 +25,7 @@ if (!class_exists('CPS_Printful')) {
 		public function get_order ($order_number) {
 			$order = '@' . $order_number;
 			try {
-				$printful_order = $this->get('order', $order);
+				$printful_order = $this->get(self::PRINTFUL_API_ORDER_ENDPOINT, $order);
 				return $printful_order;
 			} catch (GuzzleException $exception) {
 				var_dump($exception->getMessage());
@@ -41,7 +42,7 @@ if (!class_exists('CPS_Printful')) {
 		 */
 		public function get($endpoint, $query)
 		{
-			return $this->http_client->request('GET', self::PRINTFUL_API_URL . '/' . $endpoint . '/' . $query, [
+			return $this->http_client->request('GET', self::PRINTFUL_API_URL . '/' . $endpoint . $query, [
 				'Authorization' => ['Basic ' . $this->api_key],
 			]);
 		}
