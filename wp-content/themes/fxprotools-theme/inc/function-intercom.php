@@ -322,10 +322,6 @@ class CPS_Intercom {
 		return get_user_meta( $user_id, ONBOARD_CHECKLIST_META_KEY, true );
 	}
 
-	private function get_name( $data ) {
-		return sprintf( '%s %s', $data['first_name'], $data['last_name'] );
-	}
-
 	private function get_real_IP() {
 		if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) )   //check ip from share internet
 		{
