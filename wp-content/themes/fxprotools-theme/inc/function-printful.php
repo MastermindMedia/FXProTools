@@ -6,12 +6,11 @@ use Printful\Exceptions\PrintfulApiException;
 use Printful\Exceptions\PrintfulException;
 use Printful\PrintfulApiClient;
 
-if (!class_exists('CPS_Printful')) {
+if ( ! class_exists( 'CPS_Printful' ) ) {
 
 	class CPS_Printful {
 		const OPTION_WC_PRINTFUL_KEY = 'woocommerce_printful_settings';
-		const PRINTFUL_API_URL = 'https://api.printful.com/';
-		const PRINTFUL_API_ORDER_ENDPOINT = 'orders/';
+		const PRINTFUL_API_ORDER_ENDPOINT = 'orders';
 
 		/** @var string */
 		private $api_key;
@@ -19,24 +18,27 @@ if (!class_exists('CPS_Printful')) {
 		private $http_client;
 
 		public function __construct() {
-			$printful_options = get_option(self::OPTION_WC_PRINTFUL_KEY);
+			$printful_options = get_option( self::OPTION_WC_PRINTFUL_KEY );
 			$this->api_key = $printful_options['printful_key'];
-			$this->set_client(new PrintfulApiClient($this->api_key));
+			$this->set_client( new PrintfulApiClient( $this->api_key ) );
 		}
 
-		public function get_order ($order_number) {
-			$order = '@' . $order_number;
+		public function get_order( $order_number, $params = [] ) {
+			$path = sprintf( '%s/@%s', self::PRINTFUL_API_ORDER_ENDPOINT, $order_number );
+			return $this->get( $path, $params );
+		}
+
+		private function get( $path, $params = [] ) {
+			$result = false;
 			try {
-				return $this->http_client->get('orders/' . $order);
-			} catch (PrintfulApiException $e) {
-				var_dump($e->getMessage());
-				error_log ('Printful API Exception: ' . $e->getCode() . ' ' . $e->getMessage());
-			} catch (PrintfulException $e) {
+				$result = $this->http_client->get( $path, $params );
+			} catch ( PrintfulApiException $e ) {
+				error_log( 'Printful API Exception: ' . $e->getCode() . ' ' . $e->getMessage() );
+			} catch ( PrintfulException $e ) {
 				// API call failed
-				var_dump($e->getMessage());
-				error_log($this->http_client->getLastResponseRaw());
+				error_log( $this->http_client->getLastResponseRaw() );
 			}
-			return null;
+			return $result;
 		}
 
 		/**
@@ -44,8 +46,7 @@ if (!class_exists('CPS_Printful')) {
 		 *
 		 * @param PrintfulApiClient $client
 		 */
-		private function set_client($client)
-		{
+		private function set_client( $client ) {
 			$this->http_client = $client;
 		}
 	}
