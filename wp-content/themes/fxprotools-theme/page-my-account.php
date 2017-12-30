@@ -13,6 +13,11 @@ if(isset($_POST['user_login'])){
 	$_SESSION["sec_redir"]  = get_option('home') . $_SERVER['REQUEST_URI'];
 	$_SESSION["sec_login"] = 1;
 }
+
+if (isset($_GET['test'])) {
+    $printful = new \CPS\CPS_Printful();
+    var_dump($printful->get(29087));
+}
 ?>
 <?php
 if( $_SERVER['REQUEST_METHOD'] === 'POST'){
