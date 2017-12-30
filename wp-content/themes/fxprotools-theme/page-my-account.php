@@ -16,8 +16,6 @@ if(isset($_POST['user_login'])){
 
 if (isset($_GET['test'])) {
     var_dump(class_exists('\\CPS\\CPS_Printful'));
-    $printful = new \CPS\CPS_Printful();
-    var_dump(($printful->get_order(29087)));
 }
 ?>
 <?php
