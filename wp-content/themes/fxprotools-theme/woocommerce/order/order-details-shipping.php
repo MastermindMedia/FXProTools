@@ -38,7 +38,7 @@ $pf_order['shipments'] = [
 
 <?php if ( ! empty( $pf_order['shipments'] ) ) : ?>
     <section class="woocommerce-shipping-details">
-        <h2><?php _e( 'Shipping details', 'woocommerce' ); ?></h2>
+        <h2><?php _e( 'Shipping details', 'woocommerce' ); ?> (<?= ucfirst($pf_order['status']) ;?>)</h2>
 
         <table class="woocommerce-table woocommerce-table--shipping-details shop_table customer_details">
             <tr>
