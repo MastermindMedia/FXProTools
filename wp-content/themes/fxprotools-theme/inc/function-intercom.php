@@ -1,11 +1,11 @@
 <?php
-require_once( 'modules/intercom/intercom-php/CPS_Intercom_Model.php' );
+require_once('modules/intercom/intercom-php/vendor/autoload.php');
 
 use Intercom\IntercomClient;
 use Intercom\IntercomUsers;
 use Intercom\IntercomLeads;
 use Intercom\IntercomEvents;
-use Intercom\Model\CPS_Intercom_Model;
+use Intercom\Models\CPS_Intercom_Model;
 
 use GuzzleHttp\Exception\GuzzleException;
 

@@ -11,7 +11,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "Intercom\\": ["src"]
+            "Intercom\\": ["src"],
+            "Intercom\\Models\\": ["src/Models"]
         }
     }
 }

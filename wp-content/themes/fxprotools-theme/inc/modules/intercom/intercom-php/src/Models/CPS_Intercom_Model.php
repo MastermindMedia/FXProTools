@@ -1,5 +1,5 @@
 <?php
-namespace Intercom\Model;
+namespace Intercom\Models;
 
 if(!class_exists('CPS_Intercom_Model')){
 	class CPS_Intercom_Model {
