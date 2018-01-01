@@ -29,6 +29,7 @@
    		try{
    			_change_cron_status($value->afl_purchases_id,$value->uid, 1);
 	   			_recursive_calc_user_rank( $value->uid );
+	   			_recursive_calc_user_rank_parents( $value->uid );
 	   		_change_cron_status($value->afl_purchases_id,$value->uid, 2);
    		} catch(Exception $e){
    			afl_log('cron_rank_updation','Error %er',array('%er'=>print_r($e,TRUE)),LOGS_ERROR);
@@ -42,7 +43,12 @@
 			afl_log('rank_calculation_scheduler','cron run completed',array(),LOGS_INFO);
    	}
 	}
-
+/**
+ * -------------------------------------------------------
+ * This dunction will be update the referrer rank 
+ * recursivly
+ * -------------------------------------------------------
+*/
 	function _recursive_calc_user_rank ( $uid = ''){
 		//if uid
 		if ( $uid)  {
@@ -56,6 +62,25 @@
 		}
 
 	}
+
+/**
+ * -------------------------------------------------------
+ * This dunction will be update the parents rank 
+ * recursivly
+ * -------------------------------------------------------
+*/
+	function _recursive_calc_user_rank_parents ( $uid = '' ) {
+		if ( $uid)  {
+			do_action('eps_affiliates_calculate_affiliate_rank',$uid);
+		}
+
+		//get the sponsor id
+		$node = afl_genealogy_node($uid, 'unilevel');
+		if ( $node->referrer_uid) {
+			_recursive_calc_user_rank( $node->parent_uid );
+		}
+	}
+
 
 	function _change_cron_status ($afl_purchases_id, $uid, $status){
  	global $wpdb;
