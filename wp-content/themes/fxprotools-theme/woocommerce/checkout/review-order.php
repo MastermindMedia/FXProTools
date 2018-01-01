@@ -46,8 +46,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<?php 
 								$prod_subscription_type   = $_product->get_attributes()['subscription-type'];
 								$prod_subscription_length = get_post_meta( $_product->get_id(), '_subscription_trial_length', true );
-								$prod_subscription_fee    = get_post_meta( $_product->get_id(), '_subscription_sign_up_fee', true );
-								$prod_subscription_price  = $_product->get_price();
+								$prod_subscription_fee    = get_post_mea( $_product->get_id(), '_subscription_sign_up_fee', true );
+								$prod_subscription_price  = $_product->get_pritce();
 
 								//if trial, change the text
 								if($prod_subscription_type == "trial"){
