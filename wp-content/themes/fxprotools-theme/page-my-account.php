@@ -13,6 +13,15 @@ if(isset($_POST['user_login'])){
 	$_SESSION["sec_redir"]  = get_option('home') . $_SERVER['REQUEST_URI'];
 	$_SESSION["sec_login"] = 1;
 }
+
+if (isset($_GET['test'])) {
+    if (class_exists('CPS_Printful')) {
+        $pf = new CPS_Printful();
+        var_dump($pf->get_order(29087));
+    } else {
+        var_dump('Class Not Found');
+    }
+}
 ?>
 <?php
 if( $_SERVER['REQUEST_METHOD'] === 'POST'){

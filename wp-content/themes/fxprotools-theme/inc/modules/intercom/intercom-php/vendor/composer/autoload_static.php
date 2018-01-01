@@ -9,15 +9,15 @@ class ComposerStaticInitcb43a30d0a12c7cf5ddf62412c0c8b81
     public static $prefixLengthsPsr4 = array (
         'I' => 
         array (
-            'Intercom\\Model\\' => 15,
+            'Intercom\\Models\\' => 16,
             'Intercom\\' => 9,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Intercom\\Model\\' => 
+        'Intercom\\Models\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src/Model',
+            0 => __DIR__ . '/../..' . '/src/Models',
         ),
         'Intercom\\' => 
         array (

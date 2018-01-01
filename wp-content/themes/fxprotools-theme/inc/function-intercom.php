@@ -1,10 +1,11 @@
 <?php
+require_once('modules/intercom/intercom-php/vendor/autoload.php');
 
 use Intercom\IntercomClient;
 use Intercom\IntercomUsers;
 use Intercom\IntercomLeads;
 use Intercom\IntercomEvents;
-use Intercom\Model\CPS_Intercom_Model;
+use Intercom\Models\CPS_Intercom_Model;
 
 use GuzzleHttp\Exception\GuzzleException;
 
@@ -16,8 +17,7 @@ class CPS_Intercom {
 	const INTERCOM_ID_USER_META = '_intercom_user_id';
 	const EVENT_REGISTER_USER = 'register-user';
 	const EVENT_UPDATE_PROFILE = 'update-profile';
-	const UID_TEMPLATE = '%s?%s';
-	const INTERCOM_SWITCH_PAGE = '/intercom-switch';
+
 
 	/** @var array */
 	private $user_roles = [
@@ -48,9 +48,9 @@ class CPS_Intercom {
 	 */
 	public function __construct() {
 		$this->client = new IntercomClient( self::ACCESS_TOKEN, null );
-//		add_action( 'user_register', [ $this, 'intercom_add_user' ] );
-//		add_action( 'profile_update', [ $this, 'intercom_update_user' ] );
-//		add_action( 'delete_user', [ $this, 'intercom_delete_user' ] );
+		add_action( 'user_register', [ $this, 'intercom_add_user' ] );
+		add_action( 'profile_update', [ $this, 'intercom_update_user' ] );
+		add_action( 'delete_user', [ $this, 'intercom_delete_user' ] );
 	}
 
 	/**
@@ -80,16 +80,14 @@ class CPS_Intercom {
 			 * @var $role string
 			 */
 			extract( $_POST );
-			if ( in_array( $role, $this->user_roles ) ) {
+			if ( ( ! empty( $role ) && in_array( $role, $this->user_roles ) ) || ! isset( $role ) ) {
 				$user_data = $this->generate_data( 'user', $user_id );
 				$intercomUser = $this->create_user( $user_data );
-//				if ($intercomUser) {
-//					add_user_meta( $user_id, self::INTERCOM_ID_USER_META, $intercomUser->id );
-//					$this->create_event( self::EVENT_REGISTER_USER, $user_id );
-//				}
-			}
-
-			elseif ( in_array( $role, $this->lead_roles ) ) {
+				if ( $intercomUser ) {
+					add_user_meta( $user_id, self::INTERCOM_ID_USER_META, $intercomUser->id );
+					$this->create_event( self::EVENT_REGISTER_USER, $user_id );
+				}
+			} elseif ( in_array( $role, $this->lead_roles ) ) {
 				$lead = new IntercomLeads( $this->client );
 
 				$lead_data = $this->generate_data( 'lead' );
@@ -137,14 +135,12 @@ class CPS_Intercom {
 	 */
 	private function create_user( array $data ) {
 		$user = new IntercomUsers( $this->client );
-		var_dump($data);
-		exit;
-//		try {
-//			/** @var IntercomUsers */
-//			return $user->create( $data );
-//		} catch ( GuzzleException $e ) {
-//			error_log( $e->getMessage() );
-//		}
+		try {
+			/** @var IntercomUsers */
+			return $user->create( $data );
+		} catch ( GuzzleException $e ) {
+			error_log( $e->getMessage() );
+		}
 	}
 
 	/**
@@ -190,18 +186,22 @@ class CPS_Intercom {
 
 		/**
 		 * @var $email string
+		 * @var $billing_email string
 		 * @var $first_name string
+		 * @var $billing_first_name string
 		 * @var $last_name string
+		 * @var $billing_last_name string
 		 */
 		extract( $_POST );
 
+		$name = sprintf( '%s %s', $first_name ?: $billing_first_name, $last_name ?: $billing_last_name );
 		switch ( $type ) {
 			case 'user' :
 				if ( ! empty( $_POST ) ) {
 					$data = [
-						CPS_Intercom_Model::KEY_EMAIL        => $email,
+						CPS_Intercom_Model::KEY_EMAIL        => $email ?: $billing_email,
 						CPS_Intercom_Model::KEY_USER_ID      => $user_id,
-						CPS_Intercom_Model::KEY_NAME         => $first_name . ' ' . $last_name,
+						CPS_Intercom_Model::KEY_NAME         => $name,
 						CPS_Intercom_Model::KEY_SIGNED_UP_AT => strtotime( "now" ),
 					];
 				}
@@ -209,8 +209,8 @@ class CPS_Intercom {
 			case 'lead':
 				if ( ! empty( $_POST ) ) {
 					$data = [
-						CPS_Intercom_Model::KEY_EMAIL => $email,
-						CPS_Intercom_Model::KEY_NAME  => $first_name . ' ' . $last_name,
+						CPS_Intercom_Model::KEY_EMAIL => $email ?: $billing_email,
+						CPS_Intercom_Model::KEY_NAME  => $name,
 					];
 				}
 				break;
@@ -229,12 +229,48 @@ class CPS_Intercom {
 		return $data;
 	}
 
+	/**
+	 * @param $user_id
+	 *
+	 * @return string Product Name if exists, otherwise empty string
+	 */
+	private function get_active_subscription( $user_id ) {
+		/** @var WC_Subscription $subscriptions */
+		$subscriptions = wcs_get_users_subscriptions( $user_id );
+
+		/** @var WC_Subscription $subscription */
+		foreach ( $subscriptions as $subscription ) {
+			if ( $subscription->has_status( 'active' ) ) {
+				$items = $subscription->get_items();
+
+				/**
+				 * @var WC_Order_Item_Product $item
+				 */
+				foreach ( $items as $item ) {
+					$product = wc_get_product( $item->get_product_id() );
+
+					if ( $product ) {
+						// return the first one
+						return $product->get_name();
+					}
+				}
+			}
+		}
+		return '';
+	}
+
 	private function arrange_intercom_data( $data ) {
+		$phone = '';
+		if ( ! empty( $data['phone_number'] ) ) {
+			$phone = $data['phone_number'];
+		} elseif ( ! empty( $data['billing_phone'] ) ) {
+			$phone = $data['billing_phone'];
+		}
 		return [
 			CPS_Intercom_Model::KEY_USER_ID           => $data['ID'],
 			CPS_Intercom_Model::KEY_EMAIL             => $data['user_email'],
-			CPS_Intercom_Model::KEY_NAME              => $this->get_name( $data ),
-			CPS_Intercom_Model::KEY_PHONE             => $data['phone_number'],
+			CPS_Intercom_Model::KEY_NAME              => CPS_Intercom_Model::get_name( $data ),
+			CPS_Intercom_Model::KEY_PHONE             => $phone,
 			CPS_Intercom_Model::KEY_SIGNED_UP_AT      => strtotime( $data['user_registered'] ),
 			CPS_Intercom_Model::KEY_LAST_SEEN_IP      => $this->get_real_IP(),
 			CPS_Intercom_Model::KEY_CUSTOM_ATTRIBUTES => $this->get_custom_attributes( $data ),
@@ -243,49 +279,47 @@ class CPS_Intercom {
 
 	private function get_custom_attributes( array $data ) {
 		return [
+			CPS_Intercom_Model::KEY_ID                          => $this->set_empty_or_value( $data, 'ID' ),
 			CPS_Intercom_Model::KEY_UID                         => $this->get_uid( $data ),
-			CPS_Intercom_Model::KEY_NICKNAME                    => $data['nickname'],
-			CPS_Intercom_Model::KEY_FIRST_NAME                  => $data['first_name'],
-			CPS_Intercom_Model::KEY_LAST_NAME                   => $data['last_name'],
-			CPS_Intercom_Model::KEY_USER_SMS_SUBS               => $data['user_sms_subs'],
-			CPS_Intercom_Model::KEY_USER_EMAIL_SUBS             => $data['user_email_subs'],
-			CPS_Intercom_Model::KEY_BILLING_COMPANY             => $data['billing_company'],
-			CPS_Intercom_Model::KEY_BILLING_ADDRESS_1           => $data['billing_address_1'],
-			CPS_Intercom_Model::KEY_BILLING_ADDRESS_2           => $data['billing_address_2'],
-			CPS_Intercom_Model::KEY_BILLING_CITY                => $data['billing_city'],
-			CPS_Intercom_Model::KEY_BILLING_STATE               => $data['billing_state'],
-			CPS_Intercom_Model::KEY_BILLING_POSTCODE            => $data['billing_postcode'],
-			CPS_Intercom_Model::KEY_SHIPPING_COMPANY            => $data['shipping_company'],
-			CPS_Intercom_Model::KEY_SHIPPING_ADDRESS_1          => $data['shipping_address_1'],
-			CPS_Intercom_Model::KEY_SHIPPING_ADDRESS_2          => $data['shipping_address_2'],
-			CPS_Intercom_Model::KEY_SHIPPING_CITY               => $data['shipping_city'],
-			CPS_Intercom_Model::KEY_SHIPPING_STATE              => $data['shipping_state'],
-			CPS_Intercom_Model::KEY_SHIPPING_POSTCODE           => $data['shipping_postcode'],
-			CPS_Intercom_Model::KEY_WEBSITE                     => $data['website'],
-			CPS_Intercom_Model::KEY_FACEBOOK                    => $data['facebook'],
-			CPS_Intercom_Model::KEY_TWITTER                     => $data['twitter'],
-			CPS_Intercom_Model::KEY_GOOGLEPLUS                  => $data['googleplus'],
-			CPS_Intercom_Model::KEY_CHECKLIST_VERIFIED_EMAIL    => $data['verified_email'],
-			CPS_Intercom_Model::KEY_CHECKLIST_VERIFIED_PROFILE  => $data['verified_profile'],
-			CPS_Intercom_Model::KEY_CHECKLIST_SCHEDULED_WEBINAR => $data['scheduled_webinar'],
-			CPS_Intercom_Model::KEY_CHECKLIST_ACCESSED_PRODUCTS => $data['accessed_products'],
-			CPS_Intercom_Model::KEY_CHECKLIST_GOT_SHIRT         => $data['got_shirt'],
-			CPS_Intercom_Model::KEY_CHECKLIST_SHARED_VIDEO      => $data['shared_video'],
-			CPS_Intercom_Model::KEY_CHECKLIST_REFERRED_FRIEND   => $data['referred_friend'],
+			CPS_Intercom_Model::KEY_ACTIVE_SUBSCRIPTION         => $this->get_active_subscription( $data['ID'] ),
+			CPS_Intercom_Model::KEY_NICKNAME                    => $this->set_empty_or_value( $data, 'nickname' ),
+			CPS_Intercom_Model::KEY_FIRST_NAME                  => $this->set_empty_or_value( $data, 'first_name' ),
+			CPS_Intercom_Model::KEY_LAST_NAME                   => $this->set_empty_or_value( $data, 'last_name' ),
+			CPS_Intercom_Model::KEY_USER_SMS_SUBS               => $this->set_empty_or_value( $data, 'user_sms_subs' ),
+			CPS_Intercom_Model::KEY_USER_EMAIL_SUBS             => $this->set_empty_or_value( $data, 'user_email_subs' ),
+			CPS_Intercom_Model::KEY_BILLING_COMPANY             => $this->set_empty_or_value( $data, 'billing_company' ),
+			CPS_Intercom_Model::KEY_BILLING_ADDRESS_1           => $this->set_empty_or_value( $data, 'billing_address_1' ),
+			CPS_Intercom_Model::KEY_BILLING_ADDRESS_2           => $this->set_empty_or_value( $data, 'billing_address_2' ),
+			CPS_Intercom_Model::KEY_BILLING_CITY                => $this->set_empty_or_value( $data, 'billing_city' ),
+			CPS_Intercom_Model::KEY_BILLING_STATE               => $this->set_empty_or_value( $data, 'billing_state' ),
+			CPS_Intercom_Model::KEY_BILLING_POSTCODE            => $this->set_empty_or_value( $data, 'billing_postcode' ),
+			CPS_Intercom_Model::KEY_SHIPPING_COMPANY            => $this->set_empty_or_value( $data, 'shipping_company' ),
+			CPS_Intercom_Model::KEY_SHIPPING_ADDRESS_1          => $this->set_empty_or_value( $data, 'shipping_address_1' ),
+			CPS_Intercom_Model::KEY_SHIPPING_ADDRESS_2          => $this->set_empty_or_value( $data, 'shipping_address_2' ),
+			CPS_Intercom_Model::KEY_SHIPPING_CITY               => $this->set_empty_or_value( $data, 'shipping_city' ),
+			CPS_Intercom_Model::KEY_SHIPPING_STATE              => $this->set_empty_or_value( $data, 'shipping_state' ),
+			CPS_Intercom_Model::KEY_SHIPPING_POSTCODE           => $this->set_empty_or_value( $data, 'shipping_postcode' ),
+			CPS_Intercom_Model::KEY_WEBSITE                     => $this->set_empty_or_value( $data, 'website' ),
+			CPS_Intercom_Model::KEY_FACEBOOK                    => $this->set_empty_or_value( $data, 'facebook' ),
+			CPS_Intercom_Model::KEY_TWITTER                     => $this->set_empty_or_value( $data, 'twitter' ),
+			CPS_Intercom_Model::KEY_GOOGLEPLUS                  => $this->set_empty_or_value( $data, 'googleplus' ),
+			CPS_Intercom_Model::KEY_CHECKLIST_VERIFIED_EMAIL    => $this->set_empty_or_value( $data, 'verified_email' ),
+			CPS_Intercom_Model::KEY_CHECKLIST_VERIFIED_PROFILE  => $this->set_empty_or_value( $data, 'verified_profile' ),
+			CPS_Intercom_Model::KEY_CHECKLIST_SCHEDULED_WEBINAR => $this->set_empty_or_value( $data, 'scheduled_webinar' ),
+			CPS_Intercom_Model::KEY_CHECKLIST_ACCESSED_PRODUCTS => $this->set_empty_or_value( $data, 'accessed_products' ),
+			CPS_Intercom_Model::KEY_CHECKLIST_GOT_SHIRT         => $this->set_empty_or_value( $data, 'got_shirt' ),
+			CPS_Intercom_Model::KEY_CHECKLIST_SHARED_VIDEO      => $this->set_empty_or_value( $data, 'shared_video' ),
+			CPS_Intercom_Model::KEY_CHECKLIST_REFERRED_FRIEND   => $this->set_empty_or_value( $data, 'referred_friend' ),
 		];
 	}
 
 	private function get_uid( $data ) {
 		$args = [ CPS_Intercom_Model::KEY_UID => $data['ID'] ];
-		return sprintf( self::UID_TEMPLATE, home_url( self::INTERCOM_SWITCH_PAGE ), http_build_query( $args ) );
+		return sprintf( CPS_Intercom_Model::UID_TEMPLATE, home_url( CPS_Intercom_Model::INTERCOM_SWITCH_PAGE ), http_build_query( $args ) );
 	}
 
 	private function get_onboard_checklist( $user_id ) {
 		return get_user_meta( $user_id, ONBOARD_CHECKLIST_META_KEY, true );
-	}
-
-	private function get_name( $data ) {
-		return sprintf( '%s %s', $data['first_name'], $data['last_name'] );
 	}
 
 	private function get_real_IP() {
@@ -300,6 +334,13 @@ class CPS_Intercom {
 		}
 		return $ip;
 	}
+
+	private function set_empty_or_value( $data, $index, $default = '' ) {
+		if ( isset( $data[ $index ] ) ) {
+			return $data[ $index ];
+		}
+		return $default;
+	}
 }
 
-//return new CPS_Intercom();
+return new CPS_Intercom();
