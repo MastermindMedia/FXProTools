@@ -43,12 +43,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<?php echo WC()->cart->get_item_data( $cart_item ); ?>
 						</td>
 						<td class="product-total">
-							<?php
-                                $product_attributes = $_product->get_attributes();
-							    $prod_subscription_type = ! empty( $product_attributes['subscription-type'] ) ? $product_attributes['subscription-type'] : null;
+							<?php 
+								$prod_subscription_type   = $_product->get_attributes()['subscription-type'];
 								$prod_subscription_length = get_post_meta( $_product->get_id(), '_subscription_trial_length', true );
-								$prod_subscription_fee    = get_post_mea( $_product->get_id(), '_subscription_sign_up_fee', true );
-								$prod_subscription_price  = $_product->get_pritce();
+								$prod_subscription_fee    = get_post_meta( $_product->get_id(), '_subscription_sign_up_fee', true );
+								$prod_subscription_price  = $_product->get_price();
 
 								//if trial, change the text
 								if($prod_subscription_type == "trial"){
