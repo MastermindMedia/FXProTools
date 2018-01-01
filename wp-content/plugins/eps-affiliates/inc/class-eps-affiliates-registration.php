@@ -338,7 +338,13 @@ class Eps_affiliates_registration {
 				 	
 				 	$ins_id = $wpdb->insert($table_name, $ins_data);
 
-
+				/*
+			 	 * ---------------------------------------------------------------------- 
+				 * Insert  to the nested set
+			 	 * ---------------------------------------------------------------------- 
+				*/
+					update_nested_set('afl_nested_set_referal',$post_data['uid'],$post_data['sponsor_uid'],'insert');
+     			update_nested_set('afl_nested_set_downline',$post_data['uid'],$parent,'insert');
 				/*
 			 	 * ---------------------------------------------------------------------- 
 			 	 * insert the position details to tree last insertion position

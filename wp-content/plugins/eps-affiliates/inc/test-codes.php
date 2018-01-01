@@ -9,8 +9,8 @@ function afl_admin_test_codes(){
 
 function check_rank_achied() {
   new Afl_enque_scripts('common');
-  $uid = 14350;
-  $rank = 2;
+  $uid = 14885;
+  $rank = 1;
  pr(_check_required_pv_meets($uid,$rank));
  pr(_check_required_gv_meets($uid,$rank));
  pr(_check_required_distributors_meets($uid,$rank));
@@ -20,7 +20,15 @@ function check_rank_achied() {
 }
 
 function afl_test_codes_callback () {
-  check_rank_achied();
+  $version = '1_0';
+  $file_name =  EPSAFFILIATE_PLUGIN_DIR.'migrations/Migration_database_version_'.$version.'.php';
+  include_once($file_name);
+  $new = new Migration_database_version_1_0();
+  $new->afl_unilevel_nested_set_referal();
+  $new->afl_unilevel_nested_set_downline();
+   $new->afl_nested_set_referal();
+  $new->afl_nested_set_downline();
+  // }
 // require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/plan/common/bonus-incentive-calculation.php';
 //     if (function_exists('_member_bonus_incentive_calculation')) {
 //       _member_bonus_incentive_calculation();

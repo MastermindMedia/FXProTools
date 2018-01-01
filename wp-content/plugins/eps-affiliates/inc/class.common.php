@@ -1448,7 +1448,7 @@ if(!function_exists('afl_get_rank_names')){
 
 		$query['#join'] 	= array(
 			_table_name('users') => array(
-				'#condition' => '`wp_users`.`ID`=`'._table_name('afl_unilevel_user_genealogy').'`.`uid`'
+				'#condition' => '`'._table_name('users').'`.`ID`=`'._table_name('afl_unilevel_user_genealogy').'`.`uid`'
 			)
 		);
 		// $query['#fields'] = array(
@@ -3308,3 +3308,95 @@ function _render_credit_status ( $status = -1) {
 
  	return $actived_months;
  }
+
+
+function update_nested_set($table,$uid,$parent_uid,$op='insert'){
+  
+  //$db = db_transaction();
+
+  try{
+
+  //check the entray for root user has been there
+  $query['#select'] = _table_name($table);
+  $query['#where'] = [
+  	'node_id='.afl_root_user()
+  ];
+  $root_data = db_select($query, 'get_row');
+  if (empty( $root_data ) ){
+  	global $wpdb;
+  	$ins_data = [];
+    $ins_data['lft'] = 1;
+    $ins_data['rgt'] = 2;
+    $ins_data['parent_uid'] = 0;
+    $ins_data['node_id'] = afl_root_user();
+
+		$ins_id = $wpdb->insert(_table_name($table), $ins_data);
+  }
+
+
+ /* $new_left = db_select($table, 'set_table')
+              ->fields('set_table',['rgt'])
+              ->condition('set_table.node_id',$parent_uid)
+              ->execute()
+              ->fetchField();*/
+  $query['#select'] = _table_name($table);
+  $query['#fields'] = [
+  	_table_name($table) => ['rgt']
+  ];
+  $query['#where'] = [
+  	'node_id='.$parent_uid
+  ];
+  $new_left = db_select($query, 'get_row');
+  if(!empty($new_left)){
+  		$new_left = (array)$new_left;
+    
+     //update right
+      /*$q = db_update($table);
+      $q->expression('rgt','rgt + :right',[':right'=>2]);
+      $q->condition('rgt',$new_left , '>=');
+      $n = $q->execute();*/
+      
+      $update_query['#table'] = _table_name($table);
+			$update_query['#fields'] = [
+				'rgt' => 'rgt + 2',
+			];
+			$update_query['#where'] = [
+				'rgt >='.$new_left['rgt'] 
+			];
+			db_update($update_query);
+
+
+     //Update left
+      /*$q = db_update($table);
+      $q->expression('lft','lft + :lft',[':lft'=>2]);
+      $q->condition('lft',$new_left , '>');
+      $q->execute();*/
+
+
+      $update_query['#table'] = _table_name($table);
+			$update_query['#fields'] = [
+				'lft' => 'lft + 2',
+			];
+			$update_query['#where'] = [
+				'lft >'.$new_left['rgt'] 
+			];
+			db_update($update_query);
+
+     //Insert new node
+      $ins_data = [];
+      $ins_data['lft'] = $new_left['rgt'] ;
+      $ins_data['rgt'] = $new_left['rgt']  + 1;
+      $ins_data['parent_uid'] = $parent_uid;
+      $ins_data['node_id'] = $uid;
+
+      global $wpdb;
+			$ins_id = $wpdb->insert(_table_name($table), $ins_data);
+
+  }
+  
+  }catch(Exception $e){
+    throw $e;
+    //$db->rollback();
+  }
+
+}

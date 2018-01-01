@@ -44,7 +44,7 @@
 	<div class="panel panel-default text-center m-l-n-xs m-r-n-xs">
 		<div class="panel-body">
 			<span>Distributors</span>
-			<h3 class="m-t-xs"><?= $result = apply_filters('afl_my_downline_distributors_count',get_uid(), 'matrix'); ?></h3>
+			<h3 class="m-t-xs"><?= $result = apply_filters('afl_my_downline_distributors_count',get_uid(), 'unilevel'); ?></h3>
 		</div>
 	</div>
 </div>

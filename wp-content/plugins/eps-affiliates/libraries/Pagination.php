@@ -172,7 +172,13 @@ class CI_Pagination {
 		// Render the "First" link
 		if  ($this->first_link !== FALSE AND $this->cur_page > ($this->num_links + 1)) {
 			$first_url = ($this->first_url == '') ? $this->base_url : $this->first_url;
-			$output 	.= $this->first_tag_open.'<a '.$this->anchor_class.'href="'.$first_url.'">'.$this->first_link.'</a>'.$this->first_tag_close;
+			//remove the count from the link
+			$parsed_url = parse_url($first_url);
+			parse_str($parsed_url['query'], $parsed_query);
+			unset($parsed_query['page_count']);
+			$first_url_maked = http_build_query($parsed_query);
+
+			$output 	.= $this->first_tag_open.'<a '.$this->anchor_class.'href="?'.$first_url_maked.'">'.$this->first_link.'</a>'.$this->first_tag_close;
 
 		}
 		// Render the "previous" link

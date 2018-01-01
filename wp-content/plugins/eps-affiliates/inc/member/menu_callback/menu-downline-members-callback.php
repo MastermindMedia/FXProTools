@@ -12,7 +12,7 @@ function afl_downline_members_callback(){
 
 		
 	// do_action('afl_my_distributors_count_template');
-	do_action('afl_my_customers_count_template');
+	// do_action('afl_my_customers_count_template');
 	
 	do_action('afl_my_downline_distributors_count_template', 'matrix');
 	

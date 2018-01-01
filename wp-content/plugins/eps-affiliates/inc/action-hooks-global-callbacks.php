@@ -73,11 +73,6 @@
 			 	//calculate rank
 			 	do_action('eps_affiliates_calculate_affiliate_rank', $args['uid']);
 
-				//calculte the rank of uplines matrix
-				$refers_uids = afl_get_referrer_upline_uids($args['uid']);
-				foreach ($refers_uids as $uid) {
-					do_action('eps_affiliates_calculate_affiliate_rank', $uid);
-				}
 
 				//calculte the rank of uplines Unilevel
 				$refers_uids = afl_unilevel_get_upline_uids($args['uid']);
