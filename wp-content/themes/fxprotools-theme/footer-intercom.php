@@ -8,7 +8,7 @@ if (is_user_logged_in() && isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NA
         window.intercomSettings = {
             app_id: "tyotu8pw",
             email: "<?= $user->user_email ; ?>",
-            user_hash: "<?= CPSIntercom::get_user_intercom_HMAC($user); ?>"
+            user_hash: "<?= CPS_Intercom::get_user_intercom_HMAC($user); ?>"
         };
         (function () {
             var w = window;

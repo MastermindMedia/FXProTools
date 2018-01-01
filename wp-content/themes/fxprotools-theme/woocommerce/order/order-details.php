@@ -79,4 +79,12 @@ $show_customer_details = is_user_logged_in() && $order->get_user_id() === get_cu
 		<?php wc_get_template( 'order/order-details-customer.php', array( 'order' => $order ) ); ?>
 	<?php endif; ?>
 
+    <?php
+    $printful = new CPS_Printful();
+    $pf_order = $printful->get_order($order->get_order_number());
+
+    if ($pf_order) {
+	    wc_get_template( 'order/order-details-shipping.php', array( 'pf_order' => $pf_order ) );
+    }
+    ?>
 </section>

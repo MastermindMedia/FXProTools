@@ -209,6 +209,56 @@ function afl_set_root_mlmid($mlmid) {
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_user_exort_data')."`");
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_bonus_incentive_history')."`");
 		
+		$wpdb->query("DELETE FROM `"._table_name('afl_nested_set_referal')."` WHERE `node_id` != ".afl_root_user()." ");
+		$wpdb->query("DELETE FROM `"._table_name('afl_nested_set_downline')."` WHERE `node_id` != ".afl_root_user()." ");
+
+
+		//update the nested sets
+		$query['#select'] = _table_name('afl_nested_set_referal');
+	  $query['#where'] = [
+	  	'node_id='.afl_root_user()
+	  ];
+	  $root_data = db_select($query, 'get_row');
+	  if (empty( $root_data ) ){
+	  	global $wpdb;
+	  	$ins_data = [];
+	    $ins_data['lft'] = 1;
+	    $ins_data['rgt'] = 2;
+	    $ins_data['parent_uid'] = 0;
+	    $ins_data['node_id'] = afl_root_user();
+
+			$ins_id = $wpdb->insert(_table_name('afl_nested_set_referal'), $ins_data);
+	  } else {
+	  	$update_query['#table'] = _table_name('afl_nested_set_referal');
+			$update_query['#fields'] = [
+				'lft' => 1,
+				'rgt' => 2,
+			];
+			db_update($update_query);
+	  }
+
+	  $query['#select'] = _table_name('afl_nested_set_downline');
+	  $query['#where'] = [
+	  	'node_id='.afl_root_user()
+	  ];
+	  $root_data = db_select($query, 'get_row');
+	  if (empty( $root_data ) ){
+	  	global $wpdb;
+	  	$ins_data = [];
+	    $ins_data['lft'] = 1;
+	    $ins_data['rgt'] = 2;
+	    $ins_data['parent_uid'] = 0;
+	    $ins_data['node_id'] = afl_root_user();
+
+			$ins_id = $wpdb->insert(_table_name('afl_nested_set_downline'), $ins_data);
+	  } else {
+	  	$update_query['#table'] = _table_name('afl_nested_set_downline');
+			$update_query['#fields'] = [
+				'lft' => 1,
+				'rgt' => 2,
+			];
+			db_update($update_query);
+	  }
 	}
 /*
  * ------------------------------------------------------------------------

@@ -73,11 +73,6 @@
 			 	//calculate rank
 			 	do_action('eps_affiliates_calculate_affiliate_rank', $args['uid']);
 
-				//calculte the rank of uplines matrix
-				$refers_uids = afl_get_referrer_upline_uids($args['uid']);
-				foreach ($refers_uids as $uid) {
-					do_action('eps_affiliates_calculate_affiliate_rank', $uid);
-				}
 
 				//calculte the rank of uplines Unilevel
 				$refers_uids = afl_unilevel_get_upline_uids($args['uid']);
@@ -99,7 +94,7 @@
 		    $transaction['int_payout'] 					= 0;
 		    $transaction['hidden_transaction'] 	= 0;
 		    $transaction['credit_status'] 			= 1;
-		    $transaction['amount_paid'] 				= afl_commerce_amount($args['afl_point']);
+		    $transaction['amount_paid'] 				= !empty($args['amount_paid']) ? afl_commerce_amount($args['amount_paid']):0;
 		    $transaction['category'] 						= $category;
 		    $transaction['notes'] 							= $category;
 		    $transaction['transaction_day'] 		= $afl_date_splits['d'];

@@ -104,10 +104,11 @@ function _get_furthrer_qualification_to_achieve_rank ($rank = '', $uid = '') {
 	//check gv meets
 	if (!_check_required_gv_meets($uid, $rank)) {
 		$required = afl_variable_get('rank_'.$rank.'_gv',0);
-		$earned 	= _get_user_gv_v1($uid); 
+		$earned 	= _get_user_gv_v1($uid, $rank, TRUE); 
 
 		$ret_string .= '</br>* You need '.($required - $earned).' more Group volume to unlock this';
 	}
+
 	//check distributor count meets
 	if (!_check_required_distributors_meets($uid, $rank)) {
 		$required = afl_variable_get('rank_'.$rank.'_no_of_distributors',0);
@@ -120,6 +121,12 @@ function _get_furthrer_qualification_to_achieve_rank ($rank = '', $uid = '') {
 	if (!_check_required_customer_rule($uid, $rank)) {
 		$ret_string .= '</br>* You need meet the required customer rule';
 	}
+
+	//check the required qualififcation
+	if ( !_check_required_qualifications_meets($uid, $rank)) {
+		$ret_string .= '</br>* You need meet the required qualification criterias';
+	}
+
 	$node = afl_genealogy_node($uid);
 	if (isset($node->member_rank)) {
 		if ( $node->member_rank >= $rank) {

@@ -17,7 +17,7 @@
 */
 	function eps_affiliates_holding_tank_user_expiry_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_holding_tank_user_expiry_scheduler' ) ) {  
-		   wp_schedule_event( time(), 'six_mins', 'eps_affiliates_holding_tank_user_expiry_scheduler' );  
+		   wp_schedule_event( time(), 'two_mins', 'eps_affiliates_holding_tank_user_expiry_scheduler' );  
 		}
 	}
 
@@ -44,7 +44,7 @@
  *
 */
 	function eps_affiliates_holding_tank_user_expiry_cron_callback() {
-		require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/plan/matrix/holding-tank-expiry-check.php';
+		require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/cron_events/matrix/holding-tank-expiry-check.php';
 		if (function_exists('_check_holding_tank_expiry')) {
 			_check_holding_tank_expiry();
 		}
@@ -59,7 +59,7 @@
 */
 	function eps_affiliates_unilevel_holding_tank_user_expiry_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_unilevel_holding_tank_user_expiry_scheduler' ) ) {  
-		   wp_schedule_event( time(), 'six_mins', 'eps_affiliates_unilevel_holding_tank_user_expiry_scheduler' );  
+		   wp_schedule_event( time(), 'two_mins', 'eps_affiliates_unilevel_holding_tank_user_expiry_scheduler' );  
 		}
 	}
 
@@ -86,7 +86,7 @@
  *
 */
 	function eps_affiliates_unilevel_holding_tank_user_expiry_cron_callback() {
-		require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/plan/unilevel/holding-tank-expiry-check.php';
+		require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/cron_events/unilevel/holding-tank-expiry-check.php';
 		if (function_exists('_unilevel_check_holding_tank_expiry')) {
 			_unilevel_check_holding_tank_expiry();
 		}
@@ -101,7 +101,7 @@
 */
 	function eps_affiliates_monthly_matrix_compensation_payout_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_monthly_matrix_compensation_payout' ) ) {  
-		   wp_schedule_event( time(), 'six_mins', 'eps_affiliates_monthly_matrix_compensation_payout' );  
+		   wp_schedule_event( time(), 'two_mins', 'eps_affiliates_monthly_matrix_compensation_payout' );  
 		}
 	}
 /*
@@ -128,7 +128,7 @@
 */
 // monthly_matrix_compensation_payout_cron_job_callback();
  function eps_affiliates_monthly_matrix_compensation_payout_cron_callback () {
-	 	require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/plan/matrix/matrix-compensation-bonus-calculation.php';
+	 	require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/cron_events/matrix/matrix-compensation-bonus-calculation.php';
 		if (function_exists('_calculate_matrix_compensation')) {
 			_calculate_matrix_compensation();
 		}
@@ -142,7 +142,7 @@
  * ------------------------------------------------------------
 */
  function eps_affiliates_monthly_release_holding_bonus_payouts_cron_callback () {
-	 	require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/plan/matrix/matrix-compensation-holding-bonus-payout.php';
+	 	require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/cron_events/matrix/matrix-compensation-holding-bonus-payout.php';
 		if (function_exists('_release_holding_bonus_payouts')) {
 			_release_holding_bonus_payouts();
 		}
@@ -156,7 +156,7 @@
 */
 	function eps_affiliates_monthly_release_holding_bonus_payouts_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_monthly_release_holding_bonus_payouts' ) ) {  
-		   wp_schedule_event( time(), 'six_mins', 'eps_affiliates_monthly_release_holding_bonus_payouts' );  
+		   wp_schedule_event( time(), 'two_mins', 'eps_affiliates_monthly_release_holding_bonus_payouts' );  
 		}
 	}
 
@@ -181,7 +181,7 @@
 */
 	function eps_affiliates_monthly_pool_bonus_payout_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_monthly_pool_bonus_payout' ) ) {  
-		   wp_schedule_event( time(), 'six_mins', 'eps_affiliates_monthly_pool_bonus_payout' );  
+		   wp_schedule_event( time(), 'two_mins', 'eps_affiliates_monthly_pool_bonus_payout' );  
 		}
 	}
 /*
@@ -208,7 +208,7 @@
  * -------------------------------------------------------------
 */
  function eps_affiliates_monthly_pool_bonus_payout_cron_callback () {
-	require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/plan/matrix/global-pool-bonus-calculation.php';
+	require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/cron_events/matrix/global-pool-bonus-calculation.php';
 	if (function_exists('_calculate_global_pool_bonus')) {
 		_calculate_global_pool_bonus();
 	}
@@ -225,7 +225,7 @@
 */
 	function eps_affiliates_remote_users_embedd_cron_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_remote_users_embedd_cron' ) ) {  
-		   wp_schedule_event( time(), 'six_mins', 'eps_affiliates_remote_users_embedd_cron' );  
+		   wp_schedule_event( time(), 'two_mins', 'eps_affiliates_remote_users_embedd_cron' );  
 		}
 	}
 /*
@@ -273,7 +273,7 @@
 */
 	function eps_affiliates_deactived_spot_openup_cron_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_deactived_spot_openup_cron' ) ) {  
-		   wp_schedule_event( time(), 'six_mins', 'eps_affiliates_deactived_spot_openup_cron' );  
+		   wp_schedule_event( time(), 'two_mins', 'eps_affiliates_deactived_spot_openup_cron' );  
 		}
 	}
 /*
@@ -299,7 +299,7 @@
  * ------------------------------------------------------------
 */
  function eps_affiliates_deactived_spot_openup_cron_callback () {
-	 	require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/plan/matrix/inactive-user-spot-openup.php';
+	 	require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/cron_events/matrix/inactive-user-spot-openup.php';
 		if (function_exists('_matrix_inactive_user_spot_open_up')) {
 			_matrix_inactive_user_spot_open_up();
 		}
@@ -317,7 +317,7 @@
 */
 	function eps_affiliates_bonus_incentive_cron_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_bonus_incentive_cron' ) ) {  
-		   wp_schedule_event( time(), 'six_mins', 'eps_affiliates_bonus_incentive_cron' );  
+		   wp_schedule_event( time(), 'two_mins', 'eps_affiliates_bonus_incentive_cron' );  
 		}
 	}
 /*
@@ -339,7 +339,7 @@
  * ------------------------------------------------------------
 */
  function eps_affiliates_bonus_incentive_cron_callback () {
-	 	require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/plan/common/bonus-incentive-calculation.php';
+	 	require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/cron_events/common/bonus-incentive-calculation.php';
 		if (function_exists('_member_bonus_incentive_calculation')) {
 			_member_bonus_incentive_calculation();
 		}
@@ -356,7 +356,7 @@
 */
 	function eps_affiliates_unilevel_rank_calculation_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_unilevel_rank_calculation_scheduler' ) ) {  
-		   wp_schedule_event( time(), 'six_mins', 'eps_affiliates_unilevel_rank_calculation_scheduler' );  
+		   wp_schedule_event( time(), 'two_mins', 'eps_affiliates_unilevel_rank_calculation_scheduler' );  
 		}
 	}
 
@@ -383,7 +383,7 @@
  *
 */
 	function eps_affiliates_unilevel_rank_calculation_scheduler_callback() {
-		require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/plan/unilevel/rank-calculation.php';
+		require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/cron_events/unilevel/rank-calculation.php';
 		if (function_exists('_rank_calculation_scheduler_callback')) {
 			_rank_calculation_scheduler_callback();
 		}
@@ -401,9 +401,12 @@
 	function cron_add_hour( $schedules ) {
 	    $schedules['six_mins'] = array(
 		    'interval' => 360,
-		    'display' => __( 'Once Every Hour' )
+		    'display' => __( 'Six minute' )
 	    );
-
+     $schedules['two_mins'] = array(
+		    'interval' => 120,
+		    'display' => __( '2 Minute' )
+	    );
 	    $schedules['eps_queue_processing'] = array(
 		    'interval' => 300,
 		    'display' => __( 'Every 5 minute' )

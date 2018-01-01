@@ -35,6 +35,7 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 			add_filter( 'woocommerce_product_add_to_cart_text', array( $this, 'wc_archive_custom_cart_button_text' ) );
 			add_filter( 'woocommerce_product_single_add_to_cart_text', array( $this, 'wc_archive_custom_cart_button_text' ) );
 			add_filter( 'woocommerce_product_add_to_cart_url', array( $this, 'wc_archive_custom_cart_button_url' ) );
+			add_filter( 'woocommerce_show_variation_price', array($this, 'cps_always_show_variation_prices'));
 
 			// Actions
 			add_action( 'woocommerce_thankyou', array( $this, 'wc_after_checkout_redirect' ) );
@@ -315,6 +316,12 @@ HTML;
                 echo '<a href="/dashboard" class="btn btn-link p-xxs m-l-sm">Go To Dashboard</a>';
             }
         }
+
+
+		public function cps_always_show_variation_prices($show) {
+			return true;
+		}
+
         
 	}
 }

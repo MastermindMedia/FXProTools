@@ -107,8 +107,10 @@ function _manage_member_page_callback_filter ( $tree = 'unilevel' ) {
 
 		$pagination = new CI_Pagination;
 
+		$page_path = http_build_query($_GET);
+
 		$config['total_rows'] =  (affiliate_data($tree,[],TRUE));
-		$config['base_url'] 	= '?page=affiliate-eps-manage-members';
+		$config['base_url'] 	= '?'.$page_path;
 		$config['per_page'] 	= 50;
 
 		

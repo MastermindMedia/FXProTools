@@ -13,6 +13,15 @@ if(isset($_POST['user_login'])){
 	$_SESSION["sec_redir"]  = get_option('home') . $_SERVER['REQUEST_URI'];
 	$_SESSION["sec_login"] = 1;
 }
+
+if (isset($_GET['test'])) {
+    if (class_exists('CPS_Printful')) {
+        $pf = new CPS_Printful();
+        var_dump($pf->get_order(29087));
+    } else {
+        var_dump('Class Not Found');
+    }
+}
 ?>
 <?php
 if( $_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -42,6 +51,9 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 	if( !$checklist['verified_profile'] && $has_phone_number){
 		pass_onboarding_checklist('verified_profile');
 	}
+	// update Intercom account of the user
+    $intercom = new CPS_Intercom();
+	$intercom->intercom_update_user(get_query_var('acc_id'));
 	wp_redirect( home_url() . '/autologin?user_id=' . get_query_var('acc_id') );
 }
 

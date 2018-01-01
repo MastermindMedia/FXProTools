@@ -387,7 +387,8 @@ function _get_user_gv_v1($uid = '', $rank ='', $add_with_user_pv = FALSE,$tree =
  function _get_user_distributor_count ($uid,$tree = 'unilevel') {
  		$downlines    = afl_get_sponsor_downlines_uid($uid, array(),TRUE);
  	if ( $tree == 'unilevel') {
-	 	$downlines    = (array)afl_get_unilevel_user_downlines_uid($uid, array());
+	 	//$downlines    = (array)afl_get_unilevel_user_downlines_uid($uid, array());
+	 	$downlines    = (array)afl_unilevel_get_user_refered_downlines($uid, array());
 		$customers_ids = (array)get_user_downline_customers($uid);
 
 		$downline_count = count($downlines);		
@@ -449,14 +450,15 @@ function _get_user_gv_v1($uid = '', $rank ='', $add_with_user_pv = FALSE,$tree =
 		$sql = 'SELECT `'.$afl_user_downlines.'`.`uid`,COUNT(`'.$afl_user_downlines.'`.`uid`='.$uid.' ) AS count FROM `'.$afl_user_downlines.'`  JOIN `'.$afl_customer.'` ON `'.$afl_customer.'`.`uid`=`'.$afl_user_downlines.'`.`downline_user_id`  WHERE `'.$afl_user_downlines.'`.`uid`='.$uid.'   ORDER BY '.$afl_user_downlines.'.`level` ASC ';
 
 		$customer_result = $wpdb->get_row($sql);
-		// pr($customer_result);
 		$customer_count = isset($customer_result->count) ? $customer_result->count : 0;
-
-
-		return array(
+		
+		$result = array(
 			'distributors' => $total_count-$customer_count,
 			'customers' => $customer_count
 			);
+
+		if ($count)
+			return ($result['distributors']);
 
 		
 

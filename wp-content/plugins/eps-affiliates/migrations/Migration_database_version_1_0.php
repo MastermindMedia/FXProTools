@@ -70,6 +70,14 @@
 			#data export dable
 	 		$this->afl_user_exort_data();
 
+	 		//nested set
+	 		$this->afl_nested_set_referal();
+	 		$this->afl_nested_set_downline();
+
+	 		//nested set
+	 		$this->afl_unilevel_nested_set_referal();
+	 		$this->afl_unilevel_nested_set_downline();
+
 	 	}
 	 	//downgrade the database version
 	 	public function migration_downgrade() {
@@ -1422,5 +1430,101 @@
                       MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;' );
 	 	}
 
+	/*
+	  * ----------------------------------------------------------------------------------------------------------
+	  * nested set referals
+	  * ----------------------------------------------------------------------------------------------------------
+	 */
+		 private function afl_nested_set_referal () {
+		 		$table_name = $this->tbl_prefix .'afl_nested_set_referal';
+	      $sql = "CREATE TABLE IF NOT EXISTS `$table_name` (
+					  `node_id` int(11) NOT NULL,
+					  `parent_uid` int(10) UNSIGNED NOT NULL COMMENT 'Parent uid',
+					  `lft` int(10) UNSIGNED NOT NULL COMMENT 'Left',
+					  `rgt` int(10) UNSIGNED NOT NULL COMMENT 'Right'
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Nested set for referal';";
 
+	      require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	      dbDelta( $sql );
+	      global $wpdb;
+	      //indexes
+	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	                    ADD PRIMARY KEY (`node_id`);' );
+	      //AUTO increment
+	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	                      MODIFY `node_id` int(11) NOT NULL AUTO_INCREMENT;' );
+		 	}
+	/*
+	  * ----------------------------------------------------------------------------------------------------------
+	  * nested set downlines
+	  * ----------------------------------------------------------------------------------------------------------
+	 */
+		 private function afl_nested_set_downline () {
+		 		$table_name = $this->tbl_prefix .'afl_nested_set_downline';
+	      $sql = "CREATE TABLE IF NOT EXISTS `$table_name` (
+					  `node_id` int(11) NOT NULL,
+					  `parent_uid` int(10) UNSIGNED NOT NULL COMMENT 'Parent uid',
+					  `lft` int(10) UNSIGNED NOT NULL COMMENT 'Left',
+					  `rgt` int(10) UNSIGNED NOT NULL COMMENT 'Right'
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Nested set for Downline';";
+					
+	      require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	      dbDelta( $sql );
+	      global $wpdb;
+	      //indexes
+	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	                    ADD PRIMARY KEY (`node_id`);' );
+	      //AUTO increment
+	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	                      MODIFY `node_id` int(11) NOT NULL AUTO_INCREMENT;' );
+		 	}
+
+		/*
+	  * ----------------------------------------------------------------------------------------------------------
+	  * nested set referals
+	  * ----------------------------------------------------------------------------------------------------------
+	 */
+		 private function afl_unilevel_nested_set_referal () {
+		 		$table_name = $this->tbl_prefix .'afl_unilevel_nested_set_referal';
+	      $sql = "CREATE TABLE IF NOT EXISTS `$table_name` (
+					  `node_id` int(11) NOT NULL,
+					  `parent_uid` int(10) UNSIGNED NOT NULL COMMENT 'Parent uid',
+					  `lft` int(10) UNSIGNED NOT NULL COMMENT 'Left',
+					  `rgt` int(10) UNSIGNED NOT NULL COMMENT 'Right'
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Nested set for referal';";
+
+	      require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	      dbDelta( $sql );
+	      global $wpdb;
+	      //indexes
+	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	                    ADD PRIMARY KEY (`node_id`);' );
+	      //AUTO increment
+	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	                      MODIFY `node_id` int(11) NOT NULL AUTO_INCREMENT;' );
+		 	}
+	/*
+	  * ----------------------------------------------------------------------------------------------------------
+	  * nested set downlines
+	  * ----------------------------------------------------------------------------------------------------------
+	 */
+		 private function afl_unilevel_nested_set_downline () {
+		 		$table_name = $this->tbl_prefix .'afl_unilevel_nested_set_downline';
+	      $sql = "CREATE TABLE IF NOT EXISTS `$table_name` (
+					  `node_id` int(11) NOT NULL,
+					  `parent_uid` int(10) UNSIGNED NOT NULL COMMENT 'Parent uid',
+					  `lft` int(10) UNSIGNED NOT NULL COMMENT 'Left',
+					  `rgt` int(10) UNSIGNED NOT NULL COMMENT 'Right'
+					) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Nested set for Downline';";
+					
+	      require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	      dbDelta( $sql );
+	      global $wpdb;
+	      //indexes
+	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	                    ADD PRIMARY KEY (`node_id`);' );
+	      //AUTO increment
+	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	                      MODIFY `node_id` int(11) NOT NULL AUTO_INCREMENT;' );
+		 	}
 } //here closing the class

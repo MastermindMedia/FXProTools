@@ -349,7 +349,13 @@ class Eps_affiliates_unilevel_registration {
 				 	$ins_data['actived_on'] 				= afl_date();
 				 	
 				 	$ins_id = $wpdb->insert($table_name, $ins_data);
-
+				/*
+			 	 * ---------------------------------------------------------------------- 
+				 * Insert  to the nested set
+			 	 * ---------------------------------------------------------------------- 
+				*/
+					update_nested_set('afl_unilevel_nested_set_referal',$post_data['uid'],$post_data['sponsor_uid'],'insert');
+     			update_nested_set('afl_unilevel_nested_set_downline',$post_data['uid'],$parent,'insert');
 
 				/*
 			 	 * ---------------------------------------------------------------------- 
