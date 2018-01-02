@@ -56,7 +56,9 @@
 				<li><span>State:</span> <input type="text" name="shipping_state" id="shipping_state" value="<?php echo get_the_author_meta('shipping_state', get_query_var('acc_id')) ?>" /></li>
 				<li><span>Zip Code:</span> <input type="text" name="shipping_postcode" id="shipping_postcode" value="<?php echo get_the_author_meta('shipping_postcode', get_query_var('acc_id')) ?>" /></li>
 			</ul>
+
 		</div>
+		<div class="clearfix">	</div>
 	</div>
 	<div class="btn-holder btn-right m-t-lg">
 		<button type="submit" class="btn btn-default">Save</button>
