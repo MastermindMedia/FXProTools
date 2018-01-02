@@ -958,7 +958,16 @@ add_action( 'admin_init', 'restrict_customer_admin_access' );
 add_action( 'woocommerce_admin_order_data_after_shipping_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
 function my_custom_checkout_field_display_admin_order_meta($order){
     $my_custom_field = get_post_meta( $order->id, '_my_field_slug', true );
-    //if ( ! empty( $my_custom_field ) ) {
-        echo '<p><strong>'. __("Affiliate", "woocommerce").':</strong></p>';
-    //}
+
+    global $wpdb;
+
+    $result_affiliate_id = $wpdb->get_row( $wpdb->prepare(  "SELECT DISTINCT affiliate_id FROM {$wpdb->prefix}affiliate_wp_referrals WHERE reference = '%s' LIMIT 1;", $order->id ) );
+
+    if ( ! empty( $result_affiliate_id ) ) {
+    	$result_user_id = $wpdb->get_row( $wpdb->prepare(  "SELECT DISTINCT user_id FROM {$wpdb->prefix}affiliate_wp_affiliates WHERE affiliate_id = '%s' LIMIT 1;", $result_affiliate_id->affiliate_id ) );
+
+    	$user_info = get_userdata($result_user_id->user_id);
+
+        echo '<p><strong>'. __("Referring sponsor", "woocommerce").':</strong> <a href="/wp-admin/admin.php?page=affiliate-wp-referrals&affiliate_id=' . $result_affiliate_id->affiliate_id . '">' . $user_info->display_name . '</a></p>';
+    }
 }
