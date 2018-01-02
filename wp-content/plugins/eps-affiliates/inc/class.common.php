@@ -116,10 +116,10 @@ $common_include = new Eps_affiliates_common();
 						foreach ($elements[$key] as $key => $field_element) {
 							$html .= html_input_render($field_element,$key,$attributes);
 						}
-						
+
 						$html .= '</div>';
 						$html .= '</fieldset>';
-						
+
 					} else {
 							$html .= html_input_render($element,$key,$attributes);
 					}
@@ -222,7 +222,7 @@ $common_include = new Eps_affiliates_common();
 		if (isset($table['#suffix'])) {
 			$table_html .= $table['#suffix'];
 		}
-		
+
 		/* -----------Pagination Links : Begin	----------*/
 		if (!empty($table['#links'])) {
 			$table_html .= '<div class="clearfix"><div class="pull-right">
@@ -368,7 +368,7 @@ $common_include = new Eps_affiliates_common();
 						$html .= '<select class="form-control '.$class.'" name="'.$key.'" multiple = "'.$multiple.'" >';
 					else
 						$html .= '<select class="form-control '.$class.'" name="'.$key.'" >';
-					
+
 					if (!empty($element['#options'])) {
 						foreach ($element['#options'] as $data => $value) {
 
@@ -661,7 +661,7 @@ if(!function_exists('afl_get_levels')){
 
 		$alert .= '';
 		new Afl_enque_scripts('common');
-		
+
 	 	wp_enqueue_script( 'jq-toast', EPSAFFILIATE_PLUGIN_ASSETS.'js/jquery.min.js', array(), '1.0' );
  	 	wp_add_inline_script( 'jq-toast', '$(function(){toastr["'.$action.'"]("'.$msg.'");});' );
 
@@ -2716,7 +2716,7 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 	function _get_holding_tank_data ($uid = '', $table = '') {
 		$query = array();
 		$query['#select'] = _table_name('afl_user_holding_tank');
-		
+
 		if ( $table =='unilevel') {
 			$query['#select'] = _table_name('afl_unilevel_user_holding_tank');
 		}
@@ -2734,7 +2734,7 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 */
 	function afl_log($type, $message, $variables = array(), $severity = LOGS_NOTICE, $link = NULL) {
 	  global $user, $base_root;
-	  
+
 	  // Prepare the fields to be logged
 	  $msg = '';
 	  if ( is_array( $message ) ) {
@@ -2774,7 +2774,7 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 			<strong> Notice : </strong>Do not try to change what is given here without accurate knowledge. It will affect the entire system badly
 		</div>
 	</div>';
- 	// 
+ 	//
  }
 /*
  * --------------------------------------------------------------------
@@ -2818,14 +2818,14 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
  * --------------------------------------------------------------------
 */
 	function _get_user_direct_legs( $uid = '', $return_uids = FALSE, $count = FALSE, $tree = 'matrix') {
-	 	$query = array();	
+	 	$query = array();
 	 	switch ($tree) {
 	 		case 'matrix':
 	 			$table = _table_name('afl_user_genealogy');
 			break;
 			case 'unilevel':
 	 			$table = _table_name('afl_unilevel_user_genealogy');
-			break;		
+			break;
 	 	}
 
 	 	$query['#select']  = $table;
@@ -2863,7 +2863,7 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 		$gv_array = [];
 		$sum = 0;
 	 	$legs = _get_user_direct_legs($uid, TRUE, FALSE, $tree);
-	 	
+
 	 	foreach ($legs as $key => $value) {
 	 		$gv = 0;
 	 		//group volume of user
@@ -2884,7 +2884,7 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 				}
 			}
 
-	 		$gv_array[$value->uid] = $gv + $pv + 0; 
+	 		$gv_array[$value->uid] = $gv + $pv + 0;
 	 		$sum = $sum + $gv;
 	 	}
 
@@ -2912,9 +2912,9 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 	 		//customer sales
 	 		$leg_customer_sale = 0;
 	 		$leg_customer_sale 	= get_user_downline_customers_sales($value->uid,TRUE);
-			
-	 		$gv_array[$value->relative_position]['sales'] = $gv + $pv + $leg_customer_sale; 
-	 		$gv_array[$value->relative_position]['uid'] 	= $value->uid; 
+
+	 		$gv_array[$value->relative_position]['sales'] = $gv + $pv + $leg_customer_sale;
+	 		$gv_array[$value->relative_position]['uid'] 	= $value->uid;
 	 		$sum = $sum + $gv;
 	 	}
 
@@ -2973,7 +2973,7 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
       '`level`' => 'ASC',
       // '`uid`'   => 'ASC'
     );
-    
+
     $tank_users = db_select($query, 'get_results');
     return $tank_users;
 	}
@@ -2992,7 +2992,7 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 	}
 /*
  * -----------------------------------------------------------------------
- * get upline users 
+ * get upline users
  * -----------------------------------------------------------------------
 */
  function afl_get_upline_users ($uid = '', $users = array()) {
@@ -3073,7 +3073,7 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 			} else {
 			    $url .= '?'.$build_q;
 			}
-		} 
+		}
 
 		return $url;
 	}
@@ -3105,7 +3105,7 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 	function _downline_distributors_ ( $uid = '', $tree = 'matrix', $count = FALSE) {
 		$uids = afl_get_unilevel_user_downlines_uid($uid);
 		$uids = array_ret($uids, 'downline_user_id');
-		
+
 		if ( $tree == 'unilevel') {
 			$table = _table_name('afl_user_downlines');
 			if ( $tree == 'unilevel') {
@@ -3113,7 +3113,7 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 			}
 			$customers = get_user_downline_customers($uid);
 			$customers = array_ret($customers,'uid');
-			
+
 			if ( !empty($customers)) {
 				$query['#select'] = $table;
 				$query['#fields'] = [
@@ -3130,13 +3130,13 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 			}
 
 		}
-		if ($count) 
+		if ($count)
 			return count($uids);
 		return $uids;
 	}
 /*
  * -----------------------------------------------------------------------
- * User downlines distributors 
+ * User downlines distributors
  * -----------------------------------------------------------------------
 */
 	function _get_downline_distributors_ ( $uid = '', $tree = 'matrix', $count = FALSE) {
@@ -3147,7 +3147,7 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 		}
 
 		$uids = array_ret($uids, 'downline_user_id');
-		
+
 		if ( $tree == 'unilevel') {
 			$table = _table_name('afl_user_downlines');
 			if ( $tree == 'unilevel') {
@@ -3155,7 +3155,7 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 			}
 			$customers = get_user_downline_customers($uid);
 			$customers = array_ret($customers,'uid');
-			
+
 			if ( !empty($customers)) {
 				$query['#select'] = $table;
 				$query['#fields'] = [
@@ -3172,7 +3172,7 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 			}
 
 		}
-		if ($count) 
+		if ($count)
 			return count($uids);
 		return $uids;
 	}
@@ -3180,9 +3180,9 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 		$gv_array = [];
 		$sum = $gv  = 0;
 	 	$legs = _get_user_direct_legs($uid, TRUE, FALSE, $tree);
-	 	
+
 	 	foreach ($legs as $key => $value) {
-	 		
+
 	 		$gv = 0;
 	 		//group volume of user only distributors
 	 		$distribs = _downline_distributors_($value->uid, $tree);
@@ -3197,7 +3197,7 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 		 	);
 		 	$result = db_select($query, 'get_row');
 			$result = (array)$result;
-			
+
 			if (isset($result['sum'])) {
 		 		$gv = $result['sum']/100;
 		 	}
@@ -3213,9 +3213,9 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 			}
 	 		// pr($distribs);
 
-	 		$gv_array[$value->uid] = $gv + $pv ; 
+	 		$gv_array[$value->uid] = $gv + $pv ;
 	 		$sum = $sum + $gv;
-	 		
+
 	 	}
 
 	 	if ( $return_sum ) {
@@ -3245,7 +3245,7 @@ function _render_cron_status ( $cron_status = 0) {
 	 		case 2:
 	      return '<span class="badge bg-success">'.__($variable_list[$cron_status]).'</span>';
 	 		break;
-	 		default : 
+	 		default :
 	      return '<span class="badge bg-danger">'.__($variable_list[$cron_status]).'</span>';
 	 		break;
 	  }
@@ -3286,10 +3286,10 @@ function _render_credit_status ( $status = -1) {
 
  	$actived_months = 0;
  	for ( $i = 1; $i<=$maximum_loop_limit; $i++) {
- 		
+
  		$checking_date   = strtotime('-'.$i.' month',$afl_date);
  		$afl_date_splits = afl_date_splits($checking_date);
- 		
+
  		$query['#select'] = _table_name('afl_purchases');
  		$query['#where']  = array(
  			'category = "Distributor Kit"',
@@ -3311,7 +3311,7 @@ function _render_credit_status ( $status = -1) {
 
 
 function update_nested_set($table,$uid,$parent_uid,$op='insert'){
-  
+
   //$db = db_transaction();
 
   try{
@@ -3349,19 +3349,19 @@ function update_nested_set($table,$uid,$parent_uid,$op='insert'){
   $new_left = db_select($query, 'get_row');
   if(!empty($new_left)){
   		$new_left = (array)$new_left;
-    
+
      //update right
       /*$q = db_update($table);
       $q->expression('rgt','rgt + :right',[':right'=>2]);
       $q->condition('rgt',$new_left , '>=');
       $n = $q->execute();*/
-      
+
       $update_query['#table'] = _table_name($table);
 			$update_query['#fields'] = [
 				'rgt' => 'rgt + 2',
 			];
 			$update_query['#where'] = [
-				'rgt >='.$new_left['rgt'] 
+				'rgt >='.$new_left['rgt']
 			];
 			db_update($update_query);
 
@@ -3378,7 +3378,7 @@ function update_nested_set($table,$uid,$parent_uid,$op='insert'){
 				'lft' => 'lft + 2',
 			];
 			$update_query['#where'] = [
-				'lft >'.$new_left['rgt'] 
+				'lft >'.$new_left['rgt']
 			];
 			db_update($update_query);
 
@@ -3393,7 +3393,7 @@ function update_nested_set($table,$uid,$parent_uid,$op='insert'){
 			$ins_id = $wpdb->insert(_table_name($table), $ins_data);
 
   }
-  
+
   }catch(Exception $e){
     throw $e;
     //$db->rollback();

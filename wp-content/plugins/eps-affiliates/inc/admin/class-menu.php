@@ -998,6 +998,23 @@
 				);
 				afl_system_admin_menu($menu);
      }
+    /*
+		 * ---------------------------------------------------------------------------
+		 * DB migrations
+		 * ---------------------------------------------------------------------------
+		*/
+     function afl_db_migration () {
+     		$menu['db_migration'] = array(
+					'#page_title'			=> __( 'DB Migrations', 'DB Migrations' ),
+					'#menu_title' 		=> __( 'DB Migrations', 'DB Migrations' ),
+					'#access_callback'=> 'afl_db_migration', 
+					'#menu_slug' 			=> 'affiliate-eps-db-migrtaion', 
+					'#page_callback' 	=> 'afl_db_migrations',
+					'#weight' 				=> 8, 
+				);
+				afl_system_admin_menu($menu);
+
+     }
 
 	}
 $eps_afl_admin_menu = new Eps_Affiliates_Admin_Menu;

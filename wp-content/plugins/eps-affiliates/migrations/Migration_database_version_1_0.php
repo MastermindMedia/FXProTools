@@ -141,13 +141,16 @@
 
 			global $wpdb;
 
-			//indexes
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							ADD PRIMARY KEY (`afl_user_downline_id`);' );
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							ADD PRIMARY KEY (`afl_user_downline_id`);' );
 
-			//AUTO_INCREMENT
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							MODIFY `afl_user_downline_id` int(11) NOT NULL AUTO_INCREMENT;' );
+				//AUTO_INCREMENT
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_user_downline_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 
 		}
 	/*
@@ -197,14 +200,16 @@
 			dbDelta( $sql );
 
 			global $wpdb;
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  						ADD PRIMARY KEY (`afl_user_genealogy_id`);' );
 
-			//indexes
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  						ADD PRIMARY KEY (`afl_user_genealogy_id`);' );
-
-			//AUTO_INCREMENT
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							MODIFY `afl_user_genealogy_id` int(11) NOT NULL AUTO_INCREMENT;' );
+				//AUTO_INCREMENT
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_user_genealogy_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 		}
 	/*
 	 * -----------------------------------------------------------------------------------------------------------
@@ -247,13 +252,16 @@
 			dbDelta( $sql );
 
 			global $wpdb;
-			//indexes
-			$wpdb->query('ALTER TABLE `'.$table_name.'`
-  							ADD PRIMARY KEY (`afl_user_transactions_id`);');
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query('ALTER TABLE `'.$table_name.'`
+	  							ADD PRIMARY KEY (`afl_user_transactions_id`);');
 
-			//AUTO_INCREMENT
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							MODIFY `afl_user_transactions_id` int(11) NOT NULL AUTO_INCREMENT;' );
+				//AUTO_INCREMENT
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_user_transactions_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 		}
 
 	/*
@@ -298,13 +306,17 @@
 			dbDelta( $sql );
 
 			global $wpdb;
-			//indexes
-			$wpdb->query('ALTER TABLE `'.$table_name.'`
-  							ADD PRIMARY KEY (`afl_user_transactions_id`);');
 
-			//AUTO_INCREMENT
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							MODIFY `afl_user_transactions_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query('ALTER TABLE `'.$table_name.'`
+	  							ADD PRIMARY KEY (`afl_user_transactions_id`);');
+
+				//AUTO_INCREMENT
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_user_transactions_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 		}
 	/*
 	 * -----------------------------------------------------------------------------------------------------------
@@ -343,13 +355,15 @@
 			dbDelta( $sql );
 
 			global $wpdb;
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							ADD PRIMARY KEY (`afl_business_transactions_id`);' );
 
-			//indexes
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							ADD PRIMARY KEY (`afl_business_transactions_id`);' );
-
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							MODIFY `afl_business_transactions_id` int(11) NOT NULL AUTO_INCREMENT' );
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_business_transactions_id` int(11) NOT NULL AUTO_INCREMENT' );
+			endif;
 
 		}
 	/*
@@ -372,12 +386,15 @@
 			dbDelta( $sql );
 
 			global $wpdb;
-			//indexes
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							ADD PRIMARY KEY (`afl_business_fund_id`);' );
-			//AUTO_INCREMENT
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							MODIFY `afl_business_fund_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							ADD PRIMARY KEY (`afl_business_fund_id`);' );
+				//AUTO_INCREMENT
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_business_fund_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 		}
 	/*
 	 * -----------------------------------------------------------------------------------------------------------
@@ -403,12 +420,15 @@
 			dbDelta( $sql );
 
 			global $wpdb;
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
 			//indexes
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							ADD PRIMARY KEY (`afl_user_transactions_overview_id`);' );
-			//indexes
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							MODIFY `afl_user_transactions_overview_id` int(11) NOT NULL AUTO_INCREMENT;' );
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							ADD PRIMARY KEY (`afl_user_transactions_overview_id`);' );
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_user_transactions_overview_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 		}
 	/*
 	 * -----------------------------------------------------------------------------------------------------------
@@ -447,14 +467,16 @@
 			dbDelta( $sql );
 
 			global $wpdb;
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  						ADD PRIMARY KEY (`afl_user_holding_id`);' );
 
-			//indexes
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  						ADD PRIMARY KEY (`afl_user_holding_id`);' );
-
-			//AUTO_INCREMENT
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							MODIFY `afl_user_holding_id` int(11) NOT NULL AUTO_INCREMENT;' );
+				//AUTO_INCREMENT
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_user_holding_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 		}
  /*
 	 * -----------------------------------------------------------------------------------------------------------
@@ -480,12 +502,15 @@
 			dbDelta( $sql );
 
 			global $wpdb;
-			//indexes
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							ADD PRIMARY KEY (`afl_business_transactions_overview_id`);' );
-			//indexes
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							MODIFY `afl_business_transactions_overview_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							ADD PRIMARY KEY (`afl_business_transactions_overview_id`);' );
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_business_transactions_overview_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 		}
 
 	/*
@@ -509,12 +534,15 @@
 			dbDelta( $sql );
 
 			global $wpdb;
-			//indexes
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							ADD PRIMARY KEY (`afl_user_fund_id`);' );
-			//AUTO inc
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							MODIFY `afl_user_fund_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							ADD PRIMARY KEY (`afl_user_fund_id`);' );
+				//AUTO inc
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_user_fund_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 		}
 	/*
 	 * -----------------------------------------------------------------------------------------------------------
@@ -552,13 +580,16 @@
 			dbDelta( $sql );
 
 			global $wpdb;
-			//indexes
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-				ADD PRIMARY KEY (`afl_purchases_id`);' );
-
-			//AUTO inc
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
 				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-	  							MODIFY `afl_purchases_id` int(11) NOT NULL AUTO_INCREMENT;' );
+					ADD PRIMARY KEY (`afl_purchases_id`);' );
+
+				//AUTO inc
+					$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+		  							MODIFY `afl_purchases_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 		}
 	/*
 	 * -----------------------------------------------------------------------------------------------------------
@@ -598,15 +629,17 @@
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores the user logs';" ;
 
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-				dbDelta( $sql );
-					global $wpdb;
-
-					//indexes
-					$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-		  							ADD PRIMARY KEY (`afl_transactions_error_id`);' );
-					//AUTO increment
-					$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-		  							MODIFY `afl_transactions_error_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			dbDelta( $sql );
+			global $wpdb;
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							ADD PRIMARY KEY (`afl_transactions_error_id`);' );
+				//AUTO increment
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_transactions_error_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 		}
 	/*
 	 * -----------------------------------------------------------------------------------------------------------
@@ -653,15 +686,17 @@
 			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores the all transactions';";
 
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-				dbDelta( $sql );
-					global $wpdb;
-
-					//indexes
-					$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-		  							ADD PRIMARY KEY (`afl_transactions_id`);' );
-					//AUTO increment
-					$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-		  							MODIFY `afl_transactions_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			dbDelta( $sql );
+			global $wpdb;
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							ADD PRIMARY KEY (`afl_transactions_id`);' );
+				//AUTO increment
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_transactions_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 		}
 
 	/*
@@ -702,15 +737,17 @@
 			  `project_name` varchar(250) DEFAULT 'default' COMMENT 'Project name'
 			) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Stores the payout Requests';";
 				require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-					dbDelta( $sql );
-						global $wpdb;
-
+				dbDelta( $sql );
+				global $wpdb;
+				$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			  if ( empty($res)) :
 					//indexes
 					$wpdb->query( 'ALTER TABLE `'.$table_name.'`
 		  							ADD PRIMARY KEY (`afl_payout_id`);' );
 					//AUTO increment
 					$wpdb->query( 'ALTER TABLE `'.$table_name.'`
 		  							MODIFY `afl_payout_id` int(11) NOT NULL AUTO_INCREMENT;' );
+				endif;
 		}
 
 	/*
@@ -752,15 +789,17 @@
 			) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='Stores the payout History'; ";
 
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-					dbDelta( $sql );
-						global $wpdb;
-
-					//indexes
-					$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-		  							ADD PRIMARY KEY (`afl_payout_hist_id`);' );
-					//AUTO increment
-					$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-		  							MODIFY `afl_payout_hist_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			dbDelta( $sql );
+			global $wpdb;
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							ADD PRIMARY KEY (`afl_payout_hist_id`);' );
+				//AUTO increment
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_payout_hist_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 
 	 	}
 
@@ -782,15 +821,17 @@
 			  `data` mediumtext COMMENT 'data'
 			) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='Payment methods';";
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-					dbDelta( $sql );
-						global $wpdb;
-
-					//indexes
-					$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-		  							ADD PRIMARY KEY (`afl_user_payment_method_id`);' );
-					//AUTO increment
-					$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-		  							MODIFY `afl_user_payment_method_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			dbDelta( $sql );
+			global $wpdb;
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							ADD PRIMARY KEY (`afl_user_payment_method_id`);' );
+				//AUTO increment
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_user_payment_method_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 
 		}
   /*
@@ -809,15 +850,17 @@
 			) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='The base table for ewallet transaction authorization.';";
 
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-					dbDelta( $sql );
-						global $wpdb;
-
-					//indexes
-					$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-		  							ADD PRIMARY KEY (`transaction_user_id`);' );
-					//AUTO increment
-					$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-		  							MODIFY `transaction_user_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			dbDelta( $sql );
+			global $wpdb;
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							ADD PRIMARY KEY (`transaction_user_id`);' );
+				//AUTO increment
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `transaction_user_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 
 		}
 
@@ -850,13 +893,15 @@
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 			dbDelta( $sql );
 			global $wpdb;
-
-			//indexes
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-		  							ADD PRIMARY KEY (`afl_rank_id`);' );
-			//AUTO increment
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-		  							MODIFY `afl_rank_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+			  							ADD PRIMARY KEY (`afl_rank_id`);' );
+				//AUTO increment
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+			  							MODIFY `afl_rank_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 
     }
   /*
@@ -886,13 +931,15 @@
 			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 			dbDelta( $sql );
 			global $wpdb;
-
-			//indexes
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-		  							ADD PRIMARY KEY (`afl_rank_history_id`);' );
-			//AUTO increment
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-		  							MODIFY `afl_rank_history_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+			  							ADD PRIMARY KEY (`afl_rank_history_id`);' );
+				//AUTO increment
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+			  							MODIFY `afl_rank_history_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 
     }
 
@@ -936,13 +983,15 @@
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta( $sql );
     global $wpdb;
-
-    //indexes
-    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-                  ADD PRIMARY KEY (`afl_referal_downline_id`);' );
-    //AUTO increment
-    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-                  MODIFY `afl_referal_downline_id` int(11) NOT NULL AUTO_INCREMENT;' );
+    $res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+		if ( empty($res)) :
+	    //indexes
+	    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	                  ADD PRIMARY KEY (`afl_referal_downline_id`);' );
+	    //AUTO increment
+	    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	                  MODIFY `afl_referal_downline_id` int(11) NOT NULL AUTO_INCREMENT;' );
+	  endif;
   }
 /*
  * -----------------------------------------------------------------------------------------------------------
@@ -961,12 +1010,15 @@
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
     dbDelta( $sql );
     global $wpdb;
-  //indexes
-    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-                  ADD PRIMARY KEY (`ins_id`);' );
-    //AUTO increment
-    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-                  MODIFY `ins_id` int(11) NOT NULL AUTO_INCREMENT;' );
+    $res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+		if ( empty($res)) :
+	  	//indexes
+	    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	                  ADD PRIMARY KEY (`ins_id`);' );
+	    //AUTO increment
+	    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	                  MODIFY `ins_id` int(11) NOT NULL AUTO_INCREMENT;' );
+	  endif;
  }
 /*
  * -----------------------------------------------------------------------------------------------------------
@@ -1007,13 +1059,17 @@
 			dbDelta( $sql );
 
 			global $wpdb;
-			//indexes
-			$wpdb->query('ALTER TABLE `'.$table_name.'`
-  							ADD PRIMARY KEY (`afl_pool_transactions_id`);');
 
-			//AUTO_INCREMENT
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							MODIFY `afl_pool_transactions_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query('ALTER TABLE `'.$table_name.'`
+	  							ADD PRIMARY KEY (`afl_pool_transactions_id`);');
+
+				//AUTO_INCREMENT
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_pool_transactions_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 		}
 /*
  * -----------------------------------------------------------------------------------------------------------
@@ -1057,13 +1113,16 @@
 			dbDelta( $sql );
 
 			global $wpdb;
-			//indexes
-			$wpdb->query('ALTER TABLE `'.$table_name.'`
-  							ADD PRIMARY KEY (`afl_customer_id`);');
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query('ALTER TABLE `'.$table_name.'`
+	  							ADD PRIMARY KEY (`afl_customer_id`);');
 
-			//AUTO_INCREMENT
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							MODIFY `afl_customer_id` int(11) NOT NULL AUTO_INCREMENT;' );
+				//AUTO_INCREMENT
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_customer_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 		}
 /*
  * -----------------------------------------------------------------------------------------------------------
@@ -1089,13 +1148,17 @@
 			dbDelta( $sql );
 
 			global $wpdb;
-			//indexes
-			$wpdb->query('ALTER TABLE `'.$table_name.'`
-  							ADD PRIMARY KEY (`item_id`);');
 
-			//AUTO_INCREMENT
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query('ALTER TABLE `'.$table_name.'`
+	  							ADD PRIMARY KEY (`item_id`);');
+
+				//AUTO_INCREMENT
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 		}
 /*
  * -----------------------------------------------------------------------------------------------------------
@@ -1121,13 +1184,16 @@
 			dbDelta( $sql );
 
 			global $wpdb;
-			//indexes
-			$wpdb->query('ALTER TABLE `'.$table_name.'`
-						  ADD PRIMARY KEY (`wid`);');
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query('ALTER TABLE `'.$table_name.'`
+							  ADD PRIMARY KEY (`wid`);');
 
-			//AUTO_INCREMENT
-			$wpdb->query( "ALTER TABLE `".$table_name."`
-  				MODIFY `wid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key: Unique watchdog event ID.';" );
+				//AUTO_INCREMENT
+				$wpdb->query( "ALTER TABLE `".$table_name."`
+	  				MODIFY `wid` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key: Unique watchdog event ID.';" );
+			endif;
 		}	
 
 /*
@@ -1149,13 +1215,16 @@
 			dbDelta( $sql );
 
 			global $wpdb;
-			//indexes
-			$wpdb->query('ALTER TABLE `'.$table_name.'`
-						  ADD PRIMARY KEY (`id`);');
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query('ALTER TABLE `'.$table_name.'`
+							  ADD PRIMARY KEY (`id`);');
 
-			//AUTO_INCREMENT
-			$wpdb->query( "ALTER TABLE `".$table_name."`
-  				MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'The primary identifier for the temp table.';" );
+				//AUTO_INCREMENT
+				$wpdb->query( "ALTER TABLE `".$table_name."`
+	  				MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'The primary identifier for the temp table.';" );
+			endif;
 	}
 /*
  * -----------------------------------------------------------------------------------------------------------
@@ -1176,13 +1245,16 @@
 			dbDelta( $sql );
 
 			global $wpdb;
-			//indexes
-			$wpdb->query('ALTER TABLE `'.$table_name.'`
-						  ADD PRIMARY KEY (`id`);');
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query('ALTER TABLE `'.$table_name.'`
+							  ADD PRIMARY KEY (`id`);');
 
-			//AUTO_INCREMENT
-			$wpdb->query( "ALTER TABLE `".$table_name."`
-  				MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'The primary identifier for the temp table.';" );
+				//AUTO_INCREMENT
+				$wpdb->query( "ALTER TABLE `".$table_name."`
+	  				MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'The primary identifier for the temp table.';" );
+			endif;
 	}
 	/*
 	 * -----------------------------------------------------------------------------------------------------------
@@ -1222,14 +1294,16 @@
 			dbDelta( $sql );
 
 			global $wpdb;
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							ADD PRIMARY KEY (`afl_user_downline_id`);' );
 
-			//indexes
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							ADD PRIMARY KEY (`afl_user_downline_id`);' );
-
-			//AUTO_INCREMENT
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							MODIFY `afl_user_downline_id` int(11) NOT NULL AUTO_INCREMENT;' );
+				//AUTO_INCREMENT
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_user_downline_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 
 		}
 		/*
@@ -1279,14 +1353,16 @@
 			dbDelta( $sql );
 
 			global $wpdb;
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  						ADD PRIMARY KEY (`afl_user_genealogy_id`);' );
 
-			//indexes
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  						ADD PRIMARY KEY (`afl_user_genealogy_id`);' );
-
-			//AUTO_INCREMENT
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							MODIFY `afl_user_genealogy_id` int(11) NOT NULL AUTO_INCREMENT;' );
+				//AUTO_INCREMENT
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_user_genealogy_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 		}
 	/*
 	 * -----------------------------------------------------------------------------------------------------------
@@ -1325,14 +1401,16 @@
 			dbDelta( $sql );
 
 			global $wpdb;
+			$res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+				//indexes
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  						ADD PRIMARY KEY (`afl_user_holding_id`);' );
 
-			//indexes
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  						ADD PRIMARY KEY (`afl_user_holding_id`);' );
-
-			//AUTO_INCREMENT
-			$wpdb->query( 'ALTER TABLE `'.$table_name.'`
-  							MODIFY `afl_user_holding_id` int(11) NOT NULL AUTO_INCREMENT;' );
+				//AUTO_INCREMENT
+				$wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	  							MODIFY `afl_user_holding_id` int(11) NOT NULL AUTO_INCREMENT;' );
+			endif;
 		}
 /*
  * -----------------------------------------------------------------------------------------------------------
@@ -1351,12 +1429,15 @@
 	    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	    dbDelta( $sql );
 	    global $wpdb;
-	  //indexes
-	    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-	                  ADD PRIMARY KEY (`ins_id`);' );
-	    //AUTO increment
-	    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-	                  MODIFY `ins_id` int(11) NOT NULL AUTO_INCREMENT;' );
+	    $res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+		  	//indexes
+		    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+		                  ADD PRIMARY KEY (`ins_id`);' );
+		    //AUTO increment
+		    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+		                  MODIFY `ins_id` int(11) NOT NULL AUTO_INCREMENT;' );
+		  endif;
 	 }
 
  /*
@@ -1383,12 +1464,15 @@
 	    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	    dbDelta( $sql );
 	    global $wpdb;
-	  	//indexes
-	    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-	                  ADD PRIMARY KEY (`afl_incentive_history_id`);' );
-	    //AUTO increment
-	    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-		                  MODIFY `afl_incentive_history_id` int(11) NOT NULL AUTO_INCREMENT;' );
+	    $res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+		  	//indexes
+		    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+		                  ADD PRIMARY KEY (`afl_incentive_history_id`);' );
+		    //AUTO increment
+		    $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+			                  MODIFY `afl_incentive_history_id` int(11) NOT NULL AUTO_INCREMENT;' );
+		  endif;
 	 	}
 
  /*
@@ -1418,16 +1502,18 @@
               `sponsor_phone_number` int(11) NULL,
               `sponsor_status` varchar(60)  NULL DEFAULT ''
             ) ENGINE=InnoDB DEFAULT CHARSET=latin1;";
-            pr($sql);
       require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
       dbDelta( $sql );
       global $wpdb;
-      //indexes
-      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-                    ADD PRIMARY KEY (`id`);' );
-      //AUTO increment
-      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-                      MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;' );
+      $res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+			if ( empty($res)) :
+	      //indexes
+	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	                    ADD PRIMARY KEY (`id`);' );
+	      //AUTO increment
+	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+	                      MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;' );
+	    endif;
 	 	}
 
 	/*
@@ -1447,12 +1533,15 @@
 	      require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	      dbDelta( $sql );
 	      global $wpdb;
-	      //indexes
-	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-	                    ADD PRIMARY KEY (`node_id`);' );
-	      //AUTO increment
-	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-	                      MODIFY `node_id` int(11) NOT NULL AUTO_INCREMENT;' );
+	      $res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+				if ( empty($res)) :
+		      //indexes
+		      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+		                    ADD PRIMARY KEY (`node_id`);' );
+		      //AUTO increment
+		      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+		                      MODIFY `node_id` int(11) NOT NULL AUTO_INCREMENT;' );
+		    endif;
 		 	}
 	/*
 	  * ----------------------------------------------------------------------------------------------------------
@@ -1471,12 +1560,15 @@
 	      require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	      dbDelta( $sql );
 	      global $wpdb;
-	      //indexes
-	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-	                    ADD PRIMARY KEY (`node_id`);' );
-	      //AUTO increment
-	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-	                      MODIFY `node_id` int(11) NOT NULL AUTO_INCREMENT;' );
+	      $res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+				if ( empty($res)) :
+		      //indexes
+		      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+		                    ADD PRIMARY KEY (`node_id`);' );
+		      //AUTO increment
+		      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+		                      MODIFY `node_id` int(11) NOT NULL AUTO_INCREMENT;' );
+		    endif;
 		 	}
 
 		/*
@@ -1496,12 +1588,15 @@
 	      require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	      dbDelta( $sql );
 	      global $wpdb;
-	      //indexes
-	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-	                    ADD PRIMARY KEY (`node_id`);' );
-	      //AUTO increment
-	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-	                      MODIFY `node_id` int(11) NOT NULL AUTO_INCREMENT;' );
+	      $res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+				if ( empty($res)) :
+		      //indexes
+		      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+		                    ADD PRIMARY KEY (`node_id`);' );
+		      //AUTO increment
+		      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+		                      MODIFY `node_id` int(11) NOT NULL AUTO_INCREMENT;' );
+		    endif;
 		 	}
 	/*
 	  * ----------------------------------------------------------------------------------------------------------
@@ -1520,11 +1615,14 @@
 	      require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	      dbDelta( $sql );
 	      global $wpdb;
-	      //indexes
-	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-	                    ADD PRIMARY KEY (`node_id`);' );
-	      //AUTO increment
-	      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
-	                      MODIFY `node_id` int(11) NOT NULL AUTO_INCREMENT;' );
+	      $res = $wpdb->get_results( 'SHOW KEYS FROM `'.$table_name.'` WHERE Key_name = "PRIMARY";' );
+				if ( empty($res)) :
+		      //indexes
+		      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+		                    ADD PRIMARY KEY (`node_id`);' );
+		      //AUTO increment
+		      $wpdb->query( 'ALTER TABLE `'.$table_name.'`
+		                      MODIFY `node_id` int(11) NOT NULL AUTO_INCREMENT;' );
+		    endif;
 		 	}
 } //here closing the class
