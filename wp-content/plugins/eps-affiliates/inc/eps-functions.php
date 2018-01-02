@@ -384,6 +384,33 @@ function _get_user_gv_v1($uid = '', $rank ='', $add_with_user_pv = FALSE,$tree =
  * No.of distributor count
  * -------------------------------------------------
 */
+ function _get_user_personal_distributor_count ($uid,$tree = 'matrix') {
+ 		$downlines     = afl_get_sponsor_unilevel_downlines_uid($uid, array(),TRUE);
+ 		$distrib_count = $downlines;
+ 	if ( $tree == 'unilevel') {
+	 	//$downlines    = (array)afl_get_unilevel_user_downlines_uid($uid, array());
+	 	$downlines    = (array)afl_unilevel_get_user_refered_downlines($uid, array());
+		$customers_ids = (array)get_user_downline_customers($uid);
+
+		$downline_count = count($downlines);		
+		$customer_count = count($customers_ids);
+
+		$distrib_count = $downline_count - $customer_count;
+		if ( $distrib_count < 0) {
+			$distrib_count = $distrib_count *-1;
+		}
+ 	}
+	// pr($downlines);
+ 	if ($distrib_count) {
+ 		return $distrib_count;
+ 	} else
+ 		return 0;
+ }
+/*
+ * -------------------------------------------------
+ * No.of distributor count
+ * -------------------------------------------------
+*/
  function _get_user_distributor_count ($uid,$tree = 'unilevel') {
  		$downlines    = afl_get_sponsor_downlines_uid($uid, array(),TRUE);
  	if ( $tree == 'unilevel') {
@@ -395,7 +422,9 @@ function _get_user_gv_v1($uid = '', $rank ='', $add_with_user_pv = FALSE,$tree =
 		$customer_count = count($customers_ids);
 
 		$distrib_count = $downline_count - $customer_count;
-
+		if ( $distrib_count < 0) {
+			$distrib_count = $distrib_count *-1;
+		}
  	}
 	// pr($downlines);
  	if ($distrib_count) {
@@ -403,7 +432,6 @@ function _get_user_gv_v1($uid = '', $rank ='', $add_with_user_pv = FALSE,$tree =
  	} else
  		return 0;
  }
-
 
  /*
  * -------------------------------------------------

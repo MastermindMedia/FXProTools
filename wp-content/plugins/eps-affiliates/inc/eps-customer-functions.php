@@ -31,6 +31,38 @@
 	$res = db_select($query, 'get_results');
 	return $res;
  }
+ /*
+ * ----------------------------------------------------
+ * Get the uids of customers of a user
+ * ----------------------------------------------------
+*/
+ function _my_downline_customers_uids($uid = '') {
+ 	if ( $uid == '') {
+ 		$uid = get_uid();
+ 	}
+
+	$query = array();
+	$query['#select'] = _table_name('afl_customer');
+	$query['#join']   = array(
+		_table_name('users') => array(
+				'#condition' => '`'._table_name('users').'`.`ID`=`'._table_name('afl_customer').'`.`uid`'
+			),
+		_table_name('afl_unilevel_user_downlines') => array(
+			'#condition' => '`'._table_name('afl_unilevel_user_downlines').'`.`downline_user_id`=`'._table_name('afl_customer').'`.`uid`'
+		)
+	);
+	$query['#where'] = array(
+		'`'._table_name('afl_unilevel_user_downlines').'`.`uid` ='.$uid
+	);
+	$query['#fields'] = array(
+		_table_name('users') => array('ID'),
+	);
+	if (!empty($limit) ) {
+		$query['#limit'] = $index.','.$limit;
+	}
+	$res = db_select($query, 'get_results');
+	return $res;
+ }
 /*
  * --------------------------------------------------
  * My downline customers

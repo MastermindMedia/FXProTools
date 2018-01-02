@@ -1314,11 +1314,19 @@
 	}
 /*
  * ----------------------------------------------------
+ * my customers total count
+ * ----------------------------------------------------
+*/
+	function afl_my_downline_customers_count_callback ($uid = '') {
+		return count(_my_downline_customers_uids($uid));
+	}
+/*
+ * ----------------------------------------------------
  * my distributors total count
  * ----------------------------------------------------
 */
-	function afl_my_distributors_count_callback ($uid = '') {
-		return _get_user_distributor_count($uid);
+	function afl_my_distributors_count_callback ($uid = '', $tree = 'matrix', $ret_as_array = FALSE) {
+		return _get_user_personal_distributor_count($uid, $tree, $ret_as_array);
 	}
 
 /*
