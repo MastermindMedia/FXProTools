@@ -929,7 +929,8 @@ function my_custom_checkout_field_display_admin_order_meta($order){
 
     $result_affiliate_id = $wpdb->get_row( $wpdb->prepare(  "SELECT DISTINCT affiliate_id FROM {$wpdb->prefix}affiliate_wp_referrals WHERE reference = '%s' LIMIT 1;", $order->id ) );
 
-    //if ( ! empty( $my_custom_field ) ) {
-        echo '<p><strong>'. __("Affiliate", "woocommerce").':</strong> ' . $result_affiliate_id->affiliate_id . '</p>';
-    //}
+    if ( ! empty( $result_affiliate_id ) ) {
+    	$result_user_id = $wpdb->get_row( $wpdb->prepare(  "SELECT DISTINCT user_id FROM {$wpdb->prefix}affiliate_wp_affiliates WHERE affiliate_id = '%s' LIMIT 1;", $result_affiliate_id->affiliate_id ) );
+        echo '<p><strong>'. __("Affiliate", "woocommerce").':</strong> ' . $result_user_id->user_id . '</p>';
+    }
 }
