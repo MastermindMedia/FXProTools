@@ -917,3 +917,14 @@ function restrict_customer_admin_access() {
     }
 }
 add_action( 'admin_init', 'restrict_customer_admin_access' );
+
+
+/** Add referral/affiliate information into edit order page **/
+// Display field value on the order edit page (not in custom fields metabox)
+add_action( 'woocommerce_admin_order_data_after_shipping_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
+function my_custom_checkout_field_display_admin_order_meta($order){
+    $my_custom_field = get_post_meta( $order->id, '_my_field_slug', true );
+    //if ( ! empty( $my_custom_field ) ) {
+        echo '<p><strong>'. __("Affiliate", "woocommerce").':</strong></p>';
+    //}
+}
