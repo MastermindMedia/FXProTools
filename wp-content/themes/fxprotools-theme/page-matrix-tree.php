@@ -1,8 +1,8 @@
-<?php
+<?php 
 /*
 Template Name: Matrix Tree
 */
-get_header();
+get_header(); 
 ?>
 
 	<?php get_template_part('inc/templates/nav-team'); ?>
@@ -20,7 +20,7 @@ get_header();
 	<div class="container-fluid"></div>
 		<div class="row">
 			<div class="col-md-12 epx">
-				<?php echo do_shortcode('[afl_eps_matrix_genealogy_tree]'); ?>
+				<?php echo do_shortcode('[afl_eps_matrix_holding_tank_genealogy_toggle_placement]'); ?>
 			</div>
 		</div>
 	</div>
