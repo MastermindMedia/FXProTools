@@ -36,8 +36,8 @@ function get_checklist_next_step_url()
 
 function isUserStage()
 {
+    $cu = wp_get_current_user();
     $_checklist = get_user_checklist();
-
     // $_checklist = [
     //     'verified_email' => false,
     //     'verified_profile' => false,
@@ -48,7 +48,8 @@ function isUserStage()
     //     'referred_friend' => false,
     // ];
 
-    if( is_user_fx_customer() || is_user_fx_distributor() ){
+    // FIXME: temp
+    if( $cu->user_login == "austinicomedez" ){ //if( is_user_fx_customer() || is_user_fx_distributor() ){
         if( $_checklist['verified_email'] === true && $_checklist['verified_profile'] === true && $_checklist['scheduled_webinar'] === true && $_checklist['accessed_products'] === true && $_checklist['got_shirt'] === true  && $_checklist['shared_video'] === true && $_checklist['referred_friend'] === true ) {
             return 3;
         } elseif( $_checklist['verified_email'] === true && $_checklist['verified_profile'] === true && $_checklist['scheduled_webinar'] === true ) {
@@ -434,7 +435,7 @@ function get_mb_pto1( $page_element, $pto = 'pto1' ) {
                 return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), rwmb_meta( $pto . '_main_header_menu'), 'fx-nav-options', new Nav_Main_Header_Menu_Walker(), 'Main Header Menu', '' );
             break;
         case 'secondary_header_menu':
-            if( isUserStage() === 1 )
+            if( isUserStage() === 1 && ( is_page('dashboard') || is_page('referral-program') || is_page('compensation-plan') || is_page('compensation-plan') || is_page('access-products') ) )
                 return mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), get_term( 54 ), 'fx-nav-options', new Nav_Secondary_Stage_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
             else
                 return mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), rwmb_meta( $pto . '_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );

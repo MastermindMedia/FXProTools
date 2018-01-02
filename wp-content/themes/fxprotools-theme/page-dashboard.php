@@ -159,7 +159,9 @@ $dashboard_checklist = [
                                 </div>
                                 <ul class="fx-board-list w-toggle">
 									<?php
-										if( is_user_fx_customer() || is_user_fx_distributor() ) :
+										$cu = wp_get_current_user();
+										// FIXME: temp
+										if( $cu->user_login == "austinicomedez" ) ://if( is_user_fx_customer() || is_user_fx_distributor() ) :
 											foreach ( $dashboard_checklist as $step => $dashboard_checklist ) :
 									?>
                                         <li class="<?php if( $dashboard_checklist['access'] === 'locked' ) echo "list-locked"; ?>">
