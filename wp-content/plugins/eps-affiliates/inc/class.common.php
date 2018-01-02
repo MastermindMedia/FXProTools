@@ -1864,7 +1864,7 @@ if(!function_exists('afl_get_rank_names')){
 		if (isset($data['#limit'])) {
 				$sql .= ' LIMIT '.$data['#limit'].' ';
 		}
-		// pr($sql);
+		pr($sql);
 		return $wpdb->$fetch_mode($sql);
 	}
 /*
