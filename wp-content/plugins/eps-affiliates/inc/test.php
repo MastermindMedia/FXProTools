@@ -44,11 +44,18 @@ function afl_generate_users_form () {
 
         if ($user) {
 
-        	do_action('eps_affiliates_place_user_in_holding_tank',$user ,$sponsor_uid );
-    			do_action('eps_affiliates_unilevel_place_user_in_holding_tank',$user ,$sponsor_uid );
+        	// do_action('eps_affiliates_place_user_in_holding_tank',$user ,$sponsor_uid );
+    			// do_action('eps_affiliates_unilevel_place_user_in_holding_tank',$user ,$sponsor_uid );
 
-        	// do_action('eps_affiliates_place_user_under_sponsor',$user ,$sponsor_uid );
-    			// do_action('eps_affiliates_unilevel_place_user_under_sponsor',$user ,$sponsor_uid );
+    			   	//create a purchase
+  				$args['order_id']		 = 1;
+					$args['afl_point']	 = 145;
+					$args['uid'] 				 = $user;
+					$args['amount_paid'] = 145;
+  				apply_filters('eps_commerce_purchase_complete',$args);
+
+        	do_action('eps_affiliates_place_user_under_sponsor',$user ,$sponsor_uid );
+    			do_action('eps_affiliates_unilevel_place_user_under_sponsor',$user ,$sponsor_uid );
 
         	// $reg_object = new Eps_affiliates_registration;
 	        // $reg_object->afl_join_member(
@@ -215,6 +222,15 @@ function afl_generate_customers_form () {
 	        		)
 	        );
 	        do_action('eps_affiliates_unilevel_place_user_in_holding_tank',$user ,$sponsor_uid );
+
+	         	//create a purchase
+  				$args['order_id']		 = 1;
+					$args['afl_point']	 = 145;
+					$args['uid'] 				 = $user;
+					$args['amount_paid'] = 145;
+  				apply_filters('eps_commerce_purchase_complete',$args);
+
+
 				//add afl_member role to the user
 				$theUser = new WP_User($user);
 				$theUser->add_role( 'afl_customer' );
@@ -576,7 +592,11 @@ function afl_generate_purchase () {
 		new Afl_enque_scripts('common');
 
 		if ( isset ( $_POST['submit'] ) ) {
-			$uid = extract_sponsor_id($_POST['user']);
+			if (isset($_POST['uid'])) 
+					$uid = $_POST['uid'];
+			else
+				$uid = extract_sponsor_id($_POST['user']);
+			
 			$product = $_POST['package'];
 			$count 	 = !empty($_POST['count'] && is_numeric($_POST['count'])) ? $_POST['count'] : 1;
 
@@ -639,7 +659,10 @@ function afl_generate_purchase () {
 			'#type' =>'auto_complete',
 			'#title' =>'user',
 			'#auto_complete_path' => 'users_auto_complete',
-
+		);
+		$form['fieldset']['uid'] = array(
+			'#type' =>'textfield',
+			'#title' =>'user id',
 		);
 		$form['fieldset']['package'] = array(
 			'#type' =>'select',
@@ -680,7 +703,11 @@ function afl_generate_purchase () {
 */
 	function afl_customer_generate_purchase_form () {
 		if ( isset ( $_POST['customer_purchase'] ) ) {
-			$uid = extract_sponsor_id($_POST['user']);
+			if (isset($_POST['uid'])) 
+					$uid = $_POST['uid'];
+			else
+				$uid = extract_sponsor_id($_POST['user']);
+
 			$product = $_POST['package'];
 			$count 	 = !empty($_POST['count'] && is_numeric($_POST['count'])) ? $_POST['count'] : 1;
 
@@ -744,6 +771,10 @@ function afl_generate_purchase () {
 			'#title' =>'user',
 			'#auto_complete_path' => 'customers_auto_complete',
 
+		);
+		$form['fieldset']['uid'] = array(
+			'#type' =>'textfield',
+			'#title' =>'user id',
 		);
 		$form['fieldset']['package'] = array(
 			'#type' =>'select',
@@ -846,7 +877,7 @@ function afl_admin_fund_deposit_submit($form_state = array()){
 
 	$transaction = array();
   $transaction['uid'] 								= $uid;
-  $transaction['associated_user_id'] 	= $uid;
+  $transaction['associated_user_id'] 	= afl_root_user();
   $transaction['currency_code'] 			= afl_currency();
   $transaction['order_id'] 						= 1;
   $transaction['int_payout'] 					= 0;
@@ -856,7 +887,7 @@ function afl_admin_fund_deposit_submit($form_state = array()){
   $transaction['category'] 						= 'FUND DEPOSIT';
   $transaction['notes'] 							= 'Fund Deposited';
 
-	afl_member_transaction($transaction, FALSE, FALSE);
+	afl_member_transaction($transaction, TRUE);
 	wp_set_message('Fund Deposited', 'success');
 
 }
