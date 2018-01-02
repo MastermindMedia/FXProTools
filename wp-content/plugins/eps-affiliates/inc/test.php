@@ -44,8 +44,8 @@ function afl_generate_users_form () {
 
         if ($user) {
 
-        	// do_action('eps_affiliates_place_user_in_holding_tank',$user ,$sponsor_uid );
-    			// do_action('eps_affiliates_unilevel_place_user_in_holding_tank',$user ,$sponsor_uid );
+        	do_action('eps_affiliates_place_user_in_holding_tank',$user ,$sponsor_uid );
+    			do_action('eps_affiliates_unilevel_place_user_in_holding_tank',$user ,$sponsor_uid );
 
     			   	//create a purchase
   				$args['order_id']		 = 1;
@@ -54,8 +54,8 @@ function afl_generate_users_form () {
 					$args['amount_paid'] = 145;
   				apply_filters('eps_commerce_purchase_complete',$args);
 
-        	do_action('eps_affiliates_place_user_under_sponsor',$user ,$sponsor_uid );
-    			do_action('eps_affiliates_unilevel_place_user_under_sponsor',$user ,$sponsor_uid );
+       //  	do_action('eps_affiliates_place_user_under_sponsor',$user ,$sponsor_uid );
+    			// do_action('eps_affiliates_unilevel_place_user_under_sponsor',$user ,$sponsor_uid );
 
         	// $reg_object = new Eps_affiliates_registration;
 	        // $reg_object->afl_join_member(

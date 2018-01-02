@@ -1325,8 +1325,8 @@
  * my distributors total count
  * ----------------------------------------------------
 */
-	function afl_my_distributors_count_callback ($uid = '', $tree = 'matrix', $ret_as_array = FALSE) {
-		return _get_user_personal_distributor_count($uid, $tree, $ret_as_array);
+	function afl_my_distributors_count_callback ($uid = '', $tree = 'matrix') {
+		return _get_user_personal_distributor_count($uid, $tree);
 	}
 
 /*

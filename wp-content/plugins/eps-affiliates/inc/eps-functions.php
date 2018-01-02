@@ -385,8 +385,9 @@ function _get_user_gv_v1($uid = '', $rank ='', $add_with_user_pv = FALSE,$tree =
  * -------------------------------------------------
 */
  function _get_user_personal_distributor_count ($uid,$tree = 'matrix') {
- 		$downlines     = afl_get_sponsor_unilevel_downlines_uid($uid, array(),TRUE);
+ 		$downlines     = afl_get_sponsor_downlines_uid($uid, array(),TRUE);
  		$distrib_count = $downlines;
+		
  	if ( $tree == 'unilevel') {
 	 	//$downlines    = (array)afl_get_unilevel_user_downlines_uid($uid, array());
 	 	$downlines    = (array)afl_unilevel_get_user_refered_downlines($uid, array());
