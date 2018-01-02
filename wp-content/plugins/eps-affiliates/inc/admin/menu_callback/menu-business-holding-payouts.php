@@ -93,7 +93,7 @@ function afl_system_business_holding_payouts_callback () {
 		echo apply_filters('afl_render_table',$table);
 }
 
-function  _get_holding_payouts ( $index = 0, $limit = 50) {
+function  _get_holding_payouts ( $index = 0, $limit = 0) {
 		$query = array();
 
 		$query['#select'] = _table_name('afl_user_holding_transactions');
