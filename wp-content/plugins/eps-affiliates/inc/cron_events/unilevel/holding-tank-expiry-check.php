@@ -49,8 +49,7 @@
 						} else {
 							$sponsor =  $user->referrer_uid;
 						}
-						pr($user->uid);
-						pr($sponsor);
+
 						do_action('eps_affiliates_unilevel_force_place_after_holding_expired',$user->uid, $sponsor);
 					}
 				} else {

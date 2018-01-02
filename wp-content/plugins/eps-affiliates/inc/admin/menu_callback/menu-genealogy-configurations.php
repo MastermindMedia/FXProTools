@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 function afl_system_genealogy_configurations () {
 	echo afl_eps_page_header();
 		new Afl_enque_scripts('common');
-	
+
 
 	$post = array();
 	if (isset($_POST['submit']) ){
@@ -47,10 +47,10 @@ function afl_genealogy_configuration_form ($post) {
  		'#name'		=> 'root-user',
  		'#auto_complete_path' => 'users_auto_complete',
  		'#default_value' => isset($post['root_user']) ? $post['root_user'] : (!empty(afl_variable_get('root_user')) ? afl_variable_get('root_user') : '') ,
- 		
+
  	);
 
- 	
+
 
 	$form['root_user_remoteMlmId'] = array(
 	 		'#type' 					=> 'text',
@@ -72,7 +72,7 @@ function afl_genealogy_configuration_form ($post) {
  		'#type'  	=> 'checkbox',
  		'#name'		=> 'clear-test-data',
  		'#default_value' => isset($post['clear_data']) ? $post['clear_data'] : '',
- 		
+
  	);
 
  	$form['remove_user'] = array(
@@ -80,7 +80,7 @@ function afl_genealogy_configuration_form ($post) {
  		'#type'  	=> 'checkbox',
  		'#name'		=> 'remove_system_user',
  		'#default_value' => isset($post['remove_user']) ? $post['remove_user'] : '',
- 		
+
  	);
 
  	$form['remove_customer'] = array(
@@ -88,7 +88,7 @@ function afl_genealogy_configuration_form ($post) {
  		'#type'  	=> 'checkbox',
  		'#name'		=> 'remove_customer',
  		'#default_value' => isset($post['remove_customer']) ? $post['remove_customer'] : '',
- 		
+
  	);
  	$form['submit'] = array(
  		'#title' => 'Submit',
@@ -99,7 +99,7 @@ function afl_genealogy_configuration_form ($post) {
  				'btn','btn-primary'
  			)
  		),
- 		
+
  	);
  	echo afl_render_form($form);
 
@@ -134,7 +134,7 @@ function afl_genealogy_configuration_form_submit ($form_state){
 		afl_variable_set('root_user_remoteMlmId', $form_state['root_user_remoteMlmId']);
 		afl_set_root_mlmid($form_state['root_user_remoteMlmId']);
 
-		
+
 	}
 	echo wp_set_message('Genealogy reset', 'success');
 }
@@ -142,19 +142,19 @@ function afl_genealogy_configuration_form_submit ($form_state){
 function afl_set_root_mlmid($mlmid) {
 	global $wpdb;
 		$root_user = afl_root_user();
-		$wpdb->update( 
-						_table_name('afl_user_genealogy'), 
-						array( 
+		$wpdb->update(
+						_table_name('afl_user_genealogy'),
+						array(
 							'remote_user_mlmid' => $mlmid,
-						), 
+						),
 						array( 'uid' => $root_user )
 					);
 
-		$wpdb->update( 
-						_table_name('afl_unilevel_user_genealogy'), 
-						array( 
+		$wpdb->update(
+						_table_name('afl_unilevel_user_genealogy'),
+						array(
 							'remote_user_mlmid' => $mlmid,
-						), 
+						),
 						array( 'uid' => $root_user )
 					);
 }
@@ -167,48 +167,48 @@ function afl_set_root_mlmid($mlmid) {
 		global $wpdb;
 		$wpdb->query("DELETE FROM `"._table_name('afl_user_genealogy')."` WHERE `uid` != ".afl_root_user()." ");
 		$wpdb->query("DELETE FROM `"._table_name('afl_unilevel_user_genealogy')."` WHERE `uid` != ".afl_root_user()." ");
-		
+
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_business_funds')."`");
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_business_transactions')."`");
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_business_transactions_overview')."`");
-		
+
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_payout_history')."`");
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_payout_requests')."`");
-		
+
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_ranks')."`");
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_rank_history')."`");
-		
+
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_transactions')."`");
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_transactions_errors')."`");
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_transaction_authorization')."`");
-		
+
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_user_downlines')."`");
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_unilevel_user_downlines')."`");
 
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_user_fund')."`");
-		
+
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_user_holding_tank')."`");
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_unilevel_user_holding_tank')."`");
-		
+
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_user_payment_methods')."`");
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_user_transactions')."`");
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_user_transactions_overview')."`");
-		
+
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_purchases')."`");
-		
+
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_tree_last_insertion_positions')."`");
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_unilevel_tree_last_insertion_positions')."`");
 
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_customer')."`");
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_processing_queue')."`");
-		
+
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_log_messages')."`");
-		
+
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_user_holding_transactions')."`");
-		
+
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_user_exort_data')."`");
 		$wpdb->query("TRUNCATE TABLE `"._table_name('afl_bonus_incentive_history')."`");
-		
+
 		$wpdb->query("DELETE FROM `"._table_name('afl_nested_set_referal')."` WHERE `node_id` != ".afl_root_user()." ");
 		$wpdb->query("DELETE FROM `"._table_name('afl_nested_set_downline')."` WHERE `node_id` != ".afl_root_user()." ");
 
@@ -237,6 +237,31 @@ function afl_set_root_mlmid($mlmid) {
 			db_update($update_query);
 	  }
 
+	  $query['#select'] = _table_name('afl_unilevel_nested_set_referal');
+	  $query['#where'] = [
+	  	'node_id='.afl_root_user()
+	  ];
+	  $root_data = db_select($query, 'get_row');
+	  if (empty( $root_data ) ){
+	  	global $wpdb;
+	  	$ins_data = [];
+	    $ins_data['lft'] = 1;
+	    $ins_data['rgt'] = 2;
+	    $ins_data['parent_uid'] = 0;
+	    $ins_data['node_id'] = afl_root_user();
+
+			$ins_id = $wpdb->insert(_table_name('afl_unilevel_nested_set_referal'), $ins_data);
+	  } else {
+	  	$update_query['#table'] = _table_name('afl_unilevel_nested_set_referal');
+			$update_query['#fields'] = [
+				'lft' => 1,
+				'rgt' => 2,
+			];
+			db_update($update_query);
+	  }
+
+
+
 	  $query['#select'] = _table_name('afl_nested_set_downline');
 	  $query['#where'] = [
 	  	'node_id='.afl_root_user()
@@ -262,7 +287,7 @@ function afl_set_root_mlmid($mlmid) {
 	}
 /*
  * ------------------------------------------------------------------------
- * Remove system affiliates members 
+ * Remove system affiliates members
  * ------------------------------------------------------------------------
 */
 
@@ -288,7 +313,7 @@ function afl_set_root_mlmid($mlmid) {
 
 /*
  * ------------------------------------------------------------------------
- * Remove system affiliates customers 
+ * Remove system affiliates customers
  * ------------------------------------------------------------------------
 */
 
@@ -312,19 +337,19 @@ function afl_set_root_mlmid($mlmid) {
 	function _reset_admin_rank ( $rank = 0) {
 		global $wpdb;
 		$root_user = afl_root_user();
-		$wpdb->update( 
-			_table_name('afl_user_genealogy'), 
-			array( 
+		$wpdb->update(
+			_table_name('afl_user_genealogy'),
+			array(
 				'member_rank' => $rank,
-			), 
+			),
 			array( 'uid' => $root_user )
 		);
 
-		$wpdb->update( 
-			_table_name('afl_unilevel_user_genealogy'), 
-			array( 
+		$wpdb->update(
+			_table_name('afl_unilevel_user_genealogy'),
+			array(
 				'member_rank' => $rank,
-			), 
+			),
 			array( 'uid' => $root_user )
 		);
 	}

@@ -554,6 +554,12 @@
 
 
  				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-add-imported-users.php';
+			/*
+			 * -----------------------------------------------------------------------------------------------
+			 * database transaction functions 
+			 * -----------------------------------------------------------------------------------------------
+			*/
+ 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/class.db_transaction.php';
 
 
 			}
