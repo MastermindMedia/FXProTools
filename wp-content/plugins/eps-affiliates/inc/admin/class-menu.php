@@ -44,6 +44,7 @@
 
 				add_action( 'admin_menu', array( $this , 'afl_admin_remote_api') );
 				add_action( 'admin_menu', array( $this , 'afl_shortcode_demo') );
+				add_action( 'admin_menu', array( $this , 'afl_db_migration') );
 
 
 

@@ -105,6 +105,8 @@
 			__('Username'),
 			__('Current Rank'),		
 			__('Months Active'),		
+			__('Active Distributors(previous Month)'),		
+			__('Bonus Amount'),		
 		);
 		$rows = array();
 		foreach ($data as $key => $value) {
@@ -127,6 +129,42 @@
 			$rows[$key]['markup_days_active'] = array(
 				'#type' =>'markup',
 				'#markup'=> _get_howmany_months_user_active($value->uid)
+			);
+			//
+
+			$prev_date = strtotime('-1 month',afl_date());
+      $prev_month_split = afl_date_splits($prev_date);
+
+      //get the actived distributos prev month under this user
+      $downline_distribs = _get_downline_distributors_($uid , 'matrix');
+      $query['#select'] = _table_name('afl_purchases');
+	 		$query['#where']  = array(
+	 			'category = "Distributor Kit"',
+	 			'purchase_month = '.$prev_month_split['m'],
+	 			'purchase_year = '.$prev_month_split['y'],
+	 		);
+	 		$query['#where_in'] = [
+	 			'uid' =>  $downline_distribs
+	 		];
+	 		$query['#expression'] = array(
+	 			'COUNT(`'._table_name('afl_purchases').'`.`uid`) as count'
+	 		);
+			$respo  = db_select($query, 'get_row');
+			$count = !empty($respo->count) ? $respo->count : 0;
+
+
+			$rows[$key]['markup_active_distribs'] = array(
+				'#type' =>'markup',
+				'#markup'=> $count
+			);
+
+			$months_actived = _get_howmany_months_user_active($uid);
+			$amount_for_actived_month = afl_variable_get('month_'.$months_actived.'_matrix_compensation', 0);
+			$user_amount = $amount_for_actived_month * $count;
+
+			$rows[$key]['markup_bonus_amount'] = array(
+				'#type' =>'markup',
+				'#markup'=> $user_amount
 			);
 		}
 	

@@ -229,6 +229,11 @@
 			'#title' 				=> __('Shortcodes Demo'),
 			'#description' 	=> 'shortcodes demo'
 		);
+		//Shortcodes demo  callback
+		$permissions['afl_db_migration'] = array(
+			'#title' 				=> __('DB Migration'),
+			'#description' 	=> 'DB Migration'
+		);
 		$permissions = array_merge($perm,$permissions);
 		
 		return apply_filters('eps_affiliates_custom_permissions_table',$permissions);
