@@ -23,6 +23,8 @@ $trial_expiration_date = floor( ( strtotime( $subscription['trial_expiry_date'] 
 $market_scanner =  wcs_user_has_subscription( '', 47, 'active') || is_user_fx_distributor();
 $auto_trader = wcs_user_has_subscription( '', 49, 'active');
 $coaching = wcs_user_has_subscription( '', 50, 'active');
+$subscription_type = $subscription_details[0]['type'];
+
 ?>
 <?php get_header(); ?>
 
@@ -55,7 +57,7 @@ $coaching = wcs_user_has_subscription( '', 50, 'active');
 							<li><label>Start Date</label> <span><?php echo date('F d, Y', strtotime($subscription['start_date']) );?></span></li>
 							<li><label>Next Payment</label> <span><?php echo date('F d, Y', strtotime($subscription['next_payment_date']) );?></span></li>
 							<?php if( $subscription['trial_expiry_date'] ):?><li><label>Trial End</label> <span><?php echo date('F d, Y', strtotime($subscription['trial_expiry_date']) );?></span></li><?php endif;?>
-							<?php if($subscription['trial_expiry_date']){ ?>
+							<?php if($subscription['trial_expiry_date'] && $subscription_type == "trial"){ ?>
 								<li>You Have <?php echo ($trial_expiration_date > 0) ? $trial_expiration_date : "0"; ?> Days Left On Trial</li>
 							<?php } ?>
 						</ul>
@@ -65,7 +67,9 @@ $coaching = wcs_user_has_subscription( '', 50, 'active');
 					</div>
 					<?php if (!empty($subscription)) : ?>
 					    <p class="text-center small">Auto Renew is Enabled. To change this, go to Account Settings</p>
-					    <div class="button-holder">
+					<?php endif; ?>
+					<?php if (!empty($subscription) && $subscription_type == "trial") : ?>
+						<div class="button-holder">
 					    	<button type="button" class="action btn btn-lg btn-danger fx-btn" data-toggle="modal" data-target="#access-upgrade-modal">
 							  Upgrade Your Trial
 							</button>
