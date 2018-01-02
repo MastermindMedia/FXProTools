@@ -14,7 +14,7 @@ function afl_system_business_holding_payouts_callback () {
 
 		$config['total_rows'] =  count(_get_holding_payouts());
 		$config['base_url'] 	= '?page=affiliate-eps-business-holding-payouts';
-		$config['per_page'] 	= 5;
+		$config['per_page'] 	= 50;
 
 		
 		$index = !empty($_GET['page_count']) ? $_GET['page_count'] : 0;
