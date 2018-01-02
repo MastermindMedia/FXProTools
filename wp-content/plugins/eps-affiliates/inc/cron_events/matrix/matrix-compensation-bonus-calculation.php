@@ -37,9 +37,9 @@
 	 			'purchase_year = '.$afl_date_splits['y'],
 	 		);
 	 		$users  = db_select($query, 'get_results');
-			afl_log('matrix_compensation_payout_scheduler_loop_through','fetch users',$users,LOGS_INFO);
 
 	 		foreach ($users as $key => $user) {
+				afl_log('matrix_compensation_payout_scheduler_loop_through','fetch user id',$user->uid,LOGS_INFO);
 	 			$this_mnth_actived_members[] = $user->uid;
 
 	 		/*
