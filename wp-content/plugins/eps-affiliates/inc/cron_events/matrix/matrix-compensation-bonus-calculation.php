@@ -13,7 +13,7 @@
 	 	$current_date				= afl_date();
 	 	$afl_date_splits 		= afl_date_splits(afl_date());
 
-	 	if ( $afl_date_splits['d'] == $matrix_given_date) {
+	 	if ( $afl_date_splits['d'] >= $matrix_given_date) {
 
 
 
@@ -37,6 +37,7 @@
 	 			'purchase_year = '.$afl_date_splits['y'],
 	 		);
 	 		$users  = db_select($query, 'get_results');
+			afl_log('matrix_compensation_payout_scheduler_loop_through','fetch users',$users,LOGS_INFO);
 
 	 		foreach ($users as $key => $user) {
 	 			$this_mnth_actived_members[] = $user->uid;
@@ -143,6 +144,7 @@
 			 		//get the bonus for the $months_actived 
 			 		$amount_for_actived_month = afl_variable_get('month_'.$months_actived.'_matrix_compensation', 0);
 			 		$user_amount = $amount_for_actived_month * $count;
+					afl_log('matrix_compensation_payout_scheduler_loop_through','amount calc',array($user_amount),LOGS_INFO);
 
 			 		if ( $user_amount > 0) {
 			 			 $transaction = array();
@@ -162,6 +164,8 @@
 					   //check already paid
 					   $query = array();
 					   $afl_date_splits = afl_date_splits(afl_date());
+						 afl_log('matrix_compensation_payout_scheduler_loop_through','transaction ', $afl_date_splits,LOGS_INFO);
+
 					   // $query['#select'] = _table_name('afl_user_transactions');
 					   $query['#select'] = _table_name('afl_user_holding_transactions');
 					   $query['#where'] = array(
@@ -171,6 +175,7 @@
 					   	'`transaction_year` = '.$afl_date_splits['y'],
 					   );
 					   $check = db_select($query, 'get_row');
+						 afl_log('matrix_compensation_payout_scheduler_loop_through','check the data exists',array($check),LOGS_INFO);
 
 					   if ( empty($check) ){
 					   	 afl_member_holding_transaction($transaction, FALSE, FALSE);

@@ -2753,7 +2753,7 @@ function afl_get_payment_method_details($uid = 0, $method_name = ''){
 	    'link' 			=> $link,
 	    'uid' 			=> 0,
 	    'hostname' 	=> $_SERVER['SERVER_ADDR'],
-	    'timestamp' => time(),
+	    'timestamp' => afl_date(),
 	  );
 	 global $wpdb;
 	 $wpdb->insert(
