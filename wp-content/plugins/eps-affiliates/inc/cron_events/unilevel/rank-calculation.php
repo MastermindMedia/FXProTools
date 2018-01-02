@@ -57,7 +57,7 @@
 
 		//get the sponsor id
 		$node = afl_genealogy_node($uid, 'unilevel');
-		if ( $node->referrer_uid) {
+		if ( isset($node->referrer_uid) &&  $node->referrer_uid) {
 			_recursive_calc_user_rank( $node->referrer_uid );
 		}
 
@@ -76,7 +76,7 @@
 
 		//get the sponsor id
 		$node = afl_genealogy_node($uid, 'unilevel');
-		if ( $node->referrer_uid) {
+		if ( isset($node->parent_uid) && $node->parent_uid) {
 			_recursive_calc_user_rank( $node->parent_uid );
 		}
 	}
