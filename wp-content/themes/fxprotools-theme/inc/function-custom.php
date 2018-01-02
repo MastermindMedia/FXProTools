@@ -924,7 +924,12 @@ add_action( 'admin_init', 'restrict_customer_admin_access' );
 add_action( 'woocommerce_admin_order_data_after_shipping_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
 function my_custom_checkout_field_display_admin_order_meta($order){
     $my_custom_field = get_post_meta( $order->id, '_my_field_slug', true );
+
+    global $wpdb;
+
+    $result_affiliate_id = $wpdb->get_row( $wpdb->prepare(  "SELECT DISTINCT affiliate_id FROM {$wpdb->prefix}affiliate_wp_referrals WHERE reference = '%s' LIMIT 1;", $order->id ) );
+
     //if ( ! empty( $my_custom_field ) ) {
-        echo '<p><strong>'. __("Affiliate", "woocommerce").':</strong></p>';
+        echo '<p><strong>'. __("Affiliate", "woocommerce").':</strong> ' . $result_affiliate_id . '</p>';
     //}
 }
