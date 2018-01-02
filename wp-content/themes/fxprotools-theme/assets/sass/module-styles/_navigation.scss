@@ -48,6 +48,13 @@
 			    	font-size: 39px;
 			    }
 			}
+			&.menu-locked{
+				a{ cursor: not-allowed; }
+				i.fa{
+					font-size: 35px;
+					margin-bottom: 8px;
+				}
+			}
 			&.account {
 				padding-top: 33px;
 				a {
@@ -121,6 +128,18 @@ body.customer{
 					font-weight: bold;
 					margin-right: 10px;
 					@include border-radius(50%);
+				}
+			}
+			&.menu-locked{
+				a{ cursor: not-allowed; }
+				i.fa{
+					font-size: 25px;
+    				vertical-align: middle;
+					margin-right: 10px;
+					color: #535353;
+				}
+				span.text{
+					color: #535353;
 				}
 			}
 			&.dashboard{

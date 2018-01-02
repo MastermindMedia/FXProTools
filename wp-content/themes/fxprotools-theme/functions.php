@@ -98,7 +98,9 @@ $modules = array(
     'apyc/init',
 
     // Walkers
+    'walkers/nav-secondary-stage-walker',
     'walkers/nav-secondary-walker',
+    'walkers/nav-main-stage-walker',
     'walkers/nav-main-walker',
 );
 if($modules){

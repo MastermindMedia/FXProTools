@@ -34,6 +34,32 @@ function get_checklist_next_step_url()
     return '#';
 }
 
+function isUserStage()
+{
+    $_checklist = get_user_checklist();
+
+    // $_checklist = [
+    //     'verified_email' => false,
+    //     'verified_profile' => false,
+    //     'scheduled_webinar' => false,
+    //     'accessed_products' => false,
+    //     'got_shirt' => false,
+    //     'shared_video' => false,
+    //     'referred_friend' => false,
+    // ];
+
+    if( is_user_fx_customer() || is_user_fx_distributor() ){
+        if( $_checklist['verified_email'] === true && $_checklist['verified_profile'] === true && $_checklist['scheduled_webinar'] === true && $_checklist['accessed_products'] === true && $_checklist['got_shirt'] === true  && $_checklist['shared_video'] === true && $_checklist['referred_friend'] === true ) {
+            return 3;
+        } elseif( $_checklist['verified_email'] === true && $_checklist['verified_profile'] === true && $_checklist['scheduled_webinar'] === true ) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+    
+}
+
 function resend_email_verification()
 {
     if( get_current_user_id() > 0){
@@ -400,11 +426,19 @@ add_action('init','sess_start');
 function get_mb_pto1( $page_element, $pto = 'pto1' ) {
     switch ( $page_element ) {
         case 'main_header_menu':
-            return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), rwmb_meta( $pto . '_main_header_menu'), 'fx-nav-options', new Nav_Main_Header_Menu_Walker(), 'Main Header Menu', '' );
+            if( isUserStage() === 1 )
+                return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), get_term( 48 ), 'fx-nav-options', new Nav_Main_Stage_Header_Menu_Walker(), 'Main Header Menu', '' );
+            elseif( isUserStage() === 2 )
+                return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), get_term( 51 ), 'fx-nav-options', new Nav_Main_Stage_Header_Menu_Walker(), 'Main Header Menu', '' );
+            else
+                return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), rwmb_meta( $pto . '_main_header_menu'), 'fx-nav-options', new Nav_Main_Header_Menu_Walker(), 'Main Header Menu', '' );
             break;
         case 'secondary_header_menu':
-            return mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), rwmb_meta( $pto . '_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
-            break;
+            if( isUserStage() === 1 )
+                return mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), get_term( 54 ), 'fx-nav-options', new Nav_Secondary_Stage_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
+            else
+                return mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), rwmb_meta( $pto . '_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
+                break;
         case 'footer_left_menu':
             return mb_menu_display( $pto, rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_fl'), 'footer-nav', '', 'Footer Menu 1', '' );
             break;
