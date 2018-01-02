@@ -931,6 +931,9 @@ function my_custom_checkout_field_display_admin_order_meta($order){
 
     if ( ! empty( $result_affiliate_id ) ) {
     	$result_user_id = $wpdb->get_row( $wpdb->prepare(  "SELECT DISTINCT user_id FROM {$wpdb->prefix}affiliate_wp_affiliates WHERE affiliate_id = '%s' LIMIT 1;", $result_affiliate_id->affiliate_id ) );
-        echo '<p><strong>'. __("Affiliate", "woocommerce").':</strong> ' . $result_user_id->user_id . '</p>';
+
+    	$user_info = get_userdata($result_user_id->user_id);
+    	
+        echo '<p><strong>'. __("Affiliate", "woocommerce").':</strong> ' . $user_info->display_name . '</p>';
     }
 }
