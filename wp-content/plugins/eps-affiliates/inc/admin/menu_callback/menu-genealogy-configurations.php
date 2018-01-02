@@ -302,6 +302,7 @@ function afl_set_root_mlmid($mlmid) {
 	      	'afl_member',
 	      	'holding_member'
 	      	),
+	       'number' => 500,
 	    );
 	   $users = get_users($args);
 	   //remove all the role
