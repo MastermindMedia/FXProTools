@@ -139,7 +139,7 @@ $referral_link = get_highest_converting_funnel_link();
 			<div class="clearfix"></div>
 			<br/>
 			<div class="col-md-12">
-				<a href="<?php bloginfo('url');?>/access-products" class="btn btn-danger block p-m skip-referral">Thanks For Letting Me Know.. Continue To Your Products</a>
+				<a href="<?php bloginfo('url');?>/access-products" class="btn btn-danger block p-m skip-referral">Thanks For Letting Me Know... To Continue Click Here!</a>
 			</div>
 		</div>
 	</div>
