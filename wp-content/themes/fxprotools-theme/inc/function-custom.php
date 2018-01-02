@@ -925,6 +925,6 @@ add_action( 'woocommerce_admin_order_data_after_billing_address', 'my_custom_che
 function my_custom_checkout_field_display_admin_order_meta($order){
     $my_custom_field = get_post_meta( $order->id, '_my_field_slug', true );
     //if ( ! empty( $my_custom_field ) ) {
-        echo '<p><strong>'. __("Referral", "woocommerce").':</strong></p>';
+        echo '<p><strong>'. __("Affiliate", "woocommerce").':</strong></p>';
     //}
 }
