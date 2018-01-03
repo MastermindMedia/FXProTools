@@ -34,6 +34,50 @@ function get_checklist_next_step_url()
     return '#';
 }
 
+
+function lockedURL( $stage )
+{
+    // return allowed url depends stage level. 
+    $_stage_1 = array( 'basic-training', 'market-signals', 'coaching', 'course', 'marketing', 'team', 'wallet', 'referral-program', 'compensation-plan', 'access-products' );
+    $_stage_2 = array( 'team', 'wallet' );
+    $_stage_3 = array();
+
+    // $_stage_2 = array_merge( $_stage_2, $_stage_1 );
+    // $_stage_3 = array_merge( $_stage_3, $_stage_1, $_stage_2 );
+    
+    switch ($stage) {
+        case 1: return $_stage_1;
+        case 2: return $_stage_2;
+        case 3: return $_stage_3;
+    }
+}
+
+add_action( 'template_redirect', 'isPageLocked' );
+function isPageLocked()
+{   
+    $cu = wp_get_current_user();
+    // FIXME: temp
+    if( $cu->user_login == "austinicomedez" ){ //if( is_user_fx_customer() || is_user_fx_distributor() ){
+        // get current page slug.
+        $_page_slug = sanitize_post( $GLOBALS['wp_the_query']->get_queried_object() );
+        if($_page_slug){
+            $_parent = get_post_ancestors( $_page_slug->post_id );
+            $_page_slug = ( count($_parent) > 0 ) ? get_post($_parent[count($_parent)-1])->post_name : $_page_slug->post_name;
+
+            // get user stage level.
+            $_stage_lvl = isUserStage();
+            // fetch unlocked urls
+            $_locked_urls = lockedURL($_stage_lvl);
+            // redirect to dashboard 
+            if ( array_search( $_page_slug, $_locked_urls ) !== false ) {
+                wp_redirect(home_url() . '/dashboard/');
+                exit;
+            }
+        }else{ return; }
+        
+    }
+}
+
 function isUserStage()
 {
     $cu = wp_get_current_user();
@@ -58,7 +102,6 @@ function isUserStage()
             return 1;
         }
     }
-    
 }
 
 function resend_email_verification()

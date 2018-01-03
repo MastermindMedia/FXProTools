@@ -98,11 +98,11 @@ $dashboard_checklist = [
 		'access'  => ( isUserStage() > 1 ) ? 'unlocked' : 'locked'
 	],
 ];
+
 ?>
 <?php get_header(); ?>
 
 <?php get_template_part( 'inc/templates/nav-dashboard' ); ?>
-<?php echo isUserStage(); ?>
 <div class="container page-dashboard">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
