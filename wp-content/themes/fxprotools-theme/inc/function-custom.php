@@ -38,7 +38,7 @@ function get_checklist_next_step_url()
 function lockedURL( $stage )
 {
     // return allowed url depends stage level. 
-    $_stage_1 = array( 'basic-training', 'market-signals', 'coaching', 'course', 'marketing', 'team', 'wallet', 'referral-program', 'compensation-plan', 'access-products' );
+    $_stage_1 = array( 'basic-training', 'market-signals', 'course', 'marketing', 'team', 'wallet', 'referral-program', 'compensation-plan', 'access-products' );
     $_stage_2 = array( 'team', 'wallet' );
     $_stage_3 = array();
 
