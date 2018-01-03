@@ -48,9 +48,9 @@ class CPS_Intercom {
 	 */
 	public function __construct() {
 		$this->client = new IntercomClient( self::ACCESS_TOKEN, null );
-		add_action( 'user_register', [ $this, 'intercom_add_user' ] );
-		add_action( 'profile_update', [ $this, 'intercom_update_user' ] );
-		add_action( 'delete_user', [ $this, 'intercom_delete_user' ] );
+//		add_action( 'user_register', [ $this, 'intercom_add_user' ] );
+//		add_action( 'profile_update', [ $this, 'intercom_update_user' ] );
+//		add_action( 'delete_user', [ $this, 'intercom_delete_user' ] );
 	}
 
 	/**
