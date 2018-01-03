@@ -89,6 +89,16 @@ p.logo-text {
 						text-decoration: none;
 					}
 				}
+				&.list-locked{
+					cursor: not-allowed;
+					i.fa{
+						font-size: 25px;
+						color: #535353;
+						margin: 0 8px 0 5px;
+						vertical-align: middle;
+					}
+				}
+				
 				.fx-text {
 					font-weight: bold;
 				}
