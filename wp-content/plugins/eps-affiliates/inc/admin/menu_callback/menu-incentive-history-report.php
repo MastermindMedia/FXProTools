@@ -10,7 +10,7 @@ function afl_incentive_history_report () {
 
 function afl_incentive_history_report_table () {
 	
-	$pagination = new CI_Pagination;
+		$pagination = new CI_Pagination;
 
 		$config['total_rows'] =  count(_incentive_history_report());
 		$config['base_url'] 	= '?page=affiliate-eps-incentive-history-report';

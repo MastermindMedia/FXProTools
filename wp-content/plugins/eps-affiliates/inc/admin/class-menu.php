@@ -946,6 +946,16 @@
 					'#menu_slug' 			=> 'affiliate-eps-check-matrix-comp-days', 
 					'#page_callback' 	=> '_check_matrix_compensation_days',
 				);
+
+				$menu['holding_tank_users_list'] = array(
+					'#parent' 				=> 'affiliate-eps-reports',
+					'#page_title'			=> __( 'Holding Tank users list', 'Holding Tank users list' ),
+					'#menu_title' 		=> __( 'Holding Tank users list', 'Holding Tank users list' ),
+					'#access_callback'=> 'system_rank_configurations', 
+					'#menu_slug' 			=> 'affiliate-eps-holding-users-list', 
+					'#page_callback' 	=> '_holding_users_list',
+				);
+
 				afl_system_admin_menu($menu);
 		 }
 
