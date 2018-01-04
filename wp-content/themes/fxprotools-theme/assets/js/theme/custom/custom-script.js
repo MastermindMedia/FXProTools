@@ -130,3 +130,14 @@ $(document).on('click','.skip-referral', function(e) {
 			}
 		});
 });
+
+//fix subnav numbering for signals
+var nav_counter = 1;
+$('.is_signal_subscriber .fx-navbar-sub ul .signals-no-access').each(function(){
+	$(this).remove();
+});
+
+$('.is_signal_subscriber .fx-navbar-sub ul li').each(function(){
+	$(this).find('.number').text(nav_counter +  '. ');
+	nav_counter++;
+});
