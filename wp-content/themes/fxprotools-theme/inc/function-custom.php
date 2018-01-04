@@ -12,7 +12,7 @@ defined('ONBOARD_CHECKLIST_META_KEY') || define('ONBOARD_CHECKLIST_META_KEY','_o
 function get_user_checklist()
 {
     $checklist = get_user_meta(get_current_user_id(), ONBOARD_CHECKLIST_META_KEY, true);
-    return is_array($checklist) ? $checklist : register_user_checklist(get_current_user_id());
+    return ( is_array($checklist) && count($checklist) === 7 ) ? $checklist : ( ( count($checklist) !== 7 ) ? update_user_checklist( get_current_user_id(), $checklist ) : register_user_checklist( get_current_user_id() ) );
 }
 
 function get_checklist_next_step_url()
@@ -57,7 +57,7 @@ function isPageLocked()
 {   
     $cu = wp_get_current_user();
     // FIXME: temp
-    if( $cu->user_login == "austinicomedez" ){ //if( is_user_fx_customer() || is_user_fx_distributor() ){
+    if( $cu->user_login == "austinicomedez" || $cu->user_login == "fxprotools" ){ //if( is_user_fx_customer() || is_user_fx_distributor() ){
         // get current page slug.
         $_page_slug = sanitize_post( $GLOBALS['wp_the_query']->get_queried_object() );
         if($_page_slug){
@@ -93,7 +93,7 @@ function isUserStage()
     // ];
 
     // FIXME: temp
-    if( $cu->user_login == "austinicomedez" ){ //if( is_user_fx_customer() || is_user_fx_distributor() ){
+    if( $cu->user_login == "austinicomedez" || $cu->user_login == "fxprotools" ){ //if( is_user_fx_customer() || is_user_fx_distributor() ){
         if( $_checklist['verified_email'] === true && $_checklist['verified_profile'] === true && $_checklist['scheduled_webinar'] === true && $_checklist['accessed_products'] === true && $_checklist['got_shirt'] === true  && $_checklist['shared_video'] === true && $_checklist['referred_friend'] === true ) {
             return 3;
         } elseif( $_checklist['verified_email'] === true && $_checklist['verified_profile'] === true && $_checklist['scheduled_webinar'] === true ) {
@@ -340,6 +340,21 @@ function register_user_checklist($user_id)
         'referred_friend'	=> false,
     );
     add_user_meta( $user_id, ONBOARD_CHECKLIST_META_KEY, $checklist);
+}
+
+function update_user_checklist($user_id, $prev_checklist)
+{
+    $checklist = array(
+        'verified_email' 	=> false,
+        'verified_profile'	=> false,
+        'scheduled_webinar'	=> false,
+        'accessed_products' => false,
+        'got_shirt'			=> false,
+        'shared_video'		=> false,
+        'referred_friend'	=> false,
+    );
+    $checklist = array_replace_recursive($checklist, $prev_checklist);
+    update_user_meta( $user_id, ONBOARD_CHECKLIST_META_KEY, $checklist);
 }
 
 add_action('user_register', 'send_email_verification');
