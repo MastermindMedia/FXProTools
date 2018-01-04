@@ -5,13 +5,21 @@ Template Name: Basic Training
 $category_slug = 'basic-training';
 $category = get_term_by('slug', $category_slug, 'ld_course_category' );
 $child_categories = get_course_category_children($category->term_id);
+
+// Signals Product ID's = 2699, 2928, 2927
+$signal_ids = array(2699,2928,2927);
+$user_subs = get_user_main_subscription();
+$subscription_product_id = $user_subs['product_id'];
+if(in_array($subscription_product_id, $signal_ids)){
+	wp_redirect( home_url() . '/access-products' );
+}
+
 ?>
 
 
 <?php get_header(); ?>
 
 	<?php get_template_part('inc/templates/nav-products'); ?>
-
 	<?php if( is_array( $child_categories) ): ?>
 		<div class="container">
 			<div class="row">

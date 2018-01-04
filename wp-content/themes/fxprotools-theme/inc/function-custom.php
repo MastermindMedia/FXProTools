@@ -891,6 +891,14 @@ function fx_user_role_class( $classes ) {
         $classes[] = 'is-admin';
     }
 
+    if( is_user_logged_in() ){
+        $subscription = get_user_main_subscription();
+        $subscription_product_id = $subscription['product_id'];
+        if($subscription_product_id == 2699 || $subscription_product_id == 2928 || $subscription_product_id == 2927){
+            $classes[] = 'is_signal_subscriber';
+        }
+    }
+
     return $classes;
 }
 
