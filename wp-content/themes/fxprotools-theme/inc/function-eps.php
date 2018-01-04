@@ -83,7 +83,7 @@ function eps_distributor_kit_purchased( $subscription ) {
 		   	error_log('Invoked : eps_commerce_distributor_kit_purchase_complete ' . print_r($result, true) );
 
 		} else {
-			error_log('Invoked : eps_commerce_distributor_kit_purchase_complete, NO IBO KIT');
+			error_log('Invoke Fail : eps_commerce_distributor_kit_purchase_complete, NO IBO KIT');
 		}
 	}
 

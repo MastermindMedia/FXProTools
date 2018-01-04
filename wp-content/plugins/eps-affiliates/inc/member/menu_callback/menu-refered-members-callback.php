@@ -27,7 +27,7 @@ function afl_refered_members_callback () {
 		$pagination = new CI_Pagination;
 
 		$config['total_rows'] =  (afl_get_user_refered_downlines($uid,array(),TRUE));
-		$config['base_url'] 	= '?page=affiliate-eps-unilevel-downline-members';
+		$config['base_url'] 	= '?page=affiliate-eps-refered-members';
 		$config['per_page'] 	= 50;
 
 		

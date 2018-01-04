@@ -381,6 +381,7 @@
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-business-transactions.php';
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-check-matrix-compensation-days.php';
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-db-migration.php';
+				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-holding-users-list.php';
 
 			/* 
 			 * -----------------------------------------------------------------------------------------------
@@ -554,6 +555,12 @@
 
 
  				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-add-imported-users.php';
+			/*
+			 * -----------------------------------------------------------------------------------------------
+			 * database transaction functions 
+			 * -----------------------------------------------------------------------------------------------
+			*/
+ 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/class.db_transaction.php';
 
 
 			}

@@ -223,22 +223,22 @@
  * create a scheduled event (if it does not exist already)
  * -------------------------------------------------------------
 */
-	function eps_affiliates_remote_users_embedd_cron_activation() {
+	/*function eps_affiliates_remote_users_embedd_cron_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_remote_users_embedd_cron' ) ) {  
 		   wp_schedule_event( time(), 'two_mins', 'eps_affiliates_remote_users_embedd_cron' );  
 		}
-	}
+	}*/
 /*
  * -------------------------------------------------------------
  * unschedule event upon plugin deactivation
  * -------------------------------------------------------------
 */
-	function eps_affiliates_remote_users_embedd_cron_deactivation() {	
+	/*function eps_affiliates_remote_users_embedd_cron_deactivation() {	
 		// find out when the last event was scheduled
 		$timestamp = wp_next_scheduled ('eps_affiliates_remote_users_embedd_cron');
 		// unschedule previous event if any
 		wp_unschedule_event ($timestamp, 'eps_affiliates_remote_users_embedd_cron');
-	} 
+	} */
 /*
  * ------------------------------------------------------------
  * Monthly matrix commision payout
@@ -251,7 +251,7 @@
  * ------------------------------------------------------------
 */
 
- function eps_affiliates_remote_users_embedd_cron_callback () {
+ /*function eps_affiliates_remote_users_embedd_cron_callback () {
  	//check the configuration for processing import remote user
  	if ( afl_variable_get('afl_enable_que_processing')) {
 	 	require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/API/api-remote-user-embedd-cron-callback.php';
@@ -259,7 +259,7 @@
 			_process_embedd_users_queue();
 		}
  	}
- }
+ }*/
 
 
 
@@ -271,22 +271,22 @@
  * Open the deactive user spot for another one activation
  * -------------------------------------------------------------
 */
-	function eps_affiliates_deactived_spot_openup_cron_activation() {
+	/*function eps_affiliates_deactived_spot_openup_cron_activation() {
 		if( !wp_next_scheduled( 'eps_affiliates_deactived_spot_openup_cron' ) ) {  
 		   wp_schedule_event( time(), 'two_mins', 'eps_affiliates_deactived_spot_openup_cron' );  
 		}
-	}
+	}*/
 /*
  * -------------------------------------------------------------
  * unschedule event upon plugin deactivation
  * -------------------------------------------------------------
 */
-	function eps_affiliates_deactived_spot_openup_cron_deactivation() {	
+	/*function eps_affiliates_deactived_spot_openup_cron_deactivation() {	
 		// find out when the last event was scheduled
 		$timestamp = wp_next_scheduled ('eps_affiliates_deactived_spot_openup_cron');
 		// unschedule previous event if any
 		wp_unschedule_event ($timestamp, 'eps_affiliates_deactived_spot_openup_cron');
-	} 
+	} */
 /*
  * ------------------------------------------------------------
  * Monthly matrix commision payout
@@ -298,13 +298,13 @@
  * give count * actived month count amount
  * ------------------------------------------------------------
 */
- function eps_affiliates_deactived_spot_openup_cron_callback () {
+/* function eps_affiliates_deactived_spot_openup_cron_callback () {
 	 	require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/cron_events/matrix/inactive-user-spot-openup.php';
 		if (function_exists('_matrix_inactive_user_spot_open_up')) {
 			_matrix_inactive_user_spot_open_up();
 		}
  }
-
+*/
 
 
 
@@ -431,9 +431,9 @@
 
 	add_action('wp', 'eps_affiliates_monthly_pool_bonus_payout_activation');
 
-	add_action('wp', 'eps_affiliates_remote_users_embedd_cron_activation');
+	// add_action('wp', 'eps_affiliates_remote_users_embedd_cron_activation');
 
-	add_action('wp', 'eps_affiliates_deactived_spot_openup_cron_activation');
+	// add_action('wp', 'eps_affiliates_deactived_spot_openup_cron_activation');
 	
 	add_action('wp', 'eps_affiliates_bonus_incentive_cron_activation');
 
@@ -449,8 +449,8 @@
 	register_deactivation_hook (__FILE__, 'eps_affiliates_holding_tank_user_expiry_deactivate');
 	register_deactivation_hook (__FILE__, 'eps_affiliates_unilevel_holding_tank_user_expiry_deactivate');
 	register_deactivation_hook (__FILE__, 'eps_affiliates_monthly_matrix_compensation_payout_deactivation');
-	register_deactivation_hook (__FILE__, 'eps_affiliates_monthly_pool_bonus_payout_deactivation');
-	register_deactivation_hook (__FILE__, 'eps_affiliates_remote_users_embedd_cron_deactivation');
+	// register_deactivation_hook (__FILE__, 'eps_affiliates_monthly_pool_bonus_payout_deactivation');
+	// register_deactivation_hook (__FILE__, 'eps_affiliates_remote_users_embedd_cron_deactivation');
 	register_deactivation_hook (__FILE__, 'eps_affiliates_deactived_spot_openup_cron_deactivation');
 	register_deactivation_hook (__FILE__, 'eps_affiliates_bonus_incentive_cron_deactivation');
 	
@@ -498,7 +498,7 @@
  * every 5 mins
  * -------------------------------------------------------------
 */
-	add_action ('eps_affiliates_remote_users_embedd_cron', 'eps_affiliates_remote_users_embedd_cron_callback');
+	// add_action ('eps_affiliates_remote_users_embedd_cron', 'eps_affiliates_remote_users_embedd_cron_callback');
 
 /*
  * -------------------------------------------------------------
@@ -506,7 +506,7 @@
  * been in deatived for maximum allowed days / months/year
  * -------------------------------------------------------------
 */
-	add_action ('eps_affiliates_deactived_spot_openup_cron', 'eps_affiliates_deactived_spot_openup_cron_callback');
+	// add_action ('eps_affiliates_deactived_spot_openup_cron', 'eps_affiliates_deactived_spot_openup_cron_callback');
 
 /*
  * -------------------------------------------------------------

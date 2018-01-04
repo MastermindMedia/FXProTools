@@ -9,7 +9,7 @@ function afl_unilevel_refered_members () {
 function afl_unilevel_refered_members_callback () {
 		new Afl_enque_scripts('common');
 	
-	do_action('afl_my_distributors_count_template');
+	do_action('afl_my_distributors_count_template', 'unilevel');
 	do_action('afl_my_customers_count_template');
 	
 	$uid = get_uid();
@@ -24,7 +24,7 @@ function afl_unilevel_refered_members_callback () {
 		$pagination = new CI_Pagination;
 
 		$config['total_rows'] =  (afl_unilevel_get_user_refered_downlines($uid,array(),TRUE));
-		$config['base_url'] 	= '?page=affiliate-eps-unilevel-downline-members';
+		$config['base_url'] 	= '?page=affiliate-eps-unilevel-refered-members';
 		$config['per_page'] 	= 50;
 
 		

@@ -64,38 +64,45 @@ if ( ! empty( $checklist ) ) {
 $dashboard_checklist = [
 	'verified_email'    => [
 		'title'   => 'Verify your e-mail',
-		'subtext' => 'Check your Inbox and confirm your email to complete this step, or you can confirm it is correct in "My Account" by <a href="/my-account">clicking here</a>'
+		'subtext' => 'Check your Inbox and confirm your email to complete this step, or you can confirm it is correct in "My Account" by <a href="/my-account">clicking here</a>',
+		'access'  => 'unlocked'
 	],
 	'verified_profile'  => [
 		'title'   => 'Update/Verify Profile (SMS #)',
-		'subtext' => 'Add / Update your Phone Number in your profile to get instant notifications by going to "My Account" <a href="/my-account">click here</a>'
+		'subtext' => 'Add / Update your Phone Number in your profile to get instant notifications by going to "My Account" <a href="/my-account">click here</a>',
+		'access'  => 'unlocked'
 	],
 	'scheduled_webinar' => [
 		'title'   => 'Schedule For Webinar',
-		'subtext' => 'Don\'t miss out weekly Q&A webinars to answer all your questions, click the "Reserve A Seat" button.'
+		'subtext' => 'Don\'t miss out weekly Q&A webinars to answer all your questions, click the "Reserve A Seat" button.',
+		'access'  => 'unlocked'
 	],
 	'got_shirt'         => [
 		'title'   => 'Get your CPS Shirt',
-		'subtext' => 'Get A CPS T-shirt from our store 75% OFF by clicking on "Get CPS Shirt Button" or by <a href="/product/copy-profit-success-tshirt/">clicking here</a>.'
+		'subtext' => 'Get A CPS T-shirt from our store 75% OFF by clicking on "Get CPS Shirt Button" or by <a href="/product/copy-profit-success-tshirt/">clicking here</a>.',
+		'access'  => ( isUserStage() > 1 ) ? 'unlocked' : 'locked'
 	],
 	'accessed_products' => [
 		'title'   => 'Access your product',
-		'subtext' => 'Full Access to the products you purchased 24/7, <a href="/access-products">click here</a>.'
+		'subtext' => 'Full Access to the products you purchased 24/7, <a href="/access-products">click here</a>.',
+		'access'  => ( isUserStage() > 1 ) ? 'unlocked' : 'locked'
 	],
 	'shared_video'      => [
 		'title'   => 'Share Video',
-		'subtext' => 'Use our special invitation video to share this valuable skillset with someone. Start sharing by <a href="/marketing/funnels">clicking here</a>.'
+		'subtext' => 'Use our special invitation video to share this valuable skillset with someone. Start sharing by <a href="/marketing/funnels">clicking here</a>.',
+		'access'  => ( isUserStage() > 1 ) ? 'unlocked' : 'locked'
 	],
 	'referred_friend'   => [
 		'title'   => 'Refer A Friend',
-		'subtext' => 'Refer people to our platform & we will reward you! Find out more about our referral program by <a href="/referral-program">clicking here</a>.'
+		'subtext' => 'Refer people to our platform & we will reward you! Find out more about our referral program by <a href="/referral-program">clicking here</a>.',
+		'access'  => ( isUserStage() > 1 ) ? 'unlocked' : 'locked'
 	],
 ];
+
 ?>
 <?php get_header(); ?>
 
 <?php get_template_part( 'inc/templates/nav-dashboard' ); ?>
-
 <div class="container page-dashboard">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -152,17 +159,43 @@ $dashboard_checklist = [
                                 </div>
                                 <ul class="fx-board-list w-toggle">
 									<?php
-									foreach ( $dashboard_checklist as $step => $dashboard_checklist ):
-										?>
-                                        <li>
-                                            <span class="fx-checkbox <?php echo ! empty( $checklist[ $step ] ) ? 'checked' : ''; ?>"></span>
-                                            <span class="fx-text"><?= $dashboard_checklist['title']; ?></span>
-                                            <div class="content">
+										$cu = wp_get_current_user();
+										// FIXME: temp
+										if( $cu->user_login == "austinicomedez" ) ://if( is_user_fx_customer() || is_user_fx_distributor() ) :
+											foreach ( $dashboard_checklist as $step => $dashboard_checklist ) :
+									?>
+                                        <li class="<?php if( $dashboard_checklist['access'] === 'locked' ) echo "list-locked"; ?>">
+											<?php if( $dashboard_checklist['access'] === 'locked' ) : ?>
+												<i class="fa fa-lock" aria-hidden="true"></i>
+											<?php elseif( $dashboard_checklist['access'] === 'unlocked' ) : ?>
+												<span class="fx-checkbox <?php echo ! empty( $checklist[ $step ] ) ? 'checked' : ''; ?>"></span>
+											<?php endif; ?>
+											<span class="fx-text"><?= $dashboard_checklist['title']; ?></span>
+                                            <?php if( $dashboard_checklist['access'] === 'unlocked' ) : ?>
+											<div class="content">
 												<?= $dashboard_checklist['subtext']; ?>
                                             </div>
+											<?php endif; ?>
                                             <span class="fa fa-angle-down icon"></span>
                                         </li>
-									<?php endforeach; ?>
+									<?php 
+											endforeach;
+										else :
+											foreach ( $dashboard_checklist as $step => $dashboard_checklist ) :
+									?>
+										<li>
+											<span class="fx-checkbox <?php echo ! empty( $checklist[ $step ] ) ? 'checked' : ''; ?>"></span>
+											<span class="fx-text"><?= $dashboard_checklist['title']; ?></span>
+											<div class="content">
+												<?= $dashboard_checklist['subtext']; ?>
+											</div>
+											<span class="fa fa-angle-down icon"></span>
+										</li>
+									
+									<?php 
+											endforeach;
+										endif;
+									?>
                                     <li><a href="<?php echo get_checklist_next_step_url(); ?>" class="btn btn-danger btn-lg fx-btn block">I'm ready for the next step</a></li>
                                 </ul>
                             </div>

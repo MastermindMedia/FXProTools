@@ -34,6 +34,76 @@ function get_checklist_next_step_url()
     return '#';
 }
 
+
+function lockedURL( $stage )
+{
+    // return allowed url depends stage level. 
+    $_stage_1 = array( 'basic-training', 'market-signals', 'course', 'marketing', 'team', 'wallet', 'referral-program', 'compensation-plan', 'access-products' );
+    $_stage_2 = array( 'team', 'wallet' );
+    $_stage_3 = array();
+
+    // $_stage_2 = array_merge( $_stage_2, $_stage_1 );
+    // $_stage_3 = array_merge( $_stage_3, $_stage_1, $_stage_2 );
+    
+    switch ($stage) {
+        case 1: return $_stage_1;
+        case 2: return $_stage_2;
+        case 3: return $_stage_3;
+    }
+}
+
+add_action( 'template_redirect', 'isPageLocked' );
+function isPageLocked()
+{   
+    $cu = wp_get_current_user();
+    // FIXME: temp
+    if( $cu->user_login == "austinicomedez" ){ //if( is_user_fx_customer() || is_user_fx_distributor() ){
+        // get current page slug.
+        $_page_slug = sanitize_post( $GLOBALS['wp_the_query']->get_queried_object() );
+        if($_page_slug){
+            $_parent = get_post_ancestors( $_page_slug->post_id );
+            $_page_slug = ( count($_parent) > 0 ) ? get_post($_parent[count($_parent)-1])->post_name : $_page_slug->post_name;
+
+            // get user stage level.
+            $_stage_lvl = isUserStage();
+            // fetch unlocked urls
+            $_locked_urls = lockedURL($_stage_lvl);
+            // redirect to dashboard 
+            if ( array_search( $_page_slug, $_locked_urls ) !== false ) {
+                wp_redirect(home_url() . '/dashboard/');
+                exit;
+            }
+        }else{ return; }
+        
+    }
+}
+
+function isUserStage()
+{
+    $cu = wp_get_current_user();
+    $_checklist = get_user_checklist();
+    // $_checklist = [
+    //     'verified_email' => false,
+    //     'verified_profile' => false,
+    //     'scheduled_webinar' => false,
+    //     'accessed_products' => false,
+    //     'got_shirt' => false,
+    //     'shared_video' => false,
+    //     'referred_friend' => false,
+    // ];
+
+    // FIXME: temp
+    if( $cu->user_login == "austinicomedez" ){ //if( is_user_fx_customer() || is_user_fx_distributor() ){
+        if( $_checklist['verified_email'] === true && $_checklist['verified_profile'] === true && $_checklist['scheduled_webinar'] === true && $_checklist['accessed_products'] === true && $_checklist['got_shirt'] === true  && $_checklist['shared_video'] === true && $_checklist['referred_friend'] === true ) {
+            return 3;
+        } elseif( $_checklist['verified_email'] === true && $_checklist['verified_profile'] === true && $_checklist['scheduled_webinar'] === true ) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+}
+
 function resend_email_verification()
 {
     if( get_current_user_id() > 0){
@@ -400,11 +470,19 @@ add_action('init','sess_start');
 function get_mb_pto1( $page_element, $pto = 'pto1' ) {
     switch ( $page_element ) {
         case 'main_header_menu':
-            return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), rwmb_meta( $pto . '_main_header_menu'), 'fx-nav-options', new Nav_Main_Header_Menu_Walker(), 'Main Header Menu', '' );
+            if( isUserStage() === 1 )
+                return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), get_term( 48 ), 'fx-nav-options', new Nav_Main_Stage_Header_Menu_Walker(), 'Main Header Menu', '' );
+            elseif( isUserStage() === 2 )
+                return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), get_term( 51 ), 'fx-nav-options', new Nav_Main_Stage_Header_Menu_Walker(), 'Main Header Menu', '' );
+            else
+                return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), rwmb_meta( $pto . '_main_header_menu'), 'fx-nav-options', new Nav_Main_Header_Menu_Walker(), 'Main Header Menu', '' );
             break;
         case 'secondary_header_menu':
-            return mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), rwmb_meta( $pto . '_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
-            break;
+            if( isUserStage() === 1 && ( is_page('dashboard') || is_page('referral-program') || is_page('compensation-plan') || is_page('compensation-plan') || is_page('access-products') ) )
+                return mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), get_term( 54 ), 'fx-nav-options', new Nav_Secondary_Stage_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
+            else
+                return mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), rwmb_meta( $pto . '_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
+                break;
         case 'footer_left_menu':
             return mb_menu_display( $pto, rwmb_meta( $pto . '_display_footer_menu'), rwmb_meta( $pto . '_footer_menu_fl'), 'footer-nav', '', 'Footer Menu 1', '' );
             break;
@@ -925,3 +1003,23 @@ function restrict_customer_admin_access() {
     }
 }
 add_action( 'admin_init', 'restrict_customer_admin_access' );
+
+
+/** Add referral/affiliate information into edit order page **/
+// Display field value on the order edit page (not in custom fields metabox)
+add_action( 'woocommerce_admin_order_data_after_shipping_address', 'my_custom_checkout_field_display_admin_order_meta', 10, 1 );
+function my_custom_checkout_field_display_admin_order_meta($order){
+    $my_custom_field = get_post_meta( $order->id, '_my_field_slug', true );
+
+    global $wpdb;
+
+    $result_affiliate_id = $wpdb->get_row( $wpdb->prepare(  "SELECT DISTINCT affiliate_id FROM {$wpdb->prefix}affiliate_wp_referrals WHERE reference = '%s' LIMIT 1;", $order->id ) );
+
+    if ( ! empty( $result_affiliate_id ) ) {
+    	$result_user_id = $wpdb->get_row( $wpdb->prepare(  "SELECT DISTINCT user_id FROM {$wpdb->prefix}affiliate_wp_affiliates WHERE affiliate_id = '%s' LIMIT 1;", $result_affiliate_id->affiliate_id ) );
+
+    	$user_info = get_userdata($result_user_id->user_id);
+
+        echo '<p><strong>'. __("Referring sponsor", "woocommerce").':</strong> <a href="/wp-admin/admin.php?page=affiliate-wp-referrals&affiliate_id=' . $result_affiliate_id->affiliate_id . '">' . $user_info->display_name . '</a></p>';
+    }
+}

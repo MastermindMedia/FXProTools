@@ -110,7 +110,6 @@ get_header();
 							<li><a href="#b" data-toggle="tab"> <i class="fa fa-address-card-o visible-xs"></i> <span>Edit Contact</span></a></li>
 							<li><a href="#c" data-toggle="tab"> <i class="fa fa-credit-card visible-xs"></i> <span>Purchases</span></a></li>
 							<li><a href="#d" data-toggle="tab"> <i class="fa fa-star-o visible-xs"></i> <span>Memberships</span></a></li>
-							<!-- <li><a href="#e" data-toggle="tab"> <i class="fa fa-users visible-xs"></i> <span>Genealogy</span></a></li> -->
 							<li class="hide-on-customer"><a href="#f" data-toggle="tab"> <i class="fa fa-users visible-xs"></i> <span>Your Matrix</span></a></li>
 							<li><a href="#g" data-toggle="tab"> <i class="fa fa-list visible-xs"></i> <span>Recent Activity</span></a></li>
 							<li><a href="#h" data-toggle="tab"> <i class="fa fa-gift visible-xs"></i> <span>Your Sponsor</span></a></li>
@@ -194,6 +193,7 @@ get_header();
 							</div>
 							<div class="tab-pane fade" id="b">
 								<?php get_template_part('inc/templates/my-account/form-edit'); ?>
+								<?php get_template_part('inc/templates/my-account/payment-methods'); ?>
 							</div>
 							<div class="tab-pane fade" id="c">
 								<?php get_template_part('inc/templates/my-account/purchases'); ?>

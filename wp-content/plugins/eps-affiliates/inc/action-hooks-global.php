@@ -246,6 +246,14 @@
  						10,1);
 
 
+/*
+ * ----------------------------------------------------------
+ * my downlne customers count
+ * ----------------------------------------------------------
+*/
+ add_filter('afl_my_downline_customers_count',
+ 						'afl_my_downline_customers_count_callback',
+ 						10,1);
  /*
  * ----------------------------------------------------------
  * my Downline distributors count
