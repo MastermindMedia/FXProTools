@@ -12,7 +12,7 @@ defined('ONBOARD_CHECKLIST_META_KEY') || define('ONBOARD_CHECKLIST_META_KEY','_o
 function get_user_checklist()
 {
     $checklist = get_user_meta(get_current_user_id(), ONBOARD_CHECKLIST_META_KEY, true);
-    return is_array($checklist) ? $checklist : register_user_checklist(get_current_user_id());
+    return ( is_array($checklist) && count($checklist) === 7 ) ? $checklist : ( ( count($checklist) !== 7 ) ? update_user_checklist( get_current_user_id(), $checklist ) : register_user_checklist( get_current_user_id() ) );
 }
 
 function get_checklist_next_step_url()
@@ -34,6 +34,50 @@ function get_checklist_next_step_url()
     return '#';
 }
 
+
+function lockedURL( $stage )
+{
+    // return allowed url depends stage level. 
+    $_stage_1 = array( 'basic-training', 'market-signals', 'course', 'marketing', 'team', 'wallet', 'referral-program', 'compensation-plan', 'access-products' );
+    $_stage_2 = array( 'team', 'wallet' );
+    $_stage_3 = array();
+
+    // $_stage_2 = array_merge( $_stage_2, $_stage_1 );
+    // $_stage_3 = array_merge( $_stage_3, $_stage_1, $_stage_2 );
+    
+    switch ($stage) {
+        case 1: return $_stage_1;
+        case 2: return $_stage_2;
+        case 3: return $_stage_3;
+    }
+}
+
+add_action( 'template_redirect', 'isPageLocked' );
+function isPageLocked()
+{   
+    $cu = wp_get_current_user();
+    // FIXME: temp
+    if( $cu->user_login == "austinicomedez" || $cu->user_login == "fxprotools" ){ //if( is_user_fx_customer() || is_user_fx_distributor() ){
+        // get current page slug.
+        $_page_slug = sanitize_post( $GLOBALS['wp_the_query']->get_queried_object() );
+        if($_page_slug){
+            $_parent = get_post_ancestors( $_page_slug->post_id );
+            $_page_slug = ( count($_parent) > 0 ) ? get_post($_parent[count($_parent)-1])->post_name : $_page_slug->post_name;
+
+            // get user stage level.
+            $_stage_lvl = isUserStage();
+            // fetch unlocked urls
+            $_locked_urls = lockedURL($_stage_lvl);
+            // redirect to dashboard 
+            if ( array_search( $_page_slug, $_locked_urls ) !== false ) {
+                wp_redirect(home_url() . '/dashboard/');
+                exit;
+            }
+        }else{ return; }
+        
+    }
+}
+
 function isUserStage()
 {
     $cu = wp_get_current_user();
@@ -49,7 +93,7 @@ function isUserStage()
     // ];
 
     // FIXME: temp
-    if( $cu->user_login == "austinicomedez" ){ //if( is_user_fx_customer() || is_user_fx_distributor() ){
+    if( $cu->user_login == "austinicomedez" || $cu->user_login == "fxprotools" ){ //if( is_user_fx_customer() || is_user_fx_distributor() ){
         if( $_checklist['verified_email'] === true && $_checklist['verified_profile'] === true && $_checklist['scheduled_webinar'] === true && $_checklist['accessed_products'] === true && $_checklist['got_shirt'] === true  && $_checklist['shared_video'] === true && $_checklist['referred_friend'] === true ) {
             return 3;
         } elseif( $_checklist['verified_email'] === true && $_checklist['verified_profile'] === true && $_checklist['scheduled_webinar'] === true ) {
@@ -58,7 +102,6 @@ function isUserStage()
             return 1;
         }
     }
-    
 }
 
 function resend_email_verification()
@@ -297,6 +340,21 @@ function register_user_checklist($user_id)
         'referred_friend'	=> false,
     );
     add_user_meta( $user_id, ONBOARD_CHECKLIST_META_KEY, $checklist);
+}
+
+function update_user_checklist($user_id, $prev_checklist)
+{
+    $checklist = array(
+        'verified_email' 	=> false,
+        'verified_profile'	=> false,
+        'scheduled_webinar'	=> false,
+        'accessed_products' => false,
+        'got_shirt'			=> false,
+        'shared_video'		=> false,
+        'referred_friend'	=> false,
+    );
+    $checklist = array_replace_recursive($checklist, $prev_checklist);
+    update_user_meta( $user_id, ONBOARD_CHECKLIST_META_KEY, $checklist);
 }
 
 add_action('user_register', 'send_email_verification');
@@ -924,6 +982,14 @@ function fx_user_role_class( $classes ) {
         $classes[] = 'is-not-admin';
     }else{
         $classes[] = 'is-admin';
+    }
+
+    if( is_user_logged_in() ){
+        $subscription = get_user_main_subscription();
+        $subscription_product_id = $subscription['product_id'];
+        if($subscription_product_id == 2699 || $subscription_product_id == 2928 || $subscription_product_id == 2927){
+            $classes[] = 'is_signal_subscriber';
+        }
     }
 
     return $classes;

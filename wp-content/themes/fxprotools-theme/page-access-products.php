@@ -25,6 +25,11 @@ $auto_trader = wcs_user_has_subscription( '', 49, 'active');
 $coaching = wcs_user_has_subscription( '', 50, 'active');
 $subscription_type = $subscription_details[0]['type'];
 
+// Signals Product ID's = 2699, 2928, 2927
+$signal_ids = array(2699,2928,2927);
+$user_subs = get_user_main_subscription();
+$subscription_product_id = $user_subs['product_id'];
+
 ?>
 <?php get_header(); ?>
 
@@ -89,10 +94,17 @@ $subscription_type = $subscription_details[0]['type'];
 			</div>
 			<div class="col-md-12">
 				<ul class="fx-list-training">
-					<li>
-						<span>Training</span>
-						<a href="<?php bloginfo('url');?>/basic-training/" class="action btn btn-danger fx-btn">Explore Product</a>
-					</li>
+					<?php  
+						if(!in_array($subscription_product_id, $signal_ids)){
+					?>
+						<li>
+							<span>Training</span>
+							<a href="<?php bloginfo('url');?>/basic-training/" class="action btn btn-danger fx-btn">Explore Product</a>
+						</li>
+					<?php
+
+						}
+					?>
 					<li>
 						<span>Market Trade Signals</span>
 						<a href="<?php bloginfo('url');?>/trade-signals/" class="action btn btn-danger fx-btn"><?php echo $market_scanner || current_user_can('administrator') ? 'Explore Product' : 'Upgrade Now <i class="fa fa-shopping-cart"></i>';?></a>
