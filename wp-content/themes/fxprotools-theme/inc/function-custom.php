@@ -83,9 +83,9 @@ function isUserStage()
     $cu = wp_get_current_user();
     $_checklist = get_user_checklist();
     // $_checklist = [
-    //     'verified_email' => false,
-    //     'verified_profile' => false,
-    //     'scheduled_webinar' => false,
+    //     'verified_email' => true,
+    //     'verified_profile' => true,
+    //     'scheduled_webinar' => true,
     //     'accessed_products' => false,
     //     'got_shirt' => false,
     //     'shared_video' => false,
@@ -487,14 +487,18 @@ function get_mb_pto1( $page_element, $pto = 'pto1' ) {
         case 'main_header_menu':
             if( isUserStage() === 1 )
                 return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), get_term( 48 ), 'fx-nav-options', new Nav_Main_Stage_Header_Menu_Walker(), 'Main Header Menu', '' );
-            elseif( isUserStage() === 2 )
-                return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), get_term( 51 ), 'fx-nav-options', new Nav_Main_Stage_Header_Menu_Walker(), 'Main Header Menu', '' );
+            elseif( isUserStage() === 2 ) 
+                return ( get_user_meta( get_current_user_id(), '_activate_stage_2_navs', true ) == 0 ) ? mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), get_term( 60 ), 'fx-nav-options', new Nav_Main_Stage_Header_Menu_Walker(), 'Main Header Menu', '' ) : mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), get_term( 51 ), 'fx-nav-options', new Nav_Main_Stage_Header_Menu_Walker(), 'Main Header Menu', '' );
             else
                 return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), rwmb_meta( $pto . '_main_header_menu'), 'fx-nav-options', new Nav_Main_Header_Menu_Walker(), 'Main Header Menu', '' );
             break;
         case 'secondary_header_menu':
             if( isUserStage() === 1 && ( is_page('dashboard') || is_page('referral-program') || is_page('compensation-plan') || is_page('compensation-plan') || is_page('access-products') ) )
                 return mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), get_term( 54 ), 'fx-nav-options', new Nav_Secondary_Stage_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
+            elseif( isUserStage() === 2 && ( is_page('dashboard') || is_page('referral-program') || is_page('compensation-plan') || is_page('compensation-plan') || is_page('access-products') ) ){
+                $_stage_2_nav = get_user_meta( get_current_user_id(), '_activate_stage_2_navs', true );
+                return ( $_stage_2_nav == 0 ) ? mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), get_term( 57 ), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' ) : mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), rwmb_meta( $pto . '_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' ); ;
+            }
             else
                 return mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), rwmb_meta( $pto . '_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
                 break;
