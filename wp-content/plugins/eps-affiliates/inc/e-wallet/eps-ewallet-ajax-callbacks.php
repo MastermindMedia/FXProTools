@@ -95,18 +95,24 @@ function get_all_user_transaction_details ($uid = '7', $filter = array(), $count
 		global $wpdb;
 
 	 $query = array();
-   $query['#select'] = 'wp_afl_user_transactions';
+	 $table = _table_name('afl_user_transactions');
+	 
+	 if ( !empty($filter['holding_transaction'])) {
+	 	$table = _table_name('afl_user_holding_transactions');
+	 }
+
+   $query['#select'] = $table;
    $query['#join']  = array(
-      'wp_users' => array(
-        '#condition' => '`wp_users`.`ID`=`wp_afl_user_transactions`.`associated_user_id`'
+      _table_name('users') => array(
+        '#condition' => '`'._table_name('users').'`.`ID`=`'.$table .'`.`associated_user_id`'
       )
     );
    $query['#where'] = array(
-      '`wp_afl_user_transactions`.`uid`= '.$uid.''
+      '`'.$table .'`.`uid`= '.$uid.''
     );
    	
    	if(($credit_status != -1) ){
-	   	$query['#where'][] = '`wp_afl_user_transactions`.`credit_status`= '.$credit_status.'';
+	   	$query['#where'][] = '`'.$table .'`.`credit_status`= '.$credit_status.'';
    	}
 
    	$limit = '';

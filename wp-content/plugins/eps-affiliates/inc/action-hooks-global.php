@@ -430,3 +430,62 @@ add_filter('afl_member_personal_volume',
 */
 	add_action('afl_rank_achieved_income_distribute',
  						 'afl_rank_achieved_income_distribute_callback',10,2);
+
+
+
+
+/*
+ * ---------------------------------------------------------
+ * E-wallet today earnings
+ * ---------------------------------------------------------
+*/
+		add_action('afl_ewallet_holding_today_earnings',
+ 						'afl_ewallet_holding_transactions_hook_callback', 10,2);
+
+	 	add_action('afl_ewallet_holding_today_earnings_template',
+ 						'afl_ewallet_holding_today_earnings_template_callback');
+
+ 						/*
+ * ---------------------------------------------------------
+ * E-wallet today earnings
+ * ---------------------------------------------------------
+*/
+ 		add_action('afl_ewallet_holding_yesterday_earnings',
+ 						'afl_ewallet_holding_transactions_hook_callback', 10,2);
+
+	 	add_action('afl_ewallet_holding_yesterday_earnings_template',
+ 						'afl_ewallet_holding_yesterday_earnings_template_callback');
+ 						/*
+ * ---------------------------------------------------------
+ * E-wallet today earnings
+ * ---------------------------------------------------------
+*/
+ 		add_action('afl_ewallet_holding_last_week_earnings',
+ 						'afl_ewallet_holding_transactions_hook_callback', 10,2);
+
+	 	add_action('afl_ewallet_holding_last_week_earnings_template',
+ 						'afl_ewallet_holding_last_week_earnings_template_callback');
+
+ 						/*
+ * ---------------------------------------------------------
+ * E-wallet today earnings
+ * ---------------------------------------------------------
+*/
+ 		add_action('afl_ewallet_holding_last_month_earnings',
+ 						'afl_ewallet_holding_transactions_hook_callback', 10,2);
+
+	 	add_action('afl_ewallet_holding_last_month_earnings_template',
+ 						'afl_ewallet_holding_last_month_earnings_template_callback');
+
+
+/*
+ * ---------------------------------------------------------
+ * E-wallet today earnings
+ * ---------------------------------------------------------
+*/
+ 		add_action('afl_ewallet_all_holding_time_earnings',
+ 						'afl_ewallet_holding_transactions_hook_callback', 10,2);
+
+	 	add_action('afl_ewallet_holding_all_time_earnings_template',
+ 						'afl_ewallet_all_holding_time_earnings_template_callback');
+

@@ -356,8 +356,8 @@ class Eps_affiliates_unilevel_registration {
 					 * Insert  to the nested set
 				 	 * ---------------------------------------------------------------------- 
 					*/
-						update_nested_set('afl_unilevel_nested_set_referal',$post_data['uid'],$post_data['sponsor_uid'],'insert');
-	     			update_nested_set('afl_unilevel_nested_set_downline',$post_data['uid'],$parent,'insert');
+						//update_nested_set('afl_unilevel_nested_set_referal',$post_data['uid'],$post_data['sponsor_uid'],'insert');
+	     			//update_nested_set('afl_unilevel_nested_set_downline',$post_data['uid'],$parent,'insert');
 
 					/*
 				 	 * ---------------------------------------------------------------------- 

@@ -112,6 +112,9 @@ $common_include = new Eps_affiliates_common();
 						$html .= '<fieldset class="form-wrapper" id="'.str_replace("_","-",$key).'">';
 						if (!empty($wrapper['#title']))
 								$html .= '<legend><span class="fieldset-legend">'.$wrapper['#title'].'</span></legend>';
+								// $html .= '<legend><span class="fieldset-legend"><a class="fieldset-title" href="#"><span class="fieldset-legend-prefix element-invisible"></span> '.$wrapper['#title'].'</a><span class="summary"></span></span></legend>';
+
+
 						$html .= '<div class="fieldset-wrapper">';
 						foreach ($elements[$key] as $key => $field_element) {
 							$html .= html_input_render($field_element,$key,$attributes);
@@ -1999,6 +2002,68 @@ if(!function_exists('afl_get_rank_names')){
 				$wpdb->query($sql);
 			}
 		}
+	}
+
+/*
+ * -----------------------------------------------------------------------
+ * Database merge query
+ * -----------------------------------------------------------------------
+*/
+	function db_merge($merge_q = [] , $data = array()) {
+		//check the data already exists
+		if ( !empty($merge_q['#table'])) {
+			$select_q = [];
+			$select_q['#select'] = $merge_q['#table'];
+			if ( !empty($merge_q['#key']) || !empty($merge_q['#where'])) {
+				if (is_array($merge_q['#key']) || is_array($merge_q['#where'])) {
+					foreach ($merge_q['#key'] as $merge_condition) {
+						$select_q['#where'][] = $merge_condition;
+					}
+				}
+			} else {
+				return FALSE;
+			}
+
+
+			$exists_or = db_select($select_q, 'get_results');
+			//exist, then update
+			if ( $exists_or ) {
+				$update_q['#table'] = $merge_q['#table'];
+				foreach ($merge_q['#key'] as $key =>  $merge_condition) {
+					$update_q['#where'][] = $key.'='.$merge_condition;
+				}
+				if ( !empty($merge_q['#fields'])) {
+					$update_q['#fields'] = $merge_q['#fields'];
+				} else {
+					return FALSE;
+				}
+				$updated_status = db_update($update_q);
+
+			} else {
+				$insert_q['#table'] = $merge_q['#table'];
+				$insert_q['#fields'] = $merge_q['#fields'];
+				foreach ($merge_q['#key'] as $key =>  $field_value) {
+					$insert_q['#fields'][$key] = $field_value;
+				}
+				$insert_id = db_insert($insert_q);
+			}
+		}
+	}
+/*
+ * -----------------------------------------------------------------------
+ * Database insert query
+ * -----------------------------------------------------------------------
+*/
+	function db_insert ( $data = []) {
+		global $wpdb;
+		if ( !empty($data['#table'])) {
+			if ( !empty($data['#fields'])) {
+				$ins_id = $wpdb->insert($data['#table'], $data['#fields']);
+				return $ins_id;
+			}
+		}
+
+		return FALSE;
 	}
 /*
  * -----------------------------------------------------------------------

@@ -31,7 +31,7 @@
 				$remaining_day = $holding_days - $remaining_day;
 				
 				//update the remaining day if it is not -1
-				if ( $remaining_day < 0 ){
+				if ( $remaining_day <= 0 ){
 					if ( afl_variable_get('holding_tank_expiry_autoplace','' ))  {
 					//
 					/*

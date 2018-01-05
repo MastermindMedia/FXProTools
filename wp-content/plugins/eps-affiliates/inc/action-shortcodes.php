@@ -103,6 +103,20 @@ add_shortcode( 'withdraw_fund_form',
 
 add_shortcode( 'afl_rank_performance_overview_shortcode',
     									 'afl_rank_performance_overview_shortcode_callback' );\
-//rank overview
+//incentive
 add_shortcode( 'afl_incentive_history_report',
     									 'afl_incentive_history_report_table' );
+
+add_shortcode( 'afl_holding_payout_transactions',
+    									 'afl_system_business_holding_payouts_callback' );
+
+add_shortcode( 'afl_ewallet_all_earnings_holding_summary_blocks_shortcode',
+    									 'afl_ewallet_all_earnings_holding_summary_blocks_template_callback' );
+
+add_shortcode( 'afl_ewallet_user_holding_transactions',
+    									 'afl_ewallet_holding_transactions_callback' );
+
+
+add_shortcode( 'afl_ewallet_user_holding_summary',
+    									 'afl_ewallet_holding_summary_callback' );
+

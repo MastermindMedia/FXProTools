@@ -345,8 +345,8 @@ class Eps_affiliates_registration {
 					 * Insert  to the nested set
 				 	 * ---------------------------------------------------------------------- 
 					*/
-						update_nested_set('afl_nested_set_referal',$post_data['uid'],$post_data['sponsor_uid'],'insert');
-	     			update_nested_set('afl_nested_set_downline',$post_data['uid'],$parent,'insert');
+						//update_nested_set('afl_nested_set_referal',$post_data['uid'],$post_data['sponsor_uid'],'insert');
+	     			//update_nested_set('afl_nested_set_downline',$post_data['uid'],$parent,'insert');
 					/*
 				 	 * ---------------------------------------------------------------------- 
 				 	 * insert the position details to tree last insertion position
