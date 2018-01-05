@@ -528,7 +528,22 @@
 					'#menu_slug' 			=> 'affiliate-eps-payment_method', 
 					'#page_callback' 	=> 'afl_user_payment_methods', 
 				);
-
+				$menu['e_wallet_holding_trans'] = array(
+					'#parent'					=> 'affiliate-eps-e-wallet', 
+					'#page_title'			=> __( 'All Holding Transactions', 'All Holding Transactions' ),    
+					'#menu_title' 		=> __( 'All Holding Transactions', 'All Holding Transactions' ),    
+					'#access_callback'=> 'ewallet', 
+					'#menu_slug' 			=> 'affiliate-eps-ewallet-all-holding-transactions', 
+					'#page_callback' 	=> 'afl_ewallet_holding_transactions', 
+				);
+				$menu['e_wallet_holding_trans_summary'] = array(
+					'#parent'					=> 'affiliate-eps-e-wallet', 
+					'#page_title'			=> __( 'Holding Transactions Summary', 'Holding Transactions Summary' ),    
+					'#menu_title' 		=> __( 'Holding Transactions Summary', 'Holding Transactions Summary' ),    
+					'#access_callback'=> 'ewallet', 
+					'#menu_slug' 			=> 'affiliate-eps-ewallet-holding-transactions-summary', 
+					'#page_callback' 	=> 'afl_ewallet_holding_summary', 
+				);
 				afl_system_admin_menu($menu);
 			}
 		

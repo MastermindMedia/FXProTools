@@ -39,6 +39,14 @@
 	function afl_ewallet_all_earnings_summary_blocks_shortcode_callback () {
 		do_action('afl_ewallet_all_earnings_summary_blocks_template');
 	}
+/*
+ * -----------------------------------------------------------------
+ *
+ * -----------------------------------------------------------------
+*/
+	function afl_ewallet_all_earnings_holding_summary_blocks_shortcode () {
+		do_action('afl_ewallet_all_earnings_holding_summary_blocks_template');
+	}
 
 /*
  * -----------------------------------------------------------------

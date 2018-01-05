@@ -4,6 +4,7 @@
 		do_action('afl_content_wrapper_begin');
 		afl_admin_recent_log_messages_filter_form();
 		_exposed_callback_filter();
+		_clear_log_message_form();
 			afl_admin_recent_log_messages_table();
 		do_action('afl_content_wrapper_end');
 	}
@@ -58,8 +59,11 @@ function _exposed_callback_filter ( $tree = 'unilevel' ) {
 	 		'#name'		=> 'tab',
 	 		'#default_value'=>!empty($_GET['tab']) ? $_GET['tab'] : '',
 	 	);
-	 	
- 		$form['type'] = array(
+	 	$form['fieldset'] = [
+ 			'#type'=>'fieldset',
+ 			'#title' => 'Filter log Messages'
+ 		];
+ 		$form['fieldset']['type'] = array(
 	 		'#title' 	=> 'Category',
 	 		'#type'  	=> 'select',
 	 		'#name'		=> 'type',
@@ -71,7 +75,7 @@ function _exposed_callback_filter ( $tree = 'unilevel' ) {
 
 	 	);
 
-	 	$form['submit'] = array(
+	 	$form['fieldset']['submit'] = array(
 	 		'#title' => 'Submit',
 	 		'#type' => 'submit',
 	 		'#value' => 'Filter',
@@ -87,6 +91,47 @@ function _exposed_callback_filter ( $tree = 'unilevel' ) {
 
  		echo afl_render_form($form);
 	}
+
+	function _clear_log_message_form () {
+		
+		if ( isset($_POST['clear_logs'])) {
+			global $wpdb;
+			$wpdb->query("TRUNCATE TABLE `"._table_name('afl_log_messages')."`");
+		}
+
+
+		$form = array();
+		$form['#action'] = $_SERVER['REQUEST_URI'];
+ 		$form['#method'] = 'post';
+ 		$form['#prefix'] ='<div class="form-group row">';
+ 		$form['#suffix'] ='</div>';
+ 		$form['fieldset'] = [
+ 			'#type'=>'fieldset',
+ 			'#title' => 'Clear log Messages'
+ 		];
+
+ 		$form['fieldset']['markup'] = [
+ 			'#type'=>'markup',
+ 			'#markup' => 'This will permanently remove the log messages from the database.'
+ 		];
+ 		$form['fieldset']['submit'] = array(
+	 		'#title' => 'Submit',
+	 		'#type' => 'submit',
+	 		'#name' => 'clear_logs',
+	 		'#value' => 'Clear log messages',
+	 		'#attributes' => array(
+	 			'class' => array(
+	 				'btn','btn-primary'
+	 			)
+	 		),
+	 		'#prefix' => '<div class="col-md-2">',
+	 		'#suffix' => '</div>'
+	 		
+	 	);
+
+ 		echo afl_render_form($form);
+	}
+
 	function afl_admin_recent_log_messages_table () {
 		$pagination = new CI_Pagination;
 

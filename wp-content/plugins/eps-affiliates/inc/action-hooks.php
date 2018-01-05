@@ -1,72 +1,12 @@
 <?php
 /* --------- All the action hooks ------------------------*/
 // add_action('init', 'common_scripts_load');
-function common_scripts_load(){
+// function common_scripts_load(){
+// 	wp_register_script( 'common-js',  EPSAFFILIATE_PLUGIN_ASSETS.'js/common.js');
+// 	wp_enqueue_script( 'common-js' );
 
-  wp_enqueue_style( 'fontawsome-css', EPSAFFILIATE_PLUGIN_ASSETS.'plugins/font-awesome-4.7.0/css/font-awesome.min.css');
-	// wp_enqueue_style( 'bootstrap-css', EPSAFFILIATE_PLUGIN_ASSETS.'css/bootstrap/css/bootstrap.css');
-
-
-
-	wp_register_script( 'jquery-js',  EPSAFFILIATE_PLUGIN_ASSETS.'js/jquery.min.js');
-	wp_enqueue_script( 'jquery-js' );
-
-	wp_register_script( 'bootstrap-js',  EPSAFFILIATE_PLUGIN_ASSETS.'js/bootstrap.min.js');
-	wp_enqueue_script( 'bootstrap-js' );
-
-	wp_register_script( 'jquery-ui',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/jquery-ui/jquery-ui.min.js');
-	wp_enqueue_script( 'jquery-ui' );
-
-	wp_register_script( 'autocomplete-ui',  EPSAFFILIATE_PLUGIN_ASSETS.'js/jquery.autocomplete.min.js');
-	wp_enqueue_script( 'autocomplete-ui' );
-
-	wp_register_script( 'bootstrap-typehead-ui',  EPSAFFILIATE_PLUGIN_ASSETS.'js/bootstrap-typeahead.js');
-	wp_enqueue_script( 'bootstrap-typehead-ui' );
-
-	wp_register_script( 'widget-scripts',  EPSAFFILIATE_PLUGIN_ASSETS.'js/widget-scripts.js');
-	wp_enqueue_script( 'widget-scripts' );
-
-
-	wp_register_script( 'jquery-data-table-init',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/dataTables/js/jquery.dataTables.min.js');
-	wp_enqueue_script( 'jquery-data-table-init' );
-
-	wp_register_script( 'jquery-data-bootstrap-table-init',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/dataTables/js/dataTables.bootstrap.min.js');
-	wp_enqueue_script( 'jquery-data-bootstrap-table-init' );
-
-	wp_enqueue_style( 'plan-develoepr-init', EPSAFFILIATE_PLUGIN_ASSETS.'plugins/dataTables/css/dataTables.bootstrap.min.css');
-
-	//toaster
-	wp_register_script( 'toaster-js',  EPSAFFILIATE_PLUGIN_ASSETS.'js/toastr.js');
-	wp_enqueue_script( 'toaster-js' );
-	wp_register_style( 'toaster-cs',  EPSAFFILIATE_PLUGIN_ASSETS.'css/toastr.css');
-	wp_enqueue_style( 'toaster-cs' );
-	
-	//high charts
-	wp_register_script( 'highchart-js',  EPSAFFILIATE_PLUGIN_ASSETS.'js/highcharts.js');
-	wp_enqueue_script( 'highchart-js' );
-
-
-	
-	wp_register_script( 'matrix-plan-bxslider-js',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/bxslider/jquery.bxslider.js');
-	wp_enqueue_script( 'matrix-plan-bxslider-js' );
-
-	wp_register_style( 'matrix-plan-bxslider-cs',  EPSAFFILIATE_PLUGIN_ASSETS.'plugins/bxslider/jquery.bxslider.css');
-	wp_enqueue_style( 'matrix-plan-bxslider-cs' );
-
-
-
-	wp_register_script( 'common-js',  EPSAFFILIATE_PLUGIN_ASSETS.'js/common.js');
-	wp_enqueue_script( 'common-js' );
-
-  wp_localize_script( 'common-js', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
-
-  wp_register_script( 'api-js',  EPSAFFILIATE_PLUGIN_ASSETS.'js/api.js');
-	wp_enqueue_script( 'api-js' );
-
-  wp_localize_script( 'api-js', 'api_ajax_object', array( 'api_ajaxurl' => admin_url( 'admin-ajax.php' )));
-			
-
-}
+//   wp_localize_script( 'common-js', 'ajax_object', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));
+// }
 
 /*
  * ----------------------------------------------------------

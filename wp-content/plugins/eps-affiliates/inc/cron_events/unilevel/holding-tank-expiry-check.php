@@ -17,9 +17,6 @@
 
 			$query = array();
 			$query['#select'] 	 = _table_name('afl_unilevel_user_holding_tank');
-			$query['#where'] 		 = array(
-				'last_updated <'.$current_date
-			);
 
 			$query['#limit'] 		 = 100;
 			$holding_tank_users  = db_select($query, 'get_results');
@@ -31,7 +28,7 @@
 				$remaining_day = $holding_days - $remaining_day;
 				
 				//update the remaining day if it is not -1
-				if ( $remaining_day < 0 ){
+				if ( $remaining_day <= 0 ){
 					if ( afl_variable_get('holding_tank_expiry_autoplace','' ))  {
 					//
 					/*
