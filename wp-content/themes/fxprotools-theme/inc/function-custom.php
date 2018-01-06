@@ -1042,3 +1042,23 @@ function my_custom_checkout_field_display_admin_order_meta($order){
         echo '<p><strong>'. __("Referring sponsor", "woocommerce").':</strong> <a href="/wp-admin/admin.php?page=affiliate-wp-referrals&affiliate_id=' . $result_affiliate_id->affiliate_id . '">' . $user_info->display_name . '</a></p>';
     }
 }
+
+
+/** Add custom fields to the webinar custom post type **/
+function add_publish_meta_options($post_obj) {
+
+  global $post;
+  $post_type = 'fx_webinar'; // If you want a specific post type
+  $value = get_post_meta($post_obj->ID, 'check_meta', true); // If saving value to post_meta
+
+  if($post_type==$post->post_type) {
+    echo  '<div class="misc-pub-section misc-pub-section-last">'
+         .'<label><input type="checkbox"' . (!empty($value) ? ' checked="checked" ' : null) . ' value="1" name="check_meta" /> Check meta</label>'
+         .'</div>';
+  }
+}
+
+/*
+ * Add the extra options to the 'Publish' box
+ */
+add_action('post_submitbox_misc_actions', 'add_publish_meta_options');
