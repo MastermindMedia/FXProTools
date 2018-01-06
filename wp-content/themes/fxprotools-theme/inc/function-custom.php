@@ -1056,7 +1056,7 @@ function add_publish_meta_options($post_obj) {
 
   if($post_type==$post->post_type) {
     echo  '<div class="misc-pub-section misc-pub-section-last">'
-         .'<label for="webinar_type">Webinar Type</label><br />
+         .'<label for="webinar_type">Webinar Type: </label>
             <select name="webinar_type" id="webinar_type">
                 <option value="gotowebinar" ' . selected( $selected, 'gotowebinar' ) . '>GoToWebinar</option>
                 <option value="other" ' . selected( $selected, 'other' ) . '>Other</option>
@@ -1070,3 +1070,28 @@ function add_publish_meta_options($post_obj) {
  * Add the extra options to the 'Publish' box
  */
 add_action('post_submitbox_misc_actions', 'add_publish_meta_options');
+
+
+/** Save the data for the webinar type and other custom fields for webinar type **/
+add_action( 'save_post', 'cd_meta_box_save' );
+function cd_meta_box_save( $post_id )
+{
+    // Bail if we're doing an auto save
+    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+     
+    // if our nonce isn't there, or we can't verify it, bail
+    if( !isset( $_POST['meta_box_nonce'] ) || !wp_verify_nonce( $_POST['meta_box_nonce'], 'my_meta_box_nonce' ) ) return;
+     
+    // if our current user can't edit this post, bail
+    if( !current_user_can( 'edit_post' ) ) return;
+     
+    // now we can actually save the data
+    $allowed = array( 
+        'a' => array( // on allow a tags
+            'href' => array() // and those anchors can only have href attribute
+        )
+    );
+         
+    if( isset( $_POST['webinar_type'] ) )
+        update_post_meta( $post_id, 'webinar_type', esc_attr( $_POST['webinar_type'] ) );
+}
