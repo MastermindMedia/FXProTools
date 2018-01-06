@@ -1049,11 +1049,19 @@ function add_publish_meta_options($post_obj) {
 
   global $post;
   $post_type = 'fx_webinar'; // If you want a specific post type
-  $value = get_post_meta($post_obj->ID, 'check_meta', true); // If saving value to post_meta
+  //$value = get_post_meta($post_obj->ID, 'check_meta', true); // If saving value to post_meta
+
+  $values = get_post_custom( $post_obj->ID );
+  $selected = isset( $values['webinar_type'] ) ? esc_attr( $values['webinar_type'][0] ) : '';
 
   if($post_type==$post->post_type) {
     echo  '<div class="misc-pub-section misc-pub-section-last">'
-         .'<label><input type="checkbox"' . (!empty($value) ? ' checked="checked" ' : null) . ' value="1" name="check_meta" /> Check meta</label>'
+         .'<label for="webinar_type">Webinar Type</label><br />
+            <select name="webinar_type" id="webinar_type">
+                <option value="gotowebinar" ' . selected( $selected, 'gotowebinar' ) . '>GoToWebinar</option>
+                <option value="other" ' . selected( $selected, 'other' ) . '>Other</option>
+                <option value="private" ' . selected( $selected, 'private' ) . '>Private Coaching</option>
+            </select>'
          .'</div>';
   }
 }
