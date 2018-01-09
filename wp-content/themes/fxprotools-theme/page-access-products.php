@@ -30,6 +30,12 @@ $signal_ids = array(2699,2928,2927);
 $user_subs = get_user_main_subscription();
 $subscription_product_id = $user_subs['product_id'];
 
+// Activate stage 2 navs 
+if( isset( $_GET['activate_stage_2_nav'] ) ){
+	update_user_meta( get_current_user_id(), '_activate_stage_2_navs', 1 );
+	// echo "<script>alert('".get_user_meta( get_current_user_id(), '_activate_stage_2_navs', true ) ."')</script>";
+}
+
 ?>
 <?php get_header(); ?>
 

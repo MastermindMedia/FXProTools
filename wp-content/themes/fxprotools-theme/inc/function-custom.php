@@ -83,9 +83,9 @@ function isUserStage()
     $cu = wp_get_current_user();
     $_checklist = get_user_checklist();
     // $_checklist = [
-    //     'verified_email' => false,
-    //     'verified_profile' => false,
-    //     'scheduled_webinar' => false,
+    //     'verified_email' => true,
+    //     'verified_profile' => true,
+    //     'scheduled_webinar' => true,
     //     'accessed_products' => false,
     //     'got_shirt' => false,
     //     'shared_video' => false,
@@ -487,14 +487,18 @@ function get_mb_pto1( $page_element, $pto = 'pto1' ) {
         case 'main_header_menu':
             if( isUserStage() === 1 )
                 return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), get_term( 48 ), 'fx-nav-options', new Nav_Main_Stage_Header_Menu_Walker(), 'Main Header Menu', '' );
-            elseif( isUserStage() === 2 )
-                return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), get_term( 51 ), 'fx-nav-options', new Nav_Main_Stage_Header_Menu_Walker(), 'Main Header Menu', '' );
+            elseif( isUserStage() === 2 ) 
+                return ( get_user_meta( get_current_user_id(), '_activate_stage_2_navs', true ) == 0 ) ? mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), get_term( 60 ), 'fx-nav-options', new Nav_Main_Stage_Header_Menu_Walker(), 'Main Header Menu', '' ) : mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), get_term( 51 ), 'fx-nav-options', new Nav_Main_Stage_Header_Menu_Walker(), 'Main Header Menu', '' );
             else
                 return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), rwmb_meta( $pto . '_main_header_menu'), 'fx-nav-options', new Nav_Main_Header_Menu_Walker(), 'Main Header Menu', '' );
             break;
         case 'secondary_header_menu':
             if( isUserStage() === 1 && ( is_page('dashboard') || is_page('referral-program') || is_page('compensation-plan') || is_page('compensation-plan') || is_page('access-products') ) )
                 return mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), get_term( 54 ), 'fx-nav-options', new Nav_Secondary_Stage_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
+            elseif( isUserStage() === 2 && ( is_page('dashboard') || is_page('referral-program') || is_page('compensation-plan') || is_page('compensation-plan') || is_page('access-products') ) ){
+                $_stage_2_nav = get_user_meta( get_current_user_id(), '_activate_stage_2_navs', true );
+                return ( $_stage_2_nav == 0 ) ? mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), get_term( 57 ), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' ) : mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), rwmb_meta( $pto . '_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' ); ;
+            }
             else
                 return mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), rwmb_meta( $pto . '_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
                 break;
@@ -1037,4 +1041,57 @@ function my_custom_checkout_field_display_admin_order_meta($order){
 
         echo '<p><strong>'. __("Referring sponsor", "woocommerce").':</strong> <a href="/wp-admin/admin.php?page=affiliate-wp-referrals&affiliate_id=' . $result_affiliate_id->affiliate_id . '">' . $user_info->display_name . '</a></p>';
     }
+}
+
+
+/** Add custom fields to the webinar custom post type **/
+function add_publish_meta_options($post_obj) {
+
+  global $post;
+  $post_type = 'fx_webinar'; // If you want a specific post type
+  //$value = get_post_meta($post_obj->ID, 'check_meta', true); // If saving value to post_meta
+
+  $values = get_post_custom( $post_obj->ID );
+  $selected = isset( $values['webinar_type'] ) ? esc_attr( $values['webinar_type'][0] ) : '';
+
+  if($post_type==$post->post_type) {
+    echo  '<div class="misc-pub-section misc-pub-section-last">'
+         .'<label for="webinar_type">Webinar Type: </label>
+            <select name="webinar_type" id="webinar_type">
+                <option value="gotowebinar" ' . selected( $selected, 'gotowebinar' ) . '>GoToWebinar</option>
+                <option value="other" ' . selected( $selected, 'other' ) . '>Other</option>
+                <option value="private" ' . selected( $selected, 'private' ) . '>Private Coaching</option>
+            </select>'
+         .'</div>';
+  }
+}
+
+/*
+ * Add the extra options to the 'Publish' box
+ */
+add_action('post_submitbox_misc_actions', 'add_publish_meta_options');
+
+
+/** Save the data for the webinar type and other custom fields for webinar type **/
+add_action( 'save_post', 'cd_meta_box_save' );
+function cd_meta_box_save( $post_id )
+{
+    // Bail if we're doing an auto save
+    if( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) return;
+     
+    // if our nonce isn't there, or we can't verify it, bail
+    if( !isset( $_POST['meta_box_nonce'] ) || !wp_verify_nonce( $_POST['meta_box_nonce'], 'my_meta_box_nonce' ) ) return;
+     
+    // if our current user can't edit this post, bail
+    if( !current_user_can( 'edit_post' ) ) return;
+     
+    // now we can actually save the data
+    $allowed = array( 
+        'a' => array( // on allow a tags
+            'href' => array() // and those anchors can only have href attribute
+        )
+    );
+         
+    if( isset( $_POST['webinar_type'] ) )
+        update_post_meta( $post_id, 'webinar_type', esc_attr( $_POST['webinar_type'] ) );
 }
