@@ -412,15 +412,22 @@ function _get_user_gv_v1($uid = '', $rank ='', $add_with_user_pv = FALSE,$tree =
  * No.of distributor count
  * -------------------------------------------------
 */
- function _get_user_distributor_count ($uid,$tree = 'unilevel') {
+ function _get_user_distributor_count ($uid,$tree = 'unilevel', $check_distrib_personal = TRUE) {
  		$downlines    = afl_get_sponsor_downlines_uid($uid, array(),TRUE);
  	if ( $tree == 'unilevel') {
-	 	//$downlines    = (array)afl_get_unilevel_user_downlines_uid($uid, array());
-	 	$downlines    = (array)afl_unilevel_get_user_refered_downlines($uid, array());
+	 	
+	 	$downlines    = (array)afl_get_unilevel_user_downlines_uid($uid, array());
+	 	
+	 	if ($check_distrib_personal)
+	 		$downlines    = (array)afl_unilevel_get_user_refered_downlines($uid, array());
+
 		$customers_ids = (array)get_user_downline_customers($uid);
 
+		if ($check_distrib_personal)
+			$customers_ids = _my_customers_uids($uid);
 		$downline_count = count($downlines);		
 		$customer_count = count($customers_ids);
+
 
 		$distrib_count = $downline_count - $customer_count;
 		if ( $distrib_count < 0) {

@@ -145,8 +145,8 @@
 			$query['#select'] = _table_name('afl_unilevel_user_genealogy');
 			$query['#join'] 	= array(
 				_table_name('users') => array(
-					'#condition' => '`wp_users`.`ID`=`'._table_name('afl_unilevel_user_genealogy').'`.`uid`'
-				)
+					'#condition' => '`'._table_name('users').'`.`ID`=`'._table_name('afl_unilevel_user_genealogy').'`.`uid`'
+				),
 			);
 			$query['#fields'] = array(
 				_table_name('afl_unilevel_user_genealogy') => array('uid','member_rank'),
