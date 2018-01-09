@@ -13,6 +13,7 @@ if( isset($product) ){
 
 ?>
 <div class="fx-access-denied-container">
+	<?php if(!is_user_logged_in()): ?>
 	<div class="fx-access-denied-top">
 		<div class="container">
 			<div class="row">
@@ -56,6 +57,7 @@ if( isset($product) ){
 			</div>
 		</div>
 	</div>
+	<?php endif; ?>
 
 	<div class="container">
 		<div class="row">

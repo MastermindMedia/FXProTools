@@ -34,12 +34,12 @@ function get_checklist_next_step_url()
     return '#';
 }
 
-function isNavLocked(){
+function is_nav_locked(){
     $user = wp_get_current_user();
     return ( ( $user->user_login == "austinicomedez" || $user->user_login == "fxprotools" || is_user_fx_customer() || is_user_fx_distributor() ) & NAV_LOCK == true ) ? true : false ;
 }
 
-function lockedURL( $stage )
+function get_locked_urls( $stage )
 {
     // return allowed url depends stage level. 
     $_stage_1 = array( 'basic-training', 'market-signals', 'course', 'marketing', 'team', 'wallet', 'referral-program', 'compensation-plan', 'access-products' );
@@ -56,10 +56,10 @@ function lockedURL( $stage )
     }
 }
 
-add_action( 'template_redirect', 'isPageLocked' );
-function isPageLocked()
+add_action( 'template_redirect', 'is_page_locked' );
+function is_page_locked()
 {   
-    if( isNavLocked() ){
+    if( is_nav_locked() ){
         // get current page slug.
         $_page_slug = sanitize_post( $GLOBALS['wp_the_query']->get_queried_object() );
         if($_page_slug){
@@ -67,9 +67,9 @@ function isPageLocked()
             $_page_slug = ( count($_parent) > 0 ) ? get_post($_parent[count($_parent)-1])->post_name : $_page_slug->post_name;
 
             // get user stage level.
-            $_stage_lvl = isUserStage();
+            $_stage_lvl = get_user_stage_lvl();
             // fetch unlocked urls
-            $_locked_urls = lockedURL($_stage_lvl);
+            $_locked_urls = get_locked_urls($_stage_lvl);
             // redirect to dashboard 
             if ( array_search( $_page_slug, $_locked_urls ) !== false ) {
                 wp_redirect(home_url() . '/dashboard/');
@@ -80,19 +80,19 @@ function isPageLocked()
     }
 }
 
-function isUserStage()
+function get_user_stage_lvl()
 {
     $_checklist = get_user_checklist();
-    // $_checklist = [
-    //     'verified_email' => true,
-    //     'verified_profile' => true,
-    //     'scheduled_webinar' => true,
-    //     'accessed_products' => false,
-    //     'got_shirt' => false,
-    //     'shared_video' => false,
-    //     'referred_friend' => false,
-    // ];
-    if( isNavLocked() ){
+    $_checklist = [
+        'verified_email' => true,
+        'verified_profile' => true,
+        'scheduled_webinar' => true,
+        'accessed_products' => false,
+        'got_shirt' => false,
+        'shared_video' => false,
+        'referred_friend' => false,
+    ];
+    if( is_nav_locked() ){
         if( $_checklist['verified_email'] === true && $_checklist['verified_profile'] === true && $_checklist['scheduled_webinar'] === true && $_checklist['accessed_products'] === true && $_checklist['got_shirt'] === true  && $_checklist['shared_video'] === true && $_checklist['referred_friend'] === true ) {
             return 3;
         } elseif( $_checklist['verified_email'] === true && $_checklist['verified_profile'] === true && $_checklist['scheduled_webinar'] === true ) {
@@ -484,17 +484,17 @@ add_action('init','sess_start');
 function get_mb_pto1( $page_element, $pto = 'pto1' ) {
     switch ( $page_element ) {
         case 'main_header_menu':
-            if( isUserStage() === 1 )
+            if( get_user_stage_lvl() === 1 )
                 return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), get_term( 48 ), 'fx-nav-options', new Nav_Main_Stage_Header_Menu_Walker(), 'Main Header Menu', '' );
-            elseif( isUserStage() === 2 ) 
+            elseif( get_user_stage_lvl() === 2 ) 
                 return ( get_user_meta( get_current_user_id(), '_activate_stage_2_navs', true ) == 0 ) ? mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), get_term( 60 ), 'fx-nav-options', new Nav_Main_Stage_Header_Menu_Walker(), 'Main Header Menu', '' ) : mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), get_term( 51 ), 'fx-nav-options', new Nav_Main_Stage_Header_Menu_Walker(), 'Main Header Menu', '' );
             else
                 return mb_menu_display( $pto, rwmb_meta( $pto . '_display_main_header_menu'), rwmb_meta( $pto . '_main_header_menu'), 'fx-nav-options', new Nav_Main_Header_Menu_Walker(), 'Main Header Menu', '' );
             break;
         case 'secondary_header_menu':
-            if( isUserStage() === 1 && ( is_page('dashboard') || is_page('referral-program') || is_page('compensation-plan') || is_page('compensation-plan') || is_page('access-products') ) )
+            if( get_user_stage_lvl() === 1 && ( is_page('dashboard') || is_page('referral-program') || is_page('compensation-plan') || is_page('compensation-plan') || is_page('access-products') ) )
                 return mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), get_term( 54 ), 'fx-nav-options', new Nav_Secondary_Stage_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' );
-            elseif( isUserStage() === 2 && ( is_page('dashboard') || is_page('referral-program') || is_page('compensation-plan') || is_page('compensation-plan') || is_page('access-products') ) ){
+            elseif( get_user_stage_lvl() === 2 && ( is_page('dashboard') || is_page('referral-program') || is_page('compensation-plan') || is_page('compensation-plan') || is_page('access-products') ) ){
                 $_stage_2_nav = get_user_meta( get_current_user_id(), '_activate_stage_2_navs', true );
                 return ( $_stage_2_nav == 0 ) ? mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), get_term( 57 ), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' ) : mb_menu_display( $pto, rwmb_meta( $pto . '_display_header_menu'), rwmb_meta( $pto . '_secondary_header_menu'), 'fx-nav-options', new Nav_Secondary_Header_Menu_Walker(), 'Dashboard Secondary Menu', '' ); ;
             }

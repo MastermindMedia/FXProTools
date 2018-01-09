@@ -80,22 +80,22 @@ $dashboard_checklist = [
 	'got_shirt'         => [
 		'title'   => 'Get your CPS Shirt',
 		'subtext' => 'Get A CPS T-shirt from our store 75% OFF by clicking on "Get CPS Shirt Button" or by <a href="/product/copy-profit-success-tshirt/">clicking here</a>.',
-		'access'  => ( isUserStage() > 1 ) ? 'unlocked' : 'locked'
+		'access'  => ( get_user_stage_lvl() > 1 ) ? 'unlocked' : 'locked'
 	],
 	'accessed_products' => [
 		'title'   => 'Access your product',
 		'subtext' => 'Full Access to the products you purchased 24/7, <a href="/access-products">click here</a>.',
-		'access'  => ( isUserStage() > 1 ) ? 'unlocked' : 'locked'
+		'access'  => ( get_user_stage_lvl() > 1 ) ? 'unlocked' : 'locked'
 	],
 	'shared_video'      => [
 		'title'   => 'Share Video',
 		'subtext' => 'Use our special invitation video to share this valuable skillset with someone. Start sharing by <a href="/marketing/funnels">clicking here</a>.',
-		'access'  => ( isUserStage() > 1 ) ? 'unlocked' : 'locked'
+		'access'  => ( get_user_stage_lvl() > 1 ) ? 'unlocked' : 'locked'
 	],
 	'referred_friend'   => [
 		'title'   => 'Refer A Friend',
 		'subtext' => 'Refer people to our platform & we will reward you! Find out more about our referral program by <a href="/referral-program">clicking here</a>.',
-		'access'  => ( isUserStage() > 1 ) ? 'unlocked' : 'locked'
+		'access'  => ( get_user_stage_lvl() > 1 ) ? 'unlocked' : 'locked'
 	],
 ];
 
@@ -159,7 +159,7 @@ $dashboard_checklist = [
                                 </div>
                                 <ul class="fx-board-list w-toggle">
 									<?php
-										if( isNavLocked() ) :
+										if( is_nav_locked() ) :
 											foreach ( $dashboard_checklist as $step => $dashboard_checklist ) :
 									?>
                                         <li class="<?php if( $dashboard_checklist['access'] === 'locked' ) echo "list-locked"; ?>">
