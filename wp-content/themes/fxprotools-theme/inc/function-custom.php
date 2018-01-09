@@ -34,6 +34,10 @@ function get_checklist_next_step_url()
     return '#';
 }
 
+function isNavLocked(){
+    $user = wp_get_current_user();
+    return ( ( $user->user_login == "austinicomedez" || $user->user_login == "fxprotools" || is_user_fx_customer() || is_user_fx_distributor() ) & NAV_LOCK == true ) ? true : false ;
+}
 
 function lockedURL( $stage )
 {
@@ -55,9 +59,7 @@ function lockedURL( $stage )
 add_action( 'template_redirect', 'isPageLocked' );
 function isPageLocked()
 {   
-    $cu = wp_get_current_user();
-    // FIXME: temp
-    if( $cu->user_login == "austinicomedez" || $cu->user_login == "fxprotools" ){ //if( is_user_fx_customer() || is_user_fx_distributor() ){
+    if( isNavLocked() ){
         // get current page slug.
         $_page_slug = sanitize_post( $GLOBALS['wp_the_query']->get_queried_object() );
         if($_page_slug){
@@ -80,7 +82,6 @@ function isPageLocked()
 
 function isUserStage()
 {
-    $cu = wp_get_current_user();
     $_checklist = get_user_checklist();
     // $_checklist = [
     //     'verified_email' => true,
@@ -91,9 +92,7 @@ function isUserStage()
     //     'shared_video' => false,
     //     'referred_friend' => false,
     // ];
-
-    // FIXME: temp
-    if( $cu->user_login == "austinicomedez" || $cu->user_login == "fxprotools" ){ //if( is_user_fx_customer() || is_user_fx_distributor() ){
+    if( isNavLocked() ){
         if( $_checklist['verified_email'] === true && $_checklist['verified_profile'] === true && $_checklist['scheduled_webinar'] === true && $_checklist['accessed_products'] === true && $_checklist['got_shirt'] === true  && $_checklist['shared_video'] === true && $_checklist['referred_friend'] === true ) {
             return 3;
         } elseif( $_checklist['verified_email'] === true && $_checklist['verified_profile'] === true && $_checklist['scheduled_webinar'] === true ) {
