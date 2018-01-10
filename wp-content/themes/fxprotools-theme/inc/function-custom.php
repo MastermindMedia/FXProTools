@@ -86,7 +86,7 @@ function get_user_stage_lvl()
     $_checklist = [
         'verified_email' => true,
         'verified_profile' => true,
-        'scheduled_webinar' => true,
+        'scheduled_webinar' => false,
         'accessed_products' => false,
         'got_shirt' => false,
         'shared_video' => false,

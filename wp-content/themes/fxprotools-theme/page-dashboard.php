@@ -140,9 +140,22 @@ $dashboard_checklist = [
                                         </div>
                                     </a>
                                 </div>
-                                <div class="col-xs-12 col-sm-6 col-md-6">
+								<?php if(is_nav_locked() && get_user_stage_lvl() < 2 ) : ?>
+								<div class="col-xs-12 col-sm-6 col-md-6">
+									<div class="image-lock-overlay">
+										<div>
+											<i class="fa fa-lock" aria-hidden="true"></i>
+											<span>Complete Steps</br>To Unlock Buttons</span>
+										</div>
+									</div>
+                                    <a href="#" class="btn btn-danger btn-lg block btn-ico-lg btn-two"></a>
+                                </div>
+								<?php else : ?>	
+								<div class="col-xs-12 col-sm-6 col-md-6">
                                     <a href="/<?php echo Woocommerce_Settings::POST_NAME_FREE_SHIRT; ?>" class="btn btn-danger btn-lg block btn-ico-lg btn-two"></a>
                                 </div>
+                                
+								<?php endif; ?>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-4">
