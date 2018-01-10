@@ -44,6 +44,7 @@ if(!class_exists('CptSettings')){
 					'can_export'          => true,
 					'menu_position'       => 5,
 					'menu_icon'           => 'dashicons-desktop',
+					'rewrite'             => array('slug' => 'webinar'),
 					'supports'            => array('title', 'thumbnail','page-attributes'),
 					'taxonomies'          => array('category'),
 					'labels' => array(
