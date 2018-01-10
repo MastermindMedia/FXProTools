@@ -181,10 +181,12 @@ function view_subscription_redirect() {
     $url = $_SERVER['REQUEST_URI'] ;
 
     if( substr($url, 0, 30) == '/my-account/view-subscription/' ){
-    	wp_redirect(  home_url() . '/my-account/?subs_id=' . substr($url, 30, -1) );
+    	wp_redirect(  rtrim( home_url() . '/my-account/?subs_id=' . substr($url, 30), '/') );
+    	exit;
     }
 
      if( substr($url, 0, 23) == '/my-account/view-order/'){
-    	wp_redirect(  home_url() . '/my-account/?order_id=' . substr($url, 23, -1) );
+    	wp_redirect(  rtrim(  home_url() . '/my-account/?order_id=' . substr($url, 23), '/')  );
+    	exit;
     }
 }
