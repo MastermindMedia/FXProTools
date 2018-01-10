@@ -36,7 +36,6 @@ if(!class_exists('CptSettings')){
 					'public'              => true,
 					'show_ui'             => true,
 					'has_archive'         => true,
-					'publicly_queryable'  => false,
 					'exclude_from_search' => true,
 					'show_in_menu'        => true,
 					'show_in_nav_menus'   => true,
