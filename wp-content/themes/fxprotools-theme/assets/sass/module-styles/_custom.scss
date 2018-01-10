@@ -1014,11 +1014,15 @@ p.logo-text {
 		padding-bottom: 10px;
 	}
 }
-.membership-view-subs{
+.membership-view-subs, .woocommerce-MyAccount-content{
 	.subscription_details{
 		tbody{
-			tr:last-child{
-				display: none;
+			tr{
+				td{
+					.cancel{
+						display: none;
+					}
+				}
 			}
 		}
 	}
@@ -1450,6 +1454,22 @@ p.logo-text {
 			display: none!important;
 		}
 	}
+}
+	
+
+.woocommerce-account{
+
+	.woocommerce-MyAccount-content{
+		width: 100%;
+		float: none;
+	}
+
+	.checkout-holder{
+	    background-color: #fff;
+	    padding: 20px;
+	    overflow-y: auto;
+	    border: 1px solid #ddd;
+	}
 	
 }
 // Checkout
@@ -1880,20 +1900,42 @@ p.logo-text {
 	}
 }
 
-#add_payment_method {
-	#payment {
-		div.payment_box{
-			display: block!important;
-		}
+#payment {
+	div.payment_box{
+		display: block!important;
+	}
 
-		.wc-authorize-net-cim-credit-card-new-payment-method-form{
-			> p:not(.validate-required){
-				display: none!important;
-			}
+	.wc-authorize-net-cim-credit-card-new-payment-method-form{
+		> p:not(.validate-required){
+			display: none!important;
 		}
+	}
+
+	.button:not(.alt){
+		display: none;
 	}
 }
 
+.woocommerce-order-pay{
+	#place_order{
+		display: block!important;
+	    width: 100%;
+	    height: 34px;
+	    padding: 6px 12px;
+	    font-size: 14px;
+	    line-height: 1.42857143;
+	    color: #555;
+	    background-color: #fff;
+	    background-image: none;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	}
+}
 .noty_layout{
 	@media screen and (max-width: 767px){
 		display: none;

@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php  
 	//order id for /user page
-	if($_GET['order_id']){
+	if( isset( $_GET['order_id']) ){
 		$order_id = $_GET['order_id'];
 		$order = wc_get_order( $order_id );
 	}
