@@ -111,6 +111,8 @@ class CPS_Intercom {
 		$user_info = array_merge( (array) $user_data->data, $user_meta, $user_onboard_checklist );
 
 		$intercom_data = $this->arrange_intercom_data( $user_info );
+
+		var_dump($intercom_data);exit;
 		$intercomUser = $this->create_user( $intercom_data );
 
 		if ( ! isset( $user_meta[ self::INTERCOM_ID_USER_META ] ) ) {
