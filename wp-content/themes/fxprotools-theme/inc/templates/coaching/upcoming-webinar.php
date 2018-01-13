@@ -3,7 +3,6 @@
 		<div class="table-responsive">
 		 <div id="upcoming-webinars">
 		 	<table>
-			  <caption>Statement Summary</caption>
 			  <thead>
 			    <tr>
 			      <th scope="col">Date</th>
