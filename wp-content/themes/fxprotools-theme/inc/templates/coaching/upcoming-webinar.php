@@ -22,19 +22,19 @@
 			      <td data-label="Account">2018-02-15</td>
 			      <td data-label="Due Date">18:00</td>
 			      <td data-label="Amount">Free Weekly Q&A</td>
-			      <td data-label="Period">Join Meeting</td>
+			      <td data-label="Period">Pending Link</td>
+			    </tr>
+			    <tr>
+			      <td data-label="Account">2018-02-28</td>
+			      <td data-label="Due Date">19:00</td>
+			      <td data-label="Amount">Free Weekly Q&A</td>
+			      <td data-label="Period">Pending Link</td>
 			    </tr>
 			    <tr>
 			      <td data-label="Account">2018-02-08</td>
-			      <td data-label="Due Date">17:00</td>
-			      <td data-label="Amount">Free Weekly Q&A</td>
-			      <td data-label="Period">Join Meeting</td>
-			    </tr>
-			    <tr>
-			      <td data-label="Account">2018-02-08</td>
-			      <td data-label="Due Date">17:00</td>
-			      <td data-label="Amount">Free Weekly Q&A</td>
-			      <td data-label="Period">Join Meeting</td>
+			      <td data-label="Due Date">20:00</td>
+			      <td data-label="Amount">Private Coaching</td>
+			      <td data-label="Period">Pending Link</td>
 			    </tr>
 			  </tbody>
 			</table>
