@@ -16,7 +16,7 @@
 			      <td data-label="Account">2018-02-08</td>
 			      <td data-label="Due Date">17:00</td>
 			      <td data-label="Amount">Free Weekly Q&A</td>
-			      <td data-label="Period">Watch Replay</td>
+				    <td data-label="Period"><a href="/webinar/free-weekly-qa-4/">Watch Replay</a></td>
 			    </tr>
 			  </tbody>
 			</table>
