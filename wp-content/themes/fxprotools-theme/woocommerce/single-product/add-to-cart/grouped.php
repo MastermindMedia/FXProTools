@@ -101,7 +101,7 @@ $cross_sells = $product->get_cross_sell_ids();
 		<?php 
 				}
 			}else{
-				if(in_array(11645, $cross_sells)){
+				if(!in_array(11645, $cross_sells)){
 		?>
 				<div class="sell-item">
 					<div class="row">
