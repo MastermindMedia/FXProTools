@@ -103,7 +103,7 @@
   display: none;
 }
 #adminmenu #toplevel_page_affiliate-eps-reports div.wp-menu-image:before {
-    content: "\f15b";
+    content: "\f15c";
     font-family: FontAwesome;
     font-style: normal;
     font-weight: normal;
@@ -121,4 +121,42 @@
     font-weight: normal;
     text-decoration: inherit;
 }
+
+/* ------------ Db Migration ------------- */
+#adminmenu #toplevel_page_affiliate-eps-db-migrtaion div.wp-menu-image img {
+  display: none;
+}
+#adminmenu #toplevel_page_affiliate-eps-db-migrtaion div.wp-menu-image:before {
+    content: "\f1c0";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+}
+
+
+/* ------------ Master tables ------------- */
+#adminmenu #toplevel_page_affiliate-eps-master-tables-downline div.wp-menu-image img {
+  display: none;
+}
+#adminmenu #toplevel_page_affiliate-eps-master-tables-downline div.wp-menu-image:before {
+    content: "\f0ce";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+}
+
+/* ------------ Unilevel ------------- */
+#adminmenu #toplevel_page_affiliate-eps-unilevel-user-network div.wp-menu-image img {
+  display: none;
+}
+#adminmenu #toplevel_page_affiliate-eps-unilevel-user-network div.wp-menu-image:before {
+    content: "\f03a";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+}
+
 </style>

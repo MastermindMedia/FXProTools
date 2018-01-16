@@ -108,6 +108,7 @@ get_header();
 						<ul class="nav nav-tabs">
 							<li class="active"><a href="#a" data-toggle="tab"> <i class="fa fa-user visible-xs"></i> <span>Your Information</span></a></li>
 							<li><a href="#b" data-toggle="tab"> <i class="fa fa-address-card-o visible-xs"></i> <span>Edit Contact</span></a></li>
+							<li><a href="#b-2" data-toggle="tab"> <i class="fa fa-address-card-o visible-xs"></i> <span>Billing</span></a></li>
 							<li><a href="#c" data-toggle="tab"> <i class="fa fa-credit-card visible-xs"></i> <span>Purchases</span></a></li>
 							<li><a href="#d" data-toggle="tab"> <i class="fa fa-star-o visible-xs"></i> <span>Memberships</span></a></li>
 							<li class="hide-on-customer"><a href="#f" data-toggle="tab"> <i class="fa fa-users visible-xs"></i> <span>Your Matrix</span></a></li>
@@ -193,6 +194,9 @@ get_header();
 							</div>
 							<div class="tab-pane fade" id="b">
 								<?php get_template_part('inc/templates/my-account/form-edit'); ?>
+								<?php get_template_part('inc/templates/my-account/payment-methods'); ?>
+							</div>
+							<div class="tab-pane fade" id="b-2">
 								<?php get_template_part('inc/templates/my-account/payment-methods'); ?>
 							</div>
 							<div class="tab-pane fade" id="c">
@@ -327,6 +331,16 @@ get_header();
 		};
 	});
 </script>
+
+<?php if(isset($_GET['tab'])) : ?>
+	
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.marketing-contacts a[href="#<?php echo $_GET['tab'];?>').click();
+		});
+	</script>
+
+<?php endif; ?>
 
 <?php
 if(isset($_GET['cancel']) && isset($_GET['order_type'])){

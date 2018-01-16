@@ -4,6 +4,7 @@ Template Name: Checkout
 */
 get_header(); 
 ?>
+<?php if ( !is_user_logged_in() ): ?>
 <nav class="navbar fx-navbar-main" role="navigation">
 	<div class="container">
 		<div class="row">
@@ -28,7 +29,7 @@ get_header();
 		</div>
 	</div>
 </nav>
-	
+<?php endif; ?>
 	<?php if( is_user_logged_in() ) : ?>	
 		<?php get_template_part('inc/templates/nav-import-user'); ?>
 	<?php endif;?>

@@ -36,7 +36,6 @@ if(!class_exists('CptSettings')){
 					'public'              => true,
 					'show_ui'             => true,
 					'has_archive'         => true,
-					'publicly_queryable'  => false,
 					'exclude_from_search' => true,
 					'show_in_menu'        => true,
 					'show_in_nav_menus'   => true,
@@ -44,6 +43,7 @@ if(!class_exists('CptSettings')){
 					'can_export'          => true,
 					'menu_position'       => 5,
 					'menu_icon'           => 'dashicons-desktop',
+					'rewrite'             => array('slug' => 'webinar'),
 					'supports'            => array('title', 'thumbnail','page-attributes'),
 					'taxonomies'          => array('category'),
 					'labels' => array(

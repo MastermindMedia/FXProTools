@@ -1,6 +1,21 @@
 jQuery(document).ready(function(){
-	jQuery( ".date_time_picker" ).datepicker();
-  jQuery('[data-toggle="tooltip"]').tooltip();   
+  $.getScript( "/wp-content/plugins/eps-affiliates/assets/plugins/jquery-ui/jquery-ui.min.js" )
+    .done(function( script, textStatus ) {
+      console.log( textStatus );
+      jQuery( ".date_time_picker" ).datepicker();
+      jQuery('[data-toggle="tooltip"]').tooltip();   
+    })
+    .fail(function( jqxhr, settings, exception ) {
+      $( "div.log" ).text( "Triggered ajaxError handler." );
+  });
+
+    $.getScript( "/wp-content/plugins/eps-affiliates/assets/js/bootstrap-typeahead.js" )
+    .done(function( script, textStatus ) {
+      console.log( textStatus );
+    })
+    .fail(function( jqxhr, settings, exception ) {
+      $( "div.log" ).text( "Triggered ajaxError handler." );
+  });
   jQuery('body').addClass('eps');
 });
 

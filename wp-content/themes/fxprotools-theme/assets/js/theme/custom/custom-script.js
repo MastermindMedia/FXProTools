@@ -14,10 +14,18 @@ jQuery(document).ready( function($) {
 		$(this).addClass('form-group row');
 	});
 
-	$('.form-row input, .form-row select').each(function(){
-		$(this).addClass('form-control');
-		$(this).wrap('<span class="input-wrapper"></span>')
-	});
+	if( !$('body').hasClass('woocommerce-order-pay') ){
+		
+		$('.form-row input:not([type="radio"]), .form-row select').each(function(){
+			
+			$(this).addClass('form-control');
+			$(this).wrap('<span class="input-wrapper"></span>');
+		
+		});
+
+	}
+
+
 
 	$('#billing_first_name_field, #billing_last_name_field, #billing_email_field, #billing_phone_field, #account_username_field, #account_password_field, #billing_address_1_field, #billing_city_field, #billing_state_field, #billing_postcode_field, #billing_country_field').each(function(){
 		$(this).find('label').addClass('col-md-3 col-form-label');

@@ -744,10 +744,10 @@
 */
 	function eps_affiliates_unilevel_place_user_under_sponsor_callback ($uid = '', $sponsor = '') {
 		//check the user already in afl_user_genealogy
-		$query['#select'] = _table_name('afl_user_genealogy');
+		$query['#select'] = _table_name('afl_unilevel_user_genealogy');
     $query['#where'] = array(
-      '`'._table_name('afl_user_genealogy').'`.`uid`='.$uid,
-      '`'._table_name('afl_user_genealogy').'`.`referrer_uid`='.$sponsor
+      '`'._table_name('afl_unilevel_user_genealogy').'`.`uid`='.$uid,
+      '`'._table_name('afl_unilevel_user_genealogy').'`.`referrer_uid`='.$sponsor
     );
     $exist = db_select($query, 'get_row');
       //if not exist
@@ -1786,4 +1786,99 @@
 					}
 				}
 			}
+	}
+
+/*
+ * --------------------------------------------------
+ * E-walet yesterday holding earnings template
+ * --------------------------------------------------
+*/
+	function afl_ewallet_holding_yesterday_earnings_template_callback () {
+		return afl_get_template( 'eps-affiliates/e-wallet-holding/eps-affiliate-e-wallet-holding-yesterday-template.php');
+	}
+
+/*
+ * --------------------------------------------------
+ * E-walet yesterday holding earnings template
+ * --------------------------------------------------
+*/
+	function afl_ewallet_holding_today_earnings_template_callback () {
+		return afl_get_template( 'eps-affiliates/e-wallet-holding/eps-affiliate-e-wallet-holding-today-template.php');
+	}
+/*
+ * --------------------------------------------------
+ * E-walet yesterday holding earnings template
+ * --------------------------------------------------
+*/
+	function afl_ewallet_holding_last_week_earnings_template_callback () {
+		return afl_get_template( 'eps-affiliates/e-wallet-holding/eps-affiliate-e-wallet-holding-last-week-template.php');
+	}
+/*
+ * --------------------------------------------------
+ * E-walet month holding earnings template
+ * --------------------------------------------------
+*/
+	function afl_ewallet_holding_last_month_earnings_template_callback () {
+		return afl_get_template( 'eps-affiliates/e-wallet-holding/eps-affiliate-e-wallet-holding-last-month-template.php');
+	}
+/*
+ * --------------------------------------------------
+ * E-walet all holding earnings template
+ * --------------------------------------------------
+*/
+	function afl_ewallet_all_holding_time_earnings_template_callback () {
+		return afl_get_template( 'eps-affiliates/e-wallet-holding/eps-affiliate-e-wallet-all-holding-time-template.php');
+	}
+/*
+ * --------------------------------------------------
+ * E-wallet-summary all holding blocks
+ * --------------------------------------------------
+*/
+	function afl_ewallet_all_earnings_holding_summary_blocks_template_callback () {
+		return afl_get_template( 'eps-affiliates/e-wallet-holding/eps-affiliate-e-wallet-all-holding-summary-blocks.php');
+	}
+/*
+*/
+	function afl_ewallet_holding_transactions_hook_callback ( $uid, $type = 'all') {
+		if (empty($uid)) {
+			$uid = get_uid();
+		}
+
+		$afl_date = afl_date();
+		$yesterday 	=  strtotime('-1 day',$afl_date);
+
+		$last_week_date 	= strtotime('-1 week',$afl_date);
+		$afl_date_splits 	= afl_date_splits($last_week_date);		
+
+		$query = array();
+		$query['#select'] = _table_name('afl_user_holding_transactions');
+		$query['#where'] = array(
+			'uid = '.$uid,
+		);
+
+		switch ($type) {
+			case 'yesterday':
+				$query['#where'][] = 'created='.$yesterday;	
+			break;
+
+			case 'today':
+				$query['#where'][] = 'created='.$afl_date;	
+			break;
+			case 'last_week':
+				$query['#where'][] = 'transaction_month='.$afl_date_splits['m'];	
+				$query['#where'][] = 'transaction_year='.$afl_date_splits['y'];	
+				$query['#where'][] = 'transaction_week='.$afl_date_splits['w'];	
+			break;
+			case 'last_month':
+				$query['#where'][] = 'transaction_month='.$afl_date_splits['m'];	
+				$query['#where'][] = 'transaction_year='.$afl_date_splits['y'];	
+			break;
+		}
+
+		$query['#expression'] = array(
+			'SUM(balance) as total'
+		);
+
+		$resp = db_select($query, 'get_row');
+		return !empty($resp->total) ? afl_format_payment_amount($resp->total, TRUE) : 0;
 	}

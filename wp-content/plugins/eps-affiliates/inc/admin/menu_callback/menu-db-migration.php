@@ -8,7 +8,9 @@
 	}
 
 	function afl_db_migrations_callback () {
-		//
+		
+		//update_option('eps_affiliate_db_updated_version', 0);
+
 		if (isset($_POST['upgrade_db'])) {
 			$check_exists = _check_db_upgrade_exists();
 			if (isset($check_exists['status'])) {

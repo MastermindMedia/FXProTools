@@ -71,13 +71,14 @@ $referral_link = get_highest_converting_funnel_link();
 							<span class="fx-checkbox <?php echo $valid_referral_count > 2 ? 'checked' : '';?>"></span>
 							<span class="fx-text">Refer Third Friend</span>
 						</li>
-
+						<?php if(is_user_fx_distributor()) : ?>
 						<li>
 							<h4 class="inline-block">Fast Start Bonuses</h4>
-								<a href="<?php bloginfo('url');?>/wallet/bonuses/" class="btn btn-danger btn-lg fx-btn inline-block pull-right">View</a>
-									<div class="clearfix"></div>
-											</li>
-										</ul>
+							<a href="<?php bloginfo('url');?>/wallet/bonuses/" class="btn btn-danger btn-lg fx-btn inline-block pull-right">View</a>
+							<div class="clearfix"></div>
+						</li>
+						<?php endif; ?>
+					</ul>
 				</div>
 			</div>
 		</div>
@@ -139,7 +140,7 @@ $referral_link = get_highest_converting_funnel_link();
 			<div class="clearfix"></div>
 			<br/>
 			<div class="col-md-12">
-				<a id="xbtn" href="<?php bloginfo('url');?>/access-products" class="btn btn-danger block p-m skip-referral">Thanks For Letting Me Know... To Continue Click Here!</a>
+				<a id="xbtn" href="<?php bloginfo('url');?>/access-products?activate_stage_2_nav=true" class="btn btn-danger block p-m skip-referral">Thanks For Letting Me Know... To Continue Click Here!</a>
 			</div>
 		</div>
 	</div>

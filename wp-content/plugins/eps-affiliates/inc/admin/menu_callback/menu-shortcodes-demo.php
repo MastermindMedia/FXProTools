@@ -140,9 +140,32 @@
 		do_shortcode('[afl_rank_performance_overview_shortcode]');
 		echo '</div>';
 
-					//set transaction password
+		//incentive history report
 		echo '<div class="row" style="border:3px solid #ccc;padding:4px;margin:25px 0px 0px 0px;background:#fff;">';
 		echo '<h3 class="text-center">Incentive History : [afl_incentive_history_report] </h3>';
 		do_shortcode('[afl_incentive_history_report]');
+		echo '</div>';
+
+		//admin holding details
+		echo '<div class="row" style="border:3px solid #ccc;padding:4px;margin:25px 0px 0px 0px;background:#fff;">';
+		echo '<h3 class="text-center">Admin holding payouts list : [afl_holding_payout_transactions] </h3>';
+		do_shortcode('[afl_holding_payout_transactions]');
+		echo '</div>';
+
+
+		//user holding details blocks
+		echo '<div class="row" style="border:3px solid #ccc;padding:4px;margin:25px 0px 0px 0px;background:#fff;">';
+		echo '<h3 class="text-center">User holding Widgets : [afl_ewallet_all_earnings_holding_summary_blocks_shortcode] </h3>';
+		do_shortcode('[afl_ewallet_all_earnings_holding_summary_blocks_shortcode]');
+
+		//user olding details
+		echo '<h3 class="text-center">User holding transactions : [afl_ewallet_user_holding_transactions] </h3>';
+		do_shortcode('[afl_ewallet_user_holding_transactions]');
+		echo '</div>';
+
+		//user olding summary
+		echo '<div class="row" style="border:3px solid #ccc;padding:4px;margin:25px 0px 0px 0px;background:#fff;">';
+		echo '<h3 class="text-center">User holding transactions Summary : [afl_ewallet_user_holding_summary] </h3>';
+		do_shortcode('[afl_ewallet_user_holding_summary]');
 		echo '</div>';
 	}

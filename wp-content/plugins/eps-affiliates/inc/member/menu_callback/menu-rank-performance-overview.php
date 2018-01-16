@@ -89,8 +89,8 @@ function afl_rank_performance_overview_shortcode_callback () {
 			$rows[1]['leg_'.$key] = array(
 				'#type' => 'markup',
 				'#markup' => //'Distributors Count : '.$value['distrib_count'].'</br>
-											'Distributors sale : '.$value['distrib_sale'].'</br>
-											Customers sale : '.$value['customer_sale'].''
+											'Distributors sale : '.number_format($value['distrib_sale']).'</br>
+											Customers sale : '.number_format($value['customer_sale']).''
 			);
 		}
 
