@@ -88,7 +88,7 @@ $cross_sells = $product->get_cross_sell_ids();
 						<div class="row">
 							<div class="col-md-4">
 								<h5 class="sell-item-title"><?php echo $product->get_title(); ?></h5>
-								<span class="sell-item-sub"><?php echo ($cross_sell == 2871) ? "Package Addon" : "Replacement Package" ?></span>
+								<span class="sell-item-sub">Replacement Package</span>
 							</div>
 							<div class="col-md-4">
 								<span class="sell-item-price">$<?php echo number_format($product->get_price(), 2, '.', '');; ?> / month</span>
@@ -101,9 +101,28 @@ $cross_sells = $product->get_cross_sell_ids();
 		<?php 
 				}
 			}else{
+				if(in_array(11645, $cross_sells)){
+		?>
+				<div class="sell-item">
+					<div class="row">
+						<div class="col-md-4">
+							<h5 class="sell-item-title">Cancel Account</h5>
+							<span class="sell-item-sub">Replacement Package</span>
+						</div>
+						<div class="col-md-4">
+							<span class="sell-item-price">$0.00 / month</span>
+						</div>
+						<div class="col-md-4">
+							<a href="<?php echo get_option('home'); ?>/cancel-step-1/" class="sell-item-link btn btn-danger">Select Options</a>
+						</div>
+					</div>
+				</div>
+		<?php
+				}else{
 		?>
 				<div class="sell-item sell-item-empty"><h5>There are no downgrades available</h5></div>
 		<?php
+				}
 			}
 		?>
 	</div>

@@ -2919,6 +2919,13 @@ form {
 	}
 }
 
+// Woocommerce Single Product
+.single-product{
+	.up-sells.products,.related.products{
+		display: none;
+	} 
+}
+
 // Upgrade Account
 .membership-sell-list{
 	h2{
