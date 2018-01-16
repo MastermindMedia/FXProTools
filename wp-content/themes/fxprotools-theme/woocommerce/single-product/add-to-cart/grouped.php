@@ -23,6 +23,93 @@ global $product, $post;
 
 do_action( 'woocommerce_before_add_to_cart_form' ); ?>
 
+<?php  
+/*
+2920 - Business + IBO Kit Normal
+2930 - Professional Normal
+2927 - Signals Normal
+2871 - IBO Kit
+*/
+$packages = array(2920,2930,2927,2871);
+
+$subscriptions = get_user_main_subscription();
+$subs_prod_id  = $subscriptions['product_id'];
+
+$product = new WC_Product($subs_prod_id);
+$upsells = $product->get_upsell_ids();
+$cross_sells = $product->get_cross_sell_ids();
+
+?>
+
+<div class="membership-sell-list">
+	<h2>Available Upgrades</h2>
+
+	<div class="sell-list upsell-list">
+		<?php 
+			if($upsells){
+				foreach($upsells as $upsell){
+					$product = wc_get_product( $upsell );
+					dd($product);
+		?>
+
+					<div class="sell-item">
+						<div class="row">
+							<div class="col-md-4">
+								<h5 class="sell-item-title"><?php echo $product->get_title(); ?></h5>
+								<span class="sell-item-sub"><?php echo ($upsell == 2871) ? "Package Addon" : "Replacement Package" ?></span>
+							</div>
+							<div class="col-md-4">
+								<span class="sell-item-price">$<?php echo number_format($product->get_price(), 2, '.', '');; ?> / month</span>
+							</div>
+							<div class="col-md-4">
+								<a href="<?php echo get_option('home'); ?>/product/<?php echo $product->get_slug(); ?>" class="sell-item-link btn btn-danger">Select Options</a>
+							</div>
+						</div>
+					</div>
+		<?php 
+				}
+			}else{
+		?>
+				<div class="sell-item sell-item-empty"><h5>There are no upgrades available</h5></div>
+		<?php
+			}
+		?>
+	</div>
+
+	<h2>Available Downgrades</h2>
+
+	<div class="sell-list cross-list">
+		<?php 
+			if($cross_sells){
+				foreach($cross_sells as $cross_sell){
+					$product = wc_get_product( $cross_sell );
+		?>
+
+					<div class="sell-item">
+						<div class="row">
+							<div class="col-md-4">
+								<h5 class="sell-item-title"><?php echo $product->get_title(); ?></h5>
+								<span class="sell-item-sub"><?php echo ($cross_sell == 2871) ? "Package Addon" : "Replacement Package" ?></span>
+							</div>
+							<div class="col-md-4">
+								<span class="sell-item-price">$<?php echo number_format($product->get_price(), 2, '.', '');; ?> / month</span>
+							</div>
+							<div class="col-md-4">
+								<a href="<?php echo get_option('home'); ?>/product/<?php echo $product->get_slug(); ?>" class="sell-item-link btn btn-danger">Select Options</a>
+							</div>
+						</div>
+					</div>
+		<?php 
+				}
+			}else{
+		?>
+				<div class="sell-item sell-item-empty"><h5>There are no downgrades available</h5></div>
+		<?php
+			}
+		?>
+	</div>
+</div>
+
 <form class="cart" method="post" enctype='multipart/form-data'>
 	<table cellspacing="0" class="group_table">
 		<tbody>
