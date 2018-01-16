@@ -49,7 +49,6 @@ $cross_sells = $product->get_cross_sell_ids();
 			if($upsells){
 				foreach($upsells as $upsell){
 					$product = wc_get_product( $upsell );
-					dd($product);
 		?>
 
 					<div class="sell-item">
