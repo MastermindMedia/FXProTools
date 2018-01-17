@@ -16,7 +16,7 @@
 			      <td data-label="Account">2018-02-08</td>
 			      <td data-label="Due Date">17:00</td>
 			      <td data-label="Amount">Free Weekly Q&A</td>
-				    <td data-label="Period"><a href="/webinar/free-weekly-qa-4/">Watch Replay</a></td>
+				<td data-label="Period"><a style="border: none;width: 150px;margin: 0 auto;display: block;float: none !important; background-color: #56A14E;" class="btn btn-danger no-border-radius pull-right" href="/webinar/free-weekly-qa-2">Join Meeting</a></td>
 			    </tr>
 			  </tbody>
 			</table>
