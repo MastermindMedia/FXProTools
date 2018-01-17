@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-table">
 	<div class="webinar-list-upcoming">
 		<div class="table-responsive">
 		 <div id="upcoming-webinars">
