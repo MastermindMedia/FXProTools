@@ -2,7 +2,7 @@
 	<div class="webinar-list-past">
 		<div class="table-responsive">
 		  <div id="past-webinars">
-			<table>
+			<table class="table-striped table table-bordered my-table-center">
 			  <thead>
 			    <tr>
 			      <th scope="col">Date</th>
