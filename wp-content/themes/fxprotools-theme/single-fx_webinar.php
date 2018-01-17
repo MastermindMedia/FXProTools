@@ -1,35 +1,36 @@
 <?php 
 
 get_header();
-$product_id = 50; 
-$product = wc_get_product( $product_id );
-//url action, we get the state of the url query string, to perform
-$action = isset($_GET['_action']) ? $_GET['_action']:'';
-//holds data to pass to template
-$data = array();
-$view = new Apyc_View;
-$theme_js = $view->get_assets_js_theme();
-$template = $view->get_view_templates();
-$data['view_theme_js'] = $theme_js;
-$data['view_template'] = $template;
-$data['obj_view'] = $view;
-$data['title'] = _('Coaching / Webinars');
-$data['sub_heading'] = _('Check Below For Your Coaching Webinars');
-$data['schedule_private_coaching'] = _('Schedule Private Coaching');
-$data['schedule_private_coaching_url'] = 'product/1-on-1-coaching/';
-$data['tab_upcoming_session'] = _('Upcoming Sessions');
-$data['tab_history_session'] = _('Past Sessions');
-$data['tab_private_coaching'] = _('Private Coaching');
-if ( apyc_has_active_user_subscription() || current_user_can('administrator')  ) : 
-	get_template_part('inc/templates/nav-products'); 
-	
-	switch($action){
-		default:
-			$view->view_theme($template . 'coaching/main.php', $data);
-		break;
-	}
-else: 
-	get_template_part('inc/templates/no-access'); 
-endif; 
+
+?>
+
+<div class="container">
+   <div class="row">
+      <div class="col-md-12">
+         <div class="fx-header-title">
+            <h1>Coaching / Webinars</h1>
+            <p>Check Below For Your Coaching Webinars</p>
+         </div>
+      </div>
+      <div class="col-md-12">
+         <div class="fx-coaching-tab">
+            <a href="https://copyprofitsuccess.com/product/1-on-1-coaching/" class="btn btn-danger no-border-radius pull-right">Schedule Private Coaching</a>
+            <div role="tabpanel">
+               <ul class="nav nav-tabs" id="coachingTabs" role="tablist">
+                  <li role="presentation" class="active"> <a href="#upcoming" aria-controls="upcoming" role="tab" data-toggle="tab" aria-expanded="true">Upcoming Sessions</a></li>
+                  <li role="presentation" class=""> <a href="#past" aria-controls="past" role="tab" data-toggle="tab" aria-expanded="false">Past Sessions</a></li>
+               </ul>
+               <div class="tab-content">
+                  <div role="tabpanel" class="tab-pane padding-md active" id="upcoming">
+                     
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<?php 
 get_footer(); 
 ?>
