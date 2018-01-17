@@ -395,6 +395,8 @@ if(isset($_GET['cancel']) && isset($_GET['order_type'])){
 			$('.tab-pane#d .my_account_subscriptions').fadeIn();
 			$('.membership-view-subs').hide();
 		});
+		$('.membership-view-subs .wcs-switch-link').remove();
+		$('.membership-view-subs .order_item .product-name').append('<a href="/product/membership-products/" class="btn btn-danger">Upgrade or Downgrade</a>');
 	});
 </script>
 <?php } ?>
