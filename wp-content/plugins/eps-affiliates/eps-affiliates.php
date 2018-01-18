@@ -383,9 +383,9 @@
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-db-migration.php';
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-holding-users-list.php';
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-execute-php-code.php';
-				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/mater.updations.php';
-				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-cron-lock-data.php';
-				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menus-master-tables.php';
+				//require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/mater.updations.php';
+				//require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-cron-lock-data.php';
+				//require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menus-master-tables.php';
 				require_once EPSAFFILIATE_PLUGIN_DIR . 'inc/admin/menu_callback/menu-free-account-user-list.php';
 
 			/* 
