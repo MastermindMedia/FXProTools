@@ -78,8 +78,8 @@ get_header();
                            <div class="webinar-button">
                               <a href="http://google.com" class="btn btn-danger btn-lg btn-lg-w-text scroll-to">Watch the Webinar Replay Below</a>
                            </div>
-                           <div>
-                              <img src="/wp-content/themes/fxprotools-theme/assets/img/video-placeholder.png" />
+                           <div class="webinar-video" style="margin-top: 20px;">
+                              <img style="max-width: 100%;" src="/wp-content/themes/fxprotools-theme/assets/img/video-placeholder.png" />
                            </div>
 
                         <?php 
