@@ -27,8 +27,8 @@ get_header();
                            if(is_single( '48127' )) :
                         ?>
                            <div class="webinar-summary">
-                              <h4>Webinar Title:</h4>
-                              <h1>Free Weekly Q&amp;A</h1>
+                              <h4 style="margin-top:0;">Webinar Title:</h4>
+                              <h1 style="margin-bottom: 30px; margin-top: 10px;">Free Weekly Q&amp;A</h1>
 
                               <h4>Description</h4>
                               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
