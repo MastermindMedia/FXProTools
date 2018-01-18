@@ -22,7 +22,7 @@ get_header();
                </ul>
                <div class="tab-content">
                   <div role="tabpanel" class="tab-pane padding-md active" id="upcoming">
-                     <div class="webinar-content">
+                     <div class="webinar-content" style="background-color: #FFF; padding: 30px;">
                         <?php 
                            if(is_single( '48127' )) :
                         ?>
