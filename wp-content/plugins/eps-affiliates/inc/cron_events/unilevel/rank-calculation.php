@@ -20,7 +20,7 @@
   	);
 	  $query['#where'] = array(
 	    '`'._table_name('afl_purchases').'`.`cron_status` != 2',
-	    // '`'._table_name('afl_purchases').'`.`category` = "product purchase"',
+	    // '`'._table_name('afl_purchases').'`.`category` = "Package Purchase"',
 	  );
 	  $query['#limit'] = 500;
    	$data = db_select($query, 'get_results');

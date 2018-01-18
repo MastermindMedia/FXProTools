@@ -22,7 +22,7 @@ function afl_epin_purchase_form(){
 
 	 $form['epin_conf'] = array(
 		 '#type' 				=> 'fieldset',
-		 '#title'				=>'Product Purchase using E-Pin'
+		 '#title'				=>'Package Purchase using E-Pin'
 		);
   	$form['epin_conf']['purchase_amount']= array(
     	'#type' 				=> 'text',

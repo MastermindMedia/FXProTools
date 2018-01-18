@@ -229,10 +229,16 @@
 			'#title' 				=> __('Shortcodes Demo'),
 			'#description' 	=> 'shortcodes demo'
 		);
-		//Shortcodes demo  callback
+		//Db migrations
 		$permissions['afl_db_migration'] = array(
 			'#title' 				=> __('DB Migration'),
 			'#description' 	=> 'DB Migration'
+		);
+
+		//Shortcodes demo  callback
+		$permissions['afl_master_tables_view'] = array(
+			'#title' 				=> __('Master Tables'),
+			'#description' 	=> 'Master Tables'
 		);
 		$permissions = array_merge($perm,$permissions);
 		

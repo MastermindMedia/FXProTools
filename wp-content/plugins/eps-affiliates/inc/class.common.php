@@ -2051,6 +2051,112 @@ if(!function_exists('afl_get_rank_names')){
 	}
 /*
  * -----------------------------------------------------------------------
+ * Database update query
+ * -----------------------------------------------------------------------
+*/
+	function db_delete($data = array()) {
+		$sql = '';
+		$set_flag = FALSE;
+		$where_flag = FALSE;
+		if ( !empty( $data ) ) {
+			if (isset($data['#table'])) {
+				$sql .= 'DELETE FROM '.$data['#table'];
+			}
+			/*
+			 * -----------------------------------------------------
+			 * WHERE Begin
+			 * -----------------------------------------------------
+			*/
+				if (isset($data['#where'])) {
+					$where_flag = 1;
+					$where = ' WHERE ';
+					if (count($data['#where']) > 1 ){
+						$where .= $data['#where'][0];
+						$sql 	 .= $where;
+						foreach ($data['#where'] as $condition) {
+							$sql .= ' AND '.$condition.' ';
+						}
+					} else {
+						foreach ($data['#where'] as $condition) {
+							$sql .= ' WHERE '.$condition.' ';
+						}
+					}
+				}
+			/*
+			 * -----------------------------------------------------
+			 * WHERE End
+			 * -----------------------------------------------------
+			*/
+
+			/*
+			 * -----------------------------------------------------
+			 * WHERE IN Begin
+			 * -----------------------------------------------------
+			*/
+				$where_in = '';
+				if (isset($data['#where_in'])) {
+					foreach ($data['#where_in'] as $key => $value) {
+				 		$val = implode(',', $value);
+				 		if (empty($val) ) {
+				 			return array();
+				 		}
+				 		$where_in .='`'.$key.'` IN ('.$val.')';
+				 	}
+				}
+
+				if (!empty($where_in) ){
+					if (!$where_flag) {
+						$sql .= ' WHERE '.$where_in;
+						$where_flag = 1;
+					} else {
+						$sql .= ' AND '.$where_in;
+					}
+				}
+			/*
+			 * -----------------------------------------------------
+			 * WHERE IN End
+			 * -----------------------------------------------------
+			*/
+
+
+			/*
+			 * -----------------------------------------------------
+			 * WHERE NOT IN Begin
+			 * -----------------------------------------------------
+			*/
+				$where_not_in = '';
+				if (isset($data['#where_not_in'])) {
+					foreach ($data['#where_not_in'] as $key => $value) {
+				 		$val = implode(',', $value);
+				 		if (empty($val) ) {
+				 			return array();
+				 		}
+				 		$where_not_in .='`'.$key.'` NOT IN ('.$val.')';
+				 	}
+				}
+
+				if (!empty($where_not_in) ){
+					if (!$where_flag) {
+						$sql .= ' WHERE '.$where_not_in;
+						$where_flag = 1;
+					} else {
+						$sql .= ' AND '.$where_not_in;
+					}
+				}
+			/*
+			 * -----------------------------------------------------
+			 * WHERE NOT IN End
+			 * -----------------------------------------------------
+			*/
+
+			if ( !empty($sql)) {
+				global $wpdb;
+				$wpdb->query($sql);
+			}
+		}
+	}
+/*
+ * -----------------------------------------------------------------------
  * Database insert query
  * -----------------------------------------------------------------------
 */
@@ -2064,6 +2170,20 @@ if(!function_exists('afl_get_rank_names')){
 		}
 
 		return FALSE;
+	}
+/*
+ * -----------------------------------------------------------------------
+ * Check db field exists
+ * -----------------------------------------------------------------------
+*/
+	function db_field_exists ( $table = '', $field = '') {
+	  global $wpdb;
+		$res = $wpdb->query(" SELECT * FROM information_schema.COLUMNS  WHERE TABLE_SCHEMA = '".DB_NAME."' AND TABLE_NAME = '".$table."' AND COLUMN_NAME = '".$field ."'");
+		if ( !empty($res)) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
 	}
 /*
  * -----------------------------------------------------------------------
@@ -2456,14 +2576,14 @@ function afl_root_user() {
 	  	$table = $wpdb->prefix.'afl_purchases';
 	  	$afl_date_split = afl_date_splits(afl_date());
 
-	  	$category = !empty($arguments['category']) ? $arguments['category'] : 'product purchase';
+	  	$category = !empty($arguments['category']) ? $arguments['category'] : 'Package Purchase';
 
 	  	$purchase_data = array();
 	  	$purchase_data['uid']				 	   = $arguments['uid'];
 	  	$purchase_data['category'] 		   = $category;
 	  	$purchase_data['member_rank']    = 1;
 	  	$purchase_data['amount_paid'] 	 = afl_commerce_amount($arguments['amount_paid']);
-	  	$purchase_data['afl_points'] 	   = afl_commerce_amount($arguments['afl_point']);;
+	  	$purchase_data['afl_points'] 	   = afl_commerce_amount($arguments['afl_point']);
 	  	$purchase_data['order_id'] 		   = $arguments['order_id'];
 	  	$purchase_data['created'] 			 = afl_date();
 	  	$purchase_data['processed_date'] = afl_date();

@@ -19,7 +19,7 @@ function afl_admin_compensation_plan_configuration() {
 	function afl_admin_compensation_plan_config_tabs () {
 		new Afl_enque_scripts('common');
 
-		$matrix_active = $basic_active = $fsb_active = $incentives_active = $other = '';
+		$matrix_active = $basic_active = $fsb_active = $incentives_active = $free_account =  $other = '';
 		$active_tab = isset( $_GET[ 'tab' ] ) ? $_GET[ 'tab' ] : 'basic';  
 		
 		switch ($active_tab) {
@@ -34,6 +34,9 @@ function afl_admin_compensation_plan_configuration() {
 			break;
 			case 'incentives':
 					$incentives_active  = 'active';
+			break;
+			case 'free-account':
+					$free_account  = 'active';
 			break;
 			case 'extra-configs':
 					$other  = 'active';
@@ -55,7 +58,10 @@ function afl_admin_compensation_plan_configuration() {
 		  echo '<li class="'.$incentives_active.'">
 		            	<a href="?page=affiliate-eps-compensation-plan-configurations&tab=incentives" >Incentives</a>  
 		          </li>';
-		   echo '<li class="'.$other.'">
+		  echo '<li class="'.$free_account.'">
+		            	<a href="?page=affiliate-eps-compensation-plan-configurations&tab=free-account" >Free Account</a>  
+		          </li>';
+		  echo '<li class="'.$other.'">
 		            	<a href="?page=affiliate-eps-compensation-plan-configurations&tab=extra-configs" >Extra configs</a>  
 		          </li>';
 		  echo '</ul>';
@@ -72,6 +78,9 @@ function afl_admin_compensation_plan_configuration() {
 		  	break;
 		  	case 'incentives':
 		  		afl_admin_incentives_config();
+		  	break;
+		  	case 'free-account':
+		  		afl_admin_free_account_config();
 		  	break;
 		  	case 'extra-configs':
 		  		afl_admin_extra_config();
@@ -736,5 +745,134 @@ function afl_admin_compensation_plan_form_submit($POST){
 			}
 	 	}
 
+		wp_set_message('Configuration has been saved successfully', 'success');
+	}
+/*
+ * -------------------------------------------------------------------------
+ * free account form
+ * -------------------------------------------------------------------------
+*/
+	function afl_admin_free_account_config () {
+		$post = [];
+		if (isset($_POST['submit'])) {
+ 			unset($_POST['submit']);
+ 			$post = $_POST;
+ 			if ( afl_admin_free_account_config_validation($_POST) ) {
+ 				afl_admin_free_account_config_submit($_POST);
+ 			}
+ 		}
+ 		$form = array();
+		$form['#action'] = $_SERVER['REQUEST_URI'];
+	 	$form['#method'] = 'post';
+	 	$form['#prefix'] ='<div class="form-group row">';
+	 	$form['#suffix'] ='</div>';
+
+	  $form['free_account_rules_period'] = [
+	  	'#type'=>'select',
+	  	'#title'=>'Rule checking period',
+	  	'#options'=>[
+	  		'this_month'=>'This month','previous_month'=> 'previous month'
+	  	],
+	  	'#default_value' => isset($post['free_account_rules_period']) ? $post['free_account_rules_period'] : afl_variable_get('free_account_rules_period',''),
+	  	'#required'=>TRUE,
+	  ];
+	 	
+	  $form['free_account_required_distrib_pv'] = [
+	  	'#type'=>'textfield',
+	  	'#title'=>'Minimum Required Distributor PV',
+	  	'#required'=>TRUE,
+	  	'#default_value' => isset($post['free_account_required_distrib_pv']) ? $post['free_account_required_distrib_pv'] : afl_variable_get('free_account_required_distrib_pv',''),
+	  ];
+
+	  $form['free_account_minimum_required_refers'] = [
+	  	'#type'=>'textfield',
+	  	'#title'=>'Minimum Required referals',
+	  	'#required'=>TRUE,
+	  	'#default_value' => isset($post['free_account_minimum_required_refers']) ? $post['free_account_minimum_required_refers'] : afl_variable_get('free_account_minimum_required_refers',''),
+	  ];
+
+	  $form['free_account_minimum_required_refers_combined_pv'] = [
+	  	'#type'=>'textfield',
+	  	'#title'=>'Minimum Required referals combined PV',
+	  	'#required'=>TRUE,
+	  	'#default_value' => isset($post['free_account_minimum_required_refers_combined_pv']) ? $post['free_account_minimum_required_refers_combined_pv'] : afl_variable_get('free_account_minimum_required_refers_combined_pv',''),
+	  ];
+
+   	$form['submit'] = array(
+	 		'#type' => 'submit',
+	 		'#value' => 'Save configuration'
+	 	);
+ 		echo afl_render_form($form);
+	}
+
+/*
+ * -------------------------------------------------------------------------
+ * free account form configurations validation
+ * -------------------------------------------------------------------------
+*/
+	function afl_admin_free_account_config_validation ($form_state = array()) {
+		if(isset($form_state['free_account_rules_period'])) {
+
+			$rules[] = array(
+		 		'value'=> $form_state['free_account_rules_period'],
+		 		'name' =>'Rules checking period',
+		 		'field' =>'free_account_rules_period',
+		 		'rules' => array(
+		 			'rule_required',
+		 		)
+		 	);
+		}
+		if(isset($form_state['free_account_required_distrib_pv'])) {
+
+		 	$rules[] = array(
+		 		'value'=> $form_state['free_account_required_distrib_pv'],
+		 		'name' =>'Distributor pv',
+		 		'field' =>'free_account_required_distrib_pv',
+		 		'rules' => array(
+		 			'rule_is_numeric_posative'
+		 		)
+		 	);
+		}
+		if(isset($form_state['free_account_minimum_required_refers'])) {
+
+		 	$rules[] = array(
+		 		'value'=> $form_state['free_account_minimum_required_refers'],
+		 		'name' =>'Distributor referals count',
+		 		'field' =>'free_account_minimum_required_refers',
+		 		'rules' => array(
+		 			'rule_is_numeric_posative'
+		 		)
+		 	);
+		}
+
+		if(isset($form_state['free_account_minimum_required_refers_combined_pv'])) {
+
+		 	$rules[] = array(
+		 		'value'=> $form_state['free_account_minimum_required_refers_combined_pv'],
+		 		'name' =>'Distributor referals combined PV',
+		 		'field' =>'free_account_minimum_required_refers_combined_pv',
+		 		'rules' => array(
+		 			'rule_is_numeric_posative'
+		 		)
+		 	);
+		}
+
+		$resp = TRUE;
+		if(isset($rules)) {
+	 		$resp  = set_form_validation_rule($rules);
+		}
+	 		return $resp;
+	}
+
+/*
+ * -------------------------------------------------------------------------
+ * free account form configurations validation
+ * -------------------------------------------------------------------------
+*/
+	function afl_admin_free_account_config_submit ($form_state = array()) {
+		foreach ($form_state as $key => $value) {
+			afl_variable_set($key, $value);
+			
+		}
 		wp_set_message('Configuration has been saved successfully', 'success');
 	}

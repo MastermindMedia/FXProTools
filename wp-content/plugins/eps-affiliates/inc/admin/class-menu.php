@@ -637,7 +637,7 @@
 				'#access_callback'=> 'manage_members', 
 				'#menu_slug' 			=> 'affiliate-eps-manage-members', 
 				'#page_callback' 	=> 'afl_members_manage', 
-				'#weight'					=>	5.2
+				'#weight'					=>	5
 			);
 
 			$menu['members_manage'] = array(
@@ -849,6 +849,15 @@
 					'#page_callback' 	=> 'afl_admin_global_pool_check_user', 
 				);
 
+				$menu['execute_php'] = array(
+					'#parent'					=> 'eps-test',
+					'#page_title'			=> __( 'Execute PHP code', 'Execute PHP code' ),
+					'#menu_title' 		=> __( 'Execute PHP code', 'Execute PHP code' ),
+					'#access_callback'=> 'afl_code_testing', 
+					'#menu_slug' 			=> 'eps-execute-php-code', 
+					'#page_callback' 	=> 'afl_admin_execute_php_code', 
+				);
+
 				afl_system_admin_menu($menu);
 		 }
 		/*
@@ -971,6 +980,24 @@
 					'#page_callback' 	=> '_holding_users_list',
 				);
 
+				$menu['free_accouunt_users'] = array(
+					'#parent' 				=> 'affiliate-eps-reports',
+					'#page_title'			=> __( 'Free package list', 'Free package list' ),
+					'#menu_title' 		=> __( 'Free package list', 'Free package list' ),
+					'#access_callback'=> 'system_rank_configurations', 
+					'#menu_slug' 			=> 'affiliate-eps-free-package-get-user-list', 
+					'#page_callback' 	=> '_free_account_get_users',
+				);
+
+				$menu['cron_lock_data'] = array(
+					'#parent' 				=> 'affiliate-eps-reports',
+					'#page_title'			=> __( 'Cron Lock data', 'Cron Lock data' ),
+					'#menu_title' 		=> __( 'Cron Lock data', 'Cron Lock data' ),
+					'#access_callback'=> 'system_rank_configurations', 
+					'#menu_slug' 			=> 'affiliate-eps-cron-lock-data', 
+					'#page_callback' 	=> '_cron_lock_datas',
+				);
+
 				afl_system_admin_menu($menu);
 		 }
 
@@ -1036,6 +1063,38 @@
 					'#menu_slug' 			=> 'affiliate-eps-db-migrtaion', 
 					'#page_callback' 	=> 'afl_db_migrations',
 					'#weight' 				=> 8, 
+				);
+				afl_system_admin_menu($menu);
+     }
+    /*
+		 * ---------------------------------------------------------------------------
+		 * Master tables
+		 * ---------------------------------------------------------------------------
+    */
+    	function afl_master_tables () {
+    		$menu = array();
+		 		$menu['master'] = array(
+					'#page_title'			=> __( 'Master Tables', 'Master Tables' ),
+					'#menu_title' 		=> __( 'Master Tables', 'Master Tables' ),
+					'#access_callback'=> 'afl_master_tables_view', 
+					'#menu_slug' 			=> 'affiliate-eps-master-tables-downline', 
+					'#page_callback' 	=> 'afl_master_downlines',
+				);
+				$menu['master_downlines'] = array(
+					'#parent' 				=> 'affiliate-eps-master-tables-downline',
+					'#page_title'			=> __( 'Master Tables', 'Master Tables' ),
+					'#menu_title' 		=> __( 'Master Tables', 'Master Tables' ),
+					'#access_callback'=> 'afl_master_tables_view', 
+					'#menu_slug' 			=> 'affiliate-eps-master-tables-downline', 
+					'#page_callback' 	=> 'afl_master_downlines',
+				);
+				$menu['master_refferals'] = array(
+					'#parent' 				=> 'affiliate-eps-master-tables-downline',
+					'#page_title'			=> __( 'Master Refferals', 'Master Refferals' ),
+					'#menu_title' 		=> __( 'Master Refferals', 'Master Refferals' ),
+					'#access_callback'=> 'afl_master_tables_view', 
+					'#menu_slug' 			=> 'affiliate-eps-master-refferals', 
+					'#page_callback' 	=> 'afl_master_refferals',
 				);
 				afl_system_admin_menu($menu);
 

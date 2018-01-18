@@ -75,6 +75,14 @@ function afl_genealogy_configuration_form ($post) {
 
  	);
 
+ 	$form['reset_index'] = array(
+ 		'#title' 	=> 'Reset Index',
+ 		'#type'  	=> 'checkbox',
+ 		'#name'		=> 'reset-index',
+ 		'#default_value' => isset($post['reset_index']) ? $post['reset_index'] : '',
+
+ 	);
+
  	$form['remove_user'] = array(
  		'#title' 	=> 'Remove system user',
  		'#type'  	=> 'checkbox',
@@ -133,8 +141,10 @@ function afl_genealogy_configuration_form_submit ($form_state){
 	if(isset($form_state['root_user_remoteMlmId'])) {
 		afl_variable_set('root_user_remoteMlmId', $form_state['root_user_remoteMlmId']);
 		afl_set_root_mlmid($form_state['root_user_remoteMlmId']);
+	}
 
-
+	if (isset($form_state['reset_index'])) {
+		_reset_indexes();
 	}
 	echo wp_set_message('Genealogy reset', 'success');
 }
@@ -353,4 +363,14 @@ function afl_set_root_mlmid($mlmid) {
 			),
 			array( 'uid' => $root_user )
 		);
+	}
+/*
+ * ------------------------------------------------------------------
+ * Reset Indexes
+ * ------------------------------------------------------------------
+*/
+	function _reset_indexes () {
+		global $wpdb;
+		$wpdb->query( 'ALTER TABLE `'._table_name('afl_user_genealogy').'` AUTO_INCREMENT = 2;' );
+		$wpdb->query( 'ALTER TABLE `'._table_name('afl_unilevel_user_genealogy').'` AUTO_INCREMENT = 2;' );
 	}

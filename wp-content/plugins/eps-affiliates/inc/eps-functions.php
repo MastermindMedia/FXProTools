@@ -28,7 +28,8 @@
  * ----------------------------------------------------
 */
  function _check_required_pv_meets ($uid = '', $rank = '') {
- 		$user_pv = _get_user_pv($uid);
+ 		//$user_pv = _get_user_pv($uid) + _get_user_referal_pv($uid);
+		$user_pv = _get_user_pv($uid);
  		//check conidition meets
  		$required_pv = afl_variable_get('rank_'.$rank.'_pv',0);
 
@@ -310,9 +311,52 @@
  		return 0;
  	}
  }
+ /*
+ * ---------------------------------------------------
+ * get user pv 1
+ * ---------------------------------------------------
+*/
+ function _get_user_referal_pv ($uid = '') {
+ 	global $wpdb;
+ 	if (empty($uid))
+ 		$uid = afl_current_uid();
+
+ 	$table_prefix = $wpdb->prefix ? $wpdb->prefix : 'wp_';
+ 	$table 				= $table_prefix.'afl_purchases';
+
+
+ 	$query_q['#select'] = _table_name('afl_unilevel_user_genealogy');
+ 	$query_q['#fields'] = [
+ 		_table_name('afl_unilevel_user_genealogy') => ['uid']
+ 	];
+ 	
+ 	$query_q['#where'] =[
+ 		'referrer_uid = '.$uid
+ 	];
+ 	$referal_uids = array_ret(db_select($query_q, 'get_results'), 'uid');
+
+ 	if ( !empty($referal_uids)) {
+	 	$query = array();
+	 	$query['#select'] = $table;
+	 	$query['#where_in'] 	= array(
+	 		'uid' => $referal_uids
+	 	);
+	 	$query['#expression'] 	= array(
+	 		'SUM(`afl_points`) as sum'
+	 	);
+	 	$result = db_select($query, 'get_row');
+	 	$result = (array)$result;
+	 	if (isset($result['sum'])) {
+	 		return afl_get_payment_amount($result['sum']);
+	 	} else {
+	 		return 0;
+	 	}
+ 	}else
+	 	return 0;
+ }
 /*
  * ---------------------------------------------------
- * get user pv
+ * get user gv
  * ---------------------------------------------------
 */
  function _get_user_gv ($uid = '', $tree = 'matrix') {
@@ -353,7 +397,7 @@
 
 /*
  * ---------------------------------------------------
- * get user pv V1
+ * get user gv V1
  * ---------------------------------------------------
 */
 function _get_user_gv_v1($uid = '', $rank ='', $add_with_user_pv = FALSE,$tree = 'matrix') {
