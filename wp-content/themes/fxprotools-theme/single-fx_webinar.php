@@ -23,30 +23,36 @@ get_header();
                <div class="tab-content">
                   <div role="tabpanel" class="tab-pane padding-md active" id="upcoming">
                      <div class="webinar-content">
-                        <div class="webinar-summary">
-                           <h4>Webinar Title:</h4>
-                           <h1>Free Weekly Q&amp;A</h1>
+                        <?php 
+                           if(is_single( '48127' )) :
+                        ?>
+                           <div class="webinar-summary">
+                              <h4>Webinar Title:</h4>
+                              <h1>Free Weekly Q&amp;A</h1>
 
-                           <h4>Description</h4>
-                           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                        </div>
-                        <div class="webinar-details">
-                           <div class="webinar-details-block">
-                              <h4>Webinar Date:</h4>
-                              <h5>2018-02-08</h5>
+                              <h4>Description</h4>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                            </div>
-                           <div class="webinar-details-block">
-                              <h4>Start Time:</h4>
-                              <h5>17:00</h5>
+                           <div class="webinar-details">
+                              <div class="webinar-details-block">
+                                 <h4>Webinar Date:</h4>
+                                 <h5>2018-02-08</h5>
+                              </div>
+                              <div class="webinar-details-block">
+                                 <h4>Start Time:</h4>
+                                 <h5>17:00</h5>
+                              </div>
+                              <div class="webinar-details-block">
+                                 <h4>End Time:</h4>
+                                 <h5>18:00</h5>
+                              </div>
                            </div>
-                           <div class="webinar-details-block">
-                              <h4>End Time:</h4>
-                              <h5>18:00</h5>
+                           <div class="webinar-button">
+                              <a href="http://google.com" class="btn btn-danger btn-lg btn-lg-w-text scroll-to">Registration Link for Webinar</a>
                            </div>
-                        </div>
-                        <div class="webinar-button">
-                           <a href="http://google.com" class="btn btn-danger btn-lg btn-lg-w-text scroll-to">Registration Link for Webinar</a>
-                        </div>
+                        <?php 
+                           endif;
+                        ?>
                      </div>
                   </div>
                </div>
