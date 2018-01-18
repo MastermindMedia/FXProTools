@@ -24,10 +24,12 @@ update_post_meta( $subscription->get_id(), '_wc_authorize_net_cim_credit_card_cu
 
 ?>
 
-<?php get_template_part('inc/templates/nav-marketing'); ?>
-
 <?php if ( $available_gateways = WC()->payment_gateways->get_available_payment_gateways() ) : ?>
 	<div class="container">	
+		<div class="fx-header-title">
+			<h1>Add Payment Method</h1>
+		</div>
+
 		<form id="add_payment_method" method="post">
 			<div id="payment" class="woocommerce-Payment">
 				<ul class="woocommerce-PaymentMethods payment_methods methods">

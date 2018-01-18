@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 //order id for /user page
-if($_GET['subs_id']){
+if(isset($_GET['subs_id'] )){
 	$subscription = wcs_get_subscription( $_GET['subs_id'] );
 	echo '<h2>Subscription #'.$_GET['subs_id'].' Details</h2>';
 }
@@ -31,7 +31,6 @@ if ( empty( $subscription ) ) {
 	$subscription = wcs_get_subscription( $wp->query_vars['view-subscription'] );
 }
 
-wc_print_notices();
 ?>
 
 <table class="shop_table subscription_details">

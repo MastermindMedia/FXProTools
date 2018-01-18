@@ -54,6 +54,8 @@ foreach ($core_settings as $cs) {
  * ----------------
  * Includes all custom functions
  */
+// set this to true to activate nav lock / nav stages feature
+define('NAV_LOCK', false); 
 $custom_functions = array(
 	'function-helper', // All Helper functions
     'function-ajax',   // All Ajax Calls

@@ -13,6 +13,7 @@ if( isset($product) ){
 
 ?>
 <div class="fx-access-denied-container">
+	<?php if(!is_user_logged_in()): ?>
 	<div class="fx-access-denied-top">
 		<div class="container">
 			<div class="row">
@@ -56,6 +57,7 @@ if( isset($product) ){
 			</div>
 		</div>
 	</div>
+	<?php endif; ?>
 
 	<div class="container">
 		<div class="row">
@@ -92,7 +94,7 @@ if( isset($product) ){
 				<div class="note">
 					<img src="https://via.placeholder.com/600x300?text=Video" class="img-responsive centered-block m-b-sm">
 					<p class="text-center">Find out about becoming a trader during the next free webinar.</p>
-					<a href="<?php echo get_the_permalink($product->get_id()); ?>" class="btn btn-danger block btn-lg m-b-md btn-lg-w-text">Upgrade Your Account!</a>
+					<a href="<?php echo get_option('home'); ?>/product/membership-products/" class="btn btn-danger block btn-lg m-b-md btn-lg-w-text">Upgrade Your Account!</a>
 				</div>
 			</div>
 		</div>
