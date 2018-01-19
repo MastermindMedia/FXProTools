@@ -20,12 +20,16 @@ function eps_subscription_order_completed( $subscription ) {
 	$last_order = $subscription->get_last_order('all');
 
 	if( wcs_order_contains_renewal($last_order) ){
-		 $args = array(	
+
+		$free_renewal = get_post_meta( $last_order->get_id(), '_free_renewal', true );
+
+		$args = array(	
 			'uid' => $subscription->get_customer_id(),
 			'order_id' => $last_order->get_id(),
-			'amount_paid' => $last_order->get_total(),
-			'afl_point' => $pv
+			'amount_paid' => $free_renewal ? 0 : $last_order->get_total(),
+			'afl_point' => $free_renewal ? 0 : $pv
 		);
+
 
 	    $result = apply_filters('eps_commerce_purchase_complete', $args);
 	    error_log('Invoked : eps_commerce_purchase_complete via renewal ' . print_r($result, true) );
