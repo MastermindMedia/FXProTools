@@ -16,6 +16,7 @@ class CPS_Intercom {
 	const HASH = 'sha256';
 	const INTERCOM_ID_USER_META = '_intercom_user_id';
 	const EVENT_REGISTER_USER = 'register-user';
+	const EVENT_REGISTER_LEAD = 'register-lead';
 	const EVENT_UPDATE_PROFILE = 'update-profile';
 
 
@@ -69,6 +70,8 @@ class CPS_Intercom {
 		return null;
 	}
 
+	// region User
+
 	/**
 	 * Creates an intercom account
 	 *
@@ -82,21 +85,19 @@ class CPS_Intercom {
 			extract( $_POST );
 			if ( ( ! empty( $role ) && in_array( $role, $this->user_roles ) ) || ! isset( $role ) ) {
 				$user_data = $this->generate_data( 'user', $user_id );
+
 				$intercomUser = $this->create_user( $user_data );
 				if ( $intercomUser ) {
 					add_user_meta( $user_id, self::INTERCOM_ID_USER_META, $intercomUser->id );
 					$this->create_event( self::EVENT_REGISTER_USER, $user_id );
 				}
 			} elseif ( in_array( $role, $this->lead_roles ) ) {
-				$lead = new IntercomLeads( $this->client );
-
-				$lead_data = $this->generate_data( 'lead' );
-				try {
-					$lead->create( $lead_data );
-				} catch ( GuzzleException $e ) {
-					error_log( $e->getMessage() );
+				$lead_data = $this->generate_data( 'lead', $user_id );
+				$intercomLead = $this->create_lead ($lead_data);
+				if ( $intercomLead ) {
+					add_user_meta( $user_id, self::INTERCOM_ID_USER_META, $intercomLead->id );
+					$this->create_event( self::EVENT_REGISTER_LEAD, $user_id );
 				}
-				$this->create_event( 'register-lead', $user_id );
 			}
 		}
 	}
@@ -105,12 +106,7 @@ class CPS_Intercom {
 	 * @param $user_id int
 	 */
 	public function intercom_update_user( $user_id ) {
-		$user_data = get_userdata( $user_id );
-		$user_meta = $this->flatten_user_meta( $user_id );
-		$user_onboard_checklist = $this->get_onboard_checklist( $user_id );
-		$user_info = array_merge( (array) $user_data->data, $user_meta, $user_onboard_checklist );
-
-		$intercom_data = $this->arrange_intercom_data( $user_info );
+		$intercom_data = $this->generate_data( 'user', $user_id  );
 		$intercomUser = $this->create_user( $intercom_data );
 
 		if ( ! isset( $user_meta[ self::INTERCOM_ID_USER_META ] ) ) {
@@ -131,7 +127,7 @@ class CPS_Intercom {
 	/**
 	 * @param array $data
 	 *
-	 * @return IntercomUsers/void
+	 * @return bool|mixed
 	 */
 	private function create_user( array $data ) {
 		$user = new IntercomUsers( $this->client );
@@ -141,6 +137,7 @@ class CPS_Intercom {
 		} catch ( GuzzleException $e ) {
 			error_log( $e->getMessage() );
 		}
+		return false;
 	}
 
 	/**
@@ -157,6 +154,28 @@ class CPS_Intercom {
 			error_log( $e->getMessage() );
 		}
 	}
+
+	// endregion
+
+	// region Leads
+
+	/**
+	 * @param array $data
+	 *
+	 * @return bool|mixed
+	 */
+	private function create_lead( array $data ) {
+		$lead = new IntercomLeads( $this->client );
+		try {
+			/** @var IntercomUsers */
+			return $lead->create( $data );
+		} catch ( GuzzleException $e ) {
+			error_log( $e->getMessage() );
+		}
+		return false;
+	}
+
+	// endregion
 
 	/**
 	 * @param $event_name
@@ -175,13 +194,15 @@ class CPS_Intercom {
 		}
 	}
 
+	// region User Data
+
 	/**
 	 * @param string $type
 	 * @param null $user_id
 	 *
 	 * @return array
 	 */
-	private function generate_data( $type, $user_id = null ) {
+	private function generate_data( $type, $user_id ) {
 		$data = [];
 
 		/**
@@ -216,7 +237,10 @@ class CPS_Intercom {
 				break;
 		}
 
-		return $data;
+		$user_meta = $this->flatten_user_meta( $user_id );
+		$user_onboard_checklist = $this->get_onboard_checklist( $user_id );
+		$user_info = array_merge( (array) $data, $user_meta, $user_onboard_checklist );
+		return $this->arrange_intercom_data( $user_info );
 	}
 
 	private function flatten_user_meta( $user_id ) {
@@ -341,6 +365,8 @@ class CPS_Intercom {
 		}
 		return $default;
 	}
+
+	// endregion
 }
 
 return new CPS_Intercom();
