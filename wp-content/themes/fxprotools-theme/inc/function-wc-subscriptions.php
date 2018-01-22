@@ -137,7 +137,7 @@ if(!class_exists('WC_Subscriptions_Settings')){
 					foreach($subscriptions as $s){
 
 						if( $s->has_status('on-hold') ){
-							$items = $s->get_items();
+							/* $items = $s->get_items();
 
 							foreach($items as $key => $item){
 								$subscription_type = wc_get_order_item_meta($key, 'subscription-type', true);
@@ -153,6 +153,7 @@ if(!class_exists('WC_Subscriptions_Settings')){
 									}
 								}
 							}
+							*/
 						}
 					}
 				}

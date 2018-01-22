@@ -30,7 +30,7 @@ function eps_subscription_order_completed( $subscription ) {
 			'afl_point' => $free_renewal ? 0 : $pv
 		);
 
-
+		error_log('eps_commerce_purchase_complete:' . print_r($args));
 	    $result = apply_filters('eps_commerce_purchase_complete', $args);
 	    error_log('Invoked : eps_commerce_purchase_complete via renewal ' . print_r($result, true) );
 	}
