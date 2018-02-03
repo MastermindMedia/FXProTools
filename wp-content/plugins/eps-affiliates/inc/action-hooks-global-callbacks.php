@@ -26,11 +26,11 @@
 	 	}
 
 	 	//check amount paid exists or not
-	 	if (empty($args['amount_paid'])) {
+	 	/*if (empty($args['amount_paid'])) {
 	 		$response['status'] 	= 0;
 	 		$response['response']	=	'Failure';
 	 		$response['error'][] 	= 'amount cannot be null';
-	 	}
+	 	}*/
 
 	 		//check afl_point exists or not
 	 	// if (empty($args['afl_point'])) {
@@ -54,7 +54,7 @@
 	 	}
 
 	 	//check order_id is integer
-	 	if (!empty($args['amount_paid']) && !is_numeric($args['amount_paid'])){
+	 	if (!is_numeric($args['amount_paid'])){
 	 		$response['status'] 	= 0;
 	 		$response['response']	=	'Failure';
 	 		$response['error'][] 	= 'Amount needs to be an integer number';
@@ -80,7 +80,7 @@
 					do_action('eps_affiliates_calculate_affiliate_rank', $uid);
 				}
 
-				$category = 'Product Purchase';
+				$category = 'Package Purchase';
 				if ( !empty($args['category'])) {
 					$category = $args['category'];
 				}
@@ -1854,6 +1854,7 @@
 		$query['#select'] = _table_name('afl_user_holding_transactions');
 		$query['#where'] = array(
 			'uid = '.$uid,
+ 			'paid_status = 0'
 		);
 
 		switch ($type) {
@@ -1882,3 +1883,229 @@
 		$resp = db_select($query, 'get_row');
 		return !empty($resp->total) ? afl_format_payment_amount($resp->total, TRUE) : 0;
 	}
+
+
+
+/* - - - - - - - - - - - -  FREE USER ACCOUNT CONDITIONS : START - - - - - - - - - - - - - - - - - - - - */
+/*
+ * -----------------------------------------------------------
+ * function free_account_check_have_active_package_callback
+ *
+ * check the user has active package having minimum pv 
+ * -----------------------------------------------------------
+*/
+	function free_account_check_have_active_package_callback ( $uid = '', $return_pv = FALSE) {
+		$afl_date_splits = afl_date_splits(afl_date());
+		$rules_checking_period  = afl_variable_get('free_account_rules_period','previous_month');
+
+		if ($rules_checking_period == 'previous_month' ) {
+			$prev_month = strtotime('-1 month',afl_date());
+			$afl_date_splits = afl_date_splits($prev_month);
+		}	
+
+		$min_required_pv = afl_variable_get('free_account_required_distrib_pv',0);
+		$total_pv = 0;
+		$condition_flag = FALSE;
+
+		if ( $uid ) {
+			$query['#select'] = _table_name('afl_purchases');
+			$query['#fields'] = [
+				_table_name('afl_purchases') => ['afl_points']
+			];
+			$query['#where'] = [
+				'uid = '.$uid,
+				'category = "Package Purchase"',
+				'purchase_month = '.$afl_date_splits['m'],
+				'purchase_year = '.$afl_date_splits['y'],
+			];
+			$query['#expression'] = [
+				'SUM(afl_points) as afl_points'
+			];
+			$total_pv = db_select($query, 'get_var');
+			$total_pv = afl_format_payment_amount($total_pv);
+		}
+		
+		//check the required pv meets
+		if ( $total_pv >= $min_required_pv) {
+			$condition_flag = TRUE;
+		}
+
+		if ( $return_pv ) {
+			return $total_pv;
+		}
+
+		return $condition_flag;
+	}
+/*
+ * -----------------------------------------------------------
+ * function ffree_account_check_have_referals_count_callback
+ *
+ * check the user has required referals
+ * -----------------------------------------------------------
+*/
+	function free_account_check_have_referals_count_callback ( $uid = '',$return_count = FALSE) {
+		$afl_date_splits = afl_date_splits(afl_date());
+		$rules_checking_period  = afl_variable_get('free_account_rules_period','previous_month');
+
+		if ($rules_checking_period == 'previous_month' ) {
+			$prev_month = strtotime('-1 month',afl_date());
+			$afl_date_splits = afl_date_splits($prev_month);
+		}	
+
+		$min_required_referal = afl_variable_get('free_account_minimum_required_refers',0);
+		$total_referals = 0;
+		$condition_flag = FALSE;
+
+		if ( $uid ) {
+			//get all users, he sponsored
+			$query['#select'] = _table_name('afl_unilevel_user_genealogy');
+			$query['#where'] = [
+				'`'._table_name('afl_unilevel_user_genealogy').'`.`referrer_uid` = '.$uid,
+				'`'._table_name('afl_unilevel_user_genealogy').'`.`joined_month` = '.$afl_date_splits['m'],
+				'`'._table_name('afl_unilevel_user_genealogy').'`.`joined_year`  = '.$afl_date_splits['y'],
+			];
+			$query['#expression'] = [
+				'COUNT(`'._table_name('afl_unilevel_user_genealogy').'`.`uid`) as count'
+			];
+			$total_referals = db_select($query, 'get_row');
+			$total_referals = !empty($total_referals->count) ? $total_referals->count : 0;
+
+			//get sponsored customers under this user
+			$query['#select'] = _table_name('afl_customer');
+			$query['#where'] = [
+				'`'._table_name('afl_customer').'`.`referrer_uid` = '.$uid,
+				'`'._table_name('afl_customer').'`.`joined_month` = '.$afl_date_splits['m'],
+				'`'._table_name('afl_customer').'`.`joined_year`  = '.$afl_date_splits['y'],
+			];
+			$query['#expression'] = [
+				'COUNT(`'._table_name('afl_customer').'`.`uid`) as count'
+			];
+			$total_customers = db_select($query, 'get_row');
+			$total_customers = !empty($total_customers->count) ? $total_customers->count : 0;
+			
+			$total_referals = $total_referals - $total_customers;
+			$total_referals = ($total_referals > 0) ? $total_referals : 0;
+			
+		}
+
+		//check the required pv meets
+		if ( $total_referals >= $min_required_referal) {
+			$condition_flag =  TRUE;
+		}
+
+		if ( $return_count ) {
+			return $total_referals;
+		}
+
+		return $condition_flag ;
+	}
+/*
+ * -----------------------------------------------------------
+ * function free_account_check_have_referals_combined_pv_callback
+ *
+ * check the user has required combined pv
+ * -----------------------------------------------------------
+*/
+	function free_account_check_have_referals_combined_pv_callback ( $uid = '',$return_count = FALSE) {
+		$afl_date_splits = afl_date_splits(afl_date());
+		$rules_checking_period  = afl_variable_get('free_account_rules_period','previous_month');
+
+		if ($rules_checking_period == 'previous_month' ) {
+			$prev_month = strtotime('-1 month',afl_date());
+			$afl_date_splits = afl_date_splits($prev_month);
+		}	
+// pr($afl_date_splits);
+		$min_required_combined_pv = afl_variable_get('free_account_minimum_required_refers_combined_pv',0);
+		$total_combined_pv = $total_customer_pv = 0;
+		$condition_flag = FALSE;
+
+		if ( $uid ) {
+			//all uids
+			$query['#select'] = _table_name('afl_unilevel_user_genealogy');
+			$query['#fields'] = [
+				_table_name('afl_unilevel_user_genealogy') => ['uid']
+			];
+			$query['#where'] = [
+				'referrer_uid = '.$uid,
+				'joined_month = '.$afl_date_splits['m'],
+				'joined_year  = '.$afl_date_splits['y'],
+			];
+			$referals 		= db_select($query, 'get_results');
+			$referal_uids = array_ret($referals, 'uid');
+
+			//get the sum of pvs from purchases, of all if referals exists
+			$query['#select'] = _table_name('afl_purchases');
+			$query['#fields'] = [
+				_table_name('afl_purchases') => ['afl_points']
+			];
+			$query['#where'] = [
+				'category = "Package Purchase"',
+				'purchase_month = '.$afl_date_splits['m'],
+				'purchase_year = '.$afl_date_splits['y'],
+			];
+			$query['#where_in'] = [
+				'uid' => $referal_uids
+			];
+			$query['#expression'] = [
+				'SUM(afl_points) as afl_points'
+			];
+			$total_combined_pv = db_select($query, 'get_var');
+			$total_combined_pv = !empty($total_combined_pv) ? afl_format_payment_amount($total_combined_pv) : 0;
+
+			//get all customers under this user
+			$customers_ids = (array)get_user_downline_customers($uid);
+			$customers_ids = array_ret($customers_ids, 'uid');
+			//sum of purchases of customers
+			if ( $customers_ids) {
+				$query['#select'] = _table_name('afl_purchases');
+				$query['#fields'] = [
+					_table_name('afl_purchases') => ['afl_points']
+				];
+				$query['#where'] = [
+					'category = "Package Purchase"',
+					'purchase_month = '.$afl_date_splits['m'],
+					'purchase_year = '.$afl_date_splits['y'],
+				];
+				$query['#where_in'] = [
+					'uid' => $customers_ids
+				];
+				$query['#expression'] = [
+					'SUM(afl_points) as afl_points'
+				];
+				$total_customer_pv = db_select($query, 'get_var');
+				$total_customer_pv = !empty($total_customer_pv) ? afl_format_payment_amount($total_customer_pv) : 0;
+			}
+		}
+		$total_combined_pv = $total_combined_pv - $total_customer_pv;
+		$total_combined_pv = ($total_combined_pv > 0) ? $total_combined_pv : 0;
+		//check the required pv meets
+		if ( $total_combined_pv >= $min_required_combined_pv) {
+			$condition_flag =  TRUE;
+		}
+
+		if ( $return_count ) {
+			return $total_combined_pv;
+		}
+
+		return $condition_flag ;
+	}
+
+	function check_free_account_criterias_callback ( $uid ) {
+		//have active package
+		if ( !apply_filters('free_account_check_have_active_package',$uid)) {
+			return FALSE;
+		}
+
+		//check count of referals
+		if ( !apply_filters('free_account_check_have_referals_count',$uid)) {
+			return FALSE;
+		}
+
+		//check count of referals combined pv
+		if ( !apply_filters('free_account_check_have_referals_combined_pv',$uid)) {
+			return FALSE;
+		}
+
+		return TRUE;
+	}
+/* - - - - - - - - - - - -  FREE USER ACCOUNT CONDITIONS : END - - - - - - - - - - - - - - - - - - - - */

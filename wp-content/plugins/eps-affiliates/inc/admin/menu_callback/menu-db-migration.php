@@ -136,6 +136,13 @@
 					$migration_obj->migration_upgrade();
 					return TRUE;
 				}
+
+				//run the update function 
+				if (method_exists($migration_obj, 'migration_update')) {
+					$migration_obj->migration_update();
+					return TRUE;
+				}
+
 			}
 		} else {
 			return FALSE;

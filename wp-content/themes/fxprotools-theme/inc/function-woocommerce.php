@@ -13,6 +13,9 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 		const META_BUY_BUTTON_TEXT = '_buy_button_text';
         const POST_NAME_FREE_SHIRT = 'copy-profit-success-tshirt';
         const MIN_MEMBERSHIP_DURATION = 15;
+
+        const RESTRICT_SINGLE_PURCHASE = false;
+        const RESTRICT_NEW_ACCOUNTS = false;
 		/**
 		 * @var integer ID of the membership products
 		 */
@@ -282,11 +285,11 @@ if ( ! class_exists( 'Woocommerce_Settings' ) ) {
 </div>
 HTML;
 
-				if ( user_membership_duration() < self::MIN_MEMBERSHIP_DURATION ) {
+				if ( self::RESTRICT_NEW_ACCOUNTS && user_membership_duration() < self::MIN_MEMBERSHIP_DURATION ) {
 					echo sprintf( $html, "You have to finish your 14-day trial to claim this", 'You have been a member for ' . user_membership_duration() . ' days so far.' );
 					return;
 				}
-				if ( self::has_claimed_shirt() ) {
+				if ( self::RESTRICT_SINGLE_PURCHASE && self::has_claimed_shirt() ) {
 					echo sprintf( $html, "You already got your Free T-shirt", 'Lorem ipsum blah blah blah' );
 					return;
 				}
@@ -298,7 +301,8 @@ HTML;
 		 * @return bool
 		 */
 		public static function can_claim_freeshirt() {
-			return ! self::has_claimed_shirt() && user_membership_duration() >= self::MIN_MEMBERSHIP_DURATION;;
+			return ! self::has_claimed_shirt() &&
+                ((!self::RESTRICT_NEW_ACCOUNTS) || (self::RESTRICT_NEW_ACCOUNTS && user_membership_duration() >= self::MIN_MEMBERSHIP_DURATION));
 		}
 
 		/**
@@ -306,8 +310,11 @@ HTML;
 		 * @return bool
 		 */
 		public static function has_claimed_shirt() {
-			$post = get_page_by_path( self::POST_NAME_FREE_SHIRT, OBJECT, 'product' );
-			return wc_customer_bought_product( '', get_current_user_id(), $post->ID );
+		    if (self::RESTRICT_SINGLE_PURCHASE) {
+			    $post = get_page_by_path( self::POST_NAME_FREE_SHIRT, OBJECT, 'product' );
+			    return wc_customer_bought_product( '', get_current_user_id(), $post->ID );
+		    }
+		    return false;
 		}
 
 		public function wc_add_gotodashboard_link() {

@@ -178,7 +178,7 @@
 			if (!empty($value)) {
 				if (!is_numeric($value) || $value < 0 ) {  
 					$response['status'] 	= 0;
-					$response['message'] 	= 'Field '.$name.' must contain a Posative number';
+					$response['message'] 	= 'Field '.$name.' must contain a Positive number';
 
 					if (!empty($field) ){
 						$field = str_replace('_','-',$field);
@@ -199,7 +199,7 @@
 				$value =explode('%', $value);
 				if (!is_numeric($value[0]) || $value[0] < 0 ) {  
 					$response['status'] 	= 0;
-					$response['message'] 	= 'Field '.$name.' must contain a Posative number';
+					$response['message'] 	= 'Field '.$name.' must contain a Positive number';
 
 					if (!empty($field) ){
 						$field = str_replace('_','-',$field);

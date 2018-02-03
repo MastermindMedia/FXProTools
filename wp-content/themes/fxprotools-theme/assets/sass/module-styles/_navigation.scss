@@ -76,6 +76,20 @@
 }
 
 body.customer{
+	&.distributor{
+		.fx-navbar-main{
+			.fx-nav-options{
+				li{
+					&.hide-on-customer{
+						display: block!important;
+					}
+				}
+			}
+		}
+		.hide-on-customer{
+			display: block!important;
+		}
+	}
 	.fx-navbar-main{
 		.fx-nav-options{
 			li{
@@ -85,9 +99,11 @@ body.customer{
 			}
 		}
 	}
+	
 	.hide-on-customer{
 		display: none;
 	}
+	
 }
 
 // Sub Navigation

@@ -159,11 +159,20 @@ function afl_admin_variable_configurations (){
 	 		'#description'		=> __('these roles could be displayed in the eps affiliates roles permission table')
 	 	);
 
-	 		//Permission table roles
+	 	//cron statues
 	 	$form['afl_var_cron_statuses'] = array(
 	 		'#type' 					=> 'text-area',
 	 		'#title' 					=> 'Cron Status',
 	 		'#default_value' 	=> afl_variable_get('afl_var_cron_statuses', ''),
+	 		'#prefix'					=> '<div class="form-group row">',
+	 		'#suffix' 				=> '</div>',
+	 		'#description'		=> __('Cron statuses')
+	 	);
+	 	//master table variables
+	 	$form['afl_var_master_table_categories'] = array(
+	 		'#type' 					=> 'text-area',
+	 		'#title' 					=> 'Master table categories',
+	 		'#default_value' 	=> afl_variable_get('afl_var_master_table_categories', ''),
 	 		'#prefix'					=> '<div class="form-group row">',
 	 		'#suffix' 				=> '</div>',
 	 		'#description'		=> __('Cron statuses')

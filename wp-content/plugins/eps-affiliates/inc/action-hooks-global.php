@@ -489,3 +489,16 @@ add_filter('afl_member_personal_volume',
 	 	add_action('afl_ewallet_holding_all_time_earnings_template',
  						'afl_ewallet_all_holding_time_earnings_template_callback');
 
+/*
+ * ---------------------------------------------------------
+ * Hooks that for free account check
+ * ---------------------------------------------------------
+*/
+	add_filter('free_account_check_have_active_package',
+ 						'free_account_check_have_active_package_callback', 10,2);
+	add_filter('free_account_check_have_referals_count',
+ 						'free_account_check_have_referals_count_callback', 10,2);
+	add_filter('free_account_check_have_referals_combined_pv',
+ 						'free_account_check_have_referals_combined_pv_callback', 10,2);
+	add_filter('check_free_account_criterias',
+ 						'check_free_account_criterias_callback', 10,1);

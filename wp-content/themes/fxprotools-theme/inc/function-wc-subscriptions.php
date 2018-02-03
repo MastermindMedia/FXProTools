@@ -115,38 +115,50 @@ if(!class_exists('WC_Subscriptions_Settings')){
 		 * @return WC_Subscription
 		 */
 		public function wc_apply_signup_fee_on_renewal($renewal_order){
+			
 
 			$user_id =  $renewal_order->get_customer_id();
 			$referrals = get_user_active_referrals($user_id);
-			$has_paid_signup_fee = get_user_meta( $user_id , '_has_paid_signup_fee', true ); 
+			//$has_paid_signup_fee = get_user_meta( $user_id , '_has_paid_signup_fee', true ); 
 			$subscriptions = wcs_get_users_subscriptions( $user_id );
 
 			//if user has 3 active referrals, modify renewal to be free
+			
 			if( count($referrals) >= 3){
 
-				$renewal_order->remove_order_items();
-				$renewal_order->add_order_note('Free Renewal via Referral Program');
+				$eps_passed_criterias = apply_filters( 'check_free_account_criterias', $user_id);
+				error_log('Invoked : check_free_account_criterias:' . $eps_passed_criterias );
 
-				foreach($subscriptions as $s){
+				if( $eps_passed_criterias ){
+					add_post_meta( $renewal_order->get_id(), '_free_renewal', true );
+					$renewal_order->remove_order_items();
+					$renewal_order->add_order_note('Free Renewal via Referral Program');
 
-					if( $s->has_status('on-hold') ){
-						$items = $s->get_items();
+					foreach($subscriptions as $s){
 
-						foreach($items as $key => $item){
-							$subscription_type = wc_get_order_item_meta($key, 'subscription-type', true);
+						if( $s->has_status('on-hold') ){
+							/* $items = $s->get_items();
 
-						    if( isset($subscription_type) ) {
-								$product = wc_get_product( $item->get_product_id() );
+							foreach($items as $key => $item){
+								$subscription_type = wc_get_order_item_meta($key, 'subscription-type', true);
 
-								if( in_array($product->get_id(), array( 48, 2921, 2920 )) ){ //if business product add ibo kit instead
-									$ibo_kit =  wc_get_product(2871);
-									$renewal_order->add_product($ibo_kit, 1);
-									$renewal_order->add_order_note('Add IBO Kit for Distributor Package');
+							    if( isset($subscription_type) ) {
+									$product = wc_get_product( $item->get_product_id() );
+
+									if( in_array($product->get_id(), array( 48, 2921, 2920 )) ){ //if business product add ibo kit instead
+										$ibo_kit =  wc_get_product(2871);
+										$renewal_order->add_product($ibo_kit, 1);
+										$renewal_order->add_order_note('Add IBO Kit for Distributor Package');
+
+									}
 								}
 							}
+							*/
 						}
 					}
 				}
+
+				
 			}
 
 			//add signup fee to renewal

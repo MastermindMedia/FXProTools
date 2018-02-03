@@ -83,15 +83,15 @@ function is_page_locked()
 function get_user_stage_lvl()
 {
     $_checklist = get_user_checklist();
-    $_checklist = [
-        'verified_email' => true,
-        'verified_profile' => true,
-        'scheduled_webinar' => true,
-        'accessed_products' => false,
-        'got_shirt' => false,
-        'shared_video' => false,
-        'referred_friend' => false,
-    ];
+    // $_checklist = [
+    //     'verified_email' => true,
+    //     'verified_profile' => true,
+    //     'scheduled_webinar' => false,
+    //     'accessed_products' => false,
+    //     'got_shirt' => false,
+    //     'shared_video' => false,
+    //     'referred_friend' => false,
+    // ];
     if( is_nav_locked() ){
         if( $_checklist['verified_email'] === true && $_checklist['verified_profile'] === true && $_checklist['scheduled_webinar'] === true && $_checklist['accessed_products'] === true && $_checklist['got_shirt'] === true  && $_checklist['shared_video'] === true && $_checklist['referred_friend'] === true ) {
             return 3;

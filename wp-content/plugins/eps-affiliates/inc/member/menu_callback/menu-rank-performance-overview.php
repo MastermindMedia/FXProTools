@@ -203,12 +203,13 @@ function afl_rank_performance_overview_shortcode_callback () {
 	 		
 	 		/* ------ User PV ----------------------------------------------------------------------*/
 				$required = afl_variable_get('rank_'.$i.'_pv',0);
+				//$earned 	= _get_user_pv($uid) + _get_user_referal_pv($uid); 
 				$earned 	= _get_user_pv($uid); 
 
 				$markup = '';
 				$markup .= '<label class="label text-info m-l-xs">Required : '.$required.'</label><br>';
 				$markup .= '<label class="label text-info m-l-xs">Earned : '.number_format($earned, 2, '.', ',').'</label><br>';
-				if ($required <= $earned) {
+				if (_check_required_pv_meets($uid, $i)) {
 					$condition = '<span class="text-center"><i class="text-center fa fa-lg fa-thumbs-o-up  text-success m-b-xs"></i></span>';
 				} else {
 					$condition = '<span class="text-center"><i class="text-center fa fa-lg fa-thumbs-o-down  text-danger m-b-xs"></i></span>';
@@ -236,7 +237,7 @@ function afl_rank_performance_overview_shortcode_callback () {
 				$markup .= '<label class="label text-info m-l-xs">Required : '.$required.'</label><br>';
 				$markup .= '<label class="label text-info m-l-xs">Maximum Gv taken from 1 leg : '.$maximum_gv_taken.'</label><br>';
 				$markup .= '<label class="label text-info m-l-xs">Earned : '.number_format($earned, 2, '.', ',').'</label><br>';
-				if ($required <= $earned) {
+				if ( _check_required_gv_meets( $uid, $i )) {
 					$condition = '<span class="text-center"><i class="text-center fa fa-lg fa-thumbs-o-up  text-success m-b-xs"></i></span>';
 				} else {
 					$condition = '<span class="text-center"><i class="text-center fa fa-lg fa-thumbs-o-down  text-danger m-b-xs"></i></span>';
@@ -358,7 +359,7 @@ function afl_rank_performance_overview_shortcode_callback () {
 				$markup = '';
 				$markup .= '<label class="label text-info m-l-xs">Required : '.$required.'</label><br>';
 				$markup .= '<label class="label text-info m-l-xs">Earned : '.$earned.'</label><br>';
-				if ($required <= $earned) {
+				if (_check_required_distributors_meets($uid, $i)) {
 					$condition = '<span class="text-center"><i class="text-center fa fa-lg fa-thumbs-o-up  text-success m-b-xs"></i></span>';
 				} else {
 					$condition = '<span class="text-center"><i class="text-center fa fa-lg fa-thumbs-o-down  text-danger m-b-xs"></i></span>';

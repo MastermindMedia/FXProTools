@@ -656,6 +656,12 @@
 		.fx-board.checklist .fx-board-list.w-toggle li .content {
 			font-size: 12px;
 		}
+		.image-lock-overlay{
+			max-width: 382px;
+			width:100%;
+			height: 87%;
+    		margin-top: -7px;
+		}
 	}
 	// My Account
 	.fx-tabs-vertical  {
@@ -729,7 +735,7 @@
 
 }
 @media screen and (max-width: 480px) {
-	
+
 	// ------
 	// Common
 	// ------
@@ -762,7 +768,6 @@
 			}
 		}
 	}	
-
 }
 @media screen and (max-width: 420px) {
 
@@ -857,6 +862,13 @@
 			}
 		}
 	}
+	.image-lock-overlay{
+		max-width: 300px;
+		width:100%;
+		height: 87%;
+		margin-top: -6px;
+	}
+
 
 }
 @media screen and (max-width: 320px) {

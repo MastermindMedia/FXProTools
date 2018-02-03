@@ -115,6 +115,37 @@ p.logo-text {
 			}
 		}
 	}
+	.image-lock-overlay{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		background-image: url('../../img/black_opaque.png');
+		width: 92%;
+		height: 100%;
+		transform: translate(-50%, -50%);
+		cursor: not-allowed;
+		& > div{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 100%;
+			text-align:center;
+			* {
+				display:inline-block;
+			}
+		}
+		i{
+			font-size: 45px;
+			color: #fff;
+			margin-right:15px;
+		}
+		span{
+			text-align:center;
+			font-size:20px;
+			color: #fff;
+		}
+	}
 }
 
 .page-compensation-plan{
@@ -790,15 +821,7 @@ p.logo-text {
 	}
 }
 
-// Product - Coaching / Webinars
-.fx-coaching-tab {
-	position: relative;
-	.tab-pane {
-		border-left: 1px solid $lightgrey;
-		border-right: 1px solid $lightgrey;
-		border-bottom: 1px solid $lightgrey;
-	}
-}
+
 
 // Marketing Funnels
 .fx-tabs-vertical.marketing-funnels {
@@ -1014,11 +1037,15 @@ p.logo-text {
 		padding-bottom: 10px;
 	}
 }
-.membership-view-subs{
+.membership-view-subs, .woocommerce-MyAccount-content{
 	.subscription_details{
 		tbody{
-			tr:last-child{
-				display: none;
+			tr{
+				td{
+					.cancel{
+						display: none;
+					}
+				}
 			}
 		}
 	}
@@ -1450,6 +1477,22 @@ p.logo-text {
 			display: none!important;
 		}
 	}
+}
+	
+
+.woocommerce-account{
+
+	.woocommerce-MyAccount-content{
+		width: 100%;
+		float: none;
+	}
+
+	.checkout-holder{
+	    background-color: #fff;
+	    padding: 20px;
+	    overflow-y: auto;
+	    border: 1px solid #ddd;
+	}
 	
 }
 // Checkout
@@ -1880,20 +1923,42 @@ p.logo-text {
 	}
 }
 
-#add_payment_method {
-	#payment {
-		div.payment_box{
-			display: block!important;
-		}
+#payment {
+	div.payment_box{
+		display: block!important;
+	}
 
-		.wc-authorize-net-cim-credit-card-new-payment-method-form{
-			> p:not(.validate-required){
-				display: none!important;
-			}
+	.wc-authorize-net-cim-credit-card-new-payment-method-form{
+		> p:not(.validate-required){
+			display: none!important;
 		}
+	}
+
+	.button:not(.alt){
+		display: none;
 	}
 }
 
+.woocommerce-order-pay{
+	#place_order{
+		display: block!important;
+	    width: 100%;
+	    height: 34px;
+	    padding: 6px 12px;
+	    font-size: 14px;
+	    line-height: 1.42857143;
+	    color: #555;
+	    background-color: #fff;
+	    background-image: none;
+	    border: 1px solid #ccc;
+	    border-radius: 4px;
+	    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+	    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+	}
+}
 .noty_layout{
 	@media screen and (max-width: 767px){
 		display: none;
@@ -2780,3 +2845,53 @@ form {
 		display: none;
 	}
 }
+
+// Woocommerce Single Product
+.single-product{
+	.up-sells.products,.related.products{
+		display: none;
+	} 
+}
+
+// Upgrade Account
+.membership-sell-list{
+	h2{
+		margin: 0 0 20px;
+	}
+}
+
+.sell-list{
+	margin-bottom: 40px;
+	.sell-item{
+		margin-bottom: 15px;
+		border: 1px solid #ccc;
+		background: #fff;
+		padding: 15px;
+		.sell-item-title{
+			color: $red;
+			margin: 6px 0 0;
+		}
+	}
+	&.sell-item-empty{
+		text-align: center;
+	}
+	.sell-item-link{
+		width: 100%;
+	}
+	.sell-item-price{
+		display: block;
+		padding: 8px 0;
+		font-weight: bold;
+	}
+	.sell-item-sub{
+		font-size: 11px;
+		font-weight: bold;
+	}
+}
+
+.membership-products{
+	.product_title, .cart, .up-sells.products{
+		display: none;
+	}
+}
+
