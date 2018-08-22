@@ -55,31 +55,31 @@ foreach ($core_settings as $cs) {
  * Includes all custom functions
  */
 // set this to true to activate nav lock / nav stages feature
-define('NAV_LOCK', false); 
-$custom_functions = array(
-	'function-helper', // All Helper functions
-    'function-ajax',   // All Ajax Calls
-    'function-learndash', //Learndash LMS,
-    'function-marketing', //Marketing related functions
-    'function-cpt', // Custom post/taxonomy settings
-    'function-mb',  // Metabox Settings
-    'function-woocommerce', // Woocommerce Settings
-    'function-affiliates', //affiliates functions
-    'function-wc-subscriptions', // WC Subscription settings,
-    'function-subscriptions', //  Subscription functions,
-    'function-email', // Email,
-    'function-sms', // SMS,
-    'function-eps', //EPS action and filters
-    'function-intercom', //Intercom functions
-    'function-printful', //Printful functions
-    'function-custom', // All custom functions
-);
+// define('NAV_LOCK', false); 
+// $custom_functions = array(
+// 	'function-helper', // All Helper functions
+//     'function-ajax',   // All Ajax Calls
+//     'function-learndash', //Learndash LMS,
+//     'function-marketing', //Marketing related functions
+//     'function-cpt', // Custom post/taxonomy settings
+//     'function-mb',  // Metabox Settings
+//     'function-woocommerce', // Woocommerce Settings
+//     'function-affiliates', //affiliates functions
+//     'function-wc-subscriptions', // WC Subscription settings,
+//     'function-subscriptions', //  Subscription functions,
+//     'function-email', // Email,
+//     'function-sms', // SMS,
+//     'function-eps', //EPS action and filters
+//     'function-intercom', //Intercom functions
+//     'function-printful', //Printful functions
+//     'function-custom', // All custom functions
+// );
 
-if($custom_functions){
-	foreach($custom_functions as $key => $cf){
-		require_once('inc/'.$cf.'.php');
-	}
-}
+// if($custom_functions){
+// 	foreach($custom_functions as $key => $cf){
+// 		require_once('inc/'.$cf.'.php');
+// 	}
+// }
 
 /**
  * ------------------
@@ -87,29 +87,29 @@ if($custom_functions){
  * ------------------
  * Includes all third party libraries
  */
-$modules = array(
-    // ANET - Customer Informatio and Subscription Manager
-    'authorize-net/auth-api',
-    'authorize-net/auth-ajax',
+// $modules = array(
+//     // ANET - Customer Informatio and Subscription Manager
+//     'authorize-net/auth-api',
+//     'authorize-net/auth-ajax',
 
-    // Sendgrid - Contacts
-    'sendgrid/sendgrid-api',
-    'sendgrid/sendgrid-ajax',
+//     // Sendgrid - Contacts
+//     'sendgrid/sendgrid-api',
+//     'sendgrid/sendgrid-ajax',
 
-    // APYC
-    'apyc/init',
+//     // APYC
+//     'apyc/init',
 
-    // Walkers
-    'walkers/nav-secondary-stage-walker',
-    'walkers/nav-secondary-walker',
-    'walkers/nav-main-stage-walker',
-    'walkers/nav-main-walker',
-);
-if($modules){
-    foreach($modules as $key => $md){
-        require_once('inc/modules/'.$md.'.php');
-    }
-}
+//     // Walkers
+//     'walkers/nav-secondary-stage-walker',
+//     'walkers/nav-secondary-walker',
+//     'walkers/nav-main-stage-walker',
+//     'walkers/nav-main-walker',
+// );
+// if($modules){
+//     foreach($modules as $key => $md){
+//         require_once('inc/modules/'.$md.'.php');
+//     }
+// }
 
 // Remove WP Emoji for pageSpeed optimization.
 remove_action('wp_head', 'print_emoji_detection_script', 7);
