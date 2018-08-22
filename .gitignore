@@ -6,6 +6,7 @@ wp-content/uploads/*
 wp-content/debug.log
 node_modules/
 /vendor/
+.vscode/
 sitemap.*
 wp-config.php
 phplog
@@ -21,3 +22,4 @@ phplog
 /wp-content/themes/fxprotools-theme/assets/js/theme/theme.js.map
 /wp-content/themes/fxprotools-theme/assets/css/theme/theme.css
 wp-content/themes/fxprotools-theme/prepros-6.config
+.vscode/settings.json
