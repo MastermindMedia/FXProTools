@@ -56,7 +56,7 @@
 	</div><!-- /fx-wrapper-content -->
 </div><!-- /fx-wrapper -->
 
-<?php get_template_part('footer','intercom'); ?>
+<?php //get_template_part('footer','intercom'); ?>
 <?php wp_footer(); ?>
 
 </body>
