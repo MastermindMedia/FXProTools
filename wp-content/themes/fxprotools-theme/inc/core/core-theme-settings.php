@@ -21,6 +21,13 @@ if(!class_exists('ThemeSettings')){
 		{
 			add_action('wp_enqueue_scripts', array($this, 'enqueue_theme_assets'));
 			add_action('after_setup_theme', array($this, 'theme_settings'));
+
+			// Remove WP Emoji for pageSpeed optimization.
+			remove_action('wp_head', 'print_emoji_detection_script', 7);
+			remove_action('wp_print_styles', 'print_emoji_styles');
+			remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+			remove_action( 'admin_print_styles', 'print_emoji_styles' );
+			wp_oembed_add_provider( '/https?:\/\/(.+)?(wistia.com|wi.st)\/(medias|embed)\/.*/', 'http://fast.wistia.com/oembed', true);
 		}
 
 		public function enqueue_theme_assets()
