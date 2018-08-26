@@ -7,8 +7,8 @@ $course = get_lesson_parent_course( $lesson_id );
 $course_id = $course->ID;
 $lessons = get_lessons_by_course_id( $course->ID );
 $course_progress = get_user_progress();
-$previous_lesson = array_search($lesson, $lessons) > 1 ? $lessons[intval(array_search($lesson, $lessons)-1)] : '';
-$next_lesson = array_search($lesson, $lessons) < sizeof($lessons) ? $lessons[intval(array_search($lesson, $lessons)+1)] : '';
+@$previous_lesson = array_search($lesson, $lessons) > 1 ? $lessons[intval(array_search($lesson, $lessons)-1)] : '';
+@$next_lesson = array_search($lesson, $lessons) < sizeof($lessons) ? $lessons[intval(array_search($lesson, $lessons)+1)] : '';
 $course_video = Learndash_Course_Video::get_instance();
 $lesson_settings = learndash_get_setting( $post );
 $video = $course_video->add_video_to_content( '', $post, $lesson_settings );
@@ -95,13 +95,18 @@ $progression_enabled = is_lesson_progression_enabled($course_id);
 								</div>
 							</div>
 							<div class="fx-adjacent-lessons">
+							<?php if(!empty($previous_lesson)):?>
 								<?php if ( is_object($previous_lesson) ): ?>
 									<a href="<?php echo get_permalink($previous_lesson->ID);?>" class="prev-link" rel="prev"><span class="meta-nav">←</span> Previous Lesson</a>
 								<?php endif;?>
+							<?php endif;?>
 
+							<?php if(!empty($next_lesson)): ?>
 								<?php if ( is_object($next_lesson) && learndash_is_lesson_complete($user_id, $lesson->ID) ): ?>
 									<a href="<?php echo get_permalink($next_lesson->ID);?>" class="prev-link" rel="prev"><span class="meta-nav">→</span> Next Lesson</a>
 								<?php endif;?>
+							<?php endif;?>
+
 							</div>
 						</div>
 					</div>
