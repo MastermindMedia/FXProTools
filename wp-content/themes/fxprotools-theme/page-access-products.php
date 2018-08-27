@@ -19,11 +19,11 @@ if ( ! empty ( $subscription_details ) ) {
 	}
 }
 
-$trial_expiration_date = floor( ( strtotime( $subscription['trial_expiry_date'] ) - time() ) / ( 60 * 60 * 24 ) );
+@$trial_expiration_date = floor( ( strtotime( $subscription['trial_expiry_date'] ) - time() ) / ( 60 * 60 * 24 ) );
 $market_scanner =  wcs_user_has_subscription( '', 47, 'active') || is_user_fx_distributor();
 $auto_trader = wcs_user_has_subscription( '', 49, 'active');
 $coaching = wcs_user_has_subscription( '', 50, 'active');
-$subscription_type = $subscription_details[0]['type'];
+@$subscription_type = $subscription_details[0]['type'];
 
 // Signals Product ID's = 2699, 2928, 2927
 $signal_ids = array(2699,2928,2927);
