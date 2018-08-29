@@ -14,7 +14,9 @@
 				<div class="col-xs-12 col-sm-4 col-md-6">
 					<ul class="fx-nav w-flag">
 						<li><a href="#" class="btn-flag">English</a></li>
+						<?php if(!is_user_logged_in() ):?>
 						<li class="fx-nav-btn"><a href="<?php echo get_option('home'); ?>/login">Members Login</a></li>
+						<?php endif; ?>
 					</ul>
 				</div>		
 			</div>
