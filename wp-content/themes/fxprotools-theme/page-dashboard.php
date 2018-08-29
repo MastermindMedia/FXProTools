@@ -154,7 +154,6 @@ $dashboard_checklist = [
 								<div class="col-xs-12 col-sm-6 col-md-6">
                                     <a href="/<?php echo Woocommerce_Settings::POST_NAME_FREE_SHIRT; ?>" class="btn btn-danger btn-lg block btn-ico-lg btn-two"></a>
                                 </div>
-                                
 								<?php endif; ?>
                             </div>
                         </div>
@@ -171,15 +170,13 @@ $dashboard_checklist = [
                                     <div class="clearfix"></div>
                                 </div>
                                 <ul class="fx-board-list w-toggle">
-									<?php
-										if( is_nav_locked() ) :
-											foreach ( $dashboard_checklist as $step => $dashboard_checklist ) :
-									?>
+									<?php if( is_nav_locked() ) : ?>
+										<?php foreach ( $dashboard_checklist as $step => $dashboard_checklist ) : ?>
                                         <li class="<?php if( $dashboard_checklist['access'] === 'locked' ) echo "list-locked"; ?>">
 											<?php if( $dashboard_checklist['access'] === 'locked' ) : ?>
 												<i class="fa fa-lock" aria-hidden="true"></i>
 											<?php elseif( $dashboard_checklist['access'] === 'unlocked' ) : ?>
-												<span class="fx-checkbox <?php echo ! empty( $checklist[ $step ] ) ? 'checked' : ''; ?>"></span>
+												<span class="fx-checkbox <?php echo !empty($checklist[ $step ]) ? 'checked' : ''; ?>"></span>
 											<?php endif; ?>
 											<span class="fx-text"><?= $dashboard_checklist['title']; ?></span>
                                             <?php if( $dashboard_checklist['access'] === 'unlocked' ) : ?>
@@ -189,24 +186,19 @@ $dashboard_checklist = [
 											<?php endif; ?>
                                             <span class="fa fa-angle-down icon"></span>
                                         </li>
-									<?php 
-											endforeach;
-										else :
-											foreach ( $dashboard_checklist as $step => $dashboard_checklist ) :
-									?>
+										<?php endforeach; ?> 
+									<?php else: ?>
+										<?php foreach ( $dashboard_checklist as $step => $dashboard_checklist ) : ?>
 										<li>
-											<span class="fx-checkbox <?php echo ! empty( $checklist[ $step ] ) ? 'checked' : ''; ?>"></span>
-											<span class="fx-text"><?= $dashboard_checklist['title']; ?></span>
+											<span class="fx-checkbox <?php echo !empty($checklist[$step]) ? 'checked' : ''; ?>"></span>
+											<span class="fx-text"><?php echo $dashboard_checklist['title']; ?></span>
 											<div class="content">
-												<?= $dashboard_checklist['subtext']; ?>
+												<?php echo $dashboard_checklist['subtext']; ?>
 											</div>
 											<span class="fa fa-angle-down icon"></span>
 										</li>
-									
-									<?php 
-											endforeach;
-										endif;
-									?>
+										<?php endforeach; ?> 
+									<?php endif; ?>
                                     <li><a href="<?php echo get_checklist_next_step_url(); ?>" class="btn btn-danger btn-lg fx-btn block">I'm ready for the next step</a></li>
                                 </ul>
                             </div>
