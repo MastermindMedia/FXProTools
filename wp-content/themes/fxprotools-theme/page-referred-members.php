@@ -1,8 +1,8 @@
-<?php 
+<?php
 /*
 Template Name: Referred Members
 */
-get_header(); 
+get_header();
 ?>
 
 	<?php get_template_part('inc/templates/nav-team'); ?>
@@ -18,12 +18,11 @@ get_header();
 		</div>
 		<div class="row">
 			<div class="col-md-12 epx">
-<?php echo do_shortcode('[affiliate_referrals]'); ?>				
-
+				<?php echo do_shortcode('[affiliate_referrals]'); ?>
 			</div>
 		</div>
 	</div>
 
-	
+
 
 <?php get_footer(); ?>
