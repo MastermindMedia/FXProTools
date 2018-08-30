@@ -18,11 +18,9 @@ get_header();
 		</div>
 		<div class="row">
 			<div class="col-md-12 epx">
-				<?php echo do_shortcode('[affiliate_referrals]'); ?>
+				<?php echo do_shortcode('[affiliate_area_referrals]'); ?>
 			</div>
 		</div>
 	</div>
-
-
 
 <?php get_footer(); ?>
