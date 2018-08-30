@@ -70,26 +70,32 @@ function get_funnel_stats($funnel_id, $date_filter = array(), $user_id = 0)
 	$user_id  = current_user_can('administrator') ? 0 : get_current_user_id();
 	$affiliate_id = $user_id == 0 ? : affwp_get_affiliate_id( $user_id );
 
-	
 	$visits = get_funnel_visits( $affiliate_id );
 	if( $date_filter ){
 		foreach($visits as $key => $visit){
 			 if( !date_is_in_range($date_filter['date_from'], $date_filter['date_to'], date("m/d/Y", strtotime($visit->date))) ) unset($visits[$key]);
 		}
 	}
-	$funnel = array( 'cp_url' => rwmb_meta('capture_page_url', '', $funnel_id),
-		 			 'lp_url' => rwmb_meta('landing_page_url', '', $funnel_id)
-		 			);
-	$cp_stats = array( 'page_views' => array('all' 	 => 0, 'unique' => 0),
-					   'opt_ins' 	=> array('all' 	 => 0, 'rate' 	 => 0),
-					   'sales' 		=> array('count' => 0, 'rate'	 => 0),
-				);
-	$lp_stats = array( 'page_views' => array('all' 	 => 0, 'unique' => 0),
-					   'opt_ins' 	=> array('all' 	 => 0, 'rate' 	 => 0),
-					   'sales' 		=> array('count' => 0, 'rate' 	 => 0),
-				);
+	$funnel = array(
+		'cp_url' => rwmb_meta('capture_page_url', '', $funnel_id),
+	 	'lp_url' => rwmb_meta('landing_page_url', '', $funnel_id)
+	);
 
-	$sales_stats = array( 'customer_sales' => get_total_customer_sales( $funnel, $user_id), 'distributor_sales' => get_total_distributor_sales( $funnel, $user_id) );
+	$cp_stats = array(
+		'page_views' => array('all' 	 => 0, 'unique' => 0),
+		'opt_ins' 	 => array('all' 	 => 0, 'rate' 	 => 0),
+		'sales' 	 => array('count' => 0, 'rate'	 => 0),
+	);
+	$lp_stats = array(
+		'page_views' => array('all' 	 => 0, 'unique' => 0),
+		'opt_ins' 	 => array('all' 	 => 0, 'rate' 	 => 0),
+		'sales' 	 => array('count' => 0, 'rate' 	 => 0),
+	);
+
+	$sales_stats = array(
+		'customer_sales' => get_total_customer_sales( $funnel, $user_id),
+		'distributor_sales' => get_total_distributor_sales( $funnel, $user_id)
+	);
 
 	//all
 	$cp_stats['page_views']['all'] = property_occurence_count($visits, 'url',  $funnel['cp_url'] );
@@ -99,11 +105,10 @@ function get_funnel_stats($funnel_id, $date_filter = array(), $user_id = 0)
 	$cp_stats['page_views']['unique'] = get_unique_property_count($visits, 'ip', $funnel['cp_url']);
 	$lp_stats['page_views']['unique'] = get_unique_property_count($visits, 'ip', $funnel['lp_url']);
 
-
 	//opt ins
 	$funnel_id = trim( parse_url( rwmb_meta('capture_page_url', '', $funnel_id), PHP_URL_PATH ), '/');
 	$search = FX_Sendgrid_Api::search_contacts($funnel_id, get_current_user_id() );
-	$cp_stats['opt_ins']['all'] = $search->recipient_count; 
+	$cp_stats['opt_ins']['all'] = $search->recipient_count;
 	$cp_stats['opt_ins']['rate'] = ( $cp_stats['page_views']['all'] >= 1 && $cp_stats['opt_ins']['all'] >= 1) ? round( $cp_stats['opt_ins']['all'] / $cp_stats['page_views']['all'] * 100, 2) : 0;
 
 	//sales
@@ -113,10 +118,11 @@ function get_funnel_stats($funnel_id, $date_filter = array(), $user_id = 0)
 	$lp_stats['sales']['count'] = get_property_count($visits, 'referral_id', $funnel['lp_url']);
 	$lp_stats['sales']['rate'] = ( $lp_stats['page_views']['all'] >= 1 && $lp_stats['sales']['count'] >= 1) ? round( $lp_stats['sales']['count'] / $lp_stats['page_views']['all'] * 100, 2) : 0;
 
-	$stats = array( 'capture' => $cp_stats,
-					'landing' => $lp_stats,
-					'totals' => $sales_stats,
-				);
+	$stats = array(
+		'capture' => $cp_stats,
+		'landing' => $lp_stats,
+		'totals' => $sales_stats,
+	);
 
 	return $stats;
 }
@@ -130,18 +136,16 @@ function get_funnel_visits( $affiliate_id ){
 	}
 
 	$results = $wpdb->get_results($sql = "SELECT *
-        FROM {$wpdb->prefix}affiliate_wp_visits as visits 
-        {$affiliate_cond} 
+        FROM {$wpdb->prefix}affiliate_wp_visits as visits
+        {$affiliate_cond}
     ");
     return $results;
 
 }
 
-
-
 function get_total_distributor_sales( $funnel, $user_id = 0 ){
 	global $wpdb;
-	
+
 	$affiliate_cond = '';
 	$affiliate_id = affwp_get_affiliate_id( $user_id );
 
@@ -160,8 +164,6 @@ function get_total_distributor_sales( $funnel, $user_id = 0 ){
         LEFT  JOIN {$wpdb->prefix}affiliate_wp_visits as visits on referrals.referral_id = visits.referral_id
         WHERE `description` LIKE \"%Business%\" {$visit_cond} {$affiliate_cond}
     ");
-
-
 
     return isset( $results[0] ) ? $results[0]->sales_count : 0;
 }
@@ -204,7 +206,7 @@ function get_total_funnel_sales( $link_url, $user_id = 0 ){
     $results = $wpdb->get_results($sql = "SELECT COUNT(description) as sales_count
         FROM {$wpdb->prefix}affiliate_wp_referrals as referrals
         LEFT  JOIN {$wpdb->prefix}affiliate_wp_visits as visits on referrals.referral_id = visits.referral_id
-        WHERE {$visit_cond} {$affiliate_cond} 
+        WHERE {$visit_cond} {$affiliate_cond}
     ");
 
 
@@ -218,7 +220,7 @@ function get_highest_converting_funnel_link( $user_id = 0){
 
 	foreach ($funnels as $key => $post){
 
-		$funnel = array( 
+		$funnel = array(
 			'cp_url' => rwmb_meta('capture_page_url', '', $post->ID),
 			'lp_url' => rwmb_meta('landing_page_url', '', $post->ID)
 		);
@@ -229,13 +231,13 @@ function get_highest_converting_funnel_link( $user_id = 0){
 		if( $cp_sales >= $highest){
 			$highest = $cp_sales;
 			$link = $funnel['cp_url'];
-		} 
+		}
 
 		if( $lp_sales >= $highest){
 			$highest = $lp_sales;
 			$link = $funnel['lp_url'];
 		}
-	} 
+	}
 
 	return $link;
 }
@@ -275,7 +277,7 @@ function get_user_active_referrals($user_id = 0)
 				continue;
 			}
 		}
-		
+
 	}
 
 	return $affiliate_referrals;
@@ -330,7 +332,7 @@ function ajax_contacts($page_num,$query_offset_multi,$search_string){
 	}
 	$query_offset = $page_num * $query_offset_multi;
 	$affiliate_ids = array();
-	$results = array();		
+	$results = array();
  	$search_results = array();
 	$ref_count = 0;
 	$ref_count_search = 0;
@@ -371,21 +373,21 @@ function ajax_contacts($page_num,$query_offset_multi,$search_string){
 		$contacts = get_user_contacts($referrals);
 	}
 
-	if( isset( $search_string ) && !in_array( 'administrator', (array) $user->roles ) && $search_string != null ){		
-		foreach ($contacts as $index => $index_item) {		
-	       	foreach($index_item as $item){		
-	       		if(stripos($item,$search_string) !== false){		
-	       			if(!in_array($index, $results,TRUE)){		
+	if( isset( $search_string ) && !in_array( 'administrator', (array) $user->roles ) && $search_string != null ){
+		foreach ($contacts as $index => $index_item) {
+	       	foreach($index_item as $item){
+	       		if(stripos($item,$search_string) !== false){
+	       			if(!in_array($index, $results,TRUE)){
 	       				array_push($results, $index);
 	       				$ref_count_search++;
-	       			}		
-	       		}		
-	       	}		
-	    }		
-	    foreach($results as $result){		
-	    	array_push($search_results,$contacts[$result]);		
-	    }		
-	    $contacts = $search_results;		
+	       			}
+	       		}
+	       	}
+	    }
+	    foreach($results as $result){
+	    	array_push($search_results,$contacts[$result]);
+	    }
+	    $contacts = $search_results;
 	}
 
 	$collect_result['contacts'] = $contacts;
@@ -428,7 +430,7 @@ function format_contacts($results){
 						<div class="media-body">
 							<div class="info">
 								<h5 class="media-heading text-bold">
-									<?php  
+									<?php
 										if($contact['fname']){
 											echo $contact['fname'] . ' ' . $contact['lname'];
 										}else{
@@ -462,7 +464,7 @@ function format_contacts($results){
 							<div class="media-body">
 								<div class="info">
 									<h5 class="media-heading text-bold">
-										<?php  
+										<?php
 											if($contact['fname']){
 												echo $contact['fname'] . ' ' . $contact['lname'];
 											}else{
@@ -508,7 +510,7 @@ function get_contact_pagination($page_num,$search_string,$total_pages){
 ?>
 	<form id="contact-pagination" class="contact-pagination" method="GET" action="<?php echo get_the_permalink(); ?>">
 		<ul class="pagination">
-			<?php  
+			<?php
 				if($total_pages > 0){
 					if($total_pages < 5){
 						while($page_counter <= $total_pages){
@@ -519,7 +521,7 @@ function get_contact_pagination($page_num,$search_string,$total_pages){
 						}
 					}else{
 
-			?>				
+			?>
 						<?php if($page_num >= 2){ ?>
 							<li><a data-page="<?php echo ($page_num - 1) ?>"><</a></li>
 						<?php } ?>
@@ -535,7 +537,7 @@ function get_contact_pagination($page_num,$search_string,$total_pages){
 							<li class="<?php if($page_num == ($total_pages - 1)){ echo "active"; } ?>"><a href="#" data-page="<?php echo ($total_pages - 1); ?>"><?php echo ($total_pages - 1); ?></a></li>
 						<?php } ?>
 						<li class="<?php if($page_num == $total_pages){ echo "active"; } ?>"><a href="#" data-page="<?php echo $total_pages; ?>"><?php echo $total_pages; ?></a></li>
-						<?php if($page_num < $total_pages){ ?> 
+						<?php if($page_num < $total_pages){ ?>
 							<li><a href="#" data-page="<?php echo ($page_num + 1) ?>">></a></li>
 						<?php } ?>
 			<?php
