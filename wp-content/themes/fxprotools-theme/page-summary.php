@@ -16,9 +16,9 @@ get_header();
 				</div>
 			</div>
 			<div class="clearfix"></div>
-			<?php echo do_shortcode('[afl_ewallet_all_earnings_summary_blocks_shortcode]'); ?>
+			<?php echo do_shortcode('[affiliate_area_stats]'); ?>
 		</div>
-		<?php echo do_shortcode('[afl_ewallet_summary]'); ?>
+		<?php echo do_shortcode('[affiliate_area_graphs]'); ?>
 		<div class="row">
 			<div class="col-md-12">
 				<?php $customer = false; ?>
