@@ -41,7 +41,7 @@ $custom_functions = array(
     'function-sms', // SMS,
 //     'function-eps', //EPS action and filters
     // 'function-intercom', // Intercom functions
-    // 'function-printful', //Printful functions
+    'function-printful', //Printful functions
     'function-custom', // All custom functions
 );
 
