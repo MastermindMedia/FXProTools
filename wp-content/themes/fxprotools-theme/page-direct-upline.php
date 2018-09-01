@@ -18,7 +18,7 @@ get_header();
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<?php echo do_shortcode('[affiliate_info_referred]'); ?>
+				<?php echo do_shortcode('[affiliate_info_referred]Your referrer is [affiliate_info_name][/affiliate_info_referred]'); ?>
 			</div>
 		</div>
 	</div>

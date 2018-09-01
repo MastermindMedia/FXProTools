@@ -17,6 +17,21 @@
 		gtag('config', 'UA-110702266-1');
 		</script>
 	<?php endif; ?>
+	
+	<script type="text/javascript">
+		WebFontConfig = {
+		google: { families: [ 'Lato:300,400,700' ] }
+		};
+		(function() {
+		var wf = document.createElement('script');
+		wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+		'://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js';
+		wf.type = 'text/javascript';
+		wf.async = 'true';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(wf, s);
+		})();
+	</script>
 
 	<?php wp_head(); ?>
 </head>
@@ -31,8 +46,8 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-3 col-md-3">
 						<div class="navbar-header fx-navbar-header">
-							<a class="navbar-brand" href="#">
-								<img src="<?php bloginfo('template_url'); ?>/assets/img/logo.png" class="img-responsive">
+							<a class="navbar-brand" href="#" style="color: #FFF;font-size: 30px; margin-top: 45px; text-shadow: 0 1px #000;">
+								FX-PROTOOLS
 							</a>
 						</div>
 						<div class="visible-xs">

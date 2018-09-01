@@ -14,9 +14,7 @@
 				<div class="col-xs-12 col-sm-4 col-md-6">
 					<ul class="fx-nav w-flag">
 						<li><a href="#" class="btn-flag">English</a></li>
-						<?php if(!is_user_logged_in() ):?>
 						<li class="fx-nav-btn"><a href="<?php echo get_option('home'); ?>/login">Members Login</a></li>
-						<?php endif; ?>
 					</ul>
 				</div>		
 			</div>
@@ -26,14 +24,10 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12 col-sm-6 col-md-6">
-					<?php if ( function_exists( 'the_custom_logo' ) ) {
-					    the_custom_logo();
-					} else { ?>
-					<a href="<?php bloginfo('url'); ?>" class="logo"><?php echo get_bloginfo('name'); ?></a>
-					<?php } ?>
+					<a href="<?php bloginfo('url'); ?>" class="logo" style="color: #000;font-size: 22px;">FX-PROTOOLS</a>
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">
-					<ul class="fx-nav">
+					<ul class="fx-nav" style="margin-top: 5px">
 						<li><a href="<?php bloginfo('url'); ?>/#trial-products" class="scroll-to">Become a Customer</a></li>
 						<li><a href="<?php bloginfo('url'); ?>/#trial-distributor" class="scroll-to">Become a Distributor</a></li>
 					</ul>
