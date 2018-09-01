@@ -52,9 +52,9 @@ if( $_SERVER['REQUEST_METHOD'] === 'POST'){
 		pass_onboarding_checklist('verified_profile');
 	}
 	// update Intercom account of the user
-    $intercom = new CPS_Intercom();
-	$intercom->intercom_update_user(get_query_var('acc_id'));
-	wp_redirect( home_url() . '/autologin?user_id=' . get_query_var('acc_id') );
+  // $intercom = new CPS_Intercom();
+	// $intercom->intercom_update_user(get_query_var('acc_id'));
+	// wp_redirect( home_url() . '/autologin?user_id=' . get_query_var('acc_id') );
 }
 
 get_header();
@@ -111,7 +111,7 @@ get_header();
 							<li><a href="#b-2" data-toggle="tab"> <i class="fa fa-address-card-o visible-xs"></i> <span>Billing</span></a></li>
 							<li><a href="#c" data-toggle="tab"> <i class="fa fa-credit-card visible-xs"></i> <span>Purchases</span></a></li>
 							<li><a href="#d" data-toggle="tab"> <i class="fa fa-star-o visible-xs"></i> <span>Memberships</span></a></li>
-							<!-- <li class="hide-on-customer"><a href="#f" data-toggle="tab"> <i class="fa fa-users visible-xs"></i> <span>Your Matrix</span></a></li> -->
+							<li class="hide-on-customer"><a href="#f" data-toggle="tab"> <i class="fa fa-users visible-xs"></i> <span>Your Matrix</span></a></li>
 							<li><a href="#g" data-toggle="tab"> <i class="fa fa-list visible-xs"></i> <span>Recent Activity</span></a></li>
 							<li><a href="#h" data-toggle="tab"> <i class="fa fa-gift visible-xs"></i> <span>Your Sponsor</span></a></li>
 							<li><a href="<?php echo wp_logout_url('/login/'); ?>"><i class="fa fa-sign-out visible-xs"></i> <span>Logout</span></a></li>
@@ -333,7 +333,7 @@ get_header();
 </script>
 
 <?php if(isset($_GET['tab'])) : ?>
-
+	
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('.marketing-contacts a[href="#<?php echo $_GET['tab'];?>').click();
